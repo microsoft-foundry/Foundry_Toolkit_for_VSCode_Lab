@@ -1,0 +1,4 @@
+{
+  "//": "Example deployment configuration. Do NOT use this file directly for real deployments. Create your own local .foundry/.deployment.json with a valid projectId.",
+  "projectId": "<your-foundry-project-id>"
+}
