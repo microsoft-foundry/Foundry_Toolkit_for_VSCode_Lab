@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Lab01 - Single Agent",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5679
+            },
+            "preLaunchTask": "Open Agent Inspector (Lab01)",
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate All Tasks"
+        },
+        {
+            "name": "Lab02 - Multi-Agent",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5679
+            },
+            "preLaunchTask": "Open Agent Inspector (Lab02)",
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate All Tasks"
+        }
+    ]
+}

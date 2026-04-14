@@ -1,0 +1,130 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Validate prerequisites",
+            "type": "aitk",
+            "command": "debug-check-prerequisites",
+            "args": {
+                "portOccupancy": [5679, 8088]
+            }
+        },
+        {
+            "label": "Run Lab01 HTTP Server",
+            "type": "process",
+            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "debugpy",
+                "--listen",
+                "127.0.0.1:5679",
+                "-m",
+                "agentdev",
+                "run",
+                "main.py",
+                "--verbose",
+                "--port",
+                "8088"
+            ],
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/workshop/lab01-single-agent/agent"
+            },
+            "dependsOn": ["Validate prerequisites"],
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^.*$",
+                        "file": 0,
+                        "location": 1,
+                        "message": 2
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": "Application startup complete|running on|Started server process"
+                }
+            }
+        },
+        {
+            "label": "Run Lab02 HTTP Server",
+            "type": "process",
+            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "debugpy",
+                "--listen",
+                "127.0.0.1:5679",
+                "-m",
+                "agentdev",
+                "run",
+                "main.py",
+                "--verbose",
+                "--port",
+                "8088"
+            ],
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/workshop/lab02-multi-agent/PersonalCareerCopilot"
+            },
+            "dependsOn": ["Validate prerequisites"],
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^.*$",
+                        "file": 0,
+                        "location": 1,
+                        "message": 2
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": "Application startup complete|running on|Started server process"
+                }
+            }
+        },
+        {
+            "label": "Open Agent Inspector (Lab01)",
+            "type": "shell",
+            "command": "${input:openAgentInspector}",
+            "presentation": {
+                "reveal": "never"
+            },
+            "dependsOn": ["Run Lab01 HTTP Server"]
+        },
+        {
+            "label": "Open Agent Inspector (Lab02)",
+            "type": "shell",
+            "command": "${input:openAgentInspector}",
+            "presentation": {
+                "reveal": "never"
+            },
+            "dependsOn": ["Run Lab02 HTTP Server"]
+        },
+        {
+            "label": "Terminate All Tasks",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "openAgentInspector",
+            "type": "command",
+            "command": "ai-mlstudio.openTestTool",
+            "args": {
+                "triggeredFrom": "tasks",
+                "port": 8088
+            }
+        },
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}
