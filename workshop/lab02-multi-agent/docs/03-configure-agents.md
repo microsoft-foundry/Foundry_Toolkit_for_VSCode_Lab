@@ -203,7 +203,7 @@ The GapAnalyzer uses a tool that calls the [Microsoft Learn MCP server](https://
 import json
 from agent_framework import tool
 from mcp.client.session import ClientSession
-from mcp.client.streamable_http import streamablehttp_client
+from mcp.client.streamable_http import streamable_http_client
 
 @tool
 async def search_microsoft_learn_for_plan(
@@ -214,7 +214,7 @@ async def search_microsoft_learn_for_plan(
     query = query or "job skills learning path"
 
     try:
-        async with streamablehttp_client(MICROSOFT_LEARN_MCP_ENDPOINT) as (
+        async with streamable_http_client(MICROSOFT_LEARN_MCP_ENDPOINT) as (
             read_stream, write_stream, _,
         ):
             async with ClientSession(read_stream, write_stream) as session:

@@ -1,7 +1,7 @@
 # Foundry Toolkit + Foundry Hosted Agents Workshop
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0b16-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
 [![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/ai-foundry/agents/concepts/hosted-agents/)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
@@ -108,7 +108,7 @@ It is a dead-simple, single-purpose agent - perfect for learning the hosted agen
 ## Workshop structure
 
 ```
-📂 ai-toolkit-hosted-agents-workshop/
+📂 Foundry_Toolkit_for_VSCode_Lab/
 ├── 📄 README.md                      ← You are here
 ├── 📂 ExecutiveAgent/                ← Standalone hosted agent project
 │   ├── agent.yaml
@@ -161,8 +161,8 @@ It is a dead-simple, single-purpose agent - perfect for learning the hosted agen
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop.git
-cd ai-toolkit-hosted-agents-workshop
+git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
+cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
 ### 2. Set up a Python virtual environment
@@ -260,30 +260,6 @@ Each lab is self-contained with its own modules. Start with **Lab 01** to learn 
 | Deploy to fully configured project | **Reader** on account + **Azure AI User** on project |
 
 > **Important:** Azure `Owner` and `Contributor` roles only include *management* permissions, not *development* (data action) permissions. You need **Azure AI User** or **Azure AI Owner** to build and deploy agents.
-
----
-
-## Real-world example: Architecture Review Agent
-
-Want to see what a production-grade hosted agent looks like? The **[Architecture Review Agent](https://github.com/Azure-Samples/agent-architecture-review-sample)** is an open-source sample that reviews software architectures and generates interactive Excalidraw diagrams - automatically. It uses the same stack you learn in this workshop:
-
-- **Microsoft Agent Framework** for the hosted agent runtime
-- **MCP tools** (Excalidraw MCP server) for interactive diagram rendering
-- **Azure OpenAI** (GPT-4.1) for LLM inference
-- **Foundry deployment** via the VS Code extension
-- **Dual deployment** - runs as both a Web App (Azure App Service) and a Hosted Agent (Microsoft Foundry)
-
-| Architecture overview | Review results with interactive diagram |
-|---|---|
-| ![Architecture overview](https://raw.githubusercontent.com/Azure-Samples/agent-architecture-review-sample/main/screenshots/architecture_overview.png) | ![Review results with Excalidraw diagram](https://raw.githubusercontent.com/Azure-Samples/agent-architecture-review-sample/main/screenshots/screenshot_03_review_results_diagram.png) |
-
-| Risk analysis | Component mapping |
-|---|---|
-| ![Risks tab](https://raw.githubusercontent.com/Azure-Samples/agent-architecture-review-sample/main/screenshots/screenshot_05_risks_tab.png) | ![Components tab](https://raw.githubusercontent.com/Azure-Samples/agent-architecture-review-sample/main/screenshots/screenshot_06_components_tab.png) |
-
-> **Tip:** After completing this workshop, try cloning the [Architecture Review Agent](https://github.com/Azure-Samples/agent-architecture-review-sample) and deploying it as a hosted agent using the same workflow you learned here.
-
-**Built by [Shivam Goyal](https://linkedin.com/in/shivam2003)** - Microsoft MVP | Maintainer of Azure AI Samples | [GitHub](https://github.com/ShivamGoyal03)
 
 ---
 

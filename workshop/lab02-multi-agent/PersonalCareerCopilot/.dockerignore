@@ -46,6 +46,7 @@ coverage/
 # Local development config 
 appsettings.Development.json
 .env
+.foundry/
 
 .venv/
 __pycache__/
