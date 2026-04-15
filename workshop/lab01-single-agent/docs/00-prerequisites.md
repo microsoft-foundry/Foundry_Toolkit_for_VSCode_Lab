@@ -192,7 +192,7 @@ Before proceeding, be aware of current limitations:
 
 - [**Hosted Agents**](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) are currently in **public preview** - not recommended for production workloads.
 - **Supported regions are limited** - check [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) before creating resources. If you pick an unsupported region, deployment will fail.
-- The `azure-ai-agentserver-agentframework` package is pre-release (`1.0.0b17`) - APIs may change.
+- The `azure-ai-agentserver-agentframework` package is pre-release (`1.0.0b16`) - APIs may change.
 - Scale limits: hosted agents support 0-5 replicas (including scale-to-zero).
 
 ---

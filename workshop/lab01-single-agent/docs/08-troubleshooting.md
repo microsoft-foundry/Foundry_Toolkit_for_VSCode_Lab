@@ -118,8 +118,8 @@ Error: pip install failed / Could not find a version that satisfies the requirem
    ```
    agent-framework-azure-ai==1.0.0rc3
    agent-framework-core==1.0.0rc3
-   azure-ai-agentserver-agentframework==1.0.0b17
-   azure-ai-agentserver-core==1.0.0b17
+   azure-ai-agentserver-agentframework==1.0.0b16
+   azure-ai-agentserver-core==1.0.0b16
    ```
 3. Test the install locally first:
    ```bash

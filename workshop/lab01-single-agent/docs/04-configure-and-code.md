@@ -252,8 +252,8 @@ This installs:
 |---------|---------|
 | `agent-framework-azure-ai==1.0.0rc3` | Azure AI integration for the [Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/overview/) |
 | `agent-framework-core==1.0.0rc3` | Core runtime for building agents (includes `python-dotenv`) |
-| `azure-ai-agentserver-agentframework==1.0.0b17` | Hosted agent server runtime for [Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/overview) |
-| `azure-ai-agentserver-core==1.0.0b17` | Core agent server abstractions |
+| `azure-ai-agentserver-agentframework==1.0.0b16` | Hosted agent server runtime for [Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/overview) |
+| `azure-ai-agentserver-core==1.0.0b16` | Core agent server abstractions |
 | `debugpy` | Python debugging (enables F5 debugging in VS Code) |
 | `agent-dev-cli` | Local development CLI for testing agents |
 
@@ -267,8 +267,8 @@ Expected output:
 ```
 agent-framework-azure-ai   1.0.0rc3
 agent-framework-core       1.0.0rc3
-azure-ai-agentserver-agentframework 1.0.0b17
-azure-ai-agentserver-core  1.0.0b17
+azure-ai-agentserver-agentframework 1.0.0b16
+azure-ai-agentserver-core  1.0.0b16
 ```
 
 ---
