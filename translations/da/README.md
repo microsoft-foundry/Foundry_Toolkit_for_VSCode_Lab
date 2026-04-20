@@ -1,0 +1,310 @@
+# Foundry Toolkit + Foundry Hosted Agents Workshop
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/ai-foundry/agents/concepts/hosted-agents/)
+[![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
+[![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
+[![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)
+[![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
+[![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+Byg, test og implementer AI-agenter til **Microsoft Foundry Agent Service** som **Hosted Agents** – helt og holdent fra VS Code ved brug af **Microsoft Foundry extension** og **Foundry Toolkit**.
+
+> **Hosted Agents er i øjeblikket i preview.** Understøttede regioner er begrænsede - se [regions tilgængelighed](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+
+> Mappen `agent/` inde i hvert lab bliver **automatisk genereret** af Foundry-udvidelsen – herefter tilpasser du koden, tester lokalt og implementerer.
+
+<!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
+[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](./README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+
+> **Foretrækker du at klone lokalt?**
+>
+> Dette repository inkluderer 50+ sprogoversættelser, hvilket betydeligt øger downloadstørrelsen. For at klone uden oversættelser, brug sparse checkout:
+>
+> **Bash / macOS / Linux:**
+> ```bash
+> git clone --filter=blob:none --sparse https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
+> cd Foundry_Toolkit_for_VSCode_Lab
+> git sparse-checkout set --no-cone '/*' '!translations' '!translated_images'
+> ```
+>
+> **CMD (Windows):**
+> ```cmd
+> git clone --filter=blob:none --sparse https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
+> cd Foundry_Toolkit_for_VSCode_Lab
+> git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
+> ```
+>
+> Dette giver dig alt, hvad du behøver for at gennemføre kurset med en langt hurtigere download.
+<!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
+
+---
+
+## Arkitektur
+
+```mermaid
+flowchart TB
+    subgraph Local["Lokal Udvikling (VS Code)"]
+        direction TB
+        FE["Microsoft Foundry
+        Udvidelse"]
+        FoundryToolkit["Foundry Toolkit
+        Udvidelse"]
+        Scaffold["Skabelonagentkode
+        (main.py · agent.yaml · Dockerfile)"]
+        Inspector["Agentinspektør
+        (Lokal Test)"]
+        FE -- "Opret Ny
+        Hostet Agent" --> Scaffold
+        Scaffold -- "F5 Fejlsøg" --> Inspector
+        FoundryToolkit -.- Inspector
+    end
+
+    subgraph Cloud["Microsoft Foundry"]
+        direction TB
+        ACR["Azure Container
+        Register"]
+        AgentService["Foundry Agent Tjeneste
+        (Hostet Agent Runtime)"]
+        Model["Azure OpenAI
+        (gpt-4.1 / gpt-4.1-mini)"]
+        Playground["Foundry Legeplads
+        & VS Code Legeplads"]
+        ACR --> AgentService
+        AgentService -- "/responses API" --> Model
+        AgentService --> Playground
+    end
+
+    Scaffold -- "Udrul
+    (Docker build + push)" --> ACR
+    Inspector -- "POST /responses
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
+
+    style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
+    style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
+```
+**Flow:** Foundry-udvidelsen genererer agenten → du tilpasser kode & instruktioner → tester lokalt med Agent Inspector → implementerer til Foundry (Docker image pushes til ACR) → verificerer i Playground.
+
+---
+
+## Hvad du skal bygge
+
+| Lab | Beskrivelse | Status |
+|-----|-------------|--------|
+| **Lab 01 - Enkelt Agent** | Byg **"Explain Like I'm an Executive" Agenten**, test lokalt, og implementer til Foundry | ✅ Tilgængelig |
+| **Lab 02 - Multi-Agent Workflow** | Byg **"Resume → Job Fit Evaluator"** – 4 agenter samarbejder om at bedømme CV-fitness og generere en læringsplan | ✅ Tilgængelig |
+
+---
+
+## Mød Executive Agenten
+
+I denne workshop skal du bygge **"Explain Like I'm an Executive" Agenten** – en AI-agent der tager indviklet teknisk jargon og omsætter det til rolige, bestyrelsesklare resuméer. For lad os være ærlige, ingen i ledelsen gider høre om "trådpool-udmattelse forårsaget af synkrone kald introduceret i v3.2."
+
+Jeg byggede denne agent efter ét for mange tilfælde, hvor min perfekt udformede post-mortem fik reaktionen: *"Så… er websitet nede eller ej?"*
+
+### Sådan virker det
+
+Du giver den en teknisk opdatering. Den spytter et lederresumé tilbage – tre punktopstillinger, uden jargon, uden stack traces, uden eksistentiel frygt. Bare **hvad der skete**, **forretningspåvirkning**, og **næste skridt**.
+
+### Se det i aktion
+
+**Du siger:**
+> "API latenstiden steg på grund af trådpool-udmattelse forårsaget af synkrone kald introduceret i v3.2."
+
+**Agenten svarer:**
+
+> **Executive Resumé:**
+> - **Hvad skete:** Efter den seneste udgivelse gik systemet langsommere.
+> - **Forretningspåvirkning:** Nogle brugere oplevede forsinkelser i tjenesten.
+> - **Næste skridt:** Ændringen er rullet tilbage, og en rettelse forberedes inden ny implementering.
+
+### Hvorfor denne agent?
+
+Det er en død-simpel, enkeltformåls-agent – perfekt til at lære hosted agent workflow fra ende til anden uden at drukne i komplekse værktøjskæder. Og ærligt? Hvert udviklingsteam kunne bruge sådan en.
+
+---
+
+## Workshop struktur
+
+```
+📂 Foundry_Toolkit_for_VSCode_Lab/
+├── 📄 README.md                      ← You are here
+├── 📂 ExecutiveAgent/                ← Standalone hosted agent project
+│   ├── agent.yaml
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
+└── 📂 workshop/
+    ├── 📂 lab01-single-agent/        ← Full lab: docs + agent code
+    │   ├── README.md                 ← Hands-on lab instructions
+    │   ├── 📂 docs/                  ← Step-by-step tutorial modules
+    │   │   ├── 00-prerequisites.md
+    │   │   ├── 01-install-foundry-toolkit.md
+    │   │   ├── 02-create-foundry-project.md
+    │   │   ├── 03-create-hosted-agent.md
+    │   │   ├── 04-configure-and-code.md
+    │   │   ├── 05-test-locally.md
+    │   │   ├── 06-deploy-to-foundry.md
+    │   │   ├── 07-verify-in-playground.md
+    │   │   └── 08-troubleshooting.md
+    │   └── 📂 agent/                 ← Reference solution (auto-scaffolded by Foundry extension)
+    │       ├── agent.yaml
+    │       ├── Dockerfile
+    │       ├── main.py
+    │       └── requirements.txt
+    └── 📂 lab02-multi-agent/         ← Resume → Job Fit Evaluator
+        ├── README.md                 ← Hands-on lab instructions (end-to-end)
+        ├── 📂 docs/                  ← Step-by-step tutorial modules
+        │   ├── 00-prerequisites.md
+        │   ├── 01-understand-multi-agent.md
+        │   ├── 02-scaffold-multi-agent.md
+        │   ├── 03-configure-agents.md
+        │   ├── 04-orchestration-patterns.md
+        │   ├── 05-test-locally.md
+        │   ├── 06-deploy-to-foundry.md
+        │   ├── 07-verify-in-playground.md
+        │   └── 08-troubleshooting.md
+        └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
+            ├── agent.yaml
+            ├── Dockerfile
+            ├── main.py
+            └── requirements.txt
+```
+
+> **Note:** Mappen `agent/` inde i hvert lab er, hvad **Microsoft Foundry extension** genererer, når du kører `Microsoft Foundry: Create a New Hosted Agent` fra Command Palette. Filerne tilpasses herefter med din agents instruktioner, værktøjer og konfiguration. Lab 01 guider dig gennem at genskabe dette fra bunden.
+
+---
+
+## Kom godt i gang
+
+### 1. Klon repository
+
+```bash
+git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
+cd Foundry_Toolkit_for_VSCode_Lab
+```
+
+### 2. Opret et Python virtuelt miljø
+
+```bash
+python -m venv venv
+```
+
+Aktiver det:
+
+- **Windows (PowerShell):**
+  ```powershell
+  .\venv\Scripts\Activate.ps1
+  ```
+- **macOS / Linux:**
+  ```bash
+  source venv/bin/activate
+  ```
+
+### 3. Installer afhængigheder
+
+```bash
+pip install -r workshop/lab01-single-agent/agent/requirements.txt
+```
+
+### 4. Konfigurer miljøvariabler
+
+Kopiér eksempel `.env` filen inde i agent mappen og udfyld dine værdier:
+
+```bash
+cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
+```
+
+Rediger `workshop/lab01-single-agent/agent/.env`:
+
+```env
+AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
+```
+
+### 5. Følg workshop labs
+
+Hvert lab er selvstændigt med sine egne moduler. Start med **Lab 01** for at lære det grundlæggende, og fortsæt så til **Lab 02** for multi-agent workflows.
+
+#### Lab 01 - Enkelt Agent ([fulde instruktioner](workshop/lab01-single-agent/README.md))
+
+| # | Modul | Link |
+|---|--------|------|
+| 1 | Læs forudsætningerne | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Installer Foundry Toolkit & Foundry extension | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 3 | Opret et Foundry projekt | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
+| 4 | Opret en hosted agent | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 5 | Konfigurer instruktioner & miljø | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 6 | Test lokalt | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
+| 7 | Implementer til Foundry | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Verificer i playground | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 9 | Fejlsøgning | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+
+#### Lab 02 - Multi-Agent Workflow ([fulde instruktioner](workshop/lab02-multi-agent/README.md))
+
+| # | Modul | Link |
+|---|--------|------|
+| 1 | Forudsætninger (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Forstå multi-agent arkitektur | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Generer multi-agent projekt | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Konfigurer agenter & miljø | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | Orkestreringsmønstre | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | Test lokalt (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Udrul til Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Verificer i playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | Fejlfinding (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+
+---
+
+## Vedligeholder
+
+<table>
+<tr>
+    <td align="center"><a href="https://github.com/ShivamGoyal03">
+        <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
+        <sub><b>Shivam Goyal</b></sub>
+    </a><br />
+    </td>
+</tr>
+</table>
+
+---
+
+## Påkrævede tilladelser (hurtig reference)
+
+| Scenario | Påkrævede roller |
+|----------|------------------|
+| Opret nyt Foundry-projekt | **Azure AI Owner** på Foundry-ressource |
+| Udrul til eksisterende projekt (nye ressourcer) | **Azure AI Owner** + **Contributor** på abonnement |
+| Udrul til fuldt konfigureret projekt | **Reader** på konto + **Azure AI User** på projekt |
+
+> **Vigtigt:** Azure `Owner` og `Contributor` roller inkluderer kun *administrations* tilladelser, ikke *udviklings* (data handling) tilladelser. Du skal bruge **Azure AI User** eller **Azure AI Owner** for at bygge og udrulle agenter.
+
+---
+
+## Referencer
+
+- [Hurtigstart: Udrul din første hostede agent (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Hvad er hostede agenter?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Opret hostede agent arbejdsflows i VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Udrul en hostet agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [Arkitektur Review Agent Eksempel](https://github.com/Azure-Samples/agent-architecture-review-sample) - Virkelighedstro hostet agent med MCP værktøjer, Excalidraw diagrammer og dobbelt udrulning
+
+---
+
+
+## Licens
+
+[MIT](../../LICENSE)
+
+---
+
+<!-- CO-OP TRANSLATOR DISCLAIMER START -->
+**Ansvarsfraskrivelse**:  
+Dette dokument er blevet oversat ved hjælp af AI-oversættelsestjenesten [Co-op Translator](https://github.com/Azure/co-op-translator). Selvom vi bestræber os på nøjagtighed, skal du være opmærksom på, at automatiserede oversættelser kan indeholde fejl eller unøjagtigheder. Det oprindelige dokument på dets modersmål bør betragtes som den autoritative kilde. For kritisk information anbefales professionel menneskelig oversættelse. Vi påtager os intet ansvar for misforståelser eller fejltolkninger, der opstår som følge af brugen af denne oversættelse.
+<!-- CO-OP TRANSLATOR DISCLAIMER END -->
