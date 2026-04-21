@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Rakenna, testaa ja ota käyttöön tekoälyagentteja **Microsoft Foundry Agent Service** -palveluun **Hosted Agents** -muodossa - kokonaan VS Codesta käyttäen **Microsoft Foundry -laajennusta** ja **Foundry Toolkitia**.
+Rakenna, testaa ja ota käyttöön tekoälyagentteja **Microsoft Foundry Agent Servicen** kautta **Hosted Agents** -muodossa — kokonaan VS Codesta käyttäen **Microsoft Foundry -laajennusta** ja **Foundry Toolkitia**.
 
-> **Hosted Agents ovat tällä hetkellä esikatseluvaiheessa.** Tuetut alueet ovat rajalliset – katso [alueiden saatavuus](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents ovat tällä hetkellä esikatseluvaiheessa.** Tuetut alueet ovat rajoitettuja — katso [alueiden saatavuus](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Jokaisen työpajan `agent/`-kansio on **Foundry-laajennuksen automaattisesti luoma** - muokkaat sitten koodia, testaat paikallisesti ja otat käyttöön.
+> Jokaisen labran `agent/`-kansio luodaan **automaattisesti** Foundry-laajennuksen toimesta — sen jälkeen koodia räätälöidään, testataan paikallisesti ja otetaan käyttöön.
+
+### 🌐 Monikielinen tuki
+
+#### Tuettu GitHub Actionin kautta (automaattinen & aina ajan tasalla)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](./README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
 > **Haluatko mieluummin kloonata paikallisesti?**
 >
-> Tämä repositorio sisältää yli 50 käännöstä, mikä lisää merkittävästi latausmäärää. Jos haluat kloonata ilman kielitiedostoja, käytä sparse-checkoutia:
+> Tässä repositoriossa on yli 50 kielen käännökset, mikä lisää merkittävästi latauskokoa. Kloonaaaksesi ilman käännöksiä, käytä sparse checkoutia:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,7 +42,7 @@ Rakenna, testaa ja ota käyttöön tekoälyagentteja **Microsoft Foundry Agent S
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> Saat kaikki tarpeelliset tiedostot kurssin suorittamiseen paljon nopeammalla latauksella.
+> Saat kaiken mitä tarvitset kurssin suorittamiseen paljon nopeammalla latauksella.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,11 +55,11 @@ flowchart TB
         direction TB
         FE["Microsoft Foundry
         Laajennus"]
-        FoundryToolkit["Foundry Työkalupakki
+        FoundryToolkit["Foundry-työkalupakki
         Laajennus"]
-        Scaffold["Rakennettu Agenttikoodi
+        Scaffold["Skeletinoitu agenttikoodi
         (main.py · agent.yaml · Dockerfile)"]
-        Inspector["Agentin tarkastaja
+        Inspector["Agenttien tarkastaja
         (Paikallinen testaus)"]
         FE -- "Luo uusi
         Isännöity agentti" --> Scaffold
@@ -65,14 +69,14 @@ flowchart TB
 
     subgraph Cloud["Microsoft Foundry"]
         direction TB
-        ACR["Azure Scr Container
+        ACR["Azure Container
         Rekisteri"]
-        AgentService["Foundry Agenttipalvelu
-        (Isännöity agentin suoritusaika)"]
+        AgentService["Foundry-agenttipalvelu
+        (Isännöity agentin ajonaika)"]
         Model["Azure OpenAI
         (gpt-4.1 / gpt-4.1-mini)"]
-        Playground["Foundry Leikkikenttä
-        & VS Code Leikkikenttä"]
+        Playground["Foundry Playground
+        & VS Code Playground"]
         ACR --> AgentService
         AgentService -- "/responses API" --> Model
         AgentService --> Playground
@@ -87,44 +91,44 @@ flowchart TB
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**Virtaus:** Foundry-laajennus luo agentin rungon → muokkaat koodia ja ohjeita → testaat paikallisesti Agent Inspectorilla → otat käyttöön Foundryyn (Docker-kuva pusketaan ACR:ään) → tarkistat Playgroundissa.
+**Virta:** Foundry-laajennus luo agentin → räätälöit koodin & ohjeet → testaat paikallisesti Agent Inspectorilla → otat käyttöön Foundryssa (Docker-kuva työnnetään ACR:ään) → validoit Playgroundissa.
 
 ---
 
 ## Mitä rakennat
 
-| Työpaja | Kuvaus | Tila |
-|-----|-------------|--------|
-| **Työpaja 01 - Yksittäinen agentti** | Rakenna **"Explain Like I'm an Executive" -agentti**, testaa paikallisesti ja ota käyttöön Foundryssa | ✅ Saatavilla |
-| **Työpaja 02 - Moniagenttityönkulku** | Rakenna **"Resume → Job Fit Evaluator"** - 4 agenttia työskentelee yhdessä arvioiden CV:n sopivuutta ja luoden oppimissuunnitelman | ✅ Saatavilla |
+| Labra | Kuvaus | Tila |
+|-------|--------|-------|
+| **Lab 01 - Yksittäinen agentti** | Rakenna **"Selitä kuin olisin johtaja" -agentti**, testaa paikallisesti ja ota käyttöön Foundryssa | ✅ Saatavilla |
+| **Lab 02 - Moni-agenttinen työnkulku** | Rakenna **"Ansioluettelo → Työhön sopivuuden arvioija"** - 4 agenttia tekee yhteistyötä pisteyttääkseen ansioluettelon ja luodakseen oppimissuunnitelman | ✅ Saatavilla |
 
 ---
 
-## Tutustu Executive-agenttiin
+## Tapaa Johtaja-agentti
 
-Tässä työpajassa rakennat **"Explain Like I'm an Executive" -agentin** – tekoälyagentin, joka ottaa monimutkaisen teknisen kielen ja muuntaa sen rauhallisiksi, hallitustason yhteenvetoiksi. Rehellisesti sanottuna, C-tason johdossa kukaan ei halua kuulla "v1.3:n synkronisten kutsujen aiheuttamasta säikeiden paljun loppumisesta".
+Tässä työpajassa rakennat **"Selitä kuin olisin johtaja" -agentin** — tekoälyagentin, joka ottaa vaikeat tekniset termit ja kääntää ne rauhallisiksi, johtajille sopiviksi tiivistyksiksi. Koska ollaan rehellisiä, kukaan johtoryhmässä ei halua kuulla "säikeiden uupumisesta, jonka aiheutti v3.2:ssa käyttöön otetut synkroniset kutsut."
 
-Rakensin tämän agentin yhden liian monta kertaa sattuneen tilanteen jälkeen, jossa huolellisesti kirjoitettu jälkiarvio sai vastaukseksi: *"Eli... onko verkkosivu alhaalla vai ei?"*
+Rakensin tämän agentin liian monen kerran jälkeen, kun täydellisesti laadittu analyysi sai vastaukseksi: *"Eli... Onko verkkosivusto alas vai ei?"*
 
 ### Miten se toimii
 
-Syötät teknisen päivityksen. Se palauttaa johtoryhmälle tarkoitetun yhteenvedon – kolme pääkohtaa, ei ammattislangia, ei pinon jäljitysjälkiä, ei eksistentiaalista ahdistusta. Vain **mitä tapahtui**, **liiketoiminnan vaikutus** ja **seuraava askel**.
+Syötät sille teknisen päivityksen. Se palauttaa johtajayhteenvetona kolme kohokohtaa, ilman ammattisanastoa, ilman pinon jälkiä, ilman eksistentiaalista ahdistusta. Vain **mitä tapahtui**, **liiketoiminnan vaikutus** ja **seuraava askel**.
 
-### Näe miten se toimii
+### Näe se toiminnassa
 
-**Sanot:**
-> "API-viive kasvoi säikeiden paljun loppumisen vuoksi, joka johtui v3.2:een lisätyistä synkronisista kutsuista."
+**Sinä sanot:**
+> "API-viive kasvoi säikeiden uupumisen vuoksi, jonka aiheuttivat v3.2:ssa käyttöön otetut synkroniset kutsut."
 
 **Agentti vastaa:**
 
-> **Johtoryhmän yhteenveto:**
+> **Johtajayhteenveto:**
 > - **Mitä tapahtui:** Viimeisimmän julkaisun jälkeen järjestelmä hidastui.
 > - **Liiketoiminnan vaikutus:** Jotkut käyttäjät kokivat viiveitä palvelun käytössä.
-> - **Seuraava askel:** Muutos peruttiin ja korjaus on valmisteilla ennen uudelleen käyttöönottoa.
+> - **Seuraava askel:** Muutos on peruutettu ja korjausta valmistellaan ennen uudelleenkäyttöönottoa.
 
 ### Miksi tämä agentti?
 
-Se on yksinkertainen, yhteen tarkoitukseen rakennettu agentti – täydellinen tapa oppia hosted agent -työnkulku kokonaisuudessaan ilman monimutkaisia työkaluketjuja. Rehellisesti? Jokainen insinööriryhmä voisi hyötyä tällaisesta.
+Se on kuoleman yksinkertainen, yhden käyttötarkoituksen agentti — täydellinen oppimaan hosted-agentti työnkulku päästä päähän ilman monimutkaisia työkaluketjuja. Ja rehellisesti? Jokainen insinööriryhmä voisi käyttää tällaista.
 
 ---
 
@@ -175,13 +179,13 @@ Se on yksinkertainen, yhteen tarkoitukseen rakennettu agentti – täydellinen t
             └── requirements.txt
 ```
 
-> **Huom:** Jokaisen työpajan `agent/` -kansio on se, jonka **Microsoft Foundry -laajennus** luo, kun suoritat komentopalettista komennon `Microsoft Foundry: Create a New Hosted Agent`. Tiedostot muokataan sen jälkeen agenttisi ohjeilla, työkaluilla ja määrityksillä. Työpaja 01 vie sinut läpi tämän prosessin alusta asti.
+> **Huom:** Jokaisen labran sisällä oleva `agent/`-kansio on se, jonka **Microsoft Foundry -laajennus** luo, kun suoritat komentopalettista `Microsoft Foundry: Create a New Hosted Agent` -komennon. Tiedostot räätälöidään sitten agentin ohjeilla, työkaluilla ja asetuksilla. Lab 01 ohjaa sinut tämän luomiseen alusta asti.
 
 ---
 
 ## Aloittaminen
 
-### 1. Kloonaa varasto
+### 1. Kloonaa repositorio
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
@@ -200,6 +204,7 @@ Aktivoi se:
   ```powershell
   .\venv\Scripts\Activate.ps1
   ```
+
 - **macOS / Linux:**
   ```bash
   source venv/bin/activate
@@ -213,7 +218,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. Määritä ympäristömuuttujat
 
-Kopioi agentin kansion sisällä oleva esimerkkitiedosto `.env` ja täytä omat arvosi:
+Kopioi esimerkkitiedosto `.env` agentin kansiosta ja täytä arvosi:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,37 +231,37 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Seuraa työpajan harjoituksia
+### 5. Seuraa työpajan labroja
 
-Jokainen työpaja on itsenäinen omine moduuleineen. Aloita **työpajasta 01** oppiaksesi perusteet, siirry sitten **työpajaan 02** oppiaksesi moniagenttityönkulkuja.
+Jokainen labra on itsenäinen omine moduuleineen. Aloita **Lab 01** opitaksesi perusteet ja siirry sitten **Lab 02**:een moniacjenttisiin työnkulkuihin.
 
-#### Työpaja 01 - Yksittäinen agentti ([täydelliset ohjeet](workshop/lab01-single-agent/README.md))
+#### Lab 01 - Yksittäinen agentti ([täydelliset ohjeet](workshop/lab01-single-agent/README.md))
 
 | # | Moduuli | Linkki |
-|---|--------|------|
-| 1 | Lue ennakkoedellytykset | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Asenna Foundry Toolkit & Foundry-laajennus | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+|---|---------|---------|
+| 1 | Lue esivaatimukset | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Asenna Foundry Toolkit & Foundry -laajennus | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
 | 3 | Luo Foundry-projekti | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
-| 4 | Luo hosted agent | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 4 | Luo hosted agentti | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
 | 5 | Määritä ohjeet & ympäristö | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
 | 6 | Testaa paikallisesti | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
 | 7 | Ota käyttöön Foundryssa | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Tarkista playgroundissa | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 8 | Tarkista Playgroundissa | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
 | 9 | Vianmääritys | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Työpaja 02 - Moniagenttityönkulku ([täydelliset ohjeet](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - Moni-agenttinen työnkulku ([täydelliset ohjeet](workshop/lab02-multi-agent/README.md))
 
 | # | Moduuli | Linkki |
-|---|--------|------|
-| 1 | Ennakkoedellytykset (Työpaja 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Ymmärrä moniagenttien arkkitehtuuri | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Luo moniagenttiprojekti | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+|---|---------|---------|
+| 1 | Esivaatimukset (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Ymmärrä moni-agentti arkkitehtuuri | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Luo moni-agenttiprojekti | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | Määritä agentit & ympäristö | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Orkestrointimallit | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Testaa paikallisesti (moniagentti) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 6 | Testaa paikallisesti (moni-agentti) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
 | 7 | Julkaise Foundryyn | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Vahvista leikkikentässä | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | Vianetsintä (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 8 | Vahvista leikkikentällä | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | Vianmääritys (moni-agentti) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
@@ -274,26 +279,26 @@ Jokainen työpaja on itsenäinen omine moduuleineen. Aloita **työpajasta 01** o
 
 ---
 
-## Vaaditut oikeudet (nopea viite)
+## Vaaditut käyttöoikeudet (pikaviite)
 
 | Tilanne | Vaaditut roolit |
 |----------|---------------|
-| Luo uusi Foundry-projekti | **Azure AI Owner** Foundryn resurssissa |
+| Luo uusi Foundry-projekti | **Azure AI Owner** Foundry-resurssissa |
 | Julkaise olemassa olevaan projektiin (uudet resurssit) | **Azure AI Owner** + **Contributor** tilauksessa |
 | Julkaise täysin konfiguroituun projektiin | **Reader** tilillä + **Azure AI User** projektissa |
 
-> **Tärkeää:** Azure `Owner`- ja `Contributor`-roolit sisältävät vain *hallintaoikeudet*, eivät *kehitysoikeuksia* (data-toimintoja). Tarvitset **Azure AI User**- tai **Azure AI Owner** -oikeudet agenttien rakentamiseen ja julkaisuun.
+> **Tärkeää:** Azure `Owner` ja `Contributor` -roolit sisältävät vain *hallinnolliset* oikeudet, eivät *kehitysoikeuksia* (data-toiminnot). Tarvitset **Azure AI User** tai **Azure AI Owner** rakentaaksesi ja julkaistaksesi agenteja.
 
 ---
 
 ## Viitteet
 
-- [Pikaopas: Julkaise ensimmäinen isännöity agentti (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [Mitkä ovat isännöidyt agentit?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Pikaopas: Julkaise ensimmäinen isännöity agenttisi (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Mitä ovat isännöidyt agentit?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 - [Luo isännöityjen agenttien työnkulkuja VS Codessa](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [Julkaise isännöity agentti](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC Microsoft Foundrylle](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Arkkitehtuurin tarkistusagentin esimerkki](https://github.com/Azure-Samples/agent-architecture-review-sample) - Käytännön isännöity agentti MCP-työkaluilla, Excalidraw-kaavioilla ja kaksinkertaisella julkaisulla
+- [Arkkitehtuurin tarkistus -agenttimalli](https://github.com/Azure-Samples/agent-architecture-review-sample) - Todellisen maailman isännöity agentti MCP-työkaluilla, Excalidraw-kaavioilla ja kaksoisjulkaisulla
 
 ---
 
@@ -306,5 +311,5 @@ Jokainen työpaja on itsenäinen omine moduuleineen. Aloita **työpajasta 01** o
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
 **Vastuuvapauslauseke**:  
-Tämä asiakirja on käännetty tekoälykäännöspalvelu [Co-op Translator](https://github.com/Azure/co-op-translator) avulla. Vaikka pyrimme tarkkuuteen, huomioithan, että automaattikäännöksissä saattaa esiintyä virheitä tai epätarkkuuksia. Alkuperäistä asiakirjaa sen alkuperäisellä kielellä tulisi pitää auktoritatiivisena lähteenä. Tärkeiden tietojen osalta suositellaan ammattilaisten tekemää käännöstä. Emme ole vastuussa tästä käännöksestä johtuvista väärinymmärryksistä tai virhetulkinnasta.
+Tämä asiakirja on käännetty käyttämällä tekoälypohjaista käännöspalvelua [Co-op Translator](https://github.com/Azure/co-op-translator). Vaikka pyrimme tarkkuuteen, ota huomioon, että automaattiset käännökset voivat sisältää virheitä tai epätarkkuuksia. Alkuperäistä asiakirjaa sen alkuperäiskielellä tulee pitää virallisena lähteenä. Tärkeiden tietojen osalta suositellaan ammattimaista ihmiskäännöstä. Emme ole vastuussa tästä käännöksestä johtuvista väärinkäsityksistä tai väärinymmärryksistä.
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->
