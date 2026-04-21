@@ -1,4 +1,4 @@
-# Foundry Toolkit + Foundry Hosted Agents အလုပ်ရုံဆွေးနွေးပွဲ
+# Foundry Toolkit + Foundry Hosted Agents Workshop
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Microsoft Foundry Agent Service** တွင် **Hosted Agents** အဖြစ် AI ကုဒ်များကို VS Code မှတစ်ဆင့် **Microsoft Foundry extension** နှင့် **Foundry Toolkit** အသုံးပြု၍ တည်ဆောက်၊ စမ်းသပ်၊ နှင့် တင်သွင်းပါ။
+VS Code မှ **Microsoft Foundry extension** နဲ့ **Foundry Toolkit** ကို အသုံးပြုပြီး **Microsoft Foundry Agent Service** အတွက် AI agents တွေကို **Hosted Agents** အဖြစ် တည်ဆောက်၊ စမ်းသပ်၊ တင်သွင်းပါ။
 
-> **Hosted Agents သည် လောလောဆယ် ပြသမှုအဆင့်တွင် ရှိသည်။** ထောက်ပံ့မှုရှိသောတိုင်းဒေသများမှာ ကန့်သတ်ထားသည် - [တိုင်းဒေသရရှိနိုင်မှု](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ကိုကြည့်ပါ။
+> **Hosted Agents များသည် လောလောဆယ် ကြိုတင် ကြည့်ရှုရန် အဆင့်တွင် ရှိသည်။** ပံ့ပိုးသော ဒေသများ ကန့်သတ်ထားသည် - [ဒေသရရှိနိုင်မှု](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ကို ကြည့်ပါ။
 
-> သင်္ကေတ `agent/` ဖိုလ်ဒါကို Foundry extension မှ **အလိုအလျောက် ထည့်သွင်း** လုပ်သည် - ထိုနောက် သင်သည် ကုဒ်ကို ပုံစံပြုပြင်ပြီး၊ ဒေသန္တရစမ်းသပ်ခြင်းပြုလုပ်၍ တင်သွင်းနိုင်သည်။
+> လက်တွေ့ လက်ခံရရှိနိုင်သော lab တစ်ခုခြင်းရဲ့ `agent/` ဖိုလ်ဒါကို Foundry extension မှ **အလိုအလျောက် ဖွဲ့စည်းပေးသည်** - သင်က ဂရုပြု၍ ကုဒ်ကို ပြင်ဆင်၊ ဒေသတွင်း စမ်းသပ်၊ Deployment ပြုလုပ်ပါ။
+
+### 🌐 ဘာသာစကားအများအပြားကို ပံ့ပိုးမှု
+
+#### GitHub Action မှတဆင့် ပံ့ပိုးသည် (အလိုအလျောက်နှင့် အမြဲတမ်း အပ်ဒိတ်ဖြစ်နေသည်)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](./README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **ဒေသနယ်စနစ်ဖြင့် မိတ္ထဲသို့ကူးယူရန် ဦးစားပေးပါသလား?**
+> **ဒေသတွင်းကလုံ ချင်လား?**
 >
-> ဤရေပိုက်စ်တိုတွင် ဘာသာစကား ၅၀ ကျော်ပါရှိပြီး ဒေါင်းလုပ်အရွယ်အစားကိုအများအပြားတိုးစေသည်။ ဘာသာစကားများ မပါအောင် ကူးယူရန် sparse checkout ကို အသုံးပြုပါ။
+> ဒီ repo မှာ ၅၀ ကျော် ဘာသာစကား ဘာသာပြန်ချက်များ ပါဝင်ပြီး ဒါကြောင့်ဒေါင်းလုပ်အရွယ်အစား လေးလံပြီး မြန်ဆန်တဲ့ ဒေါင်းလုပ်မဖြစ်စေပါဘူး။ ဘာသာပြန်ချက်များမပါဘဲ clone လုပ်ချင်ရင် sparse checkout ကို သုံးပါ:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,26 +42,26 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> ဒါက သင့်အား ဘာသာစကားများ မပါဘဲ အစဉ်လိုက်သင်ကြားမှု အကြောင်းအရာများကို အလွယ်တကူ လုပ်ဆောင်နိုင်စေသည်။
+> ဒါကြောင့် သင်သင်ယူဖို့ လိုအပ်တဲ့ အရာအားလုံးကို အလျင်မြန်စွာ ရရှိနိုင်မှာ ဖြစ်ပါတယ်။
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## စနစ်ပုံသဏ္ဍာန်
+## အဆောက်အဦ ရုပ်တည်မှု
 
 ```mermaid
 flowchart TB
-    subgraph Local["ဒေသୀ ဖွံ့ဖြိုးမှု (VS Code)"]
+    subgraph Local["ဒေသခံ ဖွံ့ဖြိုးတိုးတက်မှု (VS Code)"]
         direction TB
         FE["Microsoft Foundry
-        တိုးချဲ့မှု"]
+        Extension"]
         FoundryToolkit["Foundry Toolkit
-        တိုးချဲ့မှု"]
-        Scaffold["စက်တင်ထားသော အေးဂျင့် ကုဒ်
+        Extension"]
+        Scaffold["Scaffolded Agent Code
         (main.py · agent.yaml · Dockerfile)"]
-        Inspector["အေးဂျင့် စစ်ဆေးသူ
+        Inspector["Agent Inspector
         (ဒေသခံ စမ်းသပ်မှု)"]
-        FE -- "အေးဂျင့် အသစ် ဖန်တီးရန်
+        FE -- "Create New
         Hosted Agent" --> Scaffold
         Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
@@ -65,8 +69,8 @@ flowchart TB
 
     subgraph Cloud["Microsoft Foundry"]
         direction TB
-        ACR["Azure ကွန်တိန်နာ
-        စစ်ဆေးမှု စာရင်း"]
+        ACR["Azure Container
+        Registry"]
         AgentService["Foundry Agent Service
         (Hosted Agent Runtime)"]
         Model["Azure OpenAI
@@ -78,57 +82,57 @@ flowchart TB
         AgentService --> Playground
     end
 
-    Scaffold -- "တင်သွင်းခြင်း
+    Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
-    Playground -- "စမ်းသပ်ရန် prompts" --> AgentService
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**သွားလာမှု:** Foundry extension သည် agent ကို scaffold လုပ်သည် → သင်သည် ကုဒ်နှင့် ညွှန်ကြားချက်များကို ကိုယ်တိုင်ပြင်ဆင်သည် → Agent Inspector ဖြင့် ဒေသန္တရစမ်းသပ်သည် → Foundry သို့ တင်သွင်းသည် (Docker ပုံရိပ်ကို ACR သို့ တင်ပေးသည်) → Playground တွင် စစ်ဆေးသည်။
+**စီးဆင်းပုံ:** Foundry extension က agent ကို ဖွဲ့စည်း → သင်က ကုဒ်နဲ့ လမ်းညွှန်ချက်တွေကို ပြင်ဆင် → Agent Inspector နဲ့ ဒေသတွင်း စမ်းသပ် → Foundry သို့ တင်သွင်း (Docker image ကို ACR ထဲသို့ ပို့) → Playground မှာ စစ်ဆေး။
 
 ---
 
-## သင် တည်ဆောက်မည့်အရာ
+## သင်တည်ဆောက်မယ့် အရာများ
 
 | Lab | ဖော်ပြချက် | အခြေအနေ |
-|-----|-------------|---------|
-| **Lab 01 - တစ်ဦးတည်းသော Agent** | **"Explain Like I'm an Executive" Agent** ကို တည်ဆောက်ပြီး ဒေသန္တရစမ်းသပ်၍ Foundry သို့ တင်သွင်းပါ | ✅ ရရှိနိုင်သည် |
-| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** ဖြစ်တဲ့ ၄ ဦးသော Agent များက Resume ကိုသုံးသပ်ပြီး သင်ကြားမှု လမ်းကြောင်း ဖန်တီးရာတွင် ပူးပေါင်းဆောင်ရွက်သည် | ✅ ရရှိနိုင်သည် |
+|-----|-------------|--------|
+| **Lab 01 - Single Agent** | **"Explain Like I'm an Executive" Agent** ကို တည်ဆောက်၊ ဒေသတွင်း စမ်းသပ်ပြီး Foundry သို့ တင်သွင်းရန် | ✅ ရရှိနိုင်ပြီ |
+| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** ကို တည်ဆောက်ရန် - agent ၄ ယောက် ပူးပေါင်းပြီး resume ကို အဆင်ပြေမှု βαθများပေးပြီး သင်ယူရေးစီမံခန့်ခွဲမှု လမ်းညွှန်ကို ဖန်တီးသည် | ✅ ရရှိနိုင်ပြီ |
 
 ---
 
-## Executive Agent ကိုတွေ့ဆုံခြင်း
+## Executive Agent ကိုတွေ့ဆုံပါ
 
-ဤအလုပ်ရုံဆွေးနွေးပွဲတွင် သင်သည် **"Explain Like I'm an Executive" Agent** ကို တည်ဆောက်မည်ဖြစ်သည် - နည်းပညာဆိုင်ရာစကားလုံး မတော်တဆကျဉ်းစေသော အကြောင်းအရာများကို သက်သာပြေနိုင်သော၊ ထိပ်တန်းအဆင့်လုပ်ငန်းပေါ်တွင် ကြားနေရမည့် စကားအတိုချက်များသို့ ပြန်လည် ဘာသာပြန်ပေးသော AI Agent ဖြစ်သည်။ အမှန်တကယ်ကတော့ "thread pool exhaustion caused by synchronous calls introduced in v3.2" ဆိုတဲ့ စကားလိုကားကို C-suite အဖွဲ့အတွက် မကြားချင်ကြပါဘူး။
+ဒီ workshop မှာ **"Explain Like I'm an Executive" Agent** ကို တည်ဆောက်မှာ ဖြစ်ပြီး - ဒါတွေက ဗဟုသုတ အရမ်း ပြင်းထန်တဲ့ နည်းပညာ စကားများကို စိတ်ရှည်စွာ နားလည်နိုင်ပြီး၊ အခန်းအစည်းအဝေးတွေမှာ အသုံးပြုနိုင်အောင် ရိုးရှင်းတဲ့ အနှစ်ချုပ် စာများ ထုတ်ပေးတဲ့ AI agent တစ်ခု ဖြစ်ပါတယ်။ တကယ်တော့ C-suite ထဲမှာ "thread pool exhaustion caused by synchronous calls introduced in v3.2." ဆိုတာ ပျင်းကွက်ချင်သူ မရှိပါဘူး။
 
-ကျွန်တော်ဤ Agent ကို တည်ဆောက်ခဲ့တာမှာ ကြောင့်ကတော့ ကျွန်တော့်ရဲ့ ဖန်တီးထားတဲ့ post-mortem က အကြောင်းပြန်ပြီး *"So... is the website down or not?"* လို့တုံ့ပြန်တယ်ဆိုတဲ့ အဖြစ်အပျက် မကြာခဏ ကြုံတွေ့ရလို့ပါ။
+ကျွန်တော် ဒီ agent ကို တည်ဆောက်ခဲ့တာက ကျွန်တော်ရဲ့ အကောင်းဆုံးရေးသားထားတဲ့ post-mortem ကို *"ဆိုတော့... website က ပိတ်သိပ်နေတာလား မပိတ်သိပ်ဘူးလား?"* ဆိုပြီး တုံ့ပြန်ကြတဲ့ အချိန်တွေ ဒီ agent ရဲ့ လိုအပ်မှုကို မြင်ခဲ့ရလို့ ဖြစ်ပါတယ်။
 
-### အလုပ်လုပ်ပုံ
+### ၎င်းကို မည်သို့ ကုန်သွယ်ပါသလဲ
 
-သင်နည်းပညာဆိုင်ရာအပ်ဒိတ်တစ်ခု ထည့်သွင်းသည်။ ထို့နောက် သုံးစွဲသူအနေနှင့် executive summary - bullet point ၃ ခု၊ လှုပ်ရှားသောစကားနှင့် error stack မပါဘဲ၊ 感情မရှိဘဲ summary ရရှိသည်။ အဓိကအားဖြင့် **ဖြစ်ပျက်ခဲ့သည့်အရာ**, **စီးပွားရေးသက်ရောက်မှု**, နှင့် **နောက်တစ်ဆင့်** ဖြစ်ပါသည်။
+နည်းပညာ အချက်အလက်တွေကို တင်ပြလိုက်ပါ။ Agent က executive summary ကို ပြန်ပေးပါလိမ့်မယ် - အချက် ၃ ချက်၊ jargon မပါ၊ stack trace မပါ၊ စိုးရိမ်ဖွယ်ရာ မပါပါဘူး။ ပဲ **ဘာဖြစ်ပြီးသား၊ စီးပွားရေး အကျိုးသက်ရောက်မှု၊ နောက်တစ်ဆင့်** တွေကို ပဲ ဒီမှာ ထည့်သွင်းပြောဆိုပါတယ်။
 
-### လှုပ်ရှားချက်ကို ကြည့်မယ်
+### လက်တွေ့ ကြည့်ပါ
 
 **သင်ပြောသည်:**
 > "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-**Agent မှ ပြန်ဆိုသည်:**
+**Agent က ပြန်ဖြေသည်:**
 
 > **Executive Summary:**
-> - **ဖြစ်ပျက်သည်:** နောက်ဆုံးထွက်ရှိသောထုတ်လုပ်မှုအပြီး၊ စနစ်အမြန်နှုန်း ကျဆင်းခဲ့သည်။
-> - **စီးပွားရေးသက်ရောက်မှု:** အချို့သုံးစွဲသူများသည် ဝန်ဆောင်မှုကို အသုံးပြုရာတွင် ရှည်ထိန်းခိုင်းခံခဲ့ရသည်။
-> - **နောက်တစ်ဆင့်:** ပြောင်းလဲမှုကို ပြန်လည် ဖျက်သိမ်းပြီး ပြင်ဆင်မှု တင်သွင်းခြင်း မတိုင်မီ ပြင်ဆင်နေသည်။
+> - **ဘာဖြစ်သွားသလဲ:** နောက်ဆုံးထွက်လာတဲ့ ဗားရှင်းပြီးနောက် စနစ်ထက်ပိုမြန်မှု လျော့နည်းသွားတယ်။
+> - **စီးပွားရေးသက်ရောက်မှု:** အသုံးပြုသူအချို့က ဝန်ဆောင်မှုကို အသုံးပြုရာမှာ ကျရှုံးမှု ရှိခဲ့တယ်။
+> - **နောက်တစ်ဆင့်:** ပြဿနာကို ပြန်ဖျက်ထားပြီး၊ ပြင်ဆင်မှုကို ပြင်ဆင်ခြင်းခံ့ပီး ပြန်လည်တင်သွင်းမယ်။
 
-### ဤ Agent ကို ဘာကြောင့်?
+### ဒီ agent ကိုဘာကြောင့်?
 
-ဤ Agent သည် တစ်ခုတည်းသော ရည်ရွယ်ချက်ရှိသည့် အသေးစား agent ဖြစ်ပြီး hosted agent workflow ကို စတင်လေ့လာရန်အတွက် အသင့်တော်ဆုံးဖြစ်သည်။ သို့သော်လည်း အမှန်တကယ်မှာ အင်ဂျင်နီယာအဖွဲ့အားလုံးအတွက် ဒီလို agent တစ်ခုရှိခြင်း ဂုဏ်ယူစရာဖြစ်ပါသည်။
+ဒီ agent က တစ်ခုတည်း ရည်ရွယ်ချက်ရှိပြီး သွက်လက်ရှင်းလင်းသော agent တစ်ခုဖြစ်ပြီး hosted agent workflow အခြေခံအဆင့်များကို သင်ယူဖို့ အထူးသင့်လျော်ပါသည်။ နည်းပညာအဖွဲ့တစ်ဖွဲ့လုံး အတွက်လည်း အသုံးဝင်တယ်။
 
 ---
 
-## အလုပ်ရုံဆွေးနွေးပွဲ ဖွဲ့စည်းပုံ
+## Workshop ဖွဲ့စည်းပုံ
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -175,26 +179,26 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **မှတ်ချက်:** `agent/` ဖိုလ်ဒါကို Microsoft Foundry extension မှ Command Palette တွင် `Microsoft Foundry: Create a New Hosted Agent` ကို ပြုလုပ်တဲ့အခါ 생성 လုပ်သည်။ ဖိုင်တွေကို သင့် agent ၏ ညွှန်ကြားချက်များ၊ ကိရိယာများနှင့် စနစ်အပြင်အဆင်များနှင့် တိုးတက်ဖွံ့ဖြိုးစေသည်။ Lab 01 တွင် ဤကို ဖြည့်စွက်၍ ပြန်လည်ဖန်တီးခြင်းပြုလုပ်လမ်းညွှန်ပါသည်။
+> **မှတ်ချက်:** lab တစ်ခုခြင်းထဲရှိ `agent/` ဖိုလ်ဒါမှာ **Microsoft Foundry extension** က `Microsoft Foundry: Create a New Hosted Agent` command ကို Command Palette ကနေ တင်သွင်းစဉ် စက်ရုပ်ဖန်တီးပေးထားတာဖြစ်တယ်။ ပြီးမှာ သင့် agent အတွက် လမ်းညွှန်ချက်၊ ကိရိယာများနဲ့ ဖွဲ့စည်းမှုတွေကို ကိုယ်တိုင် ပြင်ဆင်မှာဖြစ်ပါတယ်။ Lab 01 က ဒီအရာကို စတင်တည်ဆောက်ပုံ လမ်းညွှန်ပေးပါသည်။
 
 ---
 
-## စတင်အသုံးပြုခြင်း
+## စတင်လိုက်ပါ
 
-### ၁။ Repository ကို ကူးယူပါ
+### ၁။ Repository ကို clone ချရန်
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### ၂။ Python virtual environment တည်ဆောက်ပါ
+### ၂။ Python virtual environment တည်ဆောက်ရန်
 
 ```bash
 python -m venv venv
 ```
 
-ဖွင့်ပါ:
+အသုံးပြုရန် ဖွင့်ပါ -
 
 - **Windows (PowerShell):**
   ```powershell
@@ -205,62 +209,62 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### ၃။ အလိုအလျောက်လိုအပ်သော Packages များကို 설치 လုပ်ပါ
+### ၃။ လိုအပ်သော library များ 설치လုပ်ခြင်း
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### ၄။ မိမိ environment များ ကို ဖြည့်စွက်လိုက်ပါ
+### ၄။ Environment variables ကို ပြင်ဆင်ပါ
 
-agent ဖိုလ်ဒါထဲက ရှိ `.env` ကို ကူးယူပြီး သင့်တန်ဖိုးများကို ဖြည့်ပါ:
+agent ဖိုလ်ဒါအတွင်းရှိ မူကွဲ `.env` ဖိုင်ကို ကူးယူပြီး  ကိုယ့်တန်ဖိုးတွေ ဖြည့်ပါ -
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-`workshop/lab01-single-agent/agent/.env` ကို ပြင်ပါ:
+`workshop/lab01-single-agent/agent/.env` ကို တည်းဖြတ်ပါ -
 
 ```env
 AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### ၅။ အလုပ်ရုံဆွေးနွေးပွဲ Labs အတိုင်း လိုက်နာပါ
+### ၅။ Workshop Labs များကို လိုက်နာပါ
 
-ယင်း Lab များသည် module များကို သီးခြားထားပြီး၊ ပထမ Lab 01 မှစ၍ အခြေခံများ လေ့လာထားပါ။ ထို့နောက် Lab 02 တွင် multi-agent workflow များကို လေ့လာနိုင်သည်။
+lab တစ်ခုချင်းစီမှာ သီးသန့် module များ ပါဝင်သည်။ အခြေခံအာရုံစူးစိုက်ဖို့ **Lab 01** နဲ့ စပြီး multi-agent workflows များကို သိရှိချင်ရင် **Lab 02** သို့ ဆက်လက်သွားပါ။
 
-#### Lab 01 - တစ်ဦးတည်း Agent ([အပြည့်အစုံညွှန်ကြားချက်များ](workshop/lab01-single-agent/README.md))
+#### Lab 01 - Single Agent ([အပြည့်အစုံ လမ်းညွှန်ချက်များ](workshop/lab01-single-agent/README.md))
 
-| # | Module | Link |
+| # | Module | လင့်ခ် |
 |---|--------|------|
-| 1 | ကြိုတင်လိုအပ်ချက်များဖတ်ပါ | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry Toolkit နှင့် Foundry extension ကို install စက်ပါ | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 1 | မတိုင်ခင်အချက်အလက်များ ဖတ်ပါ | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit နဲ့ Foundry extension ကို 설치 လုပ်ပါ | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
 | 3 | Foundry Project တည်ဆောက်ပါ | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
-| 4 | Hosted Agent တစ်ခုဖန်တီးပါ | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | ညွှန်ကြားချက်များနှင့် environment ကို ပြင်ဆင်ပါ | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
-| 6 | ဒေသန္တရ စမ်းသပ်ပါ | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
+| 4 | Hosted Agent တစ်ခု ဖန်တီးပါ | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 5 | လမ်းညွှန်ချက် & Environment ကို ပြင်ဆင်ပါ | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 6 | ဒေသတွင်း စမ်းသပ်ပါ | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
 | 7 | Foundry သို့ တင်သွင်းပါ | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Playground တွင် အတည်ပြုပါ | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
-| 9 | ပြဿနာဖြေရှင်းခြင်း | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 8 | Playground မှာ စစ်ဆေးပါ | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 9 | စိန်ခေါ်မှုများ ဖြေရှင်းခြင်း | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - Multi-Agent Workflow ([အပြည့်အစုံညွှန်ကြားချက်များ](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - Multi-Agent Workflow ([အပြည့်အစုံ လမ်းညွှန်ချက်များ](workshop/lab02-multi-agent/README.md))
 
-| # | Module | Link |
+| # | Module | လင့်ခ် |
 |---|--------|------|
-| 1 | ကြိုတင်လိုအပ်ချက်များ (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Multi-agent စနစ်ပုံသဏ္ဍာန်ကို နားဆင်ပါ | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Multi-agent Project ကို Scaffold လုပ်ပါ | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Agents နှင့် Environment ကို ပြင်ဆင်ပါ | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | စီမံခန့်ခွဲမှုပုံစံများ | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | ဒေသန္တရစမ်းသပ်မှု (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Foundry သို့ တပ်ဆင်ခြင်း | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Playground တွင် စစ်ဆေးခြင်း | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | ပြဿနာများ ဖြေရှင်းခြင်း (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 1 | မတိုင်ခင်အချက်အလက်များ (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Multi-agent architecture ကို နားလည်ပါ | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Multi-agent project ကို ဖွဲ့စည်းပါ | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Agents & Environment ကို ပြင်ဆင်ပါ | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | Orchestration Patterns များ | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | ဒေသတွင်း စမ်းသပ်ပါ (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Foundry သို့ ဖြန့်ချိခြင်း | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Playground မှာ အတည်ပြုခြင်း | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | ပြဿနာဖြေရှင်းခြင်း (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## တာဝန်ရှိသူ
+## တာဝန်ခံ
 
 <table>
 <tr>
@@ -274,29 +278,28 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## လိုအပ်သောခွင့်ပြုချက်များ (လျင်မြန်သောကိုးကားချက်)
+## လိုအပ်သော ခွင့်ပြုချက်များ (လျင်မြန်သော ရည်ညွှန်းချက်)
 
-| သရုပ်ပြမှု | လိုအပ်သော အခန်းကဏ္ဍများ |
+| အခြေအနေ | လိုအပ်သော အခန်းကဏ္ဍများ |
 |----------|---------------|
-| Foundry စီမံကိန်းအသစ် ဖန်တီးခြင်း | Foundry resource တွင် **Azure AI Owner** |
-| စီမံကိန်းရှိပြီးသားကို တပ်ဆင်ခြင်း (အရင်းအမြစ်အသစ်များ) | စာရင်းသွင်းမှုတွင် **Azure AI Owner** + **Contributor** |
-| ပြည့်စုံစွာ ပြင်ဆင်ပြီးသော စီမံကိန်းကို တပ်ဆင်ခြင်း | အကောင့်တွင် **Reader** + စီမံကိန်းတွင် **Azure AI User** |
+| Foundry ပရောဂျက်အသစ် တည်ဆောက်ရန် | Foundry အရင်းအမြစ်ပေါ်ရှိ **Azure AI Owner** |
+| ရှိပြီးသား ပရောဂျက် (အရင်းအမြစ်အသစ်များ) ထဲသို့ ဖြန့်ချိရန် | စာရင်းသွင်းခွင့်ပေါ်ရှိ **Azure AI Owner** + **Contributor** |
+| ပြည့်စုံစွာကွန်ဖီဂာသော ပရောဂျက်ထဲသို့ ဖြန့်ချိရန် | အကောင့်ပေါ်ရှိ **Reader** + ပရောဂျက်ပေါ်ရှိ **Azure AI User** |
 
-> **အရေးကြီးစွာ:** Azure `Owner` နှင့် `Contributor` အခန်းကဏ္ဍများတွင် *စီမံခန့်ခွဲမှု* ခွင့်သာပါရှိပြီး၊ *ဖွံ့ဖြိုးတိုးတက်မှု* (ဒေတာဆိုင်ရာ လုပ်ဆောင်ချက်) ခွင့်များ မပါဝင်ပါ။ အင်စတောင့်များ တည်ဆောက်ပြီး တပ်ဆင်ရန် သင်သည် **Azure AI User** သို့မဟုတ် **Azure AI Owner** လိုအပ်ပါတယ်။
+> **အရေးကြီးချက်:** Azure `Owner` နှင့် `Contributor` အခန်းကဏ္ဍများတွင် *စီမံခန့်ခွဲမှု* ခွင့်ပြုချက်များသာပါဝင်ပြီး၊ *ဖွံ့ဖြိုးတိုးတက်မှု* (ဒေတာလှုပ်ရှားမှု) ခွင့်ပြုချက်များမပါဝင်ပါ။ Agent များတည်ဆောက်ခြင်းနှင့် ဖြန့်ချိခြင်းအတွက် **Azure AI User** သို့မဟုတ် **Azure AI Owner** လိုအပ်ပါသည်။
 
 ---
 
 ## ကိုးကားချက်များ
 
-- [Quickstart: သင်၏ ပထမဆုံး hosted agent တပ်ဆင်ခြင်း (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Quickstart: သင်၏ ပထမဆုံး hosted agent ကို ဖြန့်ချိခြင်း (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Hosted agents ဆိုတာဘာလဲ?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS Code တွင် hosted agent workflow ဖန်တီးခြင်း](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [Hosted agent တပ်ဆင်ခြင်း](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [VS Code တွင် hosted agent workflow များ ဖန်တီးခြင်း](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Hosted agent တစ်ခု ဖြန့်ချိခြင်း](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [Microsoft Foundry အတွက် RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architecture Review Agent နမူနာ](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP tools, Excalidraw diagrams နှင့် နှစ်မျိုးတပ်ဆင်နိုင်သော အစစ်အမှန် hosted agent
+- [Architecture Review Agent နမူနာ](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP ကိရိယာများ၊ Excalidraw ပုံဆွဲများနှင့် နှစ်မျိုးဖြန့်ချိမှုပါရှိသည့် အမှန်တကယ်အသုံးပြုနိုင်သော hosted agent
 
 ---
-
 
 ## လိုင်စင်
 
@@ -305,6 +308,6 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ---
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
-**အတင်းအကြပ်မှတ်ချက်**  
-ဤစာတမ်းကို AI ဘာသာပြန်ဝန်ဆောင်မှုဖြစ်သည့် [Co-op Translator](https://github.com/Azure/co-op-translator) ဖြင့် ဘာသာပြန်ထားပါသည်။ ကျွန်ုပ်တို့သည် တိကျမှန်ကန်မှုအတွက် ထိထိရောက်ရောက် ကြိုးစားနေသော်လည်း၊ အလိုအလျောက်ဘာသာပြန်ခြင်းမှ ဖြစ်နိုင်သော အမှားများ သို့မဟုတ် မှားယွင်းချက်များ ရှိနိုင်ကြောင်း သိရှိထားရှိပါစေ။ မူလစာချုပ်အတွက် မိမိဘာသာစကားဖြင့် ရေးသားထားသော စာတမ်းကို အတိအကျအရင်းအမြစ်အဖြစ် သတ်မှတ်ရန် လိုပါသည်။ အဓိကအချက်အလက်များအတွက် လူတစ်ယောက်တည်းဖြင့် လုပ်ဆောင်သည့် ပရော်ဖက်ရှင်နယ် ဘာသာပြန်ခြင်း ကို အကြံပြုပါသည်။ ဤဘာသာပြန်ချက်ကို အသုံးပြုခြင်းမှ ဖြစ်ပေါ်နိုင်သည့် နားလည်မမှန်မှုများ သို့မဟုတ် အဓိပ္ပာယ်မှားခြင်းများအတွက် ကျွန်ုပ်တို့သည် တာဝန်မယူပါ။
+**ဆိုင်းငံ့ချက်**ঃ  
+ဤစာတမ်းကို AI ဘာသာပြန်ဝန်ဆောင်မှု [Co-op Translator](https://github.com/Azure/co-op-translator) ကို အသုံးပြု၍ ဘာသာပြန်ထားပါသည်။ ကျွန်ုပ်တို့သည် တိကျမှန်ကန်မှုအတွက် ကြိုးစားသော်လည်း၊ အလိုအလျောက်ဘာသာပြန်မှုများတွင် အမှားများ သို့မဟုတ် မှားယွင်းမှုများ ပါဝင်နိုင်သည်ကို ကျေးဇူးပြု၍ သိရှိထားကြပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။ မူရင်းစာရွက်စာတမ်းကို မိခင်ဘာသာဖြင့်သာ အတည်ပြုနိုင်သော အရင်းအမြစ်အနေနှင့် သတ်မှတ်သင့်သည်။ အရေးကြီးသောသတင်းအချက်အလက်များအတွက် လူမှုအသိပညာရပ်ဆိုင်ရာ ဘာသာပြန်ချက်ကို အကြံပြုပါသည်။ ဤဘာသာပြန်မှုကို အသုံးပြုမှုမှ ဖြစ်ပေါ်လာသော မျှော်လင့်ချက်မကျခြင်း သို့မဟုတ် အပေါ်ယံနားလည်မှုများအတွက် ကျွန်ုပ်တို့မှာ တာဝန်မရှိပါ။
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->
