@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Microsoft Foundry Agent Service** に AI エージェントをビルド、テスト、デプロイし、**Hosted Agents** として展開します。すべて VS Code 上で、**Microsoft Foundry 拡張機能** と **Foundry Toolkit** を使用して行います。
+**Microsoft Foundry Agent Service** に AI エージェントを **Hosted Agents** としてビルド、テスト、デプロイします - すべて VS Code 上で **Microsoft Foundry 拡張機能** と **Foundry Toolkit** を使って完結。
 
-> **Hosted Agents は現在プレビュー版です。** 対応リージョンは限定的です - 詳しくは [リージョンの可用性](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) を参照してください。
+> **Hosted Agents は現在プレビュー版です。** 対応リージョンは限定されています - 詳しくは [リージョンの利用可能性](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) をご覧ください。
 
-> 各ラボ内の `agent/` フォルダーは **Foundry 拡張機能によって自動生成** されます。コードをカスタマイズし、ローカルでテストし、デプロイしてください。
+> 各ラボ内の `agent/` フォルダーは **Foundry 拡張機能により自動生成** され、その後コードをカスタマイズ、ローカルテスト、デプロイを行います。
+
+### 🌐 多言語対応
+
+#### GitHub Action 経由でサポート（自動かつ常に最新）
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](./README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **ローカルにクローンする場合は？**
+> **ローカルクローンがお好みですか？**
 >
-> このリポジトリには50以上の言語翻訳が含まれており、ダウンロードサイズが大きくなります。翻訳なしでクローンするにはスパースチェックアウトを使ってください：
+> このリポジトリには50以上の言語翻訳が含まれており、ダウンロードサイズが大きくなります。翻訳なしでクローンする場合はスパースチェックアウトをご利用ください：
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> これにより、コースを完了するのに必要なものだけが高速にダウンロードされます。
+> 本コースに必要なファイルだけをより高速にダウンロードできます。
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -57,8 +61,8 @@ flowchart TB
         (main.py · agent.yaml · Dockerfile)"]
         Inspector["エージェントインスペクター
         （ローカルテスト）"]
-        FE -- "新しい
-        ホストエージェントを作成" --> Scaffold
+        FE -- "新規作成
+        ホスト型エージェント" --> Scaffold
         Scaffold -- "F5 デバッグ" --> Inspector
         FoundryToolkit -.- Inspector
     end
@@ -68,9 +72,9 @@ flowchart TB
         ACR["Azure コンテナ
         レジストリ"]
         AgentService["Foundry エージェントサービス
-        （ホストエージェントランタイム）"]
+        （ホスト型エージェントランタイム）"]
         Model["Azure OpenAI
-        （gpt-4.1 / gpt-4.1-mini）"]
+        (gpt-4.1 / gpt-4.1-mini)"]
         Playground["Foundry プレイグラウンド
         & VS Code プレイグラウンド"]
         ACR --> AgentService
@@ -82,49 +86,49 @@ flowchart TB
     (Docker ビルド + プッシュ)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
-    Playground -- "プロンプトをテスト" --> AgentService
+    Playground -- "プロンプトのテスト" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**フロー:** Foundry 拡張機能がエージェントをスキャフォールド → コードと指示をカスタマイズ → Agent Inspector でローカルテスト → Foundry にデプロイ（Docker イメージが ACR にプッシュされる）→ Playground で検証。
+**フロー:** Foundry 拡張機能がエージェントをスキャフォールド → コードと指示をカスタマイズ → Agent Inspector でローカルテスト → Foundry にデプロイ（Docker イメージを ACR にプッシュ）→ Playground で検証。
 
 ---
 
-## 何を作るか
+## 作成するもの
 
-| ラボ | 説明 | 状態 |
+| ラボ | 説明 | ステータス |
 |-----|-------------|--------|
-| **Lab 01 - シングルエージェント** | <strong>「経営者向けに説明する」エージェント</strong>を作成し、ローカルでテストして Foundry にデプロイ | ✅ 利用可能 |
-| **Lab 02 - マルチエージェントワークフロー** | **「履歴書→職務適合評価者」** - 4つのエージェントが連携して履歴書の適合度を評価し、学習ロードマップを生成 | ✅ 利用可能 |
+| **Lab 01 - シングルエージェント** | **"Explain Like I'm an Executive" エージェント** を作成、ローカルテスト、Foundryへデプロイ | ✅ 利用可能 |
+| **Lab 02 - マルチエージェントワークフロー** | **"Resume → Job Fit Evaluator"** を作成 - 4つのエージェントが協力して履歴書の適合度を評価し学習ロードマップを生成 | ✅ 利用可能 |
 
 ---
 
-## 経営者向けエージェントのご紹介
+## Executive Agent の紹介
 
-このワークショップでは、**「経営者向けに説明する」エージェント** を作成します。これは難解な技術用語を取り込み、落ち着いた取締役会用の要約に翻訳する AI エージェントです。実際に、Cクラスの経営層は「v3.2で導入された同期呼び出しによるスレッドプールの枯渇」などという話は聞きたくありませんよね。
+このワークショップでは **"Explain Like I'm an Executive" エージェント** を作成します。これは複雑な技術用語を受け取り、落ち着いた役員会向けの要約に翻訳する AI エージェントです。正直なところ、C-suite の誰も “v3.2 で導入された同期呼び出しによるスレッドプール枯渇” の話を聞きたくはありません。
 
-このエージェントは、完璧に作成した事後報告書に対して「で、つまり...ウェブサイトはダウンしているの？」と返された回数が多すぎて作りました。
+私はこのエージェントを、完璧に作ったポストモーテムが「つまり…ウェブサイトはダウンしてるの？」と聞き返された幾度かの出来事の後に作りました。
 
 ### 仕組み
 
-技術的なアップデートを渡すと、役員向け要約を返します。3つの箇条書き、専門用語なし、スタックトレースなし、過剰な心配なし。<strong>何が起こったか</strong>、<strong>ビジネスへの影響</strong>、<strong>次のステップ</strong> だけを示します。
+技術的な更新を入力すると、ジャーゴンなし・スタックトレースなし・不安な感じもなしで役員向けの要約を3点セットで返してくれます。内容は「何が起こったか」、「ビジネスへの影響」と「次のステップ」。
 
-### 実際の例
+### 実例
 
-**あなたが言う:**
-> 「APIのレイテンシが、v3.2で導入された同期呼び出しによりスレッドプールが枯渇したために増加しました。」
+**あなたの発言:**
+> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-**エージェントの返答:**
+**エージェントの応答:**
 
 > **役員向け要約:**
-> - **何が起こったか:** 最新リリース後、システムが遅くなりました。
-> - **ビジネスへの影響:** 一部のユーザーはサービス利用時に遅延を経験しました。
-> - **次のステップ:** 変更はロールバックされ、修正を準備中でデプロイを待っています。
+> - **何が起こったか:** 最新のリリース後にシステムが遅くなりました。
+> - **ビジネスへの影響:** 一部のユーザーでサービス利用中に遅延が発生しました。
+> - **次のステップ:** 変更は元に戻され、再デプロイ前に修正を準備中です。
 
 ### なぜこのエージェント？
 
-これは非常にシンプルで単一用途のエージェントです。ホステッドエージェントのワークフローを複雑なツールチェーンに迷わされることなくエンドツーエンドで学ぶのに最適です。そして正直に言うと、すべてのエンジニアリングチームに1つあってもいいものです。
+技術チェーンに没頭せずホスト型エージェントワークフローを端から端まで学習するのに最適な、非常にシンプルで単機能なエージェントです。そして正直な話、どのエンジニアリングチームもこういうのを一つ持っておいたほうがよいでしょう。
 
 ---
 
@@ -175,20 +179,20 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **注意:** 各ラボ内の `agent/` フォルダーは、コマンドパレットから `Microsoft Foundry: Create a New Hosted Agent` を実行すると **Microsoft Foundry 拡張機能** が生成します。その後、エージェントの指示やツール、設定でカスタマイズします。Lab 01 ではこれを一から再作成する手順を案内します。
+> **注意:** 各ラボ内の `agent/` フォルダは、コマンドパレットから `Microsoft Foundry: Create a New Hosted Agent` を実行した時に **Microsoft Foundry 拡張機能** が生成します。その後にエージェントの指示やツール、設定でカスタマイズします。Lab 01 ではこれをスクラッチで再現します。
 
 ---
 
-## 始めに
+## はじめに
 
-### 1. リポジトリをクローン
+### 1. リポジトリをクローンする
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Python 仮想環境をセットアップ
+### 2. Python仮想環境をセットアップする
 
 ```bash
 python -m venv venv
@@ -205,15 +209,15 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### 3. 依存関係のインストール
+### 3. 依存関係をインストールする
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. 環境変数の設定
+### 4. 環境変数を設定する
 
-エージェントフォルダ内のサンプル `.env` ファイルをコピーし、自分の値を入力してください：
+agent フォルダ内のサンプル `.env` ファイルをコピーし、値を記入：
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,41 +230,41 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. ワークショップラボを進める
+### 5. ワークショップラボに従う
 
-各ラボはモジュールごとに完結しています。基本を学ぶために **Lab 01** から始め、次に **Lab 02** のマルチエージェントワークフローへ進んでください。
+各ラボは自己完結型のモジュール群です。まず **Lab 01** で基本を学び、その後 **Lab 02** でマルチエージェントワークフローに進みます。
 
-#### Lab 01 - シングルエージェント ([完全な指示](workshop/lab01-single-agent/README.md))
+#### Lab 01 - シングルエージェント ([完全な手順](workshop/lab01-single-agent/README.md))
 
 | # | モジュール | リンク |
 |---|--------|------|
-| 1 | 前提条件の確認 | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry Toolkit と Foundry 拡張機能のインストール | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
-| 3 | Foundry プロジェクトの作成 | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
-| 4 | ホステッドエージェントの作成 | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | 指示と環境の設定およびコードのカスタマイズ | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
-| 6 | ローカルでのテスト | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
-| 7 | Foundry へのデプロイ | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Playground での検証 | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 1 | 事前準備を読む | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit & Foundry 拡張機能をインストール | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 3 | Foundry プロジェクトを作成 | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
+| 4 | Hosted Agent を作成 | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 5 | 指示と環境を設定 | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 6 | ローカルテスト | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
+| 7 | Foundry にデプロイ | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Playground で検証 | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
 | 9 | トラブルシューティング | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - マルチエージェントワークフロー ([完全な指示](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - マルチエージェントワークフロー ([完全な手順](workshop/lab02-multi-agent/README.md))
 
 | # | モジュール | リンク |
 |---|--------|------|
-| 1 | 前提条件の確認（Lab 02） | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 1 | 事前準備 (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
 | 2 | マルチエージェントアーキテクチャの理解 | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
 | 3 | マルチエージェントプロジェクトのスキャフォールド | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | エージェントと環境の設定 | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 4 | エージェントと環境構成 | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | オーケストレーションパターン | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | ローカルでのテスト（マルチエージェント） | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 6 | ローカルテスト（マルチエージェント） | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
 | 7 | Foundryへのデプロイ | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | playgroundでの確認 | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 8 | playgroundでの検証 | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | トラブルシューティング（マルチエージェント） | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## メンテナ
+## メンテナー
 
 <table>
 <tr>
@@ -278,22 +282,22 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 | シナリオ | 必要なロール |
 |----------|---------------|
-| 新しいFoundryプロジェクトの作成 | Foundryリソースでの **Azure AI Owner** |
-| 既存プロジェクトへのデプロイ（新規リソース） | サブスクリプションに対する **Azure AI Owner** + **Contributor** |
-| 完全に構成済みのプロジェクトへのデプロイ | アカウントでの **Reader** + プロジェクトでの **Azure AI User** |
+| 新しいFoundryプロジェクトの作成 | Foundryリソースの **Azure AI Owner** |
+| 既存プロジェクトへのデプロイ（新リソース） | サブスクリプションの **Azure AI Owner** + **Contributor** |
+| 完全に構成済みのプロジェクトへのデプロイ | アカウントの **Reader** + プロジェクトの **Azure AI User** |
 
-> **重要:** Azureの `Owner` と `Contributor` ロールは管理権限のみを含み、開発（データアクション）権限は含みません。エージェントの作成とデプロイには、**Azure AI User** または **Azure AI Owner** が必要です。
+> **重要:** Azureの`Owner` と `Contributor` ロールは、<em>管理</em>権限のみを含み、<em>開発</em>（データ操作）権限は含まれていません。エージェントのビルドとデプロイには、**Azure AI User** または **Azure AI Owner** が必要です。
 
 ---
 
 ## 参考資料
 
-- [クイックスタート: 最初のホスト型エージェントをデプロイする（VS Code）](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [ホスト型エージェントとは？](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS Codeでホスト型エージェントのワークフローを作成する](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [ホスト型エージェントをデプロイする](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [クイックスタート: 最初のホスト済みエージェントのデプロイ (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [ホスト済みエージェントとは？](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [VS Codeでホスト済みエージェントのワークフローを作成する](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [ホスト済みエージェントのデプロイ](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [Microsoft FoundryのRBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCPツール、Excalidraw図、デュアルデプロイを備えた実務的なホスト型エージェント
+- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCPツール、Excalidrawダイアグラム、デュアルデプロイメントを備えた実世界のホスト済みエージェント
 
 ---
 
@@ -305,5 +309,5 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
 **免責事項**:  
-本書類は AI 翻訳サービス [Co-op Translator](https://github.com/Azure/co-op-translator) を使用して翻訳されています。正確性を期していますが、自動翻訳には誤りや不正確な部分が含まれる可能性があります。原文が権威ある情報源とみなされるべきです。重要な情報については、専門の人間による翻訳を推奨します。本翻訳の使用によって生じた誤解や誤訳について、当方は一切責任を負いません。
+本書類は AI 翻訳サービス [Co-op Translator](https://github.com/Azure/co-op-translator) を使用して翻訳されました。正確性を期していますが、自動翻訳には誤りや不正確な箇所が含まれる可能性があることをご了承ください。原文の言語による文書が公式の情報源とみなされます。重要な情報については、専門の人間翻訳を推奨します。本翻訳の使用に起因する誤解や誤訳について、当方は一切の責任を負いません。
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->
