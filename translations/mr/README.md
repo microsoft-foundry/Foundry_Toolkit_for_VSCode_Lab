@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Microsoft Foundry Agent Service** मध्ये AI एजंट्स तयार करा, चाचणी करा आणि तैनात करा **Hosted Agents** म्हणून - पूर्णपणे VS Code वापरून **Microsoft Foundry विस्तार** आणि **Foundry Toolkit** वापरून.
+**Microsoft Foundry Agent Service** मध्ये AI एजंट्स तयार करा, चाचणी करा आणि तैनात करा, जे पूर्णपणे VS Code वापरून **Microsoft Foundry विस्तार** आणि **Foundry Toolkit** द्वारे **Hosted Agents** म्हणून चालतात.
 
-> **Hosted Agents सध्या प्रिव्ह्यूमध्ये आहेत.** समर्थित प्रदेश मर्यादित आहेत - पाहा [प्रदेश उपलब्धता](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents सध्या पूर्वावलोकन अवस्थेत आहेत.** समर्थित प्रदेश मर्यादित आहेत - पाहा [प्रदेश उपलब्धता](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> प्रत्येक लॅबमधील `agent/` फोल्डर **Foundry विस्ताराद्वारे आपोआप स्कॅफोल्ड केला जातो** - त्यानंतर तुम्ही कोड सानुकूल करता, स्थानिकपणे चाचणी करता आणि तैनात करता.
+> प्रत्येक लॅबमधील `agent/` फोल्डर **Foundry विस्ताराद्वारे स्वयंचलितरित्या तयार** केला जातो - तुम्ही नंतर कोड सानुकूल करता, स्थानिक चाचणी करता आणि तैनात करता.
+
+### 🌐 बहुभाषिक समर्थन
+
+#### GitHub Action द्वारे समर्थित (स्वयंचलित आणि सदैव अद्ययावत)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](./README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **स्थानिक करू इच्छिता?**
+> **स्थानिकरीत्या क्लोन करायचे प्राधान्य आहे?**
 >
-> हा संग्रहालय 50+ भाषा भाषांतरांसह आहे जे डाउनलोड आकार मोठा करतात. भाषांतराशिवाय क्लोन करण्यासाठी, sparse checkout वापरा:
+> या रेपॉझिटरीमध्ये ५०+ भाषा अनुवाद आहेत ज्यामुळे डाउनलोडचा आकार मोठा होतो. अनुवादांशिवाय क्लोन करण्यासाठी sparse checkout वापरा:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> यामुळे तुम्हाला कोर्स पूर्ण करण्यासाठी आवश्यक सर्वकाही खूप वेगाने डाउनलोड करता येते.
+> हे तुम्हाला कोर्स पूर्ण करण्यासाठी आवश्यक असलेले सर्व काही जलद डाउनलोडसह देते.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -49,36 +53,36 @@
 flowchart TB
     subgraph Local["स्थानिक विकास (VS कोड)"]
         direction TB
-        FE["मायक्रोसॉफ्ट फाउंड्री
+        FE["Microsoft Foundry
         विस्तार"]
-        FoundryToolkit["फाउंड्री टूलकिट
+        FoundryToolkit["Foundry टूलकिट
         विस्तार"]
-        Scaffold["स्कॅफोल्ड केलेला एजंट कोड
+        Scaffold["संधारित एजंट कोड
         (main.py · agent.yaml · Dockerfile)"]
         Inspector["एजंट निरीक्षक
         (स्थानिक चाचणी)"]
         FE -- "नवीन तयार करा
         होस्टेड एजंट" --> Scaffold
-        Scaffold -- "F5 डिबग करा" --> Inspector
+        Scaffold -- "F5 डीबग" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
-    subgraph Cloud["मायक्रोसॉफ्ट फाउंड्री"]
+    subgraph Cloud["Microsoft Foundry"]
         direction TB
-        ACR["अॅझ्योर कंटेनर
-        रजिस्ट्री"]
-        AgentService["फाउंड्री एजंट सेवा
+        ACR["Azure कंटेनर
+        नोंदणी"]
+        AgentService["Foundry एजंट सेवा
         (होस्टेड एजंट रनटाइम)"]
-        Model["अॅझ्योर ओपनएआय
-        (gpt-4.1 / gpt-4.1-मिनी)"]
-        Playground["फाउंड्री प्लेग्राउंड
+        Model["Azure OpenAI
+        (gpt-4.1 / gpt-4.1-mini)"]
+        Playground["Foundry प्लेग्राउंड
         & VS कोड प्लेग्राउंड"]
         ACR --> AgentService
         AgentService -- "/responses API" --> Model
         AgentService --> Playground
     end
 
-    Scaffold -- "रुपायोजित करा
+    Scaffold -- "डिप्लॉय करा
     (Docker बिल्ड + पुश)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
@@ -86,45 +90,45 @@ flowchart TB
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
-```  
-**प्रवाह:** Foundry विस्तार एजंट स्कॅफोल्ड करतो → तुम्ही कोड आणि सूचना सानुकूल करता → Agent Inspector सह स्थानिकपणे चाचणी करता → Foundry मध्ये तैनात करता (Docker इमेज ACR वर ढकलली जाते) → Playground मध्ये पडताळणी करता.
+```
+**प्रवाह:** Foundry विस्तार एजंट तयार करतो → तुम्ही कोड आणि सूचना सानुकूल करता → Agent Inspector सह स्थानिक चाचणी करता → Foundry मध्ये तैनात करता (Docker प्रतिमा ACR मध्ये ढकलली जाते) → Playground मध्ये पडताळणी करता.
 
 ---
 
-## तुम्ही काय तयार करणार आहात
+## तुम्ही काय तयार कराल
 
 | लॅब | वर्णन | स्थिती |
 |-----|-------------|--------|
-| **Lab 01 - Single Agent** | **"Explain Like I'm an Executive" Agent** तयार करा, स्थानिकपणे चाचणी करा आणि Foundry कडे तैनात करा | ✅ उपलब्ध |
-| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** तयार करा - 4 एजंट गुणांकनासाठी सहकार्य करतात आणि शिकण्याचा रोडमॅप तयार करतात | ✅ उपलब्ध |
+| **Lab 01 - Single Agent** | **"Explain Like I'm an Executive" एजंट** तयार करा, स्थानिक चाचणी करा, आणि Foundry मध्ये तैनात करा | ✅ उपलब्ध |
+| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** तयार करा - ४ एजंट्स एकत्र काम करून Resume फिटचे गुणांकन करतात आणि शिक्षण रोडमॅप तयार करतात | ✅ उपलब्ध |
 
 ---
 
-## Executive Agent परिचय
+## Executive Agent बघा
 
-या कार्यशाळेत तुम्ही **"Explain Like I'm an Executive" Agent** तयार कराल - एक AI एजंट जो गुंतागुंतीची तांत्रिक भाषा घेतो आणि ते शांत, बोर्डरूमसाठी तयार सारांशांमध्ये भाषांतरित करतो. कारण खरे सांगायचे तर, C-suite मधील कोणीही "thread pool exhaustion caused by synchronous calls introduced in v3.2" याबद्दल ऐकू इच्छित नाही.
+या कार्यशाळेत तुम्ही **"Explain Like I'm an Executive" एजंट** तयार कराल - एखादा AI एजंट जो गुंतागुंतीच्या तांत्रिक भाषणाला सोप्या, बोर्डरूमसाठी तयार सारांशात रूपांतरित करतो. खरं तर, C-स्तरीवर कोणाला "thread pool exhaustion caused by synchronous calls introduced in v3.2" याबद्दल ऐकायचे नसते.
 
-मी हा एजंट तयार केला कारण अनेक वेळा माझ्या परिपूर्ण पोस्ट-मॉर्टेमनंतर मला मिळालेली प्रतिक्रिया होती: *"म्हणजे... वेबसाइट बंद आहे का नाही?"*
+मी हा एजंट तयार केला कारण माझा परिपूर्ण पोस्ट-मॉर्टेम ऐकल्यावर अनेकदा प्रतिसाद आला: *"म्हणजे... वेबसाईट खाली आहे का नाही?"*
 
-### ते कसे कार्य करते
+### तो कसा काम करतो
 
-तुम्ही त्याला तांत्रिक अद्ययावत माहिती देता. ते एक कार्यकारी सारांश परत देते - तीन मुद्दे, कोणतीही तांत्रिक भाषा नाही, कोणतेही स्टॅक ट्रेस नाही, कोणतीही भीती नाही. फक्त **काय घडले**, **व्यवसायावर परिणाम**, आणि **पुढील पाऊल**.
+तुम्ही त्याला तांत्रिक अपडेट देता. तो तीन बुलेट पॉइंट्ससह एक Executive सारांश परत करतो - कोणताही जटिल शब्द, stack trace किंवा अस्वस्थता नाही. फक्त **काय घडलं**, **व्यवसायावर परिणाम**, आणि **पुढचा टप्पा**.
 
-### ते प्रत्यक्ष पाहा
+### कृतीत पाहा
 
-**तुम्ही म्हणता:**  
-> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
+**तुम्ही म्हणता:**
+> "API ची विलंबता वाढली कारण v3.2 मध्ये समकालिक कॉल्समुळे thread pool exhaustion झाला."
 
-**एजंट प्रत्युत्तर देतो:**  
+**एजंट उत्तर देतो:**
 
-> **कार्यकारी सारांश:**  
-> - **काय घडले:** नवीनतम अद्ययावतीनंतर, सिस्टम हळुवार झाले.  
-> - **व्यवसायावर परिणाम:** काही वापरकर्त्यांना सेवा वापरताना विलंबांचा अनुभव आला.  
-> - **पुढील पाऊल:** बदल मागे घेण्यात आला आहे आणि पुनःतैनातीपूर्वी दुरुस्ती तयार केली जात आहे.
+> **Executive सारांश:**
+> - **काय घडलं:** नवीनतम प्रकाशनानंतर प्रणाली मंदावली.
+> - **व्यवसायावर परिणाम:** काही वापरकर्त्यांना सेवा वापरताना विलंब अनुभवला.
+> - **पुढचा टप्पा:** बदल मागे घेतला गेला आहे आणि पुनःतैनातीपूर्वी दुरुस्ती तयार केली जात आहे.
 
 ### हा एजंट का?
 
-हा एक सोपा, एकल-उद्देशीय एजंट आहे - होस्टेड एजंट वर्कफ्लो शिकण्याकरिता अगदी योग्य. आणि खरं तर? प्रत्येक अभियांत्रिकी टीमला अशा एजंटची गरज आहे.
+हा एक सोपा, एकाच उद्देशाचा एजंट आहे - complex tool chains मध्ये अडथळा न होता hosted agent workflow शिकण्यासाठी अगदी योग्य. आणि खरी गोष्ट? प्रत्येक अभियांत्रिकी संघाला यापैकी एक हवा.
 
 ---
 
@@ -174,90 +178,89 @@ flowchart TB
             ├── main.py
             └── requirements.txt
 ```
-  
-> **टीप:** `agent/` फोल्डर प्रत्येक लॅबमध्ये तो फाईल्स तयार करतो जेव्हा तुम्ही कमांड पॅलेटमधून `Microsoft Foundry: Create a New Hosted Agent` चालवता. नंतर त्या फाइल्स तुमच्या एजंटच्या सूचनांनी, साधनांनी आणि कॉन्फिगरेशनने सानुकूलित केल्या जातात. लॅब 01 तुम्हाला सुरुवातीपासून हे पुन्हा बनवायला शिकवते.
+
+> **टीप:** प्रत्येक लॅबमधील `agent/` फोल्डर हा फक्त Microsoft Foundry विस्ताराने निर्माण होतो जेव्हा तुम्ही Command Palette मधून `Microsoft Foundry: Create a New Hosted Agent` चालवता. फायली त्यानंतर तुमच्या एजंटच्या सूचना, साधने आणि कॉन्फिगरेशननुसार सानुकूलित केल्या जातात. Lab 01 तुम्हाला याचा आरंभ करुन देतो.
 
 ---
 
-## सुरुवात कशी करावी
+## प्रारंभ करा
 
-### 1. रिपॉझिटरी क्लोन करा
+### 1. रेपॉझिटरी क्लोन करा
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
-  
-### 2. Python वर्च्युअल वातावरण सेट करा
+
+### 2. Python व्हर्चुअल एन्व्हायर्नमेंट सेट करा
 
 ```bash
 python -m venv venv
 ```
-  
+
 ते सक्रिय करा:
 
-- **Windows (PowerShell):**  
+- **Windows (PowerShell):**
   ```powershell
   .\venv\Scripts\Activate.ps1
   ```
-  
-- **macOS / Linux:**  
+- **macOS / Linux:**
   ```bash
   source venv/bin/activate
   ```
-  
-### 3. अवलंबित्वे स्थापित करा
+
+### 3. अवलंबित्वे इंस्टॉल करा
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
-  
-### 4. पर्यावरणीय बदल (environment variables) कॉन्फिगर करा
 
-एजंट फोल्डरमधील उदाहरण `.env` फाइल कॉपी करा आणि तुमची मूल्ये भरा:
+### 4. एन्व्हायर्नमेंट व्हेरिएबल्स कॉन्फिगर करा
+
+एजंट फोल्डरमध्ये असलेली उदाहरण `.env` फाइल कॉपी करा आणि तुमची मूल्ये भरा:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
-  
+
 `workshop/lab01-single-agent/agent/.env` संपादित करा:
 
 ```env
 AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
-  
-### 5. कार्यशाळेतील लॅब्सचा अवलंब करा
 
-प्रत्येक लॅब स्वतंत्र मॉड्यूल्ससह आहे. मूलभूत गोष्टी शिकण्यासाठी **Lab 01** पासून सुरुवात करा, नंतर मल्टी-एजंट वर्कफ्लोजसाठी **Lab 02** कडे जा.
+### 5. कार्यशाळेतील लॅबस फॉलो करा
 
-#### Lab 01 - Single Agent ([पूर्ण सूचनांसाठी](workshop/lab01-single-agent/README.md))
+प्रत्येक लॅब स्वतःच्या मॉड्यूलसह स्वतंत्र आहे. मूलभूत गोष्टी शिकण्यासाठी **Lab 01** पासून सुरुवात करा, त्यानंतर बहु-एजंट workflows साठी **Lab 02** च्या दिशेने जा.
 
-| # | मॉड्यूल | दुवा |
+#### Lab 01 - Single Agent ([संपूर्ण सूचना](workshop/lab01-single-agent/README.md))
+
+| # | मॉड्यूल | लिंक |
 |---|--------|------|
-| 1 | पूर्वअट वाचा | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry Toolkit & Foundry विस्तार स्थापित करा | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
-| 3 | Foundry प्रकल्प तयार करा | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
-| 4 | होस्टेड एजंट तयार करा | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | सूचना आणि वातावरण सेट करा | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
-| 6 | स्थानिक चाचणी करा | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
-| 7 | Foundry कडे तैनात करा | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
-| 8 | प्लेग्राऊंडमध्ये पडताळणी करा | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 1 | पूर्वापेक्षा वाचा | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit आणि Foundry विस्तार इंस्टॉल करा | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 3 | Foundry प्रोजेक्ट तयार करा | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
+| 4 | Hosted agent तयार करा | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 5 | सूचना आणि पर्यावरण कॉन्फिगर करा | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 6 | स्थानिक चाचणी | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
+| 7 | Foundry मध्ये तैनात करा | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
+| 8 | प्लेग्राउंडमध्ये पडताळणी करा | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
 | 9 | समस्या निवारण | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - Multi-Agent Workflow ([पूर्ण सूचनांसाठी](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - Multi-Agent Workflow ([संपूर्ण सूचना](workshop/lab02-multi-agent/README.md))
 
-| # | मॉड्यूल | दुवा |
+| # | मॉड्यूल | लिंक |
 |---|--------|------|
-| 1 | पूर्वअटी (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | मल्टी-एजंट आर्किटेक्चर समजून घ्या | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | मल्टी-एजंट प्रकल्प स्कॅफोल्ड करा | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | एजंट्स आणि वातावरण कॉन्फिगर करा | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 1 | पूर्वापेक्षा (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | बहु-एजंट आर्किटेक्चर समजून घ्या | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | बहु-एजंट प्रोजेक्ट स्कॅफोल्ड करा | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | एजंट्स आणि पर्यावरण कॉन्फिगर करा | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | ऑर्केस्ट्रेशन पॅटर्न्स | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | स्थानिक चाचणी करा (मल्टी-एजंट) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | फाउंडरीवर तैनाती करा | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | प्लेग्राउंडमध्ये सत्यापित करा | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | समस्या निवारण (मल्टी-एजंट) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 6 | स्थानिक चाचणी (बहु-एजंट) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | फाउंड्रीवर तैनात करा | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | प्लेग्राउंडमध्ये पडताळणी करा | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | समस्या निवारण (बहु-एजंट) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
@@ -275,29 +278,28 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## आवश्यक परवानग्या (त्वरित संदर्भ)
+## आवश्यक परवानग्या (जलद संदर्भ)
 
-| परिदृश्य | आवश्यक भूमिका |
+| परिस्थिती | आवश्यक भूमिका |
 |----------|---------------|
-| नवीन फाउंडरी प्रोजेक्ट तयार करा | फाउंडरी स्त्रोतावर **Azure AI मालक** |
-| विद्यमान प्रोजेक्टमध्ये तैनाती करा (नवीन स्त्रोत) | सदस्यत्वावर **Azure AI मालक** + **योगदानकर्ता** |
-| पूर्णपणे कॉन्फिगर केलेल्या प्रोजेक्टमध्ये तैनाती करा | खात्यावर **वाचक** + प्रोजेक्टवर **Azure AI वापरकर्ता** |
+| नवीन फाउंड्री प्रोजेक्ट तयार करा | फाउंड्री संसाधनांवर **Azure AI Owner** |
+| विद्यमान प्रोजेक्टवर तैनात करा (नवीन संसाधने) | सदस्यत्वावर **Azure AI Owner** + **Contributor** |
+| पूर्णपणे कॉन्फिगर केलेल्या प्रोजेक्टवर तैनात करा | खात्यावर **Reader** + प्रोजेक्टवर **Azure AI User** |
 
-> **महत्त्वाचे:** Azure `मालक` आणि `योगदानकर्ता` भूमिका फक्त *व्यवस्थापन* परवानग्यांचा समावेश करतात, *विकास* (डेटा क्रिया) परवानग्या नाहीत. एजंट तयार करण्यासाठी आणि तैनात करण्यासाठी तुम्हाला **Azure AI वापरकर्ता** किंवा **Azure AI मालक** आवश्यक आहे.
+> **महत्वाचे:** Azure मध्ये `Owner` आणि `Contributor` भूमिका फक्त *व्यवस्थापन* परवानग्या समाविष्ट करतात, *विकास* (डेटा क्रिया) परवानग्या नाहीत. एजंट तयार करण्यासाठी आणि तैनात करण्यासाठी तुम्हाला **Azure AI User** किंवा **Azure AI Owner** लागतो.
 
 ---
 
 ## संदर्भ
 
-- [त्वरित प्रारंभ: आपला पहिला होस्टेड एजंट तैनात करा (VS कोड)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [जलद प्रारंभ: तुमचा पहिला होस्टेड एजंट तैनात करा (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [होस्टेड एजंट म्हणजे काय?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS कोडमध्ये होस्टेड एजंट कार्यप्रवाह तयार करा](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [VS कोडमध्ये होस्टेड एजंट वर्कफ़्लोज तयार करा](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [होस्टेड एजंट तैनात करा](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [मायक्रोसॉफ्ट फाउंडरीजाठी RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [आर्किटेक्चर पुनरावलोकन एजंट नमुना](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP साधने, Excalidraw आकृत्या, आणि दुहेरी तैनातीसह वास्तविक जगातील होस्टेड एजंट
+- [Microsoft Foundry साठी RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [आर्किटेक्चर रिव्ह्यू एजंट नमुना](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP टूल्स, Excalidraw आकृत्या, आणि ड्युअल तैनातीसह रिअल-वर्ल्ड होस्टेड एजंट
 
 ---
-
 
 ## परवाना
 
@@ -306,6 +308,6 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ---
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
-**अस्वीकरण**:  
-हा दस्तऐवज AI अनुवाद सेवा [Co-op Translator](https://github.com/Azure/co-op-translator) चा वापर करून अनुवादित केला आहे. आम्ही अचूकतेसाठी प्रयत्नशील असलो तरी, कृपया लक्षात ठेवा की स्वयंचलित अनुवादांमध्ये त्रुटी किंवा अचूकतेतील चुकां होऊ शकतात. मूळ दस्तऐवज त्याच्या स्थानिक भाषेत अधिकृत स्रोत समजला जातो. महत्वाच्या माहितीच्या बाबतीत व्यावसायिक मानवी अनुवाद शिफारसीय आहे. या अनुवादाच्या वापरामुळे उद्भवलेल्या कोणत्याही गैरसमज किंवा चुकीच्या अर्थलागी आम्ही जबाबदार नाही.
+**सोडून देणे**:  
+हा दस्तऐवज AI भाषा अनुवाद सेवा [Co-op Translator](https://github.com/Azure/co-op-translator) वापरून अनुवादित केला आहे. आम्ही अचूकतेसाठी प्रयत्नशील असलो तरी, कृपया लक्षात ठेवा की स्वयंचलित अनुवादांमध्ये चुका किंवा अचूकतेत फरक असू शकतो. मूळ दस्तऐवज त्याच्या स्थानिक भाषेत अधिकृत स्रोत म्हणून गणला जावा. महत्वाची माहिती असल्यास, व्यावसायिक मानवी अनुवाद करण्याची शिफारस केली जाते. या अनुवादाच्या वापरामुळे उद्भवलेल्या कुठल्याही गैरसमज किंवा गैरवर्तनांसाठी आम्ही जबाबदार नाही.
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->
