@@ -1,4 +1,4 @@
-# Foundry Toolkit + Foundry Hosted Agents Радионца
+# Foundry Toolkit + Foundry Hosted Agents Workshop
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Правите, тестирајте и објављујте AI агенте у **Microsoft Foundry Agent Service** као **Hosted Agents** - потпуно из VS Code-а користећи **Microsoft Foundry extension** и **Foundry Toolkit**.
+Направите, тестирате и распорестите AI агенте на **Microsoft Foundry Agent Service** као **Hosted Agents** - у потпуности из VS Code користећи **Microsoft Foundry екстензију** и **Foundry Toolkit**.
 
-> **Hosted Agents су тренутно у прегледу.** Подржани региони су ограничени - погледајте [доступност региона](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents су тренутно у прегледу (preview).** Подржани региони су ограничени - погледајте [доступност региона](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Папка `agent/` унутар сваке лабораторије је **аутоматски генерисана** од стране Foundry екстензије - затим прилагођавате код, тестирате локално и објављујете.
+> Фасцикла `agent/` унутар сваке лабораторије је **аутоматски генерисана** од стране Foundry екстензије - затим прилагодите код, тестирате локално и распорестите.
+
+### 🌐 Подршка за више језика
+
+#### Подржано преко GitHub Action (Аутоматски и увек ажурирано)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](./README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **Волите да клонирате локално?**
+> **Више волите да клоните локално?**
 >
-> Овај репозиторијум укључује 50+ превода на језике што значајно повећава величину превлачења. Да бисте клонирали без превода, користите sparse checkout:
+> Ово складиште садржи преводе на преко 50 језика што значајно повећава величину преузимања. Да бисте клонирали без превода, користите sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -50,25 +54,24 @@ flowchart TB
     subgraph Local["Локални развој (VS Code)"]
         direction TB
         FE["Microsoft Foundry
-        Екстензија"]
+        Додатак"]
         FoundryToolkit["Foundry Toolkit
-        Екстензија"]
-        Scaffold["Шаблонирани код агента
+        Додатак"]
+        Scaffold["Код агента са шаблоном
         (main.py · agent.yaml · Dockerfile)"]
         Inspector["Инспектор агента
         (Локално тестирање)"]
-        FE -- "Направи нови
-        хостовани агент" --> Scaffold
-        Scaffold -- "F5 дебаг" --> Inspector
+        FE -- "Креирај нови
+        домаћински агент" --> Scaffold
+        Scaffold -- "F5 дебаговање" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
     subgraph Cloud["Microsoft Foundry"]
         direction TB
-        ACR["Azure регистар
-        контејнера"]
-        AgentService["Foundry Agent Service
-        (Рунтајм хостованог агента)"]
+        ACR["Azure Registry контејнера"]
+        AgentService["Foundry Agent сервис
+        (Рuntime домаћинског агента)"]
         Model["Azure OpenAI
         (gpt-4.1 / gpt-4.1-mini)"]
         Playground["Foundry Playground
@@ -79,7 +82,7 @@ flowchart TB
     end
 
     Scaffold -- "Деплој
-    (Docker build + push)" --> ACR
+    (Docker изградња + пуш)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
     Playground -- "Тестирај упите" --> AgentService
@@ -87,7 +90,7 @@ flowchart TB
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**Проток:** Foundry екстензија генерише агента → ви прилагођавате код и инструкције → тестирајте локално са Agent Inspector → објављујете на Foundry (Docker слика се шаље у ACR) → верификујете у Playground-у.
+**Ток:** Foundry екстензија генерише агента → прилагођавате код и инструкције → тестирате локално са Agent Inspector → распорестите на Foundry (Docker слика гурана у ACR) → верификујете у Playground-у.
 
 ---
 
@@ -95,36 +98,36 @@ flowchart TB
 
 | Лабораторија | Опис | Статус |
 |-----|-------------|--------|
-| **Лаб 01 - Један агент** | Направите **"Објасни као да сам извршни директор" агента**, тестирате га локално и објавите на Foundry | ✅ Доступно |
-| **Лаб 02 - Вишеструки агенти у раду** | Направите **"Оцена одговарања резимеа за посао"** - 4 агента сарађују да процене услове резимеа и генеришу план учења | ✅ Доступно |
+| **Лаб 01 - Један агент** | Направите **„Објасни као да сам извршни директор“ агента**, тестирате локално и распорестите на Foundry | ✅ Доступно |
+| **Лаб 02 - Вишемањски радни ток** | Направите **„Резиме → Оцена погодности за посао“** - 4 агента сарађују да оцењују прикладност резимеа и генеришу план учења | ✅ Доступно |
 
 ---
 
 ## Упознајте извршног агента
 
-У овој радионици направићете **"Објасни као да сам извршни директор" агента** - AI агента који узима компликован технички жаргон и преводи га у смирене, спремне за састанак са управом резимеје. Јер, будимо искрени, нико у врху компаније не жели да чује о "истрошености thread pool-а изазваној синхроним позивима уведеним у верзији 3.2."
+На овом радионици направићете **„Објасни као да сам извршни директор“ агента** - AI агента који узима компликовани технички жаргон и преводи га у смирене, спремне за управни одбор резиме. Јер, будимо искрени, нико у врху управе не жели да чује о "исцрпљености thread pool-а изазваној синхроним позивима уведеним у в3.2."
 
-Овај агент је направљен након превише случајева у којима је мој савршено написан извештај добио одговор: *"Дакле… да ли је сајт пао или није?"*
+Овај агент је настао након више инцидената где је мој савршено састављен пост-мортем добио одговор: *"Дакле... да ли је сајт пао или није?"*
 
 ### Како ради
 
-Унесете техничко ажурирање. Он враћа извршни резиме - три главне тачке, без жаргона, без stack trace-ова, без егзистенцијалног страха. Само **шта се десило**, **пословни утицај** и **следећи корак**.
+Унесете техничко ажурирање. Он враћа извршни резиме - три тачке, без жаргона, без stack trace-ева, без егзистенцијалног страха. Само **шта се десило**, **пословни утицај**, и **следећи корак**.
 
-### Погледајте како ради
+### Погледајте како ради у пракси
 
-**Реците:**
-> "Заустављање API-а повећано је због истрошености thread pool-а изазване синхроним позивима уведеним у верзији 3.2."
+**Ви кажете:**
+> "Kашњење API-а се повећало због исцрпљености thread pool-а изазване синхроним позивима уведеним у в3.2."
 
 **Агент одговара:**
 
 > **Извршни резиме:**
-> - **Шта се десило:** Након најновијег издања, систем се успорио.
-> - **Пословни утицај:** Неки корисници су искусили заостајања приликом коришћења услуге.
-> - **Следећи корак:** Промена је повучена и припрема се поправка пре поновног објављивања.
+> - **Шта се десило:** Након последњег издања, систем је успорио.
+> - **Пословни утицај:** Неки корисници су осетили кашњења при коришћењу услуге.
+> - **Следећи корак:** Промена је повучена и припрема се исправка пре новом распорештавања.
 
-### Зашто овај агент?
+### Зашто баш овај агент?
 
-Он је једноставан агент за један циљ - савршен за учење токова рада hosted агената од почетка до краја без компликованих алатки. И да будем искрен? Сваком инжењерском тиму треба један такав.
+То је препрост, агента једне сврхе - савршен за учење радног тока hosted агената од почетка до краја без заливања у сложене алате. И искрено? Сваком инжењерском тиму би пријало да има једног оваквог.
 
 ---
 
@@ -175,11 +178,11 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **Напомена:** `agent/` фасцикла унутар сваке лабораторије је она коју **Microsoft Foundry extension** генерише када покренете `Microsoft Foundry: Create a New Hosted Agent` из Command Palette-а. Фајлови се затим прилагођавају вашим упутствима, алатима и конфигурацијом. Лабораторија 01 вас води кроз прављење овога од нуле.
+> **Белешка:** Фасцикла `agent/` унутар сваке лабораторије је оно што **Microsoft Foundry екстензија** генерише када покренете `Microsoft Foundry: Create a New Hosted Agent` из Command Palette-а. Фајлови се затим прилагођавају са упутствима, алатима и конфигурацијом вашег агента. Лабораторија 01 вас води кроз поновно креирање овога од нуле.
 
 ---
 
-## Почните
+## Започните
 
 ### 1. Клонирајте репозиторијум
 
@@ -188,7 +191,7 @@ git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.gi
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Подесите Python виртуално окружење
+### 2. Поставите Python виртуелно окружење
 
 ```bash
 python -m venv venv
@@ -213,7 +216,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. Конфигуришите променљиве окружења
 
-Копирајте пример `.env` фајла унутар агента и унесите своје вредности:
+Копирајте пример `.env` фајла унутар agent фасцикле и попуните своје вредности:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,47 +229,47 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Пратите лабораторије са радионице
+### 5. Пратите лабораторије радионице
 
-Свака лабораторија је самостална са својим модулима. Почните са **Лаб 01** да научите основе, а затим наставите са **Лаб 02** за рад вишеструких агената.
+Свака лабораторија је самостална са својим модулима. Почните са **Лаб 01** да научите основе, а затим пређите на **Лаб 02** за вишемањске радне токове.
 
-#### Лаб 01 - Један агент ([пунa упутства](workshop/lab01-single-agent/README.md))
+#### Лаб 01 - Један агент ([пуна упутства](workshop/lab01-single-agent/README.md))
 
 | # | Модул | Линк |
 |---|--------|------|
 | 1 | Прочитајте предуслове | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Инсталирајте Foundry Toolkit & Foundry extension | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
-| 3 | Направите Foundry пројекат | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
+| 2 | Инсталирајте Foundry Toolkit & Foundry екстензију | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 3 | Креирајте Foundry пројекат | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
 | 4 | Креирајте hosted агента | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | Конфигуришите инструкције и окружење | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 5 | Конфигуришите упутства и окружење | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
 | 6 | Тестирајте локално | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
-| 7 | Објавите на Foundry | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
+| 7 | Распорестите на Foundry | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Верификујте у playground-у | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
 | 9 | Решавање проблема | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Лаб 02 - Рад вишеструких агената ([пунa упутства](workshop/lab02-multi-agent/README.md))
+#### Лаб 02 - Вишемањски радни ток ([пуна упутства](workshop/lab02-multi-agent/README.md))
 
 | # | Модул | Линк |
 |---|--------|------|
-| 1 | Предуслови (Лаб 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Разумевање архитектуре вишеструких агената | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Генеришите пројекат вишеструких агената | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 1 | Претпоставке (Лаб 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Разумевање архитектуре вишемањских агената | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Генерисање пројекта вишемањског агента | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | Конфигуришите агенте и окружење | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Обрасци оркестрације | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Тестирајте локално (вишеструки агенти) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Постави на Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Верификовање у песковнику | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 6 | Тестирање локално (вишемањско) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Деплој на Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Верификација у playground-у | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Решавање проблема (више агената) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## Одржавалац
+## Одржавач
 
 <table>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>Шивам Гојаљ</b></sub>
+        <sub><b>Шивам Гојал</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,15 +277,15 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## Потребне дозволе (брз подсетник)
+## Потребне дозволе (брзи преглед)
 
 | Сценарио | Потребне улоге |
 |----------|---------------|
 | Креирање новог Foundry пројекта | **Azure AI Owner** на Foundry ресурсу |
-| Постављање на постојећи пројекат (нови ресурси) | **Azure AI Owner** + **Contributor** на претплати |
-| Постављање на потпуно конфигурисан пројекат | **Reader** на налогу + **Azure AI User** на пројекту |
+| Деплој на постојећи пројекат (нови ресурси) | **Azure AI Owner** + **Contributor** на претплату |
+| Деплој на потпуно конфигурисан пројекат | **Reader** на налогу + **Azure AI User** на пројекту |
 
-> **Важно:** Улоге Azure `Owner` и `Contributor` укључују само *управљачка* овлашћења, не и *развојна* (овлашћења за рад са подацима). Потребни су вам **Azure AI User** или **Azure AI Owner** да бисте правили и постављали агенте.
+> **Важно:** Azure улоге `Owner` и `Contributor` укључују само *управљачке* дозволе, а не *развојне* (операције са подацима). Потребни су вам **Azure AI User** или **Azure AI Owner** да бисте креирали и деплојовали агенте.
 
 ---
 
@@ -293,7 +296,7 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 - [Create hosted agent workflows in VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [Deploy a hosted agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - Реални агент хостован са MCP алаткама, Excalidraw дијаграмима и двоструком имплементацијом
+- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - Реални пример уграђеног агента са MCP алатима, Excalidraw дијаграмима, и двоструким деплојем
 
 ---
 
@@ -305,6 +308,6 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ---
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
-**Одрицање**:
-Овај документ је преведен коришћењем AI преводилачке услуге [Co-op Translator](https://github.com/Azure/co-op-translator). Иако тежимо тачности, молимо вас да имате у виду да аутоматски преводи могу садржати грешке или нетачности. Оригинални документ на његовом изворном језику треба сматрати ауторитетним извором. За критичне информације препоручује се стручни људски превод. Нисмо одговорни за било каква неспоразума или погрешне тумачења која произилазе из коришћења овог превода.
+**Одрицање од одговорности**:  
+Овај документ је преведен уз помоћ AI услуге за превођење [Co-op Translator](https://github.com/Azure/co-op-translator). Иако тежимо прецизности, имајте у виду да аутоматизовани преводи могу садржати грешке или нетачности. Оригинални документ на свом матичном језику треба сматрати ауторитетом. За критичне информације препоручује се професионални људски превод. Нисмо одговорни за било каква неспоразума или погрешне тумачења која проистекну из коришћења овог превода.
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->

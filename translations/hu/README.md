@@ -1,4 +1,4 @@
-# Foundry Toolkit + Foundry Hosted Agents Workshop
+# Foundry Toolkit + Foundry Hosted Agents Műhely
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Építsen, teszteljen és telepítsen MI ügynököket a **Microsoft Foundry Agent Service**-hez mint **Hosztolt ügynökök** – teljes mértékben a VS Code-ból a **Microsoft Foundry bővítmény** és a **Foundry Toolkit** használatával.
+Építsen, teszteljen és telepítsen MI ügynököket a **Microsoft Foundry Agent Service**-hez **Hosted Agents** formájában – teljes egészében a VS Code-ból a **Microsoft Foundry kiterjesztés** és a **Foundry Toolkit** használatával.
 
-> **A hosztolt ügynökök jelenleg előzetes verzióban vannak.** A támogatott régiók korlátozottak – lásd [régió elérhetőség](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **A Hosted Agents jelenleg előzetes verzióban érhetők el.** A támogatott régiók korlátozottak - lásd a [régió elérhetőségét](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> A `agent/` mappa minden laboron belül **automatikusan felépül** a Foundry bővítmény által – ezt követően testreszabhatja a kódot, helyben tesztelhet, majd telepíthet.
+> Minden laborban az `agent/` mappa a **Foundry kiterjesztés által automatikusan generált**, ezt követően testreszabhatja a kódot, helyileg tesztelhet, majd telepíthet.
+
+### 🌐 Többnyelvű támogatás
+
+#### GitHub Action által támogatott (Automatikus és Mindig naprakész)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](./README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[Arab](../ar/README.md) | [Bangla](../bn/README.md) | [Bolgár](../bg/README.md) | [Burmai (Myanmar)](../my/README.md) | [Kínai (egyszerűsített)](../zh-CN/README.md) | [Kínai (hagyományos, Hong Kong)](../zh-HK/README.md) | [Kínai (hagyományos, Makaó)](../zh-MO/README.md) | [Kínai (hagyományos, Tajvan)](../zh-TW/README.md) | [Horvát](../hr/README.md) | [Cseh](../cs/README.md) | [Dán](../da/README.md) | [Holland](../nl/README.md) | [Észt](../et/README.md) | [Finn](../fi/README.md) | [Francia](../fr/README.md) | [Német](../de/README.md) | [Görög](../el/README.md) | [Héber](../he/README.md) | [Hindi](../hi/README.md) | [Magyar](./README.md) | [Indonéz](../id/README.md) | [Olasz](../it/README.md) | [Japán](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Koreai](../ko/README.md) | [Litván](../lt/README.md) | [Maláj](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepáli](../ne/README.md) | [Nigériai pidgin](../pcm/README.md) | [Norvég](../no/README.md) | [Perzsa (Fárszi)](../fa/README.md) | [Lengyel](../pl/README.md) | [Portugál (Brazília)](../pt-BR/README.md) | [Portugál (Portugália)](../pt-PT/README.md) | [Pandzsábi (Gurmukhi)](../pa/README.md) | [Román](../ro/README.md) | [Orosz](../ru/README.md) | [Szerb (cirill)](../sr/README.md) | [Szlovák](../sk/README.md) | [Szlovén](../sl/README.md) | [Spanyol](../es/README.md) | [Szuahéli](../sw/README.md) | [Svéd](../sv/README.md) | [Tagalog (Filippínó)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Török](../tr/README.md) | [Ukrán](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnami](../vi/README.md)
 
-> **Inkábban helyben klónozná?**
+> **Inkább helyben klónozná?**
 >
-> Ez a tárház több mint 50 nyelvi fordítást tartalmaz, ami jelentősen megnöveli a letöltési méretet. Ha fordítások nélkül kívánja klónozni, használja a sparse checkout-ot:
+> Ez a tároló több mint 50 nyelvi fordítást tartalmaz, amelyek jelentősen megnövelik a letöltési méretet. Ha fordítások nélkül szeretné klónozni, használja a sparse checkout-ot:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,28 +42,28 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> Így mindent megkap, amire szüksége van a kurzus teljesítéséhez, sokkal gyorsabb letöltéssel.
+> Ez mindent megad, amire szüksége van a kurzus elvégzéséhez, sokkal gyorsabb letöltéssel.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## Felépítés
+## Architektúra
 
 ```mermaid
 flowchart TB
     subgraph Local["Helyi fejlesztés (VS Code)"]
         direction TB
         FE["Microsoft Foundry
-        Bővítmény"]
-        FoundryToolkit["Foundry Toolkit
-        Bővítmény"]
-        Scaffold["Lépcsőzetes ügynök kód
+        Kiterjesztés"]
+        FoundryToolkit["Foundry Eszközkészlet
+        Kiterjesztés"]
+        Scaffold["Előkészített Ügynök Kód
         (main.py · agent.yaml · Dockerfile)"]
         Inspector["Ügynök Ellenőrző
         (Helyi tesztelés)"]
-        FE -- "Új hosztolt
-        ügynök létrehozása" --> Scaffold
-        Scaffold -- "F5 Hibaelhárítás" --> Inspector
+        FE -- "Új
+        Felügyelt Ügynök létrehozása" --> Scaffold
+        Scaffold -- "F5 Hibakeresés" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
@@ -68,7 +72,7 @@ flowchart TB
         ACR["Azure Konténer
         Regisztráció"]
         AgentService["Foundry Ügynök Szolgáltatás
-        (Hosztolt ügynök futtatási környezet)"]
+        (Felügyelt Ügynök Futásideje)"]
         Model["Azure OpenAI
         (gpt-4.1 / gpt-4.1-mini)"]
         Playground["Foundry Játszótér
@@ -82,53 +86,53 @@ flowchart TB
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
-    Playground -- "Tesztelő kérések" --> AgentService
+    Playground -- "Tesztelési parancsok" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**Folyamat:** A Foundry bővítmény felépíti az ügynököt → Ön testreszabja a kódot és az utasításokat → helyben tesztel az Agent Inspectorral → telepít a Foundry-ba (Docker kép feltöltése az ACR-be) → ellenőrzés a Playgroundban.
+**Folyamat:** A Foundry kiterjesztés létrehozza az ügynököt → Ön testreszabja a kódot és utasításokat → helyileg teszt a Agent Inspectorral → telepít a Foundry-be (Docker image pusholva az ACR-be) → ellenőrzi a Playground-ban.
 
 ---
 
-## Amit építeni fog
+## Mit fog építeni
 
-| Lab | Leírás | Állapot |
+| Labor | Leírás | Állapot |
 |-----|-------------|--------|
-| **Lab 01 - Egyetlen ügynök** | Építse meg az **"Magyarázza el úgy, mintha vezető lennék" ügynököt**, tesztelje helyben, és telepítse a Foundry-ba | ✅ Elérhető |
-| **Lab 02 - Többügynökös munkafolyamat** | Építse meg a **"Önéletrajz → Munkaalkalmasság értékelő"** - 4 ügynök együttműködik az önéletrajz illeszkedésének pontozásában és tanulási terv generálásában | ✅ Elérhető |
+| **Labor 01 - Egyszemélyes Ügynök** | Építse meg az **„Magyarázd el, mintha vállalati vezető lennék”** ügynököt, tesztelje helyileg, majd telepítse a Foundry-be | ✅ Elérhető |
+| **Labor 02 - Többügynökös munkafolyamat** | Építse meg a **„Önéletrajz → Munkaalkalmasság értékelő”** ügynököt - 4 ügynök együttműködve pontozza az önéletrajz illeszkedését és készít tanulási tervet | ✅ Elérhető |
 
 ---
 
-## Ismerje meg a Vezetői Ügynököt
+## Ismerkedjen meg az Executive ügynökkel
 
-Ebben a workshopban megépíti az **"Magyarázza el úgy, mintha vezető lennék" ügynököt** – egy MI ügynököt, amely a bonyolult műszaki zsargont nyugodt, igazgatósági értekezlet-re kész összefoglalókká fordítja le. Mert legyünk őszinték, senki sem akar a vezetésben arról hallani, hogy "szálmedence kimerülés lépett fel a szinkron hívások miatt, amelyeket a v3.2 hozott be."
+Ebben a műhelyben megépíti az **„Magyarázd el, mintha vállalati vezető lennék”** ügynököt – egy MI ügynököt, amely a nehezen érthető technikai zsargont átalakítja nyugodt, igazgatósági szintű összefoglalóvá. Mert legyünk őszinték, senki sem akar a felsővezetésben hallani olyanokról, hogy „szálkészlet kimerülés szinkron hívások miatt, amelyek a v3.2-ben jelentek meg.”
 
-Ezt az ügynököt egy túl sok eset után készítettem, amikor a tökéletesen megírt post-mortememre azt kaptam válaszul: *"Szóval... az oldal le van állva, vagy sem?"*
+Ezt az ügynököt egy túl sok eset után építettem, amikor a tökéletesen megírt hibaanalízis reakciója az volt: *„Szóval... le van-e az oldal vagy sem?”*
 
 ### Hogyan működik
 
-Megad egy technikai frissítést. Ez visszadob egy vezetői összefoglalót – három pontban, zsargon nélkül, stack trace nélkül, és lételméleti félelem nélkül. Csak azt, hogy **mi történt**, **üzleti hatás**, és a **következő lépés**.
+Ad egy technikai frissítést. Visszaad egy vezetői összefoglalót – három pontban, zsargon nélkül, stack trace-ek nélkül, létezési szorongás nélkül. Csak az, **mi történt**, **üzleti hatás**, és a **következő lépés**.
 
-### Lássa működés közben
+### Nézze meg működés közben
 
 **Ön mondja:**
-> "Az API késleltetése megnövekedett a szálmedence kimerülése miatt, amit a v3.2-ben bevezetett szinkron hívások okoztak."
+> „Az API késleltetés nőtt a szálkészlet kimerülése miatt, amelyet a v3.2-ben bevezetett szinkron hívások okoztak.”
 
 **Az ügynök válasza:**
 
-> **Vezetői Összefoglaló:**
-> - **Mi történt:** A legújabb kiadás után a rendszer lassult.
-> - **Üzleti hatás:** Egyes felhasználók késéseket tapasztaltak a szolgáltatás használata közben.
-> - **Következő lépés:** A változtatás vissza lett vonva, és egy javítás készül az újratelepítés előtt.
+> **Vezetői összefoglaló:**
+> - **Mi történt:** A legutóbbi kiadás után a rendszer lassult.
+> - **Üzleti hatás:** Néhány felhasználó késedelmet tapasztalt a szolgáltatás használata közben.
+> - **Következő lépés:** A változtatást visszavonták, és javítást készítenek elő az ismételt telepítés előtt.
 
 ### Miért ez az ügynök?
 
-Ez egy halál egyszerű, egyetlen célú ügynök – tökéletes arra, hogy végigkövesse a hosztolt ügynökök munkafolyamatát anélkül, hogy bonyolult eszközláncokba bonyolódna. És őszintén? Minden mérnöki csapatnak kellene egy ilyen.
+Ez egy egyszerű, egypurpose (egyetlen célú) ügynök – tökéletes a hosted agent munkafolyamat végpontok közötti végigjárásához anélkül, hogy komplex eszköztárakba keveredne. És őszintén? Minden mérnöki csapatnak kellene egy ilyen.
 
 ---
 
-## Workshop felépítése
+## Műhely struktúrája
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -175,13 +179,13 @@ Ez egy halál egyszerű, egyetlen célú ügynök – tökéletes arra, hogy vé
             └── requirements.txt
 ```
 
-> **Megjegyzés:** Az `agent/` mappa minden laboron belül az, amit a **Microsoft Foundry bővítmény** generál, amikor futtatja a `Microsoft Foundry: Create a New Hosted Agent` parancsot a parancspalettán. A fájlokat aztán testreszabja az ügynök utasításaival, eszközeivel és konfigurációjával. Az 01-es labor végigvezeti Önt ennek újragenerálásán a nulláról.
+> **Megjegyzés:** Az `agent/` mappa minden laborban azt tartalmazza, amit a **Microsoft Foundry kiterjesztés** generál, amikor a Parancs palettán futtatja a `Microsoft Foundry: Create a New Hosted Agent` parancsot. A fájlokat ezután testreszabja az ügynök utasításaival, eszközeivel és konfigurációjával. Az 01-es labor végigvezeti Önöket ezen az újrateremtésen nulláról.
 
 ---
 
 ## Kezdés
 
-### 1. Klónozza a tárházat
+### 1. Klónozza a tárolót
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
@@ -211,9 +215,9 @@ Aktiválja:
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. Konfigurálja a környezeti változókat
+### 4. Állítsa be a környezeti változókat
 
-Másolja az agent mappán belül található .env minta fájlt, és töltse ki az értékeit:
+Másolja az agent mappában található `.env` minta fájlt és töltse ki saját értékekkel:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,36 +230,36 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Kövesse a workshop laborokat
+### 5. Kövesse a műhely laborokat
 
-Minden labor önálló, saját modulokkal. Kezdje az **01-es laborral**, hogy megismerje az alapokat, majd folytassa a **02-es laborral** a többügynökös munkafolyamatokhoz.
+Minden labor önálló, saját modulokkal. Kezdje a **Labor 01-gyel** az alapok elsajátításához, majd térjen át a **Labor 02-re** a többügynökös munkafolyamatokhoz.
 
-#### 01-es labor - Egyetlen ügynök ([teljes utasítások](workshop/lab01-single-agent/README.md))
+#### Labor 01 - Egyszemélyes ügynök ([teljes utasítások](workshop/lab01-single-agent/README.md))
 
 | # | Modul | Link |
 |---|--------|------|
-| 1 | Olvassa el az előfeltételeket | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Telepítse a Foundry Toolkit-et és a Foundry bővítményt | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
-| 3 | Hozzon létre egy Foundry projektet | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
-| 4 | Hozzon létre egy hosztolt ügynököt | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | Konfigurálja az utasításokat és a környezetet | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
-| 6 | Tesztelje helyben | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
-| 7 | Telepítse a Foundry-ba | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Ellenőrizze a playgroundban | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
+| 1 | Előfeltételek elolvasása | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit és Foundry kiterjesztés telepítése | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
+| 3 | Foundry projekt létrehozása | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
+| 4 | Hosted agent létrehozása | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
+| 5 | Utasítások és környezet beállítása | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 6 | Helyi tesztelés | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
+| 7 | Telepítés Foundry-be | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Ellenőrzés a Playgroundban | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
 | 9 | Hibakeresés | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### 02-es labor - Többügynökös munkafolyamat ([teljes utasítások](workshop/lab02-multi-agent/README.md))
+#### Labor 02 - Többügynökös munkafolyamat ([teljes utasítások](workshop/lab02-multi-agent/README.md))
 
 | # | Modul | Link |
 |---|--------|------|
-| 1 | Előfeltételek (02-es labor) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Ismerje meg a többügynökös architektúrát | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Scaffoldolja a többügynökös projektet | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Konfigurálja az ügynököket és a környezetet | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | Orkesztrációs minták | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Tesztelje helyben (többügynökös) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Telepítés a Foundry-ba | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Ellenőrzés a playground-ban | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 1 | Előfeltételek (Labor 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Többügynökös architektúra megértése | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Többügynökös projekt scaffoldolása | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Ügynökök és környezet konfigurálása | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | Ütemezési minták | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | Helyi tesztelés (többügynökös) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Telepítés Foundry-ra | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Ellenőrzés a playgroundban | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Hibakeresés (több ügynök) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
@@ -277,23 +281,23 @@ Minden labor önálló, saját modulokkal. Kezdje az **01-es laborral**, hogy me
 ## Szükséges engedélyek (gyors referencia)
 
 | Forgatókönyv | Szükséges szerepkörök |
-|--------------|----------------------|
+|----------|---------------|
 | Új Foundry projekt létrehozása | **Azure AI Owner** a Foundry erőforráson |
-| Telepítés meglévő projektre (új erőforrások) | **Azure AI Owner** + **Contributor** az előfizetésen |
-| Telepítés teljesen konfigurált projektre | **Reader** a fiókon + **Azure AI User** a projekten |
+| Telepítés meglévő projekthez (új erőforrások) | **Azure AI Owner** + **Contributor** az előfizetésen |
+| Teljesen konfigurált projekthez való telepítés | **Reader** a fiókon + **Azure AI User** a projekten |
 
-> **Fontos:** Az Azure `Owner` és `Contributor` szerepkörök csak *kezelési* engedélyeket tartalmaznak, nem *fejlesztési* (adatműveleti) jogosultságokat. Ügynökök építéséhez és telepítéséhez **Azure AI User** vagy **Azure AI Owner** szükséges.
+> **Fontos:** Az Azure `Owner` és `Contributor` szerepkörök csak *kezelői* engedélyeket tartalmaznak, nem *fejlesztői* (adatműveleti) jogosultságokat. Az ügynökök építéséhez és telepítéséhez **Azure AI User** vagy **Azure AI Owner** szükséges.
 
 ---
 
 ## Hivatkozások
 
-- [Gyorsstart: Az első hosztolt ügynök telepítése (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Gyors kezdés: Első hosztolt ügynök telepítése (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Mik azok a hosztolt ügynökök?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Hosztolt ügynöki munkafolyamatok létrehozása VS Code-ban](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Hosztolt ügynök munkafolyamatok létrehozása VS Code-ban](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [Hosztolt ügynök telepítése](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC a Microsoft Foundry-hoz](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architektúra felülvizsgálati ügynök példa](https://github.com/Azure-Samples/agent-architecture-review-sample) - Valós hosztolt ügynök MCP eszközökkel, Excalidraw diagramokkal és kettős telepítéssel
+- [Architecture Review Agent minta](https://github.com/Azure-Samples/agent-architecture-review-sample) - Valós hosztolt ügynök MCP eszközökkel, Excalidraw diagramokkal és dupla telepítéssel
 
 ---
 
@@ -304,6 +308,6 @@ Minden labor önálló, saját modulokkal. Kezdje az **01-es laborral**, hogy me
 ---
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
-**Nyilatkozat**:
-Ezt a dokumentumot az AI fordító szolgáltatás [Co-op Translator](https://github.com/Azure/co-op-translator) segítségével fordítottuk. Bár törekszünk a pontosságra, kérjük vegye figyelembe, hogy az automatikus fordítások tartalmazhatnak hibákat vagy pontatlanságokat. Az eredeti, anyanyelvi dokumentumot kell tekinteni a hiteles forrásnak. Kritikus információk esetén szakmai emberi fordítást javaslunk. Nem vállalunk felelősséget a fordítás használatából eredő félreértésekért vagy helytelen értelmezésekért.
+**Felelősségkizárás**:  
+Ez a dokumentum az AI fordító szolgáltatás, a [Co-op Translator](https://github.com/Azure/co-op-translator) segítségével készült. Bár törekszünk a pontosságra, kérjük, vegye figyelembe, hogy az automatikus fordítások hibákat vagy pontatlanságokat tartalmazhatnak. Az eredeti dokumentum az anyanyelvén tekintendő kötelező érvényű forrásnak. Kritikus információk esetén profi emberi fordítást javasolt igénybe venni. Nem vállalunk felelősséget az ebből a fordításból származó félreértésekért vagy félreértelmezésekért.
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->

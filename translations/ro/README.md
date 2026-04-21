@@ -1,4 +1,4 @@
-# Foundry Toolkit + Atelier pentru Agenți Găzduiți Foundry
+# Foundry Toolkit + Atelierul Agenților Găzduiți Foundry
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.0.0rc3-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -11,18 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Construiți, testați și implementați agenți AI către **Microsoft Foundry Agent Service** ca **Agenți Găzduiți** - în întregime din VS Code folosind **extensia Microsoft Foundry** și **Foundry Toolkit**.
+Construiește, testează și implementează agenți AI în **Microsoft Foundry Agent Service** ca **Agenți Găzduiți** - integral din VS Code folosind **extensia Microsoft Foundry** și **Foundry Toolkit**.
 
-> **Agenții găzduiți sunt în prezent în previzualizare.** Regiunile suportate sunt limitate - vedeți [disponibilitatea regională](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Agenții Găzduiți sunt momentan în versiune preview.** Regiunile suportate sunt limitate - vezi [disponibilitatea pe regiuni](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Folderul `agent/` din fiecare laborator este **generat automat** de extensia Foundry - apoi personalizați codul, testați local și implementați.
+> Folderul `agent/` din fiecare laborator este **generat automat** de extensia Foundry - apoi personalizezi codul, testezi local și implementezi.
+
+### 🌐 Suport Multi-Limbaj
+
+#### Suportat prin GitHub Action (Automatizat & Întotdeauna Actualizat)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](./README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
 > **Preferi să clonezi local?**
 >
-> Acest depozit include peste 50 de traduceri, ceea ce mărește semnificativ dimensiunea descărcării. Pentru a clona fără traduceri, folosește sparse checkout:
+> Acest depozit conține peste 50 de traduceri în limbi diferite, ceea ce crește semnificativ dimensiunea descărcării. Pentru a clona fără traduceri, folosește sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -38,36 +42,33 @@ Construiți, testați și implementați agenți AI către **Microsoft Foundry Ag
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> Astfel obții tot ce ai nevoie pentru a finaliza cursul cu o descărcare mult mai rapidă.
+> Aceasta îți oferă tot ce ai nevoie pentru a finaliza cursul cu o descărcare mult mai rapidă.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## Arhitectura
+## Arhitectură
 
 ```mermaid
 flowchart TB
     subgraph Local["Dezvoltare locală (VS Code)"]
         direction TB
-        FE["Extensia
-        Microsoft Foundry"]
-        FoundryToolkit["Extensia Foundry Toolkit"]
-        Scaffold["Cod agent scaffolding
+        FE["Extensie Microsoft Foundry"]
+        FoundryToolkit["Extensie Foundry Toolkit"]
+        Scaffold["Cod Agent Șablon
         (main.py · agent.yaml · Dockerfile)"]
-        Inspector["Inspector agent
-        (Testare locală)"]
-        FE -- "Creează agent nou 
-        găzduit" --> Scaffold
+        Inspector["Inspector Agent
+        (Testare Locală)"]
+        FE -- "Creează Agent Gazduit Nou" --> Scaffold
         Scaffold -- "Debug F5" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
     subgraph Cloud["Microsoft Foundry"]
         direction TB
-        ACR["Registrul de containere
-        Azure"]
-        AgentService["Serviciu agent Foundry
-        (Runtime agent găzduit)"]
+        ACR["Registru Container Azure"]
+        AgentService["Serviciu Agent Foundry
+        (Execuție Agent Gazduit)"]
         Model["Azure OpenAI
         (gpt-4.1 / gpt-4.1-mini)"]
         Playground["Foundry Playground
@@ -77,8 +78,8 @@ flowchart TB
         AgentService --> Playground
     end
 
-    Scaffold -- "Deploy
-    (build + push Docker)" --> ACR
+    Scaffold -- "Implementare
+    (Construire + push Docker)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
     Playground -- "Testează prompturi" --> AgentService
@@ -86,44 +87,44 @@ flowchart TB
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
-**Flux:** Extensia Foundry generează agentul → personalizați codul și instrucțiunile → testați local cu Agent Inspector → implementați în Foundry (imagine Docker împinsă în ACR) → verificați în Playground.
+**Flux:** Extensia Foundry generează scheletul agentului → tu personalizezi codul și instrucțiunile → testezi local cu Agent Inspector → implementezi în Foundry (imaginea Docker este împinsă în ACR) → verifici în Playground.
 
 ---
 
 ## Ce vei construi
 
 | Laborator | Descriere | Stare |
-|-----------|-----------|-------|
-| **Laborator 01 - Agent Unic** | Construiește **Agentul "Explică ca pentru un Executiv"**, testează-l local și implementează-l în Foundry | ✅ Disponibil |
-| **Laborator 02 - Flux Multi-Agent** | Construiește **"Evaluarea Jobului → Potrivire CV"** - 4 agenți colaborează pentru a puncta potrivirea CV-ului și a genera un plan de învățare | ✅ Disponibil |
+|-----|-------------|--------|
+| **Laborator 01 - Agent Simplu** | Construiește agentul **"Explică-mi ca unui Director Executiv"**, testează-l local și implementează-l în Foundry | ✅ Disponibil |
+| **Laborator 02 - Flux Multi-Agent** | Construiește evaluatorul **"CV → Potrivire Job"** - 4 agenți colaborează pentru a evalua potrivirea CV-ului și a genera un plan de învățare | ✅ Disponibil |
 
 ---
 
-## Cunoaște agentul Executiv
+## Cunoaște Agentul Executiv
 
-În acest atelier vei construi **Agentul "Explică ca pentru un Executiv"** - un agent AI care ia jargon tehnic dificil și îl traduce în rezumate liniștite, gata pentru ședințe în sala de consiliu. Pentru că, să fim serioși, nimeni din echipa executivă nu vrea să audă despre „exhaustarea pool-ului de fire cauzată de apeluri sincrone introduse în v3.2.”
+În acest atelier vei construi agentul **"Explică-mi ca unui Director Executiv"** - un agent AI care preia jargon tehnic dificil și îl traduce în rezumate calme, gata pentru sala de ședințe. Pentru că, să fim sinceri, nimeni din echipa de conducere nu vrea să audă despre „exhaustarea thread pool-ului cauzată de apeluri sincronizate introduse în v3.2.”
 
-Am construit acest agent după prea multe incidente în care raportul meu post-mortem perfect a primit răspunsul: *„Deci... site-ul este jos sau nu?”*
+Am creat acest agent după prea multe situații în care postul meu post-mortem perfect redactat a primit răspunsul: *„Deci... site-ul este jos sau nu?”*
 
 ### Cum funcționează
 
-Îi oferi o actualizare tehnică. El returnează un rezumat executiv - trei puncte principale, fără jargon, fără trasee de stivă, fără teamă existențială. Doar **ce s-a întâmplat**, **impactul asupra business-ului**, și **pasul următor**.
+Îi dai o actualizare tehnică. El îți oferă un rezumat executiv - trei puncte esențiale, fără jargon, fără trasee de stivă, fără teamă existențială. Doar **ce s-a întâmplat**, **impactul asupra afacerii** și **următorul pas**.
 
 ### Vezi-l în acțiune
 
 **Spui tu:**
-> „Latenta API a crescut din cauza extenuării pool-ului de fire cauzat de apeluri sincrone introduse în v3.2.”
+> „Latenta API a crescut din cauza exhaustării thread pool-ului cauzate de apeluri sincronizate introduse în v3.2.”
 
 **Agentul răspunde:**
 
-> **Rezumat executiv:**
-> - **Ce s-a întâmplat:** După ultima versiune, sistemul a încetinit.
-> - **Impactul asupra business-ului:** Unii utilizatori au experimentat întârzieri folosind serviciul.
-> - **Pasul următor:** Modificarea a fost reînnoită și se pregătește o remediere înainte de noua implementare.
+> **Rezumat Executiv:**
+> - **Ce s-a întâmplat:** După ultima actualizare, sistemul a încetinit.
+> - **Impact asupra afacerii:** Unii utilizatori au întâmpinat întârzieri în utilizarea serviciului.
+> - **Următorul pas:** Modificarea a fost anulată și se pregătește o remediere înainte de implementare.
 
 ### De ce acest agent?
 
-Este un agent extrem de simplu, cu un singur scop - perfect pentru a învăța fluxul de lucru cu agenți găzduiți de la început până la sfârșit fără a te complica cu lanțuri complexe de unelte. Și sincer? Fiecare echipă de inginerie ar putea folosi unul ca acesta.
+Este un agent foarte simplu, cu un singur scop - perfect pentru a învăța fluxul de lucru pentru agenți găzduiți de la cap la coadă fără a fi copleșit de lanțuri complexe de instrumente. Și sincer? Orice echipă de inginerie ar putea folosi unul ca acesta.
 
 ---
 
@@ -174,11 +175,11 @@ Este un agent extrem de simplu, cu un singur scop - perfect pentru a învăța f
             └── requirements.txt
 ```
 
-> **Notă:** Folderul `agent/` din fiecare laborator este ceea ce generează **extensia Microsoft Foundry** când rulezi comanda `Microsoft Foundry: Create a New Hosted Agent` din Paleta de Comenzi. Fișierele sunt apoi personalizate cu instrucțiunile, uneltele și configurația agentului tău. Laboratorul 01 te conduce pas cu pas să recreezi acest lucru de la zero.
+> **Notă:** Folderul `agent/` din fiecare laborator este ceea ce generează **extensia Microsoft Foundry** când rulezi `Microsoft Foundry: Create a New Hosted Agent` din Command Palette. Fișierele sunt apoi personalizate cu instrucțiunile, uneltele și configurația pentru agentul tău. Laboratorul 01 te ghidează să recreezi acest proces de la zero.
 
 ---
 
-## Începe
+## Începutul
 
 ### 1. Clonează depozitul
 
@@ -212,7 +213,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. Configurează variabilele de mediu
 
-Copiază fișierul `.env` exemplu din folderul agent și completează valorile tale:
+Copiază fișierul exemplu `.env` din folderul agent și completează valorile tale:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -227,17 +228,17 @@ MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ### 5. Urmează laboratoarele atelierului
 
-Fiecare laborator este autonom cu propriile module. Începe cu **Laboratorul 01** pentru a învăța elementele de bază, apoi continuă cu **Laboratorul 02** pentru fluxuri multi-agent.
+Fiecare laborator este autonom cu propriile module. Începe cu **Laborator 01** pentru a învăța elementele de bază, apoi treci la **Laborator 02** pentru fluxuri multi-agent.
 
-#### Laborator 01 - Agent Unic ([instrucțiuni complete](workshop/lab01-single-agent/README.md))
+#### Laborator 01 - Agent Simplu ([instrucțiuni complete](workshop/lab01-single-agent/README.md))
 
 | # | Modul | Link |
 |---|--------|------|
-| 1 | Citește cerințele preliminare | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 1 | Citește precondițiile | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
 | 2 | Instalează Foundry Toolkit & extensia Foundry | [01-install-foundry-toolkit.md](workshop/lab01-single-agent/docs/01-install-foundry-toolkit.md) |
 | 3 | Creează un proiect Foundry | [02-create-foundry-project.md](workshop/lab01-single-agent/docs/02-create-foundry-project.md) |
 | 4 | Creează un agent găzduit | [03-create-hosted-agent.md](workshop/lab01-single-agent/docs/03-create-hosted-agent.md) |
-| 5 | Configurează instrucțiunile & mediul | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
+| 5 | Configurează instrucțiunile și mediul | [04-configure-and-code.md](workshop/lab01-single-agent/docs/04-configure-and-code.md) |
 | 6 | Testează local | [05-test-locally.md](workshop/lab01-single-agent/docs/05-test-locally.md) |
 | 7 | Implementează în Foundry | [06-deploy-to-foundry.md](workshop/lab01-single-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Verifică în playground | [07-verify-in-playground.md](workshop/lab01-single-agent/docs/07-verify-in-playground.md) |
@@ -247,13 +248,13 @@ Fiecare laborator este autonom cu propriile module. Începe cu **Laboratorul 01*
 
 | # | Modul | Link |
 |---|--------|------|
-| 1 | Cerințe preliminare (Laborator 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 1 | Precondiții (Laborator 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
 | 2 | Înțelege arhitectura multi-agent | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
 | 3 | Generează proiectul multi-agent | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Configurează agenții & mediul | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 4 | Configurează agenții și mediul | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Modele de orchestrare | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Testează local (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Implementare pe Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 7 | Implementare în Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Verificare în playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Depanare (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
@@ -277,25 +278,24 @@ Fiecare laborator este autonom cu propriile module. Începe cu **Laboratorul 01*
 
 | Scenariu | Roluri necesare |
 |----------|-----------------|
-| Creare proiect nou Foundry | **Azure AI Owner** pe resursa Foundry |
+| Crearea unui nou proiect Foundry | **Azure AI Owner** pe resursa Foundry |
 | Implementare în proiect existent (resurse noi) | **Azure AI Owner** + **Contributor** pe abonament |
 | Implementare în proiect complet configurat | **Reader** pe cont + **Azure AI User** pe proiect |
 
-> **Important:** rolurile Azure `Owner` și `Contributor` includ doar permisiuni de *gestionare*, nu și permisiuni de *dezvoltare* (acțiuni pe date). Aveți nevoie de **Azure AI User** sau **Azure AI Owner** pentru a construi și implementa agenți.
+> **Important:** Rolurile `Owner` și `Contributor` din Azure includ doar permisiuni de *gestionare*, nu permisiuni de *dezvoltare* (acțiuni de date). Ai nevoie de **Azure AI User** sau **Azure AI Owner** pentru a construi și implementa agenți.
 
 ---
 
 ## Referințe
 
-- [Început rapid: Implementați primul agent găzduit (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Pornire rapidă: Implementați primul agent gazduit (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Ce sunt agenții găzduiți?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Creați fluxuri de lucru pentru agenți găzduiți în VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [Implementați un agent găzduit](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Crearea workflow-urilor pentru agenți găzduiți în VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Implementarea unui agent găzduit](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC pentru Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Exemplu Agent Revizuire Arhitectură](https://github.com/Azure-Samples/agent-architecture-review-sample) - Agent găzduit din lumea reală cu instrumente MCP, diagrame Excalidraw și implementare dublă
+- [Exemplu Agent de Revizuire a Arhitecturii](https://github.com/Azure-Samples/agent-architecture-review-sample) - Agent găzduit real cu instrumente MCP, diagrame Excalidraw și implementare duală
 
 ---
-
 
 ## Licență
 
@@ -305,5 +305,5 @@ Fiecare laborator este autonom cu propriile module. Începe cu **Laboratorul 01*
 
 <!-- CO-OP TRANSLATOR DISCLAIMER START -->
 **Declinare a responsabilității**:  
-Acest document a fost tradus folosind serviciul de traducere AI [Co-op Translator](https://github.com/Azure/co-op-translator). Deși ne străduim pentru acuratețe, vă rugăm să rețineți că traducerile automate pot conține erori sau inexactități. Documentul original în limba sa nativă ar trebui considerat sursa autoritară. Pentru informații critice, se recomandă traducerea profesională realizată de un om. Nu ne asumăm responsabilitatea pentru eventualele neînțelegeri sau interpretări greșite rezultate din utilizarea acestei traduceri.
+Acest document a fost tradus folosind serviciul de traducere AI [Co-op Translator](https://github.com/Azure/co-op-translator). Deși ne străduim pentru acuratețe, vă rugăm să aveți în vedere că traducerile automate pot conține erori sau inexactități. Documentul original în limba sa nativă trebuie considerat sursa autorizată. Pentru informații critice se recomandă traducerea profesională realizată de un specialist uman. Nu ne asumăm responsabilitatea pentru eventualele neînțelegeri sau interpretări greșite rezultate din utilizarea acestei traduceri.
 <!-- CO-OP TRANSLATOR DISCLAIMER END -->
