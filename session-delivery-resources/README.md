@@ -2,7 +2,7 @@
 
 Thanks for delivering this session!
 
-Prior to delivering the workshop please:
+Prior to delivering the workshop, please:
 
 1. Read this document and all included resources in their entirety.
 2. Watch the session delivery recording and the workshop end-to-end walkthrough.
@@ -155,7 +155,7 @@ A 4-agent workflow in [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../w
 
 | Symptom                                      | First thing to try                                                                                       |
 |----------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| Agent Inspector cannot connect               | Confirm port `8088` is free and the `Run Lab0X HTTP Server` task is running.                             |
+| Agent Inspector cannot connect               | Confirm port `8088` is free and the `Run Lab01 HTTP Server` / `Run Lab02 HTTP Server` task is running.   |
 | Debugger fails to attach                     | Check that port `5679` is free; restart VS Code if `debugpy` is already bound.                           |
 | `azd up` fails with auth error               | Run `az login` and `azd auth login`, ensure the correct tenant is selected.                              |
 | Deployment hangs at ACR push                 | Check Docker Desktop is running and the user has `AcrPush` on the registry.                              |
