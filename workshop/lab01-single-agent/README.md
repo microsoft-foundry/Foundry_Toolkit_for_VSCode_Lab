@@ -59,12 +59,13 @@ Complete the tutorial modules before starting this lab:
 
 1. Open **Command Palette** (`Ctrl+Shift+P`).
 2. Run: **Microsoft Foundry: Create a New Hosted Agent**.
-3. Select **Microsoft Agent Framework**
-4. Select **Single Agent** template.
-5. Select **Python**.
+3. Select **Python** as the language.
+4. Select **Response API** as the API type.
+5. Select **Basic - Agent Framework** template.
 6. Select the model you deployed (e.g., `gpt-4.1-mini`).
-7. Save to the `workshop/lab01-single-agent/agent/` folder.
-8. Name it: `executive-summary-agent`.
+7. Select your Foundry workspace.
+8. Save to the `workshop/lab01-single-agent/agent/` folder.
+9. Name it: `executive-summary-agent`.
 
 A new VS Code window opens with the scaffold.
 

@@ -9,15 +9,17 @@ In this module, you use the Microsoft Foundry extension to **scaffold a new [hos
 ```mermaid
 flowchart LR
     A["Command Palette:
-    Create Hosted Agent"] --> B["Choose Template:
-    Single Agent"]
-    B --> C["Choose Language:
+    Create Hosted Agent"] --> B["Choose Language:
     Python"]
-    C --> D["Select Model:
+    B --> C["Select API Type:
+    Response API ✓"]
+    C --> D["Select Template:
+    Basic - Agent Framework"]
+    D --> E["Select Model:
     gpt-4.1-mini"]
-    D --> E["Choose Folder +
+    E --> F["Workspace +
     Agent Name"]
-    E --> F["Scaffolded Project:
+    F --> G["Scaffolded Project:
     agent.yaml, main.py,
     Dockerfile, .env"]
 
@@ -26,7 +28,8 @@ flowchart LR
     style C fill:#7B68EE,color:#fff
     style D fill:#7B68EE,color:#fff
     style E fill:#7B68EE,color:#fff
-    style F fill:#27AE60,color:#fff
+    style F fill:#7B68EE,color:#fff
+    style G fill:#27AE60,color:#fff
 ```
 
 ---
@@ -41,21 +44,7 @@ flowchart LR
 
 ---
 
-## Step 2: Choose your template
-
-The wizard asks you to select a template. You'll see options like:
-
-| Template | Description | When to use |
-|----------|-------------|-------------|
-| **Single Agent** | One agent with its own model, instructions, and optional tools | This workshop (Lab 01) |
-| **Multi-Agent Workflow** | Multiple agents that collaborate in sequence | Lab 02 |
-
-1. Select **Single Agent**.
-2. Click **Next** (or the selection proceeds automatically).
-
----
-
-## Step 3: Choose programming language
+## Step 2: Choose programming language
 
 1. Select **Python** (recommended for this workshop).
 2. Click **Next**.
@@ -64,7 +53,37 @@ The wizard asks you to select a template. You'll see options like:
 
 ---
 
-## Step 4: Select your model
+## Step 3: Select API type
+
+The wizard asks how your agent receives and responds to requests:
+
+| API type | Endpoint | Use when |
+|----------|----------|----------|
+| **Response API** ✅ *(this workshop)* | `POST /responses` | Conversational chatbots, streaming, multi-turn with platform-managed history |
+| Invocation API | `POST /invocations` | Webhooks, non-conversational processing, custom async workflows |
+
+1. Select **Response API**.
+2. Click **Next**.
+
+---
+
+## Step 4: Select template
+
+Available templates for Response API + Python (Foundry Toolkit v1.2.1):
+
+| Template | Description |
+|----------|-------------|
+| **Basic - Agent Framework** ← *(select this)* | A basic agent using the Agent Framework SDK |
+| Echo (Streaming) | A basic echo agent with streaming support |
+| Multi-Turn Chat | An agent that supports multi-turn conversations |
+| Note Taking | An agent with note-taking capabilities |
+
+1. Select **Basic - Agent Framework**.
+2. Click **Next**.
+
+---
+
+## Step 5: Select your model
 
 1. The wizard shows the models deployed in your Foundry project (from Module 2).
 2. Select the model you deployed - e.g., **gpt-4.1-mini**.
@@ -74,17 +93,18 @@ The wizard asks you to select a template. You'll see options like:
 
 ---
 
-## Step 5: Choose folder location and agent name
+## Step 6: Choose workspace and agent name
 
-1. A file dialog opens - choose a **target folder** where the project will be created. For this workshop:
+1. Select your **Foundry workspace** from the list.
+2. A file dialog opens - choose a **target folder** where the project will be created. For this workshop:
    - If starting fresh: choose any folder (e.g., `C:\Projects\my-agent`)
    - If working within the workshop repo: create a new subfolder under `workshop/lab01-single-agent/agent/`
-2. Enter a **name** for the hosted agent (e.g., `executive-summary-agent` or `my-first-agent`).
-3. Click **Create** (or press Enter).
+3. Enter a **name** for the hosted agent (e.g., `executive-summary-agent` or `my-first-agent`).
+4. Click **Create** (or press Enter).
 
 ---
 
-## Step 6: Wait for scaffolding to complete
+## Step 7: Wait for scaffolding to complete
 
 1. VS Code opens a **new window** with the scaffolded project.
 2. Wait a few seconds for the project to fully load.
@@ -107,16 +127,15 @@ The wizard asks you to select a template. You'll see options like:
 
 ---
 
-## Step 7: Understand each generated file
+## Step 8: Understand each generated file
 
 Take a moment to inspect each file the wizard created. Understanding them is important for Module 4 (customization).
 
-### 7.1 `agent.yaml` - Agent definition
+### 8.1 `agent.yaml` - Agent definition
 
 Open `agent.yaml`. It looks like this:
 
 ```yaml
-# yaml-language-server: $schema=https://raw.githubusercontent.com/microsoft/AgentSchema/refs/heads/main/schemas/v1.0/ContainerAgent.yaml
 
 kind: hosted
 name: my-first-agent
@@ -153,7 +172,7 @@ resources:
 | `dockerfile_path` | Points to the Dockerfile used to build the container image |
 | `resources` | CPU and memory allocation for the container (0.25 CPU, 0.5Gi memory) |
 
-### 7.2 `main.py` - Agent entry point
+### 8.2 `main.py` - Agent entry point
 
 Open `main.py`. This is the main Python file where your agent logic lives. The scaffold includes:
 
@@ -174,7 +193,7 @@ from azure.identity.aio import DefaultAzureCredential
 The main flow is:
 1. Create a credential → create a client → call `.as_agent()` to get an agent (async context manager) → wrap it as a server → run
 
-### 7.3 `Dockerfile` - Container image
+### 8.3 `Dockerfile` - Container image
 
 ```dockerfile
 FROM python:3.14-slim
@@ -202,7 +221,7 @@ CMD ["python", "main.py"]
 - **Exposes port 8088** - this is the required port for hosted agents. Do not change it.
 - Starts the agent with `python main.py`.
 
-### 7.4 `requirements.txt` - Dependencies
+### 8.4 `requirements.txt` - Dependencies
 
 ```
 agent-framework-azure-ai==1.0.0rc3
