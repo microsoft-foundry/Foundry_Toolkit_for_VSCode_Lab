@@ -1,0 +1,158 @@
+{
+  "00-azure-portal-subscriptions.062ae2c370326bac.webp": {
+    "original_hash": "c538e203a309c7db4b9f2fe97599053d",
+    "translation_date": "2026-07-11T14:31:13+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/00-azure-portal-subscriptions.png",
+    "language_code": "da"
+  },
+  "00-foundry-sidebar-project-model.51036e8b9386e1f4.webp": {
+    "original_hash": "002a78bbb989889e7618633e80825da2",
+    "translation_date": "2026-07-11T14:34:08+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/00-foundry-sidebar-project-model.png",
+    "language_code": "da"
+  },
+  "01-command-palette-foundry-commands.a5967a795e0fc9be.webp": {
+    "original_hash": "91c8cdf394d2140eb35a7ffbd722a483",
+    "translation_date": "2026-07-11T14:27:41+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/01-command-palette-foundry-commands.png",
+    "language_code": "da"
+  },
+  "01-foundry-sidebar-view.38c79ec78b053df4.webp": {
+    "original_hash": "17c0866c40430e386bc4d7254b8b31f6",
+    "translation_date": "2026-07-11T14:28:12+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/01-foundry-sidebar-view.png",
+    "language_code": "da"
+  },
+  "02-azure-portal-iam-add-role.70e6e2c2c80f4c3f.webp": {
+    "original_hash": "54d7fec558aa076d72ee91a5040e8a0b",
+    "translation_date": "2026-07-11T14:27:52+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/02-azure-portal-iam-add-role.png",
+    "language_code": "da"
+  },
+  "02-create-hosted-agents.9f10b6a566df3053.webp": {
+    "original_hash": "7327da81b90e68bfcbba74e4f1f02bf4",
+    "translation_date": "2026-07-11T14:32:02+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/02-create-hosted-agents.jpg",
+    "language_code": "da"
+  },
+  "02-foundry-sidebar-new-project.eb1e27c07d876c41.webp": {
+    "original_hash": "002a78bbb989889e7618633e80825da2",
+    "translation_date": "2026-07-11T14:32:13+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/02-foundry-sidebar-new-project.png",
+    "language_code": "da"
+  },
+  "02-hosted-agents-sample.0aabd1638936c591.webp": {
+    "original_hash": "428ee729840dc949f7aa19081ec79722",
+    "translation_date": "2026-07-11T14:29:47+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/02-hosted-agents-sample.jpg",
+    "language_code": "da"
+  },
+  "02-model-catalog-gpt41.4a48eddc2c53e3cc.webp": {
+    "original_hash": "ce2b473e50cafa7eeb1f871662ba2903",
+    "translation_date": "2026-07-11T14:30:35+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/02-model-catalog-gpt41.png",
+    "language_code": "da"
+  },
+  "02-scaffold-wizard-create.ae0c285c309698ba.webp": {
+    "original_hash": "99a703f74fb7329f0b9e8df59b9f33bb",
+    "translation_date": "2026-07-11T14:34:49+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png",
+    "language_code": "da"
+  },
+  "02-scaffold-wizard-details.af4798708b4a87f4.webp": {
+    "original_hash": "20ba593e3519e538fc146acf3d7a8b96",
+    "translation_date": "2026-07-11T14:33:23+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png",
+    "language_code": "da"
+  },
+  "04-debug-console-matching-input.ed5c06395e25aec0.webp": {
+    "original_hash": "5a4f2a838aacee658f98e8e3e66aff34",
+    "translation_date": "2026-07-11T14:33:58+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/04-debug-console-matching-input.png",
+    "language_code": "da"
+  },
+  "04-inspector-streaming-output.df2781aaa02df6bc.webp": {
+    "original_hash": "c811b03f08ecaece6af60945f5fd7c99",
+    "translation_date": "2026-07-11T14:33:45+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/04-inspector-streaming-output.png",
+    "language_code": "da"
+  },
+  "04-local-testing.0c9b1b37b14b0b25.webp": {
+    "original_hash": "06d92cad78f8efdf30df1e65184fc6bd",
+    "translation_date": "2026-07-11T14:31:45+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/04-local-testing.png",
+    "language_code": "da"
+  },
+  "05-agent-inspector-response.9d761cc9bd77818b.webp": {
+    "original_hash": "ebd28b59d8707a18fa51acb3612cb109",
+    "translation_date": "2026-07-11T14:29:21+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/05-agent-inspector-response.png",
+    "language_code": "da"
+  },
+  "05-configure-basics.4d5f3d6b0d96f033.webp": {
+    "original_hash": "5c0a8bce5bef537394b33f4c586398c2",
+    "translation_date": "2026-07-11T14:29:01+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/05-configure-basics.png",
+    "language_code": "da"
+  },
+  "05-deployed-asset.b59e6a5eef31c0b1.webp": {
+    "original_hash": "c57126a4ba8f340c381ccc2b25c4d85c",
+    "translation_date": "2026-07-11T14:31:02+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/05-deployed-asset.png",
+    "language_code": "da"
+  },
+  "05-foundry-project-setup.ca6ad16a6484e054.webp": {
+    "original_hash": "89b3a2bf97ecadee8111b29e1c8d82a6",
+    "translation_date": "2026-07-11T14:28:03+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/05-foundry-project-setup.png",
+    "language_code": "da"
+  },
+  "05-inspector-test1-complete-response.8c63a52995899333.webp": {
+    "original_hash": "d8d6b16bc58bfba4b95dc9ade20aefc0",
+    "translation_date": "2026-07-11T14:34:23+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/05-inspector-test1-complete-response.png",
+    "language_code": "da"
+  },
+  "05-review-deploy.12b449d426bff886.webp": {
+    "original_hash": "597e53a6fc69c9218903fd03f848783a",
+    "translation_date": "2026-07-11T14:29:09+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/05-review-deploy.png",
+    "language_code": "da"
+  },
+  "06-agent-in-foundry.916ffaaff13b1ae6.webp": {
+    "original_hash": "42b292fb7bf41b4e654f20abb5107cd2",
+    "translation_date": "2026-07-11T14:32:33+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/06-agent-in-foundry.png",
+    "language_code": "da"
+  },
+  "06-agent-inspector-deploy-button.cc0ac20f5b1a31b8.webp": {
+    "original_hash": "464cac29b47a68f3ff305bcef5d8412b",
+    "translation_date": "2026-07-11T14:33:05+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/06-agent-inspector-deploy-button.png",
+    "language_code": "da"
+  },
+  "06-deployed-agent-playground.52a1a5500fc36d16.webp": {
+    "original_hash": "84293c7b637fb4e1c26cf54c783f086d",
+    "translation_date": "2026-07-11T14:28:31+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/06-deployed-agent-playground.png",
+    "language_code": "da"
+  },
+  "06-foundry-portal-agent-list.5945b6da0028972e.webp": {
+    "original_hash": "f580a4944aacfda1ef589c8d540288e0",
+    "translation_date": "2026-07-11T14:31:29+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/06-foundry-portal-agent-list.png",
+    "language_code": "da"
+  },
+  "06-foundry-sidebar-agent-status.a45994bfb5c21284.webp": {
+    "original_hash": "3bedc875048a293eb2f1b30cecb38ab0",
+    "translation_date": "2026-07-11T14:34:40+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/images/06-foundry-sidebar-agent-status.png",
+    "language_code": "da"
+  },
+  "07-foundry-playground-chat.cc670304eb6b5b22.webp": {
+    "original_hash": "beabe36a5e3dd7144d04fbf28dabfbb5",
+    "translation_date": "2026-07-11T14:30:11+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/images/07-foundry-playground-chat.png",
+    "language_code": "da"
+  }
+}
