@@ -1,0 +1,177 @@
+{
+  "CODE_OF_CONDUCT.md": {
+    "original_hash": "763a733399ea9f55f6418d1efe13c12b",
+    "translation_date": "2026-07-11T13:14:35+00:00",
+    "source_file": "CODE_OF_CONDUCT.md",
+    "language_code": "lt"
+  },
+  "README.md": {
+    "original_hash": "e4cb3996613e11264e496ec4ecdf3254",
+    "translation_date": "2026-07-11T13:14:15+00:00",
+    "source_file": "README.md",
+    "language_code": "lt"
+  },
+  "SECURITY.md": {
+    "original_hash": "7229f7490ea61a04330b79651ac4d37e",
+    "translation_date": "2026-07-11T13:14:47+00:00",
+    "source_file": "SECURITY.md",
+    "language_code": "lt"
+  },
+  "SUPPORT.md": {
+    "original_hash": "62fe65c1d8e3796c01aa1e3c89666cba",
+    "translation_date": "2026-07-11T13:11:55+00:00",
+    "source_file": "SUPPORT.md",
+    "language_code": "lt"
+  },
+  "__translation_failures__": {
+    "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
+      "original_hash": "af885886a474dbfb40cfe7d9c912d142",
+      "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
+      "language_code": "lt",
+      "failure_date": "2026-07-11T13:38:19+00:00",
+      "status": "failed",
+      "error_type": "TranslationIncompleteError",
+      "error_message": "Markdown translation remained incomplete for chunk 1 of '02-scaffold-multi-agent.md', and the chunk could not be split further.",
+      "translator_version": "0.20.0",
+      "failure_policy_version": 1
+    }
+  },
+  "session-delivery-resources/README.md": {
+    "original_hash": "d38591a4051a2460fcbf758d0b143114",
+    "translation_date": "2026-07-11T13:18:11+00:00",
+    "source_file": "session-delivery-resources/README.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/README.md": {
+    "original_hash": "3e749fcf578fe48be7b8564d8907fc59",
+    "translation_date": "2026-07-11T13:19:34+00:00",
+    "source_file": "workshop/lab01-single-agent/README.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/00-prerequisites.md": {
+    "original_hash": "3ba7d97188789af567b85d2adc9983d1",
+    "translation_date": "2026-07-11T13:28:32+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/00-prerequisites.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/01-setup.md": {
+    "original_hash": "5d37a299eb0084c706748b7a95591efa",
+    "translation_date": "2026-07-11T13:23:45+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/01-setup.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/02-create-hosted-agent.md": {
+    "original_hash": "ef9bcadf784d7d4b070b667e10fb730d",
+    "translation_date": "2026-07-11T13:29:25+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/02-create-hosted-agent.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/03-configure-and-code.md": {
+    "original_hash": "e34d77c2196dfa9a4256134ad9ffd265",
+    "translation_date": "2026-07-11T13:30:41+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/03-configure-and-code.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/04-test-locally.md": {
+    "original_hash": "3b61dcf93852f7010ee1fcdb129d033b",
+    "translation_date": "2026-07-11T13:32:07+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/04-test-locally.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/05-deploy-to-foundry.md": {
+    "original_hash": "85ae60f00a64535a73c5671009a59434",
+    "translation_date": "2026-07-11T13:21:42+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/05-deploy-to-foundry.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/06-verify-in-playground.md": {
+    "original_hash": "e30bce1c90a639b0c881340aed2163b2",
+    "translation_date": "2026-07-11T13:27:29+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/06-verify-in-playground.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/07-summary.md": {
+    "original_hash": "3a6c24e06b86f17b39c4d4c951552d9d",
+    "translation_date": "2026-07-11T13:24:52+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/07-summary.md",
+    "language_code": "lt"
+  },
+  "workshop/lab01-single-agent/docs/08-troubleshooting.md": {
+    "original_hash": "32f10789260ee2b770cd307608f6666b",
+    "translation_date": "2026-07-11T13:26:11+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/08-troubleshooting.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/PersonalCareerCopilot/README.md": {
+    "original_hash": "c858e255f693c15efac5d3b7985c9221",
+    "translation_date": "2026-07-11T13:33:12+00:00",
+    "source_file": "workshop/lab02-multi-agent/PersonalCareerCopilot/README.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/README.md": {
+    "original_hash": "3e00eff55f39f4dda00715c549660889",
+    "translation_date": "2026-07-11T13:20:22+00:00",
+    "source_file": "workshop/lab02-multi-agent/README.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/00-prerequisites.md": {
+    "original_hash": "54ba7831ffdeea92d53c2554186b667e",
+    "translation_date": "2026-07-11T13:45:29+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/00-prerequisites.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md": {
+    "original_hash": "9b08a84af764cd1c332971309292f4b1",
+    "translation_date": "2026-07-11T13:39:10+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/03-configure-agents.md": {
+    "original_hash": "70407279194414452dd1588c0d306b82",
+    "translation_date": "2026-07-11T13:46:52+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/03-configure-agents.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/04-orchestration-patterns.md": {
+    "original_hash": "ca775735e9c9fd337cde4bf7362c2bb5",
+    "translation_date": "2026-07-11T13:36:26+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/04-orchestration-patterns.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/05-test-locally.md": {
+    "original_hash": "f2b948f9380c2582aa19bb81759b83ed",
+    "translation_date": "2026-07-11T13:44:37+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/05-test-locally.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md": {
+    "original_hash": "a44990aa7558e1ffba4b4a8b616c6069",
+    "translation_date": "2026-07-11T13:40:55+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/07-verify-in-playground.md": {
+    "original_hash": "ebcb5164fc20bd7371e74df37ed824b8",
+    "translation_date": "2026-07-11T13:34:57+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/07-verify-in-playground.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/08-troubleshooting.md": {
+    "original_hash": "71add693cf051711af929dc2e6a029c5",
+    "translation_date": "2026-07-11T13:43:26+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/08-troubleshooting.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/09-summary.md": {
+    "original_hash": "d6e2997a57b8e577385126124663b3e7",
+    "translation_date": "2026-07-11T13:48:05+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/09-summary.md",
+    "language_code": "lt"
+  },
+  "workshop/lab02-multi-agent/docs/README.md": {
+    "original_hash": "c8964228b3e3ef48f319423b17fa1280",
+    "translation_date": "2026-07-11T13:36:52+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/README.md",
+    "language_code": "lt"
+  }
+}
