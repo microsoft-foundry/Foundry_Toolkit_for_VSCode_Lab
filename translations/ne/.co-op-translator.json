@@ -1,0 +1,170 @@
+{
+  "CODE_OF_CONDUCT.md": {
+    "original_hash": "763a733399ea9f55f6418d1efe13c12b",
+    "translation_date": "2026-07-11T23:50:58+00:00",
+    "source_file": "CODE_OF_CONDUCT.md",
+    "language_code": "ne"
+  },
+  "README.md": {
+    "original_hash": "e4cb3996613e11264e496ec4ecdf3254",
+    "translation_date": "2026-07-11T23:50:48+00:00",
+    "source_file": "README.md",
+    "language_code": "ne"
+  },
+  "SECURITY.md": {
+    "original_hash": "7229f7490ea61a04330b79651ac4d37e",
+    "translation_date": "2026-07-11T23:51:09+00:00",
+    "source_file": "SECURITY.md",
+    "language_code": "ne"
+  },
+  "SUPPORT.md": {
+    "original_hash": "62fe65c1d8e3796c01aa1e3c89666cba",
+    "translation_date": "2026-07-11T23:48:38+00:00",
+    "source_file": "SUPPORT.md",
+    "language_code": "ne"
+  },
+  "session-delivery-resources/README.md": {
+    "original_hash": "d38591a4051a2460fcbf758d0b143114",
+    "translation_date": "2026-07-11T23:53:32+00:00",
+    "source_file": "session-delivery-resources/README.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/README.md": {
+    "original_hash": "3e749fcf578fe48be7b8564d8907fc59",
+    "translation_date": "2026-07-11T23:54:40+00:00",
+    "source_file": "workshop/lab01-single-agent/README.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/00-prerequisites.md": {
+    "original_hash": "3ba7d97188789af567b85d2adc9983d1",
+    "translation_date": "2026-07-12T00:02:33+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/00-prerequisites.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/01-setup.md": {
+    "original_hash": "5d37a299eb0084c706748b7a95591efa",
+    "translation_date": "2026-07-11T23:58:01+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/01-setup.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/02-create-hosted-agent.md": {
+    "original_hash": "ef9bcadf784d7d4b070b667e10fb730d",
+    "translation_date": "2026-07-12T00:03:27+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/02-create-hosted-agent.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/03-configure-and-code.md": {
+    "original_hash": "e34d77c2196dfa9a4256134ad9ffd265",
+    "translation_date": "2026-07-12T00:04:40+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/03-configure-and-code.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/04-test-locally.md": {
+    "original_hash": "3b61dcf93852f7010ee1fcdb129d033b",
+    "translation_date": "2026-07-12T00:06:04+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/04-test-locally.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/05-deploy-to-foundry.md": {
+    "original_hash": "85ae60f00a64535a73c5671009a59434",
+    "translation_date": "2026-07-11T23:56:16+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/05-deploy-to-foundry.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/06-verify-in-playground.md": {
+    "original_hash": "e30bce1c90a639b0c881340aed2163b2",
+    "translation_date": "2026-07-12T00:01:25+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/06-verify-in-playground.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/07-summary.md": {
+    "original_hash": "3a6c24e06b86f17b39c4d4c951552d9d",
+    "translation_date": "2026-07-11T23:58:56+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/07-summary.md",
+    "language_code": "ne"
+  },
+  "workshop/lab01-single-agent/docs/08-troubleshooting.md": {
+    "original_hash": "32f10789260ee2b770cd307608f6666b",
+    "translation_date": "2026-07-12T00:00:10+00:00",
+    "source_file": "workshop/lab01-single-agent/docs/08-troubleshooting.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/PersonalCareerCopilot/README.md": {
+    "original_hash": "c858e255f693c15efac5d3b7985c9221",
+    "translation_date": "2026-07-12T00:07:09+00:00",
+    "source_file": "workshop/lab02-multi-agent/PersonalCareerCopilot/README.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/README.md": {
+    "original_hash": "3e00eff55f39f4dda00715c549660889",
+    "translation_date": "2026-07-11T23:55:19+00:00",
+    "source_file": "workshop/lab02-multi-agent/README.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/00-prerequisites.md": {
+    "original_hash": "54ba7831ffdeea92d53c2554186b667e",
+    "translation_date": "2026-07-12T00:18:18+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/00-prerequisites.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md": {
+    "original_hash": "9b08a84af764cd1c332971309292f4b1",
+    "translation_date": "2026-07-12T00:12:16+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
+    "original_hash": "af885886a474dbfb40cfe7d9c912d142",
+    "translation_date": "2026-07-12T00:11:30+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/03-configure-agents.md": {
+    "original_hash": "70407279194414452dd1588c0d306b82",
+    "translation_date": "2026-07-12T00:19:32+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/03-configure-agents.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/04-orchestration-patterns.md": {
+    "original_hash": "ca775735e9c9fd337cde4bf7362c2bb5",
+    "translation_date": "2026-07-12T00:10:08+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/04-orchestration-patterns.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/05-test-locally.md": {
+    "original_hash": "f2b948f9380c2582aa19bb81759b83ed",
+    "translation_date": "2026-07-12T00:17:27+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/05-test-locally.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md": {
+    "original_hash": "a44990aa7558e1ffba4b4a8b616c6069",
+    "translation_date": "2026-07-12T00:13:49+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/07-verify-in-playground.md": {
+    "original_hash": "ebcb5164fc20bd7371e74df37ed824b8",
+    "translation_date": "2026-07-12T00:08:45+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/07-verify-in-playground.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/08-troubleshooting.md": {
+    "original_hash": "71add693cf051711af929dc2e6a029c5",
+    "translation_date": "2026-07-12T00:16:17+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/08-troubleshooting.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/09-summary.md": {
+    "original_hash": "d6e2997a57b8e577385126124663b3e7",
+    "translation_date": "2026-07-12T00:20:46+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/09-summary.md",
+    "language_code": "ne"
+  },
+  "workshop/lab02-multi-agent/docs/README.md": {
+    "original_hash": "c8964228b3e3ef48f319423b17fa1280",
+    "translation_date": "2026-07-12T00:10:35+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/README.md",
+    "language_code": "ne"
+  }
+}
