@@ -158,7 +158,6 @@ Um fluxo com 4 agentes em [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](
 | `azd up` falha com erro de autenticação      | Execute `az login` e `azd auth login`, assegure que o tenant correto está selecionado.          |
 | Implantação fica bloqueada no push para ACR | Verifique se o Docker Desktop está a correr e se o utilizador tem permissão `AcrPush` no registo. |
 | Modelo retorna 404 / deployment-not-found    | O nome da implantação do modelo em `agent.yaml` deve coincidir com a implantação no projeto Foundry. |
-
 | O agente hospedado está bloqueado em `Provisioning`         | Verifique se a região do projeto [suporta agentes hospedados](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) e se há quota disponível. |
 | O playground retorna 401                                    | Reautentique a extensão Foundry a partir da barra de atividades do VS Code.                                     |
 

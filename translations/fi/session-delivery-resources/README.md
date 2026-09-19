@@ -158,7 +158,6 @@ Neljän agentin työnkulku sijainnissa [`workshop/lab02-multi-agent/PersonalCare
 | `azd up` epäonnistuu autentikointivirheeseen | Suorita `az login` ja `azd auth login`, varmista että oikea vuokraaja on valittu.                         |
 | Käyttöönotto jumittuu ACR pushissa       | Tarkista, että Docker Desktop toimii ja käyttäjällä on `AcrPush` lupa rekisteriin.                        |
 | Malli palauttaa 404 / deployment-not-found | Mallin käyttöönoton nimi `agent.yaml`-tiedostossa täytyy vastata Foundry-projektin käyttöönottoa.         |
-
 | Isännöity agentti jumissa tilassa `Provisioning` | Varmista, että projektin alue [tukee isännöityjä agentteja](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ja että kiintiötä on saatavilla. |
 | Playground palauttaa 401                          | Kirjaudu uudelleen Foundry-laajennukseen VS Coden toiminta-palkista.                                     |
 

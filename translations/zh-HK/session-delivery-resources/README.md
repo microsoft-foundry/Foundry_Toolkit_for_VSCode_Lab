@@ -158,7 +158,6 @@
 | `azd up` 認證錯誤                     | 執行 `az login` 與 `azd auth login`，確定已選擇正確的租戶。                             |
 | 部署在 ACR 推送時掛起                | 確認 Docker Desktop 正在執行且使用者擁有註冊表的 `AcrPush` 權限。                      |
 | 模型回應 404 / 找不到部署             | `agent.yaml` 中的模型部署名稱必須與 Foundry 專案中的部署名稱一致。                      |
-
 | 託管代理卡在 `Provisioning`                     | 驗證專案區域是否[支援託管代理](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)且配額可用。         |
 | Playground 返回 401                             | 從 VS Code 活動列重新驗證 Foundry 擴充功能。                                     |
 

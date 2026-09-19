@@ -158,7 +158,6 @@
 | `azd up` נכשל בשגיאת אימות                   | הרץ `az login` ואת `azd auth login`, וודא שהשוכר הנכון נבחר.                                      |
 | הפריסה תקועה בשלב ה-ACR push               | בדוק ש-Docker Desktop רץ ולמשתמש יש הרשאת `AcrPush` על הרגיסטרי.                                |
 | המודל מחזיר 404 / deployment-not-found      | שם פריסת המודל ב-`agent.yaml` חייב להתאים לפריסה בפרויקט Foundry.                                |
-
 | סוכן מאוחסן תקוע ב־`Provisioning`            | ודא שהאזור של הפרויקט [תומך בסוכנים מאוחסנים](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ושהקווטה זמינה. |
 | Playground מחזיר 401                         | התחבר מחדש להרחבת Foundry מתוך סרגל הפעילויות של VS Code.                                      |
 

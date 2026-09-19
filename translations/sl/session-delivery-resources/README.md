@@ -158,7 +158,6 @@ Samostojen agent v [`workshop/lab01-single-agent/agent/`](../../../workshop/lab0
 | `azd up` ne uspe zaradi napake pri avtentikaciji | Zaženi `az login` in `azd auth login`, preveri, da je izbran pravi zakupnik.                          |
 | Namestitev se zatakne pri ACR push           | Preveri, da je Docker Desktop zagnan in da ima uporabnik pravico `AcrPush` v registru.                |
 | Model vrne 404 / deployment-not-found         | Ime namestitve modela v `agent.yaml` mora ustrezati tisti v Foundry projektu.                          |
-
 | Gostujoči agent zataknjen v `Provisioning`         | Preverite, ali regija projekta [podpira gostujoče agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) in ali je kvota na voljo. |
 | Igralna površina vrne 401                       | Ponovno se overite v razširitvi Foundry iz vrstice dejavnosti VS Code.                                     |
 

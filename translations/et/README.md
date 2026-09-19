@@ -254,7 +254,6 @@ Iga töötoa moodulid on iseseisvad. Alusta **Töötoast 01**, et õppida põhia
 | 4 | Sea agendid ja keskkond | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Orkestreerimismustrid | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Testi kohapeal (mitme agendi jaoks) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Juhtimine Foundrysse paigutamine | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Kontroll playground'is | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Tõrkeotsing (mitmeagendi) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

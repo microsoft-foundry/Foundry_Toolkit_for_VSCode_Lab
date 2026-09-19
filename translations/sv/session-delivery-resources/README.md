@@ -158,7 +158,6 @@ Ett arbetsflöde med 4 agenter i [`workshop/lab02-multi-agent/PersonalCareerCopi
 | `azd up` misslyckas med autentiseringsfel  | Kör `az login` och `azd auth login`, säkerställ att rätt tenant är vald.                      |
 | Distribution fastnar vid ACR push           | Kontrollera att Docker Desktop körs och att användaren har `AcrPush` på registret.             |
 | Modell returnerar 404 / deployment-not-found | Modellutplaceringens namn i `agent.yaml` måste matcha utplaceringen i Foundry-projektet.     |
-
 | Värdbaserad agent fastnat i `Provisioning`         | Kontrollera att projektets region [stöder värdbaserade agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) och att kvot finns tillgänglig. |
 | Playground returnerar 401                       | Logga in igen i Foundry-tillägget från VS Code aktivitetsfält.                                     |
 

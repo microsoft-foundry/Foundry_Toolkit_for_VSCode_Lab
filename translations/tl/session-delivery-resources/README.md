@@ -158,7 +158,6 @@ Isang 4-agent workflow sa [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](
 | Nabibigo ang `azd up` dahil sa auth error     | Patakbuhin ang `az login` at `azd auth login`, tiyaking napili ang tamang tenant.                       |
 | Nakabitin ang deployment sa ACR push           | Siguraduhing tumatakbo ang Docker Desktop at may pahintulot ang user na `AcrPush` sa registry.          |
 | Nagbabalik ang model ng 404 / deployment-not-found | Dapat magtugma ang pangalan ng model deployment sa `agent.yaml` sa deployment sa Foundry project.        |
-
 | Naka-host na ahente na natigil sa `Provisioning`         | Siguraduhing sinusuportahan ng rehiyon ng proyekto ang [mga naka-host na ahente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) at may available na quota. |
 | Nagbabalik ang Playground ng 401                       | Muling i-authenticate ang Foundry extension mula sa VS Code activity bar.                                     |
 

@@ -254,7 +254,6 @@ Svaki laboratorij je samostalan s vlastitim modulima. Počnite s **Lab 01** da n
 | 4 | Konfigurirati agente & okruženje | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Obrasci orkestracije | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Testirati lokalno (više agenata) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Postavljanje na Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Provjera u igralištu | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Rješavanje problema (višestruki agenti) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

@@ -158,7 +158,6 @@
 | `azd up` が認証エラーで失敗                    | `az login` と `azd auth login` を実行し、正しいテナントが選択されていることを確認。                |
 | ACRプッシュで展開が止まる                      | Docker Desktop が起動中か、ユーザーがレジストリで `AcrPush` 権限を持つか確認。                    |
 | モデルが404 / deployment-not-foundエラーを返す | `agent.yaml` のモデル展開名が Foundry プロジェクトの展開名と一致しているか確認。                    |
-
 | `Provisioning` に詰まったホスト型エージェント         | プロジェクトのリージョンが[ホスト型エージェントをサポートしている](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)ことと、クォータが利用可能であることを確認してください。 |
 | Playgroundが401を返す                       | VS CodeのアクティビティバーからFoundry拡張機能を再認証してください。                                     |
 

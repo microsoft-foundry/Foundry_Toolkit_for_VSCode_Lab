@@ -158,7 +158,6 @@
 | `azd up` ล้มเหลวด้วยข้อผิดพลาดการยืนยันตัวตน    | รัน `az login` และ `azd auth login` และตรวจสอบให้แน่ใจว่าเลือก tenant ถูกต้อง                        |
 | การปรับใช้ค้างที่การดันไป ACR                | ตรวจสอบว่า Docker Desktop กำลังทำงานและผู้ใช้มีสิทธิ์ `AcrPush` บนรีจิสทรี                           |
 | โมเดลตอบกลับ 404 / deployment-not-found     | ชื่อการปรับใช้โมเดลใน `agent.yaml` ต้องตรงกับชื่อการปรับใช้ในโปรเจกต์ Foundry                       |
-
 | ตัวแทนโฮสต์ติดอยู่ในสถานะ `Provisioning`         | ตรวจสอบว่าโซนโปรเจกต์ [รองรับตัวแทนโฮสต์](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) และมีโควต้าเหลือใช้งานหรือไม่ |
 | Playground ส่งกลับ 401                       | ลงชื่อเข้าใช้ส่วนขยาย Foundry ใหม่จากแถบกิจกรรม VS Code                                     |
 

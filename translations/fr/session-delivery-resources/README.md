@@ -158,7 +158,6 @@ Un workflow 4 agents dans [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](
 | `azd up` échoue avec une erreur d’authentification | Exécuter `az login` et `azd auth login`, s’assurer que le bon locataire est sélectionné.                     |
 | Le déploiement bloque au push ACR           | Vérifier que Docker Desktop est lancé et que l’utilisateur a le rôle `AcrPush` sur le registre.           |
 | Modèle retourne 404 / deployment-not-found  | Le nom du déploiement dans `agent.yaml` doit correspondre à celui dans le projet Foundry.                 |
-
 | Agent hébergé bloqué en `Provisioning`       | Vérifiez que la région du projet [prend en charge les agents hébergés](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) et que le quota est disponible. |
 | Playground renvoie 401                        | Ré-authentifiez l'extension Foundry depuis la barre d'activité de VS Code.                          |
 

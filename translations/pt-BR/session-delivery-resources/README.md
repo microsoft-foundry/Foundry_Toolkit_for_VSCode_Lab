@@ -158,7 +158,6 @@ Um fluxo de trabalho com 4 agentes em [`workshop/lab02-multi-agent/PersonalCaree
 | `azd up` falha com erro de autenticação       | Execute `az login` e `azd auth login`, certifique-se de que o locatário correto está selecionado.         |
 | Implantação trava no push para o ACR          | Verifique se o Docker Desktop está rodando e o usuário tem permissão `AcrPush` no registro.               |
 | Modelo retorna 404 / deployment-not-found     | O nome da implantação no `agent.yaml` deve coincidir com a implantação no projeto Foundry.                |
-
 | Agente hospedado travado em `Provisioning`    | Verifique se a região do projeto [suporta agentes hospedados](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) e se há cota disponível. |
 | Playground retorna 401                         | Reautentique a extensão Foundry a partir da barra de atividades do VS Code.                    |
 

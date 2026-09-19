@@ -254,7 +254,6 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 4 | ఏజెంట్లు & వాతావరణం కాన్ఫిగర్ చేయండి | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | ఆర్కెస్ట్రేషన్ తేడాలు | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | స్థానికంగా పరీక్షించండి (బహుళ-ఏజెంట్) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Foundryకి పంపండి | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | ప్లేగ్రౌండ్‌లో గుర్తించండి | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | సమస్య పరిష్కారం (బహుళ ఏజెంట్లు) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

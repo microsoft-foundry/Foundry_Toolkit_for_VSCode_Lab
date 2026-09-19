@@ -158,7 +158,6 @@ A 4-agent workflow in [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../.
 | `azd up` fails with auth error               | Run `az login` and `azd auth login`, ensure the correct tenant is selected.                              |
 | Deployment hangs at ACR push                 | Check Docker Desktop is running and the user has `AcrPush` on the registry.                              |
 | Model returns 404 / deployment-not-found     | The model deployment name in `agent.yaml` must match the deployment in the Foundry project.              |
-
 | Hosted agent stuck in `Provisioning`         | Verify the project region [supports hosted agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) and that quota is available. |
 | Playground returns 401                       | Re-authenticate the Foundry extension from the VS Code activity bar.                                     |
 

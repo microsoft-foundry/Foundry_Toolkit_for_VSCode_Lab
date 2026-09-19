@@ -158,7 +158,6 @@
 | `azd up` မှာ authentication error ဖြစ်ခြင်း           | `az login` နှင့် `azd auth login` များကို ဆောင်ရွက်ပြီး tenant မှန်ကို ရွေးချယ်ပါ။                    |
 | Deployment မှာ ACR push တွင် ရပ်တန့်ခြင်း               | Docker Desktop ပြေးနေသည်ဟုစစ်ဆေးပြီး အသုံးပြုသူတွင် registry အတွက် `AcrPush` ခွင့်ရှိစေပါ။          |
 | 404 / deployment-not-found ပြန်လာခြင်း                  | `agent.yaml` ထဲတွင် မော်ဒယ် deployment အမည်သည် Foundry project ညွှန်ပြမှုနှင့် ကိုက်ညီရမည်။          |
-
 | Hosted agent stuck in `Provisioning`         | စာရင်းပရောဂျက်ဒေသမှာ [hosted agents များကိုထောက်ပံ့နေသည်](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) နှင့် မျိုးရိုး အရေအတွက် ရနိုင်မှုရှိသည်ကို အတည်ပြုပါ။ |
 | Playground returns 401                       | VS Code activity bar မှ Foundry extension ကို ပြန်လည်လက်မှတ်ရေးထိုးပါ။                                     |
 

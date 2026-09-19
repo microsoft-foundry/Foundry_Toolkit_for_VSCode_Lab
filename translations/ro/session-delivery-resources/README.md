@@ -158,7 +158,6 @@ Un flux de lucru cu 4 agenți în [`workshop/lab02-multi-agent/PersonalCareerCop
 | `azd up` eșuează cu eroare de autentificare  | Rulați `az login` și `azd auth login`, asigurați-vă că ați selectat chiriașul corect.                     |
 | Implementarea se blochează la push în ACR     | Verificați că Docker Desktop rulează și că utilizatorul are permisiunea `AcrPush` pe registru.          |
 | Modelul returnează 404 / deployment-not-found | Numele implementării modelului din `agent.yaml` trebuie să corespundă cu implementarea din proiectul Foundry. |
-
 | Agentul găzduit blocat în `Provisioning` | Verificați dacă regiunea proiectului [suportă agenți găzduiți](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) și dacă Quota este disponibilă. |
 | Playground returnează 401                   | Reautentificați extensia Foundry din bara de activități VS Code.                                     |
 

@@ -158,7 +158,6 @@ Samostalni agent u [`workshop/lab01-single-agent/agent/`](../../../workshop/lab0
 | `azd up` ne uspije zbog greške s autentifikacijom | Pokrenite `az login` i `azd auth login`, provjerite je li odabrani ispravan zakupac.               |
 | Implementacija zastane na ACR push  | Provjerite radi li Docker Desktop i ima li korisnik dozvolu `AcrPush` na registru.                |
 | Model vraća 404 / deployment-not-found | Naziv implementacije modela u `agent.yaml` mora odgovarati implementaciji u Foundry projektu.     |
-
 | Hostirani agent zapeo u `Provisioning`         | Provjerite podržava li regija projekta [hostirane agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) i je li kvota dostupna. |
 | Playground vraća 401                       | Ponovno se autentificirajte u Foundry ekstenziji iz VS Code trake aktivnosti.                                     |
 

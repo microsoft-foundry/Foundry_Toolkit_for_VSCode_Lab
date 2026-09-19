@@ -158,7 +158,6 @@ En arbeidsflyt med 4 agenter i [`workshop/lab02-multi-agent/PersonalCareerCopilo
 | `azd up` feiler med autentiseringsfeil       | Kjør `az login` og `azd auth login`, sørg for at riktig leietaker er valgt.                             |
 | Deploy henger ved ACR push                      | Sjekk at Docker Desktop kjører og at brukeren har `AcrPush` på registeret.                             |
 | Modell returnerer 404 / deployment-not-found  | Modellutplasseringens navn i `agent.yaml` må samsvare med deploy i Foundry-prosjektet.                  |
-
 | Vert agent sitter fast i `Provisioning`         | Verifiser at prosjektregionen [støtter vertede agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) og at kvoten er tilgjengelig. |
 | Playground returnerer 401                       | Autentiser Foundry-utvidelsen på nytt fra VS Code-aktivitetslinjen.                                     |
 

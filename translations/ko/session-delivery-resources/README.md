@@ -158,7 +158,6 @@
 | `azd up`가 인증 오류로 실패      | `az login`과 `azd auth login`을 실행하고 올바른 테넌트가 선택되었는지 확인하세요.              |
 | 배포가 ACR 푸시 단계에서 멈춤     | Docker Desktop이 실행 중이고 레지스트리에 대해 `AcrPush` 권한이 있는지 확인하세요.            |
 | 모델이 404 / 배포 불가 반환        | `agent.yaml` 내 모델 배포 이름이 Foundry 프로젝트 내 배포 이름과 일치해야 합니다.             |
-
 | 호스트 에이전트가 `Provisioning` 상태에서 멈춤         | 프로젝트 지역이 [호스트 에이전트를 지원하는지](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)와 할당량이 있는지 확인하세요. |
 | 플레이그라운드가 401 오류 반환                       | VS Code 활동 표시줄에서 Foundry 확장 프로그램을 다시 인증하세요.                                     |
 

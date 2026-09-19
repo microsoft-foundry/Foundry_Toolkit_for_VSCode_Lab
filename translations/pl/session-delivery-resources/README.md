@@ -158,7 +158,6 @@ Workflow 4-agentowy w [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../.
 | `azd up` zwraca błąd uwierzytelnienia            | Uruchom `az login` oraz `azd auth login`, upewnij się, że jest wybrany właściwy tenant.                     |
 | Wdrożenie zatrzymuje się na puszczaniu do ACR     | Sprawdź, czy działa Docker Desktop i czy użytkownik ma uprawnienia `AcrPush` na rejestrze.                 |
 | Model zwraca 404 / deployment-not-found           | Nazwa wdrożenia modelu w `agent.yaml` musi zgadzać się z wdrożeniem w projekcie Foundry.                    |
-
 | Hostowany agent utknął w `Provisioning`         | Sprawdź, czy region projektu [obsługuje hostowanych agentów](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) oraz czy dostępne są limity. |
 | Playground zwraca 401                       | Ponownie uwierzytelnij rozszerzenie Foundry z paska aktywności VS Code.                                     |
 

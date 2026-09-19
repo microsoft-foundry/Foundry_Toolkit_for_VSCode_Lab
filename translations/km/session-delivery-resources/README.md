@@ -158,7 +158,6 @@
 | `azd up` បរាជ័យដោយសារកំហុសអត្ថសញ្ញា        | រត់ `az login` និង `azd auth login`, ប្រាកដថាជ្រើស tenant ត្រឹមត្រូវ។                              |
 | ការចេញផ្សាយស្ទូចនៅពេល ACR push              | ពិនិត្យថា Docker Desktop កំពុងរត់ និងអ្នកប្រើមានសិទ្ធិ `AcrPush` លើ registry ។                              |
 | ម៉ូឌែលត្រឡប់ 404 / deployment-not-found     | ឈ្មោះការចេញផ្សាយម៉ូឌែលក្នុង `agent.yaml` ត្រូវតែដូចគ្នានឹងមាននៅក្នុងគម្រោង Foundry ។              |
-
 | អេជិនដែលមានធ្វើ​ននៅ​ជួរប្រតិបត្តិការ `Provisioning`         | ពិនិត្យមើលតំបន់គម្រោង [គាំទ្រអេជិនដែលមានធ្វើ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) និងថាគណៈសមត្ថភាពនៅសល់។ |
 | Playground ផ្តល់ត្រឡប់ 401                       | ធ្វើការផ្ទៀងផ្ទាត់សម្គាល់ពីពេលម្ដងទៀតនូវពង្រីក Foundry ពីរបារសកម្មភាព VS Code។                                     |
 

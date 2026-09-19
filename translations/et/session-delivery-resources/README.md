@@ -158,7 +158,6 @@ Nelja agendi töövoog kaustas [`workshop/lab02-multi-agent/PersonalCareerCopilo
 | `azd up` annab autentimisvea           | Käivita `az login` ja `azd auth login`, veendu, et õige tenant on valitud.            |
 | Juurutus jääb pidama ACR push ajal       | Kontrolli, et Docker Desktop töötab ja kasutajal on ACR repositooriumile `AcrPush` õigus. |
 | Mudel tagastab 404 / deployment-not-found | Mudeli juurutuse nimi `agent.yaml` failis peab ühtima Foundry projekti juurutusega.     |
-
 | Hostitud agendi kinni jäämine `Provisioning` olekus | Kontrollige, kas projekti piirkond [toetab hostitud agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ja kas kvota on saadaval. |
 | Mänguväljak tagastab 401                    | Autentige Foundry laiendus uuesti VS Code aktiivsusribalt.                                       |
 

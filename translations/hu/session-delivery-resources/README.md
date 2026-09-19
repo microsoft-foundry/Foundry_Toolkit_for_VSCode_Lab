@@ -158,7 +158,6 @@ Egy 4-ügynökös munkafolyamat a [`workshop/lab02-multi-agent/PersonalCareerCop
 | `azd up` hitelesítési hibát ad               | Futtasd az `az login` és `azd auth login` parancsokat, ellenőrizd, hogy a megfelelő bérlő van kiválasztva.                              |
 | A telepítés beragad az ACR push-nál                 | Ellenőrizd, hogy fut-e a Docker Desktop és van-e `AcrPush` jogosultságod a registry-ben.                              |
 | A modell 404-et ad vissza / deployment-not-found     | Az agent.yaml-ban lévő modell telepítés nevének meg kell egyeznie a Foundry projektben lévő telepítéssel.              |
-
 | A hosztolt ügynök `Provisioning` állapotban ragadt         | Ellenőrizze, hogy a projekt régiója [támogatja-e a hosztolt ügynököket](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) és hogy van-e kvóta elérhető. |
 | A Playground 401-es hibát ad vissza                  | Jelentkezzen be újból a Foundry kiterjesztésbe a VS Code tevékenységi sávján keresztül.          |
 
