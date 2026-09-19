@@ -254,7 +254,6 @@ Setiap lab berdiri sendiri dengan modulnya masing-masing. Mulailah dengan **Lab 
 | 4 | Konfigurasikan agen & lingkungan | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Pola orkestrasi | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Uji secara lokal (multi-agen) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Deploy ke Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Verifikasi di playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Pemecahan masalah (multi-agen) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

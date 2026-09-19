@@ -158,7 +158,6 @@
 | فشل `azd up` بخطأ مصادقة                   | شغل `az login` و `azd auth login`، وتأكد من اختيار المستأجر الصحيح.                                  |
 | التوقف عند دفع ACR                         | تحقق من أن Docker Desktop يعمل وللمستخدم صلاحية `AcrPush` على السجل.                                 |
 | يعيد النموذج 404 / النشر غير موجود          | يجب أن يطابق اسم نشر النموذج في `agent.yaml` النشر في مشروع Foundry.                                  |
-
 | وكيل مستضاف عالق في حالة `Provisioning`         | تحقق من أن منطقة المشروع [تدعم الوكلاء المستضافين](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) وأن الحصة متوفرة. |
 | مُلعب الرموز يُرجع 401                       | أعد تسجيل الدخول إلى امتداد Foundry من شريط نشاط VS Code.                                     |
 

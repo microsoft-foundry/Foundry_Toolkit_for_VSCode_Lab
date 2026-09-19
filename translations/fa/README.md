@@ -254,7 +254,6 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 4 | پیکربندی نمایندگان و محیط | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | الگوهای هماهنگی | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | تست محلی (چند نماینده‌ای) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | استقرار در Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | تأیید در محیط بازی | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | رفع اشکال (چندعامله) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

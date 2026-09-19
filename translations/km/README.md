@@ -254,7 +254,6 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 4 | កំណត់អ្នកតំណាង និងបរិយាកាស | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | គំរូអង្គភាព | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | សាកល្បងក្នុងតំបន់ (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | ចែកចាយទៅ Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | បញ្ជាក់នៅក្នុងលំហសាកល្បង | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | ការដោះស្រាយបញ្ហា (ភ្នាក់ងារច្រើន) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

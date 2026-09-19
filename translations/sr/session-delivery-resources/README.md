@@ -158,7 +158,6 @@
 | `azd up` не успева због грешке аутентификације | Покрените `az login` и `azd auth login`, осигурајте да је одабран исправан тенант.                   |
 | Имплементација застаје при ACR push-у      | Проверите да ли Docker Desktop ради и да корисник има дозволу `AcrPush` на регистру.               |
 | Модел враћа 404 / deployment-not-found      | Име имплементације модела у `agent.yaml` мора да одговара имплементацији у Foundry пројекту.         |
-
 | Хостовани агент заглављен у `Provisioning`         | Проверите да ли регија пројекта [подржава хостоване агенте](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) и да ли је квота доступна. |
 | Playground враћа 401                       | Поново се аутентификујте у Foundry екстензији са активности траке у VS Code-у.                                     |
 

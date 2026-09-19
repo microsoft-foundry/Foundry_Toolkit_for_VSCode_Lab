@@ -254,7 +254,6 @@ Mỗi bài lab là một phần riêng biệt với các module riêng. Bắt đ
 | 4 | Cấu hình đại lý & môi trường | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Mẫu mẫu phối hợp | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Kiểm thử tại chỗ (đa đại lý) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Triển khai tới Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Xác minh trong playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Xử lý sự cố (đa tác nhân) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

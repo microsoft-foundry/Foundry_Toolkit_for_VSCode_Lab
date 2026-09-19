@@ -254,7 +254,6 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 4 | एजंट्स आणि पर्यावरण कॉन्फिगर करा | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | आर्कष्ट्रेशन पॅटर्न | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | स्थानिक चाचणी (बहु-एजंट) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | फाउंड्रीवर तैनात करा | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | प्लेग्राउंडमध्ये पडताळणी करा | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | त्रुटी निराकरण (मल्टि-एजंट) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

@@ -254,7 +254,6 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 4 | ஏஜென்டுகள் & சுற்றுப்பாதைகளை அமைக்கவும் | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | ஒருங்கிணைப்பு எடுத்துக்காட்டுகள் | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | உள்ளூரில் சோதனை (பல-ஏஜென்ட்) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Foundry-க்கு வெளியிடவும் | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | விளையாட்டுத்துலையில் சரிபார்க்கவும் | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | பிழைத் திருத்தம் (பல-எஜெந்த்) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

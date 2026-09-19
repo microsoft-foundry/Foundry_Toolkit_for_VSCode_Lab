@@ -158,7 +158,6 @@ Atskiras agentas [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-
 | `azd up` nepavyksta dėl autentifikacijos klaidos | Paleiskite `az login` ir `azd auth login`, įsitikinkite, kad pasirinktas teisingas nuomininkas.         |
 | Diegimas stringa ACR skelbimo metu             | Patikrinkite, ar veikia Docker Desktop ir ar naudotojas turi `AcrPush` teisę registre.                 |
 | Modelis grąžina 404 / diegimas nerastas        | Modelio diegimo pavadinimas faile `agent.yaml` turi atitikti diegimą Foundry projekte.                 |
-
 | Talpinamas agentas įstringa `Provisioning` stadijoje         | Patikrinkite, ar projekto regionas [palaiko talpinamus agentus](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ir ar yra prieinamas kvotas. |
 | Žaidimų aikštelė grąžina 401                       | Iš naujo autentifikuokite Foundry plėtinį iš VS Code veiklos juostos.                                     |
 

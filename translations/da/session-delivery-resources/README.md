@@ -158,7 +158,6 @@ En 4-agent workflow i [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../.
 | `azd up` fejler med autorisationsfejl | Kør `az login` og `azd auth login`, sikr at den korrekte tenant er valgt.                                      |
 | Udrulning hænger ved ACR push           | Tjek at Docker Desktop kører, og at brugeren har `AcrPush` på registeret.                                     |
 | Model returnerer 404 / deployment-not-found | Modellenavn i `agent.yaml` skal matche udrulningen i Foundry-projektet.                                       |
-
 | Hostet agent sidder fast i `Provisioning`     | Bekræft at projektets region [understøtter hostede agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) og at der er kvote tilgængelig. |
 | Playground returnerer 401                     | Re-autentificér Foundry-udvidelsen fra VS Code aktivitetslinjen.                                |
 

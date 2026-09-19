@@ -158,7 +158,6 @@
 | `azd up` مصدقہ غلطی دیتا ہے                 | `az login` اور `azd auth login` چلائیں، یقینی بنائیں کہ درست ٹینینٹ منتخب کیا گیا ہے۔                 |
 | تعیناتی ACR پش پر رک جاتی ہے                  | چیک کریں کہ Docker Desktop چل رہا ہے اور صارف کے پاس ریجسٹری پر `AcrPush` کی اجازت ہے۔               |
 | ماڈل 404 / deployment-not-found دیتا ہے      | `agent.yaml` میں ماڈل تعیناتی کا نام Foundry پروجیکٹ میں تعیناتی کے نام سے میل کھانا چاہیے۔             |
-
 | ہوستڈ ایجنٹ `Provisioning` میں پھنس گیا ہے         | تصدیق کریں کہ پراجیکٹ کا علاقہ [ہوسٹڈ ایجنٹس کی حمایت کرتا ہے](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) اور کوٹہ دستیاب ہے۔ |
 | پلے گراؤنڈ 401 واپس کرتا ہے                       | VS کوڈ ایکٹیویٹی بار سے Foundry ایکسٹینشن کو دوبارہ توثیق کریں۔                                   |
 

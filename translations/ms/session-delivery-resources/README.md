@@ -158,7 +158,6 @@ Aliran kerja 4-ejen dalam [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](
 | `azd up` gagal dengan kesilapan pengesahan   | Jalankan `az login` dan `azd auth login`, pastikan tenant yang betul dipilih.                            |
 | Penyebaran tergantung pada tolak ACR          | Periksa Docker Desktop berjalan dan pengguna ada kebenaran `AcrPush` pada pendaftar.                      |
 | Model pulang 404 / deployment-not-found       | Nama penyebaran model dalam `agent.yaml` mesti sepadan dengan penyebaran dalam projek Foundry.          |
-
 | Ejen hos terperangkap dalam `Provisioning`         | Sahkan rantau projek [menyokong ejen hos](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) dan kuota tersedia. |
 | Playground memulangkan 401                       | Sahkan semula peluasan Foundry dari bar aktiviti VS Code.                                     |
 

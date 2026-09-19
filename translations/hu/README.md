@@ -254,7 +254,6 @@ Minden labor önálló modulokkal rendelkezik. Kezdd a **Labor 01-gyel** az alap
 | 4 | Állítsd be az ügynököket és a környezetet | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Orkesztrációs minták | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Teszteld helyben (több ügynök) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-
 | 7 | Telepítés Foundry-ba | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Ellenőrzés playgroundban | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Hibakeresés (többagentes) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |

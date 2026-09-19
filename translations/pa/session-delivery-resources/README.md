@@ -158,7 +158,6 @@
 | `azd up` ਠੇਕ ਨਾ ਕਰਣਾ ਨਾਲ auth error     | `az login` ਅਤੇ `azd auth login` ਚਲਾਓ, ਸਹੀ ਟੈਨੈਂਟ ਚੁਣਿਆ ਹੋਇਆ ਹੋਵੇ।                                     |
 | ਡਿਪਲੋਇਮੈਂਟ ACR push ਤੇ ਫਸਿਆ ਹੋਇਆ       | ਚੈੱਕ ਕਰੋ Docker Desktop ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ ਉਪਭੋਗਤਾ ਕੋਲ ਰਜਿਸਟਰੀ 'ਤੇ `AcrPush` ਅਧਿਕਾਰ ਹੈ।                    |
 | ਮਾਡਲ 404 / deployment-not-found ਦਿਖਾ ਰਿਹਾ | `agent.yaml` ਵਿੱਚ ਮਾਡਲ ਡਿਪਲੋਇਮੈਂਟ ਦਾ ਨਾਮ Foundry ਪ੍ਰੋਜੈਕਟ ਵਿੱਚ ਡਿਪਲੋਇਮੈਂਟ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।       |
-
 | `Provisioning` ਵਿੱਚ ਫਸਿਆ ਹੋਇਆ ਹੋਸਟ ਕੀਤਾ ਗਿਆ ਏਜੰਟ         | ਪ੍ਰਾਜੈਕਟ ਖੇਤਰ ਦੀ ਜਾਂਚ ਕਰੋ [ਹੋਸਟ ਕੀਤੇ ਏਜੰਟ ਦਾ ਸਹਿਯੋਗ ਹੈ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ਅਤੇ ਕਵੋਟਾ ਉਪਲਬਧ ਹੈ। |
 | ਪਲੇਗਰਾਊਂਡ 401 ਵਾਪਸ ਕਰਦਾ ਹੈ                       | VS ਕੋਡ ਐਕਟੀਵਿਟੀ ਬਾਰ ਤੋਂ Foundry ਐਕਸਟੈਂਸ਼ਨ ਨੂੰ ਦੁਬਾਰਾ ਪ੍ਰਮਾਣਿਕ ਕੀਤਾ ਜਾਵੇ।                                     |
 

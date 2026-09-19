@@ -158,7 +158,6 @@
 | `azd up` प्रमाणपत्र त्रुटी येते               | `az login` आणि `azd auth login` चालवा, खात्री करा की योग्य टेनेट निवडलेला आहे.                              |
 | तैनाती ACR पुशवर अडकले                 | Docker Desktop चालू आहे का आणि वापरकर्त्यास रजिस्ट्रीवर `AcrPush` प्रमाणपत्र आहे का ते तपासा.                              |
 | मॉडेल 404 / deployment-not-found परत करते     | `agent.yaml` मधील मॉडेल तैनातीचे नाव Foundry प्रकल्पातील तैनातीशी जुळणे आवश्यक आहे.              |
-
 | होस्टेड एजंट `Provisioning` मध्ये अडकलेले आहे         | प्रकल्प प्रदेश [होस्टेड एजंटला समर्थन देतो](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) आणि कोटा उपलब्ध असल्याची तपासणी करा. |
 | Playground 401 परत करते                       | VS कोड क्रियाकलाप पट्टीतून Foundry विस्तार पुन्हा प्रमाणीकरण करा.                                     |
 

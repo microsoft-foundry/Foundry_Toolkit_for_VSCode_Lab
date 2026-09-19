@@ -158,7 +158,6 @@ Workflow se 4 agenty v [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../
 | `azd up` selže s chybou ověření              | Proveďte `az login` a `azd auth login`, ujistěte se, že je vybrán správný tenant.                   |
 | Nasazení visí při push na ACR                 | Ověřte, že Docker Desktop běží a uživatel má práva `AcrPush` na registry.                           |
 | Model vrací 404 / nasazení nenalezeno        | Název nasazení modelu v `agent.yaml` musí odpovídat nasazení ve Foundry projektu.                   |
-
 | Hostovaný agent uvízl v `Provisioning`       | Ověřte, že region projektu [podporuje hostované agenty](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) a že je k dispozici kvóta. |
 | Playground vrací 401                       | Znovu se autentizujte ve Foundry rozšíření z aktivity VS Code.                                     |
 

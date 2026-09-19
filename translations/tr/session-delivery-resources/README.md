@@ -158,7 +158,6 @@ Teslimatta 2 canlı demo vardır. Her biri için 10 dakika ayırın.
 | `azd up` kimlik doğrulama hatası veriyor       | `az login` ve `azd auth login` komutlarını çalıştırın, doğru kiracı seçili olsun.                  |
 | Dağıtım ACR push aşamasında takılıyor          | Docker Desktop’un çalıştığını ve kullanıcının kayıt defterinde `AcrPush` yetkisi olduğunu kontrol edin. |
 | Model 404 döndürüyor / deployment-not-found hatası veriyor | `agent.yaml` içindeki model dağıtım adı Foundry projesindeki ile eşleşmelidir.                    |
-
 | Barındırılan ajan `Provisioning` aşamasında takıldı         | Proje bölgesinin [barındırılan ajanları destekleyip desteklemediğini](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ve kota olup olmadığını doğrulayın. |
 | Playground 401 dönüyor                       | Foundry uzantısını VS Code etkinlik çubuğundan yeniden kimlik doğrulayın.                                   |
 

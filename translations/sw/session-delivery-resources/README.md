@@ -158,7 +158,6 @@ Mtiririko wa wakala 4 katika [`workshop/lab02-multi-agent/PersonalCareerCopilot/
 | `azd up` inashindwa na kosa la uthibitisho | Endesha `az login` na `azd auth login`, hakikisha mpangilio sahihi wa mtoa leseni umechaguliwa. |
 | Usambazaji umepigwa hatua kwenye ACR push | Angalia Docker Desktop inaanzishwa na mtumiaji ana ruhusa ya `AcrPush` kwenye rejista.      |
 | Modeli inarudisha 404 / usambazaji haupo  | Jina la usambazaji wa modeli kwenye `agent.yaml` lazima lingane na usambazaji wa mradi wa Foundry. |
-
 | Wakala mwenye mwenyeji amekwama katika `Provisioning`         | Hakikisha eneo la mradi [linaunga mkono wakala wenye mwenyeji](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) na kwamba kuna kiasi kinachopatikana. |
 | Playground inarudisha 401                       | Jaribu tena kuidhinishwa upya upanuzi wa Foundry kutoka kwenye upau wa shughuli wa VS Code.                                     |
 

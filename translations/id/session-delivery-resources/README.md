@@ -158,7 +158,6 @@ Alur kerja 4 agen di [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../..
 | `azd up` gagal dengan error otentikasi    | Jalankan `az login` dan `azd auth login`, pastikan tenant yang dipilih benar.               |
 | Penyebaran berhenti di ACR push            | Periksa Docker Desktop berjalan dan pengguna memiliki `AcrPush` di registry.                |
 | Model mengembalikan 404 / deployment-not-found | Nama penyebaran model di `agent.yaml` harus sama dengan penyebaran di proyek Foundry.        |
-
 | Agen hosted tersangkut di `Provisioning`         | Verifikasi wilayah proyek [mendukung agen hosted](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) dan bahwa kuota tersedia. |
 | Playground mengembalikan 401                       | Autentikasi ulang ekstensi Foundry dari bilah aktivitas VS Code.                                     |
 

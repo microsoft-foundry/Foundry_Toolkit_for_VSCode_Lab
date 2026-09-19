@@ -158,7 +158,6 @@
 | Το `azd up` αποτυγχάνει με σφάλμα εξουσιοδότησης | Τρέξτε `az login` και `azd auth login`, βεβαιωθείτε ότι έχει επιλεγεί ο σωστός ενοικιαστής (tenant).                      |
 | Η ανάπτυξη σταματά κατά το ACR push       | Ελέγξτε αν το Docker Desktop τρέχει και ο χρήστης έχει δικαίωμα `AcrPush` στον κατάλογο.                                 |
 | Το μοντέλο επιστρέφει 404 / deployment-not-found | Το όνομα ανάπτυξης μοντέλου στο `agent.yaml` πρέπει να ταιριάζει με την ανάπτυξη στο Foundry έργο.                    |
-
 | Ο φιλοξενούμενος agent κολλάει στο `Provisioning`         | Επαληθεύστε ότι η περιοχή του έργου [υποστηρίζει φιλοξενούμενους agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) και ότι υπάρχει διαθέσιμο όριο. |
 | Το Playground επιστρέφει 401                       | Επανασυνδεθείτε στην επέκταση Foundry από τη γραμμή δραστηριοτήτων του VS Code.                                     |
 

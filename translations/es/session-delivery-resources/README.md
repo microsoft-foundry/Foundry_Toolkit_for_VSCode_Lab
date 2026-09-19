@@ -158,7 +158,6 @@ Un flujo de trabajo de 4 agentes en [`workshop/lab02-multi-agent/PersonalCareerC
 | `azd up` falla con error de autenticación               | Ejecute `az login` y `azd auth login`, asegurándose de que está seleccionado el tenant correcto.                              |
 | El despliegue se queda atascado en push a ACR                 | Verifique que Docker Desktop esté en ejecución y que el usuario tenga permiso `AcrPush` en el registro.                              |
 | El modelo devuelve 404 / deployment-not-found     | El nombre del despliegue del modelo en `agent.yaml` debe coincidir con el despliegue en el proyecto Foundry.              |
-
 | Agente alojado atascado en `Provisioning`         | Verifique que la región del proyecto [soporte agentes alojados](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) y que haya cuota disponible. |
 | Playground devuelve 401                        | Reautentique la extensión Foundry desde la barra de actividad de VS Code.                                     |
 

@@ -158,7 +158,6 @@
 | خطای احراز هویت در `azd up`                    | دستور `az login` و سپس `azd auth login` را اجرا کنید، مطمئن شوید tenant صحیح انتخاب شده است.                        |
 | گیر کردن استقرار هنگام ارسال به ACR            | بررسی کنید Docker Desktop در حال اجراست و کاربر دسترسی `AcrPush` روی رجیستری دارد.                                  |
 | مدل، خطای ۴۰۴ یا deployment-not-found برمی‌گرداند | نام استقرار مدل در `agent.yaml` باید مطابق با استقراری باشد که در پروژه Foundry انجام شده است.                     |
-
 | نماینده میزبانی شده در حالت `Provisioning` گیر کرده است | مطمئن شوید که منطقه پروژه [نمایندگان میزبانی شده را پشتیبانی می‌کند](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) و سهمیه در دسترس است. |
 | Playground خطای 401 باز می‌گرداند | از نوار فعالیت VS Code افزونه Foundry را دوباره احراز هویت کنید. |
 

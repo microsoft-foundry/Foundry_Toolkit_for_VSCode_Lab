@@ -158,7 +158,6 @@ Quy trình 4 tác nhân trong [`workshop/lab02-multi-agent/PersonalCareerCopilot
 | `azd up` báo lỗi xác thực             | Chạy `az login` và `azd auth login`, đảm bảo chọn đúng tenant.                                    |
 | Triển khai bị treo khi đẩy ACR       | Kiểm tra Docker Desktop đang chạy và người dùng có quyền `AcrPush` trên registry.                  |
 | Mô hình trả về 404 / deployment-not-found | Tên triển khai mô hình trong `agent.yaml` phải trùng tên triển khai trong dự án Foundry.          |
-
 | Đại lý lưu trữ bị kẹt ở trạng thái `Provisioning`         | Xác minh vùng dự án [hỗ trợ đại lý lưu trữ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) và rằng còn hạn mức. |
 | Playground trả về 401                       | Xác thực lại tiện ích mở rộng Foundry từ thanh hoạt động của VS Code.                                     |
 
