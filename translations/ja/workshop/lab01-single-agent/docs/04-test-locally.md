@@ -175,7 +175,7 @@ The secret may have been exposed in commit history.
 
 ---
 
-**前へ:** [03 - Configure & Code](03-configure-and-code.md) · **次へ:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
+**前へ:** [03 - 設定とコーディング](03-configure-and-code.md) · **次へ:** [05 - Foundryへのデプロイ →](05-deploy-to-foundry.md)
 
 ---
 

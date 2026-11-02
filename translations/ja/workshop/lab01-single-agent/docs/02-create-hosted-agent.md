@@ -108,7 +108,7 @@ flowchart LR
 
 ---
 
-**前へ:** [01 - Setup](01-setup.md) · **次へ:** [03 - Configure & Code →](03-configure-and-code.md)
+**前へ:** [01 - セットアップ](01-setup.md) · **次へ:** [03 - 設定とコーディング →](03-configure-and-code.md)
 
 ---
 

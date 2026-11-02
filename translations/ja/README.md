@@ -100,8 +100,8 @@ flowchart TB
 
 | ラボ | 説明 | ステータス |
 |-----|-------------|--------|
-| **Lab 01 - Single Agent** | <strong>「エグゼクティブ向け説明」エージェント</strong>を構築し、ローカルでテストし、Foundryにデプロイ | ✅ 利用可能 |
-| **Lab 02 - マルチエージェント ワークフロー** | <strong>「履歴書 → ジョブ適合評価」</strong>を構築 - 4つのエージェントが協力して履歴書の適合度をスコアリングし、学習ロードマップを生成 | ✅ 利用可能 |
+| **ラボ01 - Single Agent** | <strong>「エグゼクティブ向け説明」エージェント</strong>を構築し、ローカルでテストし、Foundryにデプロイ | ✅ 利用可能 |
+| **ラボ02 - マルチエージェント ワークフロー** | <strong>「履歴書 → ジョブ適合評価」</strong>を構築 - 4つのエージェントが協力して履歴書の適合度をスコアリングし、学習ロードマップを生成 | ✅ 利用可能 |
 
 ---
 
@@ -175,7 +175,7 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **注意:** 各ラボ内の `agent/` フォルダーは、コマンドパレットから `Microsoft Foundry: Create a New Hosted Agent` を実行すると<strong>Microsoft Foundry拡張機能</strong>が生成します。その後、エージェントの指示やツール、設定に応じてファイルをカスタマイズします。Lab 01 ではこれを一から再構築する方法を紹介します。
+> **注意:** 各ラボ内の `agent/` フォルダーは、コマンドパレットから `Microsoft Foundry: Create a New Hosted Agent` を実行すると<strong>Microsoft Foundry拡張機能</strong>が生成します。その後、エージェントの指示やツール、設定に応じてファイルをカスタマイズします。ラボ01 ではこれを一から再構築する方法を紹介します。
 
 ---
 
@@ -228,9 +228,9 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ### 5. ワークショップラボを進める
 
-各ラボは独立したモジュール構成です。まず **Lab 01** で基礎を学び、続いて **Lab 02** でマルチエージェントワークフローを学びます。
+各ラボは独立したモジュール構成です。まず **ラボ01** で基礎を学び、続いて **ラボ02** でマルチエージェントワークフローを学びます。
 
-#### Lab 01 - Single Agent ([完全な手順](workshop/lab01-single-agent/README.md))
+#### ラボ01 - Single Agent ([完全な手順](workshop/lab01-single-agent/README.md))
 
 | # | モジュール | リンク |
 |---|--------|------|
@@ -244,11 +244,11 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 | 8 | Playgroundで検証 | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
 | 9 | トラブルシューティング | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - マルチエージェント ワークフロー ([完全な手順](workshop/lab02-multi-agent/README.md))
+#### ラボ02 - マルチエージェント ワークフロー ([完全な手順](workshop/lab02-multi-agent/README.md))
 
 | # | モジュール | リンク |
 |---|--------|------|
-| 1 | 前提条件 (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 1 | 前提条件 (ラボ02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
 | 2 | マルチエージェントアーキテクチャを理解 | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
 | 3 | マルチエージェントプロジェクトをスキャフォールド | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | エージェントと環境を設定 | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |

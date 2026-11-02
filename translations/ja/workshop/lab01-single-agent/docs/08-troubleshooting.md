@@ -158,7 +158,7 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ---
 
-**前へ：** [07 - サマリー](07-summary.md) · **ホーム：** [Workshop README](../../../README.md)
+**前へ：** [07 - まとめ](07-summary.md) · **ホーム：** [ワークショップのREADME](../../../README.md)
 
 ---
 
