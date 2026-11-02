@@ -1,4 +1,4 @@
-# Foundry டூல்கிட் + Foundry ஹோஸ்டட் ஏஜென்டுகள் வேலைக்கூடு
+# Foundry Toolkit + Foundry Hosted Agents பணிமனை
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -11,22 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Microsoft Foundry Agent Service**-ல் **Hosted Agents** ஆக AI ஏஜென்டுகளை கட்டமைக்கவும், சோதிக்கவும், வெளியிடவும் - முழுகாக VS Code பயன்படுத்தி **Microsoft Foundry நீட்டிப்பு** மற்றும் **Foundry டூல்கிட்** மூலம்.
+AI முகவரிகளை **Microsoft Foundry Agent Service** இல் **Hosted Agents** ஆக உருவாக்கவும், சோதிக்கவும் மற்றும் பிரசுரிக்கவும் - முழுமையாக VS குறியீட்டிலிருந்து **Microsoft Foundry விரிவாக்கம்** மற்றும் **Foundry Toolkit** கையாள்ந்து செய்க.
 
-> **Hosted Agents இப்போது முன்னோட்ட நிலையில் உள்ளன.** ஆதரவு பெற்ற பிராந்தியங்கள் সীমितம் - பார்க்கவும் [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents தற்போதும் முன்னோட்ட நிலையில் உள்ளன.** ஆதரவு பெறும் பகுதிகள் சில வரையறுக்கப்பட்டுள்ளன - [பகுதி கிடைக்கும் விவரம்](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) பார்க்கவும்.
 
-> ஒவ்வொரு ஆய்வகத்திலும் உள்ள `agent/` கோப்புறை Foundry நீட்டிப்பு மூலம் **தானாக உருவாக்கப்படுகிறது** - பின்னர் நீங்கள் குறியீட்டை தனிப்பயனாக்கி, உள்ளூர் சோதனை செய்து, வெளியிடலாம்.
+> Foundry விரிவாக்கம் ஒவ்வொரு லேபின் உள்ளே இருக்கும் `agent/` கோப்பகம் **தானாக உருவாக்கப்படுகிறது** - பின்னர் நீங்கள் குறியீட்டை மாற்றி, உள்ளகமாக சோதித்து பிரசுரிக்கலாம்.
 
-### 🌐 பல மொழி ஆதரவு
+### 🌐 பன்மொழி ஆதரவு
 
-#### GitHub செயல்பாட்டின் மூலம் ஆதரவு (தானியங்கி மற்றும் எப்போதும் புதுமையாக இருக்கும்)
+#### GitHub செயல் வழியாக ஆதரிக்கப்படுகிறது (தானியங்கி மற்றும் எப்போதும் புதுப்பிக்கப்படும்)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](./README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[அரபு](../ar/README.md) | [பெங்களி](../bn/README.md) | [பல்கேரியன்](../bg/README.md) | [புர்மீஸ் (மியான்மர்)](../my/README.md) | [சீன (எளிய)](../zh-CN/README.md) | [சீன (சம்பிரதாய, ஹொங்காங்)](../zh-HK/README.md) | [சீன (சம்பிரதாய, மாகாவ்)](../zh-MO/README.md) | [சீன (சம்பிரதாய, தைவான்)](../zh-TW/README.md) | [குரோஷியன்](../hr/README.md) | [செக்](../cs/README.md) | [டேனிஷ்](../da/README.md) | [டச்சு](../nl/README.md) | [எஸ்டோனியன்](../et/README.md) | [பின்னிஷ்](../fi/README.md) | [பிரான்சு](../fr/README.md) | [ஜெர்மன்](../de/README.md) | [கிரேக்கம்](../el/README.md) | [ஹீப்ரூ](../he/README.md) | [இந்தி](../hi/README.md) | [அங்கீரியன்](../hu/README.md) | [இந்தோனேஷியன்](../id/README.md) | [இத்தாலீ](../it/README.md) | [ஜப்பானீஸ்](../ja/README.md) | [கன்னடம்](../kn/README.md) | [க்மெர்](../km/README.md) | [கொரியன்](../ko/README.md) | [லிடுவேனியன்](../lt/README.md) | [மலே](../ms/README.md) | [மலையாளம்](../ml/README.md) | [மானிபுரி (மேட்டை மயெக்)](../mni/README.md) | [மராத்தி](../mr/README.md) | [நேபாளி](../ne/README.md) | [நைஜீரியன் பிஜின்](../pcm/README.md) | [நார்வேஜியன்](../no/README.md) | [பெர்சியன் (பார்ஸி)](../fa/README.md) | [போலிஷ்](../pl/README.md) | [போர்த்துக்கீசு (பிரேசில்)](../pt-BR/README.md) | [போர்த்துக்கீசு (போர்ச்சுகல்)](../pt-PT/README.md) | [பஞ்சாபி (குருமுகி)](../pa/README.md) | [ரோமேனியன்](../ro/README.md) | [ரஷியன்](../ru/README.md) | [செர்பியன் (சிரிலிக்)](../sr/README.md) | [ஸ்லோவாக்](../sk/README.md) | [ஸ்லோவேனியன்](../sl/README.md) | [ஸ்பானிஷ்](../es/README.md) | [ஸ்வாஹிலி](../sw/README.md) | [ஸ்வீடிஷ்](../sv/README.md) | [டகாலோக் (பிலிப்பைன்ஸ்)](../tl/README.md) | [தமில்](./README.md) | [தெலுங்கு](../te/README.md) | [தாய்](../th/README.md) | [துருக்கிஷ்](../tr/README.md) | [உக்ரைனியன்](../uk/README.md) | [உருது](../ur/README.md) | [வியட்நாமீஸ்](../vi/README.md)
 
-> **உள்ளூரில் கிளோன் செய்ய விரும்புமா?**
+> **உள்ளூர் கிளோன் செய்ய விருப்பமா?**
 >
-> இந்த சேமிப்பகத்தில் 50+ மொழி மொழிபெயர்ப்புகள் உள்ளன, இது பதிவிறக்கும் அளவை பெருக்குகிறது. மொழிபெயர்ப்புகள் இல்லாமல் கிளோன் செய்வதற்கு sparse checkout பயன்படுத்தவும்:
+> இந்த சேமிப்பகம் 50+ மொழி மொழிபெயர்ப்புகளை உள்ளடக்குகிறது, இது பதிவிறக்க அளவை பெரிதாக அதிகரிக்கிறது. மொழிபெயர்ப்புகள் இல்லாமல் கிளோன் செய்ய sparse checkout பயன்படுத்தவும்:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> இதனால் நீங்கள் வேகம் அதிகமான பதிவிறக்கத்தில் முழு பாடத்திட்டத்தையும் முடிக்க முடியும்.
+> இதனால் நீங்கள் மிகவும் வேகமாக பதிவிறக்கம் செய்து இந்த பாடத்திட்டத்தை முடிக்க தேவையான எல்லாவற்றையும் பெறலாம்.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,7 +51,7 @@
 
 ```mermaid
 flowchart TB
-    subgraph Local["உள்ளூர்க் கலைவள மேம்பாடு (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,11 +63,11 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "F5 பிழைத்திருத்தம்" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
-    subgraph Cloud["மைக்ரோசொஃப்ட் ஃபவுண்ட்ரி"]
+    subgraph Cloud["Microsoft Foundry"]
         direction TB
         ACR["Azure Container
         Registry"]
@@ -85,55 +85,55 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> அடித்தளம்
-    Playground -- "சோதனை உத்தரவுகள்" --> AgentService
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**போர்:** Foundry நீட்டிப்பு ஏஜெண்டை உருவாக்குகிறது → நீங்கள் குறியீடு மற்றும் வழிமுறைகளை தனிப்பயனாக்கும் → Agent Inspector மூலம் உள்ளூரில் சோதனை செய்கிறீர்கள் → Foundry க்கு வெளியிடுவது (Docker படம் ACR க்கு அழுத்தப்படுகிறது) → Playground ல் சரிபார்க்கவும்.
+**ஊசல்:** Foundry விரிவாக்கம் முகவரியை உருவாக்குகிறது → நீங்கள் குறியீடையும் வழிமுறைகளையும் தனிப்பயன் செய்கிறீர்கள் → முகவரி உள்நிலை ஆய்வாணியுடன் சோதிக்கப்படுகிறது → Foundry க்கு (Docker படம் ACR இல் தள்ளப்படுகிறது) பிரசுரிக்கப்படுகிறது → Playground இல் சரிபார்க்கிறது.
 
 ---
 
-## நீங்கள் உருவாக்கப்போகும் விஷயம்
+## நீங்கள் உருவாக்கப்போகும்
 
-| ஆய்வகம் | விளக்கம் | நிலை |
+| லேப் | விளக்கம் | நிலை |
 |-----|-------------|--------|
-| **ஆய்வகம் 01 - ஒற்றை ஏஜென்ட்** | **"எவ்வாறு தெரிவிக்கும்" தலைவர் ஏஜென்ட்** உருவாக்கி, உள்ளூர் சோதனை செய்து, Foundryக்கு வெளியிடவும் | ✅ கிடைக்கிறது |
-| **ஆய்வகம் 02 - பல-ஏஜென்ட் வேலைநடை** | **"Resume → வேலை பொருத்த மதிப்பீடு"** - 4 ஏஜென்ட்கள் Resume பொருத்தத்தை மதிப்பிட்டும் கற்றல் திட்டத்தை உருவாக்கும் | ✅ கிடைக்கிறது |
+| **லேப் 01 - ஒரே முகவரி** | **"நான் ஒரு நிர்வாகியாக இருக்கிறேன் என்பதை விளக்கி"** முகவரியை உருவாக்கி, உள்ளகமாக சோதித்து, Foundry க்கு பிரசுரி செய்க | ✅ கிடைக்கிறது |
+| **லேப் 02 - பன்முகவரி பணிமுறை** | **"ரிசுமே → வேலை பொருத்தல் மதிப்பீட்டாளர்"** - 4 முகவர்கள் ஒத்துழைத்து ரிசுமே பொருத்தத்தை மதிப்பீடு செய்து பயிற்சி திட்டம் உருவாக்குகின்றனர் | ✅ கிடைக்கிறது |
 
 ---
 
-## தலைவர் ஏஜென்டை சந்திக்கவும்
+## நிர்வாக முகவரியை சந்திக்கவும்
 
-இந்நிகழ்ச்சியில் நீங்கள் **"எவ்வாறு தெரிவிக்கும்" தலைவர் ஏஜென்டை** உருவாக்கப்போகிறீர்கள் - இது திறமையான தொழில்நுட்ப சொற்றொடரை எடுக்கி, அமைதியான, வாராந்திர அறிக்கைகளுக்கு உரிய சுருக்கமாக மாற்றும் AI ஏஜென்ட். ஏனெனில் நிஜம் என்னவென்றால், C-சூட்டில் ஒருவரும் "v3.2ல் அறிமுகப்படுத்தப்பட்ட சமகால அழைப்புகளால் ஏற்பட்ட thread pool exhaustion" பற்றி கேட்க விரும்ப மாட்டார்கள்.
+இந்த பணிமனையில் நீங்கள் **"நான் ஒரு நிர்வாகியாக இருக்கிறேன் என்பதை விளக்கி"** முகவரியை உருவாக்கப்போகிறீர்கள் - இது ஒரு AI முகவர், கடுமையான தொழில்நுட்ப சொற்களை சாந்தமான, வாரிய அறைகளுக்கான சுருக்கங்களாக மாற்றுகின்றது. உண்மையில், C-தரம் நிர்வாகக் குழுவில் யாரும் "v3.2 அறிமுகம் செய்த ஒத்த செயல்பாடுகளால் ஏற்படும் திரெட் பூல் முடிவடைதல்" பற்றி கேட்க விரும்பவர் இல்லை.
 
-நான் இந்த ஏஜென்டை உருவாக்கியது என் மிகச்சிறந்த post-mortemக்கு பதில் வந்தபோது: *"எனவே... இணையதளம் பணி நிறுத்தம் ஆனதா இல்லையா?"* என்ற கேள்வியை பலமுறைகள் பெற்றுவிட்டேன்.
+நான் இந்த முகவரியை உருவாக்கினேன், ஏனெனில் என் முற்றிலும் தயாரிக்கப்பட்ட படி விசாரணைக்கு பதிலாக பெரும்பாலும் *"எனவே... தளம் வேலை செய்யவில்லையா?"* என்ற பதிலை பெற்றேன்.
 
-### அது எப்படி செயல்படுகிறது
+### இது எப்படி வேலை செய்கிறது
 
-நீங்கள் அதற்கு ஒரு தொழில்நுட்ப புதுப்பிப்பை காலி செய்கிறீர்கள். அது ஒரு தலைவர் சுருக்கத்தை வெளி கொண்டுவரும் - மூன்று புள்ளிகள், சொற்றொடர்கள் இல்லை, வழுக்கைத் திரை எதுவும் இல்லை, கவலை இல்லாமல். வெறும் **என்ன జరిగியது**, **வணிக பாதிப்பு**, மற்றும் **அடுத்த படி**.
+நீங்கள் அதற்கு ஒரு தொழில்நுட்ப புதுப்பிப்பை பரிமாறுகிறீர்கள். அது ஒரு நிர்வாக சுருக்கத்தை உருவாக்குகிறது - மூன்று முனை புள்ளிகள், எந்த தொழில்நுட்ப வார்த்தைகளும் இல்லை, அடுக்கு தட்பவெப்பங்கள் இல்லை, கோப்புகள் இல்லை. இது மட்டும் தான்: **என்ன நடந்தது**, **வணிகத்தின் தாக்கம்**, மற்றும் **அடுத்த படி**.
 
-### செயலில் காணவும்
+### செயலில் அதை காண்க
 
 **நீங்கள் கூறுகிறீர்கள்:**
-> "API லேட்டன்சி v3.2ல் அறிமுகப்படுத்தப்பட்ட சமகால அழைப்புகளால் thread pool exhaustionஉடன் அதிகரித்தது."
+> "API தாமதம் v3.2 அறிமுகப்படுத்திய ஒத்த செயல்பாடுகளால் ஏற்படும் திரெட் பூல் முடிவடைதலால் அதிகரித்தது."
 
-**ஏஜென்ட் பதிலளிக்கிறது:**
+**முகவர் பதில்:**
 
-> **தலைவர் சுருக்கம்:**
-> - **என்ன நடந்தது:** சமீபத்திய வெளியீட்டுக்குப் பிறகு, அமைப்பு மெதுவாகியது.
-> - **வணிக பாதிப்பு:** சில பயனர் சேவையைப் பயன்படுத்தும் போது தாமதம் ஏற்பட்டது.
-> - **அடுத்த படி:** மாற்றம் திரும்பி வைப்பு செய்யப்பட்டது மற்றும் திருத்தம் தயாராகி மீண்டும் வெளியிடப்பட உள்ளது.
+> **நிர்வாக சுருக்கம்:**
+> - **என நடந்தது:** கடைசிப் பதிப்பிற்குப் பிறகு, அமைப்பு மெதுவாகியது.
+> - **வணிக தாக்கம்:** சில பயன்படுத்துவோர்கள் சேவையைப் பயன்படுத்தும் போது தாமதங்களை அனுபவித்தனர்.
+> - **அடுத்த படி:** மாற்றம் பின்வாங்கப்பட்டது மற்றும் மறுபிரசுரத்திற்கு முன் சரிசெய்தல் தயாராகிறது.
 
-### இந்த ஏஜென்ட் ஏன்?
+### ஏன் இந்த முகவர்?
 
-இது மிக எளிமையான, ஒரே நோக்குடைய ஏஜென்ட் - hosted agent வேலைநடையை முழுமையாகக் கற்றுக்கொள்ள மிகவும் சிறந்தது, அசிங்கமான கருவி சங்கிலிகளில் அடைக்காமல். உண்மை சொல்வதானால்? ஒவ்வொரு பொறியியல் குழுவுக்கும் இதுபோன்ற ஒன்றை வேண்டியிருக்கும்.
+இது மிகவும் எளிமையான, ஒரு நோக்குக்கு மட்டும் உருவாக்கப்பட்ட முகவர் - கடுமையான கருவிகள் இல்லாமல் வாடிக்கையாளர் முகவரி பணிமுறை முழுமையாக கற்றுக்கொள்ளுவதற்கு பரிபூரணமாகும். உண்மையிலேயே, ஒவ்வொரு பொறியியல் குழுவும் இதுபோன்ற ஒருவரை பயன்படுத்த வேண்டும்.
 
 ---
 
-## வேலைக்கூடு அமைப்பு
+## பணிமனை கட்டமைப்பு
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -175,26 +175,26 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **குறிப்பு:** ஒவ்வொரு ஆய்வகத்திலும் உள்ள `agent/` கோப்புறை **Microsoft Foundry நீட்டிப்பு** மூலம் `Microsoft Foundry: Create a New Hosted Agent` என்பதைக் கட்டளை பட்டியலில் இயக்கு போது உருவாக்கப்படுகிறது. பின்னர் கோப்புகள் உங்கள் ஏஜென்டின் வழிமுறைகள், கருவிகள் மற்றும் அமைப்புகளுடன் தனிப்பயனாக்கப்படுகின்றன. ஆய்வகம் 01 இல் இதை முற்றிலும் மீண்டும் உருவாக்குவது எப்படி என்று காட்டப்படும்.
+> **கவனிப்பு:** ஒவ்வொரு லேபினுள் உள்ள `agent/` கோப்பகம் **Microsoft Foundry விரிவாக்கம்** மூலம் `Microsoft Foundry: Create a New Hosted Agent` கமாண்டு ஒட்டியில் இயக்கும்போது உருவாக்கப்படுகிறது. கோப்புகள் பின்னர் உங்கள் முகவரியின் வழிமுறைகள், கருவிகள் மற்றும் கட்டமைப்புடன் தனிப்பயனாக்கப்படுகின்றன. லேப் 01 இதை ஆரம்பத்திலிருந்தே மறுபடியும் உருவாக்க வழிகாட்டுகிறது.
 
 ---
 
-## துவக்கம்
+## தொடக்கம்
 
-### 1. சேமிப்புகையை கிளோன் செய்யவும்
+### 1. சேமிப்பகத்தை கிளோன் செய்க
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Python மெய்நிகர் சுற்றுப்பாதையை அமைக்கவும்
+### 2. Python மெய்நிகர் சூழலை அமைக்கவும்
 
 ```bash
 python -m venv venv
 ```
 
-செயல்படுத்தவும்:
+இயக்கவும்:
 
 - **Windows (PowerShell):**
   ```powershell
@@ -205,58 +205,58 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### 3. சார்பு பொருட்களை நிறுவவும்
+### 3. சார்புகளைக் நிறுவவும்
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. சுற்றுப்பாதை மாறிலிகளை அமைக்கவும்
+### 4. சுற்றுச்சூழல் மாறிலிகளை உள்ளமைக்கவும்
 
-உதாரண `.env` கோப்பை agent கோப்புறையில் நகல் செய்து, உங்கள் மதிப்புகளை நிரப்பவும்:
+முகவரி கோப்பகத்திலுள்ள எடுத்துக்காட்டு `.env` கோப்பை நகலெடுத்து உங்கள் மதிப்புகளை நிரப்பவும்:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-`workshop/lab01-single-agent/agent/.env` ஐத் திருத்தவும்:
+`workshop/lab01-single-agent/agent/.env` என்பதை திருத்தவும்:
 
 ```env
 AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. வேலைக்கூடு ஆய்வகங்களை பின்பற்றவும்
+### 5. பணிமனை லேப்களை பின்பற்றவும்
 
-ஒவ்வொரு ஆய்வகமும் தனித்தனிப் பொருள்களுடன் முழுமையாக உள்ளது. அடிப்படைகளை கற்றுக்கொள்ள **ஆய்வகம் 01** ஆரம்பிக்கவும், பிறகு **ஆய்வகம் 02**-க்கு மாறி பல-ஏஜென்ட் வேலைநடையை கற்றுக்கொள்ளவும்.
+ஒவ்வொரு லேபும் தனிப்பட்ட தன்னுடைய தொகுதிகளுடன் உள்ளது. அடிப்படைகளை கற்றுக்கொள்ள **லேப் 01** க்கு துவங்கி, பின்னர் பன்முகவரி பணிமுறைக்காக **லேப் 02** க்கு செல்லவும்.
 
-#### ஆய்வகம் 01 - ஒற்றை ஏஜென்ட் ([முழு வழிமுறைகள்](workshop/lab01-single-agent/README.md))
+#### லேப் 01 - ஒரே முகவரி ([முழு விளக்கங்கள்](workshop/lab01-single-agent/README.md))
 
-| # | பொருள் | இணைப்பு |
+| # | தொகுதி | இணைப்பு |
 |---|--------|------|
-| 1 | முன்னோடிய வாசல் படிக்கவும் | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry டூல்கிட் & Foundry நீட்டிப்பை நிறுவவும் | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 3 | Foundry திட்டத்தை உருவாக்கவும் | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | ஒரு ஹோஸ்டட் ஏஜென்டை உருவாக்கவும் | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | வழிமுறைகள் & சுற்றுப்பாதைகளை அமைக்கவும் | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | உள்ளூரில் சோதனை செய்யவும் | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Foundryக்கு வெளியிடவும் | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | விளையாட்டு மைதானத்தில் சரிபார்க்கவும் | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | சிக்கல் நீக்குதல் | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 1 | முன்னோடியான தேவைகள் படிக்கவும் | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit & Foundry விரிவாக்கம் நிறுவவும் | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 3 | Foundry திட்டம் உருவாக்கவும் | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 4 | ஒரு hosted முகவரியை உருவாக்கவும் | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | வழிமுறைகள் மற்றும் சுற்றுச்சூழலை மாற்றவும் | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | உள்ளகமாக சோதிக்கவும் | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | Foundry க்கு பிரசுரிக்கவும் | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | பயங்கரவாயில் சரிபார்க்கவும் | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | பிரச்சனைத் தீர்வு | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### ஆய்வகம் 02 - பல-ஏஜென்ட் வேலைநடை ([முழு வழிமுறைகள்](workshop/lab02-multi-agent/README.md))
+#### லேப் 02 - பன்முகவரி பணிமுறை ([முழு விளக்கங்கள்](workshop/lab02-multi-agent/README.md))
 
-| # | பொருள் | இணைப்பு |
+| # | தொகுதி | இணைப்பு |
 |---|--------|------|
-| 1 | முன்னோடியங்கள் (ஆய்வகம் 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | பல-ஏஜென்ட் கட்டமைப்பை புரிந்து கொள்வது | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | பல-ஏஜென்ட் திட்டத்திற்கான மாடலை உருவாக்கவும் | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | ஏஜென்டுகள் & சுற்றுப்பாதைகளை அமைக்கவும் | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | ஒருங்கிணைப்பு எடுத்துக்காட்டுகள் | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | உள்ளூரில் சோதனை (பல-ஏஜென்ட்) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Foundry-க்கு வெளியிடவும் | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | விளையாட்டுத்துலையில் சரிபார்க்கவும் | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | பிழைத் திருத்தம் (பல-எஜெந்த்) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 1 | முன்னோடியான தேவைகள் (லேப் 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | பன்முகவரி கட்டமைப்பை புரிந்துகொள்ளவும் | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | பன்முகவரி திட்டத்தை உருவாக்கவும் | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | முகவரிகள் மற்றும் சுற்றுச்சூழலை அமைக்கவும் | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | ஒழுங்கமைப்பு முறைமைகள் | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | உள்ளகமாக சோதிக்கவும் (பன்முகவரி) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Foundry க்கு பிரசுரிக்கவும் | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | பயங்கரவாயில் சரிபார்க்கவும் | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | பிரச்சனை தீர்வு (பன்முகவரி) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
@@ -266,7 +266,7 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>ஷிவம் கோயல்</b></sub>
+        <sub><b>சிவம் கோயல்</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,26 +274,26 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## தேவையான அனுமதிகள் (துரிதக் குறிப்புகள்)
+## தேவையான அனுமதிகள் (விரைவு குறிப்பு)
 
-| சூழல் | தேவையான பங்கு வகிகள் |
+| சூழ்நிலை | தேவையான பங்குகள் |
 |----------|---------------|
-| புதிய Foundry திட்டம் உருவாக்கவும் | Foundry வளத்தில் **Azure AI உரிமையாளர்** |
-| எ_existing_ திட்டத்தில் வெளியிடவும் (புதிய வளங்கள்) | சந்தாவில் **Azure AI உரிமையாளர்** + **கொணர்பனியாளர்** |
-| முழுமையாக அமைக்கப்பட்ட திட்டத்தில் வெளியிடவும் | கணக்கில் **பருகுனரா** + திட்டத்தில் **Azure AI பயனர்** |
+| புதிய Foundry திட்டம் உருவாக்குதல் | Foundry resource இல் **Azure AI Owner** |
+| உள்ளதுபோன்று திட்டத்தில் (புது வளங்கள்) பிரசுரி செய்யல்பு | சந்தா அளவில் **Azure AI Owner** + **Contributor** |
+| முழுமையாக கட்டமைக்கப்பட்ட திட்டத்திற்கு பிரசுரி | கணக்கில் **Reader** + திட்டத்தில் **Azure AI User** |
 
-> **முக்கியம்:** Azure `உரிமையாளர்` மற்றும் `கொணர்பனியாளர்` பங்குகள் *மேலாண்மை* அனுமதிகள் மட்டுமே உள்ளடக்கியவை, *வளர்ச்சி* (தரவு செயல்பாட்டு) அனுமதிகள் அல்ல. எஜெந்த்களை உருவாக்கவும் வெளியிடவும் **Azure AI பயனர்** அல்லது **Azure AI உரிமையாளர்** தேவை.
+> **முக்கியம்:** Azure `Owner` மற்றும் `Contributor` பங்குகள் *மாணிலை* அனுமதிகளை மட்டும் கொண்டிருப்பதால் *உருவாக்கல்* (தரவு செயல்பாடு) அனுமதிகள் உள்ளடக்கமடையாது. முகவரிகளை கட்டமைக்க மற்றும் பிரசுரிக்க **Azure AI User** அல்லது **Azure AI Owner** தேவை.
 
 ---
 
-## குறிப்பு ஆதாரங்கள்
+## மேற்கோள்கள்
 
-- [விரைவாண்மை: உங்கள் முதல் ஹோஸ்டட் எஜெந்தை வெளியிடவும் (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [ஹோஸ்டட் எஜெந்த்கள் என்ன?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS Code-ல் ஹோஸ்டட் எஜெந்த் பண்படுத்தல்கள் உருவாக்கவும்](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [ஹோஸ்டட் எஜெந்தை வெளியிடவும்](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Foundryக்கு RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [கட்டமைப்பு மதிப்பாய்வு எஜெந்த் மாதிரி](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP கருவிகள், Excalidraw வரைபடங்கள் மற்றும் இரட்டைத்தளவீடு கொண்ட உண்மையான உலக ஹோஸ்டட் எஜெந்த்
+- [விரைவுச் தொடக்கம்: உங்கள் முதல் ஹோஸ்டட் ஏஜெண்டைப் பயன்படுத்தி அமல்படுத்துதல் (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [ஹோஸ்டட் ஏஜெண்டுகள் என்ன?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [VS Code-ல் ஹோஸ்டட் ஏஜெண்ட் பணியூக்கங்களை உருவாக்குதல்](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [ஒரு ஹோஸ்டட் ஏஜெண்டைப் பயன்படுத்தி அமல்படுத்துதல்](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Microsoft Foundry க்கான RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [கொள்கை விமர்சன ஏஜெண்ட் மாதிரி](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP கருவிகள், Excalidraw வரைபடங்கள் மற்றும் இருமட்ட அமல்படுத்தலுடன் நடைமையான ஹோஸ்டட் ஏஜெண்ட்
 
 ---
 
