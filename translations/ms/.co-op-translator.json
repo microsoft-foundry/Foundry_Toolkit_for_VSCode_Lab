@@ -6,8 +6,8 @@
     "language_code": "ms"
   },
   "README.md": {
-    "original_hash": "e4cb3996613e11264e496ec4ecdf3254",
-    "translation_date": "2026-07-11T21:13:07+00:00",
+    "original_hash": "7c873dd44c5c70dd26c24189102936fc",
+    "translation_date": "2026-11-02T07:35:44+00:00",
     "source_file": "README.md",
     "language_code": "ms"
   },
@@ -17,18 +17,11 @@
     "source_file": "SECURITY.md",
     "language_code": "ms"
   },
-  "__translation_failures__": {
-    "SUPPORT.md": {
-      "original_hash": "62fe65c1d8e3796c01aa1e3c89666cba",
-      "source_file": "SUPPORT.md",
-      "language_code": "ms",
-      "failure_date": "2026-07-11T21:11:49+00:00",
-      "status": "failed",
-      "error_type": "TranslationIncompleteError",
-      "error_message": "Markdown translation remained incomplete for chunk 1 of 'SUPPORT.md', and the chunk could not be split further.",
-      "translator_version": "0.20.0",
-      "failure_policy_version": 1
-    }
+  "SUPPORT.md": {
+    "original_hash": "62fe65c1d8e3796c01aa1e3c89666cba",
+    "translation_date": "2026-11-02T07:36:30+00:00",
+    "source_file": "SUPPORT.md",
+    "language_code": "ms"
   },
   "session-delivery-resources/README.md": {
     "original_hash": "d38591a4051a2460fcbf758d0b143114",
