@@ -9,7 +9,7 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 构建、测试并部署 AI 代理到 **Microsoft Foundry 代理服务** 作为 <strong>托管代理</strong> —— 完全通过 VS Code 使用 **Microsoft Foundry 扩展** 和 **Foundry 工具包**。
 
@@ -85,7 +85,7 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> 脚手架
+    (localhost:8088)" --> Scaffold
     Playground -- "测试提示" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px

@@ -2,31 +2,31 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
-[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+[![Talpinami agentai](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
 [![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Licencija](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-Kurkite, testuokite ir diekite DI agentus į **Microsoft Foundry Agent Service** kaip **Hosted Agents** – visiškai naudodami VS Code su **Microsoft Foundry plėtiniu** ir **Foundry Toolkit**.
+Kurkite, testuokite ir diegkite DI agentus į **Microsoft Foundry Agent Service** kaip **Talpinami agentai** - visiškai iš VS Code naudodami **Microsoft Foundry plėtinį** ir **Foundry Toolkit**.
 
-> **Hosted Agents šiuo metu yra peržiūros stadijoje.** Palaikomos regionų apribotos - žr. [regionų prieinamumą](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Talpinami agentai šiuo metu yra peržiūros režime.** Palaikomos sritys ribotos - žr. [regionų prieinamumas](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Kiekvieno laboratorinio darbo aplanke `agent/` yra **automatiškai sukurta** Foundry plėtinio – jūs tuomet suasmeninate kodą, testuojate vietoje ir diegiate.
+> `agent/` aplankas kiekvienoje laboratorijoje yra **automatiškai sugeneruojamas** Foundry plėtiniu - tuomet pritaikote kodą, testuojate lokaliai ir diegiate.
 
-### 🌐 Daugiakalbė palaikymas
+### 🌐 Daugiakalbė parama
 
-#### Palaikoma per GitHub veiksmą (Automatizuota ir visada atnaujinta)
+#### Palaikoma per GitHub Action (automatizuota ir visada atnaujinta)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](./README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[Arabų](../ar/README.md) | [Bengalų](../bn/README.md) | [Bulgarų](../bg/README.md) | [Birmiečių (Mianmaras)](../my/README.md) | [Kinų (supaprastinta)](../zh-CN/README.md) | [Kinų (tradicinė, Honkongas)](../zh-HK/README.md) | [Kinų (tradicinė, Makao)](../zh-MO/README.md) | [Kinų (tradicinė, Taivanas)](../zh-TW/README.md) | [Kroatų](../hr/README.md) | [Čekų](../cs/README.md) | [Danų](../da/README.md) | [Olandų](../nl/README.md) | [Estų](../et/README.md) | [Suomi](../fi/README.md) | [Prancūzų](../fr/README.md) | [Vokiečių](../de/README.md) | [Graikų](../el/README.md) | [Hebrajų](../he/README.md) | [Hindi](../hi/README.md) | [Vengrų](../hu/README.md) | [Indoneziečių](../id/README.md) | [Italų](../it/README.md) | [Japonų](../ja/README.md) | [Kannados](../kn/README.md) | [Khmerų](../km/README.md) | [Korėjiečių](../ko/README.md) | [Lietuvių](./README.md) | [Malajų](../ms/README.md) | [Malajalamų](../ml/README.md) | [Maratų](../mr/README.md) | [Nepalų](../ne/README.md) | [Nigerijos pidžinų](../pcm/README.md) | [Norvegų](../no/README.md) | [Persų (Farsi)](../fa/README.md) | [Lenkų](../pl/README.md) | [Portugalų (Brazilija)](../pt-BR/README.md) | [Portugalų (Portugalija)](../pt-PT/README.md) | [Pandžabi (Gurmukhi)](../pa/README.md) | [Rumunų](../ro/README.md) | [Rusų](../ru/README.md) | [Serbų (kirilica)](../sr/README.md) | [Slovakų](../sk/README.md) | [Slovėnų](../sl/README.md) | [Ispanų](../es/README.md) | [Svahili](../sw/README.md) | [Švedų](../sv/README.md) | [Tagalog (filipinų)](../tl/README.md) | [Tamilų](../ta/README.md) | [Telugų](../te/README.md) | [Tajų](../th/README.md) | [Turkų](../tr/README.md) | [Ukrainiečių](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamo](../vi/README.md)
 
-> **Norite kopijuoti vietoje?**
+> **Ar norite klonuoti lokaliai?**
 >
-> Šis saugykla turi daugiau nei 50 kalbų vertimų, kurie žymiai padidina atsisiuntimo dydį. Norėdami nukopijuoti be vertimų, naudokite ribotą atsisiuntimą:
+> Šiame saugykloje yra daugiau nei 50 vertimų kalbomis, dėl ko smarkiai padidėja atsisiuntimo dydis. Norėdami klonuoti be vertimų, naudokite sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@ Kurkite, testuokite ir diekite DI agentus į **Microsoft Foundry Agent Service**
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> Tai suteikia viską, ko reikia kursui užbaigti, su daug greitesniu atsisiuntimu.
+> Tai suteikia viską, ko reikia kursui užbaigti, ir leidžia atsisiųsti daug greičiau.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,7 +51,7 @@ Kurkite, testuokite ir diekite DI agentus į **Microsoft Foundry Agent Service**
 
 ```mermaid
 flowchart TB
-    subgraph Local["Vietinis kūrimas (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,7 +63,7 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "F5 derinimas" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
@@ -85,51 +85,51 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> Šablonas
-    Playground -- "Testo užklausos" --> AgentService
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Srautas:** Foundry plėtinys sukuria agentą → jūs suasmeninate kodą ir nurodymus → testuojate vietoje su Agent Inspector → diegiate į Foundry (Docker atvaizdas siunčiamas į ACR) → patikrinimas Playground.
+**Eiga:** Foundry plėtinys sugeneruoja agentą → jūs pritaikote kodą & instrukcijas → testuojate lokaliai su Agent Inspector → diegiate į Foundry (Docker atvaizdas nusiųstas į ACR) → patikrinate Playground.
 
 ---
 
 ## Ką kursite
 
-| Darbas | Aprašymas | Būsena |
+| Laboratorija | Aprašymas | Statusas |
 |-----|-------------|--------|
-| **Laboratorija 01 - Vienas agentas** | Sukurkite **„Paaiškinkite kaip vadovui“ agentą**, testuokite jį vietoje ir diegkite į Foundry | ✅ Galima |
-| **Laboratorija 02 - Daugiagentinis darbas** | Sukurkite **„CV → Darbo tinkamumo vertintojas“** - 4 agentai bendradarbiauja vertindami CV tinkamumą ir generuodami mokymosi planą | ✅ Galima |
+| **Laboratorija 01 - Vienas agentas** | Sukurkite **"Explain Like I'm an Executive" Agent** (Sukurkite **"Paaiškinkite taip, lyg būčiau vadovas"** agentą), testuokite lokaliai ir diegkite į Foundry | ✅ Prieinama |
+| **Laboratorija 02 - Daugiagentinis darbo srautas** | Sukurkite **"Resume → Job Fit Evaluator"** - 4 agentai bendradarbiauja, kad įvertintų CV atitiktį ir sugeneruotų mokymosi kelią | ✅ Prieinama |
 
 ---
 
-## Susipažinkite su Executive agentu
+## Susipažinkite su vykdomuoju agentu
 
-Šiose dirbtuvėse kursite **„Paaiškinkite kaip vadovui“ agentą** – DI agentą, kuris sudėtingą techninį žargoną verčia į ramius, tinkamus valdybos posėdžiui santraukas. Nes, tiesą sakant, niekas C-lygyje nenori girdėti apie „vijos valdymo išsekimą, kurį sukėlė sinchroniniai kvietimai, pridėti v3.2 versijoje“.
+Šiose dirbtuvėse sukursite **"Explain Like I'm an Executive" Agent** - DI agentą, kuris sudėtingą techninį žargoną paverčia ramiomis, susirinkimui parengtomis santraukomis. Būkime sąžiningi — niekas C lygio vadovybėje nenori girdėti apie "thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-Šį agentą sukūriau po dar vieno incidento, kai mano kruopščiai paruoštą postmortem atsakymas buvo: *„Tai... ar svetainė neveikia ar veikia?“*
+Šį agentą sukūriau po kiek per daug incidentų, kai mano puikiai parengtas post-mortemas sulaukdavo atsakymo: *"Tai... ar svetainė neveikia, ar visgi taip?"*
 
 ### Kaip tai veikia
 
-Įvedate techninį atnaujinimą. Agentas grąžina vadovo santrauką - tris punktus, be žargono, be steko išklotinės, be egzistencinio nerimo. Tik **kas nutiko**, **verslo poveikis** ir **kitas žingsnis**.
+Jūs pateikiate techninį pranešimą. Jis grąžina vykdomąją santrauką - tris punktus, be žargono, be stack trace'ų, be egzistencinio nerimo. Tiesiog **kas įvyko**, **verslo poveikis**, ir **kitas žingsnis**.
 
-### Pamatykite veikiant
+### Pamatykite veikiantį
 
 **Jūs sakote:**
-> „API vėlavimas padidėjo dėl vijos valdymo išsekimo, kurį sukėlė sinchroniniai kvietimai pridėti v3.2 versijoje.“
+> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
 **Agentas atsako:**
 
-> **Vadybinio lygmens santrauka:**
-> - **Kas nutiko:** Po naujausio išleidimo sistema sulėtėjo.
-> - **Verslo poveikis:** Kai kurie naudotojai patyrė vėlavimus naudodamiesi paslauga.
-> - **Kitas žingsnis:** Pakeitimas buvo atšauktas ir ruošiamas taisymas prieš pakartotinį diegimą.
+> **Vykdomoji santrauka:**
+> - **Kas įvyko:** Po naujausio leidimo sistema sulėtėjo.
+> - **Verslo poveikis:** Kai kurie vartotojai patyrė delsą naudodamiesi paslauga.
+> - **Kitas žingsnis:** Pakeitimas buvo atšauktas ir ruošiama pataisa prieš pakartotinį diegimą.
 
 ### Kodėl šis agentas?
 
-Tai paprastas, vienos paskirties agentas – puikus būdas išmokti hostingų agentų darbo eigą nuo pradžios iki pabaigos be sudėtingų priemonių grandinių. Ir tiesą sakant? Kiekviena inžinerinė komanda galėtų tokį turėti.
+Tai labai paprastas, vienos paskirties agentas - puikiai tinka išmokti talpinamo agente darbo eigą nuo pradžios iki pabaigos, neužstrigus prie sudėtingų įrankių grandinių. Ir, tiesą sakant, kiekvienai inžinerinei komandai toks agentas būtų naudingas.
 
 ---
 
@@ -175,13 +175,13 @@ Tai paprastas, vienos paskirties agentas – puikus būdas išmokti hostingų ag
             └── requirements.txt
 ```
 
-> **Pastaba:** Kiekvienos laboratorijos aplanke `agent/` yra tai, ką sugeneruoja **Microsoft Foundry plėtinys**, kai vykdote komandą `Microsoft Foundry: Create a New Hosted Agent` Komandų paletėje. Failai tuomet suasmeninami su jūsų agento nurodymais, įrankiais ir konfigūracija. Laboratorija 01 žingsnis po žingsnio padeda sukurti tai iš naujo.
+> **Pastaba:** `agent/` aplankas kiekvienoje laboratorijoje yra tai, ką **Microsoft Foundry plėtinys** sugeneruoja kai vykdote `Microsoft Foundry: Create a New Hosted Agent` iš Command Palette. Failai vėliau pritaikomi su jūsų agente skirtomis instrukcijomis, įrankiais ir konfigūracija. Laboratorija 01 veda jus per šio kūrimo procesą nuo nulio.
 
 ---
 
 ## Pradžia
 
-### 1. Nukopijuokite saugyklą
+### 1. Klonuokite saugyklą
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
@@ -211,9 +211,9 @@ Aktyvuokite ją:
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. Sukonfigūruokite aplinkos kintamuosius
+### 4. Konfigūruokite aplinkos kintamuosius
 
-Nukopijuokite pavyzdinį `.env` failą agento aplanke ir užpildykite savo reikšmes:
+Kopijuokite pavyzdinį `.env` failą į agento aplanką ir užpildykite savo reikšmes:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,41 +226,41 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Sekite dirbtuvių laboratorijomis
+### 5. Vykdykite dirbtuvėse pateiktas laboratorijas
 
-Kiekviena laboratorija yra savarankiška su savo moduliais. Pradėkite nuo **Laboratorijos 01**, kad išmoktumėte pagrindus, tada pereikite prie **Laboratorijos 02** daugiaagentėms darbo eigoms.
+Kiekviena laboratorija yra savarankiška su savo moduliais. Pradėkite nuo **Laboratorijos 01**, kad išmoktumėte pagrindus, tada pereikite prie **Laboratorijos 02** dėl daugiagentinių darbo eigų.
 
 #### Laboratorija 01 - Vienas agentas ([pilnos instrukcijos](workshop/lab01-single-agent/README.md))
 
 | # | Modulis | Nuoroda |
 |---|--------|------|
-| 1 | Perskaitykite išankstines sąlygas | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Įdiekite Foundry Toolkit ir Foundry plėtinį | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 1 | Perskaitykite reikalavimus | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Įdiekite Foundry Toolkit & Foundry plėtinį | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | Sukurkite Foundry projektą | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | Sukurkite hostingų agentą | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | Sukonfigūruokite nurodymus ir aplinką | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | Testuokite vietoje | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Diegkite į Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Patikrinkite Playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | Gedimų šalinimas | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 4 | Sukurkite talpinamą agentą | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | Konfigūruokite instrukcijas & aplinką | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | Testuokite lokaliai | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | Diegti į Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | Patikrinkite playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | Trikčių šalinimas | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Laboratorija 02 - Daugiagentinis darbas ([pilnos instrukcijos](workshop/lab02-multi-agent/README.md))
+#### Laboratorija 02 - Daugiagentinis darbo srautas ([pilnos instrukcijos](workshop/lab02-multi-agent/README.md))
 
 | # | Modulis | Nuoroda |
 |---|--------|------|
-| 1 | Išankstinės sąlygos (Laboratorija 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Supraskite daugiagentės architektūrą | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Sukurkite daugiaagentį projektą | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Suprogramuokite agentus ir aplinką | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | Orkestracijos modeliai | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Testuokite vietoje (daugiagentis) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 1 | Išankstiniai reikalavimai (Laboratorijai 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Suprasti daugiagentinę architektūrą | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Sugeneruoti daugiagentinį projektą | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Konfigūruoti agentus & aplinką | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | Orkestracijos šablonai | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | Testuokite lokaliai (daugiagentinis) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
 | 7 | Diegti į Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Patikrinti žaidimų aikštelėje | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | Trikčių šalinimas (daugiaagentinis) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 8 | Patikrinkite playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | Trikčių šalinimas (daugiagentinis) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## Priežiūros asmuo
+## Prižiūrėtojas
 
 <table>
 <tr>
@@ -278,22 +278,22 @@ Kiekviena laboratorija yra savarankiška su savo moduliais. Pradėkite nuo **Lab
 
 | Scenarijus | Reikalingos rolės |
 |----------|---------------|
-| Sukurti naują Foundry projektą | **Azure AI Owner** prie Foundry ištekliaus |
-| Diegti į esamą projektą (nauji ištekliai) | **Azure AI Owner** + **Contributor** prenumeratoje |
-| Diegti į visiškai sukonfigūruotą projektą | **Reader** paskyroje + **Azure AI User** projekte |
+| Sukurti naują Foundry projektą | **Azure AI Owner** ant Foundry resurso |
+| Diegti į esamą projektą (nauji resursai) | **Azure AI Owner** + **Contributor** ant prenumeratos |
+| Diegti į visiškai sukonfigūruotą projektą | **Reader** ant paskyros + **Azure AI User** projekte |
 
-> **Svarbu:** Azure `Owner` ir `Contributor` rolės apima tik *valdymo* teises, ne *kūrimo* (duomenų veiksmų) teises. Jums reikia **Azure AI User** arba **Azure AI Owner** teisių, kad galėtumėte kurti ir diegti agentus.
+> **Svarbu:** Azure `Owner` ir `Contributor` vaidmenys apima tik *valdymo* teises, o ne *kūrimo* (duomenų veiksmų) teises. Jums reikia **Azure AI User** arba **Azure AI Owner**, kad kurtumėte ir diegtumėte agentus.
 
 ---
 
 ## Nuorodos
 
-- [Greitas startas: Diegti savo pirmąjį talpinamą agentą (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Greitas startas: Įdiekite savo pirmąjį talpinamą agentą (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Kas yra talpinami agentai?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Kurti talpinamų agentų darbo eigas VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [Diegti talpinamą agentą](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [RBAC Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architektūros peržiūros agente pavyzdys](https://github.com/Azure-Samples/agent-architecture-review-sample) - realaus pasaulio talpinamas agentas su MCP įrankiais, Excalidraw diagramomis ir dvigubu diegimu
+- [Sukurkite talpinamų agentų darbo eigas VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Įdiegti talpinamą agentą](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [RBAC Microsoft Foundry'ui](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [Architektūros peržiūros agento pavyzdys](https://github.com/Azure-Samples/agent-architecture-review-sample) - Realiame pasaulyje naudojamas talpinamas agentas su MCP įrankiais, Excalidraw diagramomis ir dviem diegimo būdais
 
 ---
 

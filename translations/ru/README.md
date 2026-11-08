@@ -1,4 +1,4 @@
-# Foundry Toolkit + Мастерская по Hosted Agents в Foundry
+# Foundry Toolkit + Мастерская Foundry Hosted Agents
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -9,24 +9,24 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-Создавайте, тестируйте и развертывайте AI-агентов в **Microsoft Foundry Agent Service** как **Hosted Agents** — полностью из VS Code с помощью **расширения Microsoft Foundry** и **Foundry Toolkit**.
+Создавайте, тестируйте и разворачивайте ИИ-агентов в **Microsoft Foundry Agent Service** как **Hosted Agents** - полностью из VS Code с помощью **расширения Microsoft Foundry** и **Foundry Toolkit**.
 
-> **Hosted Agents находятся на стадии предварительного просмотра.** Поддерживаемые регионы ограничены — смотрите [доступность регионов](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents в настоящее время находятся в режиме предварительной версии.** Поддерживаемые регионы ограничены - см. [доступность по регионам](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Папка `agent/` внутри каждой лабораторной работы **автоматически создается** расширением Foundry — вы затем настраиваете код, тестируете локально и развертываете.
+> Папка `agent/` внутри каждой лаборатории **автоматически создаётся** расширением Foundry - затем вы настраиваете код, тестируете локально и разворачиваете.
 
-### 🌐 Многоязычная поддержка
+### 🌐 Поддержка нескольких языков
 
-#### Поддерживается через GitHub Action (автоматизировано и всегда актуально)
+#### Поддерживается с помощью GitHub Action (автоматизировано и всегда актуально)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](./README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[Арабский](../ar/README.md) | [Бенгальский](../bn/README.md) | [Болгарский](../bg/README.md) | [Бирманский (Мьянма)](../my/README.md) | [Китайский (упрощённый)](../zh-CN/README.md) | [Китайский (традиционный, Гонконг)](../zh-HK/README.md) | [Китайский (традиционный, Макао)](../zh-MO/README.md) | [Китайский (традиционный, Тайвань)](../zh-TW/README.md) | [Хорватский](../hr/README.md) | [Чешский](../cs/README.md) | [Датский](../da/README.md) | [Нидерландский](../nl/README.md) | [Эстонский](../et/README.md) | [Финский](../fi/README.md) | [Французский](../fr/README.md) | [Немецкий](../de/README.md) | [Греческий](../el/README.md) | [Иврит](../he/README.md) | [Хинди](../hi/README.md) | [Венгерский](../hu/README.md) | [Индонезийский](../id/README.md) | [Итальянский](../it/README.md) | [Японский](../ja/README.md) | [Каннада](../kn/README.md) | [Кхмерский](../km/README.md) | [Корейский](../ko/README.md) | [Литовский](../lt/README.md) | [Малайский](../ms/README.md) | [Малаялам](../ml/README.md) | [Маратхи](../mr/README.md) | [Непальский](../ne/README.md) | [Нигерийский пиджин](../pcm/README.md) | [Норвежский](../no/README.md) | [Персидский (фарси)](../fa/README.md) | [Польский](../pl/README.md) | [Португальский (Бразилия)](../pt-BR/README.md) | [Португальский (Португалия)](../pt-PT/README.md) | [Пенджаби (гурмукхи)](../pa/README.md) | [Румынский](../ro/README.md) | [Русский](./README.md) | [Сербский (кириллица)](../sr/README.md) | [Словацкий](../sk/README.md) | [Словенский](../sl/README.md) | [Испанский](../es/README.md) | [Свахили](../sw/README.md) | [Шведский](../sv/README.md) | [Тагальский (Филиппинский)](../tl/README.md) | [Тамильский](../ta/README.md) | [Телугу](../te/README.md) | [Тайский](../th/README.md) | [Турецкий](../tr/README.md) | [Украинский](../uk/README.md) | [Урду](../ur/README.md) | [Вьетнамский](../vi/README.md)
 
 > **Предпочитаете клонировать локально?**
 >
-> В этом репозитории есть более 50 переводов на разные языки, что значительно увеличивает размер загрузки. Чтобы клонировать без переводов, используйте sparse checkout:
+> В этом репозитории есть переводы на более чем 50 языков, что значительно увеличивает размер загрузки. Чтобы клонировать без переводов, используйте sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> Это даст вам всё необходимое для прохождения курса с гораздо более быстрой загрузкой.
+> Это даст вам все необходимое для завершения курса с гораздо более быстрой загрузкой.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,7 +51,7 @@
 
 ```mermaid
 flowchart TB
-    subgraph Local["Локальная разработка (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,7 +63,7 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "Отладка F5" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
@@ -85,55 +85,55 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> Создание каркаса
-    Playground -- "Тестовые подсказки" --> AgentService
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Процесс:** Расширение Foundry создает структуру агента → вы настраиваете код и инструкции → тестируете локально с Agent Inspector → развертываете в Foundry (docker-образ отправляется в ACR) → проверяете в Playground.
+**Flow:** Foundry extension создает каркас агента → вы настраиваете код и инструкции → тестируете локально с помощью Agent Inspector → развертываете в Foundry (образ Docker отправляется в ACR) → проверяете в Playground.
 
 ---
 
 ## Что вы создадите
 
-| Лабораторная работа | Описание | Статус |
+| Лаборатория | Описание | Статус |
 |-----|-------------|--------|
-| **Лабораторная 01 - Один агент** | Создайте **агента "Объясни, как если бы я исполнительный директор"**, протестируйте локально и разверните в Foundry | ✅ Доступно |
-| **Лабораторная 02 - Многоагентный рабочий процесс** | Создайте **"Оценщик соответствия резюме - оценщик соответствия вакансии"** - 4 агента работают вместе, чтобы оценить соответствие резюме и составить дорожную карту обучения | ✅ Доступно |
+| **Лаборатория 01 - Один агент** | Соберите агента **«Объясни как руководителю»**, протестируйте его локально и разверните в Foundry | ✅ Доступно |
+| **Лаборатория 02 - Мультиагентный рабочий поток** | Создайте **«Оценщик соответствия резюме → вакансии»** — 4 агента сотрудничают, чтобы оценить соответствие резюме и создать план обучения | ✅ Доступно |
 
 ---
 
-## Познакомьтесь с агентом Executive
+## Познакомьтесь с агентом для руководства
 
-В этой мастерской вы создадите **агента "Объясни, как если бы я исполнительный директор"** — AI-агента, который берет сложный технический жаргон и превращает его в спокойные, готовые к заседанию совета резюме. Потому что, честно говоря, никто из руководства не хочет слышать о "истощении пула потоков, вызванном синхронными вызовами, введёнными в версии 3.2".
+В этом воркшопе вы создадите агента **«Объясни как руководителю»** — ИИ-агента, который берет сложный технический жаргон и переводит его в спокойные, готовые для заседания совета директоров сводки. Честно говоря, никому из руководства не хочется слушать о «истощении пула потоков, вызванном синхронными вызовами, введёнными в v3.2».
 
-Я создал этого агента после слишком большого количества случаев, когда мой идеально составленный отчет о проблемах встречал ответ: *"Так... сайт работает или нет?"*
+Я создал этого агента после того, как слишком часто после моего идеально составленного постмортема получал ответ: *"Так... сайт упал или нет?"*
 
 ### Как это работает
 
-Вы даёте агенту техническое обновление. Он выдает резюме для руководства - три пункта, без жаргона, без стек-трейсов, без экзистенциального ужаса. Просто **что произошло**, **влияние на бизнес**, и **следующий шаг**.
+Вы даете ему техническое обновление. Он возвращает исполнительное резюме - три пункта, без жаргона, без трассировки стека, без экзистенциального ужаса. Только **что произошло**, **влияние на бизнес**, и **следующий шаг**.
 
-### Посмотрите его в действии
+### Посмотрите на практике
 
 **Вы говорите:**
-> "Задержка API увеличилась из-за истощения пула потоков, вызванного синхронными вызовами, введёнными в версии 3.2."
+> "Задержка API увеличилась из‑за истощения пула потоков, вызванного синхронными вызовами, введёнными в v3.2."
 
 **Агент отвечает:**
 
-> **Резюме для руководства:**
-> - **Что произошло:** После последнего обновления система замедлилась.
+> **Исполнительное резюме:**
+> - **Что произошло:** После последнего релиза система замедлилась.
 > - **Влияние на бизнес:** Некоторые пользователи столкнулись с задержками при использовании сервиса.
-> - **Следующий шаг:** Изменение было отменено, готовится исправление перед повторным развертыванием.
+> - **Следующий шаг:** Изменение откатили, готовится исправление перед повторным развёртыванием.
 
-### Зачем нужен этот агент?
+### Зачем этот агент?
 
-Это предельно простой, целенаправленный агент — идеально подходит для изучения рабочего процесса hosted agents от начала до конца без запутывания в сложных инструментах. И, честно говоря, каждая инженерная команда могла бы иметь такого.
+Это предельно простой агент с одной целью — идеален для изучения рабочего процесса размещённых агентов от начала до конца, без утопления в сложных наборах инструментов. И, честно говоря, каждая инженерная команда могла бы иметь такой.
 
 ---
 
-## Структура мастерской
+## Структура воркшопа
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -175,7 +175,7 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **Примечание:** Папка `agent/` внутри каждой лабораторной работы создаётся расширением **Microsoft Foundry** при запуске команды `Microsoft Foundry: Create a New Hosted Agent` из Command Palette. Файлы затем настраиваются с инструкциями, инструментами и конфигурацией вашего агента. Лабораторная 01 проведет вас через процесс создания с нуля.
+> **Примечание:** Папка `agent/` внутри каждой лаборатории — это то, что расширение **Microsoft Foundry** генерирует, когда вы запускаете `Microsoft Foundry: Create a New Hosted Agent` из палитры команд. Затем файлы настраиваются инструкциями, инструментами и конфигурацией вашего агента. Лаборатория 01 проведёт вас через воссоздание этого с нуля.
 
 ---
 
@@ -211,9 +211,9 @@ python -m venv venv
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. Настройте переменные окружения
+### 4. Настройка переменных окружения
 
-Скопируйте пример файла `.env` в папку агента и заполните ваши значения:
+Скопируйте пример файла `.env` в папку агента и заполните его своими значениями:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,47 +226,47 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Следуйте лабораторным работам
+### 5. Выполняйте лабораторные задания
 
-Каждая лабораторная работа автономна со своими модулями. Начните с **Лабораторной 01**, чтобы изучить основы, затем переходите к **Лабораторной 02** для многоагентных рабочих процессов.
+Каждая лаборатория автономна и содержит собственные модули. Начните с **Лаборатории 01**, чтобы изучить основы, затем переходите к **Лаборатории 02** для работы с мультиагентными сценариями.
 
-#### Лабораторная 01 - Один агент ([полные инструкции](workshop/lab01-single-agent/README.md))
+#### Лаборатория 01 - Один агент ([полные инструкции](workshop/lab01-single-agent/README.md))
 
-| № | Модуль | Ссылка |
+| # | Модуль | Ссылка |
 |---|--------|------|
-| 1 | Прочитать требования | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Установить Foundry Toolkit и расширение Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 3 | Создать проект Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | Создать hosted agent | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | Настроить инструкции и окружение | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | Тестировать локально | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Развернуть в Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Проверить в playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 1 | Ознакомьтесь с предварительными требованиями | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Установите Foundry Toolkit и расширение Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 3 | Создайте проект Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 4 | Создайте размещённого агента | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | Настройте инструкции и окружение | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | Протестируйте локально | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | Разверните в Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | Проверьте в Playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
 | 9 | Устранение неполадок | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Лабораторная 02 - Многоагентный рабочий процесс ([полные инструкции](workshop/lab02-multi-agent/README.md))
+#### Лаборатория 02 - Мультиагентный рабочий поток ([полные инструкции](workshop/lab02-multi-agent/README.md))
 
-| № | Модуль | Ссылка |
+| # | Модуль | Ссылка |
 |---|--------|------|
-| 1 | Требования (Лабораторная 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Понять архитектуру многоагентной системы | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Создать структуру многоагентного проекта | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Настроить агентов и окружение | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | Шаблоны оркестровки | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Тестировать локально (многоагентный) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Развертывание в Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Проверка в playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | Решение проблем (многоагентный режим) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 1 | Предварительные требования (Лаборатория 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Разберитесь в архитектуре мультиагентной системы | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Сгенерируйте каркас мультиагентного проекта | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Настройте агентов и окружение | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | Паттерны оркестрации | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | Тестирование локально (мультиагентное) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Разверните в Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Проверьте в Playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | Устранение неполадок (мультиагентное) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## Ответственный за поддержку
+## Поддерживает
 
 <table>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>Шивам Гоял</b></sub>
+        <sub><b>Shivam Goyal</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,26 +274,26 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## Необходимые разрешения (быстрая справка)
+## Необходимые разрешения (краткая справка)
 
 | Сценарий | Необходимые роли |
 |----------|---------------|
-| Создание нового проекта Foundry | **Владелец Azure AI** для ресурса Foundry |
-| Развертывание в существующий проект (новые ресурсы) | **Владелец Azure AI** + **Участник** для подписки |
-| Развертывание в полностью настроенный проект | **Читатель** для учетной записи + **Пользователь Azure AI** для проекта |
+| Создание нового проекта Foundry | **Azure AI Owner** на ресурсе Foundry |
+| Развернуть в существующий проект (новые ресурсы) | **Azure AI Owner** + **Contributor** на подписке |
+| Развернуть в полностью настроенный проект | **Reader** на учётной записи + **Azure AI User** на проекте |
 
-> **Важно:** роли Azure `Владелец` и `Участник` включают только *управленческие* разрешения, а не *разработческие* (действия с данными). Для создания и развертывания агентов вам нужны **Пользователь Azure AI** или **Владелец Azure AI**.
+> **Важно:** роли Azure `Owner` и `Contributor` включают только *права управления*, а не *права разработки* (действия с данными). Для создания и развёртывания агентов вам нужны **Azure AI User** или **Azure AI Owner**.
 
 ---
 
-## Ресурсы
+## Ссылки
 
-- [Быстрый старт: развертывание вашего первого хостингового агента (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [Что такое хостинговые агенты?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Создание рабочих процессов хостинговых агентов в VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [Развертывание хостингового агента](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Краткое руководство: Разверните вашего первого хостируемого агента (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Что такое хостируемые агенты?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Создание рабочих процессов для хостируемых агентов в VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Развертывание хостируемого агента](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC для Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Пример агента для обзора архитектуры](https://github.com/Azure-Samples/agent-architecture-review-sample) - Реальный хостинговый агент с инструментами MCP, диаграммами Excalidraw и двойным развертыванием
+- [Образец агента обзора архитектуры](https://github.com/Azure-Samples/agent-architecture-review-sample) - Реальный хостируемый агент с инструментами MCP, диаграммами Excalidraw и двойным развёртыванием
 
 ---
 

@@ -34,7 +34,7 @@ flowchart LR
 Enne rakendamist veenduge:
 
 - [ ] Agent läbib kõik 3 kohalikku stsenaariumi [Moodul 04](04-test-locally.md)
-- [ ] Teil on projekti tasandil **Azure AI User** roll ([Moodul 01, Määra RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Teil on projekti tasandil **Azure AI User** roll ([Moodul 01, Määra RBAC](01-setup.md#juuruta-mudel-ja-määra-rbac))
 - [ ] Olete VS Code'is Azure sisse logitud (Kontoikoonil kuvatakse teie nimi)
 
 ---
@@ -114,7 +114,7 @@ Klõpsake **järgmine**, et üle vaadata ja rakendada oma agent.
 
 | Viga | Põhjus | Lahendus |
 |-------|-----------|-----|
-| `agents/write` luba keelatud | Puudub **Azure AI User** roll projekti tasandil | [Moodul 01, Määra RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| `agents/write` luba keelatud | Puudub **Azure AI User** roll projekti tasandil | [Moodul 01, Määra RBAC](01-setup.md#juuruta-mudel-ja-määra-rbac) |
 | Docker ei jookse | Docker Desktop pole käivitatud | Käivita Docker Desktop → kontrolli `docker info` |
 | ACR autoriseerimine | Hallataval identiteedil pole pildi tõmbamise õigust | Vaata [Moodul 08 - Veaotsing](08-troubleshooting.md) |
 

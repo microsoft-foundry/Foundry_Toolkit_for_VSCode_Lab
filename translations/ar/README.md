@@ -1,4 +1,4 @@
-# مجموعة أدوات Foundry + ورشة عمل وكلاء Foundry المستضافين
+# ورشة عمل Foundry Toolkit + Foundry Hosted Agents
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -9,24 +9,24 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-بِنَاء، اختبار، ونشر وكلاء الذكاء الاصطناعي إلى **خدمة وكلاء مايكروسوفت Foundry** كـ **وكلاء مستضافين** - بالكامل من VS Code باستخدام **امتداد مايكروسوفت Foundry** و**مجموعة أدوات Foundry**.
+بناء واختبار ونشر وكلاء الذكاء الاصطناعي إلى **خدمة وكلاء Microsoft Foundry** كـ **وكلاء مستضافين** - كل ذلك من داخل VS Code باستخدام **ملحق Microsoft Foundry** و**Foundry Toolkit**.
 
-> **الوكلاء المستضافين متاحون الآن في المعاينة.** المناطق المدعومة محدودة - راجع [توفر المناطق](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **الوكلاء المستضافون متاحون حاليًا في المعاينة.** المناطق المدعومة محدودة - راجع [توفر المناطق](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> يُنشئ مجلد `agent/` داخل كل مختبر **تلقائيًا بواسطة امتداد Foundry** - ثم تقوم بتخصيص الكود، الاختبار محليًا، والنشر.
+> يتم إنشاء مجلد `agent/` داخل كل مختبر **آليًا** بواسطة امتداد Foundry - بعد ذلك تقوم بتخصيص الكود، اختباره محليًا، ونشره.
 
 ### 🌐 دعم متعدد اللغات
 
-#### مدعوم عبر GitHub Action (آلي ودائمًا محدث)
+#### مدعوم عبر GitHub Action (مؤتمت ومحدث دائمًا)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](./README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[العربية](./README.md) | [البنغالية](../bn/README.md) | [البلغارية](../bg/README.md) | [البورمية (ميانمار)](../my/README.md) | [الصينية (مبسطة)](../zh-CN/README.md) | [الصينية (تقليدية، هونغ كونغ)](../zh-HK/README.md) | [الصينية (تقليدية، ماكاو)](../zh-MO/README.md) | [الصينية (تقليدية، تايوان)](../zh-TW/README.md) | [الكرواتية](../hr/README.md) | [التشيكية](../cs/README.md) | [الدانمركية](../da/README.md) | [الهولندية](../nl/README.md) | [الإستونية](../et/README.md) | [الفنلندية](../fi/README.md) | [الفرنسية](../fr/README.md) | [الألمانية](../de/README.md) | [اليونانية](../el/README.md) | [العبرية](../he/README.md) | [الهندية](../hi/README.md) | [الهنغارية](../hu/README.md) | [الإندونيسية](../id/README.md) | [الإيطالية](../it/README.md) | [اليابانية](../ja/README.md) | [الكنّادية](../kn/README.md) | [الخميرية](../km/README.md) | [الكورية](../ko/README.md) | [اللتوانية](../lt/README.md) | [الماليزية](../ms/README.md) | [المالايالامية](../ml/README.md) | [الماراثية](../mr/README.md) | [النيبالية](../ne/README.md) | [البيجن النيجيري](../pcm/README.md) | [النرويجية](../no/README.md) | [الفارسية (فارسی)](../fa/README.md) | [البولندية](../pl/README.md) | [البرتغالية (البرازيل)](../pt-BR/README.md) | [البرتغالية (البرتغال)](../pt-PT/README.md) | [البنجابية (Gurmukhi)](../pa/README.md) | [الرومانية](../ro/README.md) | [الروسية](../ru/README.md) | [الصربية (السيريلية)](../sr/README.md) | [السلوفاكية](../sk/README.md) | [السلوفينية](../sl/README.md) | [الإسبانية](../es/README.md) | [السواحيلية](../sw/README.md) | [السويدية](../sv/README.md) | [التغالوغ (الفلبينية)](../tl/README.md) | [التاميلية](../ta/README.md) | [التيلوغو](../te/README.md) | [التايلاندية](../th/README.md) | [التركية](../tr/README.md) | [الأوكرانية](../uk/README.md) | [الأردية](../ur/README.md) | [الفيتنامية](../vi/README.md)
 
-> **تفضل النسخ محليًا؟**
+> **هل تُفضل الاستنساخ محليًا؟**
 >
-> يحتوي هذا المستودع على أكثر من 50 ترجمة للغات مما يزيد بشكل كبير من حجم التنزيل. لنسخ بدون الترجمات، استخدم الفحص المتفرق:
+> يتضمن هذا المستودع أكثر من 50 ترجمة للغات مما يزيد حجم التنزيل بشكل كبير. للاستنساخ بدون الترجمات، استخدم sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -35,23 +35,23 @@
 > git sparse-checkout set --no-cone '/*' '!translations' '!translated_images'
 > ```
 >
-> **CMD (ويندوز):**
+> **CMD (Windows):**
 > ```cmd
 > git clone --filter=blob:none --sparse https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 > cd Foundry_Toolkit_for_VSCode_Lab
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> هذا يمنحك كل ما تحتاجه لإكمال الدورة مع تنزيل أسرع بكثير.
+> سيعطيك هذا كل ما تحتاجه لإكمال الدورة مع تنزيل أسرع بكثير.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## الهيكلية
+## البنية المعمارية
 
 ```mermaid
 flowchart TB
-    subgraph Local["التطوير المحلي (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,11 +63,11 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "تصحيح F5" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
-    subgraph Cloud["مايكروسوفت فاوندري"]
+    subgraph Cloud["Microsoft Foundry"]
         direction TB
         ACR["Azure Container
         Registry"]
@@ -85,51 +85,51 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> هيكل عظمي
-    Playground -- "اختبر المطالبات" --> AgentService
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**التدفق:** يتم إنشاء الهيكل الأساسي للوكيل بواسطة امتداد Foundry → تخصيص الكود والتعليمات → الاختبار محليًا باستخدام Agent Inspector → النشر إلى Foundry (صورة Docker تُرفع إلى ACR) → التحقق في ملعب الاختبار.
+**التدفق:** يقوم امتداد Foundry بتهيئة الوكيل → تقوم بتخصيص الكود والتعليمات → الاختبار محليًا باستخدام Agent Inspector → النشر إلى Foundry (صورة Docker تُدفع إلى ACR) → التحقق في Playground.
 
 ---
 
-## ما ستبنيه
+## ما الذي ستبنيه
 
 | المختبر | الوصف | الحالة |
 |-----|-------------|--------|
-| **مختبر 01 - وكيل منفرد** | بناء **"الوكيل الذي يشرح كأنني مدير تنفيذي"**، اختباره محليًا، ونشره إلى Foundry | ✅ متاح |
-| **مختبر 02 - سير عمل متعدد الوكلاء** | بناء **"المُقيّم اللائق للسيرة الذاتية → الوظيفة"** - أربعة وكلاء يتعاونون لتقييم مدى ملاءمة السيرة الذاتية وإنشاء خارطة طريق تعليمية | ✅ متاح |
+| **المعمل 01 - وكيل واحد** | بناء **"اشرحها وكأنني مدير تنفيذي"**، اختباره محليًا، ونشره إلى Foundry | ✅ متاح |
+| **المعمل 02 - سير عمل متعدد الوكلاء** | بناء **"مقيّم الملائمة للسيرة الذاتية → الوظيفة"** - 4 وكلاء يتعاونون لتقييم مدى ملاءمة السيرة الذاتية وإنشاء خارطة طريق للتعلّم | ✅ متاح |
 
 ---
 
-## تعرّف على الوكيل التنفيذي
+## تعرّف على وكيل المدير التنفيذي
 
-في هذه الورشة ستبني **"الوكيل الذي يشرح كأنني مدير تنفيذي"** - وكيل ذكاء اصطناعي يأخذ المصطلحات التقنية المعقدة ويترجمها إلى ملخصات هادئة جاهزة للاجتماعات التنفيذية. لأن، لنكن صادقين، لا أحد في الفريق التنفيذي يريد سماع "نفاد مجموعة الخيوط بسبب المكالمات المتزامنة التي تم تقديمها في الإصدار 3.2".
+في هذه الورشة ستبني **وكيل "اشرحها وكأنني مدير تنفيذي"** - وكيل ذكاء اصطناعي يأخذ المصطلحات التقنية المعقدة ويحوّلها إلى ملخصات هادئة جاهزة للاجتماعات التنفيذية. ولنعترف بالحق، لا أحد في المستوى التنفيذي يريد سماع تفاصيل مثل "استنفاد مجموعة الخيوط الناتج عن استدعاءات متزامنة أُضيفت في الإصدار v3.2."
 
-بنيت هذا الوكيل بعد عدد من الحوادث التي حصلت فيها على رد: *"فهل الموقع معطل أم لا؟"* رغم أنني قدمت تقريرًا مفصلاً.
+بنيت هذا الوكيل بعد تكرار عدة حوادث حيث تلقى تقرير التحليل التفصيلي رداً مثل: *"فهل... الموقع معطّل أم لا؟"*
 
 ### كيف يعمل
 
-تزوده بتحديث تقني. ويعيد إليك ملخصًا تنفيذيًا - ثلاث نقاط موجزة، بدون مصطلحات فنية، بدون تتبع الأخطاء، بدون خوف وجودي. فقط **ما حدث**، **تأثير الأعمال**، و**الخطوة التالية**.
+تزوده بتحديث تقني. يعيد لك ملخصًا تنفيذيًا - ثلاث بنود نقطية، بدون مصطلحات فنية معقدة، بدون تتبعات الأخطاء، وبدون إثارة القلق الوجودي. فقط **ما حدث**، **تأثير العمل**، و**الخطوة التالية**.
 
-### شاهد هذا في العمل
+### شاهدها أثناء التنفيذ
 
 **أنت تقول:**
-> "زادت كمية تأخير API بسبب نفاد مجموعة الخيوط الناتجة عن المكالمات المتزامنة التي تم تقديمها في الإصدار 3.2."
+> "ازدادت زمن استجابة واجهة برمجة التطبيقات بسبب استنفاد مجموعة الخيوط الناتج عن استدعاءات متزامنة أُضيفت في v3.2."
 
-**يرد الوكيل:**
+**يجيب الوكيل:**
 
-> **ملخص تنفيذي:**
+> **الملخص التنفيذي:**
 > - **ما حدث:** بعد الإصدار الأخير، تباطأ النظام.
-> - **تأثير الأعمال:** واجه بعض المستخدمين تأخيرات أثناء استخدام الخدمة.
-> - **الخطوة التالية:** تم التراجع عن التغيير ويتم إعداد إصلاح قبل إعادة النشر.
+> - **تأثير العمل:** بعض المستخدمين شعروا بتأخيرات أثناء استخدام الخدمة.
+> - **الخطوة التالية:** تم التراجع عن التغيير ويتم تحضير إصلاح قبل إعادة النشر.
 
 ### لماذا هذا الوكيل؟
 
-هو وكيل بسيط جدًا لمهمة واحدة - مثالي لتعلم سير عمل الوكلاء المستضافين من البداية للنهاية دون التعقيد في سلاسل الأدوات المعقدة. وبصراحة؟ يمكن لكل فريق هندسي الاستفادة من واحد منهم.
+إنه وكيل بسيط للغاية ومصمم لهدف واحد - مثالي لتعلّم سير عمل الوكلاء المستضافين من البداية إلى النهاية دون الغوص في سلاسل أدوات معقدة. وبصراحة؟ كل فريق هندسي يمكنه الاستفادة من واحد كهذا.
 
 ---
 
@@ -175,11 +175,11 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **ملاحظة:** مجلد `agent/` داخل كل مختبر هو ما ينشئه **امتداد Microsoft Foundry** عند تشغيل `Microsoft Foundry: Create a New Hosted Agent` من لوحة الأوامر. ثم يتم تخصيص الملفات مع تعليمات وكيلك، الأدوات، والتكوين. يوجهك مختبر 01 خلال إعادة إنشائه من الصفر.
+> **ملاحظة:** المجلد `agent/` داخل كل مختبر هو ما يولّده **امتداد Microsoft Foundry** عند تشغيل `Microsoft Foundry: Create a New Hosted Agent` من لوحة الأوامر. ثم تُخصص الملفات بتعليمات وكيلك، الأدوات، والتكوين. يوضح المختبر 01 كيفية إعادة إنشاء هذا من الصفر.
 
 ---
 
-## بدء الاستخدام
+## البدء
 
 ### 1. استنساخ المستودع
 
@@ -188,7 +188,7 @@ git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.gi
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. إعداد بيئة Python افتراضية
+### 2. إعداد بيئة افتراضية بايثون
 
 ```bash
 python -m venv venv
@@ -196,7 +196,7 @@ python -m venv venv
 
 قم بتنشيطها:
 
-- **ويندوز (PowerShell):**
+- **Windows (PowerShell):**
   ```powershell
   .\venv\Scripts\Activate.ps1
   ```
@@ -213,60 +213,60 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. تكوين متغيرات البيئة
 
-انسخ ملف `.env` النموذجي داخل مجلد العميل واملأ القيم الخاصة بك:
+انسخ ملف المثال `.env` داخل مجلد الوكيل واملأ قيمك:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-عدّل `workshop/lab01-single-agent/agent/.env`:
+حرّر `workshop/lab01-single-agent/agent/.env`:
 
 ```env
 AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. تابع مختبرات الورشة
+### 5. اتبع مختبرات الورشة
 
-كل مختبر مستقل بوحداته الخاصة. ابدأ بـ **مختبر 01** لتعلم الأساسيات، ثم انتقل إلى **مختبر 02** لسير عمل متعدد الوكلاء.
+كل مختبر مستقل ويحتوي على وحداته الخاصة. ابدأ بـ **المعمل 01** لتعلّم الأساسيات، ثم انتقل إلى **المعمل 02** لسير العمل متعدد الوكلاء.
 
-#### مختبر 01 - وكيل منفرد ([تعليمات كاملة](workshop/lab01-single-agent/README.md))
+#### المعمل 01 - وكيل واحد ([التعليمات الكاملة](workshop/lab01-single-agent/README.md))
 
 | # | الوحدة | الرابط |
 |---|--------|------|
-| 1 | قراءة المتطلبات الأساسية | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | تثبيت مجموعة أدوات Foundry وامتداد Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 1 | اقرأ المتطلبات المسبقة | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | تثبيت Foundry Toolkit وامتداد Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | إنشاء مشروع Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | إنشاء وكيل مستضاف | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
 | 5 | تكوين التعليمات والبيئة | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | اختبار محلي | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 6 | الاختبار محليًا | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
 | 7 | النشر إلى Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | التحقق في ملعب الاختبار | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | استكشاف المشكلات وحلها | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 8 | التحقق في البيئة التجريبية | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | استكشاف الأخطاء وإصلاحها | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### مختبر 02 - سير عمل متعدد الوكلاء ([تعليمات كاملة](workshop/lab02-multi-agent/README.md))
+#### المعمل 02 - سير عمل متعدد الوكلاء ([التعليمات الكاملة](workshop/lab02-multi-agent/README.md))
 
 | # | الوحدة | الرابط |
 |---|--------|------|
-| 1 | المتطلبات الأساسية (مختبر 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | فهم بنية الوكلاء المتعددين | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | إنشاء هيكل مشروع الوكلاء المتعددين | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 1 | المتطلبات المسبقة (المعمل 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | فهم بنية نظام متعدد الوكلاء | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | تهيئة مشروع متعدد الوكلاء | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | تكوين الوكلاء والبيئة | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | أنماط التنسيق | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | اختبار محلي (متعدد الوكلاء) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 6 | الاختبار محليًا (متعدد الوكلاء) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
 | 7 | النشر إلى Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | التحقق في الملعب | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | استكشاف الأخطاء وإصلاحها (متعدد العوامل) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 8 | التحقق في البيئة التجريبية | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | استكشاف الأخطاء وإصلاحها (متعدد الوكلاء) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## المسؤول
+## المشرف
 
 <table>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>شيفام جويال</b></sub>
+        <sub><b>Shivam Goyal</b></sub>
     </a><br />
     </td>
 </tr>
@@ -278,22 +278,22 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 | السيناريو | الأدوار المطلوبة |
 |----------|---------------|
-| إنشاء مشروع Foundry جديد | **مالك Azure AI** على مورد Foundry |
-| النشر إلى مشروع قائم (موارد جديدة) | **مالك Azure AI** + **مساهم** على الاشتراك |
-| النشر إلى مشروع مُهيأ بالكامل | **قارئ** على الحساب + **مستخدم Azure AI** على المشروع |
+| إنشاء مشروع Foundry جديد | **Azure AI Owner** على مورد Foundry |
+| النشر إلى مشروع موجود (موارد جديدة) | **Azure AI Owner** + **Contributor** على الاشتراك |
+| النشر إلى مشروع مُكوَّن بالكامل | **Reader** على الحساب + **Azure AI User** على المشروع |
 
-> **مهم:** تتضمن أدوار Azure `مالك` و `مساهم` فقط أذونات *الإدارة*، وليست أذونات *التطوير* (إجراءات البيانات). تحتاج إلى **مستخدم Azure AI** أو **مالك Azure AI** لبناء ونشر العوامل.
+> **مهم:** أدوار Azure `Owner` و `Contributor` تتضمن أذونات *إدارية* فقط، وليست أذونات *تطوير* (إجراءات البيانات). تحتاج إلى **Azure AI User** أو **Azure AI Owner** لبناء ونشر الوكلاء.
 
 ---
 
-## المراجع
+## مراجع
 
-- [البدء السريع: نشر أول وكيل مستضاف لك (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [ما هو الوكلاء المستضيفون؟](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [إنشاء سير عمل الوكيل المستضاف في VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [البدء السريع: نشر وكيلك المستضاف الأول (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [ما المقصود بالوكلاء المستضافين؟](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [إنشاء سير عمل للوكلاء المستضافين في VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [نشر وكيل مستضاف](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [التحكم في الوصول بناءً على الدور لـ Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [عينة وكيل مراجعة الهندسة المعمارية](https://github.com/Azure-Samples/agent-architecture-review-sample) - وكيل مستضاف واقعي مع أدوات MCP، ورسومات Excalidraw، والنشر المزدوج
+- [RBAC لـ Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [مثال لوكيل مراجعة البنية](https://github.com/Azure-Samples/agent-architecture-review-sample) - وكيل مستضاف واقعي مع أدوات MCP ومخططات Excalidraw ونشر مزدوج
 
 ---
 

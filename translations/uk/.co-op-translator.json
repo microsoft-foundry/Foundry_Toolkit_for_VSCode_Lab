@@ -7,7 +7,7 @@
   },
   "README.md": {
     "original_hash": "e4cb3996613e11264e496ec4ecdf3254",
-    "translation_date": "2026-07-11T13:13:31+00:00",
+    "translation_date": "2026-11-08T01:40:30+00:00",
     "source_file": "README.md",
     "language_code": "uk"
   },
@@ -22,19 +22,6 @@
     "translation_date": "2026-07-11T13:11:47+00:00",
     "source_file": "SUPPORT.md",
     "language_code": "uk"
-  },
-  "__translation_failures__": {
-    "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
-      "original_hash": "af885886a474dbfb40cfe7d9c912d142",
-      "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
-      "language_code": "uk",
-      "failure_date": "2026-07-11T13:37:44+00:00",
-      "status": "failed",
-      "error_type": "TranslationIncompleteError",
-      "error_message": "Markdown translation remained incomplete for chunk 1 of '02-scaffold-multi-agent.md', and the chunk could not be split further.",
-      "translator_version": "0.20.0",
-      "failure_policy_version": 1
-    }
   },
   "session-delivery-resources/README.md": {
     "original_hash": "d38591a4051a2460fcbf758d0b143114",
@@ -124,6 +111,12 @@
     "original_hash": "9b08a84af764cd1c332971309292f4b1",
     "translation_date": "2026-07-11T13:38:52+00:00",
     "source_file": "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md",
+    "language_code": "uk"
+  },
+  "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
+    "original_hash": "af885886a474dbfb40cfe7d9c912d142",
+    "translation_date": "2026-11-08T01:08:08+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
     "language_code": "uk"
   },
   "workshop/lab02-multi-agent/docs/03-configure-agents.md": {
