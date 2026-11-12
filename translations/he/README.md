@@ -1,32 +1,32 @@
-# Foundry Toolkit + סדנת סוכני Foundry Hosted  
+# Foundry Toolkit + סדנה: סוכנים מאוחסנים (Hosted Agents) של Foundry
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
-[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+[![פייתון](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![מסגרת הסוכנים של Microsoft](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![סוכנים מאוחסנים](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
 [![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![רישיון](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-בנה, בדוק ופרוס סוכני בינה מלאכותית לשירות הסוכנים של **Microsoft Foundry Agent Service** כסוכנים **Hosted Agents** — הכל ישירות מ־VS Code בעזרת **ההרחבה Microsoft Foundry** ו־**Foundry Toolkit**.
+בנו, בדקו ופרסו סוכני בינה מלאכותית לשירות **Microsoft Foundry Agent Service** כ**סוכנים מאוחסנים** — הכל מתוך VS Code באמצעות התוסף **Microsoft Foundry** ו-**Foundry Toolkit**.
 
-> **Hosted Agents נמצאים כרגע בבטא.** האזורים הנתמכים מוגבלים - ראה [זמינות האזור](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **סוכנים מאוחסנים כרגע בגרסת תצוגה מקדימה.** האזורים הנתמכים מוגבלים - ראה [זמינות לפי אזור](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> התיקייה `agent/` בכל מעבדה נוצרת **אוטומטית** על ידי ההרחבה Foundry — לאחר מכן אתה מתאים את הקוד, בודק מקומית, ומפרוס.
+> התיקיה `agent/` בתוך כל מעבדה נוצרת **באופן אוטומטי** על ידי תוסף Foundry - לאחר מכן אתם מתאימים את הקוד, בודקים מקומית, ומפרסים.
 
 ### 🌐 תמיכה בריבוי שפות
 
-#### נתמך באמצעות GitHub Action (אוטומטי ותמיד מעודכן)
+#### נתמך דרך GitHub Action (ממוכן ומתעדכן תמיד)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](./README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[ערבית](../ar/README.md) | [בנגלית](../bn/README.md) | [בולגרית](../bg/README.md) | [בורמזית (מיאנמר)](../my/README.md) | [סינית (מפושטת)](../zh-CN/README.md) | [סינית (מסורתית, הונג קונג)](../zh-HK/README.md) | [סינית (מסורתית, מקאו)](../zh-MO/README.md) | [סינית (מסורתית, טייוואן)](../zh-TW/README.md) | [קרואטית](../hr/README.md) | [צ'כית](../cs/README.md) | [דנית](../da/README.md) | [הולנדית](../nl/README.md) | [אסטונית](../et/README.md) | [פינית](../fi/README.md) | [צרפתית](../fr/README.md) | [גרמנית](../de/README.md) | [יוונית](../el/README.md) | [עברית](./README.md) | [הינדי](../hi/README.md) | [הונגרית](../hu/README.md) | [אינדונזית](../id/README.md) | [איטלקית](../it/README.md) | [יפנית](../ja/README.md) | [Kannada](../kn/README.md) | [חמרית](../km/README.md) | [קוריאנית](../ko/README.md) | [ליטאית](../lt/README.md) | [מלאית](../ms/README.md) | [מלאיאלאם](../ml/README.md) | [מראטי](../mr/README.md) | [נפאלית](../ne/README.md) | [ניגרית פיג'ין](../pcm/README.md) | [נורווגית](../no/README.md) | [פרסית (פארסי)](../fa/README.md) | [פולנית](../pl/README.md) | [פורטוגזית (ברזילאית)](../pt-BR/README.md) | [פורטוגזית (פורטוגל)](../pt-PT/README.md) | [פנג'אבי (גורמוקי)](../pa/README.md) | [רומנית](../ro/README.md) | [רוסית](../ru/README.md) | [סרבית (קירילית)](../sr/README.md) | [סלובקית](../sk/README.md) | [סלובנית](../sl/README.md) | [ספרדית](../es/README.md) | [סווהילי](../sw/README.md) | [שוודית](../sv/README.md) | [טגלוג (פיליפינית)](../tl/README.md) | [טמילית](../ta/README.md) | [טלוגו](../te/README.md) | [תאית](../th/README.md) | [טורקית](../tr/README.md) | [אוקראינית](../uk/README.md) | [אורדו](../ur/README.md) | [וייטנאמית](../vi/README.md)
 
-> **מעדיף לשכפל מקומית?**
+> **מעדיפים לשכפל באופן מקומי?**
 >
-> מאגר זה כולל 50+ תרגומים בשפות שמגדילים משמעותית את גודל ההורדה. כדי לשכפל בלי תרגומים, השתמש ב-sparse checkout:
+> מאגר זה כולל מעל 50 תרגומים לשפות, מה שמגדיל משמעותית את גודל ההורדה. כדי לשכפל ללא תרגומים, השתמשו ב-sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> כך תקבל את כל מה שצריך כדי להשלים את הקורס במהירות הורדה גבוה.
+> זה נותן לכם את כל מה שאתם צריכים כדי להשלים את הקורס עם הורדה מהירה יותר.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,7 +51,7 @@
 
 ```mermaid
 flowchart TB
-    subgraph Local["פיתוח מקומי (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,7 +63,7 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "ניפוי שגיאות F5" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
@@ -85,51 +85,51 @@ flowchart TB
     Scaffold -- "Deploy
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
-    (localhost:8088)" --> שלד
-    Playground -- "בדוק בקשות" --> AgentService
+    (localhost:8088)" --> Scaffold
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**זרימה:** הרחבת Foundry יוצרת את הסוכן → אתה מתאים קוד והוראות → בודק מקומית עם Agent Inspector → מפרוס ל־Foundry (תמונת Docker נדחפת ל-ACR) → מאמת ב-Playground.
+**תהליך:** תוסף Foundry יוצר את השלד של הסוכן → אתם מתאימים את הקוד וההוראות → בודקים מקומית עם Agent Inspector → מפרסים ל-Foundry (תמונת Docker נדחפת ל-ACR) → מאמתים ב-Playground.
 
 ---
 
-## מה תבנה
+## מה שתבנו
 
-| מעבדה | תיאור | מצב |
+| מעבדה | תיאור | סטטוס |
 |-----|-------------|--------|
-| **מעבדה 01 - סוכן יחיד** | בנה את סוכן ה־**"הסבר כאילו אני מנהל בכיר"**, בדוק מקומית ופרוס ל־Foundry | ✅ זמין |
-| **מעבדה 02 - זרימת עבודה רב-סוכנים** | בנה את ה־**"מגיש קורות חיים → מעריך התאמת משרה"** – 4 סוכנים עובדים יחד כדי לדרג התאמת קורות חיים וליצור מפת דרכים ללמידה | ✅ זמין |
+| **Lab 01 - Single Agent** | בנו את הסוכן **"הסבר כאילו אני מנהל בכיר"**, בדקו אותו מקומית והפרסו ל-Foundry | ✅ זמין |
+| **Lab 02 - Multi-Agent Workflow** | בנו את **"מבדק התאמת קורות חיים למשרה"** - ארבעה סוכנים משתפים פעולה כדי לדרג את התאמת הקורות וליצור מפת דרכים ללמידה | ✅ זמין |
 
 ---
 
-## הכירו את הסוכן המנהל
+## הכירו את הסוכן למנהלים
 
-בסדנה זו תבנה את סוכן ה־**"הסבר כאילו אני מנהל בכיר"** — סוכן AI שלוקח ז'רגון טכני מסובך ומתרגם אותו לסיכומים שקטים ומוכנים לחדר ישיבות. כי בוא נהיה כנים, אף אחד מבכירות ההנהלה לא רוצה לשמוע על "מיצוי מאגר תהליכים בגלל קריאות סינכרוניות שהוכנסו בגרסה 3.2."
+בסדנה זו תבנו את הסוכן **"הסבר כאילו אני מנהל בכיר"** — סוכן בינה מלאכותית שלוקח ז'רגון טכני מסובך ומתרגם אותו לסיכומים רגועים, מוכנים לחדר הישיבות. כי בואו נודה על האמת, אף אחד בדרג הניהולי הבכיר לא רוצה לשמוע על "thread pool exhaustion שנגרמה על ידי קריאות סינכרוניות שהוכנסו ב-v3.2."
 
-בניתי את הסוכן הזה אחרי יותר מדי מקרים שבהם הפוסט-מורטם המושלם שלי קיבל את התגובה: *"אז… האתר קרס או לא?"*
+בניתי את הסוכן הזה אחרי יותר מדי תקריות שבהן הפוסט־מורתם שהכנתי בקפידה קיבל את התגובה: *"אז... האתר למטה או לא?"*
 
 ### איך זה עובד
 
-אתה מזין עדכון טכני. הסוכן מחזיר סיכום מנהלים — שלוש נקודות מפתח, בלי ז'רגון, בלי עקבות שגיאה, בלי פחד קיומי. רק **מה קרה**, **השפעה עסקית**, ו**הצעד הבא**.
+אתם מזינים עדכון טכני. הוא מחזיר סיכום למנהלים - שלוש נקודות בולטות, בלי ז'רגון, בלי stack traces, בלי תחושת אימה קיומית. רק **מה קרה**, **השפעה עסקית**, ו**הצעד הבא**.
 
-### ראה את זה בפועל
+### ראו זאת בפעולה
 
 **אתה אומר:**
-> "השהיית ה-API עלתה בגלל מיצוי מאגר תהליכים שנגרם מקריאות סינכרוניות שהוכנסו בגרסה 3.2."
+> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-**הסוכן עונה:**
+**הסוכן משיב:**
 
-> **סיכום מנהלים:**
+> **סיכום למנהלים:**
 > - **מה קרה:** לאחר השחרור האחרון, המערכת האטה.
-> - **השפעה עסקית:** חלק מהמשתמשים חוו עיכובים בזמן השימוש בשירות.
-> - **הצעד הבא:** השינוי בוטל ומתכוננת תיקון לפני הפריסה מחדש.
+> - **השפעה עסקית:** חלק מהמשתמשים חוו עיכובים בשימוש בשירות.
+> - **הצעד הבא:** השינוי הוחזר וכעת מתכוננים תיקון לפני פריסה מחודשת.
 
 ### למה הסוכן הזה?
 
-זה סוכן פשוט, חד-תכליתי — מושלם ללמידת תהליך זרימת העבודה של סוכן Hosted מקצה לקצה בלי להסתבך בשרשראות כלים מורכבות. וכנות? כל צוות הנדסה יכול להרוויח אחד כזה.
+זה סוכן פשוט להפליא, מטרה יחידה — מושלם ללמידת תהליך העבודה של סוכנים מאוחסנים מקצה לקצה מבלי להיקשר בשרשראות כלים מורכבות. ובכנות? כל צוות הנדסי יכול להיעזר באחד כזה.
 
 ---
 
@@ -175,11 +175,11 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **הערה:** התיקייה `agent/` בתוך כל מעבדה היא מה שההרחבה **Microsoft Foundry** יוצרת כשמריצים `Microsoft Foundry: Create a New Hosted Agent` מפלטת הפקודות. קבצים אלו מותאמים לאחר מכן עם ההוראות, הכלים וההגדרות של הסוכן שלך. מעבדה 01 מלווה אותך בתהליך בניית זה מאפס.
+> **הערה:** התיקיה `agent/` בתוך כל מעבדה היא מה שהתוסף **Microsoft Foundry** מייצר כאשר אתם מריצים את `Microsoft Foundry: Create a New Hosted Agent` מתוך לוח הפקודות. הקבצים לאחר מכן מותאמים עם ההוראות, הכלים והקונפיגורציה של הסוכן שלכם. מעבדה 01 מנחה אתכם כיצד ליצור זאת מאפס.
 
 ---
 
-## התחלה
+## איך להתחיל
 
 ### 1. שכפל את המאגר
 
@@ -188,13 +188,13 @@ git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.gi
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. הגדר סביבה וירטואלית לפייתון
+### 2. יצירת סביבת Python וירטואלית
 
 ```bash
 python -m venv venv
 ```
 
-הפעל אותה:
+הפעלו אותה:
 
 - **Windows (PowerShell):**
   ```powershell
@@ -205,58 +205,58 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### 3. התקן תלותים
+### 3. התקנת התלויות
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. הגדר משתני סביבה
+### 4. הגדרת משתני סביבה
 
-העתק את קובץ הדוגמה `.env` שבתיקיית הסוכן ומלא את הערכים שלך:
+העתקו את קובץ הדוגמה `.env` לתוך תיקיית הסוכן ומלאו את הערכים שלכם:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-ערוך את הקובץ `workshop/lab01-single-agent/agent/.env`:
+ערכו את `workshop/lab01-single-agent/agent/.env`:
 
 ```env
 AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. עקוב אחר מעבדות הסדנה
+### 5. עקבו אחר מעבדות הסדנה
 
-כל מעבדה היא עצמאית עם המודולים שלה. התחל עם **מעבדה 01** ללמידת היסודות, ואז עבור ל־**מעבדה 02** לזרימות עבודה רב-סוכנים.
+כל מעבדה עצמאית עם המודולים שלה. התחילו ב**מעבדה 01** כדי ללמוד את היסודות, ואז עברו ל**מעבדה 02** עבור תהליכי עבודה רב-סוכניים.
 
 #### מעבדה 01 - סוכן יחיד ([הוראות מלאות](workshop/lab01-single-agent/README.md))
 
 | # | מודול | קישור |
 |---|--------|------|
-| 1 | קריאת דרישות מוקדמות | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | התקנת Foundry Toolkit וההרחבה Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 3 | יצירת פרויקט Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | יצירת סוכן Hosted | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | הגדרת הוראות וסביבה | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | בדיקה מקומית | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | פריסה ל־Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | אימות ב־playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 1 | קראו את הדרישות המקדימות | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | התקינו את Foundry Toolkit ואת תוסף Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 3 | צרו פרויקט Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 4 | צרו סוכן מאוחסן | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | קבעו הוראות וסביבה | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | בדקו מקומית | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | פרסו ל-Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | אימתו ב-playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
 | 9 | פתרון בעיות | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### מעבדה 02 - זרימת עבודה רב-סוכנים ([הוראות מלאות](workshop/lab02-multi-agent/README.md))
+#### מעבדה 02 - תהליך עבודה רב-סוכני ([הוראות מלאות](workshop/lab02-multi-agent/README.md))
 
 | # | מודול | קישור |
 |---|--------|------|
-| 1 | דרישות מוקדמות (מעבדה 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | הבנת ארכיטקטורת רב-סוכנים | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | יצירת פרויקט רב-סוכנים | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | קביעת הגדרות הסוכנים והסביבה | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | תבניות ארכיטקטורה | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | בדיקה מקומית (רב-סוכנים) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | פריסה ל-Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | אימות ב-playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | פתרון בעיות (רב-סוכנים) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 1 | דרישות מקדימות (מעבדה 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | הבינו את ארכיטקטורת הריבוי-סוכנים | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | בנו את השלד לפרויקט רב-סוכני | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | קונפיגרו את הסוכנים והסביבה | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | דפוסי אורקסטרציה | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | בדקו מקומית (ריבוי-סוכנים) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | פרסו ל-Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | אימתו ב-playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | פתרון בעיות (ריבוי-סוכנים) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
@@ -265,8 +265,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 <table>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
-        <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="שיוואם גויאל"/><br />
-        <sub><b>שיוואם גויאל</b></sub>
+        <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
+        <sub><b>Shivam Goyal</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,26 +274,26 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## הרשאות נדרשות (עיון מהיר)
+## ההרשאות הנדרשות (עיון מהיר)
 
 | תרחיש | תפקידים נדרשים |
 |----------|---------------|
-| יצירת פרויקט Foundry חדש | **בעלים של Azure AI** על משאב Foundry |
-| פריסה לפרויקט קיים (משאבים חדשים) | **בעלים של Azure AI** + **משתתף** במנוי |
-| פריסה לפרויקט שהוגדר במלואו | **קורא** בחשבון + **משתמש Azure AI** בפרויקט |
+| יצירת פרויקט Foundry חדש | **Azure AI Owner** על משאב Foundry |
+| פריסה לפרויקט קיים (משאבים חדשים) | **Azure AI Owner** + **Contributor** על המנוי |
+| פריסה לפרויקט מוגדר במלואו | **Reader** על החשבון + **Azure AI User** על הפרויקט |
 
-> **חשוב:** תפקידי `בעלים` ו`משתתף` של Azure כוללים רק הרשאות *ניהול*, לא הרשאות *פיתוח* (פעולת נתונים). אתה צריך **משתמש Azure AI** או **בעלים של Azure AI** על מנת לבנות ולפרוס סוכנים.
+> **חשוב:** התפקידים Azure `Owner` ו-`Contributor` כוללים רק הרשאות *ניהוליות*, לא הרשאות *פיתוח* (פעולות נתונים). אתם זקוקים ל-**Azure AI User** או **Azure AI Owner** כדי לבנות ולפרוס סוכנים.
 
 ---
 
-## הפניות
+## מקורות
 
-- [התחלה מהירה: פריסה של הסוכן המתארח הראשון שלך (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [מהם סוכנים מתארחים?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [יצירת זרמי עבודה לסוכנים מתארחים ב-VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [פריסה של סוכן מתארח](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [התחלה מהירה: פרוס את הסוכן המאוחסן הראשון שלך (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [מהם סוכנים מאוחסנים?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [צור זרימות עבודה של סוכנים מאוחסנים ב-VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [פרוס סוכן מאוחסן](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC עבור Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [דוגמת סוכן לסקירת ארכיטקטורה](https://github.com/Azure-Samples/agent-architecture-review-sample) - סוכן מתארח מעשי עם כלי MCP, דיאגרמות Excalidraw, ופריסה כפולה
+- [דוגמת סוכן לסקירת ארכיטקטורה](https://github.com/Azure-Samples/agent-architecture-review-sample) - סוכן מאוחסן מהעולם האמיתי עם כלי MCP, דיאגרמות Excalidraw ופריסה כפולה
 
 ---
 

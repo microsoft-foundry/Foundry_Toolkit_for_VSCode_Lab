@@ -1,4 +1,4 @@
-# Foundry Toolkit + Workshop pro Hosted Agents ve Foundry
+# Foundry Toolkit + Foundry Hosted Agents Workshop
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
@@ -9,24 +9,24 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-Vytvářejte, testujte a nasazujte AI agenty do **Microsoft Foundry Agent Service** jako **Hosted Agents** - vše přímo z VS Code pomocí **Microsoft Foundry rozšíření** a **Foundry Toolkit**.
+Build, test, and deploy AI agents to **Microsoft Foundry Agent Service** as **Hosted Agents** - entirely from VS Code using the **Microsoft Foundry extension** and **Foundry Toolkit**.
 
-> **Hosted Agents jsou momentálně ve fázi preview.** Podporované regiony jsou omezené - viz [dostupnost regionů](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents are currently in preview.** Supported regions are limited - see [dostupnost regionů](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Složka `agent/` uvnitř každé laboratoře je **automaticky generována** Foundry rozšířením - poté upravujete kód, testujete lokálně a nasazujete.
+> The `agent/` folder inside each lab is **automatically scaffolded** by the Foundry extension - you then customize the code, test locally, and deploy.
 
-### 🌐 Podpora více jazyků
+### 🌐 Multi-Language Support
 
-#### Podpora přes GitHub Action (automatizované a vždy aktuální)
+#### Supported via GitHub Action (Automated & Always Up-to-Date)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabština](../ar/README.md) | [Bengálština](../bn/README.md) | [Bulharština](../bg/README.md) | [Barmština (Myanmar)](../my/README.md) | [Čínština (zjednodušená)](../zh-CN/README.md) | [Čínština (tradiční, Hong Kong)](../zh-HK/README.md) | [Čínština (tradiční, Macau)](../zh-MO/README.md) | [Čínština (tradiční, Taiwan)](../zh-TW/README.md) | [Chorvatština](../hr/README.md) | [Čeština](./README.md) | [Dánština](../da/README.md) | [Nizozemština](../nl/README.md) | [Estonština](../et/README.md) | [Finština](../fi/README.md) | [Francouzština](../fr/README.md) | [Němčina](../de/README.md) | [Řečtina](../el/README.md) | [Hebrejština](../he/README.md) | [Hindština](../hi/README.md) | [Maďarština](../hu/README.md) | [Indonéština](../id/README.md) | [Italština](../it/README.md) | [Japonština](../ja/README.md) | [Kandština](../kn/README.md) | [Khmerština](../km/README.md) | [Korejština](../ko/README.md) | [Litevština](../lt/README.md) | [Malajština](../ms/README.md) | [Malajalámština](../ml/README.md) | [Maráthština](../mr/README.md) | [Nepálština](../ne/README.md) | [Nigerijský pidžin](../pcm/README.md) | [Norština](../no/README.md) | [Perština (Fársí)](../fa/README.md) | [Polština](../pl/README.md) | [Portugalština (Brazílie)](../pt-BR/README.md) | [Portugalština (Portugalsko)](../pt-PT/README.md) | [Pandžábština (Gurmukhí)](../pa/README.md) | [Rumunština](../ro/README.md) | [Ruština](../ru/README.md) | [Srbština (cyrilice)](../sr/README.md) | [Slovenština](../sk/README.md) | [Slovinština](../sl/README.md) | [Španělština](../es/README.md) | [Svahilština](../sw/README.md) | [Švédština](../sv/README.md) | [Tagalog (Filipínština)](../tl/README.md) | [Tamilština](../ta/README.md) | [Telugština](../te/README.md) | [Thajština](../th/README.md) | [Turečtina](../tr/README.md) | [Ukrajinština](../uk/README.md) | [Urdština](../ur/README.md) | [Vietnamština](../vi/README.md)
+[Arabština](../ar/README.md) | [Bengálština](../bn/README.md) | [Bulharština](../bg/README.md) | [Barmština (Myanmar)](../my/README.md) | [Čínština (zjednodušená)](../zh-CN/README.md) | [Čínština (tradiční, Hong Kong)](../zh-HK/README.md) | [Čínština (tradiční, Macau)](../zh-MO/README.md) | [Čínština (tradiční, Taiwan)](../zh-TW/README.md) | [Chorvatština](../hr/README.md) | [Čeština](./README.md) | [Dánština](../da/README.md) | [Nizozemština](../nl/README.md) | [Estonština](../et/README.md) | [Finština](../fi/README.md) | [Francouzština](../fr/README.md) | [Němčina](../de/README.md) | [Řečtina](../el/README.md) | [Hebrejština](../he/README.md) | [Hindština](../hi/README.md) | [Maďarština](../hu/README.md) | [Indonéština](../id/README.md) | [Italština](../it/README.md) | [Japonština](../ja/README.md) | [Kannadština](../kn/README.md) | [Khmérština](../km/README.md) | [Korejština](../ko/README.md) | [Litevština](../lt/README.md) | [Malajština](../ms/README.md) | [Malajálamština](../ml/README.md) | [Maráthí](../mr/README.md) | [Nepálština](../ne/README.md) | [Nigérijský pidžin](../pcm/README.md) | [Norština](../no/README.md) | [Perština (Farsi)](../fa/README.md) | [Polština](../pl/README.md) | [Portugalština (Brazílie)](../pt-BR/README.md) | [Portugalština (Portugalsko)](../pt-PT/README.md) | [Pandžábština (Gurmukhi)](../pa/README.md) | [Rumunština](../ro/README.md) | [Ruština](../ru/README.md) | [Srbština (cyrilice)](../sr/README.md) | [Slovenština](../sk/README.md) | [Slovinština](../sl/README.md) | [Španělština](../es/README.md) | [Svahilština](../sw/README.md) | [Švédština](../sv/README.md) | [Tagalog (filipínština)](../tl/README.md) | [Tamilština](../ta/README.md) | [Telugština](../te/README.md) | [Thajština](../th/README.md) | [Turečtina](../tr/README.md) | [Ukrajinština](../uk/README.md) | [Urdština](../ur/README.md) | [Vietnamština](../vi/README.md)
 
-> **Raději chcete klonovat lokálně?**
+> **Prefer to Clone Locally?**
 >
-> Tento repozitář obsahuje přes 50 jazykových překladů, což výrazně zvyšuje velikost ke stažení. Pro klonování bez překladů použijte sparse checkout:
+> This repository includes 50+ language translations which significantly increases the download size. To clone without translations, use sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@ Vytvářejte, testujte a nasazujte AI agenty do **Microsoft Foundry Agent Servic
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> To vám poskytne vše potřebné pro dokončení kurzu s výrazně rychlejším stažením.
+> This gives you everything you need to complete the course with a much faster download.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -51,7 +51,7 @@ Vytvářejte, testujte a nasazujte AI agenty do **Microsoft Foundry Agent Servic
 
 ```mermaid
 flowchart TB
-    subgraph Local["Lokální vývoj (VS Code)"]
+    subgraph Local["Local Development (VS Code)"]
         direction TB
         FE["Microsoft Foundry
         Extension"]
@@ -63,7 +63,7 @@ flowchart TB
         (Local Testing)"]
         FE -- "Create New
         Hosted Agent" --> Scaffold
-        Scaffold -- "Ladění F5" --> Inspector
+        Scaffold -- "F5 Debug" --> Inspector
         FoundryToolkit -.- Inspector
     end
 
@@ -86,50 +86,50 @@ flowchart TB
     (Docker build + push)" --> ACR
     Inspector -- "POST /responses
     (localhost:8088)" --> Scaffold
-    Playground -- "Testovací výzvy" --> AgentService
+    Playground -- "Test prompts" --> AgentService
 
     style Local fill:#f0f4ff,stroke:#4a6cf7,stroke-width:2px
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Tok:** Foundry rozšíření vygeneruje agenta → vy upravíte kód a instrukce → testujete lokálně s Agent Inspector → nasadíte do Foundry (Docker image se pushne do ACR) → ověříte v Playground.
+**Průběh:** Rozšíření Foundry vygeneruje agenta → vy přizpůsobíte kód a instrukce → otestujete lokálně pomocí Agent Inspector → nasadíte do Foundry (Docker image je nahrán do ACR) → ověříte v Playground.
 
 ---
 
-## Co budete budovat
+## Co postavíte
 
-| Laboratoř | Popis | Stav |
+| Lab | Popis | Stav |
 |-----|-------------|--------|
-| **Lab 01 - Jednotlivý agent** | Vytvořte **„Vysvětlení jako pro ředitele“ agenta**, otestujte lokálně a nasaďte do Foundry | ✅ K dispozici |
-| **Lab 02 - Workflow s více agenty** | Vytvořte **„Hodnocení životopisu → vhodnost pro práci“** - 4 agenti spolupracují na skórování vhodnosti a vytvoření učební mapy | ✅ K dispozici |
+| **Lab 01 - Single Agent** | Vytvořte agenta **"Explain Like I'm an Executive"**, otestujte ho lokálně a nasaďte do Foundry | ✅ K dispozici |
+| **Lab 02 - Multi-Agent Workflow** | Vytvořte **"Resume → Job Fit Evaluator"** - 4 agenti spolupracují na ohodnocení shody životopisu a vygenerují plán učení | ✅ K dispozici |
 
 ---
 
-## Poznejte Executive Agenta
+## Seznamte se s Executive Agent
 
-V tomto workshopu vytvoříte **„Vysvětlení jako pro ředitele“ agenta** - AI agenta, který vezme složité technické výrazy a přeloží je do klidných, připravených, srozumitelných shrnutí pro představenstvo. Protože upřímně, nikdo v C-suitu nechce slyšet o „vyčerpání thread pool způsobeném synchronními voláními přidanými ve verzi 3.2.“
+V tomto workshopu vytvoříte agenta **"Explain Like I'm an Executive"** - AI agenta, který vezme složitý technický žargon a převede ho do klidných, do zasedací místnosti připravených shrnutí. Upřímně, nikdo v C-suitě nechce slyšet o "thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-Tento agent vznikl po několika incidentech, kdy moje dokonale napsaná analýza příčin dostala odpověď: *„Takže... je webová stránka dole, nebo ne?“*
+Tento agent vznikl po příliš mnoha případech, kdy moje dokonale sestavené post-mortem sklidilo reakci: *"Takže... je web dolů, nebo ne?"*
 
 ### Jak to funguje
 
-Zadáte mu technickou aktualizaci. Vrátí vám výkonný souhrn - tři hlavní body, žádný žargon, žádné výpisy stack trace, žádné existenční obavy. Jen **co se stalo**, **dopad na byznys** a **další krok**.
+Dáte mu technickou aktualizaci. Vrátí výkonnou rekapitulaci - tři odrážky, žádný žargon, žádné výpisy zásobníku, žádné existenční obavy. Jen **co se stalo**, **dopad na byznys**, a **další krok**.
 
-### Podívejte se na to v akci
+### Podívejte se v akci
 
-**Řeknete:**
-> „API latency se zvýšila kvůli vyčerpání thread pool způsobenému synchronními voláními přidanými ve verzi 3.2.“
+**Vy řeknete:**
+> "Latence API se zvýšila kvůli vyčerpání vláknového poolu způsobenému synchronními voláními zavedenými ve verzi v3.2."
 
 **Agent odpoví:**
 
-> **Výkonný souhrn:**
-> - **Co se stalo:** Po posledním vydání systém zpomalil.
+> **Shrnutí pro vedení:**
+> - **Co se stalo:** Po posledním vydání se systém zpomalil.
 > - **Dopad na byznys:** Někteří uživatelé zaznamenali zpoždění při používání služby.
 > - **Další krok:** Změna byla vrácena zpět a připravuje se oprava před dalším nasazením.
 
-### Proč právě tento agent?
+### Proč tento agent?
 
-Je to jednoduchý agent na jedno použití - ideální pro naučení workflow hostovaných agentů od začátku do konce bez složitých nástrojových řetězců. A upřímně? Každý engineering tým by takového mohl potřebovat.
+Je to naprosto jednoduchý, jednoúčelový agent - ideální pro naučení se workflow hosted agentů od začátku do konce, aniž byste se ztratili v komplexních nástrojích. A upřímně? Každý inženýrský tým by takového mohl využít.
 
 ---
 
@@ -175,20 +175,20 @@ Je to jednoduchý agent na jedno použití - ideální pro naučení workflow ho
             └── requirements.txt
 ```
 
-> **Poznámka:** Složka `agent/` uvnitř každé laboratoře je to, co **Microsoft Foundry rozšíření** vygeneruje při spuštění příkazu `Microsoft Foundry: Create a New Hosted Agent` z Command Palette. Soubory se pak přizpůsobují podle instrukcí, nástrojů a konfigurace agenta. Lab 01 vás provede jak toto vytvořit od začátku.
+> **Poznámka:** Složka `agent/` uvnitř každé laboratoře je to, co rozšíření **Microsoft Foundry extension** vygeneruje, když spustíte `Microsoft Foundry: Create a New Hosted Agent` z Command Palette. Soubory jsou pak upraveny vašimi instrukcemi, nástroji a konfigurací agenta. Lab 01 vás provede vytvořením toho od začátku.
 
 ---
 
 ## Začínáme
 
-### 1. Naklonujte repozitář
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Nastavte Python virtuální prostředí
+### 2. Set up a Python virtual environment
 
 ```bash
 python -m venv venv
@@ -213,7 +213,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. Nakonfigurujte proměnné prostředí
 
-Zkopírujte příklad `.env` souboru do složky agenta a vyplňte své hodnoty:
+Zkopírujte ukázkový soubor `.env` do složky agenta a vyplňte své hodnoty:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -226,41 +226,41 @@ AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/proje
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Následujte laboratoře workshopu
+### 5. Postupujte podle laboratoří workshopu
 
-Každá laboratoř je samostatná s vlastními moduly. Začněte s **Lab 01** pro naučení základů a pokračujte na **Lab 02** pro multifunkční workflow s více agenty.
+Každá laboratoř je samostatná s vlastními moduly. Začněte s **Lab 01** pro osvojení základů, poté pokračujte na **Lab 02** pro multi-agentní workflow.
 
-#### Lab 01 - Jednotlivý agent ([plné instrukce](workshop/lab01-single-agent/README.md))
+#### Lab 01 - Jednoagentový ([plné instrukce](workshop/lab01-single-agent/README.md))
 
 | # | Modul | Odkaz |
 |---|--------|------|
-| 1 | Přečtěte si požadavky | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Nainstalujte Foundry Toolkit & Foundry rozšíření | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 1 | Přečtěte si předpoklady | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Nainstalujte Foundry Toolkit & Foundry extension | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | Vytvořte Foundry projekt | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | Vytvořte hosted agenta | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
 | 5 | Nakonfigurujte instrukce & prostředí | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
 | 6 | Otestujte lokálně | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
 | 7 | Nasazení do Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Ověření v playgroundu | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 8 | Ověřit v playgroundu | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
 | 9 | Řešení problémů | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - Workflow s více agenty ([plné instrukce](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - Multi-Agent Workflow ([plné instrukce](workshop/lab02-multi-agent/README.md))
 
 | # | Modul | Odkaz |
 |---|--------|------|
-| 1 | Požadavky (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Pochopte architekturu multi-agentů | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Generujte multi-agent projekt | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 1 | Předpoklady (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | Pochopte multi-agentní architekturu | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Vytvořte kostru multi-agentního projektu | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | Nakonfigurujte agenty & prostředí | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | Vzorce orchestrace | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 5 | Vzory orchestrace | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | Testujte lokálně (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
 | 7 | Nasazení do Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Ověření v playgroundu | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 8 | Ověřit v playgroundu | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Řešení problémů (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
 
 ---
 
-## Správce
+## Udržovatel
 
 <table>
 <tr>
@@ -274,15 +274,15 @@ Každá laboratoř je samostatná s vlastními moduly. Začněte s **Lab 01** pr
 
 ---
 
-## Vyžadovaná oprávnění (rychlá reference)
+## Požadovaná oprávnění (rychlý přehled)
 
-| Scénář | Vyžadované role |
+| Scénář | Požadované role |
 |----------|---------------|
-| Vytvoření nového projektu Foundry | **Azure AI Owner** na Foundry zdroji |
-| Nasazení do existujícího projektu (nové zdroje) | **Azure AI Owner** + **Přispěvatel** na subscription |
-| Nasazení do plně nakonfigurovaného projektu | **Čtenář** na účtu + **Azure AI User** na projektu |
+| Vytvoření nového Foundry projektu | **Azure AI Owner** na Foundry resource |
+| Nasazení do existujícího projektu (nové zdroje) | **Azure AI Owner** + **Contributor** v předplatném |
+| Nasazení do plně nakonfigurovaného projektu | **Reader** na účtu + **Azure AI User** na projektu |
 
-> **Důležité:** Role Azure `Owner` a `Contributor` zahrnují pouze *správcovská* oprávnění, nikoliv *vývojová* (akce s daty). Pro vytváření a nasazení agentů potřebujete **Azure AI User** nebo **Azure AI Owner**.
+> **Důležité:** Azure `Owner` a `Contributor` role pouze zahrnují *správní* oprávnění, nikoli *vývojová* (operace s daty) oprávnění. Potřebujete **Azure AI User** nebo **Azure AI Owner** k vytváření a nasazování agentů.
 
 ---
 
@@ -290,10 +290,10 @@ Každá laboratoř je samostatná s vlastními moduly. Začněte s **Lab 01** pr
 
 - [Rychlý start: Nasazení vašeho prvního hostovaného agenta (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Co jsou hostovaní agenti?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Vytváření pracovních postupů hostovaných agentů ve VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [Nasazení hostovaného agenta](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Vytvořte pracovní postupy hostovaných agentů ve VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Nasadit hostovaného agenta](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC pro Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Příklad architektonického recenzního agenta](https://github.com/Azure-Samples/agent-architecture-review-sample) - Reálný hostovaný agent s nástroji MCP, diagramy Excalidraw a dvojím nasazením
+- [Ukázka agenta pro revizi architektury](https://github.com/Azure-Samples/agent-architecture-review-sample) - Reálný hostovaný agent s nástroji MCP, diagramy Excalidraw a dvojím nasazením
 
 ---
 

@@ -1,7 +1,13 @@
 {
+  "CODE_OF_CONDUCT.md": {
+    "original_hash": "763a733399ea9f55f6418d1efe13c12b",
+    "translation_date": "2026-11-02T07:32:53+00:00",
+    "source_file": "CODE_OF_CONDUCT.md",
+    "language_code": "bg"
+  },
   "README.md": {
     "original_hash": "e4cb3996613e11264e496ec4ecdf3254",
-    "translation_date": "2026-07-11T22:33:25+00:00",
+    "translation_date": "2026-11-08T01:40:30+00:00",
     "source_file": "README.md",
     "language_code": "bg"
   },
@@ -16,30 +22,6 @@
     "translation_date": "2026-07-11T22:31:28+00:00",
     "source_file": "SUPPORT.md",
     "language_code": "bg"
-  },
-  "__translation_failures__": {
-    "CODE_OF_CONDUCT.md": {
-      "original_hash": "763a733399ea9f55f6418d1efe13c12b",
-      "source_file": "CODE_OF_CONDUCT.md",
-      "language_code": "bg",
-      "failure_date": "2026-07-11T22:33:40+00:00",
-      "status": "failed",
-      "error_type": "TranslationIncompleteError",
-      "error_message": "Markdown translation remained incomplete for chunk 1 of 'CODE_OF_CONDUCT.md', and the chunk could not be split further.",
-      "translator_version": "0.20.0",
-      "failure_policy_version": 1
-    },
-    "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
-      "original_hash": "af885886a474dbfb40cfe7d9c912d142",
-      "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
-      "language_code": "bg",
-      "failure_date": "2026-07-11T22:52:47+00:00",
-      "status": "failed",
-      "error_type": "TranslationIncompleteError",
-      "error_message": "Markdown translation remained incomplete for chunk 1 of '02-scaffold-multi-agent.md', and the chunk could not be split further.",
-      "translator_version": "0.20.0",
-      "failure_policy_version": 1
-    }
   },
   "session-delivery-resources/README.md": {
     "original_hash": "d38591a4051a2460fcbf758d0b143114",
@@ -129,6 +111,12 @@
     "original_hash": "9b08a84af764cd1c332971309292f4b1",
     "translation_date": "2026-07-11T22:53:29+00:00",
     "source_file": "workshop/lab02-multi-agent/docs/01-understand-multi-agent.md",
+    "language_code": "bg"
+  },
+  "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md": {
+    "original_hash": "af885886a474dbfb40cfe7d9c912d142",
+    "translation_date": "2026-11-02T07:33:17+00:00",
+    "source_file": "workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md",
     "language_code": "bg"
   },
   "workshop/lab02-multi-agent/docs/03-configure-agents.md": {
