@@ -53,7 +53,7 @@ The Foundry Toolkit includes a real-time **Workflow Visualizer** that shows how 
 
 ## Step 3: Run smoke tests
 
-Run these three tests in order. Each tests progressively more of the workflow.
+Run these two tests in order. Each tests progressively more of the workflow.
 
 ### Test 1: Basic resume + job description
 

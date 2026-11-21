@@ -41,7 +41,7 @@ A misconfigured env var, RBAC issue, or blocked MCP outbound call would show up 
 
 ### Step 4: Run your smoke tests
 
-Use the same 3 tests from [Module 5](05-test-locally.md). Type each message in the Playground input box and press **Send** (or **Enter**).
+Run the three smoke tests below - Test 1 reuses the prompt from [Module 5](05-test-locally.md). Type each message in the Playground input box and press **Send** (or **Enter**).
 
 #### Test 1 - Full resume + JD (standard flow)
 
@@ -116,7 +116,7 @@ The [Foundry Portal](https://ai.azure.com) provides a web-based playground usefu
 ### Step 3: Find your deployed agent
 
 1. In the project left navigation, click **Build** → **Agents** (or look for the **Agents** section).
-2. You should see a list of agents. Find your deployed agent (e.g., `resume-job-fit-evaluator`).
+2. You should see a list of agents. Find your deployed agent (e.g., `PersonalCareerCopilot`).
 3. Click on the agent name to open its detail page.
 
 ### Step 4: Open the Playground

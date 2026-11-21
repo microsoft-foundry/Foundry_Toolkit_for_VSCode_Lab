@@ -13,11 +13,12 @@ flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Select model"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
     F --> G["Generated project"]
@@ -75,7 +76,7 @@ Click **create** to create our agent. A new folder will be created with the host
 After scaffolding completes, verify you see these files in the Explorer (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)

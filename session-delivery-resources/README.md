@@ -80,7 +80,7 @@ Before you deliver, make sure you have:
   - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
   - [Azure Developer CLI (`azd`)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
   - [Docker Desktop](https://www.docker.com/) (Optional)
-  - Python 3.10 or later
+  - Python 3.12 or later
 
 Run the [Hosted agents quickstart with `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) at least once before delivery so you have a known-good Foundry project, model deployment, and Azure Container Registry to reference if a learner gets stuck.
 
@@ -144,7 +144,7 @@ A 4-agent workflow in [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../w
 - **Keep the Agent Inspector visible.** Most "aha" moments happen when learners see the local `/responses` round-trip light up.
 - **Have a backup project.** If a learner's Foundry project hits a quota wall, share a pre-provisioned project for the deployment step rather than blocking the room.
 - **Pair attendees.** Lab 02 (multi-agent) is meaningfully easier when learners can talk through the orchestration with a partner.
-- **Use the docs modules as checkpoints.** Each lab's `docs/` folder is split into 8 numbered modules - use those as natural pause points.
+- **Use the docs modules as checkpoints.** Each lab's `docs/` folder is split into numbered modules - use those as natural pause points.
 - **Pre-pull the base Docker image** on shared lab machines to avoid registry rate limits.
 
 ---
@@ -153,7 +153,7 @@ A 4-agent workflow in [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../w
 
 | Symptom                                      | First thing to try                                                                                       |
 |----------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| Agent Inspector cannot connect               | Confirm port `8088` is free and the `Run Lab01 HTTP Server` / `Run Lab02 HTTP Server` task is running.   |
+| Agent Inspector cannot connect               | Confirm port `8088` is free and the `Run Agent HTTP Server` task is running.               |
 | Debugger fails to attach                     | Check that port `5679` is free; restart VS Code if `debugpy` is already bound.                           |
 | `azd up` fails with auth error               | Run `az login` and `azd auth login`, ensure the correct tenant is selected.                              |
 | Deployment hangs at ACR push                 | Check Docker Desktop is running and the user has `AcrPush` on the registry.                              |

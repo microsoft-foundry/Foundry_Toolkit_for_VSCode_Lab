@@ -42,7 +42,7 @@ The **Resume → Job Fit Evaluator** - a multi-agent hosted workflow that:
 - [x] Wrote four agent instruction sets (ResumeParser, JD Agent, MatchingAgent, GapAnalyzer)
 - [x] Integrated the Microsoft Learn MCP tool with `streamable_http_client`
 - [x] Wired the workflow graph with `WorkflowBuilder` (sequential pipeline with content relay)
-- [x] Tested locally with 3 smoke tests (Agent Inspector) - fit score, gap cards, and MCP URLs
+- [x] Tested locally with 2 smoke tests (Agent Inspector) - fit score, gap cards, and MCP URLs
 - [x] Deployed to Foundry Agent Service (containerized, managed identity)
 - [x] Verified in cloud playground - structural consistency with local results
 
@@ -55,7 +55,7 @@ The **Resume → Job Fit Evaluator** - a multi-agent hosted workflow that:
 - [x] Scaffolded a multi-agent project using the Workflows template
 - [x] Wrote four agent instruction sets and wired the workflow graph
 - [x] Integrated the Microsoft Learn MCP tool
-- [x] Tested locally with 3 smoke tests
+- [x] Tested locally with 2 smoke tests
 - [x] Validated multi-agent behavior without needing cloud resources
 
 </details>

@@ -190,7 +190,7 @@ Foundry Local lets you run AI models on your own machine - no cloud account need
 - [ ] `Ctrl+Shift+P` → "Foundry Toolkit" shows available commands
 - [ ] Foundry Toolkit extension installed and sidebar loads without errors
 - [ ] VS Code opens and runs correctly
-- [ ] `python --version` shows 3.10+
+- [ ] `python --version` shows 3.12+
 - [ ] Foundry Toolkit icon visible in VS Code Activity Bar
 - [ ] **Path A:** `az login` succeeds, subscription is Active
 - [ ] **Path B:** Foundry Local is running (`foundry local status`)
