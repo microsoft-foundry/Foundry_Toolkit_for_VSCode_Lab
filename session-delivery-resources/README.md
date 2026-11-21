@@ -187,7 +187,7 @@ If you extend the labs, please contribute the changes back via PR so other train
 - [Hosted agents overview](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 - [Quickstart: deploy your first hosted agent (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
 - [Deploy a hosted agent (how-to)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Agent Framework](https://github.com/microsoft/agents)
+- [Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/)
 - [Microsoft Foundry Toolkit for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 
 ---
