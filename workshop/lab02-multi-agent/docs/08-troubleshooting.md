@@ -266,8 +266,8 @@ This is expected. The `search_microsoft_learn_for_plan` tool fetches learning re
 If you're stuck after trying the fixes above:
 
 1. **Check the server logs** - Most errors produce a Python stack trace in the terminal. Read the full traceback.
-2. **Search the error message** - Copy the error text and search in the [Microsoft Q&A for Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Open an issue** - File an issue on the [workshop repository](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) with:
+2. **Search the error message** - Copy the error text and search in the [Microsoft Q&A for Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Open an issue** - File an issue on the [workshop repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) with:
    - The error message or screenshot
    - Your package versions (`pip list | Select-String "agent-framework"`)
    - Your Python version (`python --version`)

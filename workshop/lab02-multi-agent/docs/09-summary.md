@@ -70,8 +70,8 @@ The **Resume → Job Fit Evaluator** - a multi-agent hosted workflow that:
 |----------|-------------|
 | **[Agent Framework SDK reference](https://learn.microsoft.com/agent-framework/)** | API docs for `agent-framework-foundry`, `WorkflowBuilder`, `AgentExecutor` |
 | **[MCP tool catalog](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol)** | Connect agents to other MCP servers (Bing, GitHub, custom) |
-| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Ground agents with documents, vector stores, or Bing search |
-| **[Foundry Evaluations](https://learn.microsoft.com/azure/foundry/evaluations/overview)** | Measure agent quality at scale with automated evaluators |
+| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Ground agents with documents, vector stores, or Bing search |
+| **[Foundry Evaluations](https://learn.microsoft.com/azure/foundry/concepts/evaluation-overview)** | Measure agent quality at scale with automated evaluators |
 | **[Microsoft Foundry documentation](https://learn.microsoft.com/azure/foundry/)** | Full platform reference |
 | **[Foundry Toolkit - What's New](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Extension release notes and changelog |
 
