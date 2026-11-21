@@ -227,7 +227,6 @@ def main():
         .as_agent()
     )
 
-    logger.info("Server running on http://localhost:8088")
     server = ResponsesHostServer(workflow_agent)
     server.run()
 
