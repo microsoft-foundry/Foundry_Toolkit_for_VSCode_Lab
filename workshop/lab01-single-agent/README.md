@@ -197,16 +197,16 @@ Microsoft.CognitiveServices/accounts/AIServices/agents/write
 
 ### In VS Code
 
-1. Open the **Microsoft Foundry** sidebar.
-2. Expand **Hosted Agents (Preview)**.
-3. Click your agent → select version → **Playground**.
+1. Open the **Foundry Toolkit** sidebar.
+2. Under your project, click **Agents** → **Hosted Agent** tab → click your agent.
+3. Click the **Playground** tab.
 4. Re-run the test prompts.
 
 ### In Foundry Portal
 
 1. Open [ai.azure.com](https://ai.azure.com).
 2. Navigate to your project → **Build** → **Agents**.
-3. Find your agent → **Open in playground**.
+3. Click your agent. It opens on the **Playground** tab.
 4. Run the same test prompts.
 
 ---

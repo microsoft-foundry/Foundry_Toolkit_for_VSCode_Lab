@@ -133,15 +133,14 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 
 ## Step 4: Verify the deployment status
 
-1. Open the **Microsoft Foundry** sidebar (click the Foundry icon in the Activity Bar).
-2. Expand **Hosted Agents (Preview)** under your project.
-3. Find **PersonalCareerCopilot** (or your agent name).
-4. Click on the agent name → expand versions (e.g., `v1`).
-5. Click on the version → check **Container Details** → **Status**:
+1. Open the **Foundry Toolkit** sidebar (click the Foundry Toolkit icon in the Activity Bar).
+2. Under your project in **My Resources**, click **Agents**, then select the **Hosted Agent** tab.
+3. Click **PersonalCareerCopilot** (or your agent name).
+4. The **Hosted agent playground** opens on the **Details** tab. Check **Deployment Details** → **Status**:
 
-![Foundry sidebar showing Hosted Agents expanded with agent version and status](images/06-foundry-sidebar-agent-status.png)
+![Hosted agent playground open on the Details tab, with Deployment Details showing the agent's status as Running](images/06-foundry-sidebar-agent-status.png)
 
-> *Screenshot shows the agent's earlier name, `resume-job-fit-evaluator`.*
+> *Screenshot shows an example agent. Your agent's name appears in the same places.*
 
 | Status | Meaning |
 |--------|---------|
@@ -149,7 +148,7 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 | **creating** | Container is starting (wait 30–60 seconds) |
 | **failed** | Container failed to start (check logs - see below) |
 
-> **Note:** The VS Code sidebar may display labels like "Running" or "Started" while the underlying API status uses `active`/`creating`. Either display indicates the same state.
+> **Note:** The **Details** tab may display labels like "Running" or "Started" while the underlying API status uses `active`/`creating`. Either display indicates the same state.
 
 > **Multi-agent startup takes longer** than single-agent because the container creates 4 agent instances on startup. `creating` for up to 2 minutes is normal.
 
@@ -211,7 +210,7 @@ If the Gap Analyzer stops producing Microsoft Learn URLs after deployment:
 ### Checkpoint
 
 - [ ] Deployment command completed without errors in VS Code
-- [ ] Agent appears under **Hosted Agents (Preview)** in the Foundry sidebar
+- [ ] Agent appears on the **Hosted Agent** tab when you click **Agents** under your project in the Foundry Toolkit sidebar
 - [ ] Agent name is `PersonalCareerCopilot` (or your chosen name)
 - [ ] Container status shows **Started** or **Running**
 - [ ] (If errors) You identified the error, applied the fix, and redeployed successfully

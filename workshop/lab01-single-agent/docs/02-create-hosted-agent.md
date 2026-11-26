@@ -42,7 +42,7 @@ flowchart LR
 > **Alternative: Create via Foundry Portal**
 > If you prefer the browser, you can create your project at [https://ai.azure.com](https://ai.azure.com). Once the project is provisioned, return to VS Code and use the **Foundry Toolkit** sidebar to connect to it.
 
-> **Alternative:** Click the **+** icon next to **Hosted Agents (Preview)** in the Foundry Toolkit sidebar.
+> **Alternative:** In the Foundry Toolkit sidebar, hover over **Agents** under your project, click the **+** icon, then select **Create in Code With Template**.
 
 ## Step 2: Choose settings
 

@@ -15,7 +15,7 @@ In this module, you install and verify the Foundry Toolkit extension, create (or
 
 > *Note: The Activity Bar may display "AI TOOLKIT" in older extension versions. The functionality is identical.*
 
-![Foundry Toolkit icon in VS Code Activity Bar with sidebar showing MY RESOURCES, DEVELOPER TOOLS, and Hosted Agents sections](images/01-foundry-sidebar-view.png)
+![Foundry Toolkit icon selected in the VS Code Activity Bar, with the sidebar showing My Resources (project with Models, Agents, Tools, Knowledge, and Evaluations) and Developer Tools](images/01-foundry-sidebar-view.png)
 
 ## Step 2: Set up based on your access
 
@@ -100,9 +100,9 @@ Docker is only needed if you want to build containers locally. The Foundry exten
 4. Select a **region** that supports hosted agents: `East US`, `West US 2`, or `Sweden Central`. See [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 5. Enter a project name (e.g., `workshop-agents`).
 6. Wait 2–5 minutes for provisioning. A progress notification appears in VS Code.
-7. When complete, your project appears in the **Foundry Toolkit** sidebar under **MY RESOURCES**.
+7. When complete, your project appears in the **Foundry Toolkit** sidebar under **My Resources**.
 
-![Foundry Toolkit sidebar showing newly created project under MY RESOURCES with Models and Agents sections](images/02-foundry-sidebar-new-project.png)
+![Foundry Toolkit sidebar showing the project under My Resources with its Models and Agents nodes](images/02-foundry-sidebar-new-project.png)
 
 ## Deploy a model & assign RBAC
 
@@ -117,7 +117,7 @@ Depending on your needs, you can choose from different model tiers:
 | `gpt-4.1-mini/gpt-5-mini` | Fast iteration, lower cost | Lower | Good for workshop development and rapid testing |
 | `gpt-4.1-nano` | Lightweight tasks | Lowest | Most cost-effective, but simpler responses |
 
-1. Press `Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog** (or click **Model Catalog** in the sidebar under DEVELOPER TOOLS → Discover).
+1. Press `Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog** (or click **Model Catalog** in the sidebar under **Developer Tools** → **Discover**).
 2. Search for **gpt-4.1** in the catalog.
 3. Find **OpenAI GPT-4.1-mini** (or `gpt-5-mini` for better quality) and click **Deploy**.
 

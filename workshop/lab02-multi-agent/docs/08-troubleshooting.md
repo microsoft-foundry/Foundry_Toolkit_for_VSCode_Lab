@@ -162,7 +162,7 @@ mcp                              x.x.x
 ### Container fails to start after deployment
 
 1. **Check container logs:**
-   - Open the **Foundry Toolkit** sidebar → expand **Hosted Agents (Preview)** → click your agent → expand the version → **Container Details** → **Logs**.
+   - Open the **Foundry Toolkit** sidebar → under your project, click **Agents** → **Hosted Agent** tab → click your agent. Check **Status** on the **Details** tab, then open the **Playground** tab and use the **Logs** tab in the **Session Details** panel to see the container's output.
    - Look for Python stack traces or missing module errors.
 
 2. **Common container startup failures:**

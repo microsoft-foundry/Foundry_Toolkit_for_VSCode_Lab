@@ -123,7 +123,7 @@ Click **next** to review and deploy your agent.
 ### ✅ Checkpoint
 
 - [ ] Deployment completed without errors
-- [ ] Agent appears under **Hosted Agents (Preview)** in the Foundry sidebar
+- [ ] Agent appears on the **Hosted Agent** tab when you click **Agents** under your project in the Foundry Toolkit sidebar
 - [ ] Container status shows **Running**
 - [ ] Agent Playground tab opened showing agent details and endpoint URL
 
