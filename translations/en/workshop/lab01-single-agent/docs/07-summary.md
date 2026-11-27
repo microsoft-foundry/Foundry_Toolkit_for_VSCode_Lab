@@ -59,7 +59,7 @@ An **"Explain Like I'm an Executive"** agent that:
 |----------|-------------|
 | **[Lab 02 - Multi-Agent Orchestration](../../lab02-multi-agent/docs/README.md)** | Build a 4-agent workflow (Resume → Job Fit Evaluator) with orchestration patterns |
 | **[Add tools to your agent](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Connect APIs, databases, or custom functions via the Tool Catalog |
-| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Ground your agent with documents, vector stores, or Bing search |
+| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Ground your agent with documents, vector stores, or Bing search |
 | **[Microsoft Foundry documentation](https://learn.microsoft.com/azure/foundry/)** | Full platform reference |
 | **[Agent Framework SDK reference](https://learn.microsoft.com/agent-framework/)** | API docs for `agent-framework` package |
 | **[Foundry Toolkit - What's New](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Extension release notes and changelog |

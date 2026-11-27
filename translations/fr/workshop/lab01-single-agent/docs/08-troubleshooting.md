@@ -6,48 +6,48 @@ Ce module est un guide de référence pour les problèmes courants. Mettez-le en
 
 ## 1. Erreurs de permission
 
-### 1.1 Permission `agents/write` refusée
+### 1.1 `agents/write` permission refusée
 
 ```
 Error: lacks the required data action 
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Cause principale :** Rôle `Azure AI User` manquant au niveau du **projet**. C’est l’erreur la plus fréquente en atelier.
+**Cause principale :** Rôle `Azure AI User` manquant au niveau **projet**. C’est l'erreur numéro 1 de l’atelier.
 
 **Correction :**
 1. Ouvrez [portal.azure.com](https://portal.azure.com).
-2. Recherchez le nom de votre **projet** Foundry → cliquez sur le résultat de type **"Microsoft Foundry project"** (PAS le compte parent).
+2. Recherchez le nom de votre **projet** Foundry → cliquez sur le résultat de type **« Microsoft Foundry project »** (PAS le compte parent).
 3. **Contrôle d’accès (IAM)** → **+ Ajouter** → **Ajouter une attribution de rôle**.
-4. Rôle : **Azure AI User** → Suivant.
+4. Rôle : **Utilisateur Azure AI** → Suivant.
 5. Membres : Sélectionnez-vous → Examiner + attribuer → Examiner + attribuer.
-6. **Attendez 1–2 minutes** → réessayez.
+6. **Attendez 1 à 2 minutes** → réessayez.
 
-> **Pourquoi Owner/Contributor ne suffit pas :** Ces rôles accordent uniquement des actions de *gestion*. Les opérations d’agent nécessitent l’*action de données* `agents/write`, disponible uniquement dans les rôles `Azure AI User`, `Azure AI Developer` ou `Azure AI Owner`. Voir la [doc RBAC Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+> **Pourquoi le rôle Propriétaire/Contributeur n’est pas suffisant :** Ces rôles accordent uniquement des actions de *gestion*. Les opérations d’agent nécessitent l’`agents/write` *action sur les données*, qui se trouve uniquement dans `Azure AI User`, `Azure AI Developer`, ou `Azure AI Owner`. Voir [docs Foundry RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
 ### 1.2 `AuthorizationFailed` lors du provisionnement
 
-**Correction :** Demandez à votre admin de vous attribuer le rôle **Contributor** sur le groupe de ressources, ou demandez-lui de créer le projet pour vous et de vous accorder le rôle **Azure AI User**.
+**Correction :** Demandez à votre administrateur d’attribuer **Contributeur** sur le groupe de ressources, ou qu’il crée le projet pour vous et vous accorde le rôle **Utilisateur Azure AI** dessus.
 
 ### 1.3 `SubscriptionNotRegistered`
 
 ```bash
 az provider register --namespace Microsoft.CognitiveServices
 az provider show --namespace Microsoft.CognitiveServices --query "registrationState"
-# Attendre jusqu'à : "Enregistré"
+# Wait until: "Registered"
 ```
 
 ---
 
 ## 2. Erreurs Docker
 
-> Docker est **optionnel**. Ces erreurs s’appliquent uniquement si Docker Desktop est installé et que l’extension tente une compilation locale.
+> Docker est **optionnel**. Ces points ne s’appliquent que si Docker Desktop est installé et que l’extension tente une compilation locale.
 
-### 2.1 Le démon Docker ne tourne pas
+### 2.1 Le démon Docker ne fonctionne pas
 
-**Correction :** Lancez Docker Desktop → attendez le statut "en cours d’exécution" → vérifiez avec `docker info` → réessayez.
+**Correction :** Démarrez Docker Desktop → attendez le statut "en cours d’exécution" → vérifiez avec `docker info` → réessayez.
 
-### 2.2 La compilation échoue avec des erreurs de dépendances
+### 2.2 Échec de la compilation avec erreurs de dépendances
 
 **Correction :** Vérifiez l’orthographe de `requirements.txt`, testez localement d’abord : `pip install -r requirements.txt`.
 
@@ -63,17 +63,17 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ### 3.1 Échec de `DefaultAzureCredential`
 
-**Correction (essayez dans l’ordre) :**
-1. `az login` (ré-authentification)
+**Correction (essayez dans cet ordre) :**
+1. `az login` (réauthentification)
 2. `az account set --subscription "<id>"` (abonnement correct)
 3. VS Code → Comptes → Déconnexion → Reconnexion
 4. Vérifiez : `az account get-access-token --resource https://cognitiveservices.azure.com`
 
-### 3.2 Le token fonctionne localement mais pas en hébergement
+### 3.2 Le jeton fonctionne localement mais pas en hébergé
 
 **Attendu :** Les agents hébergés utilisent une identité gérée par le système, pas vos identifiants. Si l’agent hébergé rencontre des erreurs d’authentification :
-- Vérifiez que `AZURE_AI_PROJECT_ENDPOINT` dans `agent.yaml` est correct
-- Vérifiez que l’identité gérée du projet a accès au modèle
+- Vérifiez que `AZURE_AI_MODEL_DEPLOYMENT_NAME` dans `agent.yaml` correspond au nom de déploiement de votre modèle (`FOUNDRY_PROJECT_ENDPOINT` est injecté par Foundry à l’exécution — ne le déclarez pas dans `agent.yaml`)
+- Assurez-vous que l’identité gérée du projet a accès au modèle
 
 ---
 
@@ -83,31 +83,31 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 **Correction :** Le nom est **sensible à la casse**. Comparez `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` avec le nom exact dans la barre latérale Foundry → Modèles.
 
-### 4.2 Sortie inattendue du modèle
+### 4.2 Sortie du modèle inattendue
 
-**Correction :** Revoyez `AGENT_INSTRUCTIONS` dans `main.py` (pas tronqué ?). Essayez un autre modèle (`gpt-4.1` vs `gpt-4.1-mini`).
+**Correction :** Examinez `AGENT_INSTRUCTIONS` dans `main.py` (pas tronqué ?). Essayez un modèle différent (`gpt-4.1` vs `gpt-4.1-mini`).
 
 ---
 
 ## 5. Erreurs de déploiement
 
-### 5.1 Tirage ACR non autorisé
+### 5.1 Pull ACR non autorisé
 
-**Correction :** Azure Portal → Registre de conteneurs → Contrôle d’accès (IAM) → Ajouter le rôle **AcrPull** à l’identité gérée du projet Foundry.
+**Correction :** Portail Azure → Registre de conteneurs → Contrôle d’accès (IAM) → Ajoutez le rôle **AcrPull** à l’identité gérée du projet Foundry.
 
-### 5.2 L’agent ne démarre pas (reste "Pending" ou "Failed")
+### 5.2 L’agent ne démarre pas (reste "En attente" ou "Échec")
 
 Consultez les logs du conteneur dans la barre latérale. Causes courantes :
 
 | Message de log | Correction |
-|-------------|-----------|
-| `ModuleNotFoundError` | Ajoutez le paquet manquant dans `requirements.txt`, redéployez |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Ajoutez la variable d’environnement dans `agent.yaml` sous `environment_variables` |
-| `Address already in use` | Assurez-vous qu’un seul processus utilise le port 8088 |
+|-------------|------------|
+| `ModuleNotFoundError` | Ajoutez le paquet manquant à `requirements.txt`, redéployez |
+| `ValueError: Missing required environment variables` | Confirmez que `AZURE_AI_MODEL_DEPLOYMENT_NAME` est déclaré dans `agent.yaml` sous `environment_variables` et a une valeur, puis redéployez. `FOUNDRY_PROJECT_ENDPOINT` est injecté par Foundry à l’exécution |
+| `Address already in use` | Assurez-vous qu’un seul processus écoute sur le port 8088 |
 
 ### 5.3 Le déploiement expire
 
-**Correction :** Vérifiez la connexion internet. Le premier déploiement pousse >100MB. Derrière un proxy ? Configurez le proxy de Docker Desktop.
+**Correction :** Vérifiez la connexion internet. Le premier déploiement pousse >100Mo. Derrière un proxy ? Configurez les paramètres proxy de Docker Desktop.
 
 ---
 
@@ -118,47 +118,47 @@ Consultez les logs du conteneur dans la barre latérale. Causes courantes :
 | Problème | Correction |
 |---------|-----------|
 | `foundry: command not found` | Réinstallez : `winget install Microsoft.FoundryLocal` |
-| Ressources insuffisantes | Foundry Local a besoin d’environ 4GB de RAM libre. Fermez les autres applications. |
-| Échec du téléchargement du modèle | Vérifiez l’espace disque (les modèles font 2–8 GB). Réessayez : `foundry local models pull <name>` |
+| Ressources insuffisantes | Foundry Local nécessite ~4Go de RAM libres. Fermez les autres applications. |
+| Échec du téléchargement du modèle | Vérifiez l’espace disque (les modèles font 2 à 8 Go). Réessayez : `foundry local models pull <name>` |
 
-### 6.2 Erreurs des modèles Foundry Local
+### 6.2 Erreurs de modèle Foundry Local
 
 | Problème | Correction |
 |---------|-----------|
-| Réponses lentes | Normal - les modèles locaux tournent sur CPU sauf si vous avez un GPU. Soyez patient. |
-| Résultats de faible qualité | Essayez un modèle plus grand si votre matériel le permet. `phi-4-mini` est un bon compromis. |
-| Connexion refusée | Vérifiez que Foundry Local tourne : `foundry local status`. Redémarrez si nécessaire. |
+| Réponses lentes | Attendu - les modèles locaux tournent sur CPU sauf si vous avez un GPU. Soyez patient. |
+| Sortie de mauvaise qualité | Essayez un modèle plus grand si votre matériel le permet. `phi-4-mini` est un bon compromis. |
+| Connexion refusée | Vérifiez que Foundry Local est en cours : `foundry local status`. Redémarrez si nécessaire. |
 
 ---
 
 ## 7. Référence rapide : rôles RBAC
 
-| Rôle | Portée | Accorde |
-|------|--------|---------|
-| **Azure AI User** | Projet | Actions sur données : `agents/write`, `agents/read` |
-| **Azure AI Developer** | Projet/Compte | Actions sur données + création de projet |
-| **Azure AI Owner** | Compte | Accès complet + gestion des rôles |
-| **Contributor** | Abonnement/Groupe de ressources | Actions de gestion uniquement (**pas** d’actions sur données) |
-| **Owner** | Abonnement/Groupe de ressources | Gestion + attribution de rôles (**pas** d’actions sur données) |
+| Rôle | Portée | Attributions |
+|------|--------|-------------|
+| **Utilisateur Azure AI** | Projet | Actions sur les données : `agents/write`, `agents/read` |
+| **Développeur Azure AI** | Projet/Compte | Actions sur les données + création de projet |
+| **Propriétaire Azure AI** | Compte | Accès complet + gestion des rôles |
+| **Contributeur** | Subscription/Groupe de ressources | Actions de gestion uniquement (**pas** d’actions sur les données) |
+| **Propriétaire** | Subscription/Groupe de ressources | Gestion + attribution de rôles (**pas** d’actions sur les données) |
 
 ---
 
-## 8. Checklist de fin d’atelier
+## 8. Liste de vérification de fin d’atelier
 
-| # | Éléments | Module |
-|---|----------|--------|
+| # | Élément | Module |
+|---|---------|--------|
 | 1 | Prérequis installés et vérifiés | [00](00-prerequisites.md) |
 | 2 | Extension Foundry Toolkit installée, projet connecté (ou Chemin B configuré) | [01](01-setup.md) |
-| 3 | Agent hébergé mis en place | [02](02-create-hosted-agent.md) |
+| 3 | Agent hébergé structuré | [02](02-create-hosted-agent.md) |
 | 4 | `.env` configuré, instructions écrites, dépendances installées | [03](03-configure-and-code.md) |
-| 5 | Agent testé localement - 3 scénarios fonctionnels validés | [04](04-test-locally.md) |
-| 6 | Déployé sur Foundry (Chemin A uniquement) | [05](05-deploy-to-foundry.md) |
-| 7 | Tests de cas limites/sécurité réussis dans le cloud (Chemin A uniquement) | [06](06-verify-in-playground.md) |
-| 8 | Résumé revu, prochaines étapes identifiées | [07](07-summary.md) |
+| 5 | Agent testé localement - 3 scénarios fonctionnels réussis | [04](04-test-locally.md) |
+| 6 | Déployé sur Foundry (seulement Chemin A) | [05](05-deploy-to-foundry.md) |
+| 7 | Tests d’angle mort/sécurité réussis dans le cloud (seulement Chemin A) | [06](06-verify-in-playground.md) |
+| 8 | Résumé passé en revue, prochaines étapes identifiées | [07](07-summary.md) |
 
 ---
 
-**Précédent :** [07 - Résumé](07-summary.md) · **Accueil :** [Workshop README](../../../README.md)
+**Précédent :** [07 - Résumé](07-summary.md) · **Accueil :** [README de l’atelier](../../../README.md)
 
 ---
 

@@ -35,13 +35,15 @@ sequenceDiagram
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
-AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-5-mini (or gpt-4.1-mini)
+AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-5-mini
 ```
+
+> Use the exact deployment name you noted in Module 01 (for example `gpt-5-mini` or `gpt-4.1-mini`). The value must contain only the name - nothing else on the line.
 
 ### 🅱️ Path B - Foundry Local
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=http://localhost:5273/v1
+FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 

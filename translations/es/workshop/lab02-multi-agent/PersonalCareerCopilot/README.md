@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - Evaluador de Ajuste de Curriculum → Oferta de Trabajo
+# PersonalCareerCopilot - Evaluador de Compatibilidad de Currículum con el Trabajo
 
-Una aplicación multiagente orientada al flujo de trabajo que evalúa qué tan bien un currículum coincide con una descripción de trabajo, y luego genera una hoja de ruta de aprendizaje personalizada para cerrar las brechas.
+Una aplicación multiagente centrada en el flujo de trabajo que evalúa qué tan bien un currículum coincide con una descripción de trabajo, y luego genera una hoja de ruta de aprendizaje personalizada para cerrar las brechas.
 
 ---
 
@@ -8,20 +8,20 @@ Una aplicación multiagente orientada al flujo de trabajo que evalúa qué tan b
 
 | Agente | Rol | Herramientas |
 |-------|------|-------|
-| **ResumeParser** | Extrae habilidades estructuradas, experiencia, certificaciones del texto del currículum | - |
-| **JobDescriptionAgent** | Extrae habilidades requeridas/preferidas, experiencia, certificaciones de una JD | - |
-| **MatchingAgent** | Compara perfil vs requisitos → puntaje de ajuste (0-100) + habilidades coincidentes/faltantes | - |
+| **ResumeParser** | Extrae habilidades, experiencia, certificaciones estructuradas del texto del currículum | - |
+| **JobDescriptionAgent** | Extrae habilidades, experiencia, certificaciones requeridas/preferidas de una descripción de trabajo | - |
+| **MatchingAgent** | Compara perfil vs requisitos → puntaje de compatibilidad (0-100) + habilidades coincidentes/faltantes | - |
 | **GapAnalyzer** | Construye una hoja de ruta de aprendizaje personalizada con recursos de Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Flujo de trabajo
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Resume + Descripción del Puesto"] --> ResumeParser
-    ResumeParser -- "currículum analizado + retransmisión de DP" --> JobDescriptionAgent
-    JobDescriptionAgent -- "requisitos de DP + retransmisión de currículum" --> MatchingAgent
-    MatchingAgent -- "informe de ajuste + brechas" --> GapAnalyzerMCP["Analizador de Brechas +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nPuntuación de Ajuste + Hoja de Ruta"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Configurar el entorno
 
-Esta carpeta es la implementación de referencia para el esqueleto del Lab 02 basado en flujo de trabajo. Su `main.py` usa los bloques de prompts existentes más `WorkflowBuilder` para conectar los cuatro agentes.
+Esta carpeta es la implementación de referencia para el esqueleto basado en flujo de trabajo del Lab 02. Su `main.py` usa los bloques de instrucciones existentes más `WorkflowBuilder` para conectar los cuatro agentes.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -57,8 +57,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | Valor | Dónde encontrarlo |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Barra lateral Foundry Toolkit → clic derecho en tu proyecto → **Copiar Punto Final del Proyecto** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Barra lateral de Foundry → expandir proyecto → **Modelos + puntos finales** → nombre del despliegue |
+| `FOUNDRY_PROJECT_ENDPOINT` | Barra lateral de Foundry Toolkit → clic derecho en tu proyecto → **Copiar Endpoint del Proyecto** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Barra lateral de Foundry → expandir proyecto → **Modelos + endpoints** → nombre de despliegue |
 
 ### 3. Ejecutar localmente
 
@@ -68,7 +68,7 @@ python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 
 O usa la tarea de VS Code: `Ctrl+Shift+P` → **Tareas: Ejecutar tarea** → **Ejecutar servidor HTTP del agente**.
 
-Para depurar con F5, usa **Depurar servidor HTTP local del agente**.
+Para depuración con F5, usa **Depurar servidor HTTP local del agente**.
 
 ### 4. Probar con Agent Inspector
 
@@ -92,7 +92,7 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Esperado:** Un puntaje de ajuste (0-100), habilidades coincidentes/faltantes, y una hoja de ruta de aprendizaje personalizada con URL de Microsoft Learn.
+**Esperado:** Un puntaje de compatibilidad (0-100), habilidades coincidentes/faltantes y una hoja de ruta de aprendizaje personalizada con URLs de Microsoft Learn.
 
 ### 5. Desplegar en Foundry
 
@@ -115,28 +115,28 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-Define el agente alojado para Foundry Agent Service:
+Define el agente alojado para el Servicio de Agentes Foundry:
 - `kind: hosted` - se ejecuta como un contenedor gestionado
-- `protocols` - protocolo `responses` con `version: 1.0.0`, exponiendo el endpoint HTTP `/responses`
-- `environment_variables` - aquí se declara `AZURE_AI_MODEL_DEPLOYMENT_NAME`; `FOUNDRY_PROJECT_ENDPOINT` se inyecta automáticamente en tiempo de despliegue
+- `protocols` - protocolo `responses` con `version: 2.0.0`, expone el endpoint HTTP `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` se declara aquí; `FOUNDRY_PROJECT_ENDPOINT` se inyecta automáticamente al desplegar
 
 ### `main.py`
 
 Contiene:
-- **Instrucciones para agentes** - cuatro constantes `*_INSTRUCTIONS`, una por agente
+- **Instrucciones del agente** - cuatro constantes `*_INSTRUCTIONS`, una por agente
 - **Herramienta MCP** - `search_microsoft_learn_for_plan()` llama a `https://learn.microsoft.com/api/mcp` vía HTTP Streamable
 - **Creación de agentes** - cuatro instancias `Agent()` + `AgentExecutor()` compartiendo un `FoundryChatClient`
-- **Gráfico de flujo de trabajo** - `WorkflowBuilder` conecta agentes como línea secuencial: ResumeParser → Agente JD → MatchingAgent → GapAnalyzer
-- **Inicio del servidor** - `ResponsesHostServer` corre en el puerto 8088
+- **Gráfico de flujo de trabajo** - `WorkflowBuilder` conecta agentes como una cadena secuencial: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Inicio del servidor** - `ResponsesHostServer` se ejecuta en el puerto 8088
 
 ### `requirements.txt`
 
 | Paquete | Propósito |
 |---------|----------|
 | `agent-framework-foundry` | Núcleo de ejecución: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integración de hosting en Foundry |
+| `agent-framework-foundry-hosting` | Integración hosting Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | Cliente MCP para GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Depuración en Python (F5 en VS Code) |
+| `debugpy` | Depuración Python (F5 en VS Code) |
 
 ---
 
@@ -144,13 +144,13 @@ Contiene:
 
 | Problema | Solución |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` o `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Crea `.env` con ambos valores `FOUNDRY_PROJECT_ENDPOINT` y `AZURE_AI_MODEL_DEPLOYMENT_NAME` configurados |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Activa el entorno virtual y ejecuta `pip install -r requirements.txt` |
-| No hay URLs de Microsoft Learn en salida | Verifica la conectividad a internet con `https://learn.microsoft.com/api/mcp` |
-| Solo una tarjeta de brecha (truncada) | Verifica que `GAP_ANALYZER_INSTRUCTIONS` incluya el bloque `CRITICAL:` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` o `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Crea `.env` con ambos `FOUNDRY_PROJECT_ENDPOINT` y `AZURE_AI_MODEL_DEPLOYMENT_NAME` configurados |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Activa venv y ejecuta `pip install -r requirements.txt` |
+| No hay URLs de Microsoft Learn en la salida | Verifica conexión a internet hacia `https://learn.microsoft.com/api/mcp` |
+| Solo 1 tarjeta de brecha (cortada) | Verifica que `GAP_ANALYZER_INSTRUCTIONS` incluya el bloque `CRITICAL:` |
 | Puerto 8088 en uso | Detén otros servidores: `netstat -ano \| findstr :8088` |
 
-Para solución de problemas detallada, consulta [Módulo 8 - Solución de problemas](../docs/08-troubleshooting.md).
+Para solución detallada, consulta [Módulo 8 - Solución de Problemas](../docs/08-troubleshooting.md).
 
 ---
 

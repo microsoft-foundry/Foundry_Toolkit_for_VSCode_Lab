@@ -3,22 +3,22 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Vista previa y Limitaciones:** [Agentes alojados](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) están actualmente en **vista previa pública** - no se recomienda para cargas de trabajo en producción. Algunas características mostradas en este taller pueden cambiar a medida que el servicio avanza hacia GA.
+> **Vista previa y limitaciones:** [Agentes alojados](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) están actualmente en **vista previa pública** - no se recomienda para cargas de trabajo en producción. Algunas características mostradas en este taller pueden cambiar a medida que el servicio avance hacia GA.
 
 ## Lo que construirás
 
-En este laboratorio, extiendes las habilidades de un solo agente del Laboratorio 01 para construir un **flujo de trabajo multi-agente** - el Evaluador de Ajuste de Currículum → Trabajo.
+En este laboratorio, extiendes las habilidades de un solo agente del Laboratorio 01 para construir un **flujo de trabajo multiagente** - el Evaluador de Currículum → Adecuación al Trabajo.
 
-Pegas un **currículum** y una **descripción del trabajo**. Cuatro agentes especializados procesan la entrada de forma secuencial y luego devuelven:
-- Una puntuación de ajuste (0–100 con un desglose de puntuación)
+Pegas un **currículum** y una **descripción de trabajo**. Cuatro agentes especializados procesan la entrada secuencialmente, luego devuelven:
+- Una puntuación de adecuación (0–100 con un desglose de puntuación)
 - Una lista de brechas de habilidades y certificaciones
-- Una hoja de ruta personalizada de aprendizaje con enlaces reales de Microsoft Learn para cada brecha
+- Una hoja de ruta de aprendizaje personalizada con enlaces reales de Microsoft Learn para cada brecha
 
 **El flujo de trabajo usa:**
-- **Microsoft Agent Framework** - `WorkflowBuilder` para la orquestación secuencial del pipeline
-- **Foundry Toolkit para VS Code** - para generar la estructura, probar localmente, desplegar
+- **Microsoft Agent Framework** - `WorkflowBuilder` para orquestación de canalización secuencial
+- **Foundry Toolkit para VS Code** - esqueleto, prueba local, despliegue
 - **Un modelo de IA** (por ejemplo, `gpt-4.1-mini`) - usado por los cuatro agentes
-- **Servidor MCP de Microsoft Learn** - provee enlaces de recursos de aprendizaje reales para cada brecha de habilidad
+- **Servidor Microsoft Learn MCP** - proporciona enlaces reales de recursos de aprendizaje para cada brecha de habilidad
 
 ---
 
@@ -27,14 +27,14 @@ Pegas un **currículum** y una **descripción del trabajo**. Cuatro agentes espe
 > ⚠️ **Continúa con el mismo camino que usaste en el Laboratorio 01.**
 
 <details open>
-<summary><strong>🅰️ Camino A - Nube Azure (requiere suscripción a Azure)</strong></summary>
+<summary><strong>🅰️ Camino A - nube de Azure (requiere suscripción a Azure)</strong></summary>
 
 | | Detalles |
 |---|---|
-| **¿Para quién es esto?** | Completaste el Laboratorio 01 usando una suscripción a Azure |
-| **Modelo** | Azure OpenAI vía Foundry (por ejemplo, `gpt-4.1-mini`) |
+| **¿Para quién es?** | Completaste el Laboratorio 01 usando una suscripción de Azure |
+| **Modelo** | Azure OpenAI a través de Foundry (por ejemplo, `gpt-4.1-mini`) |
 | **Módulos cubiertos** | Todos los módulos (00–09) |
-| **¿Desplegar en la nube?** | ✅ Sí - despliegue completo de extremo a extremo |
+| **¿Desplegar en la nube?** | ✅ Sí - despliegue completo de principio a fin |
 
 </details>
 
@@ -43,10 +43,10 @@ Pegas un **currículum** y una **descripción del trabajo**. Cuatro agentes espe
 
 | | Detalles |
 |---|---|
-| **¿Para quién es esto?** | Completaste el Laboratorio 01 usando Foundry Local |
-| **Modelo** | Foundry Local (gratis, se ejecuta en tu máquina) |
-| **Módulos cubiertos** | Módulos 00–05 (omite 06–07 - despliegue y verificación en la nube) |
-| **¿Desplegar en la nube?** | ❌ No - solo pruebas locales vía Agent Inspector |
+| **¿Para quién es?** | Completaste el Laboratorio 01 usando Foundry Local |
+| **Modelo** | Foundry Local (gratuito, corre en tu máquina) |
+| **Módulos cubiertos** | Módulos 00–05 (salta 06–07 - despliegue y verificación en la nube) |
+| **¿Desplegar en la nube?** | ❌ No - solo pruebas locales a través de Agent Inspector |
 
 </details>
 
@@ -54,12 +54,12 @@ Pegas un **currículum** y una **descripción del trabajo**. Cuatro agentes espe
 
 ## Revisión del Laboratorio 01
 
-El Laboratorio 02 se basa directamente en el Laboratorio 01. Completa primero el Laboratorio 01 antes de comenzar aquí.
+El Laboratorio 02 se basa directamente en el Laboratorio 01. Completa el Laboratorio 01 primero antes de comenzar aquí.
 
-¿No has hecho aún el Laboratorio 01? Empieza aquí: [Laboratorio 01 - Introducción](../../lab01-single-agent/docs/00-prerequisites.md)
+¿No has hecho el Laboratorio 01 aún? Comienza aquí: [Laboratorio 01 - Introducción](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ Camino A - Nube Azure</strong></summary>
+<summary><strong>🅰️ Camino A - nube de Azure</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
@@ -67,12 +67,12 @@ az account show --query "{name:name, id:id}" --output table
 
 Si esto falla, ejecuta `az login`. Luego verifica en VS Code:
 
-1. `Ctrl+Shift+P` → escribe **Foundry Toolkit** → confirma que aparecen los comandos.
-2. Haz clic en el ícono de **Foundry Toolkit** → tu proyecto y modelo desplegado muestran **Succeeded**.
+1. `Ctrl+Shift+P` → escribe **Foundry Toolkit** → confirma que aparezcan los comandos.
+2. Haz clic en el ícono **Foundry Toolkit** → tu proyecto y modelo desplegado muestran **Succeeded**.
 
-![Foundry Toolkit sidebar showing MY RESOURCES section with the project switcher modal open](../../../../../translated_images/es/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Barra lateral de Foundry Toolkit que muestra el proyecto bajo Mis Recursos, con el selector Cambiar proyecto / Crear proyecto abierto](../../../../../translated_images/es/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Asignaste **Foundry User** en el Laboratorio 01. Si necesitas reasignarlo, consulta [Laboratorio 01, Módulo 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). El rol se llamaba previamente **Azure AI User** - mismos permisos.
+> **RBAC:** Asignaste **Foundry User** en el Laboratorio 01. Si necesitas reasignarlo, consulta [Laboratorio 01, Módulo 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). El rol se llamaba anteriormente **Azure AI User** - mismos permisos.
 
 </details>
 
@@ -85,7 +85,7 @@ Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Sele
 
 Esperado: `StatusCode: 200`. Si no, reinicia Foundry Local desde la barra lateral de Foundry Toolkit.
 
-> Todas las inferencias se ejecutan en tu máquina. La única llamada saliente es la herramienta MCP a `https://learn.microsoft.com/api/mcp`.
+> Toda la inferencia se ejecuta en tu máquina. La única llamada saliente es a la herramienta MCP a `https://learn.microsoft.com/api/mcp`.
 
 </details>
 
@@ -94,16 +94,16 @@ Esperado: `StatusCode: 200`. Si no, reinicia Foundry Local desde la barra latera
 ## Novedades en el Laboratorio 02
 
 | | Laboratorio 01 | Laboratorio 02 |
-|--|-------------|-------------|
+|--|--------|--------|
 | Agentes | 1 | 4 (encadenados con WorkflowBuilder) |
-| Plantilla scaffold | Básica - Agent Framework | Flujos de trabajo - Agent Framework |
-| Nuevo paquete | - | `mcp` |
-| Orquestación | Agente conversacional único | Pipeline secuencial (WorkflowBuilder) |
-| Nueva herramienta | - | `search_microsoft_learn_for_plan` (MCP) |
+| Plantilla de esqueleto | Básico - Agent Framework | Flujos de trabajo - Agent Framework |
+| Paquete nuevo | - | `mcp` |
+| Orquestación | Agente conversacional único | Canalización secuencial (WorkflowBuilder) |
+| Herramienta nueva | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---
 
-**Siguiente:** [01 - Comprender la Arquitectura →](01-understand-multi-agent.md)
+**Siguiente:** [01 - Entender la Arquitectura →](01-understand-multi-agent.md)
 
 ---
 

@@ -25,7 +25,7 @@ flowchart LR
 ## Step 1: Open the Create Hosted Agent wizard
 
 1. Press `Ctrl+Shift+P` to open the **Command Palette**.
-2. Type: **Foundry Toolkit: Create a New Hosted Agent** and select it.
+2. Type: **Foundry Toolkit: Create new Hosted Agent** and select it.
 3. The wizard opens on the **Agent Details** tab.
 
 > **Alternative:** Click the **Foundry Toolkit** icon in the Activity Bar → click the **+** icon next to **Hosted Agents** → **Create New Hosted Agent**.

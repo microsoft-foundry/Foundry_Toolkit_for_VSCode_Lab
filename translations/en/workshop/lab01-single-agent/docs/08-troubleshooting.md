@@ -72,7 +72,7 @@ docker build --platform linux/amd64 -t myagent:v1 .
 ### 3.2 Token works locally but not hosted
 
 **Expected:** Hosted agents use system-managed identity, not your credential. If the hosted agent gets auth errors:
-- Verify `AZURE_AI_PROJECT_ENDPOINT` in `agent.yaml` is correct
+- Verify `AZURE_AI_MODEL_DEPLOYMENT_NAME` in `agent.yaml` resolves to your model deployment name (`FOUNDRY_PROJECT_ENDPOINT` is injected by Foundry at runtime - do not declare it in `agent.yaml`)
 - Check that the project's managed identity has model access
 
 ---
@@ -102,7 +102,7 @@ Check container logs in the sidebar. Common causes:
 | Log message | Fix |
 |-------------|-----|
 | `ModuleNotFoundError` | Add missing package to `requirements.txt`, redeploy |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Add env var to `agent.yaml` under `environment_variables` |
+| `ValueError: Missing required environment variables` | Confirm `AZURE_AI_MODEL_DEPLOYMENT_NAME` is declared in `agent.yaml` under `environment_variables` and has a value, then redeploy. `FOUNDRY_PROJECT_ENDPOINT` is injected by Foundry at runtime |
 | `Address already in use` | Ensure only one process binds to port 8088 |
 
 ### 5.3 Deployment times out

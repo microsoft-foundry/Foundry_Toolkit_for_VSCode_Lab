@@ -3,50 +3,50 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Aperçu et limitations :** Les [agents hébergés](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) sont actuellement en **aperçu public** - non recommandés pour les charges de travail en production. Certaines fonctionnalités présentées dans cet atelier peuvent évoluer à mesure que le service progresse vers la GA.
+> **Aperçu & Limitations :** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) sont actuellement en **aperçu public** - non recommandés pour les charges de travail en production. Certaines fonctionnalités présentées dans cet atelier peuvent évoluer à mesure que le service progresse vers la disponibilité générale.
 
 ## Ce que vous allez construire
 
-Dans ce laboratoire, vous étendez les compétences d'agent unique du Lab 01 pour construire un **flux de travail multi-agent** - l'Évaluateur de Correspondance CV → Offre d'emploi.
+Dans ce laboratoire, vous étendez les compétences de l’agent unique du Lab 01 pour construire un **flux de travail multi-agent** - l’Évaluateur de Correspondance CV → Poste.
 
-Vous collez un **CV** et une **description de poste**. Quatre agents spécialisés traitent les entrées séquentiellement, puis retournent :
-- Un score d'adéquation (0–100 avec répartition du score)
-- Une liste des écarts de compétences et certifications
-- Une feuille de route d'apprentissage personnalisée avec de vrais liens Microsoft Learn pour chaque manque
+Vous collez un **CV** et une **description de poste**. Quatre agents spécialisés traitent les entrées de manière séquentielle, puis retournent :
+- Un score de correspondance (0–100 avec une ventilation des scores)
+- Une liste d’écarts de compétences et de certifications
+- Une feuille de route d’apprentissage personnalisée avec des liens réels Microsoft Learn pour chaque écart
 
 **Le flux de travail utilise :**
-- **Microsoft Agent Framework** - `WorkflowBuilder` pour l'orchestration en pipeline séquentiel
-- **Foundry Toolkit pour VS Code** - générer l’ossature, tester localement, déployer
-- **Un modèle d'IA** (par exemple, `gpt-4.1-mini`) - utilisé par les quatre agents
-- **Serveur Microsoft Learn MCP** - fournit de vrais liens vers des ressources d'apprentissage pour chaque lacune de compétence
+- **Microsoft Agent Framework** - `WorkflowBuilder` pour l’orchestration séquentielle de la pipeline
+- **Foundry Toolkit pour VS Code** - structurer, tester localement, déployer
+- **Un modèle d’IA** (par exemple, `gpt-4.1-mini`) - utilisé par les quatre agents
+- **Serveur Microsoft Learn MCP** - fournit de vrais liens vers des ressources d’apprentissage pour chaque écart de compétence
 
 ---
 
-## Choisissez votre parcours
+## Choisissez votre chemin
 
-> ⚠️ **Continuez avec le même parcours que celui utilisé dans le Lab 01.**
+> ⚠️ **Poursuivez avec le même chemin que vous avez utilisé dans le Lab 01.**
 
 <details open>
-<summary><strong>🅰️ Parcours A - Cloud Azure (nécessite une souscription Azure)</strong></summary>
+<summary><strong>🅰️ Chemin A - Cloud Azure (requiert un abonnement Azure)</strong></summary>
 
 | | Détails |
 |---|---|
-| **Pour qui ?** | Vous avez terminé le Lab 01 en utilisant une souscription Azure |
-| **Modèle** | Azure OpenAI via Foundry (par exemple, `gpt-4.1-mini`) |
+| **Pour qui ?** | Vous avez complété le Lab 01 en utilisant un abonnement Azure |
+| **Modèle** | Azure OpenAI via Foundry (par exemple `gpt-4.1-mini`) |
 | **Modules couverts** | Tous les modules (00–09) |
-| **Déployer dans le cloud ?** | ✅ Oui - déploiement complet de bout en bout |
+| **Déploiement sur le cloud ?** | ✅ Oui - déploiement complet de bout en bout |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Parcours B - Foundry Local (pas besoin de souscription Azure)</strong></summary>
+<summary><strong>🅱️ Chemin B - Foundry Local (aucun abonnement Azure requis)</strong></summary>
 
 | | Détails |
 |---|---|
-| **Pour qui ?** | Vous avez terminé le Lab 01 en utilisant Foundry Local |
-| **Modèle** | Foundry Local (gratuit, s’exécute sur votre machine) |
+| **Pour qui ?** | Vous avez complété le Lab 01 en utilisant Foundry Local |
+| **Modèle** | Foundry Local (gratuit, fonctionne sur votre machine) |
 | **Modules couverts** | Modules 00–05 (sauter 06–07 - déploiement & vérification cloud) |
-| **Déployer dans le cloud ?** | ❌ Non - tests locaux uniquement via Agent Inspector |
+| **Déploiement sur le cloud ?** | ❌ Non - tests locaux uniquement via Agent Inspector |
 
 </details>
 
@@ -54,30 +54,30 @@ Vous collez un **CV** et une **description de poste**. Quatre agents spécialis�
 
 ## Vérification du Lab 01
 
-Le Lab 02 s’appuie directement sur le Lab 01. Complétez d’abord le Lab 01 avant de commencer ici.
+Le Lab 02 s’appuie directement sur le Lab 01. Complétez le Lab 01 avant de commencer ici.
 
-Vous n'avez pas encore fait le Lab 01 ? Commencez ici : [Lab 01 - Introduction](../../lab01-single-agent/docs/00-prerequisites.md)
+Vous n’avez pas encore fait le Lab 01 ? Commencez ici : [Lab 01 - Introduction](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ Parcours A - Cloud Azure</strong></summary>
+<summary><strong>🅰️ Chemin A - Cloud Azure</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
 ```
 
-En cas d’échec, exécutez `az login`. Puis vérifiez dans VS Code :
+Si cela échoue, exécutez `az login`. Ensuite, vérifiez dans VS Code :
 
 1. `Ctrl+Shift+P` → tapez **Foundry Toolkit** → confirmez que les commandes apparaissent.
-2. Cliquez sur l’icône **Foundry Toolkit** → votre projet et modèle déployé affichent **Réussi**.
+2. Cliquez sur l’icône **Foundry Toolkit** → votre projet et le modèle déployé montrent **Succès**.
 
-![Barre latérale Foundry Toolkit montrant la section MES RESSOURCES avec la fenêtre de commutation de projet ouverte](../../../../../translated_images/fr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Barre latérale Foundry Toolkit montrant le projet sous Mes Ressources, avec le sélecteur Changer de projet / Créer un projet ouvert](../../../../../translated_images/fr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC :** Vous avez attribué **Foundry User** dans le Lab 01. Si vous devez la réattribuer, voir [Lab 01, Module 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Le rôle était auparavant nommé **Azure AI User** - mêmes permissions.
+> **RBAC :** Vous avez attribué **Foundry User** dans le Lab 01. Si vous devez la réattribuer, consultez [Lab 01, Module 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Le rôle s’appelait auparavant **Azure AI User** - mêmes permissions.
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Parcours B - Foundry Local</strong></summary>
+<summary><strong>🅱️ Chemin B - Foundry Local</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
@@ -85,7 +85,7 @@ Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Sele
 
 Attendu : `StatusCode: 200`. Sinon, redémarrez Foundry Local depuis la barre latérale Foundry Toolkit.
 
-> Toute l'inférence s'exécute sur votre machine. Le seul appel sortant est l’outil MCP vers `https://learn.microsoft.com/api/mcp`.
+> Tous les traitements s’exécutent sur votre machine. Le seul appel sortant est l’outil MCP vers `https://learn.microsoft.com/api/mcp`.
 
 </details>
 
@@ -96,9 +96,9 @@ Attendu : `StatusCode: 200`. Sinon, redémarrez Foundry Local depuis la barre la
 | | Lab 01 | Lab 02 |
 |--|--------|--------|
 | Agents | 1 | 4 (enchaînés avec WorkflowBuilder) |
-| Modèle d'ossature | Basique - Agent Framework | Workflows - Agent Framework |
+| Modèle de structure | Basique - Agent Framework | Workflows - Agent Framework |
 | Nouveau package | - | `mcp` |
-| Orchestration | Agent conversationnel unique | Pipeline séquentiel (WorkflowBuilder) |
+| Orchestration | Agent conversationnel unique | Pipeline séquentielle (WorkflowBuilder) |
 | Nouvel outil | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---
