@@ -2,13 +2,13 @@
 
 ⏱️ ~10 min
 
-For dis module, you go explore di orchestration patterns Wey dem dey use for Resume Job Fit Evaluator and you go learn how to read, modify, and extend di workflow graph. To sabi these patterns na important for debugging data flow wahala and to build your own [multi-agent workflows](https://learn.microsoft.com/agent-framework/workflows/).
+For dis module, you go explore di orchestration patterns wey dem use for di Resume Job Fit Evaluator and you go learn how to read, change, and extend di workflow graph. To sabi these patterns na beta tin if you wan fit solve problem for data flow and build your own [multi-agent workflows](https://learn.microsoft.com/agent-framework/workflows/).
 
 ---
 
 ## Pattern 1: Sequential chain
 
-Di fundamental pattern for di workflow na **sequential chain** - each agent output dey go directly inside di next one.
+Di main pattern for di workflow na **sequential chain** - one agent output dey go directly to di next agent.
 
 ```mermaid
 flowchart LR
@@ -17,7 +17,7 @@ flowchart LR
     MA --> GA[Gap Analyzer]
 ```
 
-For code, each `add_edge()` call dey create one step for di chain:
+For code, every `add_edge()` call dey create one step for di chain:
 
 ```python
 .add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
@@ -25,15 +25,15 @@ For code, each `add_edge()` call dey create one step for di chain:
 .add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Why sequential, no be fan-out/fan-in?** `WorkflowBuilder` dey use **OR-semantics** for incoming edges: downstream executor go start as soon as **any** predecessor don finish. If `matching_executor` get two incoming edges (from `resume_executor` and `jd_executor`), e go trigger two times - once wen ResumeParser finish and again wen JD Agent finish - wey go make GapAnalyzer run two times and output go show two times. Di sequential pipeline fit avoid dis wahala complete.
+> **Why na sequential, no be fan-out/fan-in?** `WorkflowBuilder` dey use **OR-semantics** for di incoming edges: di executor wey dey downstream go start as soon as **any** predecessor finish. If `matching_executor` get two incoming edges (from both `resume_executor` and `jd_executor`), e go trigger twice - one time when ResumeParser finish and another time when JD Agent finish - dis go make GapAnalyzer run twice and output go show twice too. Di sequential pipeline dey stop dis kain yawa.
 
 ## Pattern 2: Content Relay
 
-Because `context_mode="last_agent"` mean each executor na only im **direct predecessor output** e dey see, agents for sequential chain gats pass any data Wey downstream agents need explicitly.
+Because `context_mode="last_agent"` mean say every executor only dey see output from him **direct predecessor** only, agents for sequential chain suppose explicitly pass forward any data wey downstream agents need.
 
 For dis workflow:
-- **ResumeParser** dey copy di JD verbatim enter `[JOB DESCRIPTION PASS-THROUGH]` (make JD Agent fit find am).
-- **JD Agent** dey copy `[PARSED RESUME]` verbatim enter `[PARSED RESUME PASS-THROUGH]` (make MatchingAgent fit compare both profiles).
+- **ResumeParser** dey copy di JD word for word enter `[JOB DESCRIPTION PASS-THROUGH]` (make JD Agent fit find am).
+- **JD Agent** dey copy di `[PARSED RESUME]` word for word enter `[PARSED RESUME PASS-THROUGH]` (make MatchingAgent fit compare both profiles).
 
 ```
 ResumeParser output
@@ -45,13 +45,13 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Each relay section gats copy **verbatim** - if you summarize or paraphrase am, e go break di downstream agent Wey depend on am.
+Every relay section suppose dey copied **word for word** - if you try summarize or paraphrase am, e go break di downstream agent wey depend on am.
 
 ---
 
-## Di complete graph
+## The complete graph
 
-To combine di sequential chain and content relay patterns dey produce di full workflow:
+If you combine di sequential chain and content relay patterns, you go get di full workflow:
 
 ```mermaid
 flowchart LR
@@ -62,34 +62,34 @@ flowchart LR
     GA --> O[Final Output]
 ```
 
-Di Agent Inspector dey show dis same graph structure wen di agent dey run locally. Make you check [Module 5 - Test Locally](05-test-locally.md) for screenshots.
+Di Agent Inspector go show di same graph structure when di agent dey run for local. Check [Module 5 - Test Locally](05-test-locally.md) for screenshots.
 
 ---
 
 ## Reading the WorkflowBuilder code
 
-Di full `create_workflow()` function dey for [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Di three `add_edge()` calls na im dey build di sequential pipeline:
+Di workflow graph dey build for `main()` function inside [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Di three `add_edge()` calls dey build di sequential pipeline:
 
 | # | Edge | Effect |
 |---|------|--------|
-| 1 | `resume_executor → jd_executor` | JD Agent go receive `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
-| 2 | `jd_executor → matching_executor` | MatchingAgent go receive `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer go receive fit report + gap list |
+| 1 | `resume_executor → jd_executor` | JD Agent dey receive `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
+| 2 | `jd_executor → matching_executor` | MatchingAgent dey receive `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer dey receive fit report + gap list |
 
 ---
 
-## Modifying di graph
+## Modifying the graph
 
-### Adding new agent
+### Adding a new agent
 
-To add di fifth agent (for example, an **InterviewPrepAgent** after GapAnalyzer):
+To add fifth agent (like **InterviewPrepAgent** after GapAnalyzer):
 
-1. Define constant `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Create `Agent` + `AgentExecutor` objects (same pattern as di four Wey dey already).
+1. Define one `INTERVIEW_PREP_INSTRUCTIONS` constant.
+2. Create `Agent` + `AgentExecutor` objects (same pattern as di four wey dey already).
 3. Add `.add_edge(gap_executor, interview_exec)` for `WorkflowBuilder`.
 4. Update `output_executors=[interview_exec]`.
 
-> **Important:** `start_executor` na only agent Wey dey receive raw user input. All oda agents go receive output from their upstream edge.
+> **Important:** `start_executor` na di only agent wey dey receive raw user input. All other agents dey receive output from their upstream edge.
 
 ---
 
@@ -97,37 +97,37 @@ To add di fifth agent (for example, an **InterviewPrepAgent** after GapAnalyzer)
 
 | Mistake | Symptom | Fix |
 |---------|---------|-----|
-| Missing edge go `output_executors` | Agent dey run but output empty | Make sure say path dey from `start_executor` go every agent for `output_executors` |
-| Circular dependency | Infinite loop or timeout | Check say no agent dey feed back enter upstream agent |
-| Agent for `output_executors` wey get no incoming edge | Empty output | Add at least one `add_edge(source, that_agent)` |
-| Plenty `output_executors` wey no get fan-in | Output get only one agent response | Use only one output agent Wey dey aggregate, or accept multiple outputs |
-| Missing `start_executor` | `ValueError` for build time | Always specify `start_executor` for `WorkflowBuilder()` |
+| Missing edge to `output_executors` | Agent dey run but output empty | Make sure say path dey from `start_executor` to every agent for `output_executors` |
+| Circular dependency | Infinite loop or timeout | Check say no agent dey feed back into upstream agent |
+| Agent for `output_executors` with no incoming edge | Empty output | Add at least one `add_edge(source, that_agent)` |
+| Multiple `output_executors` with no fan-in | Output get only one agent response | Use one single output agent wey dey aggregate, or accept multiple outputs |
+| Missing `start_executor` | `ValueError` at build time | Always specify `start_executor` inside `WorkflowBuilder()` |
 
 ---
 
-## Debugging di graph
+## Debugging the graph
 
 ### Using Agent Inspector
 
-1. Start di agent locally wit F5.
+1. Start the agent locally with F5.
 2. Open Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
-3. Send test message.
-4. For Inspector response panel, look di **streaming output** - e dey show each agent contribution one by one.
+3. Send one test message.
+4. For Inspector response panel, look for **streaming output** - e go show each agent contribution one after another.
 
 
 ### Using logging
 
-Add logging to `main.py` to trace how data dey flow:
+Add logging to `main.py` to trace data flow:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# For main(), afta you don build di workflow:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Server logs go show agent execution order and MCP tool calls:
+Di server logs go show order wey agents run and MCP tool calls:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,11 +144,11 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### Checkpoint
 
-- [ ] You fit sabi di two orchestration patterns for workflow: sequential chain and content relay
-- [ ] You understand why `context_mode="last_agent"` gats explicit data relay between agents
-- [ ] You dey fit read `WorkflowBuilder` code and link each `add_edge()` call to di visual graph
-- [ ] You sabi how to add new agent go end of di pipeline
-- [ ] You fit sabi common graph mistakes and how dem dey show
+- [ ] You fit identify di two orchestration patterns for di workflow: sequential chain and content relay
+- [ ] You sabi why `context_mode="last_agent"` need explicit data relay between agents
+- [ ] You fit read `WorkflowBuilder` code and connect every `add_edge()` call to di visual graph
+- [ ] You sabi how to add new agent to di end of di pipeline
+- [ ] You fit identify common graph mistakes and di symptoms wey dem dey cause
 
 ---
 

@@ -1,12 +1,12 @@
-# Moodul 5 - Rakenda Foundry Agendi teenusesse
+# Moodul 5 - Paigalda Foundry agendi teenusesse
 
-⏱️ ~10 min
+⏱️ ~10 minutit
 
-> ⚠️ **Tee B kasutajad:** See moodul nõuab Foundry tellimust. Kui kasutate Foundry Locali, jätke see vahele ja minge järgmise juurde: [Moodul 07 - Kokkuvõte](07-summary.md). Olete edukalt lõpetanud kohaliku arenduse töövoo!
+> ⚠️ **Path B kasutajad:** See moodul nõuab Foundry tellimust. Kui kasutate Foundry Locali, minge edasi [Moodul 07 - Kokkuvõte](07-summary.md). Olete edukalt lõpetanud kohaliku arenduse töövoo!
 
-Selles moodulis rakendate oma kohapeal testitud agendi Microsoft Foundry'sse kui **Hostitud Agenti**. Rakendamine loob konteineripildi, saadab selle Azure Container Registry'sse ja käivitab agendi Foundry hallatud infrastruktuuris.
+Selles moodulis paigaldate oma kohapeal testitud agendi Microsoft Foundrysse kui **majutatava agendi**. Paigaldus ehitab konteineri kujutise, saadab selle Azure konteineri registrisse ja käivitab agendi Foundry hallatud infrastruktuuris.
 
-### Rakendamise torujuht
+### Paigalduse töövoog
 
 ```mermaid
 flowchart LR
@@ -31,105 +31,105 @@ flowchart LR
 
 ## Eeltingimuste kontroll
 
-Enne rakendamist veenduge:
+Enne paigaldust kontrollige:
 
 - [ ] Agent läbib kõik 3 kohalikku stsenaariumi [Moodul 04](04-test-locally.md)
-- [ ] Teil on projekti tasandil **Azure AI User** roll ([Moodul 01, Määra RBAC](01-setup.md#juuruta-mudel-ja-määra-rbac))
-- [ ] Olete VS Code'is Azure sisse logitud (Kontoikoonil kuvatakse teie nimi)
+- [ ] Teil on projekti tasandil **Azure AI kasutaja** roll ([Moodul 01, RBAC määramine](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Olete VS Code'is Azure'i sisse logitud (konto ikoonil kuvatakse teie nimi)
 
 ---
 
-## Samm 1: Alusta rakendamist
+## 1. samm: Alustage paigaldust
 
-### Variant A: Rakenda Agent Inspectori kaudu (soovitatav)
+### Variant A: Paigalda Agent Inspectori kaudu (soovitatav)
 
 Kui Agent Inspector on avatud (testimisest):
 1. Klõpsake paremas ülanurgas nuppu **Deploy** (pilveikoon ↑).
 
-### Variant B: Rakenda käsupaleti kaudu
+### Variant B: Paigalda käsuplaadilt
 
 1. Vajutage `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
-## Samm 2: Konfigureeri rakendus
+## 2. samm: Seadistage paigaldus
 
-Võlur küsib teilt:
+Väli palub teil valida:
 
 ![Project Config](../../../../../translated_images/et/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Küsitav | Valik |
+| Väli | Valik |
 |--------|-----------|
-| **Tellimus** | Teie Azure tellimus |
+| **Tellimus** | Teie Azure’i tellimus |
 | **Sihtprojekt** | Teie Foundry projekt (nt `workshop-agents`) |
 
-Klõpsake **järgmine**, et oma agenti konfigureerida.
+Klõpsake **next**, et seadistada agent.
 
 ![Basics config](../../../../../translated_images/et/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Küsitav | Valik |
+| Väli | Valik |
 |--------|-----------|
-| **Rakendamise meetod** | Konteiner |
-| **Konteineriregister** | **Vaikimisi ACR** (Microsoft Foundry loob ja haldab seda teie eest) |
-| **Rakenda** | Uuele agentile (nimi, `executive-summary-agent`) |
+| **Paigalduse meetod** | Konteiner |
+| **Konteineriregister** | **Vaikimisi ACR** (Microsoft Foundry loob ja haldab teie jaoks üht) |
+| **Paigalda** | Uus agent (nimi, `executive-summary-agent`) |
 
-Klõpsake **järgmine**, et üle vaadata ja rakendada oma agent.
+Klõpsake **next**, et üle vaadata ja paigaldada agent.
 
 ![Review and deploy](../../../../../translated_images/et/05-review-deploy.12b449d426bff886.webp)
 
-| Küsitav | Valik |
+| Väli | Valik |
 |--------|-----------|
-| **CPU ja mälu** | **0.25 CPU tuuma, 0.5 Gi mälu** (töötoa jaoks piisav) |
+| **CPU ja mälu** | **0,5 CPU südamikku, 1,0 Gi mälu** (vaikimisi - piisav töötoaks) |
 
 ---
 
-## Samm 3: Rakenda ja jälgi
+## 3. samm: Paigalda ja jälgi
 
 1. Klõpsake **Deploy**.
 2. Vaadake **Output** paneeli (valige rippmenüüst **Microsoft Foundry**).
-3. Rakendamine toimub järgmistes etappides:
-   - **Docker buildeerimine** - ehitab konteineri teie Dockerfile'ist
-   - **Docker push** - saadab pildi ACR-i (1–3 min esimesel rakendamisel)
-   - **Agendi registreerimine** - loob hostitud agendi Foundrys
-   - **Konteineri käivitamine** - käivitub süsteemi hallatava identiteediga
+3. Paigaldus kulgeb järgmistes etappides:
+   - **Docker build** - ehitab konteineri teie Dockerfile'ist
+   - **Docker push** - saadab kujutise ACR-i (1–3 minutit esimesel paigalduse korral)
+   - **Agendi registreerimine** - loob majutatud agendi Foundrys
+   - **Konteineri käivitamine** - käivitatakse süsteemihaldatud identiteediga
 
-4. Kui lõpetatud, ilmub teavitus:
-   > **my-agent on edukalt rakendatud.** `View logs` `Run agent`
+4. Kui valmis, kuvatakse teade:
+   > **executive-summary-agent paigaldati edukalt.** `View logs` `Run agent`
 
 5. Klõpsake **Run agent**, et avada Agent Playground.
 
 ![Deployment success showing Agent Playground with Running status](../../../../../translated_images/et/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Rakendamise staatuste väärtused
+### Paigalduse oleku väärtused
 
-| Staatus | Tähendus |
+| Oleku väärtus | Tähendus |
 |--------|---------|
-| **Running** | Konteiner valmis, agent reageerib |
-| **Pending** | Konteiner käivitub - oodake 30–60 sekundit |
-| **Failed** | Kontrollige logisid (vt veaotsing allpool) |
+| **Jookseb** | Konteiner valmis, agent vastab |
+| **Ootel** | Konteiner käivitub - oodake 30–60 sekundit |
+| **Ebaõnnestus** | Kontrollige logisid (vt allolevalt veaotsingut) |
 
 ---
 
-## Levinumad rakenduse vead
+## Levinumad paigaldusvead
 
 | Viga | Põhjus | Lahendus |
 |-------|-----------|-----|
-| `agents/write` luba keelatud | Puudub **Azure AI User** roll projekti tasandil | [Moodul 01, Määra RBAC](01-setup.md#juuruta-mudel-ja-määra-rbac) |
-| Docker ei jookse | Docker Desktop pole käivitatud | Käivita Docker Desktop → kontrolli `docker info` |
-| ACR autoriseerimine | Hallataval identiteedil pole pildi tõmbamise õigust | Vaata [Moodul 08 - Veaotsing](08-troubleshooting.md) |
+| `agents/write` luba keelatud | Puudub projekti tasandi **Azure AI kasutaja** roll | [Moodul 01, RBAC määramine](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker ei tööta | Docker Desktop pole käivitatud | Käivitage Docker Desktop → kontrollige `docker info` |
+| ACR autoriseerimine | Hallatav identiteet ei saa kujutist alla laadida | Vaadake [Moodul 08 - Veaotsing](08-troubleshooting.md) |
 
 ---
 
 ### ✅ Kontrollpunkt
 
-- [ ] Rakendamine lõpetatud ilma vigadeta
-- [ ] Agent on nähtaval **Hosted Agents (Preview)** Foundry külgribal
-- [ ] Konteineri staatus näitab **Running**
-- [ ] Agent Playground vahekaart avatud, kuvatakse agendi andmed ja lõpp-punkti URL
+- [ ] Paigaldus valmis ilma vigadeta
+- [ ] Agent kuvatakse vahekaardil **Hosted Agent**, kui klõpsate oma projekti alt Foundry Toolkit küljeribal **Agents**
+- [ ] Konteineri olek näitab **Jookseb**
+- [ ] Agent Playground vahekaart avatud, näidates agendi üksikasju ja lõpp-punkti URL-i
 
 ---
 
-**Eelmine:** [04 - Testi kohapeal](04-test-locally.md) · **Järgmine:** [06 - Kontrolli Playground'is →](06-verify-in-playground.md)
+**Eelmine:** [04 - Testi kohalikult](04-test-locally.md) · **Järgmine:** [06 - Kontrolli Playground'is →](06-verify-in-playground.md)
 
 ---
 

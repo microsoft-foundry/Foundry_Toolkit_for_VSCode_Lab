@@ -1,15 +1,15 @@
-# Moodul 4 - Testi kohapeal
+# Moodul 4 - Testi lokaalselt
 
-⏱️ ~10 min
+⏱️ ~10 minutit
 
-Selles moodulis käivitad oma agendi kohapeal ja kontrollid, kas see töötab õigesti, kasutades **õnneliku tee funktsionaalseid teste**. Kasutad selleks Agent Inspectorit (visuaalne kasutajaliides) või otse HTTP-päringuid, et kinnitada, et agent annab struktureeritud ja täpseid vastuseid.
+Selles moodulis käivitad oma agendi lokaalselt ja kinnitad, et see töötab korrektselt, kasutades **happy-path funktsionaalseid teste**. Kasutad Agent Inspectorit (visuaalne kasutajaliides) või otseseid HTTP-kõnesid, et kinnitada, et agent annab struktureeritud ja täpseid vastuseid.
 
-### Kohalik testimisvoog
+### Kohaliku testimise voog
 
 ```mermaid
 flowchart TD
-    A["Alusta agendi serverit"] --> B["Ava agendi inspekteerija"]
-    B --> C["Saada testsisend"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -27,54 +27,56 @@ flowchart TD
 
 ### Käivita silur
 
-1. Ava VS Code'is otse kaust **executive-summary-agent/** (`File → Open Folder`).
-2. Ava paneel **Run and Debug** (`Ctrl+Shift+D`).
-3. Vali ripploendist **Debug Local Agent Server**.
-4. Vajuta **F5** (või klõpsa ▶ Start Debugging).
+1. Ava kaust **executive-summary-agent/** otse VS Code’is (`File → Open Folder`).
+2. Ava **Run and Debug** paneel (`Ctrl+Shift+D`).
+3. Vali rippmenüüst **Debug Local Agent HTTP Server**.
+4. Vajuta **F5** (või klõpsa ▶ Käivita silumine).
 
-> ⚠️ **Oluline: vali oma Python interpreteerija**
-> Kui saad vea "ModuleNotFoundError" või silur ei käivitu, pead ütlema VS Code'ile, et kasutaks virtuaalset keskkonda:
-  > 1. Vajuta `Ctrl+Shift+P` $\rightarrow$ tüüpi **Python: Select Interpreter**.
-  > 2. Vali interpreteerija, mis asub sinu projekti `.venv` kaustas (nt `.\.venv\Scripts\python.exe` Windowsis).
+> ⚠️ **Oluline: vali oma Python Interpreter**
+> Kui saad "ModuleNotFoundError" või silur ei käivitu, pead VS Code’ile ütlema, et ta kasutaks su virtuaalset keskkonda:
+  > 1. Vajuta `Ctrl+Shift+P` $\rightarrow$ kirjuta **Python: Select Interpreter**.
+  > 2. Vali interpreter, mis asub sinu projekti kaustas `.venv` (nt `.\.venv\Scripts\python.exe` Windowsi puhul).
   > 3. Taaskäivita silumise sessioon.
-> Kui vead jätkuvad, uuenda käsitsi oma faili `tasks.json` järgmiselt:
-  > 1. Mine faili `.vscode/tasks.json`
-  > 2. Leia käsk `Run Agent/Workflow HTTP Server`
-  > 3. Muuda käsu väärtus järgmiselt: `"value": "${workspaceFolder}/.venv/bin/python",`
+> Kui saad ikka vigu, uuenda käsitsi faili `tasks.json` järgmiselt:
+  > 1. Ava fail `.vscode/tasks.json`
+  > 2. Otsi üles ülesanne nimetusega: `Run Agent HTTP Server`
+  > 3. Uuenda käsu väärtus nii:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
-### Mis toimub
+### Mis juhtub
 
 1. HTTP-server käivitub aadressil `http://localhost:8088/responses`.
-2. Paneel **Agent Inspector** avaneb automaatselt - visuaalne vestluskeskkond testimiseks.
-3. Murdepunktid on lubatud failis `main.py`.
+2. **Agent Inspector** paneel avaneb automaatselt - visuaalne vestlusliides testimiseks.
+3. Lõhke-punktid on lubatud failis `main.py`.
 
-Jälgi Terminali:
+Vaata Terminali:
 ```
 Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Kui Agent Inspector ei avane:** Vajuta `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+> **Kui Agent Inspector ei ava:** Vajuta `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
 
 ![Agent Inspector ühendatud localhost:8088-ga, näidates Executive Summary vastust](../../../../../translated_images/et/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Ekraanipilt võib kuvada varasemat 'AI TOOLKIT' brändingut vanemast laiendusversioonist.*
+> *Ekraanipilt võib näidata vanemat 'AI TOOLKIT' brändingut varasemast laienduse versioonist.*
 
 ---
 
 ## Variant 2: Testi Terminali kaudu (alternatiiv)
 
-Käivita agent ühes terminalis, saada päringud teisest:
+Käivita agent ühes terminalis, saada päringuid teisest:
 
 ```bash
-# Terminal 1: Käivita agent
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
 ```
 
 ```bash
-# Terminal 2: Saada test (curl)
+# Terminal 2: Send test (curl)
 curl -sS -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "The API latency increased due to thread pool exhaustion caused by sync calls in v3.2.", "stream": false}'
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Stsenaariumitestid: Õnneliku tee funktsionaalne valideerimine
+## Stsenaariumitestid: happy-path funktsionaalne valideerimine
 
-Käivita **kõik kolm** allolevat stsenaariumi. Need kontrollivad, et su agent toodab õiged ja struktureeritud väljundid realistlike sisendite korral.
+Käivita **kõik kolm** stsenaariumi allpool. Need kinnitavad, et sinu agent annab struktureeritud ja õige väljundi reaalse sisendi korral.
 
-![VS Code Run and Debug paneel, näidates Agent Inspectori tööle ja executive summary vastust](../../../../../translated_images/et/04-local-testing.0c9b1b37b14b0b25.webp)
+![VS Code Run and Debug paneel, kus jookseb Agent Inspector koos executive summary vastusega](../../../../../translated_images/et/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Stsenaarium 1: IT intsident - API latentsuse tõus
+### Stsenaarium 1: IT intsident - API latentsi tõus
 
 **Sisend:**
 ```
@@ -98,14 +100,14 @@ Rolled back at 10:14.
 ```
 
 **Oodatud käitumine:**
-- ✅ Järgib "Executive Summary" struktuuri (Mis juhtus / Äriline mõju / Järgmine samm)
+- ✅ Järgib "Executive Summary" struktuuri (Mis juhtus / Äri mõju / Järgmine samm)
 - ✅ Ei kasuta tehnilist žargooni (pole "thread pool", pole "/orders", pole "v3.2")
-- ✅ Selgesti mainib ärilist mõju (nt kasutajad kogesid viivitusi)
-- ✅ Sisaldab järgmist sammu (nt paranduse rakendamine, järelevalve olemasolu)
+- ✅ Selgelt väljendab äri mõju (nt kasutajad kogesid viivitusi)
+- ✅ Lisab järgmise sammu (nt paranduse juurutamine, jälgimine käib)
 
 ---
 
-### Stsenaarium 2: Andmetöötluskanal - ETL tõrge
+### Stsenaarium 2: Andmevoog - ETL tõrge
 
 **Sisend:**
 ```
@@ -113,14 +115,14 @@ The nightly ETL job failed because the upstream schema changed. APAC dashboards 
 ```
 
 **Oodatud käitumine:**
-- ✅ Kokkuvõte andmete värskenduse tõrkest lihtsas keeles
-- ✅ Mainib APAC juhtpaneeli mõju
-- ✅ Sisaldab parandustoimingut
-- ✅ EI maini "ETL", "skeemi" ega muid tehnilisi termineid
+- ✅ Kokkuvõtte andmete värskenduse ebaõnnestumisest lihtsas keeles
+- ✅ Mainib APAC dashboardi mõju
+- ✅ Lisab parandava järgmise sammu
+- ✅ Ei maini "ETL" ega "skeemi" või muid tehnilisi termineid
 
 ---
 
-### Stsenaarium 3: Turvalisus - Avalikuks jäänud kasutajatunnus
+### Stsenaarium 3: Turvalisus - avalikustatud mandaadid
 
 **Sisend:**
 ```
@@ -129,53 +131,53 @@ The secret may have been exposed in commit history.
 ```
 
 **Oodatud käitumine:**
-- ✅ Kirjeldab kasutajatunnuse/turvariski probleemi juhi sõbralikus keeles
-- ✅ Tõstab esile võimaliku riski (luba saamata ligipääs)
-- ✅ Märgib parandustoimingu (kasutatunnuse vahetus, audit)
-- ✅ EI kasuta termineid nagu "staattiline analüüs", "commit history" ega "hardcoded"
+- ✅ Kirjeldab mandaadi/turvaprobleemi juhatajale sobivas keeles
+- ✅ Toob välja võimaliku riski (loata ligipääs)
+- ✅ Märgib parandustegevuse (mandaadi vahetus, audit)
+- ✅ Ei sisalda termineid nagu "staatiline analüüs", "commit ajalugu" ega "kõvakodeeritud"
 
 ---
 
-## Valideerimiskriteeriumid
+## Kinnituskriteeriumid
 
-Iga stsenaariumi puhul kontrolli:
+Kontrolli igas stsenaariumis:
 
-| # | Kriteerium | Läbinõude tingimus |
-|---|----------|---------------|
+| # | Kriteerium | Läbitulemuse tingimus |
+|---|------------|-----------------------|
 | 1 | **Struktuur** | Vastus kasutab "Executive Summary" vormingut kõigi kolme punktiga |
-| 2 | **Lihtne keel** | Ei ole tehnilist žargooni, mida juht ei mõistaks |
-| 3 | **Täpsus** | Kokkuvõte peegeldab sisendit - ei ole väljamõeldud detaile |
-| 4 | **Lühidus** | Vastus on vähem kui 100 sõna |
-| 5 | **Järgmine samm** | Selgelt määratud tegevus või leevendus |
+| 2 | **Lihtne keel** | Puudub tehniline žargoon, mida juht ei mõistaks |
+| 3 | **Täpne** | Kokkuvõte peegeldab sisendit - pole väljamõeldud detaile |
+| 4 | **Lühidus** | Vastus on alla 100 sõna |
+| 5 | **Järgmine samm** | On selge tegevus või leevendus märgitud |
 
 ---
 
-## Silumisoovitused
+## Silumise nõuanded
 
 | Probleem | Lahendus |
-|-------|-----|
-| Agent ei käivitu | Kontrolli `.env` väärtusi, veendu, et venv on aktiveeritud, jookse `pip install -r requirements.txt` |
-| Vastus on tühi või üldine | Vaata juhiseid failis `main.py` - veendu, et väljundvorming on määratud |
-| Vastus sisaldab žargooni | Tugevda juhistes reegleid "eemalda tehnilised terminid" |
-| Agent Inspector ei avane | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Mudelivead Terminalis | Kontrolli, kas `AZURE_AI_MODEL_DEPLOYMENT_NAME` vastab täpselt (kaasaarvatud tähed) |
+|---------|---------|
+| Agent ei käivitu | Kontrolli `.env` väärtusi, veendu, et venv on aktiveeritud, käivita `pip install -r requirements.txt` |
+| Vastus tühi või üldine | Vaata juhiseid failis `main.py` - veendu, et väljundi formaat on määratud |
+| Vastus sisaldab žargooni | Tugevda juhistes "eemalda tehnilised terminid" reegleid |
+| Agent Inspector ei ava | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
+| Mudeli vead Terminalis | Kontrolli, et `AZURE_AI_MODEL_DEPLOYMENT_NAME` vastab täpselt (suur- ja väiketähed tähtsad) |
 
 ---
 
 ### ✅ Kontrollpunkt
 
-- [ ] Agent käivitub kohapeal ilma vigadeta
-- [ ] Agent Inspector avaneb ja kuvab vestluskeskkonna (kui kasutatakse F5)
+- [ ] Agent käivitub lokaalselt vigadeta
+- [ ] Agent Inspector avaneb ja näitab vestlusliidest (kui kasutatakse F5)
 - [ ] **Stsenaarium 1** (IT intsident) - struktureeritud Executive Summary, ilma žargoonita
-- [ ] **Stsenaarium 2** (andmetöötluskanal) - asjakohane kokkuvõte ärilise mõjuga
-- [ ] **Stsenaarium 3** (turvahoiatus) - sobiv riskide kommunikatsioon
+- [ ] **Stsenaarium 2** (andmevoog) - asjakohane kokkuvõte äri mõjuga
+- [ ] **Stsenaarium 3** (turvahoiatus) - sobiv riskiteavitamine
 - [ ] Kõik vastused järgivad määratletud väljundstruktuuri
 
-> **Salvesta oma vastused** (kopeeeri või tee ekraanipilt) - võrreldakse pilve tulemustega Moodulis 06.
+> **Salvesta oma vastused** (kopeeri või tee ekraanipilt) - võrdled neid pilves saadud tulemustega Moodulis 06.
 
 ---
 
-**Eelmine:** [03 - Configure & Code](03-configure-and-code.md) · **Järgmine:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
+**Eelmine:** [03 - Konfigureerimine ja kodeerimine](03-configure-and-code.md) · **Järgmine:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
 
 ---
 

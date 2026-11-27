@@ -1,7 +1,7 @@
-# Foundry Toolkit + Foundry Hostitud Agentide Töötuba
+# Foundry Toolkit + Foundry Hostitud Agendid Töötoad
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)
 [![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
@@ -11,22 +11,22 @@
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Ehita, testi ja juuruta tehisintellekti agendid **Microsoft Foundry Agent Service**'i kui **hostitud agente** - täielikult VS Code'i kaudu kasutades **Microsoft Foundry laiendust** ja **Foundry Toolkit**i.
+Koosta, testi ja juuruta tehisintellekti agendid **Microsoft Foundry Agent Teenusesse** kui **Hostitud Agentideks** - täielikult VS Code'i kaudu, kasutades **Microsoft Foundry laiendust** ja **Foundry Toolkiti**.
 
-> **Hostitud agentid on hetkel eelvaates.** Toetatud piirkonnad on piiratud – vaata [piirkondade saadavust](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hostitud Agendid on praegu eelvaates.** Toetatud regioonid on piiratud - vaata [regiooni saadavust](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> Igas töökohas olev kaust `agent/` on **automaatselt genereeritud** Foundry laienduse poolt - seejärel kohandad koodi, testid lokaalselt ja juurutad.
+> Kaust `agent/` iga labori sees on **automaatselt loodud** Foundry laienduse poolt - seejärel kohandad koodi, testid lokaalselt ja juurutad.
 
 ### 🌐 Mitmekeelne tugi
 
-#### Toetatud GitHub Action'i kaudu (automatiseeritud ja alati ajakohane)
+#### Toetatud GitHub Actioni kaudu (Automaatne ja alati ajakohane)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](./README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
+[Araabia](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgaaria](../bg/README.md) | [Burma (Myanmar)](../my/README.md) | [Hiina (Lihtsustatud)](../zh-CN/README.md) | [Hiina (Traditsiooniline, Hongkong)](../zh-HK/README.md) | [Hiina (Traditsiooniline, Macau)](../zh-MO/README.md) | [Hiina (Traditsiooniline, Taiwan)](../zh-TW/README.md) | [Horvaadi](../hr/README.md) | [Tšehhi](../cs/README.md) | [Taani](../da/README.md) | [Hollandi](../nl/README.md) | [Eesti](./README.md) | [Sooma](../fi/README.md) | [Prantsuse](../fr/README.md) | [Saksa](../de/README.md) | [Kreeka](../el/README.md) | [Heebrea](../he/README.md) | [Hindi](../hi/README.md) | [Ungari](../hu/README.md) | [Indoneesia](../id/README.md) | [Itaalia](../it/README.md) | [Jaapani](../ja/README.md) | [Kannada](../kn/README.md) | [Khmeri](../km/README.md) | [Korea](../ko/README.md) | [Leedu](../lt/README.md) | [Malai](../ms/README.md) | [Malajalami](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigeeria pidžin](../pcm/README.md) | [Norra](../no/README.md) | [Pärsia (Farsi)](../fa/README.md) | [Pools](../pl/README.md) | [Portugali (Brasiilia)](../pt-BR/README.md) | [Portugali (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Rumeenia](../ro/README.md) | [Vene](../ru/README.md) | [Serbia (Kirilitsas)](../sr/README.md) | [Slovaki](../sk/README.md) | [Sloveeni](../sl/README.md) | [Hispaania](../es/README.md) | [Suaheli](../sw/README.md) | [Rootsi](../sv/README.md) | [Tagalogi (Filipino)](../tl/README.md) | [Tamili](../ta/README.md) | [Telugu](../te/README.md) | [Tai](../th/README.md) | [Türgi](../tr/README.md) | [Ukraina](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnami](../vi/README.md)
 
-> **Eelistad kohalikku kloonimist?**
+> **Eelistad kloonimist lokaalselt?**
 >
-> See hoidla sisaldab 50+ keele tõlget, mis suurendab allalaadimise mahtu märkimisväärselt. Kui soovid kloonida ilma tõlgeteta, kasuta sparse checkout’i:
+> See repositoorium sisaldab üle 50 keele tõlkeid, mis suurendab oluliselt allalaadimise mahtu. Tõlgeteta kloonimiseks kasuta sparse checkouti:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@ Ehita, testi ja juuruta tehisintellekti agendid **Microsoft Foundry Agent Servic
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> See annab sulle kõik vajaliku kursuse sooritamiseks palju kiirema allalaadimisega.
+> See annab sulle kõik vajaliku kursuse läbimiseks palju kiiremalt.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -92,48 +92,48 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Voog:** Foundry laiendus loob agendi raamistiku → sina kohandad koodi ja juhiseid → testid lokaalselt Agent Inspectoriga → juurutad Foundrys (Docker pilt lükatakse ACR-i) → kontrollid Playgroundis.
+**Voog:** Foundry laiendus genereerib agendi raamistiku → sa kohandad koodi ja juhiseid → testid lokaalselt Agent Inspektoriga → juurutad Foundrys (Docker pilt lükatakse ACR-i) → kontrollid Playgroundis.
 
 ---
 
 ## Mida sa ehitad
 
-| Töökoda | Kirjeldus | Staatus |
+| Labor | Kirjeldus | Olemasolu |
 |-----|-------------|--------|
-| **Töökoda 01 – Üks agent** | Ehita **"Selgita nagu juhile" agent**, testi seda kohalikult ja juuruta Foundrys | ✅ Saadaval |
-| **Töökoda 02 – Mitme agendi töövoog** | Ehita **"CV → töö sobivuse hindaja"** – 4 agenti töötavad koos CV hindamiseks ja õpitee loomiseks | ✅ Saadaval |
+| **Labor 01 - Üksikagent** | Ehita **"Selgita nagu ma oleksin juhatuses" agent**, testi seda lokaalselt ja juuruta Foundrys | ✅ Saadaval |
+| **Labor 02 - Mitmeagendi töövoog** | Ehita **"CV → Töö sobivuse hindaja"** - 4 agenti teevad koostööd CV sobivuse hindamiseks ja õppekava koostamiseks | ✅ Saadaval |
 
 ---
 
-## Tutvu Juhitagajaga
+## Tutvu juhatuses agendiga
 
-Selles töötubas ehitad **"Selgita nagu juhile" agendi** – tehisintellekti agendi, kes võtab keerulise tehnilise žargooni ja tõlgendab selle rahulikeks, juhtruumiks sobivateks kokkuvõteteks. Ausalt öeldes, keegi juhtkonnas ei taha kuulda „niidipooli ammendumist sünkroonsete kõnede tõttu versioonis 3.2.”
+Selles töötoas ehitad **"Selgita nagu ma oleksin juhatuses" agendi** - tehisintellekti agent, mis võtab keerulise tehnilise kõnepruugi ja tõlgib selle rahulikuks, juhatuse koosolekuks valmis kokkuvõtteks. Sest olgem ausad, ükski C-taseme juht ei taha kuulda "niidivõrgu ammendumist, mida põhjustasid sünkroonsed kõned, mis lisati versioonis 3.2."
 
-Ehitasin selle agendi pärast liiga palju juhtumeid, kus minu hoolikalt koostatud tagasivaade sai vastuseks: *„Niisiis... kas veebisait on maas või mitte?”*
+Selle agendi ehitasin pärast liiga mitut juhtumit, kus minu laitmatu vigade järel analüüs sai vastuseks: *"Nii et... kas veebileht on maas või mitte?"*
 
 ### Kuidas see töötab
 
-Sa annad sellele tehnilise uuenduse. See annab sulle juhiraportina kolm peamist punkti, ilma žargoonita, ilma virnasoovituseta, ilma eksistentsiaalset hirmu. Lihtsalt **mis juhtus**, **äriline mõju** ja **järgmine samm**.
+Sa annad sellele tehnilise värskenduse. See väljastab juhatuse kokkuvõtte - kolm peamist punkti, ilma žargoonita, ilma virnast vihjeteta, ilma olemasolu hirmuta. Lihtsalt **mis juhtus**, **äriline mõju** ja **järgmine samm**.
 
 ### Vaata seda töös
 
 **Sa ütled:**
-> „API latentsus suurenes niidipooli ammendumise tõttu, mille põhjustasid versioonis 3.2 sisse viidud sünkroonsed kõned.”
+> "API viide suurenes seoses niidivõrgu ammendumisega, mida põhjustasid sünkroonsed kõned, mis lisati versioonis 3.2."
 
 **Agent vastab:**
 
-> **Juhtkonna kokkuvõte:**
-> - **Mis juhtus:** Pärast viimast värskendust aeglustus süsteem.
-> - **Äriline mõju:** Mõned kasutajad kogesid teenuse kasutamisel viivitusi.
-> - **Järgmine samm:** Muudatus tühistati ja parandust valmistatakse ette enne uuesti juurutamist.
+> **Juhatuse kokkuvõte:**
+> - **Mis juhtus:** Pärast viimast versiooni aeglustus süsteem.
+> - **Äriline mõju:** Mõned kasutajad kogenud teenuse kasutamisel viivitusi.
+> - **Järgmine samm:** Muudatus tagasi võetud ja parandus valmistamisel enne uuesti juurutamist.
 
 ### Miks just see agent?
 
-See on väga lihtne, ühe eesmärgiga agent – ideaalne selleks, et õppida hostitud agendi töövoogu algusest lõpuni, ilma keeruliste tööriistade kinni jäämiseta. Ja ausalt? Iga insenerimeeskond võiks sellist kasutada.
+See on lihtne, üheotstarbeline agent - ideaalne selleks, et õppida hostitud agendi töövoogu täielikult läbi ilma keeruliste tööriistadega kinni jäämata. Ja tõtt-öelda? Iga inseneritiim võiks sellist vajada.
 
 ---
 
-## Töötuba struktuur
+## Töötoa ülesehitus
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -167,7 +167,8 @@ See on väga lihtne, ühe eesmärgiga agent – ideaalne selleks, et õppida hos
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,20 +176,20 @@ See on väga lihtne, ühe eesmärgiga agent – ideaalne selleks, et õppida hos
             └── requirements.txt
 ```
 
-> **Märkus:** Iga töökoha kaust `agent/` on see, mida **Microsoft Foundry laiendus** genereerib, kui käivitad käsuviibast `Microsoft Foundry: Create a New Hosted Agent`. Failid kohandatakse seejärel sinu agendi juhiste, tööriistade ja seadistustega. Töökoda 01 viib sind samm-sammult läbi ehk alustad nullist loomisest.
+> **Märkus:** Kaust `agent/` iga labori sees on see, mida **Microsoft Foundry laiendus** genereerib, kui sa jooksutad `Microsoft Foundry: Create a New Hosted Agent` käsupaletist. Failid kohandatakse seejärel sinu agendi juhiste, tööriistade ja konfiguratsiooniga. Labor 01 juhatab sind läbi selle uuesti loomise nullist.
 
 ---
 
 ## Alustamine
 
-### 1. Klooni hoidla
+### 1. Klooni repositoorium
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Loo Python virtuaalne keskkond
+### 2. Loo Python virtuaalkeskkond
 
 ```bash
 python -m venv venv
@@ -211,9 +212,9 @@ Aktiveeri see:
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. Konfigureeri keskkonnamuutujad
+### 4. Seadista keskkonnamuutujad
 
-Kopeeri näidisfail `.env` agendi kaustast ja täida õiged väärtused:
+Kopeeri näidisfail `.env` agendi kausta ja täida oma väärtused:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -222,45 +223,47 @@ cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/ag
 Muuda `workshop/lab01-single-agent/agent/.env`:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Järgi töötuba juhiseid
+### 5. Järgige töötoa laboreid
 
-Iga tuba on iseseisev oma moodulitega. Alusta **Töökoda 01**'st, et õppida põhialused, siis liigu edasi **Töökoda 02** juurde mitme agendi töövoogude jaoks.
+Iga labor on iseseisev oma moodulitega. Alusta **Laboriga 01**, et õppida algtõdesid, seejärel liigu **Labor 02** juurde mitmeagendi töövoogude jaoks.
 
-#### Töökoda 01 – Üks agent ([täielikud juhised](workshop/lab01-single-agent/README.md))
+#### Labor 01 - Üksikagent ([täielikud juhised](workshop/lab01-single-agent/README.md))
 
 | # | Moodul | Link |
 |---|--------|------|
-| 1 | Eeltingimuste lugemine | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 1 | Loe eeltingimused | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
 | 2 | Paigalda Foundry Toolkit & Foundry laiendus | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | Loo Foundry projekt | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | Loo hostitud agent | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | Konfigureeri juhised & keskkond | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 5 | Seadista juhised ja keskkond | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
 | 6 | Testi lokaalselt | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Juuraota Foundrys | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Kontrolli mänguväljakul | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | Veaotsing | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 7 | Juuruta Foundrys | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | Kontrolli playgroundis | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | Kokkuvõte ja järgmised sammud | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | Tõrkeotsing | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Töökoda 02 – Mitme agendi töövoog ([täielikud juhised](workshop/lab02-multi-agent/README.md))
+#### Labor 02 - Mitmeagendi töövoog ([täielikud juhised](workshop/lab02-multi-agent/README.md))
 
 | # | Moodul | Link |
 |---|--------|------|
-| 1 | Eeltingimused (Töökoda 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | Mõista mitme agendi arhitektuuri | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | Loo mitme agendi projektiraamistik | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | Konfigureeri agendid & keskkond | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 1 | Eeltingimused (Labor 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | SAA mitmeagendi arhitektuuri | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | Genereeri mitmeagendi projekt | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | Seadista agendid ja keskkond | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Orkestreerimise mustrid | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Testi lokaalselt (mitme agendi) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Juuraota Foundrys | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Kontrolli mänguväljakul | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | Veaotsing (mitme agendi) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 6 | Testi lokaalselt (mitmeagent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Juuruta Foundrys | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | Kontrolli playgroundis | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | Tõrkeotsing (mitmeagent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | Kokkuvõte ja järgmised sammud | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
-## Hooldaja
+## Halduse eest vastutab
 
 <table>
 <tr>
@@ -274,26 +277,26 @@ Iga tuba on iseseisev oma moodulitega. Alusta **Töökoda 01**'st, et õppida p�
 
 ---
 
-## Nõutavad õigused (kiirülevaade)
+## Vajalikud õigused (kiirviide)
 
-| Stsenaarium | Nõutavad rollid |
+| Stsenaarium | Vajalikud rollid |
 |----------|---------------|
-| Uue Foundry projekti loomine | **Azure AI Owner** Foundry ressursil |
-| Juuruta olemasolevasse projekti (uued ressursid) | **Azure AI Owner** + **Contributor** tellimuses |
-| Juuruta täielikult konfigureeritud projekti | Konto **Reader** + projekti **Azure AI User** |
+| Loo uus Foundry projekt | **Azure AI Omanik** Foundry ressursil |
+| Juuruta olemasolevasse projekti (uued ressursid) | **Azure AI Omanik** + **Kaastööline** tellimuses |
+| Juuruta täielikult seadistatud projekti | **Lugeja** kontol + **Azure AI Kasutaja** projektis |
 
-> **Tähtis:** Azure `Owner` ja `Contributor` rollid sisaldavad ainult *haldusõiguseid*, mitte *arendusõiguseid* (andmete toiminguid). Agentide ehitamiseks ja juurutamiseks vajad **Azure AI User** või **Azure AI Owner** õigust.
+> **Tähtis:** Azure `Owner` ja `Contributor` rollid hõlmavad ainult *haldustegevuse* õigusi, mitte *arendus* (andmetega seotud tegevuste) õigusi. Agentide loomiseks ja juurutamiseks on vaja **Azure AI User** või **Azure AI Owner** rolli.
 
 ---
 
 ## Viited
 
-- [Kiirkäivitus: juurutage oma esimene majutatud agent (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [Kiirstart: juurutage oma esimene majutatud agent (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
 - [Mis on majutatud agendid?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Looge majutatud agendi töövood VS Code'is](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Looge VS Code'is majutatud agentide töövood](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
 - [Juurutage majutatud agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Foundry RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Arhitektuuri ülevaate agendi näide](https://github.com/Azure-Samples/agent-architecture-review-sample) - Reaalne majutatud agent MCP tööriistade, Excalidraw diagrammide ja kahekordse juurutusega
+- [RBAC Microsoft Foundry jaoks](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [Arhitektuuri ülevaate agendi näidis](https://github.com/Azure-Samples/agent-architecture-review-sample) - Reaalmaailma majutatud agent MCP tööriistade, Excalidraw diagrammide ja kahetasandilise juurutusega
 
 ---
 

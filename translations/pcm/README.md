@@ -1,7 +1,7 @@
 # Foundry Toolkit + Foundry Hosted Agents Workshop
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)
 [![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
@@ -13,9 +13,9 @@
 
 Build, test, and deploy AI agents to **Microsoft Foundry Agent Service** as **Hosted Agents** - entirely from VS Code using the **Microsoft Foundry extension** and **Foundry Toolkit**.
 
-> **Hosted Agents are currently in preview.** Supported regions are limited - see [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents dey for preview now.** Dem dey only support some regions - check [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> The `agent/` folder inside each lab is **automatically scaffolded** by the Foundry extension - you then customize the code, test locally, and deploy.
+> The `agent/` folder inside each lab dey **automatically scaffolded** by Foundry extension - na there you go fit customize di code, test local, then deploy.
 
 ### 🌐 Multi-Language Support
 
@@ -24,9 +24,9 @@ Build, test, and deploy AI agents to **Microsoft Foundry Agent Service** as **Ho
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](./README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **Prefer to Clone Locally?**
+> **You want to Clone Local?**
 >
-> This repository includes 50+ language translations which significantly increases the download size. To clone without translations, use sparse checkout:
+> Dis repository get over 50 language translations wey go make di download size big well well. If you want clone without di translations, use sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@ Build, test, and deploy AI agents to **Microsoft Foundry Agent Service** as **Ho
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> This gives you everything you need to complete the course with a much faster download.
+> Dis way, you go get everything wey you need to finish di course plus faster download.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -92,44 +92,44 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Flow:** Foundry extension scaffolds the agent → you customize code & instructions → test locally with Agent Inspector → deploy to Foundry (Docker image pushed to ACR) → verify in Playground.
+**Flow:** Foundry extension dey scaffold di agent → na you dey customize di code & instructions → test local wit Agent Inspector → deploy go Foundry (Docker image go push ACR) → verify for Playground.
 
 ---
 
-## What you will build
+## Wetin you go build
 
 | Lab | Description | Status |
 |-----|-------------|--------|
-| **Lab 01 - Single Agent** | Build the **"Explain Like I'm an Executive" Agent**, test it locally, and deploy to Foundry | ✅ Available |
-| **Lab 02 - Multi-Agent Workflow** | Build the **"Resume → Job Fit Evaluator"** - 4 agents collaborate to score resume fit and generate a learning roadmap | ✅ Available |
+| **Lab 01 - Single Agent** | Build di **"Explain Like I'm an Executive" Agent**, test am for local, then deploy go Foundry | ✅ Available |
+| **Lab 02 - Multi-Agent Workflow** | Build di **"Resume → Job Fit Evaluator"** - 4 agents go work together to score resume fit and create learning roadmap | ✅ Available |
 
 ---
 
-## Meet the Executive Agent
+## Meet di Executive Agent
 
-For dis workshop, you go build di **"Explain Like I'm an Executive" Agent** - na AI agent wey dey tek complicated technical talk come turn am to calm, boardroom-ready summaries. Because make we dey honest, nobody for C-suite wan hear about "thread pool exhaustion caused by synchronous calls introduced in v3.2."
+For dis workshop, you go build di **"Explain Like I'm an Executive" Agent** - AI agent wey go turn your technical talk wey hard to understand into calm, clear summary wey boardroom people fit enjoy. Because truth na, nobody for C-suite wan hear talk like "thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-I build dis agent after one too many times wey my perfectly crafted post-mortem get di response: *"So... di website down or no?"*
+I build dis agent because one too many times, my well made post-mortem response be: *"So... is the website down or not?"*
 
 ### How e dey work
 
-You give am technical update. E go return executive summary - three bullet points, no jargon, no stack traces, no existential worry. Just **wetin happen**, **business matter**, and **next step**.
+You give am technical update. E go return executive summary - three bullet points, no technical jargon, no stack traces, no gbege. Just **wetin happen**, **business impact**, and **next step**.
 
 ### See am for action
 
 **You talk:**
-> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
+> "The API latency increase because thread pool exhaustion wey synchronous calls wey dem add for v3.2 cause."
 
-**Agent reply:**
+**Agent go reply:**
 
 > **Executive Summary:**
-> - **Wetin happen:** After di latest release, di system slow down.
-> - **Business matter:** Some users experience delay while dem dey use di service.
-> - **Next step:** Di change don rollback and dem dey prepare fix before dem go deploy again.
+> - **Wetin happen:** After the latest release, di system slow down.
+> - **Business impact:** Some users see delay as dem dey use di service.
+> - **Next step:** Dem don rollback the change and dem dey prepare fix before dem deploy am again.
 
 ### Why dis agent?
 
-E simple, na only one kind work agent - perfect for learn how hosted agent workflow dey go from start to finish without wahala for complicated tool chains. And true true? Any engineering team fit use one of dis.
+E simple, e get one purpose - just perfect to learn how hosted agent workflow dey work from beginning to end without yawa for complex tools. And to be honest? Every engineering team fit use dis kind agent.
 
 ---
 
@@ -167,7 +167,8 @@ E simple, na only one kind work agent - perfect for learn how hosted agent workf
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,11 +176,11 @@ E simple, na only one kind work agent - perfect for learn how hosted agent workf
             └── requirements.txt
 ```
 
-> **Note:** Di `agent/` folder inside each lab na wetin di **Microsoft Foundry extension** dey create when you run `Microsoft Foundry: Create a New Hosted Agent` from Command Palette. Di files den dey customized with your agent's instructions, tools, and configuration. Lab 01 go guide you how to create dis from scratch.
+> **Note:** The `agent/` folder for inside each lab na wetin **Microsoft Foundry extension** go create when you run `Microsoft Foundry: Create a New Hosted Agent` from Command Palette. Di files go dey customized with your agent instructions, tools, plus configuration. Lab 01 go help you create am from scratch.
 
 ---
 
-## Getting started
+## How to start
 
 ### 1. Clone di repository
 
@@ -213,7 +214,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. Configure environment variables
 
-Copy di example `.env` file inside di agent folder and put your values:
+Copy the example `.env` file inside the agent folder then fill your values:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -222,27 +223,28 @@ cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/ag
 Edit `workshop/lab01-single-agent/agent/.env`:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. Follow di workshop labs
+### 5. Follow the workshop labs
 
-Each lab get e own modules wey stand by their own. Start with **Lab 01** to learn di basics, then move to **Lab 02** for multi-agent workflows.
+Each lab dey self-contained with im own modules. Start with **Lab 01** make you learn di basics, then continue to **Lab 02** for multi-agent workflows.
 
 #### Lab 01 - Single Agent ([full instructions](workshop/lab01-single-agent/README.md))
 
 | # | Module | Link |
 |---|--------|------|
-| 1 | Read prerequisite | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 1 | Read di prerequisites | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
 | 2 | Install Foundry Toolkit & Foundry extension | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | Create Foundry project | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | Create hosted agent | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
 | 5 | Configure instructions & environment | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | Test locally | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Deploy to Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 6 | Test local | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | Deploy go Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
 | 8 | Verify for playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | Troubleshooting | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 9 | Summary & next steps | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | Troubleshooting | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
 #### Lab 02 - Multi-Agent Workflow ([full instructions](workshop/lab02-multi-agent/README.md))
 
@@ -253,10 +255,11 @@ Each lab get e own modules wey stand by their own. Start with **Lab 01** to lear
 | 3 | Scaffold multi-agent project | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
 | 4 | Configure agents & environment | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | Orchestration patterns | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | Test locally (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Deploy to Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 6 | Test local (multi-agent) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Deploy go Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | Verify for playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | Troubleshooting (multi-agent) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | Summary & next steps | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
@@ -278,22 +281,22 @@ Each lab get e own modules wey stand by their own. Start with **Lab 01** to lear
 
 | Scenario | Required roles |
 |----------|---------------|
-| Create new Foundry project | **Azure AI Owner** on Foundry resource |
-| Deploy to existing project (new resources) | **Azure AI Owner** + **Contributor** on subscription |
-| Deploy to fully configured project | **Reader** on account + **Azure AI User** on project |
+| Create new Foundry project | **Azure AI Owner** for Foundry resource |
+| Deploy go existing project (new resources) | **Azure AI Owner** + **Contributor** for subscription |
+| Deploy go fully configured project | **Reader** for account + **Azure AI User** for project |
 
-> **Important:** Azure `Owner` and `Contributor` roles only include *management* permissions, not *development* (data action) permissions. You need **Azure AI User** or **Azure AI Owner** to build and deploy agents.
+> **Important:** Azure `Owner` and `Contributor` roles get only *management* permissions, no be *development* (data action) permissions. You need **Azure AI User** or **Azure AI Owner** to build and deploy agents.
 
 ---
 
 ## References
 
 - [Quickstart: Deploy your first hosted agent (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [Wetin be hosted agents?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [How to create hosted agent workflows inside VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [How to deploy hosted agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Wetin hosted agents be?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Create hosted agent workflows for VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [Deploy one hosted agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - Real-world hosted agent wey get MCP tools, Excalidraw diagrams, and dual deployment
+- [Architecture Review Agent Sample](https://github.com/Azure-Samples/agent-architecture-review-sample) - Real-world hosted agent with MCP tools, Excalidraw diagrams, and dual deployment
 
 ---
 

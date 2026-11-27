@@ -1,26 +1,27 @@
-# Moodul 2 - Loo uus hallatav agent
+# Moodul 2 - Loo uus hostitud agent
 
-⏱️ ~5 min
+⏱️ ~5 minutit
 
-Selles moodulis kasutad Foundry Toolkitit, et **luua hallatava agendi projekt**. Skafold genereerib kogu projekti struktuuri — `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` ja VS Code silumise konfiguratsiooni — nii et saad keskenduda agendi käitumise kohandamisele.
+Selles moodulis kasutad Foundry Toolkitit, et **luua hostitud agendi projekt**. Scaffold genereerib täieliku projekti struktuuri - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` ja VS Code'i silumis konfi- guratsiooni -, nii et saad keskenduda agendi käitumise kohandamisele.
 
-> **Oluline mõiste:** Selle labori `agent/` kaust on näide sellest, mida Foundry Toolkit genereerib. Sa ei kirjuta neid faile nullist.
+> **Oluline mõiste:** Selles laboris olev `agent/` kaust on näide sellest, mida Foundry Toolkit genereerib. Sa ei kirjuta neid faile nullist.
 
-### Skafoldimise viisardi voog
+### Scaffold’i viisardi voog
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Vali mudel"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Genereeritud projekt"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## Samm 1: Ava „Loo hallatav agent“ viisard
+## Samm 1: Ava Create Hosted Agent viisard
 
-1. Vajuta `Ctrl+Shift+P`, et avada **Käsuvalik**.
-2. Kirjuta: **Foundry Toolkit: Create new Hosted Agent** ja vali see.
+1. Vajuta `Ctrl+Shift+P`, et avada **Command Palette**.
+2. Tippige: **Foundry Toolkit: Create new Hosted Agent** ja vali see.
 
-> **Alternatiiv: Loo Foundry portaalis**
-> Kui eelistad brauserit, saad oma projekti luua aadressil [https://ai.azure.com](https://ai.azure.com). Kui projekt on loodud, naase VS Code'i ja kasuta **Foundry Toolkit** külgriba, et sellega ühendada.
+> **Alternatiiv: Loo Foundry portaalist**
+> Kui eelistad brauserit, saad oma projekti luua aadressil [https://ai.azure.com](https://ai.azure.com). Kui projekt on loodud, naase VS Code’i ja kasuta **Foundry Toolkit** külgriba, et sellega ühenduda.
 
-> **Alternatiiv:** Klõpsa ikoonil **+** kõrval **Hosted Agents (Preview)** Foundry Toolkit külgribal.
+> **Alternatiiv:** Foundry Toolkit külgribal liigu oma projekti all **Agents** peale, klõpsa **+** ikooni ning vali **Create in Code With Template**.
 
-## Samm 2: Vali seaded
+## Samm 2: Vali sätted
 
-![Create Hosted Agent from Sample - Agent Details tab showing Language, Framework, Protocol, and Template filters](../../../../../translated_images/et/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Create Hosted Agent näidis - Agent Details vaheleht, mis näitab Keelt, Raamistikku, Protokolli ja Malli filtreid](../../../../../translated_images/et/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. Vasakpoolses navigeerimis-/valikualas vali järgnevad:
+1. Vasakul navigeerimis-/valikute sektsioonis vali järgnevad:
 
 | Menüü | Valik | Märkused |
 |--------|-----------|-------|
-| **Keel** | Python | Toetatakse ka C# |
-| **Raamistik** | Agent Framework | Lihtne alguspunkt Agent Framework SDK-ga |
-| **API tüüp** | Response API | `POST /responses` - vestlusetaoline, platvormi hallatava ajaloo funktsiooniga |
-| **Mall** | Basic | Lihtne alguspunkt Agent Framework SDK-ga |
+| **Keel** | Python | Toetatud on ka C# |
+| **Raamistik** | Agent Framework | Lihtne alguspunkt, kasutades Agent Framework SDK-d |
+| **API tüüp** | Response API | `POST /responses` - vestluslik, platvormi hallatava ajaloo toetusega |
+| **Mall** | Basic | Lihtne alguspunkt, kasutades Agent Framework SDK-d |
 
 2. Kui valikud tehtud, klõpsa **Next**
 
-![Create Hosted Agent - Create tab showing Workspace Folder, Folder Name, and Environment Setup options](../../../../../translated_images/et/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Create Hosted Agent - Create vaheleht, mis näitab Workspace Folder, Folder Name ja Environment Setup valikuid](../../../../../translated_images/et/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-3. Järgmises aknas vali järgnev:
+3. Järgmises aknas vali järgnevad:
 
 | Menüü | Valik | Märkused |
 |--------|-----------|-------|
-| **Tööruumi kaust** | Vali sihtkaust | nt `/workspace/Foundry_Toolkit_for_VSCode_Lab/` või selle repo alamkaust |
+| **Workspace kaust** | Vali sihtkaust | nt `/workspace/Foundry_Toolkit_for_VSCode_Lab/` või alamkaust sellest repos |
 | **Agendi nimi** | Sisesta nimi | nt `executive-summary-agent` |
-| **Keskkonna seadistus** | jäta seadistamine praegu vahele |  |
+| **Keskkonna seadistus** | jäta praegu vahele |  |
 
-Klõpsa **create**, et agent luua. Tekib uus kaust hallatava agendi nimega.
+Klõpsa **create**, et luua agent. Luuakse uus kaust hostitud agendi nimega.
 
-## Samm 3: Kontrolli loodud projekti
+## Samm 3: Kontrolli genereeritud projekti
 
-Pärast skafoldimise lõpetamist veendu, et need failid oleksid Exploreris nähtavad (`Ctrl+Shift+E`):
+Pärast scaffold’i valmimist kontrolli, et Explorer’is näeksid neid faile (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -86,29 +87,29 @@ Pärast skafoldimise lõpetamist veendu, et need failid oleksid Exploreris näht
 └── requirements.txt    ← Python dependencies
 ```
 
-### Peamised failid selgitatud
+### Olulised failid selgitatud
 
 | Fail | Eesmärk |
 |------|---------|
-| `agent.yaml` | Deklareerib agendi `kind: hosted`, kaardistab keskkonnamuutujad, määrab `/responses` protokolli |
-| `main.py` | Loob `FoundryChatClient` → mähib selle `Agent`i juhistega → teenindab `ResponsesHostServer` kaudu pordil 8088 |
-| `Dockerfile` | Kasutab `python:3.12-slim`, installeerib sõltuvused, avab pordi 8088, käivitab `main.py` |
+| `agent.yaml` | Declareerib agendi `kind: hosted`-ks, kaardistab keskkonnamuutujad, määratleb `/responses` protokolli |
+| `main.py` | Loob `FoundryChatClient` → mähkib selle `Agent` sisse koos juhistega → teenindab `ResponsesHostServer` kaudu porti 8088 |
+| `Dockerfile` | Kasutab `python:3.12-slim`, paigaldab sõltuvused, avab pordi 8088, käivitab `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Oluline:** Ava skafolditud agendi kaust otse VS Code'is (`agent/` kaust ise), et `.vscode/launch.json` ja `tasks.json` töötaksid F5 silumise puhul korrektselt.
+> **Oluline:** Ava koostatud agendi kaust otse VS Code’is (just `agent/` kaust), et `.vscode/launch.json` ja `tasks.json` töötaksid F5 silumiseks korrektselt.
 
 ---
 
 ### ✅ Kontrollpunkt
 
-- [ ] Skafolditud projekt loodud koos kõigi oodatud failidega
+- [ ] Scaffolditud projekt loodud koos kõigi oodatud failidega
 - [ ] `agent.yaml` näitab `kind: hosted` ja `protocol: responses`
 - [ ] `main.py` impordib `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Agendi kaust on VS Code'is tööruumi juurkaustana avatud
+- [ ] Agendi kaust on VS Code’is avatud töölaua juurena
 
 ---
 
-**Eelmine:** [01 - Setup](01-setup.md) · **Järgmine:** [03 - Konfigureeri & kodeeri →](03-configure-and-code.md)
+**Eelmine:** [01 - Setup](01-setup.md) · **Järgmine:** [03 - Configure & Code →](03-configure-and-code.md)
 
 ---
 

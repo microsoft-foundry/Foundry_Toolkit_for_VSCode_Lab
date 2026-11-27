@@ -1,204 +1,204 @@
-# Kuidas seda sessiooni läbi viia
+# Kuidas see sessioon läbi viia
 
-Tänan, et viite selle sessiooni läbi!
+Aitäh, et viite selle sessiooni läbi!
 
-Enne töötuba viimist palun:
+Enne töötuba läbiviimist palun:
 
-1. Lugege see dokument ja kõik kaasatud materjalid läbi.
-2. Vaadake sessiooni salvestust ja töötoa algusest lõpuni läbivaatamist.
-3. Tehke mõlemad praktilised ülesanded läbi oma masinas **vähemalt üks kord** enne üritust.
-4. Kontrollige oma Microsoft Foundry projekti, mudeli juurutusi ja kvoote.
-5. Kui midagi on ebaselge, pöörduge hooldajate poole.
+1. Lugege see dokument ja kõik seotud ressursid hoolikalt läbi.
+2. Vaadake sessiooni läbiviimise salvestust ja töötoa kogu protsessi ülevaadet.
+3. Läbige mõlemad praktilised töötoad oma masinas **vähemalt üks kord** enne sündmust.
+4. Kontrollige oma Microsoft Foundry projekti, mudelite juurutusi ja kvoote.
+5. Kui midagi jääb ebaselgeks, võtke ühendust haldajaga.
 
 ---
 
-## Failide kokkuvõte
+## Faili kokkuvõte
 
-| Ressurss                    | Link                                                                             | Kirjeldus                                                                           |
-|-----------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| Töötoa slaidide deck        | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                    | Töötoa presentatsioonislaidid koos esineja märkmete ja sisse ehitatud demo videodega |
-| Sessiooni salvestus         | _Hooldaja poolt esitatakse_                                                     | Töötoa sissejuhatus ja slaidide läbivaatuse salvestus                              |
-| Töötoa algusest lõpuni salvestus | _Hooldaja poolt esitatakse_                                                     | Mõlema töötoa harjutuse algusest lõpuni salvestus õppija vaatepunktist              |
-| Töötoa dokumentatsioon      | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | Allikakood, harjutuste README failid, samm-sammult moodulid                         |
-| Harjutus 01 – ühe agendi        | [Lab 01](../workshop/lab01-single-agent/README.md)                             | Praktiline ülesanne: ehitada, testida ja juurutada *Explain Like I'm an Executive* majutatud agent |
-| Harjutus 02 – mitme agendi töövoog | [Lab 02](../workshop/lab02-multi-agent/README.md)                              | Praktiline ülesanne: ehitada 4-agendi *Resume to Job Fit Evaluator* töövoog        |
-| Demo 1: Juhataja agent             | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                           | Harjutus 01 demo: tõlgi tehniline žargoon juhataja kokkuvõtteks                    |
-| Demo 2: CV sobivuse hindaja         | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)   | Harjutus 02 demo: 4-agendi töövoog, mis hindab CV ja töö sobivust ja annab soovitusi |
+| Ressurss                      | Link                                                                             | Kirjeldus                                                                                |
+|-------------------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Töötoa slaidide komplekt       | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                               | Selle töötoa esitlusslaidid koos esitaja märkmete ja manustatud demo videotega               |
+| Sessiooni läbiviimise salvestus| _Vastutab haldaja_                                               | Töötoa sissejuhatus ja slaidide läbivaatamise salvestus                                    |
+| Töötoa kogu protsessi salvestus| _Vastutab haldaja_                                               | Kogu mõlema töötoa ülesande salvestus õppija vaatenurgast                                  |
+| Töötoa dokumentatsioon         | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | Allikate hoidla, töötoa juhendid, samm-sammult moodulid                                     |
+| Töötuba 01 - üksagent          | [Lab 01](../workshop/lab01-single-agent/README.md)                               | Praktiline töötuba: ehitada, testida ja juurutada *Explain Like I'm an Executive* majutatud agent |
+| Töötuba 02 - mitu-agent töövoog| [Lab 02](../workshop/lab02-multi-agent/README.md)                                | Praktiline töötuba: ehitada 4-agendi *Resume to Job Fit Evaluator* töövoog                   |
+| Demo 1: Executive Agent        | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                                              | Töötuba 01 demo: tõlkida tehnilist žargooni juhtkonna kokkuvõtteks                           |
+| Demo 2: Resume to Job Fit Evaluator | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)                     | Töötuba 02 demo: 4-agendi töövoog, mis hindab CV ja töö sobivust ning annab soovitusi         |
 
-> **Märkus koolitajatele:** Slaidide deck ja videolinkid lisatakse, kui salvestused on avaldatud. Seni võtke uuemate materjalide saamiseks ühendust hooldajaga (vt [Kontaktid](#kontaktid)).
+> **Märkus koolitajatele:** Slaidikomplekt ja videolinkid lisatakse, kui salvestused avalikustatakse. Seni võtke värskemate materjalide saamiseks ühendust haldajaga (vt [Kontaktid](#contacts)).
 
 ---
 
 ## Alustamine
 
-See töötuba õpetab arendajaid, kuidas ehitada, testida ja juurutada tehisintellekti agente **Microsoft Foundry Agent Service’i** platvormil kui **majutatavaid agente** täielikult VS Code'i kasutades, kasutades **Microsoft Foundry Toolkit** laiendust.
+See töötuba õpetab arendajaid, kuidas ehitada, testida ja juurutada tehisintellekti agente **Microsoft Foundry Agent Service'isse** kui **majutatuid agente** täielikult VS Code'i kaudu, kasutades **Microsoft Foundry Toolkiti** laiendust.
 
-Töötuba on jaotatud mitmeks osaks, mis sisaldavad slaide, **2 otseülekande demo** ning **2 praktilist harjutust**.
+Töötoa koosseisu kuuluvad mitmed sektsioonid, sealhulgas slaidid, **2 reaalajas demo** ja **2 praktilist töökohta**.
 
-### Ajastus
+### Ajakava
 
-#### Täispikk esitlus (umbes 2 tundi)
+#### Täismahus läbiviimine (umbes 2 tundi)
 
-| Aeg            | Kirjeldus                                                            |
-|----------------|----------------------------------------------------------------------|
-| 0:00 - 10:00   | Sissejuhatus: majutatud agendid, Foundry Agent Service ja toolkit      |
-| 10:00 - 20:00  | Demo: Juhataja agent algusest lõpuni                                |
-| 20:00 - 60:00  | Harjutus 01 – ühe agendi ülesanne (ehita, testi lokaalselt, juuruta, prooviala) |
-| 60:00 - 110:00 | Harjutus 02 – mitme agendi töövoog (CV sobivuse hindaja)              |
-| 110:00 - 120:00| Kokkuvõte, küsimused ja vastused ning edasise õppimise ressursid       |
+| Aeg            | Kirjeldus                                                          |
+|-----------------|----------------------------------------------------------------------|
+| 0:00 - 10:00    | Sissejuhatus: majutatud agendid, Foundry Agent Service ja tööriistakomplekt |
+| 10:00 - 20:00   | Demo: Executive Agent algusest lõpuni                               |
+| 20:00 - 60:00   | Töötuba 01 - üksagent (koosta, testi kohapeal, juuruta, katseväljak)|
+| 60:00 - 110:00  | Töötuba 02 - mitu-agent töövoog (Resume to Job Fit Evaluator)        |
+| 110:00 - 120:00 | Kokkuvõte, küsimused ja vastused ning jätkuva õppimise ressursid     |
 
-#### Lühike esitlus (umbes 75 minutit)
+#### Lühendatud läbiviimine (umbes 75 minutit)
 
-| Aeg           | Kirjeldus                                                        |
-|---------------|----------------------------------------------------------------|
-| 0:00 - 10:00  | Sissejuhatus ja ülevaade                                        |
-| 10:00 - 20:00 | Demo: Juhataja agent                                           |
-| 20:00 - 70:00 | Ainult Harjutus 01 (suunake osalejad Harjutus 02 juurde iseseisvalt) |
-| 70:00 - 75:00 | Kokkuvõte ja küsimused                                         |
+| Aeg          | Kirjeldus                                                  |
+|---------------|--------------------------------------------------------------|
+| 0:00 - 10:00  | Sissejuhatus ja ülevaade                                   |
+| 10:00 - 20:00 | Demo: Executive Agent                                      |
+| 20:00 - 70:00 | Ainult Töötuba 01 (osalejatele suunata Töötuba 02 iseseisvaks õppimiseks) |
+| 70:00 - 75:00 | Kokkuvõte ja küsimused-vastused                            |
 
 ### Ettevalmistus
 
-| Ressurss                        | Link                                                                                          | Kirjeldus                                              |
-|--------------------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| Töötoa dokumentatsioon          | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)             | Töötoa dokumentatsioon ja allikad                      |
-| Harjutus 01 juhised             | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                | Praktiline ülesanne: ühe majutatud agendi loomine     |
-| Harjutus 02 juhised             | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                  | Praktiline ülesanne: mitme agendi töövoog             |
-| Eeltingimuste kontrollnimekiri | [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                | Vajalike tööriistade, kontode ja Azure juurdepääsu loetelu |
-| Majutatud agentide kiirstart (azd) | [Learn](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | Ametlik kiirstart majutatud agendi juurutamiseks `azd` abil |
-| Majutatud agentide regioonide saadavus | [Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | Toetatud regioonid majutatud agentidele (eelvaade)      |
+| Ressurss                       | Link                                                                                          | Kirjeldus                                       |
+|--------------------------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------|
+| Töötoa dokumentatsioon         | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)             | Töötoa dokumentatsioon ja lähtekood                 |
+| Töötuba 01 juhendid            | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                | Praktiline töötuba: üks majutatud agent           |
+| Töötuba 02 juhendid            | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                  | Praktiline töötuba: mitu-agendi töövoog            |
+| Eeltingimuste kontrollnimekiri| [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                | Vajalikud tööriistad, kontod ja Azure ligipääs    |
+| Hostitud agentide kiire alustamine (azd) | [Õpi](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | Ametlik kiire juhend hostitud agendi juurutamiseks koos `azd` |
+| Hostitud agentide piirkondade kättesaadavus | [Õpi](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | Toetatud piirkonnad hostitud agentide jaoks (eelvaade)     |
 
-### Koolitaja eelteadmised
+### Koolitaja eeltingimused
 
-Enne esitamist veenduge, et Teil oleks olemas:
+Enne tarnimist veendu, et sul on:
 
-- **Azure tellimus**, millel on luba ressursse luua (omanik või kaastööline ressursigrupis).
-- Juurdepääs **Microsoft Foundry projektile** [majutatud agentidega toetatud regioonis](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
-- Kvoot **gpt-4.1** (või **gpt-4.1-mini**) jaoks teie Foundry projektis.
-- Järgmiste tööriistade installatsioon:
+- **Azure'i tellimus** koos ressursi loomise õigusega (omanik või kaastöötaja ressursigrupil).
+- Juurdepääs **Microsoft Foundry projekti**le [regioonis, mis toetab hostitud agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+- Piirang **gpt-4.1** (või **gpt-4.1-mini**) jaoks teie Foundry projektis.
+- Järgnevad tööriistad paigaldatud:
   - [Visual Studio Code](https://code.visualstudio.com/)
   - [Microsoft Foundry Toolkit laiendus](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
   - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
   - [Azure Developer CLI (`azd`)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
-  - [Docker Desktop](https://www.docker.com/) (valikuline)
-  - Python 3.10 või uuem
+  - [Docker Desktop](https://www.docker.com/) (Valikuline)
+  - Python 3.12 või uuem
 
-Käivitage enne töötuba vähemalt üks kord [Hosted agents quickstart `azd`-ga](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd), et omada kontrollitud Foundry projekti, mudeli juurutust ja Azure Container Registry’t, mida kasutada tekkivate küsimuste korral.
+Käivitage [Hostitud agentide kiire käivitamine `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) vähemalt kord enne kohaletoimetamist, et teil oleks teada-tuntud töökorras Foundry projekt, mudeli juurutus ja Azure konteineriregister, millele viidata, kui õppija jääb toppama.
 
 ---
 
-## Slaidide läbivaade
+## Esitluse läbikäik
 
-Deck järgib sama struktuuri nagu harjutused. Iga osa soovitatud rääkepunktid:
+Esitlus järgib sama voogu nagu laborid. Soovitatud rääkimispunktid iga sektsiooni kohta:
 
-| Osa                       | Peamine sõnum                                                                                      |
-|---------------------------|--------------------------------------------------------------------------------------------------|
-| Pealkiri ja päevakord     | Sõnastage töötuba kui *VS Code to Foundry*, ilma et oleks vaja portaali vahetada.                |
-| Miks majutatud agendid?    | Hallatud jooksuaeg, ACR-põhine juurutus, OpenAI-kompatible `/responses` API, piiratud Foundry projektidele. |
-| Arhitektuuri diagramm      | Läbivaade [README arhitektuurist](../README.md#architecture): scaffolding, Inspector, ACR, Agent Service |
-| Majutatud agendi olemus    | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - iga faili ülesanded.                   |
-| Otseülekande demo: Juhataja agent | Lülituge VS Code’i ja jooksutage [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) demo algusest lõpuni (vt [Demo 1](#demo-1-juhataja-agent)). |
-| Otseülekande demo: CV sobivuse hindaja | Lülituge VS Code’i ja jooksutage [`PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) 4-agendi demo (vt [Demo 2](#demo-2-cv-sobivuse-hindaja)). |
-| Harjutus 01 tutvustus       | Andke õppijatele üle, suunake [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md). |
-| Mitme agendi mustrid        | Sekventaalne vs korraga vs üleandmine - eelvaade enne Harjutus 02 algust.                         |
-| Harjutus 02 tutvustus       | Andke õppijatele üle, suunake [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md). |
-| Kokkuvõte ja ressursid     | Edasise õppimise lingid [Täiendavate ressursside](#täiendavad-ressursid) sektsioonist.             |
+| Sektsioon                    | Peamine sõnum                                                                                                 |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------|
+| Pealkiri ja päevakord       | Raamige töötuba kui *VS Code kuni Foundry* ilma portaali vahetamiseta.                                       |
+| Miks hostitud agendid?      | Hallatud käitusaeg, ACR-põhine juurutus, OpenAI-ga ühilduv `/responses` API, aheldatud Foundry projektidele.|
+| Arhitektuuri diagramm       | Läbivaade [README arhitektuurist](../README.md#architecture): karkass, Inspector, ACR, Agent Service.           |
+| Hostitud agenndi anatoomia   | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - mida iga fail teeb.                              |
+| Otseülekanne: Täidesaatev agent  | Vaheta VS Code’i ja käivita [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) demo algusest lõpuni (vaata [Demo 1](#demo-1-executive-agent)). |
+| Otseülekanne: CV-st töö sobivuse hindajani | Vaheta VS Code’i ja käivita [`PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) 4-agendi demo (vaata [Demo 2](#demo-2-resume-to-job-fit-evaluator)). |
+| Lab 01 ülevaade                | Anna õppijatele. Osuta [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md) poole. |
+| Mitme-agendi mustrid        | Järjestikune vs samaaegne vs üleandmine - eelvaade enne Lab 02 algust.                                           |
+| Lab 02 ülevaade                | Anna õppijatele. Osuta [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md) poole. |
+| Kokkuvõte ja ressursid       | Edasise õppimise lingid [Täiendavad ressursid](#additional-resources) sektsioonist.                      |
 
 ---
 
 ## Demod
 
-Esitluses on kaasatud kaks otseülekande demo. Igaühele eraldage 10 minutit.
+Kättetoimetamisse kuulub kaks otseülekannet. Igaühele eralda 10 minutit.
 
-| Demo                | Harjutus | Failid                                              | Mida näidata                                      |
-|---------------------|----------|----------------------------------------------------|--------------------------------------------------|
-| Juhataja agent      | Harjutus 01 | [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | Üksik majutatud agent; tõlkige tehniline keelekasutus juhataja kokkuvõtteks |
-| CV sobivuse hindaja | Harjutus 02 | [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | 4-agendi orkestreerimine; hindage CV-töö sobivust ja tehke soovitusi |
+| Demo | Labor | Failid | Mida näidata |
+|------|-----|-------|--------------|
+| Täidesaatev agent | Lab 01 | [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | Üksik hostitud agent; tõlgenda tehnilisi termineid täidesaatvaks kokkuvõtteks |
+| CV sobivuse hindaja tööle | Labor 02 | [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | 4-agendi orkestreerimine; skoori CV-töö sobivust ja genereeri soovitus |
 
-### Demo 1: Juhataja agent
+### Demo 1: Juhtagent
 
-Iseseisev agent kaustas [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent). Kasutage seda 10-minutilise demonstreerimiseks enne Harjutus 01 algust.
+Iseseisev agent [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent). Kasuta seda 10-minutilise demo jaoks enne Laborit 01.
 
-1. Avage [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) ja tutvustage agendi määratlust (süsteemi sõnum, mudel, raamistik).
-2. Vajutage `F5`, et käivitada **Agent Inspector** lokaalselt.
-3. Kleepige näidisüleskutse [README-st](../README.md#see-it-in-action) ja näidake juhatajalt saadud kokkuvõttevastust.
-4. Näidake [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) ja [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile), et seletada juurutuse artefakte.
-5. Demonstreerige juurutusprotsessi (Docker build, ACR push, majutatud agendi loomine) ilma edasilükkamiseta.
+1. Ava [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) ja tutvu agendi määratlusega (süsteemipäring, mudel, raamistik).
+2. Vajuta `F5`, et käivitada **Agent Inspector** lokaalselt.
+3. Kleebi proovitõuge [README](../README.md#see-it-in-action)-st ja näita tegevjuhi kokkuvõtte vastust.
+4. Näita [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) ja [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile), et selgitada kasutuselevõtu artefakte.
+5. Demonstreeri kasutuselevõtu voogu (Dockeri ehitus, ACR-i tõstmine, hostitud agendi loomine) ilma valmimist ootamata.
 
-### Demo 2: CV sobivuse hindaja
+### Demo 2: CV sobivuse hindaja tööle
 
-Nelja agendi töövoog kaustas [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot). Kasutage seda 10-minutilise demonstreerimiseks enne Harjutus 02 algust.
+4-agendi töövoog [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot). Kasuta seda 10-minutilise demo jaoks enne Laborit 02.
 
-1. Avage [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ja selgitage, kuidas neli agenti on järjestikuse orkestreerimise jaoks ühendatud.
-2. Vajutage `F5`, et käivitada **Agent Inspector** mitme agendi töövoo jaoks.
-3. Kopeerige lühike töökuulutus ja näidis-CV Inspector'i vestlusesse.
-4. Läbige nelja agendi torujuhe: CV parser, töö nõuete eraldaja, sobivuse hindaja ja soovituste kirjutaja.
-5. Näidake, kuidas iga sub-agendi väljund saab järgmise agendi kontekstiks, tõstes esile üleandmise mustrit.
-6. Näidake [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml), et võrrelda seda Demo 1 vastava üksikagendiga.
-
----
-
-## Esitlusnõuanded
-
-- **Pange ootused paika varakult.** Majutatud agendid on eelvaates - teavitage regioonipiirangutest ja kvootidest enne töötuba, et osalejad ei jääks vahepeal üllatuma.
-- **Käivitage eeltingimuste ülesanne esimesena.** Mõlemal harjutusel on `Validate prerequisites` VS Code ülesanne - laske osalejatel see enne koodi kirjutamist läbi teha.
-- **Hoidke Agent Inspector nähtaval.** Enamik "aha" hetki tekib, kui õppijad näevad kohalikku `/responses` ringkäiku valgustumas.
-- **Olge varuprojekt valmis.** Kui õppija Foundry projekt jõuab kvootide piirini, jagage eelnevalt valmis projekte juurutusastmes, et vältida ruumi blokeerimist.
-- **Paaristage osalejad.** Harjutus 02 (mitme agendi töövoog) on oluliselt lihtsam, kui osalejad saavad orkestreerimist partneriga arutada.
-- **Kasuta dokumentatsioonimooduleid peatustena.** Iga harjutuse `docs/` kaust jaguneb 8 numbritud mooduliks - kasuta neid loomulikeks pauspunktideks.
-- **Eelpüllake baaspildi Docker masinatesse**, et vältida repositooriumi määrangupiiranguid.
+1. Ava [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ja näita, kuidas neli agenti on järjestuslikult kokku ühendatud.
+2. Vajuta `F5`, et käivitada **Agent Inspector** mitme agendi töövoo jaoks.
+3. Kleepige lühike töökuulutuse kirjeldus ja näidisele resume Inspector'i vestlusesse.
+4. Läbige nelja agendi torujuhe: CV parser, töö nõuete ekstraktor, sobivuse hindaja ja soovitus kirjutaja.
+5. Näidake, kuidas iga alaagendi väljund saab järgmise agendi kontekstiks, rõhutades üleandmise mustrit.
+6. Kuvage [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml), et võrrelda Demo 1 üheagendi vastavusega.
 
 ---
 
-## Probleemide lahendamine esitamise ajal
+## Esitlussoovitused
 
-| Sümptom                                 | Esimene proovimiseks sobiv asi                                                        |
-|-----------------------------------------|---------------------------------------------------------------------------------------|
-| Agent Inspector ei saa ühendust         | Kontrolli, et port `8088` on vaba ja et `Run Lab01 HTTP Server` / `Run Lab02 HTTP Server` ülesanne töötab. |
-| Debuggeri kinnitamine ei õnnestu        | Kontrolli, et port `5679` on vaba; taaskäivita VS Code, kui `debugpy` on juba seotud.   |
-| `azd up` annab autentimisvea           | Käivita `az login` ja `azd auth login`, veendu, et õige tenant on valitud.            |
-| Juurutus jääb pidama ACR push ajal       | Kontrolli, et Docker Desktop töötab ja kasutajal on ACR repositooriumile `AcrPush` õigus. |
-| Mudel tagastab 404 / deployment-not-found | Mudeli juurutuse nimi `agent.yaml` failis peab ühtima Foundry projekti juurutusega.     |
-| Hostitud agendi kinni jäämine `Provisioning` olekus | Kontrollige, kas projekti piirkond [toetab hostitud agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ja kas kvota on saadaval. |
-| Mänguväljak tagastab 401                    | Autentige Foundry laiendus uuesti VS Code aktiivsusribalt.                                       |
+- **Seadke ootused varakult.** Hostitud agendid on eelvaates – nimetage piirkonna piirangud ja kvoodi üle, et osalejad ei saaks labori keskel üllatust.
+- **Käitage esmalt eeltingimuste ülesannet.** Mõlemad laboratorid sisaldavad `Validate prerequisites` VS Code ülesannet – laske osalejatel see enne koodi kirjutamist läbi teha.
+- **Hoidke Agent Inspectorit nähtaval.** Enamik "ahha" hetki tekib, kui õppijad näevad kohalikku `/responses` tagasisidet.
+- **Olge varuplaaniga projekt olemas.** Kui õppija Foundry projekt jõuab kvoodi piirini, jagage eelproovis valmis projekt juurutamisetapiks, et mitte takistada rühma.
+- **Paigutage osalejad paari.** Labor 02 (mitme agendiga) on märgatavalt lihtsam, kui õppijad saavad koos orkestreerimist arutada.
+- **Kasutage dokumentatsiooni mooduleid kontrollpunktidena.** Iga labori `docs/` kaust on jagatud nummerdatud mooduliteks – kasutage neid loomulike pauside tegemiseks.
+- **Eeltõmmake põhidocker-pilt** jagatud laborimasinatel, et vältida registri kiiruspiiranguid.
 
-Põhjalikumate juhiste jaoks on igal laboris oma `08-troubleshooting.md` dokument - suunake õppijad sinna:
+---
+
+## Tõrkeotsing esituse ajal
+
+| Sümptom                                     | Esimene proovimine                                                                                         |
+|----------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| Agent Inspector ei saa ühendust               | Kinnitage, et port `8088` on vaba ja `Run Agent HTTP Server` ülesanne töötab.               |
+| Silur ebaõnnestub külge kinnituma                     | Kontrollige, et port `5679` on vaba; taaskäivitage VS Code, kui `debugpy` on juba seotud.                           |
+| `azd up` ebaõnnestub autentimisveaga               | Käivitage `az login` ja `azd auth login`, veenduge, et on valitud õige üürnik.                              |
+| Deploy kinni jäänud ACR push juures                 | Kontrollige, et Docker Desktop töötab ja kasutajal on `AcrPush` registris.                              |
+| Mudel tagastab 404 / deployment-not-found     | Mudeli paigutuse nimi `agent.yaml` peab vastama paigutusele Foundry projektis.              |
+| Hostitud agent takerdunud `Provisioning`         | Kontrollige, et projekti piirkond [toetab hostitud agente](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ja et kohalik piirang on saadaval. |
+| Playground tagastab 401                       | Autentige uuesti Foundry laiendus VS Code aktiivsusribalt.                                     |
+
+Täiendava juhendamise jaoks saadab iga labor kaasa oma `08-troubleshooting.md` dokumendi - suunake õppijaid sinna:
 
 - Labor 01: [`workshop/lab01-single-agent/docs/08-troubleshooting.md`](../workshop/lab01-single-agent/docs/08-troubleshooting.md)
 - Labor 02: [`workshop/lab02-multi-agent/docs/08-troubleshooting.md`](../workshop/lab02-multi-agent/docs/08-troubleshooting.md)
 
 ---
 
-## Sessiiooni kohandamine
+## Selle sessiooni kohandamine
 
-Olete teretulnud töötoa kohandamiseks oma publikule. Levinud variandid:
+Võite töötoa kohandada oma publiku jaoks. Levinud variatsioonid:
 
-- **Andmebaasi publik:** veetke rohkem aega `agent.yaml`, Dockeri ja ACR-ga; vähendage mänguväljaku demosid.
-- **Kodaniku-arendaja publik:** jääge Foundry laienduse kasutajaliidesesse scaffoldinguks; vähendage käsurea samme.
-- **Üksikut 60-minutilist sessiooni:** esitage ainult sissejuhatus, demo ja Labor 01.
-- **Ainult töötuba (ilma slaidideta) formaat:** avage mõlemad laborite README failid ja kasutage neid põhiskriptina.
+- **Tagapõhja publikutel:** veetke rohkem aega `agent.yaml`, Dockeri ja ACR-i juures; kärpige playground demo.
+- **Kodanike-arendajate sihtrühm:** jäädvustage Foundry laienduse kasutajaliideses skafoldimiseks; vähendage CLI samme.
+- **Ühe rajaga 60-minutiline aeg:** esitage ainult sissejuhatus, demo ja labor 01.
+- **Ainult töötuba (ilma slaidideta) formaat:** ava mõlemad õpitoa README-d ja kasuta neid peamise skriptina.
 
-Kui laiendate laboreid, palun andke muudatused tagasi PR-i kaudu, et ka teised koolitajad sellest kasu saaksid.
+Kui laiendad õpitubasid, palun anna muudatused tagasi PR-i kaudu, et teised koolitajad saaksid kasu.
 
 ---
 
-## Täiendavad ressursid
+## Täiendavad allikad
 
 - [Microsoft Foundry dokumentatsioon](https://learn.microsoft.com/azure/ai-foundry/)
-- [Hostitud agentide ülevaade](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Kiire algus: deploy oma esimene hostitud agent (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
-- [Hostitud agendi paigaldamine (kuidas teha)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Agent Framework](https://github.com/microsoft/agents)
-- [Microsoft Foundry tööriistakomplekt VS Code jaoks](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
+- [Hostitud agendi ülevaade](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Kiirstart: juhi oma esimest hostitud agenti (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
+- [Hostitud agendi juurutamine (kuidas)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/)
+- [Microsoft Foundry tööriistade komplekt VS Code jaoks](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 
 ---
 
 ## Kontaktid
 
-Kui teil on selle sessiooni läbiviimise kohta küsimusi, avage palun teema [töötoa hoidlas](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) ja märkige hooldaja.
+Kui sul on küsimusi selle sessiooni läbiviimise kohta, palun ava probleem [töötoa hoidlasse](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) ja märgista hooldaja.
 
 | Roll                | Nimi           | GitHub                                                  |
 |---------------------|----------------|---------------------------------------------------------|
-| Hooldaja / kontakt | Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)      |
+| Hooldaja / kontakt  | Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)               |
 
 ---
 
