@@ -1,22 +1,22 @@
-# Makmal 02 - Aliran Kerja Pengganda Agen: Resume → Penilai Kesesuaian Kerja
+# Makmal 02 - Aliran Kerja Multi-Ejen: Penilai Kesesuaian Resume → Pekerjaan
 
 ## Gambaran Keseluruhan
 
-Dalam makmal praktikal ini, anda akan membina **aplikasi pelbagai agen berasaskan aliran kerja** menggunakan Foundry Toolkit dalam VS Code dan mengedarkannya ke Microsoft Foundry Agent Service.
+Dalam makmal praktikal ini, anda akan membina **aplikasi multi-ejen berasaskan aliran kerja** menggunakan Foundry Toolkit dalam VS Code dan melancarkannya ke Microsoft Foundry Agent Service.
 
-**Apa yang anda akan bina:** Penilai Kesesuaian Resume → Kerja yang menguraikan resume dan penerangan kerja, memberikan skor padanan, dan menghasilkan peta jalan pembelajaran peribadi menggunakan sumber Microsoft Learn.
+**Apa yang akan anda bina:** Penilai Resume → Kesesuaian Pekerjaan yang menganalisis resume dan deskripsi pekerjaan, memberikan skor kecocokan, dan menghasilkan pelan pembelajaran peribadi menggunakan sumber Microsoft Learn.
 
 ---
 
-## Seni Bina
+## Senibina
 
 ```mermaid
 flowchart TD
-    A["Input Pengguna"] --> B["Pemeriksa Resume"]
-    B -->|"[RESUME DIPARSE] + [PENERANGAN KERJA LALUAN]"| C["Ejen Penerangan Kerja"]
-    C -->|"[KEPERLUAN JD] + [RESUME DIPARSE LALUAN]"| D["Ejen Pencocokan"]
-    D -->|laporan kesesuaian + jurang| E["Penganalisis Jurang + Microsoft Learn MCP"]
-    E -->|skor kesesuaian + peta jalan| F["Keluaran"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -26,24 +26,24 @@ flowchart TD
     style F fill:#4A90D9,color:#fff
 ```
 
-**Cara ia berfungsi:**
-1. Pengguna menampal resume dan penerangan kerja.
-2. **ResumeParser** menguraikan resume dan menyalin JD secara tepat ke dalam seksyen `[PASS-THROUGH PENERANGAN KERJA]`.
-3. **JD Agent** mengeluarkan keperluan berstruktur daripada pass-through itu, kemudian menghantar `[RESUME YANG DIURAICAN]` ke hadapan sebagai `[PASS-THROUGH RESUME YANG DIURAICAN]`.
-4. **MatchingAgent** membandingkan `[PASS-THROUGH RESUME YANG DIURAICAN]` dengan `[KEPERLUAN JD]` dan menghasilkan skor kesesuaian.
-5. **GapAnalyzer** menukar jurang menjadi peta jalan praktikal dan mendapatkan pautan Microsoft Learn sebenar melalui MCP.
+**Bagaimana ia berfungsi:**
+1. Pengguna menampal resume dan deskripsi pekerjaan.
+2. **ResumeParser** menganalisis resume dan menyalin JD secara tepat ke dalam bahagian `[JOB DESCRIPTION PASS-THROUGH]`.
+3. **JD Agent** mengeluarkan keperluan berstruktur dari laluan terus, kemudian menghantar `[PARSED RESUME]` ke hadapan sebagai `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** membandingkan `[PARSED RESUME PASS-THROUGH]` vs `[JD REQUIREMENTS]` dan menghasilkan skor kesesuaian.
+5. **GapAnalyzer** menukar jurang ke dalam pelan tindakan praktikal dan mengambil pautan sebenar Microsoft Learn melalui MCP.
 
 ---
 
 ## Prasyarat
 
-Selesaikan Makmal 01 terlebih dahulu:
+Lengkapkan Makmal 01 dahulu:
 
-- [Makmal 01 - Agen Tunggal](../lab01-single-agent/README.md)
+- [Makmal 01 - Ejen Tunggal](../lab01-single-agent/README.md)
 
 ---
 
-## Bahagian 1: Baca modul mengikut susunan
+## Bahagian 1: Baca modul secara berurutan
 
 Lihat laluan pembelajaran penuh di:
 
@@ -55,26 +55,27 @@ Lihat laluan pembelajaran penuh di:
 
 ## Bahagian 2: Bina dan uji aliran kerja
 
-1. Gunakan wizard Foundry Toolkit untuk menyediakan projek berasaskan aliran kerja.
+1. Gunakan wizard Foundry Toolkit untuk membina projek berasaskan aliran kerja.
 2. Salin blok arahan dan graf aliran kerja dari `PersonalCareerCopilot/main.py` ke dalam ruang kerja anda.
-3. Jalankan secara lokal dengan Agent Inspector dan sahkan kesemua empat agen serta alat MCP.
-4. Sebarkan agen yang dihoskan ke Foundry apabila ujian tempatan lulus.
+3. Jalankan secara tempatan dengan Agent Inspector dan sahkan keempat-empat ejen serta alat MCP.
+4. Laksana ejen dihoskan ke Foundry apabila ujian tempatan lulus.
 
 ---
 
 ## Corak Orkestrasi
 
-Makmal 02 termasuk aliran lalai **fan-out → fan-in → berurutan**, dan dokumen juga menerangkan corak orkestrasi alternatif untuk eksperimen.
+Makmal 02 menggunakan **rantaian berurutan**: output setiap ejen memberi input kepada seterusnya, dan aliran kerja mengembalikan respons ejen terakhir. Dua corak menjayakan ini:
 
-- **Fan-out/Fan-in dengan konsensus berwajaran**
-- **Pass penilai/pengkritik sebelum peta jalan akhir**
-- **Perute bersyarat** berdasarkan skor kesesuaian dan kemahiran yang hilang
+- **Rantaian Berurutan** - `WorkflowBuilder` menghubungkan ResumeParser → JD Agent → MatchingAgent → GapAnalyzer dengan satu panggilan `add_edge()` setiap langkah
+- **Relay kandungan** - kerana setiap ejen hanya melihat output ejen sebelumnya secara langsung, ResumeParser dan JD Agent menyalin data yang diperlukan oleh ejen hiliran ke dalam bahagian laluan berlabel
+
+Dokumen juga menerangkan mengapa makmal tidak menggunakan fan-out/fan-in, dan bagaimana untuk meluaskan graf dengan ejen lain.
 
 Lihat [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Sebelumnya:** [Makmal 01 - Agen Tunggal](../lab01-single-agent/README.md) · **Kembali ke:** [Laman Utama Bengkel](../../README.md)
+**Sebelumnya:** [Makmal 01 - Ejen Tunggal](../lab01-single-agent/README.md) · **Kembali ke:** [Laman Utama Bengkel](../../README.md)
 
 ---
 

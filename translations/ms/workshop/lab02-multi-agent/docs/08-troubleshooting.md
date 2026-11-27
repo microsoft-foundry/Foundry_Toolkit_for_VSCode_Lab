@@ -1,60 +1,60 @@
 # Modul 8 - Penyelesaian Masalah
 
-Modul ini merangkumi kesilapan biasa, pembetulan, dan strategi debugging khas untuk aliran kerja multi-ejen.
+Modul ini merangkumi ralat biasa, pembetulan, dan strategi pengesanan masalah khusus untuk aliran kerja pelbagai ejen.
 
-## Isu output Ejen
+## Isu output ejen
 
-### GapAnalyzer mengatakan “Saya masih tidak mempunyai laporan padanan”
+### GapAnalyzer mengatakan “Saya masih belum mendapat laporan padanan”
 
-**Gejala:** Respons GapAnalyzer meminta anda untuk menampal laporan padanan dengan “Kemahiran Hilang” dan “Kekurangan Sijil.” Ini terjadi walaupun anda menghantar kedua-dua resume dan deskripsi kerja.
+**Gejala:** Respons GapAnalyzer meminta anda untuk menampal laporan padanan dengan “Kemahiran Hilang” dan “Kekurangan Sijil.” Ini berlaku walaupun anda telah menghantar kedua-dua resume dan keterangan kerja.
 
-**Sebab:** Teks JD tidak disalurkan ke JD Agent. Dengan `context_mode="last_agent"`, `resume_executor` adalah satu-satunya pelaksana yang pernah melihat mesej asal pengguna. Jika `RESUME_PARSER_INSTRUCTIONS` tidak memasukkan teks JD dalam outputnya, JD Agent tidak mempunyai JD untuk dianalisis, MatchingAgent tidak dapat mengira skor kesesuaian, dan GapAnalyzer menerima input yang tidak bermakna.
+**Punca:** Teks JD tidak dihantar ke bawah kepada JD Agent. Dengan `context_mode="last_agent"`, `resume_executor` adalah satu-satunya pelaksana yang pernah melihat mesej asal pengguna. Jika `RESUME_PARSER_INSTRUCTIONS` tidak memasukkan teks JD dalam outputnya, JD Agent tidak mempunyai JD untuk diurai, MatchingAgent tidak boleh mengira skor padanan, dan GapAnalyzer menerima input yang tidak bermakna.
 
 **Diagnosis:**
 
-Dalam log pelayan, cari jangka MatchingAgent. Jika ia mengandungi:
+Dalam log pelayan, cari span MatchingAgent. Jika ia mengandungi:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
-pengaliran tidak ada atau rosak.
+penyaluran itu hilang atau rosak.
 
-**Pembetulan:** Sahkan bahawa `RESUME_PARSER_INSTRUCTIONS` dalam `main.py` mengandungi bahagian `[JOB DESCRIPTION PASS-THROUGH]` dan peraturan:
+**Pembetulan:** Sahkan bahawa `RESUME_PARSER_INSTRUCTIONS` dalam `main.py` mengandungi seksyen `[JOB DESCRIPTION PASS-THROUGH]` dan peraturan:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
-Juga sahkan bahawa `JOB_DESCRIPTION_INSTRUCTIONS` mengandungi peraturan relay `[PARSED RESUME PASS-THROUGH]`:
+Sahkan juga bahawa `JOB_DESCRIPTION_INSTRUCTIONS` mengandungi peraturan penyaluran `[PARSED RESUME PASS-THROUGH]`:
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Jika mana-mana blok arahan itu adalah cangkang dari wizard scaffold, gantikannya dengan versi lengkap dari [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Jika mana-mana blok arahan itu adalah stub dari wizard scaffold, gantikannya dengan versi lengkap dari [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### MatchingAgent mengeluarkan “Tidak dapat mengira skor kesesuaian - tiada JD diberikan”
+### MatchingAgent mengeluarkan “Tidak dapat mengira skor padanan - tiada JD disediakan”
 
-Ini adalah punca akar yang sama seperti di atas. MatchingAgent menerima output JD Agent tetapi bahagian `[PARSED RESUME PASS-THROUGH]` hilang atau kosong, jadi ia tidak dapat membandingkan dua profil tersebut. Sahkan:
-1. `JOB_DESCRIPTION_INSTRUCTIONS` termasuk peraturan relay: `Salin [PARSED RESUME] secara literal - Matching Agent bergantung kepadanya di hiliran.`
-2. `MATCHING_AGENT_INSTRUCTIONS` memberitahu ejen untuk mencari bahagian `[JD REQUIREMENTS]` dan `[PARSED RESUME PASS-THROUGH]`.
+Ini adalah punca utama yang sama seperti di atas. MatchingAgent menerima output JD Agent tetapi seksyen `[PARSED RESUME PASS-THROUGH]` hilang atau kosong, jadi ia tidak dapat membandingkan kedua-dua profil. Sahkan:
+1. `JOB_DESCRIPTION_INSTRUCTIONS` mengandungi peraturan penyaluran: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
+2. `MATCHING_AGENT_INSTRUCTIONS` memberitahu ejen untuk mencari seksyen `[JD REQUIREMENTS]` dan `[PARSED RESUME PASS-THROUGH]`.
 
 Gantikan kedua-dua blok arahan dengan versi lengkap dari [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
 ### Respons muncul dua kali
 
-**Gejala:** Output GapAnalyzer (atau keseluruhan output paip) muncul dua kali dalam respons Agent Inspector.
+**Gejala:** Output GapAnalyzer (atau keseluruhan output saluran) muncul dua kali dalam respons Pemeriksa Ejen.
 
-**Sebab:** `WorkflowBuilder` menggunakan semantik OR untuk tepi masuk - pelaksana hiliran beroperasi sebaik sahaja **mana-mana** pendahulu selesai. Jika `matching_executor` mempunyai dua tepi masuk (satu dari `resume_executor` dan satu dari `jd_executor`), ia beroperasi dua kali: sekali apabila ResumeParser selesai dan sekali lagi apabila JD Agent selesai. GapAnalyzer kemudian juga berjalan dua kali.
+**Punca:** `WorkflowBuilder` menggunakan semantik ATAU untuk tepi masuk - pelaksana hiliran dijalankan sebaik sahaja **mana-mana** pendahulu selesai. Jika `matching_executor` mempunyai dua tepi masuk (satu dari `resume_executor` dan satu dari `jd_executor`), ia akan dijalankan dua kali: sekali apabila ResumeParser selesai dan sekali lagi apabila JD Agent selesai. GapAnalyzer juga kemudian berjalan dua kali.
 
-**Pembetulan:** Pastikan graf `WorkflowBuilder` adalah paip urutan yang ketat tanpa fan-in:
+**Pembetulan:** Pastikan graf `WorkflowBuilder` adalah saluran berurutan ketat tanpa fan-in:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # BUKAN dari resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Jika anda mempunyai baris `.add_edge(resume_executor, matching_executor)` yang tersesat, buangkannya. Relay `[PARSED RESUME PASS-THROUGH]` dalam output JD Agent sudah memberi akses MatchingAgent kepada resume.
+Jika anda mempunyai baris `.add_edge(resume_executor, matching_executor)` yang berselerak, keluarkannya. Penyaluran `[PARSED RESUME PASS-THROUGH]` dalam output JD Agent sudah memberikan akses MatchingAgent kepada resume.
 
 ---
 
@@ -62,7 +62,7 @@ Jika anda mempunyai baris `.add_edge(resume_executor, matching_executor)` yang t
 
 ### Nilai `.env` hilang atau salah
 
-Fail `.env` mesti berada di direktori `PersonalCareerCopilot/` (tahap yang sama dengan `main.py`):
+Fail `.env` mesti berada dalam direktori `PersonalCareerCopilot/` (peringkat yang sama dengan `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -75,38 +75,38 @@ PersonalCareerCopilot/
 
 Kandungan `.env` yang dijangka:
 
-**Jalur A - awan Foundry:**
+**Jejak A - Foundry awan:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-project-name>.services.ai.azure.com/api/projects/<your-project-id>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-**Jalur B - Foundry Tempatan:**
+**Jejak B - Foundry Tempatan:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Kedua-dua jalur menggunakan `FOUNDRY_PROJECT_ENDPOINT`. Nilainya berbeza: awan menggunakan endpoint Foundry `https://`; tempatan menggunakan `http://localhost:5273/v1`. Jalankan `foundry model list` untuk mengesahkan alias model tepat bagi Jalur B.
+> Kedua-dua jejak menggunakan `FOUNDRY_PROJECT_ENDPOINT`. Nilainya berbeza: awan menggunakan titik akhir Foundry `https://`; tempatan menggunakan `http://localhost:5273/v1`. Jalankan `foundry model list` untuk mengesahkan alias model tepat untuk Jejak B.
 
 > **Mencari `FOUNDRY_PROJECT_ENDPOINT` anda:** 
-- Buka bar sisi **Foundry Toolkit** dalam VS Code → klik kanan projek anda → **Salin Project Endpoint**. 
-- Atau pergi ke [Azure Portal](https://portal.azure.com) → projek Foundry anda → **Gambaran Keseluruhan** → **Project endpoint**.
+- Buka sidebar **Foundry Toolkit** dalam VS Code → klik kanan projek anda → **Salin Titik Akhir Projek**. 
+- Atau pergi ke [Azure Portal](https://portal.azure.com) → projek Foundry anda → **Gambaran Keseluruhan** → **Titik akhir projek**.
 
-> **Mencari `AZURE_AI_MODEL_DEPLOYMENT_NAME` anda:** Dalam bar sisi Foundry Toolkit, kembangkan projek anda → **Models** → cari nama model yang dideploy (contoh, `gpt-4.1-mini`).
+> **Mencari `AZURE_AI_MODEL_DEPLOYMENT_NAME` anda:** Dalam sidebar Foundry Toolkit, kembangkan projek anda → **Model** → cari nama model yang diterapkan (contohnya, `gpt-4.1-mini`).
 
 ### Keutamaan pembolehubah persekitaran
 
 `main.py` menggunakan `load_dotenv(override=True)`, yang bermaksud:
 
-| Keutamaan | Sumber | Menang apabila kedua-dua diset? |
-|----------|--------|-----------------------------|
-| 1 (tertinggi) | fail `.env` | Ya |
-| 2 | Pembolehubah persekitaran Shell / kontena | Digunakan apabila kunci yang sama tiada dalam `.env` |
+| Keutamaan | Sumber | Menang apabila kedua-duanya ditetapkan? |
+|----------|--------|------------------------------|
+| 1 (tertinggi) | Fail `.env` | Ya |
+| 2 | Pembolehubah persekitaran Shell / kontena | Digunakan apabila kunci yang sama tidak hadir dalam `.env` |
 
-Dalam pembangunan tempatan, ini menjadikan `.env` sebagai sumber kebenaran (pengeditan `.env` memberi kesan segera pada runtime). Dalam penyebaran dihoskan, Foundry menyuntik pembolehubah persekitaran pada peringkat kontena; kerana `.env` bukan sebahagian daripada imej yang dihoskan untuk set makmal ini, nilai kontena yang disuntik digunakan.
+Dalam pembangunan tempatan, ini menjadikan `.env` sumber kebenaran (menyunting `.env` terus menjejaskan larian). Dalam penghantaran dihoskan, Foundry menyuntik pembolehubah persekitaran pada tahap kontena; kerana `.env` bukan sebahagian daripada imej yang diterapkan untuk persediaan makmal ini, nilai kontena yang disuntik digunakan.
 
 ---
 
@@ -116,7 +116,7 @@ Dalam pembangunan tempatan, ini menjadikan `.env` sebagai sumber kebenaran (peng
 
 Aliran kerja multi-ejen memerlukan versi pakej tertentu. Versi yang tidak sepadan menyebabkan ralat masa jalan.
 
-| Pakej | Versi Diperlukan | Arahan Semak |
+| Pakej | Versi Diperlukan | Perintah Semak |
 |---------|-----------------|---------------|
 | `agent-framework-foundry` | terkini | `pip show agent-framework-foundry` |
 | `agent-framework-foundry-hosting` | terkini | `pip show agent-framework-foundry-hosting` |
@@ -129,14 +129,14 @@ Aliran kerja multi-ejen memerlukan versi pakej tertentu. Versi yang tidak sepada
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Betulkan: pasang semula agent-framework-foundry
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Baiki: naik taraf pakej mcp
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
@@ -157,40 +157,40 @@ mcp                              x.x.x
 
 ---
 
-## Isu penyebaran
+## Isu penghantaran
 
-### Kontena gagal dimulakan selepas penyebaran
+### Kontena gagal bermula selepas penghantaran
 
 1. **Semak log kontena:**
-   - Buka bar sisi **Foundry Toolkit** → kembangkan **Hosted Agents (Preview)** → klik ejen anda → kembangkan versi → **Container Details** → **Logs**.
+   - Buka sidebar **Foundry Toolkit** → di bawah projek anda, klik **Ejen** → tab **Ejen Dihoskan** → klik ejen anda. Semak **Status** pada tab **Butiran**, kemudian buka tab **Playground** dan gunakan tab **Log** dalam panel **Butiran Sesi** untuk melihat output kontena.
    - Cari jejak tumpukan Python atau ralat modul hilang.
 
 2. **Kegagalan permulaan kontena biasa:**
 
-   | Ralat dalam log | Sebab | Pembetulan |
+   | Ralat dalam log | Punca | Pembetulan |
    |--------------|-------|-----|
-   | `ModuleNotFoundError` | `requirements.txt` hilang pakej | Tambah pakej, sebarkan semula |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` atau `.env` env vars tidak diset | Kemas kini bahagian `environment_variables` dalam `agent.yaml` (hoskan) atau `.env` (tempatan) |
-   | `azure.identity.CredentialUnavailableError` | Identiti Terurus tidak dikonfigurasikan | Foundry menetapkannya secara automatik - pastikan anda menyebar melalui sambungan |
+   | `ModuleNotFoundError` | `requirements.txt` hilang pakej | Tambah pakej, hantar semula |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` atau pembolehubah persekitaran `.env` tidak diset | Kemas kini `agent.yaml` → seksyen `environment_variables` (dihoskan) atau `.env` (tempatan) |
+   | `azure.identity.CredentialUnavailableError` | Identiti Terurus tidak disediakan | Foundry menetapkannya secara automatik - pastikan anda menghantar menggunakan sambungan |
    | `OSError: port 8088 already in use` | Dockerfile mendedahkan port salah atau konflik port | Sahkan `EXPOSE 8088` dalam Dockerfile dan `CMD ["python", "main.py"]` |
-   | Kontena keluar dengan kod 1 | Pengecualian tidak ditangani dalam `main()` | Uji secara tempatan dahulu ([Modul 5](05-test-locally.md)) untuk kesilapan sebelum menyebar |
+   | Kontena keluar dengan kod 1 | Pengecualian tidak dikendalikan dalam `main()` | Uji secara tempatan dahulu ([Modul 5](05-test-locally.md)) untuk mengesan ralat sebelum menghantar |
 
-3. **Sebarkan semula selepas pembetulan:**
-   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → pilih ejen yang sama → sebarkan versi baru.
+3. **Hantar semula selepas membaiki:**
+   - `Ctrl+Shift+P` → **Foundry Toolkit: Hantar Ejen Dihoskan** → pilih ejen yang sama → hantar versi baru.
 
-### Penyebaran mengambil masa terlalu lama
+### Penghantaran mengambil masa terlalu lama
 
-Kontena multi-ejen mengambil masa lebih lama untuk bermula kerana ia mencipta 4 instans ejen pada permulaan. Masa permulaan biasa:
+Kontena multi-ejen mengambil masa lebih lama untuk bermula kerana mereka membuat 4 contoh ejen semasa permulaan. Masa permulaan biasa:
 
-| Tahap | Tempoh Dijangka |
+| Peringkat | Tempoh Dijangka |
 |-------|------------------|
-| Membina imej kontena | 1-3 minit |
+| Pembinaan imej kontena | 1-3 minit |
 | Tolak imej ke ACR | 30-60 saat |
-| Mula kontena (ejen tunggal) | 15-30 saat |
-| Mula kontena (multi-ejen) | 30-120 saat |
-| Ejen tersedia di Playground | 1-2 minit selepas "Started" |
+| Permulaan kontena (ejen tunggal) | 15-30 saat |
+| Permulaan kontena (multi-ejen) | 30-120 saat |
+| Ejen tersedia dalam Playground | 1-2 minit selepas "Dibuka" |
 
-> Jika status "Pending" berterusan lebih 5 minit, periksa log kontena untuk ralat.
+> Jika status "Menunggu" berterusan lebih dari 5 minit, periksa log kontena untuk ralat.
 
 ---
 
@@ -198,66 +198,66 @@ Kontena multi-ejen mengambil masa lebih lama untuk bermula kerana ia mencipta 4 
 
 ### `403 Forbidden` atau `AuthorizationFailed`
 
-Anda memerlukan peranan **[Foundry User](https://aka.ms/foundry-ext-project-role)** pada projek Foundry anda (dahulu dinamakan **Azure AI User** - ID peranan tidak berubah):
+Anda memerlukan peranan **[Foundry User](https://aka.ms/foundry-ext-project-role)** pada projek Foundry anda (sebelumnya dinamakan **Azure AI User** - ID peranan tidak berubah):
 
 1. Pergi ke [Azure Portal](https://portal.azure.com) → sumber **projek** Foundry anda.
-2. Klik **Access control (IAM)** → **Role assignments**.
+2. Klik **Kawalan akses (IAM)** → **Penugasan peranan**.
 3. Cari nama anda → sahkan **Foundry User** (atau label lama **Azure AI User**) disenaraikan.
-4. Jika tiada: **Tambah** → **Add role assignment** → cari **Foundry User** → tetapkan pada akaun anda.
+4. Jika tiada: **Tambah** → **Tambah penugasan peranan** → cari **Foundry User** → tugaskan ke akaun anda.
 
-Lihat dokumentasi [RBAC untuk Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) untuk maklumat lanjut.
+Lihat dokumentasi [RBAC untuk Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) untuk butiran.
 
-### Penyebaran model tidak boleh diakses
+### Penghantaran model tidak boleh diakses
 
 Jika ejen mengembalikan ralat berkaitan model:
 
-1. Sahkan model telah disebarkan: bar sisi Foundry → kembangkan projek → **Models** → periksa `gpt-4.1-mini` (atau model anda) dengan status **Succeeded**.
-2. Sahkan nama penyebaran sepadan: bandingkan `AZURE_AI_MODEL_DEPLOYMENT_NAME` dalam `.env` (atau `agent.yaml`) dengan nama penyebaran sebenar dalam bar sisi.
-3. Jika penyebaran tamat tempoh (peringkat percuma): sebarkan semula dari [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
+1. Sahkan model diterapkan: sidebar Foundry → kembangkan projek → **Model** → periksa untuk `gpt-4.1-mini` (atau model anda) dengan status **Berjaya**.
+2. Sahkan nama penghantaran sepadan: bandingkan `AZURE_AI_MODEL_DEPLOYMENT_NAME` dalam `.env` (atau `agent.yaml`) dengan nama penghantaran sebenar dalam sidebar.
+3. Jika penghantaran telah tamat tempoh (peringkat percuma): hantar semula dari [Katalog Model](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Buka Katalog Model**).
 
 ---
 
-## Isu Foundry Tempatan (Jalur B)
+## Isu Foundry Local (Jejak B)
 
-### Perkhidmatan Foundry Tempatan tidak berjalan
+### Perkhidmatan Foundry Local tidak berjalan
 
 ```powershell
-# Semak status
+# Check status
 foundry local status
 
-# Mulakan perkhidmatan jika ia dihentikan
+# Start the service if it is stopped
 foundry local start
 ```
 
-| Gejala | Sebab | Pembetulan |
+| Gejala | Punca | Pembetulan |
 |---------|-------|-----|
-| Pemeriksaan kesihatan mengembalikan `503` | Perkhidmatan tidak bermula | `foundry local start` atau klik **Start** di bar sisi Foundry Toolkit |
-| Pemeriksaan kesihatan tamat masa | Model masih memuat | Tunggu 30–60 s selepas mula; model besar ambil masa lebih lama |
+| Pemeriksaan kesihatan mengembalikan `503` | Perkhidmatan tidak dimulakan | `foundry local start` atau klik **Mula** dalam sidebar Foundry Toolkit |
+| Pemeriksaan kesihatan tamat masa | Model masih dimuatkan | Tunggu 30–60 s selepas memulakan; model yang lebih besar mengambil masa lebih lama |
 | `StatusCode: 404` pada `/v1/health` | Port salah | Lalai adalah `5273`. Semak `foundry local status` untuk port sebenar |
-| Sumber tidak mencukupi | Foundry Local memerlukan ~4 GB RAM kosong | Tutup aplikasi lain |
-| Muat turun model gagal | Ruang cakera rendah | Model 2–8 GB. Kosongkan ruang, kemudian `foundry model pull <name>` |
+| Sumber tidak mencukupi | Foundry Local memerlukan ~4 GB RAM percuma | Tutup aplikasi lain |
+| Muat turun model gagal | Ruang cakera rendah | Model adalah 2–8 GB. Kosongkan ruang, kemudian `foundry model pull <name>` |
 
-### Ketidaksesuaian nama model
+### Ketidakpadanan nama model
 
 ```powershell
-# Senaraikan model yang dimuat turun dan alias tepat mereka
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
-Tetapkan `AZURE_AI_MODEL_DEPLOYMENT_NAME` dalam `.env` kepada alias tepat yang dipaparkan (contohnya, `phi-4-mini`, bukan `Phi-4-mini`).
+Tetapkan `AZURE_AI_MODEL_DEPLOYMENT_NAME` dalam `.env` kepada alias tepat ditunjukkan (contoh, `phi-4-mini`, bukan `Phi-4-mini`).
 
-### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` pada jalankan tempatan (Jalur B)
+### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` pada larian tempatan (Jejak B)
 
-`main.py` makmal menggunakan `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local memerlukan pembolehubah ini menunjuk ke perkhidmatan tempatan - **bukan** `AZURE_AI_PROJECT_ENDPOINT`. Pastikan `.env` anda mengandungi:
+Lab ini menggunakan `main.py` dengan `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local memerlukan pembolehubah ini menunjuk ke perkhidmatan tempatan - **bukan** `AZURE_AI_PROJECT_ENDPOINT`. Pastikan `.env` anda mengandungi:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### Alat MCP masih membuat panggilan keluar (Jalur B)
+### Alat MCP masih membuat panggilan keluar (Jejak B)
 
-Ini dijangka. Alat `search_microsoft_learn_for_plan` mendapatkan sumber pembelajaran dari `https://learn.microsoft.com/api/mcp`. **Hanya pertanyaan nama kemahiran** yang dihantar melalui rangkaian - teks resume dan JD diproses sepenuhnya pada peranti anda dan tidak pernah dihantar. Jika perlu operasi sepenuhnya luar talian, tambah fallback `try/except` dalam alat yang mengembalikan URL statik `learn.microsoft.com` apabila endpoint tidak boleh dicapai.
+Ini dijangka. Alat `search_microsoft_learn_for_plan` mendapatkan sumber pembelajaran dari `https://learn.microsoft.com/api/mcp`. **Hanya pertanyaan nama kemahiran** yang menghantar melalui rangkaian - resume dan teks JD diproses sepenuhnya pada peranti anda dan tidak pernah dihantar. Jika operasi sepenuhnya luar talian diperlukan, tambah penggantian `try/except` dalam alat yang mengembalikan URL `learn.microsoft.com` statik apabila titik akhir tidak dapat dihubungi.
 
 ---
 
@@ -265,26 +265,26 @@ Ini dijangka. Alat `search_microsoft_learn_for_plan` mendapatkan sumber pembelaj
 
 Jika anda tersekat selepas mencuba pembetulan di atas:
 
-1. **Semak log pelayan** - Kebanyakan ralat menghasilkan jejak tumpukan Python dalam terminal. Baca traceback penuh.
-2. **Cari mesej ralat** - Salin teks ralat dan cari di [Microsoft Q&A untuk Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Buka isu** - Failkan isu di [repositori bengkel](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) dengan:
+1. **Semak log pelayan** - Kebanyakan ralat menghasilkan jejak tumpukan Python dalam terminal. Baca keseluruhan jejak balik.
+2. **Cari mesej ralat** - Salin teks ralat dan cari dalam [Microsoft Q&A untuk Perkhidmatan Ejen Foundry](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Buka isu** - Failkan isu pada [repositori bengkel](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) dengan:
    - Mesej ralat atau tangkapan layar
    - Versi pakej anda (`pip list | Select-String "agent-framework"`)
    - Versi Python anda (`python --version`)
-   - Sama ada isu berlaku secara tempatan atau selepas penyebaran
+   - Sama ada isu itu berlaku secara tempatan atau selepas penghantaran
 
 ---
 
 ### Titik semak
 
-- [ ] Anda tahu cara semak dan betulkan isu konfigurasi `.env`
-- [ ] Anda boleh mengesahkan versi pakej sepadan dengan matriks diperlukan
-- [ ] Anda tahu cara semak log kontena untuk kegagalan penyebaran
-- [ ] Anda boleh mengesahkan peranan RBAC dalam Azure Portal
+- [ ] Anda tahu bagaimana memeriksa dan membetulkan isu konfigurasi `.env`
+- [ ] Anda boleh mengesahkan versi pakej menyamai matriks yang diperlukan
+- [ ] Anda tahu bagaimana memeriksa log kontena untuk kegagalan penghantaran
+- [ ] Anda boleh mengesahkan peranan RBAC dalam Portal Azure
 
 ---
 
-**Sebelum:** [07 - Verify in Playground](07-verify-in-playground.md) · **Seterusnya:** [09 - Summary →](09-summary.md) · **Laman Utama:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
+**Sebelumnya:** [07 - Sahkan dalam Playground](07-verify-in-playground.md) · **Seterusnya:** [09 - Ringkasan →](09-summary.md) · **Utama:** [README Makmal 02](../README.md) · [Utama Bengkel](../../../README.md)
 
 ---
 

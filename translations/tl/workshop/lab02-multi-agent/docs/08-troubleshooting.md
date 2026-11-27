@@ -1,68 +1,68 @@
-# Module 8 - Pag-aayos ng Problema
+# Module 8 - Pagsasaayos ng Problema
 
-Tinatalakay ng module na ito ang mga karaniwang error, mga ayos, at mga estratehiya sa pag-debug na partikular sa multi-agent workflow.
+Tinatalakay ng module na ito ang mga karaniwang error, pag-ayos, at mga estratehiya sa pag-debug na partikular sa multi-agent workflow.
 
-## Mga isyu sa output ng Ahente
+## Mga isyu sa output ng Agent
 
-### Sinabi ng GapAnalyzer na “Wala pa rin akong katugmang ulat”
+### Sinasabi ng GapAnalyzer na “Wala pa rin akong matching report”
 
-**Sintomas:** Humihiling ang sagot ng GapAnalyzer na i-paste mo ang katugmang ulat na may “Missing Skills” at “Certification Gaps.” Nangyayari ito kahit na nagpadala ka ng resume at deskripsyon ng trabaho.
+**Sintomas:** Humihiling ang tugon ng GapAnalyzer na i-paste mo ang matching report na may “Missing Skills” at “Certification Gaps.” Nangyayari ito kahit na nagpadala ka ng resume at job description.
 
-**Sanhi:** Hindi naipasa ang teksto ng JD pababa kay JD Agent. Sa `context_mode="last_agent"`, si `resume_executor` lang ang executor na nakakakita ng orihinal na mensahe ng user. Kung ang `RESUME_PARSER_INSTRUCTIONS` ay hindi kasama ang teksto ng JD sa output nito, walang JD na mape-parse si JD Agent, hindi makakalkula ng MatchingAgent ang fit score, at makakatanggap ng walang saysay na input ang GapAnalyzer.
+**Sanhi:** Hindi ipinasa ang teksto ng JD pababa kay JD Agent. Sa `context_mode="last_agent"`, si `resume_executor` lang ang executor na nakakakita ng orihinal na mensahe ng user. Kung hindi isinasama ni `RESUME_PARSER_INSTRUCTIONS` ang teksto ng JD sa output nito, walang JD na maipapasok kay JD Agent para i-parse, hindi makakalkula ng MatchingAgent ang fit score, at makakatanggap ng walang kabuluhang input ang GapAnalyzer.
 
 **Diagnostiko:**
 
-Sa mga log ng server, hanapin ang MatchingAgent span. Kung ito ay naglalaman:
+Sa mga server log, hanapin ang span ng MatchingAgent. Kung ito ay naglalaman ng:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
 nawawala o sira ang pass-through.
 
-**Ayusin:** Kumpirmahin na ang `RESUME_PARSER_INSTRUCTIONS` sa `main.py` ay naglalaman ng seksyon na `[JOB DESCRIPTION PASS-THROUGH]` at ang patakaran:
+**Ayusin:** Kumpirmahin na ang `RESUME_PARSER_INSTRUCTIONS` sa `main.py` ay may seksyong `[JOB DESCRIPTION PASS-THROUGH]` at ang patakaran:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
-Kumpirmahin din na ang `JOB_DESCRIPTION_INSTRUCTIONS` ay mayroong relay rule na `[PARSED RESUME PASS-THROUGH]`:
+Kumpirmahin din na ang `JOB_DESCRIPTION_INSTRUCTIONS` ay may patakarang relay na `[PARSED RESUME PASS-THROUGH]`:
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Kung alinman sa mga instruction block ay stub mula sa scaffold wizard, palitan ito ng kumpletong bersyon mula sa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Kung ang alinman sa mga instruction block ay stub mula sa scaffold wizard, palitan ito ng kumpletong bersyon mula sa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
 ### Naglalabas ang MatchingAgent ng “Cannot compute fit score - no JD provided”
 
-Parehong ugat ang sanhi gaya ng nasa itaas. Nakakuha ang MatchingAgent ng output mula sa JD Agent ngunit nawawala o walang laman ang `[PARSED RESUME PASS-THROUGH]` na seksyon, kaya hindi nito maikumpara ang dalawang profile. Kumpirmahin:
-1. Kasama sa `JOB_DESCRIPTION_INSTRUCTIONS` ang relay rule na: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
-2. Sinusubaybayan ng `MATCHING_AGENT_INSTRUCTIONS` ang mga seksyon na `[JD REQUIREMENTS]` at `[PARSED RESUME PASS-THROUGH]`.
+Pareho pa rin ang ugat na sanhi tulad ng nasa itaas. Natanggap ng MatchingAgent ang output ni JD Agent ngunit ang seksyon ng `[PARSED RESUME PASS-THROUGH]` ay nawawala o walang laman, kaya hindi nito mai-kumpara ang dalawang profile. Kumpirmahin:
+1. Kasama sa `JOB_DESCRIPTION_INSTRUCTIONS` ang patakarang relay: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
+2. Sinasabi ng `MATCHING_AGENT_INSTRUCTIONS` sa agent na hanapin ang mga seksyon ng `[JD REQUIREMENTS]` at `[PARSED RESUME PASS-THROUGH]`.
 
-Palitan ang parehong instruction blocks ng kumpletong bersyon mula sa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Palitan ang parehong mga instruction block ng mga kumpletong bersyon mula sa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### Lumalabas nang doble ang sagot
+### Lumilitaw ang tugon nang dalawang beses
 
-**Sintomas:** Ang output ng GapAnalyzer (o ang buong pipeline output) ay lumalabas nang dalawang beses sa sagot ng Agent Inspector.
+**Sintomas:** Ang output ng GapAnalyzer (o ang buong pipeline output) ay lumilitaw nang dalawang beses sa tugon ng Agent Inspector.
 
-**Sanhi:** Gumagamit ang `WorkflowBuilder` ng OR-semantics para sa mga naghuhugpong dulo - nagpapasimula ang downstream executor kapag **anumang** predecessor ay natapos. Kung ang `matching_executor` ay may dalawang papasok na hugpong (isa mula sa `resume_executor` at isa mula sa `jd_executor`), mabilis itong masisimulan dalawang beses: minsan kapag natapos ang ResumeParser at muli kapag natapos ang JD Agent. Nagsisimula rin ang GapAnalyzer nang dalawang beses.
+**Sanhi:** Ginagamit ng `WorkflowBuilder` ang OR-semantics para sa mga papasok na edges - isang downstream executor ang tatakbo kapag natapos na ang **anumang** predecessor. Kung ang `matching_executor` ay may dalawang papasok na edges (isa mula sa `resume_executor` at isa mula sa `jd_executor`), tatakbo ito nang dalawang beses: isang beses pag natapos ang ResumeParser at muli pag natapos ang JD Agent. Tatakbo rin nang dalawang beses ang GapAnalyzer.
 
-**Ayusin:** Siguraduhing ang graph ng `WorkflowBuilder` ay isang mahigpit na sequential pipeline na walang fan-in:
+**Ayusin:** Siguraduhing ang graph ng `WorkflowBuilder` ay isang mahigpit na sunud-sunod na pipeline na walang fan-in:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # HINDI mula sa resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Kung may labis na linya na `.add_edge(resume_executor, matching_executor)`, alisin ito. Ibinibigay na ng `[PARSED RESUME PASS-THROUGH]` relay sa output ng JD Agent ang access ng MatchingAgent sa resume.
+Kung may labis na linyang `.add_edge(resume_executor, matching_executor)`, alisin ito. Nagbibigay na ang relay ng `[PARSED RESUME PASS-THROUGH]` sa output ni JD Agent ng access ng MatchingAgent sa resume.
 
 ---
 
-## Mga isyu sa kapaligiran at konfigurasyon
+## Mga isyu sa kapaligiran at pagsasaayos
 
-### Nawawala o maling mga halaga sa `.env`
+### Nawawala o maling mga halaga ng `.env`
 
-Dapat ang `.env` file ay nasa direktoryo ng `PersonalCareerCopilot/` (kapares ng `main.py`):
+Ang `.env` na file ay kailangang nasa direktoryo ng `PersonalCareerCopilot/` (parehong antas ng `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -89,34 +89,34 @@ FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Parehong path ang gumagamit ng `FOUNDRY_PROJECT_ENDPOINT`. Nagkakaiba ang halaga: ang cloud ay gumagamit ng `https://` Foundry endpoint; ang local ay gumagamit ng `http://localhost:5273/v1`. Patakbuhin ang `foundry model list` upang kumpirmahin ang eksaktong alias ng modelo para sa Path B.
+> Parehong gumagamit ng `FOUNDRY_PROJECT_ENDPOINT` ang dalawang path. Nagkakaiba ang halaga: ang cloud ay gumagamit ng `https://` Foundry endpoint; ang local ay gumagamit ng `http://localhost:5273/v1`. Patakbuhin ang `foundry model list` para kumpirmahin ang eksaktong alias ng modelo para sa Path B.
 
 > **Paano hanapin ang iyong `FOUNDRY_PROJECT_ENDPOINT`:** 
-- Buksan ang **Foundry Toolkit** sidebar sa VS Code → i-right-click ang iyong proyekto → **Copy Project Endpoint**. 
+- Buksan ang **Foundry Toolkit** sidebar sa VS Code → right-click ang iyong proyekto → **Copy Project Endpoint**. 
 - O pumunta sa [Azure Portal](https://portal.azure.com) → iyong Foundry project → **Overview** → **Project endpoint**.
 
-> **Paano hanapin ang iyong `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** Sa Foundry Toolkit sidebar, palawakin ang iyong proyekto → **Models** → hanapin ang pangalan ng iyong na-deploy na modelo (hal. `gpt-4.1-mini`).
+> **Paano hanapin ang iyong `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** Sa Foundry Toolkit sidebar, palawakin ang iyong proyekto → **Models** → hanapin ang pangalan ng deployed na modelo (hal. `gpt-4.1-mini`).
 
-### Prioidad ng mga env var
+### Pagkakasunod-sunod ng precedence ng env var
 
-Gumagamit ang `main.py` ng `load_dotenv(override=True)`, ibig sabihin:
+Ginagamit ng `main.py` ang `load_dotenv(override=True)`, na nangangahulugang:
 
-| Prayoridad | Pinagmulan | Panalo kapag pareho nakaset? |
+| Prayoridad | Pinagmulan | Nanalo kapag parehong na-set? |
 |----------|--------|------------------------|
-| 1 (pinakamataas) | `.env` file | Oo |
-| 2 | Shell / environment variable ng container | Ginagamit kapag wala ang parehong key sa `.env` |
+| 1 (pinakamataas) | file ng `.env` | Oo |
+| 2 | Shell / container environment variable | Ginagamit kapag walang parehong key sa `.env` |
 
-Sa lokal na pag-develop, ginagawa nitong totoo ang `.env` (ang pag-edit sa `.env` ay agad na nakakaapekto sa mga takbo). Sa naka-host na deployment, naglalagay ang Foundry ng mga environment variable sa antas ng container; dahil hindi bahagi ng deployed image ang `.env` para sa setup ng lab na ito, ginagamit ang mga pinagana sa container.
+Sa local development, ginagawa nitong source of truth ang `.env` (ang pag-edit ng `.env` ay agad na nakaapekto sa mga pagtakbo). Sa hosted deployment, nag-iinject ang Foundry ng mga environment variable sa antas ng container; dahil hindi bahagi ang `.env` ng deployed image para sa setup ng lab na ito, ginagamit ang mga injected na halaga ng container.
 
 ---
 
-## Compatibilidad ng bersyon
+## Pagkakatugma ng bersyon
 
 ### Matrix ng bersyon ng package
 
-Nangangailangan ang multi-agent workflow ng mga espesipikong bersyon ng package. Nagdudulot ng error sa runtime ang hindi pagtutugma ng bersyon.
+Nangangailangan ang multi-agent workflow ng mga tiyak na bersyon ng package. Ang hindi pagkakatugma ng mga bersyon ay nagdudulot ng mga error sa runtime.
 
-| Package | Kinakailangang Bersyon | Utos para Suriin |
+| Package | Kinakailangang Bersyon | Command para Suriin |
 |---------|-----------------|---------------|
 | `agent-framework-foundry` | pinakabago | `pip show agent-framework-foundry` |
 | `agent-framework-foundry-hosting` | pinakabago | `pip show agent-framework-foundry-hosting` |
@@ -129,18 +129,18 @@ Nangangailangan ang multi-agent workflow ng mga espesipikong bersyon ng package.
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Ayusin: i-reinstall ang agent-framework-foundry
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Ayusin: i-upgrade ang mcp package
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
-### Suriin ang lahat ng bersyon nang sabay-sabay
+### Suriin lahat ng bersyon ng sabay-sabay
 
 ```powershell
 pip list | Select-String "agent-framework|mcp|debugpy"
@@ -159,38 +159,38 @@ mcp                              x.x.x
 
 ## Mga isyu sa deployment
 
-### Nabibigo ang container na magsimula pagkatapos ng deployment
+### Nabibigo ang container na magsimula pagkatapos i-deploy
 
-1. **Suriin ang logs ng container:**
-   - Buksan ang **Foundry Toolkit** sidebar → palawakin ang **Hosted Agents (Preview)** → i-click ang iyong ahente → palawakin ang bersyon → **Container Details** → **Logs**.
-   - Hanapin ang mga Python stack trace o mga error sa nawawalang module.
+1. **Suriin ang mga log ng container:**
+   - Buksan ang **Foundry Toolkit** sidebar → sa ilalim ng iyong proyekto, i-click ang **Agents** → tab na **Hosted Agent** → i-click ang iyong agent. Suriin ang **Status** sa tab na **Details**, pagkatapos buksan ang tab na **Playground** at gamitin ang tab na **Logs** sa panel ng **Session Details** upang makita ang output ng container.
+   - Hanapin ang mga Python stack trace o mga error ng nawawalang module.
 
-2. **Mga karaniwang dahilan ng pagkabigo sa pagsisimula ng container:**
+2. **Mga karaniwang pagkabigo sa pagsisimula ng container:**
 
-   | Error sa logs | Sanhi | Ayusin |
+   | Error sa mga log | Sanhi | Ayusin |
    |--------------|-------|-----|
-   | `ModuleNotFoundError` | Kulang sa `requirements.txt` na package | Idagdag ang package, i-deploy muli |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | Hindi nakaset ang `agent.yaml` o `.env` env vars | I-update ang `agent.yaml` → seksyon ng `environment_variables` (hosted) o `.env` (local) |
-   | `azure.identity.CredentialUnavailableError` | Hindi naka-configure ang Managed Identity | Awtomatikong isinet ng Foundry - siguraduhing nagde-deploy gamit ang extension |
-   | `OSError: port 8088 already in use` | Mali ang port na naka-expose sa Dockerfile o may conflict sa port | Suriin ang `EXPOSE 8088` sa Dockerfile at `CMD ["python", "main.py"]` |
-   | Lumalabas ang container na may code 1 | Hindi nahahandle na exception sa `main()` | Subukan lokal muna ([Module 5](05-test-locally.md)) para mahuli ang mga error bago mag-deploy |
+   | `ModuleNotFoundError` | `requirements.txt` nawawalang package | Idagdag ang package, muling i-deploy |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` o `.env` env vars hindi nakaset | I-update ang `agent.yaml` → `environment_variables` seksyon (hosted) o `.env` (local) |
+   | `azure.identity.CredentialUnavailableError` | Managed Identity hindi naka-configure | Awtomatikong sine-set ng Foundry ito - siguraduhing nagde-deploy ka gamit ang extension |
+   | `OSError: port 8088 already in use` | Dockerfile nag-eexpose ng maling port o may port conflict | Verify `EXPOSE 8088` sa Dockerfile at `CMD ["python", "main.py"]` |
+   | Container lumalabas na may code 1 | Unhandled exception sa `main()` | Subukan muna lokal ([Module 5](05-test-locally.md)) para makahuli ng mga error bago i-deploy |
 
-3. **I-deploy muli pagkatapos ayusin:**
-   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → piliin ang parehong ahente → mag-deploy ng bagong bersyon.
+3. **Muling i-deploy pagkatapos ayusin:**
+   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → piliin ang parehong agent → i-deploy ang bagong bersyon.
 
-### Mabagal ang deployment
+### Matagal ang deployment
 
-Mas matagal magsimula ang mga multi-agent container dahil lumilikha sila ng 4 na instance ng ahente sa pagsisimula. Karaniwang oras ng pagsisimula:
+Mas tumatagal ang pagsisimula ng multi-agent containers dahil gumagawa ito ng 4 agent instances sa pagsisimula. Normal na oras ng pagsisimula:
 
 | Yugto | Inaasahang tagal |
 |-------|------------------|
-| Pagbuo ng container image | 1-3 minuto |
-| Pagtulak ng image sa ACR | 30-60 segundo |
-| Pagsisimula ng container (isang ahente) | 15-30 segundo |
+| Pagtayo ng container image | 1-3 minuto |
+| Pag-push ng image sa ACR | 30-60 segundo |
+| Pagsisimula ng container (single agent) | 15-30 segundo |
 | Pagsisimula ng container (multi-agent) | 30-120 segundo |
-| Available na ang ahente sa Playground | 1-2 minuto pagkatapos ng "Started" |
+| Agent available sa Playground | 1-2 minuto pagkatapos ng "Started" |
 
-> Kung ang “Pending” na status ay tumatagal nang lagpas sa 5 minuto, suriin ang logs ng container para sa mga error.
+> Kung ang status na "Pending" ay tumatagal nang higit sa 5 minuto, tingnan ang mga log ng container para sa mga error.
 
 ---
 
@@ -198,22 +198,22 @@ Mas matagal magsimula ang mga multi-agent container dahil lumilikha sila ng 4 na
 
 ### `403 Forbidden` o `AuthorizationFailed`
 
-Kailangan mo ng papel na **[Foundry User](https://aka.ms/foundry-ext-project-role)** sa iyong Foundry project (dating tinawag na **Azure AI User** - hindi nagbago ang role ID):
+Kailangan mo ang **[Foundry User](https://aka.ms/foundry-ext-project-role)** role sa iyong Foundry project (dating tinatawag na **Azure AI User** - hindi nagbago ang role ID):
 
-1. Pumunta sa [Azure Portal](https://portal.azure.com) → ang iyong Foundry **project** resource.
+1. Pumunta sa [Azure Portal](https://portal.azure.com) → resource ng iyong Foundry **project**.
 2. I-click ang **Access control (IAM)** → **Role assignments**.
-3. Hanapin ang iyong pangalan → kumpirmahin ang **Foundry User** (o ang lumang label na **Azure AI User**) ay nakalista.
+3. Hanapin ang iyong pangalan → kumpirmahin na nakalista ang **Foundry User** (o ang legacy label na **Azure AI User**).
 4. Kung wala: **Add** → **Add role assignment** → hanapin ang **Foundry User** → i-assign sa iyong account.
 
-Tingnan ang dokumentasyon ng [RBAC para sa Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) para sa mga detalye.
+Tingnan ang dokumentasyon ng [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) para sa detalye.
 
-### Hindi maa-access ang deployment ng modelo
+### Hindi ma-access ang deployment ng modelo
 
-Kung nagbabalik ang ahente ng mga error tungkol sa modelo:
+Kung nagbabalik ang agent ng mga error na may kinalaman sa modelo:
 
-1. Kumpirmahin na na-deploy ang modelo: Foundry sidebar → palawakin ang proyekto → **Models** → hanapin ang `gpt-4.1-mini` (o iyong modelo) na may status na **Succeeded**.
-2. Kumpirmahing tugma ang deployment name: ihambing ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` sa `.env` (o `agent.yaml`) sa aktuwal na pangalan ng deployment sa sidebar.
-3. Kung nag-expire ang deployment (free tier): mag-deploy muli mula sa [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
+1. I-verify na na-deploy ang modelo: sa Foundry sidebar → palawakin ang project → **Models** → tingnan kung nandiyan ang `gpt-4.1-mini` (o ang iyong modelo) na may status na **Succeeded**.
+2. I-verify na tugma ang pangalan ng deployment: ikumpara ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` sa `.env` (o `agent.yaml`) sa totoong pangalan ng deployment sa sidebar.
+3. Kung nag-expire ang deployment (free tier): mag-redeploy mula sa [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
 
 ---
 
@@ -222,69 +222,69 @@ Kung nagbabalik ang ahente ng mga error tungkol sa modelo:
 ### Hindi tumatakbo ang Foundry Local service
 
 ```powershell
-# Suriin ang katayuan
+# Check status
 foundry local status
 
-# Simulan ang serbisyo kung ito ay huminto
+# Start the service if it is stopped
 foundry local start
 ```
 
 | Sintomas | Sanhi | Ayusin |
 |---------|-------|-----|
 | Nagbabalik ang health check ng `503` | Hindi nagsimula ang serbisyo | `foundry local start` o i-click ang **Start** sa Foundry Toolkit sidebar |
-| Nag-timeout ang health check | Nilo-load pa ang modelo | Maghintay ng 30–60 s pagkatapos magsimula; mas malaki ang modelo, mas matagal |
-| `StatusCode: 404` sa `/v1/health` | Mali ang port | Default ay `5273`. Suriin ang `foundry local status` para sa aktuwal na port |
-| Kulang sa resources | Nangangailangan ng ~4 GB RAM na libre ang Foundry Local | Isara ang ibang aplikasyon |
-| Nabigo ang pag-download ng modelo | Mababa ang disk space | Ang mga modelo ay 2–8 GB. Magpataas ng space, pagkatapos ay `foundry model pull <name>` |
+| Nagtatagal ng timeout ang health check | Naka-load pa ang modelo | Maghintay ng 30–60 s pagkatapos simulan; mas malalaking modelo ay mas matagal |
+| `StatusCode: 404` sa `/v1/health` | Maling port | Default ay `5273`. Tingnan ang `foundry local status` para sa totoong port |
+| Kakulangan sa resources | Nangangailangan ang Foundry Local ng halos 4 GB RAM na libre | Isara ang ibang mga aplikasyon |
+| Nabigo ang pag-download ng modelo | Mababa ang disk space | Ang mga modelo ay 2–8 GB. Magpalaya ng espasyo, pagkatapos `foundry model pull <name>` |
 
-### Hindi tumutugma ang pangalan ng modelo
+### Hindi tugmang pangalan ng modelo
 
 ```powershell
-# Ilahad ang mga na-download na modelo at ang kanilang eksaktong mga alyas
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
-Itakda ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` sa `.env` sa eksaktong alias na ipinapakita (hal. `phi-4-mini`, hindi `Phi-4-mini`).
+I-set ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` sa `.env` sa eksaktong alias na ipinakita (hal., `phi-4-mini`, hindi `Phi-4-mini`).
 
-### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` sa lokal na takbo (Path B)
+### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` sa lokal na pagpapatakbo (Path B)
 
-Ginagamit ng lab na `main.py` ang `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Kailangan ng Foundry Local na ituro ang variable na ito sa lokal na serbisyo - **hindi** sa `AZURE_AI_PROJECT_ENDPOINT`. Siguraduhin na ang iyong `.env` ay naglalaman:
+Ang `main.py` ng lab ay gumagamit ng `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Nangangailangan ang Foundry Local na ituro ang variable na ito sa lokal na serbisyo - **hindi** sa `AZURE_AI_PROJECT_ENDPOINT`. Siguraduhing ang iyong `.env` ay naglalaman ng:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### Patuloy pa ring gumagawa ng outbound call ang MCP tool (Path B)
+### Ang MCP tool ay gumagawa pa rin ng outbound call (Path B)
 
-Inaasahan ito. Kinukuha ng tool na `search_microsoft_learn_for_plan` ang mga learning resources mula sa `https://learn.microsoft.com/api/mcp`. **Ang query lang sa pangalan ng skill** ang dumadaan sa network - ang resume at teksto ng JD ay pinoproseso nang buo sa iyong device at hindi kailanman ipinapadala. Kung kailangan ng ganap na offline na operasyon, magdagdag ng `try/except` fallback sa tool na magbabalik ng static na `learn.microsoft.com` URL kapag hindi maabot ang endpoint.
+Ito ay inaasahan. Kinukuha ng `search_microsoft_learn_for_plan` tool ang mga learning resources mula sa `https://learn.microsoft.com/api/mcp`. **Ang query lamang ng skill-name** ang dumadaan sa network - ang resume at JD text ay pinoproseso nang buo sa iyong device at hindi ipinapadala kailanman. Kung kailangan ang ganap na offline na operasyon, magdagdag ng `try/except` fallback sa tool na nagbabalik ng static na `learn.microsoft.com` URL kapag hindi maabot ang endpoint.
 
 ---
 
-## Paghahanap ng tulong
+## Pagkuha ng tulong
 
-Kung natigil ka pagkatapos subukan ang mga ayos sa itaas:
+Kung na-stuck ka pagkatapos subukan ang mga ayos sa itaas:
 
-1. **Suriin ang server logs** - Karamihan sa mga error ay gumagawa ng Python stack trace sa terminal. Basahin ang buong traceback.
-2. **Hanapin ang mensahe ng error** - Kopyahin ang error text at hanapin sa [Microsoft Q&A para sa Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Magbukas ng isyu** - Mag-file ng isyu sa [workshop repository](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) na may:
+1. **Suriin ang mga server logs** - Karamihan sa mga error ay naglalabas ng Python stack trace sa terminal. Basahin ang buong traceback.
+2. **Hanapin ang mensahe ng error** - Kopyahin ang teksto ng error at hanapin ito sa [Microsoft Q&A para sa Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Magbukas ng isyu** - Mag-file ng isyu sa [workshop repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) na may kasamang:
    - Mensahe ng error o screenshot
-   - Mga bersyon ng iyong package (`pip list | Select-String "agent-framework"`)
-   - Iyong bersyon ng Python (`python --version`)
-   - Kung lokal ba o pagkatapos ng deployment ang isyu
+   - Mga bersyon ng package (`pip list | Select-String "agent-framework"`)
+   - Bersyon ng iyong Python (`python --version`)
+   - Kung ang isyu ay lokal o pagkatapos ng deployment
 
 ---
 
 ### Checkpoint
 
-- [ ] Alam mo kung paano suriin at ayusin ang mga isyu sa konfigurasyon ng `.env`
-- [ ] Kaya mong tiyakin na tumutugma ang mga bersyon ng package sa kinakailangang matrix
-- [ ] Alam mo kung paano suriin ang mga log ng container para sa mga pagkabigo sa deployment
-- [ ] Kaya mong tiyakin ang mga RBAC role sa Azure Portal
+- [ ] Alam mo kung paano suriin at ayusin ang mga isyu sa configuration ng `.env`
+- [ ] Kaya mong beripikahin na tugma ang mga bersyon ng package sa kinakailangang matrix
+- [ ] Alam mo kung paano tingnan ang mga log ng container para sa mga pagkabigo sa deployment
+- [ ] Kaya mong beripikahin ang mga RBAC roles sa Azure Portal
 
 ---
 
-**Nakaraan:** [07 - Verify in Playground](07-verify-in-playground.md) · **Susunod:** [09 - Summary →](09-summary.md) · **Tahanan:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
+**Nagdaan:** [07 - Verify in Playground](07-verify-in-playground.md) · **Susunod:** [09 - Summary →](09-summary.md) · **Bahay:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

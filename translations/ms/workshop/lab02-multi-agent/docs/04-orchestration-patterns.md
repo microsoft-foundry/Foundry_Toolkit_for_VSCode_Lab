@@ -2,34 +2,34 @@
 
 ⏱️ ~10 minit
 
-Dalam modul ini, anda meneroka corak orkestrasi yang digunakan dalam Resume Job Fit Evaluator dan mempelajari cara membaca, mengubah suai, dan meluaskan graf aliran kerja. Memahami corak ini adalah penting untuk menyahpepijat isu aliran data dan membina [alur kerja multi-ejen](https://learn.microsoft.com/agent-framework/workflows/) anda sendiri.
+Dalam modul ini, anda meneroka corak orkestrasi yang digunakan dalam Resume Job Fit Evaluator dan belajar bagaimana membaca, mengubah suai, dan mengembangkan graf aliran kerja. Memahami corak ini penting untuk menyahpepijat isu aliran data dan membina [aliran kerja berbilang ejen](https://learn.microsoft.com/agent-framework/workflows/) anda sendiri.
 
 ---
 
-## Corak 1: Rantaian berturutan
+## Corak 1: Rantaian berurutan
 
-Corak asas dalam aliran kerja adalah **rantaian berturutan** - output setiap ejen terus memakan input ejen seterusnya.
+Corak asas dalam aliran kerja ialah **rantaian berurutan** - output setiap ejen terus memberi makan kepada yang seterusnya.
 
 ```mermaid
 flowchart LR
-    RP[Penganalisis Resume] --> JD[Ejen JD]
-    JD --> MA[Ejen Padanan]
-    MA --> GA[Penganalisis Jurang]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
 Dalam kod, setiap panggilan `add_edge()` mencipta satu langkah dalam rantaian:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # Output ResumeParser → Ejen JD
-.add_edge(jd_executor, matching_executor)     # Output Ejen JD → Ejen Padanan
-.add_edge(matching_executor, gap_executor)    # Output Ejen Padanan → Penganalisis Jurang
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Mengapa berturutan, bukan fan-out/fan-in?** `WorkflowBuilder` menggunakan **semantik OR** untuk tepi masuk: pelaksana hiliran akan beroperasi sebaik sahaja **mana-mana** pendahulu selesai. Jika `matching_executor` mempunyai dua tepi masuk (dari `resume_executor` dan `jd_executor`), ia akan dicetuskan dua kali - sekali apabila ResumeParser selesai dan sekali lagi apabila JD Agent selesai - menyebabkan GapAnalyzer juga berjalan dua kali dan output muncul dua kali. Saluran berturutan mengelakkan ini sepenuhnya.
+> **Mengapa berurutan, bukan fan-out/fan-in?** `WorkflowBuilder` menggunakan **semantik OR** untuk tepi masuk: pelaksana hiliran akan mula sebaik sahaja **mana-mana** pendahulu selesai. Jika `matching_executor` mempunyai dua tepi masuk (daripada `resume_executor` dan `jd_executor`), ia akan mencetus dua kali - sekali apabila ResumeParser selesai dan sekali lagi apabila JD Agent selesai - menyebabkan GapAnalyzer juga berjalan dua kali dan output muncul dua kali. Saluran berurutan mengelakkan ini sepenuhnya.
 
-## Corak 2: Penyampai Kandungan
+## Corak 2: Penyaluran Kandungan
 
-Oleh kerana `context_mode="last_agent"` bermaksud setiap pelaksana hanya melihat output **pendahulu langsungnya**, ejen dalam rantaian berturutan mesti secara eksplisit menyampaikan data yang diperlukan oleh ejen hiliran.
+Kerana `context_mode="last_agent"` bermaksud setiap pelaksana hanya melihat output **pendahulunya secara langsung**, ejen dalam rantaian berurutan mesti secara eksplisit menghantar data yang diperlukan oleh ejen hiliran.
 
 Dalam aliran kerja ini:
 - **ResumeParser** menyalin JD secara tepat ke dalam `[JOB DESCRIPTION PASS-THROUGH]` (supaya JD Agent boleh menemuinya).
@@ -45,30 +45,30 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Setiap bahagian penyampai mesti disalin **secara tepat** - merangkum atau memparafrasekannya akan memecahkan ejen hiliran yang bergantung padanya.
+Setiap bahagian penyaluran mesti disalin **secara tepat** - meringkaskan atau memparafrasa akan merosakkan ejen hiliran yang bergantung padanya.
 
 ---
 
-## Graf penuh
+## Graf lengkap
 
-Menggabungkan corak rantaian berturutan dan penyampai kandungan menghasilkan aliran kerja penuh:
+Menggabungkan corak rantaian berurutan dan penyaluran kandungan menghasilkan aliran kerja penuh:
 
 ```mermaid
 flowchart LR
-    U[Input Pengguna] --> RP[Penganalisis Resume]
-    RP --> JD[Ejen JD]
-    JD --> MA[Ejen Pencocokan]
-    MA --> GA[Penganalisis Jurang + MCP]
-    GA --> O[Output Akhir]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Pemeriksa Ejen menunjukkan struktur graf yang sama ini apabila ejen dijalankan secara tempatan. Rujuk [Modul 5 - Uji Secara Tempatan](05-test-locally.md) untuk tangkapan skrin.
+Agent Inspector menunjukkan struktur graf yang sama ini apabila ejen berjalan secara tempatan. Rujuk [Modul 5 - Uji Secara Tempatan](05-test-locally.md) untuk tangkapan skrin.
 
 ---
 
 ## Membaca kod WorkflowBuilder
 
-Fungsi penuh `create_workflow()` ada dalam [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tiga panggilan `add_edge()` membina saluran berturutan:
+Graf aliran kerja dibina dalam fungsi `main()` di [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tiga panggilan `add_edge()` membina saluran berurutan:
 
 | # | Tepi | Kesan |
 |---|------|--------|
@@ -82,52 +82,52 @@ Fungsi penuh `create_workflow()` ada dalam [`PersonalCareerCopilot/main.py`](../
 
 ### Menambah ejen baru
 
-Untuk menambah ejen kelima (contoh, **InterviewPrepAgent** selepas GapAnalyzer):
+Untuk menambah ejen kelima (contohnya, **InterviewPrepAgent** selepas GapAnalyzer):
 
 1. Takrifkan pemalar `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Cipta objek `Agent` + `AgentExecutor` (corak yang sama seperti empat ejen sedia ada).
+2. Cipta objek `Agent` + `AgentExecutor` (corak yang sama seperti empat yang sedia ada).
 3. Tambah `.add_edge(gap_executor, interview_exec)` dalam `WorkflowBuilder`.
 4. Kemas kini `output_executors=[interview_exec]`.
 
-> **Penting:** `start_executor` adalah satu-satunya ejen yang menerima input pengguna mentah. Semua ejen lain menerima output dari tepi huluannya.
+> **Penting:** `start_executor` adalah satu-satunya ejen yang menerima input pengguna mentah. Semua ejen lain menerima output dari tepi huluan mereka.
 
 ---
 
-## Kesilapan graf biasa
+## Kesalahan graf biasa
 
-| Kesilapan | Simptom | Penyelesaian |
+| Kesalahan | Gejala | Penyelesaian |
 |---------|---------|-----|
 | Tepi hilang ke `output_executors` | Ejen berjalan tetapi output kosong | Pastikan ada laluan dari `start_executor` ke setiap ejen dalam `output_executors` |
-| Kebergantungan pusingan | Gelung tanpa henti atau tamat masa | Semak tiada ejen memberi maklum balas ke ejen huluan |
+| Kebergantungan bulat | Gelung infiniti atau tamat masa | Semak bahawa tiada ejen memberi maklum balas ke ejen huluan |
 | Ejen dalam `output_executors` tanpa tepi masuk | Output kosong | Tambah sekurang-kurangnya satu `add_edge(source, that_agent)` |
-| Pelbagai `output_executors` tanpa fan-in | Output hanya dari satu respon ejen | Gunakan satu ejen output yang mengagregat, atau terima output berganda |
-| `start_executor` hilang | `ValueError` semasa bina | Sentiasa tentukan `start_executor` dalam `WorkflowBuilder()` |
+| Berbilang `output_executors` tanpa fan-in | Output hanya mengandungi respons satu ejen | Gunakan satu ejen output yang menggabungkan, atau terima berbilang output |
+| Tiada `start_executor` | `ValueError` semasa bina | Sentiasa nyatakan `start_executor` dalam `WorkflowBuilder()` |
 
 ---
 
-## Penyahpepijatan graf
+## Menyahpepijat graf
 
-### Menggunakan Pemeriksa Ejen
+### Menggunakan Agent Inspector
 
 1. Mulakan ejen secara tempatan dengan F5.
-2. Buka Pemeriksa Ejen (`Ctrl+Shift+P` → **Foundry Toolkit: Buka Pemeriksa Ejen**).
+2. Buka Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
 3. Hantar mesej ujian.
-4. Dalam panel respons Pemeriksa, cari **output penstriman** - ia menunjukkan sumbangan setiap ejen secara berturutan.
+4. Dalam panel respons Inspector, cari **output streaming** - ia menunjukkan sumbangan setiap ejen secara berurutan.
 
 
-### Menggunakan log
+### Menggunakan logging
 
-Tambah log ke `main.py` untuk menjejaki aliran data:
+Tambah logging ke `main.py` untuk menjejaki aliran data:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Dalam main(), selepas membina aliran kerja:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Log pelayan menunjukkan turutan pelaksanaan ejen dan panggilan alat MCP:
+Log pelayan menunjukkan urutan pelaksanaan ejen dan panggilan alat MCP:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### Titik semak
 
-- [ ] Anda boleh mengenal pasti dua corak orkestrasi dalam aliran kerja: rantaian berturutan dan penyampai kandungan
-- [ ] Anda faham mengapa `context_mode="last_agent"` memerlukan penyampaian data eksplisit antara ejen
-- [ ] Anda boleh membaca kod `WorkflowBuilder` dan memetakan setiap panggilan `add_edge()` kepada graf visual
-- [ ] Anda tahu bagaimana untuk menambah ejen baru ke hujung saluran
-- [ ] Anda boleh mengenal pasti kesilapan graf umum dan simptomnya
+- [ ] Anda boleh mengenal pasti dua corak orkestrasi dalam aliran kerja: rantaian berurutan dan penyaluran kandungan
+- [ ] Anda memahami mengapa `context_mode="last_agent"` memerlukan penyaluran data secara eksplisit antara ejen
+- [ ] Anda boleh membaca kod `WorkflowBuilder` dan memetakan setiap panggilan `add_edge()` ke graf visual
+- [ ] Anda tahu bagaimana menambah ejen baru ke hujung saluran
+- [ ] Anda boleh mengenal pasti kesalahan graf biasa dan gejalanya
 
 ---
 
-**Sebelumnya:** [03 - Konfigurasi Ejen & Persekitaran](03-configure-agents.md) · **Seterusnya:** [05 - Uji Secara Tempatan →](05-test-locally.md)
+**Sebelumnya:** [03 - Konfigurasikan Ejen & Persekitaran](03-configure-agents.md) · **Seterusnya:** [05 - Uji Secara Tempatan →](05-test-locally.md)
 
 ---
 

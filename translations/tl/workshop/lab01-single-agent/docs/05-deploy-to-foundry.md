@@ -1,10 +1,10 @@
-# Module 5 - I-deploy sa Foundry Agent Service
+# Module 5 - Mag-deploy sa Foundry Agent Service
 
-⏱️ ~10 minuto
+⏱️ ~10 min
 
-> ⚠️ **Mga gumagamit ng Path B:** Nangangailangan ang module na ito ng subscription sa Foundry. Kung gumagamit ka ng Foundry Local, laktawan ang seksyon patungo sa [Module 07 - Buod](07-summary.md). Matagumpay mong natapos ang local development workflow!
+> ⚠️ **Mga gumagamit ng Path B:** Nangangailangan ng Foundry subscription ang module na ito. Kung gumagamit ka ng Foundry Local, laktawan ito at pumunta sa [Module 07 - Summary](07-summary.md). Matagumpay mong natapos ang lokal na workflow ng pag-develop!
 
-Sa module na ito, ide-deploy mo ang iyong locally-tested na agent sa Microsoft Foundry bilang isang **Hosted Agent**. Ang deployment ay bumubuo ng container image, itinutulak ito sa Azure Container Registry, at sinisimulan ang agent sa managed infrastructure ng Foundry.
+Sa module na ito, i-de-deploy mo ang iyong lokal na nasubok na agent sa Microsoft Foundry bilang isang **Hosted Agent**. Ang deployment ay bumubuo ng container image, itinutulak ito sa Azure Container Registry, at sinisimulan ang agent sa pinamamahalaang imprastraktura ng Foundry.
 
 ### Deployment pipeline
 
@@ -15,9 +15,9 @@ flowchart LR
     Image"]
     B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|magrehistro ng ahente| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|simulan ang lalagyan| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -29,13 +29,13 @@ flowchart LR
 
 ---
 
-## Pagsusuri ng mga kinakailangan
+## Pagsusuri ng mga Kinakailangan
 
-Bago mag-deploy, tiyakin ang mga sumusunod:
+Bago mag-deploy, siguraduhing:
 
-- [ ] Nakapasa ang Agent sa lahat ng 3 lokal na senaryo mula sa [Module 04](04-test-locally.md)
-- [ ] Mayroon kang **Azure AI User** na papel sa antas ng proyekto ([Module 01, Itakda ang RBAC](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] Nakal login ka sa Azure sa VS Code (Makikita ang iyong pangalan sa icon ng Accounts)
+- [ ] Nakapasa ang Agent sa lahat ng 3 lokal na scenarios mula sa [Module 04](04-test-locally.md)
+- [ ] May hawak kang **Azure AI User** role sa antas ng proyekto ([Module 01, Mag-assign ng RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Nakalog-in ka sa Azure sa VS Code (Ipinapakita ng icon ng Accounts ang iyong pangalan)
 
 ---
 
@@ -44,7 +44,7 @@ Bago mag-deploy, tiyakin ang mga sumusunod:
 ### Opsyon A: Mag-deploy mula sa Agent Inspector (inirerekomenda)
 
 Kung bukas ang Agent Inspector (mula sa testing):
-1. I-click ang **Deploy** na button sa kanang itaas na sulok (icon ng ulap ↑).
+1. Pindutin ang **Deploy** na button sa itaas-kanan (icon ng ulap ↑).
 
 ### Opsyon B: Mag-deploy mula sa Command Palette
 
@@ -54,78 +54,78 @@ Kung bukas ang Agent Inspector (mula sa testing):
 
 ## Hakbang 2: I-configure ang deployment
 
-Tatanungin ka ng wizard tungkol sa:
+Hihingin sa iyo ng wizard ang mga sumusunod:
 
 ![Project Config](../../../../../translated_images/tl/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
 | Prompt | Pinili |
-|--------|-----------|
-| **Subscription** | Iyong Azure Subscription |
+|--------|---------|
+| **Subscription** | Ang iyong Azure Subscription |
 | **Target project** | Ang iyong Foundry project (hal. `workshop-agents`) |
 
-I-click ang **next** para i-configure ang iyong agent.
+Pindutin ang **next** upang i-configure ang iyong agent.
 
 ![Basics config](../../../../../translated_images/tl/05-configure-basics.4d5f3d6b0d96f033.webp)
 
 | Prompt | Pinili |
-|--------|-----------|
+|--------|---------|
 | **Deployment Method** | Container |
-| **Container registry** | **Default ACR** (Nililikha at pinamamahalaan ito ng Microsoft Foundry para sa iyo) |
-| **Deploy to** | Bagong Agent (pangalan, `executive-summary-agent`) |
+| **Container registry** | **Default ACR** (Ginagawa at pinamamahalaan ito ng Microsoft Foundry para sa iyo) |
+| **Deploy to** | New Agent (pangalan, `executive-summary-agent`) |
 
-I-click ang **next** upang suriin at ideploy ang iyong agent.
+Pindutin ang **next** upang repasuhin at i-deploy ang iyong agent.
 
 ![Review and deploy](../../../../../translated_images/tl/05-review-deploy.12b449d426bff886.webp)
 
 | Prompt | Pinili |
-|--------|-----------|
-| **CPU at memory** | **0.25 CPU cores, 0.5 Gi memory** (sapat para sa workshop) |
+|--------|---------|
+| **CPU and memory** | **0.5 CPU cores, 1.0 Gi memory** (default - sapat para sa workshop) |
 
 ---
 
-## Hakbang 3: I-deploy at subaybayan
+## Hakbang 3: I-deploy at i-monitor
 
-1. I-click ang **Deploy**.
-2. Bantayan ang **Output** panel (piliin ang **Microsoft Foundry** mula sa dropdown).
-3. Dadaan ang deployment sa mga sumusunod na yugto:
-   - **Docker build** - bumubuo ng container mula sa iyong Dockerfile
+1. Pindutin ang **Deploy**.
+2. Tignan ang **Output** panel (pumili ng **Microsoft Foundry** mula sa dropdown).
+3. Ang deployment ay dumadaan sa mga sumusunod na yugto:
+   - **Docker build** - binubuo ang container mula sa iyong Dockerfile
    - **Docker push** - itinutulak ang image sa ACR (1–3 minuto sa unang deployment)
-   - **Agent registration** - nililikha ang hosted agent sa Foundry
+   - **Agent registration** - lumilikha ng hosted agent sa Foundry
    - **Container start** - sinisimulan gamit ang system-managed identity
 
-4. Kapag tapos na, lalabas ang isang notification:
-   > **matagumpay na na-deploy ang my-agent.** `View logs` `Run agent`
+4. Kapag tapos na, may lalabas na notification:
+   > **executive-summary-agent ay matagumpay na na-deploy.** `View logs` `Run agent`
 
-5. I-click ang **Run agent** upang buksan ang Agent Playground.
+5. Pindutin ang **Run agent** upang buksan ang Agent Playground.
 
 ![Deployment success showing Agent Playground with Running status](../../../../../translated_images/tl/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
 ### Mga kahulugan ng status ng deployment
 
 | Status | Kahulugan |
-|--------|---------|
+|--------|----------|
 | **Running** | Handa na ang container, tumutugon ang agent |
-| **Pending** | Nagsisimula ang container - maghintay ng 30–60 segundo |
-| **Failed** | Suriin ang mga log (tingnan ang troubleshooting sa ibaba) |
+| **Pending** | Nagsisimula pa ang container - maghintay ng 30–60 segundo |
+| **Failed** | Tingnan ang mga logs (tingnan ang troubleshooting sa ibaba) |
 
 ---
 
-## Mga karaniwang error sa deployment
+## Mga Karaniwang Error sa Deployment
 
-| Error | Pinagmulan | Ayusin |
-|-------|-----------|-----|
-| `agents/write` permission denied | Wala ang **Azure AI User** na papel sa antas ng proyekto | [Module 01, Itakda ang RBAC](01-setup.md#deploy-a-model--assign-rbac) |
-| Hindi tumatakbo ang Docker | Hindi nasimulan ang Docker Desktop | Simulan ang Docker Desktop → tiyakin ang `docker info` |
-| ACR authorization | Hindi makakuha ang managed identity ng image | Tingnan ang [Module 08 - Troubleshooting](08-troubleshooting.md) |
+| Error | Ugat ng problema | Solusyon |
+|-------|-----------------|---------|
+| `agents/write` permission denied | Wala ang **Azure AI User** role sa antas ng proyekto | [Module 01, Mag-assign ng RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker hindi tumatakbo | Hindi pa nasisimulan ang Docker Desktop | Simulan ang Docker Desktop → tingnan ang `docker info` |
+| ACR authorization | Hindi makapag-pull ng image ang managed identity | Tingnan ang [Module 08 - Troubleshooting](08-troubleshooting.md) |
 
 ---
 
 ### ✅ Checkpoint
 
 - [ ] Natapos ang deployment nang walang error
-- [ ] Lumilitaw ang Agent sa ilalim ng **Hosted Agents (Preview)** sa Foundry sidebar
-- [ ] Ipinapakita ang status ng container na **Running**
-- [ ] Nabuksan ang tab ng Agent Playground na nagpapakita ng detalye ng agent at endpoint URL
+- [ ] Lumabas ang Agent sa tab na **Hosted Agent** kapag pinindot mo ang **Agents** sa ilalim ng iyong proyekto sa Foundry Toolkit sidebar
+- [ ] Ipinapakita ng status ng container ang **Running**
+- [ ] Nabuksan ang Agent Playground tab na nagpapakita ng detalye ng agent at URL ng endpoint
 
 ---
 

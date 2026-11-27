@@ -1,23 +1,23 @@
-# Module 2 - I-scaffold ang Multi-Agent na Proyekto
+# Module 2 - Itayo ang Scaffold ng Multi-Agent na Proyekto
 
 ⏱️ ~5 min
 
-Sa module na ito, gagamitin mo ang [Foundry Toolkit para sa VS Code](https://aka.ms/foundrytk) upang **i-scaffold ang isang multi-agent na proyekto**. Ang wizard ay bumubuo ng `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, at VS Code debug configuration - upang makapag-focus ka sa pag-wire ng 4-agent na workflow sa Module 3.
+Sa modyul na ito, gagamitin mo ang [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) para **mag-scaffold ng multi-agent na proyekto**. Ang wizard ay gumagawa ng `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, at VS Code debug configuration - upang makapagpokus ka sa pag-wire ng 4-agent na workflow sa Module 3.
 
-> **Pangunahing konsepto:** Ang scaffold ay isang gumaganang stub na may isang agent. Papalitan mo ang placeholder logic gamit ang `WorkflowBuilder` graph sa Module 3. Hindi mo kailangang isulat ang boilerplate mula sa simula.
+> **Pangunahing konsepto:** Ang scaffold ay isang gumaganang stub na may isang agent. Papalitan mo ang placeholder na lohika gamit ang `WorkflowBuilder` na grap sa Module 3. Hindi mo kailangang isulat ang boilerplate mula sa simula.
 
-> **Sanggunian na implementasyon:** Ang [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ay isang kumpletong gumaganang halimbawa. Gamitin ito upang i-compare ang iyong ginagawa habang nagpapatuloy ka.
+> **Reference implementation:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ay isang kumpletong gumaganang halimbawa. Gamitin ito upang ihambing ang iyong trabaho habang nagpapatuloy ka.
 
-### Daloy ng scaffold wizard
+### Daloy ng wizard ng scaffold
 
 ```mermaid
 flowchart LR
-    A[Command Palette: Lumikha ng Bagong Hosted Agent] --> B[Wika: Python]
-    B --> C[API Type: Tugon ng API]
-    C --> D[Template: Mga Daloy ng Trabaho]
-    D --> E[Piliin ang Modelo]
-    E --> F[Folder ng Workspace at Pangalan ng Agent]
-    F --> G[Nalikha na Proyekto]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
@@ -25,47 +25,47 @@ flowchart LR
 ## Hakbang 1: Buksan ang Create Hosted Agent wizard
 
 1. Pindutin ang `Ctrl+Shift+P` upang buksan ang **Command Palette**.
-2. I-type: **Foundry Toolkit: Create a New Hosted Agent** at piliin ito.
-3. Magbubukas ang wizard sa tab na **Agent Details**.
+2. I-type: **Foundry Toolkit: Create new Hosted Agent** at piliin ito.
+3. Bubukas ang wizard sa tab na **Agent Details**.
 
-> **Alternatibo:** I-click ang **Foundry Toolkit** icon sa Activity Bar → i-click ang **+** icon sa tabi ng **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternatibo:** I-click ang icon ng **Foundry Toolkit** sa Activity Bar → i-click ang icon na **+** sa tabi ng **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
-## Hakbang 2: Piliin ang mga setting
+## Hakbang 2: Pumili ng mga setting
 
 ![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/tl/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Sa kaliwang bahagi ng navigation/options section piliin ang mga sumusunod:
+1. Sa kaliwang nabigasyon/opsyon na seksyon piliin ang mga sumusunod:
 
-| Menu | Pinili | Mga Tala |
+| Menu | Pinili | Tala |
 |--------|-----------|-------|
-| **Language** | Python | Suportado rin ang C# (.NET) |
+| **Language** | Python | Sinusuportahan din ang C# (.NET) |
 | **Framework** | Agent Framework | Nagbibigay ng `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **API type** | Response API | `POST /responses` - platform-managed na history, suporta sa streaming |
-| **Template** | **Workflows** | Pinoproseso ang mga kahilingan sa pamamagitan ng maraming agents nang sunud-sunod |
+| **API type** | Response API | `POST /responses` - pamamahala ng platform sa kasaysayan, suporta sa streaming |
+| **Template** | **Workflows** | Pinoproseso ang mga request sa pamamagitan ng maraming ahente ng sunod-sunod |
 
-2. Kapag napili, i-click ang **Next**
+2. Kapag napili na, i-click ang **Next**
 
 ![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/tl/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
 3. Sa susunod na window, piliin ang mga sumusunod:
 
-| Menu | Pinili | Mga Tala |
+| Menu | Pinili | Tala |
 |--------|-----------|-------|
-| **Workspace folder** | I-browse ang target na folder | hal., `workshop/lab02-multi-agent/` sa repo na ito |
-| **Agent name** | `PersonalCareerCopilot` | Ito ang magiging pangalan ng directory ng proyekto |
-| **Model Deployment** | Piliin ang na-deploy mong modelo | hal., `gpt-4.1-mini` mula sa Lab 01 |
+| **Workspace folder** | Mag-browse sa target na folder | e.g., `workshop/lab02-multi-agent/` sa repo na ito |
+| **Agent name** | `PersonalCareerCopilot` | Ito ang magiging pangalan ng direktoryo ng proyekto |
+| **Model Deployment** | Piliin ang na-deploy mong modelo | e.g., `gpt-4.1-mini` mula sa Lab 01 |
 
-4. I-click ang **Create** upang i-scaffold ang proyekto. Bibigyan ng VS Code ang mga files at bubuksan ang folder.
+4. I-click ang **Create** upang simulan ang proyekto. Gumagawa ang VS Code ng mga file at binubuksan ang folder.
 
-> **Tip:** Ang [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) ay mahusay sa balanse ng bilis at kalidad para sa multi-agent na pag-develop.
+> **Tip:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) ay balanseng mahusay sa bilis at kalidad para sa pag-develop ng multi-agent.
 
 ---
 
-## Hakbang 3: Inspeksyunin ang nabuo na proyekto
+## Hakbang 3: Suriin ang nagawang proyekto
 
-Pagkatapos makumpleto ang scaffolding, tiyaking nakikita mo ang mga sumusunod na files sa Explorer (`Ctrl+Shift+E`):
+Pagkatapos makumpleto ang scaffold, tiyakin na makita mo ang mga file na ito sa Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ Pagkatapos makumpleto ang scaffolding, tiyaking nakikita mo ang mga sumusunod na
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Mahalaga:** Direktang buksan ang scaffolded folder na ito sa VS Code upang ang `.vscode/launch.json` at `tasks.json` ay maayos na mailapat para sa F5 debugging.
+> **Mahalaga:** Buksan ang scaffolded folder na ito nang direkta sa VS Code upang ang `.vscode/launch.json` at `tasks.json` ay gumana nang tama para sa F5 debugging.
 
-### Paliwanag sa mga pangunahing files
+### Mga pangunahing file na ipinaliwanag
 
 | File | Layunin |
 |------|---------|
-| `agent.yaml` | Nagdeklara ng `kind: hosted`, nagmamapa ng env vars, nagdedetalye ng `/responses` protocol |
-| `main.py` | Stub: isang `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Papalitan mo ito ng 4 agents + `WorkflowBuilder` sa Module 3 |
+| `agent.yaml` | Nagdedeklara ng `kind: hosted`, nagmamapa ng env vars, nagdedeklara ng `/responses` protocol |
+| `main.py` | Stub: isang `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Papalitan mo ito ng 4 na ahente + `WorkflowBuilder` sa Module 3 |
 | `Dockerfile` | `python:3.12-slim`, nag-iinstall ng `requirements.txt`, nag-eexpose ng port 8088, nagpapatakbo ng `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Sanggunian:** Tingnan ang [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) at [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) para sa kumpletong nilalaman ng nabuo.
+> **Sanggunian:** Tingnan ang [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) at [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) para sa kumpletong nilalamang ginawa.
 
 ---
 
 ### ✅ Checkpoint
 
-- [ ] Natapos ang scaffold wizard - ang bagong project folder ay makikita sa Explorer
-- [ ] Lahat ng inaasahang files ay naroroon: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] Ang `agent.yaml` ay nagpapakita ng `kind: hosted` at `protocol: responses`
-- [ ] Ang `main.py` ay nag-iimport ng `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Ang na-scaffold na folder ay bukas bilang root ng VS Code workspace
-- [ ] Naiintindihan mo na ang `main.py` ay isang stub - dinagdag ang `WorkflowBuilder` sa Module 3
+- [ ] Natapos ang scaffold wizard - bagong folder ng proyekto ay nakikita sa Explorer
+- [ ] Lahat ng inaasahang file ay naroroon: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Ipinapakita ng `agent.yaml` ang `kind: hosted` at `protocol: responses`
+- [ ] Nag-iimport ang `main.py` ng `Agent`, `FoundryChatClient`, `ResponsesHostServer`
+- [ ] Ang scaffolded folder ay bukas bilang root ng workspace sa VS Code
+- [ ] Naiintindihan mong ang `main.py` ay isang stub - ang `WorkflowBuilder` ay idadagdag sa Module 3
 
 ---
 
-**Nakaraan:** [01 - Unawain ang Multi-Agent Architecture](01-understand-multi-agent.md) · **Susunod:** [03 - I-configure ang Agents & Environment →](03-configure-agents.md)
+**Previous:** [01 - Understand Multi-Agent Architecture](01-understand-multi-agent.md) · **Next:** [03 - Configure Agents & Environment →](03-configure-agents.md)
 
 ---
 

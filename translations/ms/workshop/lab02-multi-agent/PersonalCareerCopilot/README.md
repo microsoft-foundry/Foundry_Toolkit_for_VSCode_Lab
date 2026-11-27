@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - Penilai Keserasian Resume → Kerja
+# PersonalCareerCopilot - Penilai Kesesuaian Resume → Kerja
 
-Aplikasi multi-ejen berfokus aliran kerja yang menilai sejauh mana resume padan dengan deskripsi kerja, kemudian menghasilkan peta jalan pembelajaran peribadi untuk menutup jurang.
+Aplikasi multi-ejen berasaskan aliran kerja yang menilai sejauh mana resume sepadan dengan deskripsi kerja, kemudian menghasilkan peta pembelajaran peribadi untuk menutup jurang.
 
 ---
 
@@ -8,29 +8,29 @@ Aplikasi multi-ejen berfokus aliran kerja yang menilai sejauh mana resume padan 
 
 | Ejen | Peranan | Alat |
 |-------|------|-------|
-| **ResumeParser** | Mengekstrak kemahiran berstruktur, pengalaman, sijil dari teks resume | - |
-| **JobDescriptionAgent** | Mengekstrak kemahiran, pengalaman, sijil yang diperlukan/disukai dari JD | - |
-| **MatchingAgent** | Membandingkan profil vs keperluan → skor keserasian (0-100) + kemahiran yang dipadankan/hilang | - |
-| **GapAnalyzer** | Membina peta jalan pembelajaran peribadi dengan sumber Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | Mengekstrak kemahiran, pengalaman, sijil tersusun dari teks resume | - |
+| **JobDescriptionAgent** | Mengekstrak kemahiran, pengalaman, sijil yang diperlukan/diprihatinkan dari JD | - |
+| **MatchingAgent** | Membandingkan profil vs keperluan → skor kesesuaian (0-100) + kemahiran yang sepadan/hilang | - |
+| **GapAnalyzer** | Membina peta pembelajaran peribadi dengan sumber Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Aliran Kerja
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Resume + Penerangan Kerja"] --> ResumeParser
-    ResumeParser -- "resume yang diurai + penyambung JD" --> JobDescriptionAgent
-    JobDescriptionAgent -- "kehendak JD + penyambung resume" --> MatchingAgent
-    MatchingAgent -- "laporan kesesuaian + jurang" --> GapAnalyzerMCP["Penganalisis Jurang +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nSkor Kesesuaian + Peta Jalan"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## Mula dengan cepat
+## Mula cepat
 
 ### 1. Sediakan persekitaran
 
-Folder ini adalah pelaksanaan rujukan bagi rangka kerja Lab 02 berasaskan aliran kerja. `main.py` menggunakan blok arahan yang sedia ada serta `WorkflowBuilder` untuk menyambungkan keempat-empat ejen bersama.
+Folder ini ialah pelaksanaan rujukan untuk kerangka kerja Lab 02 berasaskan aliran kerja. `main.py`nya menggunakan blok arahan sedia ada bersama-sama dengan `WorkflowBuilder` untuk menghubungkan keempat-empat ejen.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### 2. Konfigurasikan kelayakan
 
-Cipta fail `.env` dalam folder ini:
+Buat fail `.env` dalam folder ini:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Nilai | Lokasi untuk mendapatkannya |
+| Nilai | Lokasi penemuan |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Sidebar Foundry Toolkit → klik kanan projek anda → **Salin Endpoint Projek** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Sidebar Foundry → perluas projek → **Model + endpoint** → nama penugasan |
+| `FOUNDRY_PROJECT_ENDPOINT` | Bar sisi Foundry Toolkit → klik kanan projek anda → **Salin Titik Akhir Projek** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Bar sisi Foundry → kembangkan projek → **Model + titik akhir** → nama penyebaran |
 
 ### 3. Jalankan secara tempatan
 
@@ -66,13 +66,13 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Atau gunakan tugas VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Atau gunakan tugasan VS Code: `Ctrl+Shift+P` → **Tugasan: Jalankan Tugasan** → **Jalankan Pelayan HTTP Ejen**.
 
-Untuk debug F5, guna **Debug Local Agent HTTP Server**.
+Untuk penyahpepijatan F5, gunakan **Nyahpepijat Pelayan HTTP Ejen Tempatan**.
 
-### 4. Uji dengan Agent Inspector
+### 4. Uji dengan Pemeriksa Ejen
 
-Buka Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Buka Pemeriksa Ejen: `Ctrl+Shift+P` → **Foundry Toolkit: Buka Pemeriksa Ejen**.
 
 Tampal arahan ujian ini:
 
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Dijangka:** Skor keserasian (0-100), kemahiran yang padan/hilang, dan peta jalan pembelajaran peribadi dengan URL Microsoft Learn.
+**Jangkaan:** Skor kesesuaian (0-100), kemahiran yang sepadan/hilang, dan peta pembelajaran peribadi dengan URL Microsoft Learn.
 
-### 5. Lancarkan ke Foundry
+### 5. Sebarkan ke Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → pilih projek anda → sahkan.
+`Ctrl+Shift+P` → **Foundry Toolkit: Sebarkan Ejen Hos** → pilih projek anda → sahkan.
 
 ---
 
@@ -115,46 +115,46 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-Mendefinisikan ejen yang dihoskan untuk Foundry Agent Service:
-- `kind: hosted` - dijalankan sebagai kontena terkawal
-- `protocols` - protokol `responses` dengan `version: 1.0.0`, mendedahkan titik akhir HTTP `/responses`
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` diisytiharkan di sini; `FOUNDRY_PROJECT_ENDPOINT` disuntik secara automatik semasa pelancaran
+Mentakrifkan ejen hos untuk Perkhidmatan Ejen Foundry:
+- `kind: hosted` - dijalankan sebagai bekas terurus
+- `protocols` - protokol `responses` dengan `version: 2.0.0`, mendedahkan titik akhir HTTP `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` diumumkan di sini; `FOUNDRY_PROJECT_ENDPOINT` disuntik secara automatik semasa masa penyebaran
 
 ### `main.py`
 
 Mengandungi:
-- **Arahan Ejen** - empat pemalar `*_INSTRUCTIONS`, satu untuk setiap ejen
-- **Alat MCP** - `search_microsoft_learn_for_plan()` memanggil `https://learn.microsoft.com/api/mcp` melalui HTTP Streamable
-- **Penciptaan Ejen** - empat instans `Agent()` + `AgentExecutor()` yang berkongsi satu `FoundryChatClient`
-- **Graf Aliran Kerja** - `WorkflowBuilder` menghubungkan ejen sebagai jalur susunan: ResumeParser → Ejen JD → MatchingAgent → GapAnalyzer
-- **Permulaan Pelayan** - `ResponsesHostServer` berjalan pada port 8088
+- **Arahan ejen** - empat `*_INSTRUCTIONS` malar, satu untuk setiap ejen
+- **Alat MCP** - `search_microsoft_learn_for_plan()` memanggil `https://learn.microsoft.com/api/mcp` melalui HTTP Boleh Streaming
+- **Penciptaan ejen** - empat `Agent()` + `AgentExecutor()` contoh berkongsi satu `FoundryChatClient`
+- **Graf aliran kerja** - `WorkflowBuilder` menghubungkan ejen sebagai saluran berurutan: ResumeParser → Ejen JD → MatchingAgent → GapAnalyzer
+- **Permulaan pelayan** - `ResponsesHostServer` berjalan pada port 8088
 
 ### `requirements.txt`
 
-| Pakej | Tujuan |
+| Pek | Tujuan |
 |---------|----------|
-| `agent-framework-foundry` | Runtime teras: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integrasi hos Foundry |
+| `agent-framework-foundry` | Teras runtime: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | Integrasi hosting Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | Klien MCP untuk GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Debugging Python (F5 dalam VS Code) |
+| `debugpy` | Penyahpepijatan Python (F5 dalam VS Code) |
 
 ---
 
-## Penyelesaian Masalah
+## Penyelesaian masalah
 
 | Isu | Penyelesaian |
 |-------|-----|
 | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` atau `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Cipta `.env` dengan kedua-dua `FOUNDRY_PROJECT_ENDPOINT` dan `AZURE_AI_MODEL_DEPLOYMENT_NAME` ditetapkan |
 | `ModuleNotFoundError: No module named 'agent_framework'` | Aktifkan venv dan jalankan `pip install -r requirements.txt` |
 | Tiada URL Microsoft Learn dalam output | Semak sambungan internet ke `https://learn.microsoft.com/api/mcp` |
-| Hanya 1 kad jurang (dipendekkan) | Pastikan `GAP_ANALYZER_INSTRUCTIONS` termasuk blok `CRITICAL:` |
+| Hanya kad jurang 1 (dipotong) | Sahkan `GAP_ANALYZER_INSTRUCTIONS` termasuk blok `CRITICAL:` |
 | Port 8088 sedang digunakan | Hentikan pelayan lain: `netstat -ano \| findstr :8088` |
 
 Untuk penyelesaian masalah terperinci, lihat [Modul 8 - Penyelesaian Masalah](../docs/08-troubleshooting.md).
 
 ---
 
-**Laluan penuh:** [Dokumen Lab 02](../docs/README.md) · **Kembali ke:** [Lab 02 README](../README.md) · [Laman Utama Bengkel](../../../README.md)
+**Panduan lengkap:** [Dokumen Lab 02](../docs/README.md) · **Kembali ke:** [README Lab 02](../README.md) · [Laman Utama Bengkel](../../../README.md)
 
 ---
 
