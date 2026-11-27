@@ -1,24 +1,24 @@
-# Модуль 8 - Виправлення помилок
+# Модуль 8 - Усунення несправностей
 
-У цьому модулі розглядаються поширені помилки, способи їх виправлення та стратегії відлагодження, специфічні для багатогентного робочого процесу.
+Цей модуль охоплює поширені помилки, виправлення та стратегії налагодження, специфічні для багатоугентного робочого процесу.
 
-## Проблеми з виводом агента
+## Проблеми з виходом агента
 
-### GapAnalyzer каже «Я все ще не маю відповідного звіту»
+### GapAnalyzer каже «Я досі не маю звіт для співставлення»
 
-**Симптом:** У відповідь GapAnalyzer просить вставити відповідний звіт із «Відсутніми навичками» та «Пробілами у сертифікації». Це відбувається навіть коли ви надіслали і резюме, і опис роботи.
+**Симптом:** Відповідь GapAnalyzer просить вставити звіт для співставлення з розділами «Відсутні навички» та «Прогалини у сертифікації». Це відбувається навіть якщо ви надіслали як резюме, так і опис роботи.
 
-**Причина:** Текст JD не був переданий далі JD Agent. При `context_mode="last_agent"` `resume_executor` є єдиним виконавцем, який коли-небудь бачить оригінальне повідомлення користувача. Якщо `RESUME_PARSER_INSTRUCTIONS` не включає текст JD у свій вивід, JD Agent немає JD для аналізу, MatchingAgent не може обчислити оцінку відповідності, а GapAnalyzer отримує недоречне вхідне повідомлення.
+**Причина:** Текст JD не було передано далі до JD Agent. При `context_mode="last_agent"`, `resume_executor` є єдиним виконавцем, який бачить вихідне повідомлення користувача. Якщо `RESUME_PARSER_INSTRUCTIONS` не включає текст JD у свій вихід, у JD Agent немає JD для аналізу, MatchingAgent не може обчислити рейтинг відповідності, і GapAnalyzer отримує беззмістовний вхід.
 
 **Діагностика:**
 
-У журналах сервера дізнайтесь, чи є span MatchingAgent. Якщо він містить:
+Перегляньте журнали сервера, шукайте span MatchingAgent. Якщо він містить:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
-передача відсутня або зламана.
+пропуск або ланцюг передачі відсутній або пошкоджений.
 
-**Виправлення:** Переконайтеся, що `RESUME_PARSER_INSTRUCTIONS` у `main.py` містить розділ `[JOB DESCRIPTION PASS-THROUGH]` і правило:
+**Виправлення:** Переконайтеся, що `RESUME_PARSER_INSTRUCTIONS` у `main.py` містить розділ `[JOB DESCRIPTION PASS-THROUGH]` та правило:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
@@ -26,43 +26,43 @@ The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD 
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Якщо будь-який блок інструкцій є шаблоном із «майстра» встановлення, замініть його на повну версію з [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Якщо будь-який із цих блоків інструкцій є заготовкою з майстра каркасу, замініть його на повну версію з [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### MatchingAgent виводить «Cannot compute fit score - no JD provided»
+### MatchingAgent видає «Не можна обчислити рейтинг відповідності — JD не надано»
 
-Це та сама коренева причина, що й вище. MatchingAgent отримав вивід JD Agent, але розділ `[PARSED RESUME PASS-THROUGH]` був відсутній або порожній, тому порівняти два профілі він не зміг. Переконайтеся:
-1. `JOB_DESCRIPTION_INSTRUCTIONS` містить правило ретрансляції: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
-2. `MATCHING_AGENT_INSTRUCTIONS` вказує агенту шукати розділи `[JD REQUIREMENTS]` і `[PARSED RESUME PASS-THROUGH]`.
+Це та сама коренева причина, що й вище. MatchingAgent отримав вихід JD Agent, але розділ `[PARSED RESUME PASS-THROUGH]` був відсутній або порожній, тому він не міг порівняти два профілі. Переконайтеся:
+1. `JOB_DESCRIPTION_INSTRUCTIONS` включає правило ретрансляції: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
+2. `MATCHING_AGENT_INSTRUCTIONS` вказує агенту шукати розділи `[JD REQUIREMENTS]` та `[PARSED RESUME PASS-THROUGH]`.
 
-Замініть обидва блоки інструкцій повними версіями з [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Замініть обидва блоки інструкцій на повні версії з [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
 ### Відповідь з’являється двічі
 
-**Симптом:** Вивід GapAnalyzer (або весь вивід конвеєра) з’являється двічі у відповіді Agent Inspector.
+**Симптом:** Вихід GapAnalyzer (або весь вихід конвеєра) з’являється двічі у відповіді Agent Inspector.
 
-**Причина:** `WorkflowBuilder` використовує OR-семантику для вхідних ребер — наступний виконавець запускається відразу, як виконується будь-який із попередників. Якщо `matching_executor` має два вхідні ребра (одне від `resume_executor`, інше від `jd_executor`), він запускається двічі: коли закінчується ResumeParser і коли закінчується JD Agent. GapAnalyzer теж запускається двічі.
+**Причина:** `WorkflowBuilder` використовує OR-семантику для вхідних ребер - виконавець далі запускається, як тільки завершується **будь-який** попередник. Якщо `matching_executor` має два вхідні ребра (одне від `resume_executor` і одне від `jd_executor`), він запускається двічі: один раз, коли завершується ResumeParser, і знову, коли завершується JD Agent. GapAnalyzer також тоді запускається двічі.
 
-**Виправлення:** Забезпечте, що граф `WorkflowBuilder` є строго послідовним конвеєром без «входів з кількох вершин»:
+**Виправлення:** Переконайтеся, що граф `WorkflowBuilder` є строго послідовним конвеєром без об’єднань:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # НЕ з resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Якщо у вас є зайвий рядок `.add_edge(resume_executor, matching_executor)`, видаліть його. Ретрансляція `[PARSED RESUME PASS-THROUGH]` у виводі JD Agent вже дає доступ MatchingAgent до резюме.
+Якщо є випадкова лінія `.add_edge(resume_executor, matching_executor)`, видаліть її. Ретрансляція `[PARSED RESUME PASS-THROUGH]` у виході JD Agent вже дає MatchingAgent доступ до резюме.
 
 ---
 
-## Проблеми з оточенням і конфігурацією
+## Проблеми з оточенням та конфігурацією
 
-### Відсутні або неправильні значення у файлі `.env`
+### Відсутні або неправильні значення `.env`
 
-Файл `.env` має розміщуватися у каталозі `PersonalCareerCopilot/` (на тому ж рівні, що і `main.py`):
+Файл `.env` має бути у каталозі `PersonalCareerCopilot/` (на тому ж рівні, що й `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -75,38 +75,38 @@ PersonalCareerCopilot/
 
 Очікуваний вміст `.env`:
 
-**Шлях A - хмарна Foundry:**
+**Шлях A — хмарний Foundry:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-project-name>.services.ai.azure.com/api/projects/<your-project-id>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-**Шлях B - Foundry Local:**
+**Шлях B — Foundry Local:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Обидва шляхи використовують `FOUNDRY_PROJECT_ENDPOINT`. Значення різняться: хмара використовує `https://` Foundry endpoint; локально використовується `http://localhost:5273/v1`. Запустіть `foundry model list`, щоб підтвердити точний псевдонім моделі для Шляху B.
+> Обидва шляхи використовують `FOUNDRY_PROJECT_ENDPOINT`. Значення відрізняється: хмара використовує кінцеву точку `https://` Foundry; локально використовується `http://localhost:5273/v1`. Запустіть `foundry model list`, щоб підтвердити точний псевдонім моделі для Шляху B.
 
-> **Як дізнатися `FOUNDRY_PROJECT_ENDPOINT`:**
-- Відкрийте панель **Foundry Toolkit** у VS Code → правою кнопкою миші клікніть по проєкту → **Copy Project Endpoint**.
-- Або зайдіть у [Azure Portal](https://portal.azure.com) → ваш проєкт Foundry → **Overview** → **Project endpoint**.
+> **Як знайти ваш `FOUNDRY_PROJECT_ENDPOINT`:** 
+- Відкрийте бічну панель **Foundry Toolkit** у VS Code → клацніть правою кнопкою на вашому проекті → **Copy Project Endpoint**. 
+- Або перейдіть на [Azure Portal](https://portal.azure.com) → ваш проект Foundry → **Overview** → **Project endpoint**.
 
-> **Як дізнатися `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** У панелі Foundry Toolkit розгорніть проєкт → **Models** → знайдіть ім’я розгорнутої моделі (наприклад, `gpt-4.1-mini`).
+> **Як знайти ваш `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** У бічній панелі Foundry Toolkit відкрийте ваш проект → **Models** → знайдіть ім’я розгорнутої моделі (наприклад, `gpt-4.1-mini`).
 
-### Пріоритет змінних оточення
+### Пріоритет змінних середовища
 
 `main.py` використовує `load_dotenv(override=True)`, що означає:
 
-| Пріоритет | Джерело | Виграє, якщо встановлені обидва? |
+| Пріоритет | Джерело | Перемагає, коли обидва встановлено? |
 |----------|--------|-------------------------------|
 | 1 (найвищий) | файл `.env` | Так |
-| 2 | Змінна оточення оболонки / контейнера | Використовується, якщо такого ключа немає у `.env` |
+| 2 | Змінна середовища оболонки / контейнера | Використовується, якщо ключ відсутній у `.env` |
 
-У локальній розробці це робить `.env` джерелом істини (редагування `.env` відразу впливає на запуск). При розгортанні в хмарі Foundry впроваджує змінні оточення на рівні контейнера; оскільки `.env` не є частиною розгорнутого образу для цієї лабораторної установки, використовуються впроваджені у контейнер значення.
+У локальній розробці це робить `.env` джерелом істини (редагування `.env` негайно впливає на запуск). У хостинговому розгортанні Foundry впроваджує змінні середовища на рівні контейнера; оскільки `.env` не є частиною розгорнутого образу для цієї лабораторної установки, використовуються впроваджені значення контейнера.
 
 ---
 
@@ -114,10 +114,10 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 
 ### Матриця версій пакетів
 
-Багатогентний робочий процес вимагає певних версій пакетів. Невідповідність версій спричиняє помилки під час виконання.
+Багатоугентний робочий процес вимагає конкретних версій пакетів. Несумісність версій призводить до помилок під час виконання.
 
 | Пакет | Вимагана версія | Команда перевірки |
-|---------|-----------------|------------------|
+|---------|-----------------|----------------|
 | `agent-framework-foundry` | остання | `pip show agent-framework-foundry` |
 | `agent-framework-foundry-hosting` | остання | `pip show agent-framework-foundry-hosting` |
 | `mcp` | `<2,>=1.24.0` | `pip show mcp` |
@@ -129,24 +129,24 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Виправлення: перевстановити agent-framework-foundry
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Виправлення: оновлення пакету mcp
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
-### Перевірка версій одразу
+### Перевірка всіх версій одразу
 
 ```powershell
 pip list | Select-String "agent-framework|mcp|debugpy"
 ```
 
-Очікуваний вивід:
+Очікуваний результат:
 
 ```
 agent-framework-foundry          x.x.x
@@ -161,130 +161,130 @@ mcp                              x.x.x
 
 ### Контейнер не запускається після розгортання
 
-1. **Перевірте логи контейнера:**
-   - Відкрийте панель Foundry Toolkit → розгорніть **Hosted Agents (Preview)** → натисніть вашого агента → розгорніть версію → **Container Details** → **Logs**.
-   - Шукайте трасування стека Python або помилки відсутності модулів.
+1. **Перегляньте журнали контейнера:**
+   - Відкрийте бічну панель **Foundry Toolkit** → під вашим проектом натисніть **Agents** → вкладка **Hosted Agent** → виберіть вашого агента. Перевірте **Status** на вкладці **Details**, далі відкрийте вкладку **Playground** і використовуйте вкладку **Logs** в панелі **Session Details**, щоб побачити вихідні дані контейнера.
+   - Шукайте трасування стеку Python або помилки відсутніх модулів.
 
-2. **Поширені причини непуску контейнера:**
+2. **Поширені помилки запуску контейнера:**
 
-   | Помилка в логах | Причина | Виправлення |
-   |-----------------|--------|------------|
-   | `ModuleNotFoundError` | У `requirements.txt` відсутній пакет | Додайте пакет, повторно розгорніть |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | Змінні оточення у `agent.yaml` або `.env` не встановлені | Оновіть секцію `environment_variables` у `agent.yaml` (хостинг) або `.env` (локально) |
-   | `azure.identity.CredentialUnavailableError` | Менеджована ідентичність не налаштована | Foundry налаштовує це автоматично — переконайтеся, що розгортаєтесь через розширення |
+   | Помилка у логах | Причина | Вирішення |
+   |--------------|---------|-----------|
+   | `ModuleNotFoundError` | відсутній пакет `requirements.txt` | Додати пакет, розгорнути повторно |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | не встановлено змінні середовища `agent.yaml` або `.env` | Оновити `agent.yaml` → розділ `environment_variables` (хостинг) або `.env` (локально) |
+   | `azure.identity.CredentialUnavailableError` | не налаштовано Managed Identity | Foundry налаштовує це автоматично - переконайтесь, що ви розгортаєте через розширення |
    | `OSError: port 8088 already in use` | Dockerfile відкриває неправильний порт або конфлікт портів | Перевірте `EXPOSE 8088` у Dockerfile і `CMD ["python", "main.py"]` |
-   | Контейнер завершується з кодом 1 | Необроблена виключна ситуація у `main()` | Спочатку протестуйте локально ([Модуль 5](05-test-locally.md)), щоб вловити помилки до розгортання |
+   | Контейнер завершується з кодом 1 | Неперехоплена виняткова ситуація в `main()` | Спочатку протестуйте локально ([Модуль 5](05-test-locally.md)), щоб виявити помилки перед розгортанням |
 
-3. **Повторне розгортання після виправлення:**
-   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → виберіть того ж агента → розгорніть нову версію.
+3. **Перерозгорніть після виправлення:**
+   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → виберіть того самого агента → розгорніть нову версію.
 
-### Розгортання триває занадто довго
+### Розгортання триває надто довго
 
-Контейнери багатогентного робочого процесу запускаються довше, бо при старті створюють 4 екземпляри агента. Звичайний час запуску:
+Контейнери багатоугентної системи запускаються довше, бо під час запуску створюють 4 екземпляри агентів. Звичайні часи запуску:
 
 | Етап | Очікувана тривалість |
 |-------|---------------------|
-| Збірка образу контейнера | 1-3 хвилини |
+| Побудова образу контейнера | 1-3 хвилини |
 | Відправка образу в ACR | 30-60 секунд |
-| Запуск контейнера (один агент) | 15-30 секунд |
-| Запуск контейнера (багатогентний) | 30-120 секунд |
-| Агент доступний у Playground | 1-2 хвилини після статусу «Started» |
+| Запуск контейнера (одиночний агент) | 15-30 секунд |
+| Запуск контейнера (багатоугентний) | 30-120 секунд |
+| Агент доступний у Playground | 1-2 хвилини після статусу "Started" |
 
-> Якщо статус «Pending» триває більше 5 хвилин, перевірте логи контейнера на помилки.
+> Якщо статус "Pending" триває понад 5 хвилин, перевірте журнали контейнера на наявність помилок.
 
 ---
 
-## Проблеми RBAC та дозволів
+## Проблеми з RBAC та дозволами
 
 ### `403 Forbidden` або `AuthorizationFailed`
 
-Вам потрібна роль **[Foundry User](https://aka.ms/foundry-ext-project-role)** у вашому проєкті Foundry (раніше називалася **Azure AI User** – ID ролі незмінний):
+Вам потрібна роль **[Foundry User](https://aka.ms/foundry-ext-project-role)** у вашому проекті Foundry (раніше називалась **Azure AI User** - ідентифікатор ролі незмінний):
 
-1. Перейдіть до [Azure Portal](https://portal.azure.com) → ресурс вашого проєкту Foundry.
+1. Перейдіть до [Azure Portal](https://portal.azure.com) → вашого ресурсу Foundry **проекту**.
 2. Натисніть **Access control (IAM)** → **Role assignments**.
-3. Знайдіть своє ім’я → переконайтеся, що є роль **Foundry User** (або застаріла **Azure AI User**).
-4. Якщо відсутня: **Додати** → **Add role assignment** → знайдіть **Foundry User** → призначте на свій аккаунт.
+3. Знайдіть своє ім'я → підтвердіть, що вказано **Foundry User** (або стару назву **Azure AI User**).
+4. Якщо відсутній: **Add** → **Add role assignment** → знайдіть **Foundry User** → призначте на свій обліковий запис.
 
-Дивіться документацію [RBAC для Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) для деталей.
+Докладніше див. у документації [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-### Модель розгортання недоступна
+### Розгортання моделі недоступне
 
 Якщо агент повертає помилки, пов’язані з моделлю:
 
-1. Перевірте, що модель розгорнута: панель Foundry → розгорніть проєкт → **Models** → перевірте, чи є `gpt-4.1-mini` (або ваша модель) зі статусом **Succeeded**.
-2. Переконайтеся, що ім’я розгортання співпадає: порівняйте `AZURE_AI_MODEL_DEPLOYMENT_NAME` у `.env` (або `agent.yaml`) з фактичним іменем розгортання у панелі.
-3. Якщо розгортання минуло (безплатний рівень): повторно розгорніть з [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
+1. Переконайтеся, що модель розгорнута: бічна панель Foundry → розгорніть проект → **Models** → перевірте `gpt-4.1-mini` (або вашу модель) зі статусом **Succeeded**.
+2. Перевірте, чи збігається ім'я розгортання: порівняйте `AZURE_AI_MODEL_DEPLOYMENT_NAME` у `.env` (або `agent.yaml`) з фактичним іменем розгортання в бічній панелі.
+3. Якщо розгортання закінчилося (безкоштовний рівень): розгорніть повторно з [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
 
 ---
 
-## Проблеми Foundry Local (Шлях B)
+## Проблеми з Foundry Local (Шлях B)
 
-### Сервіс Foundry Local не запущений
+### Сервіс Foundry Local не працює
 
 ```powershell
-# Перевірити статус
+# Check status
 foundry local status
 
-# Запустити службу, якщо вона зупинена
+# Start the service if it is stopped
 foundry local start
 ```
 
 | Симптом | Причина | Виправлення |
-|---------|--------|------------|
-| Health check повертає `503` | Сервіс не запущено | `foundry local start` або натисніть **Start** у панелі Foundry Toolkit |
-| Health check вичерпав час очікування | Модель все ще завантажується | Почекайте 30–60 с після старту; великі моделі завантажуються довше |
-| `StatusCode: 404` на `/v1/health` | Неправильний порт | Стандартний порт `5273`. Перевірте `foundry local status` для фактичного порту |
-| Недостатньо ресурсів | Foundry Local потребує ~4 ГБ вільної оперативної пам’яті | Закрийте інші додатки |
-| Завантаження моделі не вдається | Низько місця на диску | Моделі мають розмір 2–8 ГБ. Звільніть місце, потім `foundry model pull <name>` |
+|---------|---------|------------|
+| Перевірка стану повертає `503` | Сервіс не запущено | `foundry local start` або натисніть **Start** у бічній панелі Foundry Toolkit |
+| Перевірка стану не встигає | Модель ще завантажується | Зачекайте 30–60 с після запуску; більші моделі завантажуються довше |
+| `StatusCode: 404` на `/v1/health` | Неправильний порт | За замовчуванням `5273`. Перевірте `foundry local status` для фактичного порту |
+| Недостатньо ресурсів | Foundry Local потребує ~4 ГБ вільної ОЗП | Закрийте інші програми |
+| Завантаження моделі не вдається | Недостатньо місця на диску | Моделі важать 2–8 ГБ. Звільніть місце, потім `foundry model pull <name>` |
 
 ### Несумісність імені моделі
 
 ```powershell
-# Список завантажених моделей та їх точних псевдонімів
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
-Встановіть `AZURE_AI_MODEL_DEPLOYMENT_NAME` у `.env` точно таким, як відображено (наприклад, `phi-4-mini`, а не `Phi-4-mini`).
+Встановіть `AZURE_AI_MODEL_DEPLOYMENT_NAME` у `.env` точно відповідно до показаного псевдоніма (наприклад, `phi-4-mini`, не `Phi-4-mini`).
 
 ### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` при локальному запуску (Шлях B)
 
-У `main.py` лабораторії використовується `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local вимагає, щоб ця змінна вказувала на локальний сервіс — **не** `AZURE_AI_PROJECT_ENDPOINT`. Переконайтеся, що у вашому `.env` є:
+В лабораторії `main.py` використовує `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local вимагає, щоб ця змінна вказувала на локальний сервіс - **не на** `AZURE_AI_PROJECT_ENDPOINT`. Переконайтеся, що ваш `.env` містить:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### Інструмент MCP все ще робить зовнішній виклик (Шлях B)
+### Інструмент MCP все ще робить вихідний виклик (Шлях B)
 
-Це очікувано. Інструмент `search_microsoft_learn_for_plan` отримує навчальні ресурси з `https://learn.microsoft.com/api/mcp`. **Лише запит назви навички** передається мережею — резюме та текст JD повністю опрацьовуються на вашому пристрої й ніколи не передаються. Якщо потрібна повністю офлайн-робота, додайте у інструмент `try/except` із запасним варіантом, який повертає статичну URL `learn.microsoft.com`, коли endpoint недоступний.
+Це нормально. Інструмент `search_microsoft_learn_for_plan` отримує навчальні ресурси з `https://learn.microsoft.com/api/mcp`. **Тільки запит за назвою навички** надсилається через мережу – резюме та текст JD обробляються повністю на вашому пристрої і ніколи не передаються. Якщо потрібна повністю офлайн-робота, додайте резервне `try/except` у інструмент, яке повертає статичну URL `learn.microsoft.com`, коли кінцева точка недоступна.
 
 ---
 
 ## Отримання допомоги
 
-Якщо ви застрягли після спроб вищенаведених виправлень:
+Якщо ви застрягли після спроби наведених вище виправлень:
 
-1. **Перевірте логи сервера** — більшість помилок породжують трасування стека Python у терміналі. Уважно прочитайте повний трасбек.
-2. **Пошукайте повідомлення про помилку** — скопіюйте текст помилки і пошукайте на [Microsoft Q&A для Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Відкрийте issue** — створіть issue у [репозиторії майстер-класу](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) з:
-   - текстом або скріншотом помилки
-   - версіями пакетів (`pip list | Select-String "agent-framework"`)
-   - вашою версією Python (`python --version`)
-   - інформацією, чи помилка локальна чи після розгортання
-
----
-
-### Контрольний список
-
-- [ ] Ви знаєте, як перевірити та виправити проблеми конфігурації `.env`
-- [ ] Ви можете перевірити, що версії пакетів відповідають вимогам
-- [ ] Ви знаєте, як перевіряти логи контейнера при збоях розгортання
-- [ ] Ви можете перевіряти ролі RBAC у порталі Azure
+1. **Перевірте журнали сервера** - Більшість помилок виробляють слід стека Python у терміналі. Прочитайте повний трасбек.
+2. **Шукайте текст помилки** - Скопіюйте текст помилки і шукайте у [Microsoft Q&A for Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Відкрийте Issue** - Створіть issue у [репозиторії майстерні](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) з:
+   - Повідомленням про помилку або скріншотом
+   - Версією вашого пакету (`pip list | Select-String "agent-framework"`)
+   - Версією Python (`python --version`)
+   - Чи проблема локальна, чи після розгортання
 
 ---
 
-**Попередній:** [07 - Verify in Playground](07-verify-in-playground.md) · **Наступний:** [09 - Summary →](09-summary.md) · **Домашня:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
+### Контрольна точка
+
+- [ ] Ви знаєте, як перевірити і виправити проблеми конфігурації `.env`
+- [ ] Ви можете підтвердити, що версії пакетів відповідають потрібній матриці
+- [ ] Ви вмієте перевіряти журнали контейнера на предмет помилок розгортання
+- [ ] Ви можете перевірити ролі RBAC в Azure Portal
+
+---
+
+**Попередня:** [07 - Verify in Playground](07-verify-in-playground.md) · **Наступна:** [09 - Summary →](09-summary.md) · **Домашня:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

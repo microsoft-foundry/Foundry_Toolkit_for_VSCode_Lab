@@ -1,39 +1,39 @@
-# 4 modulis – Orkestravimo modeliai
+# Modulis 4 - Orkestracijos šablonai
 
 ⏱️ ~10 min
 
-Šiame modulyje tyrinėjate orkestravimo modelius, naudojamus Resume Job Fit Evaluator, ir mokotės skaityti, keisti bei plėsti darbo eigos grafiką. Šių modelių supratimas yra būtinas duomenų srauto problemų derinimui ir savo [daugiaprogramių darbo eigų](https://learn.microsoft.com/agent-framework/workflows/) kūrimui.
+Šiame modulyje išmoksite apie orkestracijos šablonus, naudojamus Resume Job Fit Evaluator, taip pat kaip skaityti, keisti ir plėsti darbo srauto grafą. Šių šablonų supratimas yra būtinas, kad būtų galima derinti duomenų srauto problemas ir kurti savo [daugiapakopius darbo srautus](https://learn.microsoft.com/agent-framework/workflows/).
 
 ---
 
-## Modelis 1: Sekvencinė grandinė
+## Šablonas 1: Sekanti seka
 
-Pagrindinis darbo eigos modelis yra **sekvencinė grandinė** – kiekvieno agento išvestis tiesiogiai patenka kitam.
+Pagrindinis darbo srauto šablonas yra **sekanti seka** – kiekvieno agento išvestis tiesiogiai perduodama kitam.
 
 ```mermaid
 flowchart LR
-    RP[Gyvenimo aprašymo analizatorius] --> JD[Darbo aprašymo agentas]
-    JD --> MA[Atitikimo agentas]
-    MA --> GA[Tarpų analizatorius]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-Kode, kiekvienas `add_edge()` kvietimas sukuria vieną grandinės žingsnį:
+Kode kiekvienas `add_edge()` kvietimas sukuria vieną žingsnį sekoje:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # ResumeParser išvestis → JD Agentas
-.add_edge(jd_executor, matching_executor)     # JD Agentas išvestis → MatchingAgentas
-.add_edge(matching_executor, gap_executor)    # MatchingAgentas išvestis → GapAnalyzeris
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Kodėl sekvencinė, o ne fan-out/fan-in?** `WorkflowBuilder` naudoja **ARBA-semantiką** įeinančioms kraštinėms: žemyn srovėje vykdytojas aktyvuojamas kai tik **bet kuris** pirmtakų baigia darbą. Jei `matching_executor` turėtų dvi įeinančias kraštines (iš `resume_executor` ir `jd_executor`), jis būtų įjungtas du kartus – vieną kartą baigus ResumeParser ir dar kartą baigus JD agentui – dėl to GapAnalyzer taip pat veikti du kartus, o išvestis būtų rodoma dukart. Sekvencinė linija tai visiškai išvengia.
+> **Kodėl sekanti, o ne išsiskleidžianti/sujungianti?** `WorkflowBuilder` naudoja **ARBA-semantiką** įeinančioms juostoms: žemyn srovės vykdytojas suveikia iš karto, kai tik **bet kuris** ankstesnysis yra baigtas. Jei `matching_executor` turėtų du įeinančius kelius (iš `resume_executor` ir `jd_executor`), jis paleistųsi du kartus – kai baigtų ResumeParser ir vėl, kai baigtų JD Agent – tai sukeltų GapAnalyzer veikimą du kartus ir išvestis pasirodytų du kartus. Sekanti eiga to visiškai išvengia.
 
-## Modelis 2: Turinys perduodamas
+## Šablonas 2: Turinio perdavimas
 
-Kadangi `context_mode="last_agent"` reiškia, kad kiekvienas vykdytojas mato tik savo **tiesioginio pirmtako išvestį**, agentai sekvencinėje grandinėje turi aiškiai perduoti toliau visus duomenis, kurių reikia žemyn srovės agentams.
+Kadangi `context_mode="last_agent"` reiškia, kad kiekvienas vykdytojas mato tik savo **tiesioginio pirmtako išvestį**, agentai sekanti seka turi aiškiai perduoti toliau bet kokius duomenis, kurių žemyn srovės agentai reikalauja.
 
-Šioje darbo eiga:
-- **ResumeParser** nukopijuoja JD žodžiui žodį į `[JOB DESCRIPTION PASS-THROUGH]` (kad JD agentas galėtų jį rasti).
-- **JD agentas** nukopijuoja `[PARSED RESUME]` žodžiui žodį į `[PARSED RESUME PASS-THROUGH]` (kad MatchingAgent galėtų palyginti abi profilio dalis).
+Šiame darbo sraute:
+- **ResumeParser** nukopijuoja JD tiksliai į `[JOB DESCRIPTION PASS-THROUGH]` (kad JD Agent galėtų jį rasti).
+- **JD Agent** nukopijuoja `[PARSED RESUME]` tiksliai į `[PARSED RESUME PASS-THROUGH]` (kad MatchingAgent galėtų palyginti abu profilius).
 
 ```
 ResumeParser output
@@ -45,89 +45,89 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Kiekviena perdavimo dalis turi būti nukopijuota **tiksliai** – apibendrinimas ar perdavimas kitaip sugadintų žemyn srovės agentą, kuris nuo to priklauso.
+Kiekvieną perdavimo dalį turi būti nukopijuota **tiksliai** – jos santrauka ar parafrazavimas sulaužytų žemyn sraute esančio agento veikimą.
 
 ---
 
-## Visas grafas
+## Pilnas grafas
 
-Kombinavus sekvencinę grandinę ir turinio perdavimo modelius gaunamas visas darbo eiga:
+Sujungus sekanti seka ir turinio perdavimo šablonus gaunamas pilnas darbo srautas:
 
 ```mermaid
 flowchart LR
-    U[Vartotojo įvestis] --> RP[CV analizatorius]
-    RP --> JD[Pareigybės aprašymo agentas]
-    JD --> MA[Atitikimo agentas]
-    MA --> GA[Spragų analizatorius + MCP]
-    GA --> O[Galutinis rezultatas]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Agentų inspektorius rodo tą pačią grafinę struktūrą, kai agentas veikia vietoje. Nuoroda į [5 modulis – Testavimas vietoje](05-test-locally.md) su ekrano vaizdais.
+Agentų inspektorius rodo tą pačią grafikos struktūrą, kai agentas veikia lokaliai. Žr. [Modulis 5 - Testavimas lokaliai](05-test-locally.md) ekrano nuotraukas.
 
 ---
 
-## Skaitymas WorkflowBuilder kode
+## Darbo srauto kūrėjo kodo skaitymas
 
-Visa `create_workflow()` funkcija yra [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Trys `add_edge()` kvietimai sukuria sekvencinę liniją:
+Darbo srauto grafas sukuriamas `main()` funkcijoje [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). trys `add_edge()` kvietimai sukuria sekanti seką:
 
-| # | Kraštinė | Poveikis |
-|---|----------|----------|
-| 1 | `resume_executor → jd_executor` | JD agentas gauna `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
+| # | Kraštas | Poveikis |
+|---|---------|---------|
+| 1 | `resume_executor → jd_executor` | JD Agent gauna `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent gauna `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
 | 3 | `matching_executor → gap_executor` | GapAnalyzer gauna atitikties ataskaitą + spragų sąrašą |
 
 ---
 
-## Grafiko keitimas
+## Grafo keitimas
 
 ### Naujo agente pridėjimas
 
 Norint pridėti penktą agentą (pvz., **InterviewPrepAgent** po GapAnalyzer):
 
 1. Apibrėžkite `INTERVIEW_PREP_INSTRUCTIONS` konstantą.
-2. Sukurkite `Agent` + `AgentExecutor` objektus (tokiu pačiu modeliu kaip ir dabar naudojamieji keturi).
+2. Sukurkite `Agent` + `AgentExecutor` objektus (taip pat, kaip ir keturi esami).
 3. Įtraukite `.add_edge(gap_executor, interview_exec)` į `WorkflowBuilder`.
 4. Atnaujinkite `output_executors=[interview_exec]`.
 
-> **Svarbu:** `start_executor` yra vienintelis agentas, kuris gauna žalią vartotojo įvestį. Visi kiti agentai gauna išvestį iš savo aukštesnės kraštinės.
+> **Svarbu:** `start_executor` yra vienintelis agentas, kuris gauna žalią naudotojo įvestį. Visi kiti agentai gauna išvestį iš savo aukštesnio lygio krašto.
 
 ---
 
-## Dažnos grafiko klaidos
+## Dažnos grafo klaidos
 
-| Klaida | Simptomai | Sprendimas |
-|---------|---------|-----|
-| Trūksta kraštinės iki `output_executors` | Agentas veikia, bet išvestis tuščia | Užtikrinkite, kad yra kelias nuo `start_executor` iki kiekvieno agente `output_executors` |
-| Užburtas ratas | Begalinis ciklas arba prasisukimas | Patikrinkite, kad joks agentas negrįžta atgal į aukštesnį agentą |
-| Agentas `output_executors` be įeinančios kraštinės | Išvestis tuščia | Pridėkite bent vieną `add_edge(source, that_agent)` |
-| Daug `output_executors` be fan-in | Išvestis apima tik vieno agento atsakymą | Naudokite vieną išeinančią agentą, kuris agreguoja, arba priimkite kelias išvestis |
+| Klaida | Simptomas | Sprendimas |
+|---------|---------|------------|
+| Trūksta krašto iki `output_executors` | Agentas veikia, bet išvestis tuščia | Užtikrinkite, kad būtų kelias nuo `start_executor` iki kiekvieno agento `output_executors` |
+| Ciklinė priklausomybė | Begalinis ciklas arba užlaikymas | Patikrinkite, ar agentas negrįžta atgal aukštesnio lygio agentui |
+| Agentas `output_executors` be įeinančio krašto | Tuščia išvestis | Pridėkite bent vieną `add_edge(source, that_agent)` |
+| Keli `output_executors` be fan-in | Išvestyje yra tik vieno agento atsakas | Naudokite vieną agentą išvestyje, kuris agreguoja, arba priimkite kelias išvestis |
 | Trūksta `start_executor` | `ValueError` kūrimo metu | Visada nurodykite `start_executor` `WorkflowBuilder()` |
 
 ---
 
-## Grafiko derinimas
+## Grafo derinimas
 
-### Naudojant Agent Inspector
+### Agentų inspektoriaus naudojimas
 
-1. Paleiskite agentą vietoje naudodami F5.
-2. Atidarykite Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
-3. Siųskite testinį pranešimą.
-4. Inspektoriaus atsakymo skydelyje pažiūrėkite į **tiesioginę išvestį** – ji parodo kiekvieno agento indėlį iš eilės.
+1. Paleiskite agentą lokaliai su F5.
+2. Atidarykite Agentų inspektorių (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
+3. Siųskite testinę žinutę.
+4. Inspektoriaus atsakymų srityje ieškokite **srautinių išvesčių** – jose rodoma kiekvieno agento indėlis sekose.
 
 
-### Naudojant žurnalą
+### Registracijos (logging) naudojimas
 
-Pridėkite žurnalą į `main.py`, kad sektumėte duomenų srautą:
+Pridėkite registraciją prie `main.py`, kad atsektumėte duomenų srautą:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Funkcijoje main(), po darbo eigos sukūrimo:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Serverio žurnalai rodo agentų vykdymo tvarką ir MCP įrankių kvietimus:
+Serverio žurnaluose matomas agento vykdymo tvarkos ir MCP įrankių kvietimai:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -142,17 +142,17 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### Kontrolinis taškas
+### Patikros taškas
 
-- [ ] Jūs galite atpažinti du orkestravimo modelius darbo eigoje: sekvencinę grandinę ir turinio perdavimą
+- [ ] Jūs galite atpažinti du orkestracijos šablonus darbo sraute: sekanti seka ir turinio perdavimas
 - [ ] Suprantate, kodėl `context_mode="last_agent"` reikalauja aiškaus duomenų perdavimo tarp agentų
-- [ ] Galite perskaityti `WorkflowBuilder` kodą ir priskirti kiekvieną `add_edge()` kvietimą vizualiam grafui
-- [ ] Žinote, kaip pridėti naują agentą prie linijos pabaigos
-- [ ] Galite atpažinti dažnas grafiko klaidas ir jų požymius
+- [ ] Gebate skaityti `WorkflowBuilder` kodą ir susieti kiekvieną `add_edge()` kvietimą su matomu grafu
+- [ ] Žinote, kaip pridėti naują agentą prie galo sekos
+- [ ] Galite atpažinti dažnas grafo klaidas ir jų simptomus
 
 ---
 
-**Ankstesnis:** [03 - Konfigūruoti agentus ir aplinką](03-configure-agents.md) · **Kitas:** [05 - Testavimas vietoje →](05-test-locally.md)
+**Ankstesnis:** [03 - Agentų ir aplinkos konfigūravimas](03-configure-agents.md) · **Kitas:** [05 - Testavimas lokaliai →](05-test-locally.md)
 
 ---
 

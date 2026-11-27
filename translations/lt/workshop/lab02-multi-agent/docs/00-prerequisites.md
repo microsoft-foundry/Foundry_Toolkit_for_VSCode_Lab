@@ -3,63 +3,63 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Peržiūra ir apribojimai:** [Hostinami agentai](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) šiuo metu yra **viešoje peržiūroje** - nerekomenduojama naudoti gamybos darbams. Kai kurios šio seminaro metu pateiktos funkcijos gali keistis, kai paslauga judės link GA.
+> **Peržiūra ir apribojimai:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) šiuo metu yra **viešoje peržiūroje** – nerekomenduojama naudoti gamybinėms užduotims. Kai kurios šio mokymo dirbtuvės funkcijos gali pasikeisti, kai paslauga pereis prie GA.
 
 ## Ką kursite
 
-Šiame laborotoriuje išplėsite vieno agento įgūdžius iš 01 laboratorinio darbo, kad sukurtumėte **daugiagentinį darbo eigą** - gyvenimo aprašymas → darbo tinkamumo vertintojas.
+Šiame laboratoriniame darbe išplėsite vieno agente įgūdžius iš 01 laboratorijos ir kursite **daugiagentinį darbo eigą** – CV → Darbo tinkamumo vertintuvą.
 
-Įklijuojate **gyvenimo aprašymą** ir **darbo aprašymą**. Keturi specializuoti agentai sekiškai apdoroja įvestį ir pateikia:
+Jūs įklijuojate **CV** ir **darbo aprašymą**. Keturi specializuoti agentai apdoroja įvestį paeiliui, tuomet pateikia:
 - Tinkamumo balą (0–100 su balų išskaidymu)
-- Įgūdžių ir sertifikavimo trūkumų sąrašą
-- Personalizuotą mokymosi planą su tikromis Microsoft Learn nuorodomis kiekvienam trūkumui
+- Įgūdžių ir sertifikatų trūkumo sąrašą
+- Asmeninę mokymosi planą su realiais Microsoft Learn nuorodomis kiekvienam trūkumui
 
 **Darbo eiga naudoja:**
-- **Microsoft Agent Framework** - `WorkflowBuilder` sekvinei eiliniam valdymui
-- **Foundry Toolkit for VS Code** - karkasas, lokalus testavimas, diegimas
-- **AI modelį** (pvz., `gpt-4.1-mini`) - naudojamas visų keturių agentų
-- **Microsoft Learn MCP serverį** - teikia tikras mokymosi išteklių nuorodas kiekvienam įgūdžių trūkumui
+- **Microsoft Agent Framework** - `WorkflowBuilder` sekančiai kanalo orkestracijai
+- **Foundry Toolkit for VS Code** - karkaso kūrimui, vietiniam testavimui, diegimui
+- **AI modelį** (pvz., `gpt-4.1-mini`) – visų keturių agentų naudotą
+- **Microsoft Learn MCP serverį** – teikia realias mokymosi išteklių nuorodas kiekvienam įgūdžių trūkumui
 
 ---
 
 ## Pasirinkite savo kelią
 
-> ⚠️ **Tęskite tuo pačiu keliu, kurį naudojote 01 laboratoriniame darbe.**
+> ⚠️ **Tęskite naudodami tą patį kelią, kurį naudojote 01 laboratorijoje.**
 
 <details open>
-<summary><strong>🅰️ A kelias - Azure debesys (reikia Azure prenumeratos)</strong></summary>
+<summary><strong>🅰️ Kelias A - Azure debesyje (reikalaujama Azure prenumeratos)</strong></summary>
 
 | | Detalės |
 |---|---|
-| **Kam skirtas?** | Baigėte 01 laboratorinį darbą naudodami Azure prenumeratą |
+| **Kam tai skirta?** | Jūs įvykdėte 01 laboratoriją naudodami Azure prenumeratą |
 | **Modelis** | Azure OpenAI per Foundry (pvz., `gpt-4.1-mini`) |
-| **Dengti moduliai** | Visi moduliai (00–09) |
-| **Diegti į debesį?** | ✅ Taip - pilnas galinis diegimas |
+| **Aprėpti moduliai** | Visi moduliai (00–09) |
+| **Diegimas į debesis?** | ✅ Taip – pilnas end-to-end diegimas |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ B kelias - Foundry vietinis (nereikia Azure prenumeratos)</strong></summary>
+<summary><strong>🅱️ Kelias B - Foundry Local (nereikia Azure prenumeratos)</strong></summary>
 
 | | Detalės |
 |---|---|
-| **Kam skirtas?** | Baigėte 01 laboratorinį darbą naudodami Foundry vietinį |
-| **Modelis** | Foundry vietinis (nemokamas, veikia jūsų kompiuteryje) |
-| **Dengti moduliai** | Moduliai 00–05 (praleiskite 06–07 - diegimas ir debesies patikra) |
-| **Diegti į debesį?** | ❌ Ne - tik lokalus testavimas per Agent Inspector |
+| **Kam tai skirta?** | Jūs įvykdėte 01 laboratoriją naudodami Foundry Local |
+| **Modelis** | Foundry Local (nemokamas, veikia jūsų mašinoje) |
+| **Aprėpti moduliai** | Moduliai 00–05 (praleiskite 06–07 - diegimas ir debesų patikra) |
+| **Diegimas į debesis?** | ❌ Ne – tik vietinis testavimas per Agent Inspector |
 
 </details>
 
 ---
 
-## 01 laboratorinio darbo patikra
+## 01 laboratorijos patikra
 
-02 laboratorinis darbas tiesiogiai remiasi 01 laboratoriniu darbu. Baigkite 01 laboratorinį darbą prieš pradėdami čia.
+02 laboratorija tiesiogiai remiasi 01 laboratorija. Pradėkite nuo 01 laboratorijos baigimo prieš čia pradėdami.
 
-Dar nepradėjote 01 laboratorinio darbo? Pradėkite čia: [01 laboratorinis darbas - Įvadas](../../lab01-single-agent/docs/00-prerequisites.md)
+Dar nedarėte 01 laboratorijos? Pradėkite čia: [Lab 01 - Įvadas](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ A kelias - Azure debesys</strong></summary>
+<summary><strong>🅰️ Kelias A - Azure debesyje</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
@@ -67,39 +67,39 @@ az account show --query "{name:name, id:id}" --output table
 
 Jei nepavyksta, paleiskite `az login`. Tada patikrinkite VS Code:
 
-1. `Ctrl+Shift+P` → įveskite **Foundry Toolkit** → patvirtinkite, kad komandos rodomos.
-2. Spustelėkite **Foundry Toolkit** piktogramą → jūsų projektas ir diegiamas modelis rodomi kaip **Sėkmingai**.
+1. `Ctrl+Shift+P` → įveskite **Foundry Toolkit** → patvirtinkite, kad komandos matomos.
+2. Spustelėkite **Foundry Toolkit** piktogramą → jūsų projektas ir įdiegta modelis rodomi kaip **Atlikta**.
 
-![Foundry Toolkit šoninė juosta rodanti SKYRIŲ mano ištekliai ir atidarius projektų perjungimo modališkumą](../../../../../translated_images/lt/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit šoninė juosta rodanti projektą skiltyje Mano ištekliai, su atidarytu projekto perjungimo / kūrimo pasirinkimo meniu](../../../../../translated_images/lt/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Jūs priskyrėte **Foundry User** 01 laboratoriniame darbe. Jei reikia perpriskirti, žiūrėkite [01 laboratorinis darbas, Modulis 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Rolė anksčiau vadinosi **Azure AI User** - tos pačios teisės.
+> **RBAC:** Jūs priskyrėte **Foundry User** 01 laboratorijoje. Jei reikia priskirti iš naujo, žiūrėkite [01 laboratorija, Modulis 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Anksčiau rolė vadinosi **Azure AI User** – tos pačios teisės.
 
 </details>
 
 <details open>
-<summary><strong>🅱️ B kelias - Foundry vietinis</strong></summary>
+<summary><strong>🅱️ Kelias B - Foundry Local</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
 ```
 
-Tikėtina: `StatusCode: 200`. Jei ne, iš naujo paleiskite Foundry vietinį iš Foundry Toolkit šoninės juostos.
+Tikėtina: `StatusCode: 200`. Jei ne, paleiskite Foundry Local iš naujo per Foundry Toolkit šoninę juostą.
 
-> Visa spėliojimo eiga vyksta jūsų kompiuteryje. Vienintelis išeinantis kvietimas yra MCP įrankiui adresu `https://learn.microsoft.com/api/mcp`.
+> Visa inferencija vyksta jūsų mašinoje. Vienintelis išėjimas – MCP įrankis į `https://learn.microsoft.com/api/mcp`.
 
 </details>
 
 ---
 
-## Kas naujo 02 laboratoriniame darbe
+## Kas naujo 02 laboratorijoje
 
-| | 01 laboratorinis darbas | 02 laboratorinis darbas |
+| | 01 laboratorija | 02 laboratorija |
 |--|--------|--------|
 | Agentai | 1 | 4 (susieti su WorkflowBuilder) |
 | Karkaso šablonas | Pagrindinis - Agent Framework | Darbo eigos - Agent Framework |
 | Nauja paketas | - | `mcp` |
-| Valdymas | Vienas pokalbio agentas | Sekvencinė eiga (WorkflowBuilder) |
-| Nauja priemonė | - | `search_microsoft_learn_for_plan` (MCP) |
+| Orkestracija | Vienas pokalbis agentas | Sekanti kanalo eiga (WorkflowBuilder) |
+| Naujas įrankis | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---
 

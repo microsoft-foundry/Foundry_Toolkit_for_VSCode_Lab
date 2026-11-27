@@ -1,14 +1,14 @@
-# Modulis 2 - Daugiaagentinio projekto karkaso sukūrimas
+# Modulis 2 - Multi-agenčių projekto karkaso kūrimas
 
 ⏱️ ~5 min
 
-Šiame modulyje jūs naudojate [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) kad **sukurtumėte daugiaagentinį projektą**. Vedlys sugeneruoja `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, ir VS Code derinimo konfigūraciją - kad galėtumėte susitelkti į 4-agentų darbo eigos sujungimą 3 modulyje.
+Šiame modulyje naudojate [Foundry Toolkit for VS Code](https://aka.ms/foundrytk), kad **sukurtumėte multi-agenčių projekto karkasą**. Vedlys sugeneruoja `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` ir VS Code derinimo konfigūraciją – taip galite sutelkti dėmesį į 4-agentų darbo sekos jungimą 3 modulyje.
 
-> **Pagrindinė sąvoka:** Karkasas yra veikiantis šablonas su vienu agentu. Jūs pakeisite laikinojo sprendinio logiką su `WorkflowBuilder` grafu Modulyje 3. Jums nereikia rašyti šablono nuo nulio.
+> **Pagrindinė koncepcija:** Karkasas yra veikiantis šablonas su vienu agentu. Jūs pakeičiate laikinojo kodo logiką `WorkflowBuilder` grafu 3 modulyje. Jums nereikia rašyti boilerplate nuo nulio.
 
-> **Atlikimo pavyzdys:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) yra pilnas veikiantis pavyzdys. Naudokite jį, kad palygintumėte savo darbą.
+> **Referencinė įgyvendinimo pavyzdys:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) yra pilnas veikiantis pavyzdys. Naudokite jį kaip palyginimą savo darbui.
 
-### Karkaso vedlio eiga
+### Vedlio kūrimo eiga
 
 ```mermaid
 flowchart LR
@@ -25,47 +25,47 @@ flowchart LR
 ## 1 žingsnis: Atidarykite Create Hosted Agent vedlį
 
 1. Paspauskite `Ctrl+Shift+P`, kad atidarytumėte **Command Palette**.
-2. Įveskite: **Foundry Toolkit: Create a New Hosted Agent** ir pasirinkite jį.
+2. Įrašykite: **Foundry Toolkit: Create new Hosted Agent** ir pasirinkite ją.
 3. Vedlys atsidarys skirtuke **Agent Details**.
 
-> **Alternatyva:** Spustelėkite **Foundry Toolkit** piktogramą Activity Bar → spustelėkite **+** šalia **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternatyva:** Spustelėkite **Foundry Toolkit** piktogramą Activity Bar → spustelėkite **+** piktogramą prie **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
 ## 2 žingsnis: Pasirinkite nustatymus
 
-![Sukurkite Hosted Agent iš pavyzdžio – 'Agent Details' skirtukas su pasirinktu 'Workflows' šablonu](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/lt/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Kairėje naršymo/parinkčių srityje pasirinkite šiuos parametrus:
-
-| Meniu | Pasirinkimas | Pastabos |
-|--------|-----------|-------|
-| **Language** | Python | C# (.NET) taip pat palaikomas |
-| **Framework** | Agent Framework | Teikia `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **API type** | Response API | `POST /responses` – platformos valdoma istorija, srautinis palaikymas |
-| **Template** | **Workflows** | Apdoroja užklausas per kelis agentus paeiliui |
-
-2. Kai pasirinkta, spustelėkite **Next**
-
-![Create Hosted Agent from Sample - 'Create' skirtukas, rodantis PersonalCareerCopilot kaip aplanko pavadinimą](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
-
-3. Kitame lange pasirinkite šiuos parametrus:
+1. Kairėje navigacijos/ parinkčių srityje pasirinkite:
 
 | Meniu | Pasirinkimas | Pastabos |
 |--------|-----------|-------|
-| **Workspace folder** | Naršykite iki tikslo aplanko | pvz., `workshop/lab02-multi-agent/` šiame repo |
-| **Agent name** | `PersonalCareerCopilot` | Tai taps projekto katalogo pavadinimu |
-| **Model Deployment** | Pasirinkite savo išdiegtą modelį | pvz., `gpt-4.1-mini` iš Lab 01 |
+| **Kalba** | Python | Taip pat palaikomas C# (.NET) |
+| **Sistema** | Agent Framework | Teikia `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **API tipas** | Response API | `POST /responses` – platformos valdoma istorija, srautinio perdavimo palaikymas |
+| **Šablonas** | **Workflows** | Užklausas apdoroja per kelis agentus paeiliui |
 
-4. Spustelėkite **Create**, kad sukurtumėte projekto karkasą. VS Code sugeneruos failus ir atidarys aplanką.
+2. Pasirinkus spustelėkite **Next**
 
-> **Patarimas:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) gerai subalansuoja greitį ir kokybę daugiaagentiniam vystymui.
+![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/lt/02-scaffold-wizard-create.ae0c285c309698ba.webp)
+
+3. Kitoje lange pasirinkite:
+
+| Meniu | Pasirinkimas | Pastabos |
+|--------|-----------|-------|
+| **Darbo aplanko vieta** | Naršyti iki tikslinio aplanko | pavyzdžiui, `workshop/lab02-multi-agent/` šiame repozitorijoje |
+| **Agentų pavadinimas** | `PersonalCareerCopilot` | Tai taps projekto katalogo pavadinimu |
+| **Modelio diegimas** | Pasirinkite savo diegtą modelį | pavyzdžiui, `gpt-4.1-mini` iš 01 laboratorijos |
+
+4. Spustelėkite **Create**, kad sukurtumėte projekto karkasą. VS Code sugeneruoja failus ir atidarys aplanką.
+
+> **Patariama:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) gerai balansuoja greitį ir kokybę multi-agenčių vystymui.
 
 ---
 
-## 3 žingsnis: Patikrinkite sugeneruotą projektą
+## 3 žingsnis: Apžvelkite sugeneruotą projektą
 
-Po karkaso sukūrimo, patikrinkite, ar matote šiuos failus Explorer (`Ctrl+Shift+E`):
+Po karkaso kūrimo pabaigos patikrinkite, ar tyrinėtojo lange (`Ctrl+Shift+E`) matomi šie failai:
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ Po karkaso sukūrimo, patikrinkite, ar matote šiuos failus Explorer (`Ctrl+Shif
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Svarbu:** Atidarykite šį sugeneruotą aplanką tiesiogiai VS Code, kad `.vscode/launch.json` ir `tasks.json` teisingai galiojtų F5 derinimui.
+> **Svarbu:** Atidarykite šį karkaso aplanką tiesiogiai VS Code, kad `.vscode/launch.json` ir `tasks.json` tinkamai veiktų F5 derinimui.
 
-### Pagrindinių failų paaiškinimai
+### Pagrindiniai failai paaiškinti
 
 | Failas | Paskirtis |
 |------|---------|
-| `agent.yaml` | Deklaruoja `kind: hosted`, mapuoja aplinkos kintamuosius, apibrėžia `/responses` protokolą |
-| `main.py` | Šablonas: vienas `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Tai pakeisite 4 agentais + `WorkflowBuilder` Modulyje 3 |
-| `Dockerfile` | `python:3.12-slim`, įdiegia `requirements.txt`, atveria prievadą 8088, paleidžia `python main.py` |
+| `agent.yaml` | Deklaruoja `kind: hosted`, žemėlapiuoja aplinkos kintamuosius, apibrėžia `/responses` protokolą |
+| `main.py` | Šablonas: vienas `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Jūs pakeisite jį keturiais agentais + `WorkflowBuilder` 3 modulyje |
+| `Dockerfile` | `python:3.12-slim`, įdiegia `requirements.txt`, atveria 8088 prievadą, vykdo `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Nuoroda:** Peržiūrėkite [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ir [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) dėl pilno sugeneruoto turinio.
+> **Nuoroda:** Žr. [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ir [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) pilną sugeneruotą turinį.
 
 ---
 
-### ✅ Kontrolinis taškas
+### ✅ Tikrinimo taškas
 
-- [ ] Karkaso vedlys užbaigtas - naujas projekto aplankas matomas Explorer
-- [ ] Visi tikėtini failai yra: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Vedlys baigtas – naujas projekto aplankas matomas Tyrinėtojo lange
+- [ ] Visi laukiamieji failai yra: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` rodo `kind: hosted` ir `protocol: responses`
 - [ ] `main.py` importuoja `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Karkasuotas aplankas atidarytas kaip VS Code darbo srities šaknis
-- [ ] Suprantate, kad `main.py` yra šablonas - `WorkflowBuilder` bus pridėtas Modulyje 3
+- [ ] Karkaso aplankas atidarytas kaip VS Code darbo aplanko šaknis
+- [ ] Suprantate, kad `main.py` yra šablonas – `WorkflowBuilder` bus pridėtas 3 modulyje
 
 ---
 
-**Ankstesnis:** [01 - Suprasti daugiaagentę architektūrą](01-understand-multi-agent.md) · **Kitas:** [03 - Konfigūruoti agentus ir aplinką →](03-configure-agents.md)
+**Ankstesnis:** [01 - Suprasti multi-agenčių architektūrą](01-understand-multi-agent.md) · **Kitas:** [03 - Agentų ir aplinkos konfigūravimas →](03-configure-agents.md)
 
 ---
 

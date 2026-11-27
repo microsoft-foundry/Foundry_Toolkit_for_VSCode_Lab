@@ -1,6 +1,6 @@
 # PersonalCareerCopilot - Оцінювач відповідності резюме вакансії
 
-Багатоагентський додаток, орієнтований на робочий процес, який оцінює, наскільки резюме відповідає опису роботи, а потім створює персоналізований план навчання для подолання прогалин.
+Програма з кількома агентами, орієнтована на робочий процес, яка оцінює, наскільки резюме відповідає опису вакансії, а потім генерує персоналізовану навчальну дорожню карту для усунення прогалин.
 
 ---
 
@@ -10,18 +10,18 @@
 |-------|------|-------|
 | **ResumeParser** | Витягує структуровані навички, досвід, сертифікати з тексту резюме | - |
 | **JobDescriptionAgent** | Витягує необхідні/бажані навички, досвід, сертифікати з опису вакансії | - |
-| **MatchingAgent** | Порівнює профіль з вимогами → оцінка відповідності (0-100) + співпадаючі/відсутні навички | - |
-| **GapAnalyzer** | Створює персоналізований план навчання з ресурсів Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **MatchingAgent** | Порівнює профіль із вимогами → оцінка відповідності (0-100) + співпадаючі/відсутні навички | - |
+| **GapAnalyzer** | Створює персоналізовану навчальну дорожню карту з ресурсами Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Робочий процес
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Резюме + Опис роботи"] --> ResumeParser
-    ResumeParser -- "розпарсене резюме + передача Опису роботи" --> JobDescriptionAgent
-    JobDescriptionAgent -- "Вимоги Опису роботи + передача резюме" --> MatchingAgent
-    MatchingAgent -- "звіт відповідності + прогалини" --> GapAnalyzerMCP["Аналізатор прогалин +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nОцінка відповідності + Дорожня карта"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Налаштування середовища
 
-Ця папка — довідкова реалізація каркасу лабораторної роботи 02, заснованої на робочому процесі. Файл `main.py` використовує існуючі блоки запитів разом із `WorkflowBuilder` для зв’язування чотирьох агентів.
+Ця папка є еталонною реалізацією для конструкції лабораторної роботи 02 на основі робочого процесу. Її `main.py` використовує наявні блоки підказок та `WorkflowBuilder` для з'єднання чотирьох агентів.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,7 +40,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Конфігурація облікових даних
+### 2. Налаштування облікових даних
 
 Створіть файл `.env` у цій папці:
 
@@ -57,8 +57,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | Значення | Де знайти |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Бічна панель Foundry Toolkit → клацніть правою кнопкою на вашому проєкті → **Copy Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Бічна панель Foundry → розгорніть проєкт → **Models + endpoints** → ім’я розгортання |
+| `FOUNDRY_PROJECT_ENDPOINT` | Бічна панель Foundry Toolkit → клік правою кнопкою на проєкт → **Copy Project Endpoint** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Бічна панель Foundry → розгорнути проєкт → **Models + endpoints** → назва розгортання |
 
 ### 3. Запуск локально
 
@@ -66,9 +66,9 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Або використовуйте задачу VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Або використовуйте завдання VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
 
-Для відлагодження F5 — використовуйте **Debug Local Agent HTTP Server**.
+Для налагодження F5 використовуйте **Debug Local Agent HTTP Server**.
 
 ### 4. Тестування з Agent Inspector
 
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Очікувано:** Оцінка відповідності (0-100), співпадаючі/відсутні навички та персоналізований план навчання з URL-адресами Microsoft Learn.
+**Очікувано:** Оцінка відповідності (0-100), співпадаючі/відсутні навички та персоналізована навчальна дорожня карта з посиланнями Microsoft Learn.
 
-### 5. Розгортання у Foundry
+### 5. Розгортання на Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → виберіть ваш проєкт → підтвердіть.
+`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → виберіть ваш проєкт → підтвердьте.
 
 ---
 
@@ -115,28 +115,28 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-Визначає розміщеного агента для Foundry Agent Service:
-- `kind: hosted` - запускається як керований контейнер
-- `protocols` - протокол `responses` з `version: 1.0.0`, відкриває HTTP кінцеву точку `/responses`
-- `environment_variables` - тут оголошено `AZURE_AI_MODEL_DEPLOYMENT_NAME`; `FOUNDRY_PROJECT_ENDPOINT` автоматично додається під час розгортання
+Визначає хостингового агента для Foundry Agent Service:
+- `kind: hosted` - виконується як керований контейнер
+- `protocols` - протокол `responses` з `version: 2.0.0`, відкриваючи HTTP endpoint `/responses`
+- `environment_variables` - тут оголошено `AZURE_AI_MODEL_DEPLOYMENT_NAME`; `FOUNDRY_PROJECT_ENDPOINT` автоматично впроваджується під час розгортання
 
 ### `main.py`
 
 Містить:
-- **Інструкції агентам** - чотири константи `*_INSTRUCTIONS`, по одній на кожного агента
-- **Інструмент MCP** - `search_microsoft_learn_for_plan()` виконує виклик `https://learn.microsoft.com/api/mcp` через Streamable HTTP
-- **Створення агентів** - чотири екземпляри `Agent()` + `AgentExecutor()`, що спільно використовують `FoundryChatClient`
-- **Граф робочого процесу** - `WorkflowBuilder` зв’язує агентів послідовною конвеєрною схемою: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **Запуск сервера** - `ResponsesHostServer` працює на порті 8088
+- **Інструкції для агентів** - чотири константи `*_INSTRUCTIONS`, по одній на агента
+- **Інструмент MCP** - `search_microsoft_learn_for_plan()` викликає `https://learn.microsoft.com/api/mcp` через Streamable HTTP
+- **Створення агентів** - чотири екземпляри `Agent()` + `AgentExecutor()`, що використовують один `FoundryChatClient`
+- **Граф робочого процесу** - `WorkflowBuilder` з'єднує агентів у послідовний конвеєр: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Запуск сервера** - `ResponsesHostServer` працює на порту 8088
 
 ### `requirements.txt`
 
 | Пакет | Призначення |
 |---------|----------|
 | `agent-framework-foundry` | Основне середовище виконання: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + інтеграція розміщення у Foundry |
+| `agent-framework-foundry-hosting` | Інтеграція розміщення Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | MCP клієнт для GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Відлагодження Python (F5 у VS Code) |
+| `debugpy` | Налагодження Python (F5 у VS Code) |
 
 ---
 
@@ -144,17 +144,17 @@ PersonalCareerCopilot/
 
 | Проблема | Вирішення |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` або `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Створіть файл `.env` з обома змінними `FOUNDRY_PROJECT_ENDPOINT` і `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Активуйте віртуальне середовище та виконайте `pip install -r requirements.txt` |
-| У результаті відсутні URL Microsoft Learn | Перевірте підключення до інтернету для `https://learn.microsoft.com/api/mcp` |
-| Тільки 1 картка з прогалиною (обрізана) | Переконайтеся, що `GAP_ANALYZER_INSTRUCTIONS` включає блок `CRITICAL:` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` або `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Створіть `.env` з обома встановленими `FOUNDRY_PROJECT_ENDPOINT` та `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Активуйте venv і запустіть `pip install -r requirements.txt` |
+| Відсутні посилання Microsoft Learn у виводі | Перевірте підключення до інтернету до `https://learn.microsoft.com/api/mcp` |
+| Лише 1 картка прогалини (обрізана) | Перевірте, що `GAP_ANALYZER_INSTRUCTIONS` містить блок `CRITICAL:` |
 | Порт 8088 зайнятий | Зупиніть інші сервери: `netstat -ano \| findstr :8088` |
 
-Для детального усунення несправностей див. [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+Для детального усунення несправностей див. [Модуль 8 - Усунення несправностей](../docs/08-troubleshooting.md).
 
 ---
 
-**Повний посібник:** [Lab 02 Docs](../docs/README.md) · **Назад до:** [Lab 02 README](../README.md) · [Головна сторінка воркшопу](../../../README.md)
+**Повний посібник:** [Документація лабораторної роботи 02](../docs/README.md) · **Повернутися до:** [README лабораторної роботи 02](../README.md) · [Домашня сторінка майстер-класу](../../../README.md)
 
 ---
 
