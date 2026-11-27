@@ -140,8 +140,6 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 
 ![Hosted agent playground open on the Details tab, with Deployment Details showing the agent's status as Running](images/06-foundry-sidebar-agent-status.png)
 
-> *Screenshot shows an example agent. Your agent's name appears in the same places.*
-
 | Status | Meaning |
 |--------|---------|
 | **active** | Agent is running and ready to accept requests |

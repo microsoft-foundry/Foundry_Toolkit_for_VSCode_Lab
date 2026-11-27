@@ -29,8 +29,6 @@ A misconfigured env var, RBAC issue, or blocked MCP outbound call would show up 
 
 ![Hosted agent playground open on the Details tab, with Deployment Details showing the agent's status as Running](images/06-foundry-sidebar-agent-status.png)
 
-> *Screenshot shows an example agent. Your agent's name appears in the same places.*
-
 ### Step 2: Check the status
 
 1. The **Hosted agent playground** opens on the **Details** tab.
