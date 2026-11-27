@@ -117,7 +117,7 @@ PersonalCareerCopilot/
 
 Defines the hosted agent for Foundry Agent Service:
 - `kind: hosted` - runs as a managed container
-- `protocols` - `responses` protocol with `version: 1.0.0`, exposing the `/responses` HTTP endpoint
+- `protocols` - `responses` protocol with `version: 2.0.0`, exposing the `/responses` HTTP endpoint
 - `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` is declared here; `FOUNDRY_PROJECT_ENDPOINT` is injected automatically at deploy time
 
 ### `main.py`

@@ -1,6 +1,7 @@
 # Copyright (c) Microsoft. All rights reserved.
 
 import json
+import logging
 import os
 
 from agent_framework import Agent, AgentExecutor, WorkflowBuilder, tool
@@ -13,6 +14,9 @@ from mcp.client.streamable_http import streamable_http_client
 
 # Load environment variables from .env file (override=True ensures .env wins over shell vars)
 load_dotenv(override=True)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("resume-job-fit")
 
 MICROSOFT_LEARN_MCP_ENDPOINT = os.getenv(
     "MICROSOFT_LEARN_MCP_ENDPOINT", "https://learn.microsoft.com/api/mcp"
@@ -188,6 +192,8 @@ async def search_microsoft_learn_for_plan(
 
 
 def main():
+    logger.info("Starting Resume -> Job Fit Evaluator HTTP server...")
+
     client = FoundryChatClient(
         project_endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
         model=os.environ["AZURE_AI_MODEL_DEPLOYMENT_NAME"],

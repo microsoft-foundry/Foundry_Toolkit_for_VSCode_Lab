@@ -70,7 +70,7 @@ If this fails, run `az login`. Then verify in VS Code:
 1. `Ctrl+Shift+P` → type **Foundry Toolkit** → confirm commands appear.
 2. Click the **Foundry Toolkit** icon → your project and deployed model show **Succeeded**.
 
-![Foundry Toolkit sidebar showing MY RESOURCES section with the project switcher modal open](images/00-foundry-sidebar-project-model.png)
+![Foundry Toolkit sidebar showing the project under My Resources, with the Switch project / Create project picker open](images/00-foundry-sidebar-project-model.png)
 
 > **RBAC:** You assigned **Foundry User** in Lab 01. If you need to re-assign it, see [Lab 01, Module 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). The role was previously named **Azure AI User** - same permissions.
 

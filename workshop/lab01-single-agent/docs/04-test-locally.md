@@ -29,7 +29,7 @@ flowchart TD
 
 1. Open the **executive-summary-agent/** folder directly in VS Code (`File → Open Folder`).
 2. Open the **Run and Debug** panel (`Ctrl+Shift+D`).
-3. Select **Debug Local Agent Server** from the dropdown.
+3. Select **Debug Local Agent HTTP Server** from the dropdown.
 4. Press **F5** (or click ▶ Start Debugging).
 
 > ⚠️ **Critical: Select your Python Interpreter**
@@ -37,10 +37,12 @@ flowchart TD
   > 1. Press `Ctrl+Shift+P` $\rightarrow$ type **Python: Select Interpreter**.
   > 2. Select the interpreter located in your project's `.venv` folder (e.g., `.\.venv\Scripts\python.exe` on Windows).
   > 3. Restart the debug session.
-> If you still getting errors, manually update your file `tasks.json` as follows:
+> If you're still getting errors, manually update your file `tasks.json` as follows:
   > 1. Navigate to `.vscode/tasks.json` file
-  > 2. Go to the command labelled: `Run Agent/Workflow HTTP Server`
-  > 3. Update the command value as follows: `"value": "${workspaceFolder}/.venv/bin/python",`
+  > 2. Go to the task labelled: `Run Agent HTTP Server`
+  > 3. Update the command value as follows:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### What happens
 

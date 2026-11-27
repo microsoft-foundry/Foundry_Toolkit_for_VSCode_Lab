@@ -79,7 +79,7 @@ Click **next** to review and deploy your agent.
 
 | Prompt | Selection |
 |--------|-----------|
-| **CPU and memory** | **0.25 CPU cores, 0.5 Gi memory** (sufficient for workshop) |
+| **CPU and memory** | **0.5 CPU cores, 1.0 Gi memory** (the default - sufficient for workshop) |
 
 ---
 
@@ -94,7 +94,7 @@ Click **next** to review and deploy your agent.
    - **Container start** - starts with system-managed identity
 
 4. When complete, a notification appears:
-   > **my-agent is deployed successfully.** `View logs` `Run agent`
+   > **executive-summary-agent is deployed successfully.** `View logs` `Run agent`
 
 5. Click **Run agent** to open the Agent Playground.
 
@@ -123,7 +123,7 @@ Click **next** to review and deploy your agent.
 ### ✅ Checkpoint
 
 - [ ] Deployment completed without errors
-- [ ] Agent appears under **Hosted Agents (Preview)** in the Foundry sidebar
+- [ ] Agent appears on the **Hosted Agent** tab when you click **Agents** under your project in the Foundry Toolkit sidebar
 - [ ] Container status shows **Running**
 - [ ] Agent Playground tab opened showing agent details and endpoint URL
 

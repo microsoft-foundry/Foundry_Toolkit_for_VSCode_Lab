@@ -13,11 +13,12 @@ In this module, you run the multi-agent workflow locally, test it with Agent Ins
 1. Open `workshop/lab02-multi-agent/PersonalCareerCopilot/` as your VS Code folder.
 2. Press `Ctrl+Shift+P` → type **Tasks: Run Task** → select **Run Agent HTTP Server**.
 3. The task starts the server with debugpy attached on port `5679` and the agent on port `8088`.
-4. Wait for the output to show:
+4. Wait for the output to show the startup message, followed by the server's own ready message (other log lines appear in between):
 
 ```
 INFO:resume-job-fit:Starting Resume -> Job Fit Evaluator HTTP server...
-INFO:resume-job-fit:Server running on http://localhost:8088
+...
+INFO:hypercorn.error:Running on http://0.0.0.0:8088 (CTRL + C to quit)
 ```
 
 ### Option B: Using F5 (debug mode)
@@ -35,7 +36,7 @@ INFO:resume-job-fit:Server running on http://localhost:8088
 
 ![Agent Inspector open and ready - Playground shows the welcome prompt](images/04-debug-console-matching-input.png)
 
-> **If Agent Inspector doesn't open:** Ensure the server is fully started (you see the "Server running" log). If port 5679 is busy, see [Module 8 - Troubleshooting](08-troubleshooting.md).
+> **If Agent Inspector doesn't open:** Ensure the server is fully started (you see the `Running on http://0.0.0.0:8088` log). If port 5679 is busy, see [Module 8 - Troubleshooting](08-troubleshooting.md).
 
 ---
 
@@ -53,7 +54,7 @@ The Foundry Toolkit includes a real-time **Workflow Visualizer** that shows how 
 
 ## Step 3: Run smoke tests
 
-Run these three tests in order. Each tests progressively more of the workflow.
+Run these two tests in order. Each tests progressively more of the workflow.
 
 ### Test 1: Basic resume + job description
 
@@ -144,7 +145,7 @@ Try pasting your own resume and a real job description. This helps verify:
 
 ### Checkpoint
 
-- [ ] Server started successfully on port `8088` (log shows "Server running")
+- [ ] Server started successfully on port `8088` (log shows `Running on http://0.0.0.0:8088`)
 - [ ] Agent Inspector opened and connected to the agent
 - [ ] Test 1: Complete response with fit score, matched/missing skills, gap cards, and Microsoft Learn URLs
 - [ ] Test 2: High-fit candidate gets score 80+ with polish-focused recommendations

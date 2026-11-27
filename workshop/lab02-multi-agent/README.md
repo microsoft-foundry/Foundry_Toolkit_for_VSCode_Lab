@@ -64,11 +64,12 @@ See the full learning path in:
 
 ## Orchestration patterns
 
-Lab 02 includes the default **fan-out → fan-in → sequential** flow, and the docs also describe alternative orchestration patterns for experimentation.
+Lab 02 uses a **sequential pipeline**: each agent's output feeds the next one, and the workflow returns the final agent's response. Two patterns make this work:
 
-- **Fan-out/Fan-in with weighted consensus**
-- **Reviewer/critic pass before final roadmap**
-- **Conditional router** based on fit score and missing skills
+- **Sequential chain** - `WorkflowBuilder` wires ResumeParser → JD Agent → MatchingAgent → GapAnalyzer with one `add_edge()` call per step
+- **Content relay** - because each agent sees only its direct predecessor's output, ResumeParser and JD Agent copy the data downstream agents need into labeled pass-through sections
+
+The docs also explain why the lab does not use fan-out/fan-in, and how to extend the graph with another agent.
 
 See [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
