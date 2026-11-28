@@ -2,38 +2,38 @@
 
 ⏱️ ~10 min
 
-Tässä moduulissa tutustut Resume Job Fit Evaluatorissa käytettyihin orkestrointimalleihin ja opit lukemaan, muokkaamaan ja laajentamaan työnkulun graafia. Näiden mallien ymmärtäminen on olennaista datavirheen vianmäärityksessä ja omien [moniagenttityönkulkujesi](https://learn.microsoft.com/agent-framework/workflows/) rakentamisessa.
+Tässä moduulissa tutustut Resume Job Fit Evaluatorissa käytettyihin orkestrointimalleihin ja opit lukemaan, muokkaamaan ja laajentamaan työnkulun graafia. Näiden mallien ymmärtäminen on välttämätöntä tietovirheiden vianmäärityksessä ja omien [moni-agenttisten työnkulkujen](https://learn.microsoft.com/agent-framework/workflows/) rakentamisessa.
 
 ---
 
 ## Malli 1: Peräkkäinen ketju
 
-Työnkulun perusmalli on **peräkkäinen ketju** - kunkin agentin tuotos syötetään suoraan seuraavalle.
+Työnkulun perustavanlaatuinen malli on **peräkkäinen ketju** – jokaisen agentin tulos menee suoraan seuraavalle.
 
 ```mermaid
 flowchart LR
-    RP[Ansioluettelon jäsentäjä] --> JD[Tehtäväkuva-agentti]
-    JD --> MA[Vastaavuusagentti]
-    MA --> GA[Aukkoanalyytikko]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-Koodissa jokainen `add_edge()`-kutsu luo yhden askeleen ketjuun:
+Koodissa jokainen `add_edge()`-kutsu luo yhden vaiheen ketjuun:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # ResumeParser tuloste → JD Agent
-.add_edge(jd_executor, matching_executor)     # JD Agent tuloste → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # MatchingAgent tuloste → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Miksi peräkkäinen, eikä haarautuva/hanautuva?** `WorkflowBuilder` käyttää **TAI-semanttiikkaa** saapuville reunoille: alaspäin toimiva suorittaja käynnistyy heti, kun **mikä tahansa** edeltäjä on valmis. Jos `matching_executor`:lla olisi kaksi saapuvaa reunaa (sekä `resume_executor`:lta että `jd_executor`:lta), se käynnistyisi kahdesti - kerran kun ResumeParser päättyy ja uudelleen kun JD Agent päättyy - aiheuttaen GapAnalyzerin ajamisen kahdesti ja tuotoksen ilmestymisen kahdesti. Peräkkäinen putki välttää tämän kokonaan.
+> **Miksi peräkkäinen, ei fan-out/fan-in?** `WorkflowBuilder` käyttää **TAI-semanttiikkaa** saapuville kaarille: alavirran toimija käynnistyy heti, kun **joku** edeltäjistä on valmis. Jos `matching_executor`:lla olisi kaksi tuloittain kaarta (sekä `resume_executor`:sta että `jd_executor`:sta), se laukeaisi kahdesti – kerran ResumeParserin valmistuttua ja uudestaan JD Agentin valmistuttua – aiheuttaen, että GapAnalyzer suoritetaan myös kahdesti ja tuloste näkyy kahdesti. Peräkkäinen putki välttää tämän täysin.
 
 ## Malli 2: Sisällön välitys
 
-Koska `context_mode="last_agent"` tarkoittaa, että jokainen suorittaja näkee vain **suoraa edeltäjänsä tuotoksen**, peräkkäisen ketjun agenttien on nimenomaisesti välitettävä eteenpäin kaikki tiedot, joita alaspäin olevat agentit tarvitsevat.
+Koska `context_mode="last_agent"` tarkoittaa, että jokainen toimija näkee vain sen **suoran edeltäjänsä tuloksen**, toimijoiden peräkkäisessä ketjussa on nimenomaisesti siirrettävä eteenpäin kaikki tiedot, joita alavirran toimijat tarvitsevat.
 
 Tässä työnkulussa:
-- **ResumeParser** kopioi JD:n sanasta sanaan `[JOB DESCRIPTION PASS-THROUGH]` -kenttään (jotta JD Agent löytää sen).
-- **JD Agent** kopioi `[PARSED RESUME]` sanasta sanaan `[PARSED RESUME PASS-THROUGH]` -kenttään (jotta MatchingAgent voi vertailla molempia profiileja).
+- **ResumeParser** kopioi työpaikkailmoituksen sanatarkasti `[JOB DESCRIPTION PASS-THROUGH]`:iin (jotta JD Agent löytää sen).
+- **JD Agent** kopioi `[PARSED RESUME]` sanatarkasti `[PARSED RESUME PASS-THROUGH]`:iin (jotta MatchingAgent voi vertailla molempia profiileja).
 
 ```
 ResumeParser output
@@ -45,36 +45,36 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Jokainen välityskohde on kopioitava **sanasta sanaan** - tiivistäminen tai parafraasien käyttö rikkoo sitä seuraavaa agenttia, joka on riippuvainen siitä.
+Jokainen välitysosa on kopioitava **sanasta sanaan** – sen tiivistäminen tai parafraasien tekeminen rikkoo alavirran toimijan, joka riippuu siitä.
 
 ---
 
-## Kokonaisgraafi
+## Täydellinen graafi
 
-Peräkkäisen ketjun ja sisällön välitysmallien yhdistelmä muodostaa täydellisen työnkulun:
+Peräkkäisen ketjun ja sisällön välityksen yhdistäminen tuottaa koko työnkulun:
 
 ```mermaid
 flowchart LR
-    U[Käyttäjän syöte] --> RP[CV:n jäsentäjä]
-    RP --> JD[Työpaikkakuvausagentti]
-    JD --> MA[Vastaavuusagentti]
-    MA --> GA[Aukkoanalyysi + MCP]
-    GA --> O[Lopullinen tulos]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Agent Inspector näyttää tämän saman graafirakenteen, kun agentti toimii paikallisesti. Ks. [Moduuli 5 - Testaa paikallisesti](05-test-locally.md) kuvakaappauksia.
+Agent Inspector näyttää saman graafirakenteen, kun agentti ajetaan paikallisesti. Katso [Moduuli 5 - Testaa paikallisesti](05-test-locally.md) näytönkuvia varten.
 
 ---
 
 ## WorkflowBuilder-koodin lukeminen
 
-Koko `create_workflow()`-funktio löytyy tiedostosta [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Kolme `add_edge()`-kutsua rakentavat peräkkäisen putken:
+Työnkulun graafi rakennetaan `main()`-funktiossa tiedostossa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Kolme `add_edge()`-kutsua muodostavat peräkkäisen putken:
 
-| # | Reuna | Vaikutus |
-|---|--------|----------|
+| # | Kaari | Vaikutus |
+|---|------|---------|
 | 1 | `resume_executor → jd_executor` | JD Agent saa `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent saa `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer saa fit-raportin + aukkojen listan |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer saa fit-raportin + gap-listan |
 
 ---
 
@@ -82,52 +82,52 @@ Koko `create_workflow()`-funktio löytyy tiedostosta [`PersonalCareerCopilot/mai
 
 ### Uuden agentin lisääminen
 
-Viidennen agentin lisäämiseksi (esim. **InterviewPrepAgent** GapAnalyzerin jälkeen):
+Viidennen agentin lisäämiseksi (esimerkiksi **InterviewPrepAgent** GapAnalyzerin jälkeen):
 
-1. Määrittele vakio `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Luo `Agent`- ja `AgentExecutor`-objektit (sama malli kuin neljällä olemassa olevalla).
-3. Lisää `.add_edge(gap_executor, interview_exec)` `WorkflowBuilder`-rakenteeseen.
+1. Määrittele `INTERVIEW_PREP_INSTRUCTIONS`-vakio.
+2. Luo `Agent` + `AgentExecutor` -oliot (sama malli kuin neljällä nykyisellä).
+3. Lisää `.add_edge(gap_executor, interview_exec)` `WorkflowBuilder`:ssa.
 4. Päivitä `output_executors=[interview_exec]`.
 
-> **Tärkeää:** `start_executor` on ainoa agentti, joka saa suoran käyttäjän syötteen. Kaikki muut agentit saavat tuloksen ylävirran reunalta.
+> **Tärkeää:** `start_executor` on ainoa agentti, joka saa raakakäyttäjän syötteen. Kaikki muut agentit saavat syötteen ylävirran kaaren kautta.
 
 ---
 
-## Yleisiä graafivirheitä
+## Yleiset graafivirheet
 
 | Virhe | Oire | Korjaus |
 |-------|-------|--------|
-| Puuttuva reuna `output_executors`-agentille | Agentti toimii, mutta tulos on tyhjä | Varmista, että polku `start_executor`:sta johtaa jokaiseen agenttiin `output_executors`-listassa |
-| Ympyräriippuvuus | Loputon silmukka tai aikakatkaisu | Tarkista, ettei mikään agentti syötä tietoa takaisin ylävirran agentille |
-| Agentti `output_executors`-listassa ilman saapuvaa reunaa | Tyhjä tulos | Lisää vähintään yksi `add_edge(lähde, kyseinen_agentti)` |
-| Useita `output_executors` ilman yhteen yhdistämistä | Tuloksena vain yhden agentin vastaus | Käytä yhtä yhdistävää output-agenttia tai hyväksy useamman tulos |
-| Puuttuva `start_executor` | `ValueError` rakennusvaiheessa | Määrittele aina `start_executor` `WorkflowBuilder()`-kutsussa |
+| Puuttuva kaari `output_executors`:lle | Agentti suoritetaan mutta tulos on tyhjä | Varmista, että on polku `start_executor`:sta jokaiselle agentille `output_executors`:ssa |
+| Ympyräinen riippuvuus | Loputon silmukka tai aikakatkaisu | Tarkista, ettei mikään agentti syötä takaisin ylävirran agentille |
+| Agentti `output_executors` ilman tuloitettua kaarta | Tyhjä tulos | Lisää vähintään yksi `add_edge(source, that_agent)` |
+| Useita `output_executors` ilman fan-in-mekanismia | Tuloste sisältää vain yhden agentin vastauksen | Käytä yhtä output-agenttia, joka kokoaa vastaukset, tai hyväksy useita tulosteita |
+| Puuttuva `start_executor` | `ValueError` rakennusvaiheessa | Määritä aina `start_executor` `WorkflowBuilder()`:ssa |
 
 ---
 
-## Graafin vianmääritys
+## Graafin virheenkorjaus
 
-### Agent Inspectorin käyttö
+### Agent Inspectorin käyttäminen
 
 1. Käynnistä agentti paikallisesti F5-näppäimellä.
 2. Avaa Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
 3. Lähetä testiviesti.
-4. Katso Inspectorin vastauspaneelista **streaming output** -näyttöä, joka näyttää kunkin agentin panoksen järjestyksessä.
+4. Tarkastele Inspectorin vastauspaneelissa **streamaus-tulostetta** – se näyttää jokaisen agentin panoksen peräkkäin.
 
 
-### Lokituksen käyttö
+### Lokituksen käyttäminen
 
-Lisää lokitus `main.py`-tiedostoon datavirheen jäljittämiseen:
+Lisää lokitusta `main.py` jäljittääksesi tietovirtausta:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Pääohjelmassa (main()), työnkulun rakentamisen jälkeen:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Palvelimen lokista näkyy agenttien suorituksen järjestys ja MCP-työkalujen kutsut:
+Palvelimen lokit näyttävät agenttien suoritusjärjestyksen ja MCP-työkalukutsut:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### Välitarkistus
 
-- [ ] Osaat tunnistaa työnkulun kaksi orkestrointimallia: peräkkäinen ketju ja sisällön välitys
-- [ ] Ymmärrät miksi `context_mode="last_agent"` vaatii nimenomaista datan välitystä agenttien välillä
+- [ ] Osaat tunnistaa kaksi orkestrointimallia työnkulussa: peräkkäinen ketju ja sisällön välitys
+- [ ] Ymmärrät, miksi `context_mode="last_agent"` vaatii nimenomaista tietojen välitystä agenttien välillä
 - [ ] Osaat lukea `WorkflowBuilder`-koodin ja yhdistää jokaisen `add_edge()`-kutsun visuaaliseen graafiin
-- [ ] Osaat lisätä uuden agentin putken loppuun
-- [ ] Osaat tunnistaa yleisiä graafivirheitä ja niiden oireita
+- [ ] Tiedät, miten lisätään uusi agentti putken loppuun
+- [ ] Osaat tunnistaa yleiset graafivirheet ja niiden oireet
 
 ---
 
-**Edellinen:** [03 - Agenttien ja ympäristön konfigurointi](03-configure-agents.md) · **Seuraava:** [05 - Testaa paikallisesti →](05-test-locally.md)
+**Edellinen:** [03 - Määritä agentit ja ympäristö](03-configure-agents.md) · **Seuraava:** [05 - Testaa paikallisesti →](05-test-locally.md)
 
 ---
 

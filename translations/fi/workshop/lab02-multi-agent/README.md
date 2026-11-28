@@ -1,10 +1,10 @@
-# Lab 02 - Moniagenttinen työnkulku: CV → Työpaikan sopivuuden arvioija
+# Laboratorio 02 - Moni-agenttinen työnkulku: CV → Työhön sopivuuden arvioija
 
 ## Yleiskatsaus
 
-Tässä käytännön laboratoriossa rakennat **työnkulkuorientoituneen moniagenttisovelluksen** Foundry Toolkitilla VS Codessa ja otat sen käyttöön Microsoft Foundry Agent Servicessä.
+Tässä käytännön laboratoriossa rakennat **työnkulkuun perustuvan moni-agenttisovelluksen** käyttäen Foundry Toolkitia VS Codessa ja otat sen käyttöön Microsoft Foundry Agent Servicessä.
 
-**Mitä rakennat:** CV → Työpaikan sopivuuden arvioijan, joka jäsentää CV:n ja työkuvauksen, pisteyttää yhteensopivuuden ja tuottaa henkilökohtaisen oppimissuunnitelman Microsoft Learn -resurssien avulla.
+**Mitä rakennat:** CV → Työhön sopivuuden arvioijan, joka tulkitsee CV:n ja työkuvauksen, arvioi yhteensopivuuden ja tuottaa henkilökohtaisen oppimispolun Microsoft Learn -resurssien avulla.
 
 ---
 
@@ -12,11 +12,11 @@ Tässä käytännön laboratoriossa rakennat **työnkulkuorientoituneen moniagen
 
 ```mermaid
 flowchart TD
-    A["Käyttäjän syöte"] --> B["Ansioluettelon jäsentäjä"]
-    B -->|"[JÄSENNETTY ANSIOLUETTELO] + [TYÖKUVAUS LÄPIKULKU]"| C["Työkuvausagentti"]
-    C -->|"[TYÖKUVAUKSEN VAATIMUKSET] + [JÄSENNETYN ANSIOLUETTELON LÄPIKULKU]"| D["Vastaavuusagentti"]
-    D -->|sovitusraportti + aukot| E["Aukkoanalyysi + Microsoft Learn MCP"]
-    E -->|sovituspiste + tiekartta| F["Tulostus"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,18 +28,18 @@ flowchart TD
 
 **Miten se toimii:**
 1. Käyttäjä liittää CV:n ja työkuvauksen.
-2. **ResumeParser** jäsentää CV:n ja kopioi työkuvauksen sanasta sanaan `[TYÖKUVAUS LÄPIKULKUUN]` -osioon.
-3. **JD Agent** poimii rakenteelliset vaatimukset läpikulkutekstistä, ja välittää `[JÄSENNETYN CV:N]` eteenpäin nimellä `[JÄSENNETTY CV LÄPIKULUN]`.
-4. **MatchingAgent** vertaa `[JÄSENNETTÄ CV LÄPIKULUN]` ja `[TYÖKUVAUKSEN VAATIMUKSET]` ja tuottaa sopivuuspisteen.
-5. **GapAnalyzer** muuttaa puutteet käytännön tiekartaksi ja hakee todellisia Microsoft Learn -linkkejä MCP:n kautta.
+2. **ResumeParser** jäsentää CV:n ja kopioi työkuvauksen tarkalleen `[JOB DESCRIPTION PASS-THROUGH]`-osioon.
+3. **JD Agent** poimii rakenteelliset vaatimukset pass-through-osasta, ja välittää `[PARSED RESUME]` eteenpäin `[PARSED RESUME PASS-THROUGH]`-muodossa.
+4. **MatchingAgent** vertaa `[PARSED RESUME PASS-THROUGH]` vs `[JD REQUIREMENTS]` ja tuottaa sopivuuspisteet.
+5. **GapAnalyzer** muuttaa aukot käytännön tiekartaksi ja hakee MCP:n kautta oikeat Microsoft Learn -linkit.
 
 ---
 
-## Edellytykset
+## Vaatimukset
 
-Suorita ensin Lab 01:
+Suorita ensin Laboratorio 01:
 
-- [Lab 01 - Yksittäinen agentti](../lab01-single-agent/README.md)
+- [Laboratorio 01 - Yksittäinen agentti](../lab01-single-agent/README.md)
 
 ---
 
@@ -47,34 +47,35 @@ Suorita ensin Lab 01:
 
 Katso koko oppimispolku:
 
-- [Lab 2 Dokumentaatio - Edellytykset](docs/00-prerequisites.md)
-- [Lab 2 Dokumentaatio - Koko oppimispolku](docs/README.md)
-- [PersonalCareerCopilot käyttöohje](PersonalCareerCopilot/README.md)
+- [Laboratorio 2 dokumentaatio - vaatimukset](docs/00-prerequisites.md)
+- [Laboratorio 2 dokumentaatio - koko oppimispolku](docs/README.md)
+- [PersonalCareerCopilot käyttöopas](PersonalCareerCopilot/README.md)
 
 ---
 
 ## Osa 2: Rakenna ja testaa työnkulku
 
-1. Käytä Foundry Toolkit -velhoa työnkulkuun perustuvan projektin alustamiseen.
-2. Kopioi kehotelohkot ja työnkulun kaavio tiedostosta `PersonalCareerCopilot/main.py` työtilaan.
-3. Suorita paikallisesti Agent Inspectorilla ja varmista, että kaikki neljä agenttia sekä MCP-työkalu toimivat.
+1. Käytä Foundry Toolkit -velhoa työnkulkuun perustuvan projektin luonnissa.
+2. Kopioi kehotelohkot ja työnkulkuverkko `PersonalCareerCopilot/main.py`-kohteesta työtilaan.
+3. Suorita paikallisesti Agenttien tarkastajan kanssa ja varmista, että kaikki neljä agenttia ja MCP-työkalu toimivat.
 4. Ota isännöity agentti käyttöön Foundryssa, kun paikalliset testit onnistuvat.
 
 ---
 
-## Orkestrointikaaviot
+## Orkestrointimallit
 
-Lab 02 sisältää oletusarvoisen **fan-out → fan-in → peräkkäisen** työnkulun, ja dokumentaatiossa kuvataan myös vaihtoehtoisia orkestrointikaavioita kokeiltavaksi.
+Laboratorio 02 käyttää **peräkkäistä putkea**: kunkin agentin tuotos toimii seuraavan syötteenä, ja työnkulku palauttaa viimeisen agentin vastauksen. Kaksi mallia tekevät tämän mahdolliseksi:
 
-- **Fan-out/Fan-in painotetulla konsensuksella**
-- **Arvioija/kriitikko ennen lopullista tiekarttaa**
-- **Ehtoinen reititin** sopivuuspisteen ja puuttuvien taitojen perusteella
+- **Peräkkäinen ketju** - `WorkflowBuilder` yhdistää ResumeParser → JD Agent → MatchingAgent → GapAnalyzer yhdellä `add_edge()` -kutsulla vaihetta kohti
+- **Sisällön välitys** - koska kukin agentti näkee vain edeltäjänsä suoran tuloksen, ResumeParser ja JD Agent kopioivat alasvirtaan tarvittavat tiedot merkittyihin pass-through-osioihin
+
+Dokumentaatio selittää myös, miksi laboratoriossa ei käytetä haarautumista/koontimallia ja miten verkkoa voi laajentaa toisella agentilla.
 
 Katso [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Edellinen:** [Lab 01 - Yksittäinen agentti](../lab01-single-agent/README.md) · **Takaisin:** [Työpajan etusivu](../../README.md)
+**Edellinen:** [Laboratorio 01 - Yksittäinen agentti](../lab01-single-agent/README.md) · **Takaisin:** [Työpajan etusivu](../../README.md)
 
 ---
 

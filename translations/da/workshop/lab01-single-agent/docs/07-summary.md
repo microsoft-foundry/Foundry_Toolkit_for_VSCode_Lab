@@ -2,91 +2,91 @@
 
 ⏱️ ~5 min
 
-**Tillykke!** Du har bygget, testet og (hvis på sti A) deployeret en hostet AI-agent ved hjælp af Microsoft Foundry og Foundry Toolkit til VS Code.
+**Tillykke!** Du har bygget, testet og (hvis på Spor A) udrullet en hostet AI-agent ved hjælp af Microsoft Foundry og Foundry Toolkit til VS Code.
 
 ---
 
-## Hvad du byggede
+## Hvad du har bygget
 
-En **"Forklar som om jeg er en Direktør"** agent, der:
-- Modtager tekniske hændelsesrapporter eller driftsopdateringer via HTTP (`POST /responses`)
-- Oversætter dem til letforståelige direktørsammendrag
+En **"Forklar Som Om Jeg Er en Leder"**-agent, der:
+- Modtager tekniske hændelsesrapporter eller operationelle opdateringer via HTTP (`POST /responses`)
+- Oversætter dem til almindelige sproglige ledelsesresumeer
 - Følger et struktureret outputformat (Hvad skete der / Forretningspåvirkning / Næste skridt)
-- Afviser irrelevante forespørgsler og forsøg på promptinjektion
+- Afviser off-topic forespørgsler og forsøg på prompt-injektion
 - Kører som en containeriseret hostet agent i Microsoft Foundry Agent Service
 
 ---
 
 ## Centrale begreber lært
 
-| Begreb | Hvad du øvede dig på |
+| Begreb | Hvad du har øvet dig i |
 |---------|-------------------|
 | **Agent Framework arkitektur** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` pipeline |
-| **Hosted Agent livscyklus** | Scaffold → Konfigurér → Test lokalt → Deploy → Verificer i skyen |
+| **Hosted Agent livscyklus** | Scaffold → Konfigurér → Test lokalt → Deploy → Verificér i skyen |
 | **System prompt engineering** | Rolle, målgruppe, outputformat, regler, sikkerhedsbegrænsninger og eksempler |
-| **Lokale vs. hostede forskelle** | Identitet (personlige legitimationsdata vs. managed identity), endpoint, netværksvej |
-| **Sikkerhedsgrænser** | Forsvar mod promptinjektion, rolleoverholdelse, elegant håndtering af kanttilfælde |
-| **Foundry Toolkit workflow** | Projektoprettelse, modeludrulning, agent scaffolding, Agent Inspector, one-click deploy |
+| **Forskelle mellem lokalt og hostet** | Identitet (personligt legitimationskort vs. administreret identitet), endpoint, netværkssti |
+| **Sikkerhedsgrænser** | Forsvar mod prompt-injektion, rolleoverholdelse, elegant håndtering af kanttilfælde |
+| **Foundry Toolkit arbejdsgang** | Projektoprettelse, modeludrulning, agent scaffolding, Agent Inspector, ét-klik udrulning |
 
 ---
 
-## Hvad du gennemførte
+## Hvad du har gennemført
 
-### Sti A (Foundry abonnement)
+### Spor A (Foundry abonnement)
 
-- [x] Konfigurerede Foundry Toolkit og oprettede et Foundry-projekt med en deployeret model
-- [x] Scaffoldede en hostet agent med autogenereret projektstruktur
+- [x] Konfigureret Foundry Toolkit og oprettet et Foundry-projekt med udrullet model
+- [x] Scaffolded en hosted agent med autogenereret projektstruktur
 - [x] Skrev strukturerede agentinstruktioner med sikkerhedsregler
-- [x] Testede lokalt med 3 funktionelle scenarier (Agent Inspector)
-- [x] Deployede til Foundry Agent Service (containeriseret)
-- [x] Verificerede i cloud playground med 4 kanttilfælde/sikkerhedstests
+- [x] Testet lokalt med 3 funktionelle scenarier (Agent Inspector)
+- [x] Deployet til Foundry Agent Service (containeriseret)
+- [x] Verificeret i cloud playground med 4 kanttilfælde/sikkerhedstests
 
-### Sti B (Foundry Local)
+### Spor B (Foundry Lokalt)
 
-- [x] Konfigurerede Foundry Toolkit med en lokal model-endpoint
-- [x] Scaffoldede et hostet agent-projekt
+- [x] Konfigureret Foundry Toolkit med et lokalt model-endpoint
+- [x] Scaffolded et hosted agent projekt
 - [x] Skrev strukturerede agentinstruktioner med sikkerhedsregler
-- [x] Testede lokalt med 3 funktionelle scenarier
-- [x] Validerede agentadfærd uden behov for sky-ressourcer
+- [x] Testet lokalt med 3 funktionelle scenarier
+- [x] Valideret agentadfærd uden behov for skyressourcer
 
 ---
 
 ## Næste skridt
 
-### Fortsæt læringen
+### Fortsæt med at lære
 
 | Ressource | Beskrivelse |
 |----------|-------------|
-| **[Lab 02 - Multi-Agent Orchestration](../../lab02-multi-agent/docs/README.md)** | Byg en 4-agent workflow (Resume → Job Fit Evaluator) med orkestreringsmønstre |
-| **[Tilføj værktøjer til din agent](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Tilslut API'er, databaser eller brugerdefinerede funktioner via Tool Catalog |
-| **[Tilføj viden (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Forankr din agent med dokumenter, vektorlager eller Bing-søgning |
-| **[Microsoft Foundry dokumentation](https://learn.microsoft.com/azure/foundry/)** | Fuld platformreference |
+| **[Lab 02 - Multi-Agent Orchestration](../../lab02-multi-agent/docs/README.md)** | Byg en 4-agent arbejdsgang (CV → Job Fit Evaluator) med orkestreringsmønstre |
+| **[Tilføj værktøjer til din agent](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Forbind APIer, databaser eller brugerdefinerede funktioner via Tool Catalog |
+| **[Tilføj viden (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Ground din agent med dokumenter, vektorlager eller Bing-søgning |
+| **[Microsoft Foundry dokumentation](https://learn.microsoft.com/azure/foundry/)** | Fuld platformreferance |
 | **[Agent Framework SDK reference](https://learn.microsoft.com/agent-framework/)** | API-dokumentation for `agent-framework` pakken |
-| **[Foundry Toolkit - Nyheder](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Udgivelsesnoter og ændringslog for udvidelsen |
+| **[Foundry Toolkit - Nyheder](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Udvidelsesrelease-noter og changelog |
 
-### Idéer til at udvide din agent
+### Ideer til at udvide din agent
 
-- **Tilføj et datoværktøj** - Lad agenten inkludere "pr. dags dato" kontekst i sammendrag
-- **Forbind til en hændelsesdatabase** - Hent reelle hændelsesdetaljer via en værktøjsfunktion
-- **Tilføj et Bing-forankringsværktøj** - Lad agenten slå nyheder op for yderligere kontekst
-- **Prøv forskellige modeller** - Sammenlign outputkvalitet af `gpt-4.1` vs. `gpt-4.1-mini`
+- **Tilføj et datoværktøj** - Lad agenten inkludere "pr. dags dato" kontekst i resumeer
+- **Forbind til en hændelsesdatabase** - Træk faktiske hændelsesdetaljer via en værktøjsfunktion
+- **Tilføj et Bing groundingsværktøj** - Lad agenten slå op i seneste nyheder for yderligere kontekst
+- **Prøv forskellige modeller** - Sammenlign outputkvalitet fra `gpt-4.1` vs. `gpt-4.1-mini`
 - **Evaluer med Foundry** - Brug Evaluations-funktionen til at måle agentkvalitet i stor skala
 
-### For Sti B brugere: Opgrader til cloud deployment
+### For Spor B brugere: Opgradér til cloud-udrulning
 
-Når du er klar til at deployere til skyen:
-1. Skaff et Azure abonnement ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
-2. Fuldfør [Modul 01, Setup](01-setup.md#step-2-set-up-based-on-your-access) (opret projekt, deploy model, tildel RBAC)
-3. Opdater din `.env` med Foundry projekt-endpoint og model deployment navn
+Når du er klar til at udrulle til skyen:
+1. Få et Azure-abonnement ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
+2. Fuldfør [Modul 01, Opsætning](01-setup.md#step-2-set-up-based-on-your-access) (opret projekt, deploy model, tildel RBAC)
+3. Opdater din `.env` med Foundry-projektets endpoint og modeludrulningsnavn
 4. Fortsæt fra [Modul 05 - Deploy til Foundry](05-deploy-to-foundry.md)
 
 ---
 
-## Ryd op i ressourcer (valgfrit)
+## Ryd op i ressourcerne (valgfrit)
 
-Hvis du vil fjerne Azure-ressourcerne, der blev oprettet under denne workshop:
+Hvis du ønsker at fjerne de Azure-ressourcer, der er oprettet under workshoppen:
 
-### Mulighed 1: Slet resourcegruppen (fjerner alt)
+### Mulighed 1: Slet ressourcegruppen (fjerner alt)
 
 ```bash
 az group delete --name rg-hosted-agents-workshop --yes --no-wait
@@ -95,18 +95,18 @@ az group delete --name rg-hosted-agents-workshop --yes --no-wait
 ### Mulighed 2: Slet kun den hostede agent
 
 1. Åbn [ai.azure.com](https://ai.azure.com) → dit projekt → **Build** → **Agents**.
-2. Klik på din agent → klik **Slet**.
+2. Klik på din agent → klik **Delete**.
 
-### Mulighed 3: Slet model deployment
+### Mulighed 3: Slet modeludrulningen
 
-1. Udvid dit projekt i Foundry sidebaren → **Models**.
-2. Højreklik på model deployment → **Slet**.
+1. I Foundry sidebar, udvid dit projekt → **Models**.
+2. Højreklik på modeludrulningen → **Delete**.
 
-> **Omkostningsnotat:** Hostede agenter koster kun, når de kører. Hvis du stopper eller sletter agenten, er der ingen løbende omkostning. Model deployment kan medføre en lille omkostning for reserveret kapacitet - slet den, hvis du er færdig.
+> **Bemærk om omkostninger:** Hosted agenter påløber kun omkostninger, når de kører. Hvis du stopper eller sletter agenten, er der ingen løbende omkostninger. Modeludrulningen kan medføre et lille gebyr for reserveret kapacitet - slet den, hvis du er færdig.
 
 ---
 
-**Forrige:** [06 - Verificer i Playground](06-verify-in-playground.md) · **Næste:** [08 - Fejlfinding (Reference) →](08-troubleshooting.md)
+**Forrige:** [06 - Verificér i Playground](06-verify-in-playground.md) · **Næste:** [08 - Fejlfinding (Reference) →](08-troubleshooting.md)
 
 ---
 

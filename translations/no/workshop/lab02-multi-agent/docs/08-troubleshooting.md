@@ -1,60 +1,60 @@
 # Modul 8 - Feilsøking
 
-Denne modulen dekker vanlige feil, rettelser og feilsøkingsstrategier spesifikt for multi-agent arbeidsflyten.
+Denne modulen dekker vanlige feil, løsninger og feilsøkingsstrategier spesifikke for multi-agent arbeidsflyten.
 
-## Problemer med agentutdata
+## Problemer med agentens utdata
 
-### GapAnalyzer sier «Jeg har fortsatt ikke samsvarsrapporten»
+### GapAnalyzer sier «Jeg har fortsatt ikke mottatt den samsvarende rapporten»
 
-**Symptom:** GapAnalyzers svar ber deg lime inn en samsvarsrapport med «Manglende ferdigheter» og «Sertifiseringsmangler». Dette skjer selv når du har sendt både en CV og en stillingsbeskrivelse.
+**Symptom:** GapAnalyzers svar ber deg lime inn en samsvarende rapport med «Mangler ferdigheter» og «Sertifiseringsgap». Dette skjer selv når du sendte både en CV og en stillingsbeskrivelse.
 
-**Årsak:** JD-teksten ble ikke sendt videre til JD Agent. Med `context_mode="last_agent"`, er `resume_executor` den eneste eksekutøren som noen gang ser brukerens opprinnelige melding. Hvis `RESUME_PARSER_INSTRUCTIONS` ikke inkluderer JD-teksten i sin utdata, har ikke JD Agent noen JD å analysere, MatchingAgent kan ikke beregne en tilpassingsscore, og GapAnalyzer mottar et meningsløst input.
+**Årsak:** JD-teksten ble ikke sendt videre til JD Agent. Med `context_mode="last_agent"` er `resume_executor` den eneste utføreren som noensinne ser brukerens opprinnelige melding. Hvis `RESUME_PARSER_INSTRUCTIONS` ikke inkluderer JD-teksten i utdataene sine, har ikke JD Agent noen JD å analysere, MatchingAgent kan ikke beregne en poengsum for samsvar, og GapAnalyzer mottar input som ikke gir mening.
 
 **Diagnose:**
 
-I serverloggene, se etter MatchingAgent-span. Hvis den inneholder:
+I serverloggene, se etter MatchingAgent-spennet. Hvis det inneholder:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
 pass-through mangler eller er ødelagt.
 
-**Løsning:** Bekreft at `RESUME_PARSER_INSTRUCTIONS` i `main.py` inneholder en `[JOB DESCRIPTION PASS-THROUGH]` seksjon og regelen:
+**Løsning:** Bekreft at `RESUME_PARSER_INSTRUCTIONS` i `main.py` inneholder en `[JOB DESCRIPTION PASS-THROUGH]`-seksjon og regelen:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
-Bekreft også at `JOB_DESCRIPTION_INSTRUCTIONS` inneholder en `[PARSED RESUME PASS-THROUGH]` overføringsregel:
+Bekreft også at `JOB_DESCRIPTION_INSTRUCTIONS` inneholder en `[PARSED RESUME PASS-THROUGH]` relay-regel:
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Hvis noen av instruksjonsblokkene er et stub fra stillasveiviseren, erstatt det med den komplette versjonen fra [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Hvis noen av instruksjonsblokkene er en stub fra scaffold-veiviseren, erstatt den med komplett versjon fra [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### MatchingAgent gir “Kan ikke beregne tilpassingsscore - ingen JD levert”
+### MatchingAgent gir ut «Kan ikke beregne samsvarspoeng - ingen JD gitt»
 
-Dette er samme grunnårsak som ovenfor. MatchingAgent mottok JD Agents utdata, men `[PARSED RESUME PASS-THROUGH]`-seksjonen var manglende eller tom, så den kunne ikke sammenligne de to profilene. Bekreft:
-1. `JOB_DESCRIPTION_INSTRUCTIONS` inkluderer overføringsregelen: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
-2. `MATCHING_AGENT_INSTRUCTIONS` instruerer agenten til å lete etter `[JD REQUIREMENTS]` og `[PARSED RESUME PASS-THROUGH]` seksjoner.
+Dette har samme grunnårsak som ovenfor. MatchingAgent mottok utdata fra JD Agent, men `[PARSED RESUME PASS-THROUGH]`-seksjonen manglet eller var tom, så den kunne ikke sammenligne de to profilene. Bekreft:
+1. `JOB_DESCRIPTION_INSTRUCTIONS` inkluderer relay-regelen: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
+2. `MATCHING_AGENT_INSTRUCTIONS` forteller agenten om å lete etter `[JD REQUIREMENTS]` og `[PARSED RESUME PASS-THROUGH]` seksjoner.
 
-Erstatt begge instruksjonsblokker med de komplette versjonene fra [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Erstatt begge instruksjonsblokker med komplette versjoner fra [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### Responsen vises to ganger
+### Svaret dukker opp to ganger
 
 **Symptom:** GapAnalyzer-utdata (eller hele pipeline-utdata) vises to ganger i Agent Inspector-svaret.
 
-**Årsak:** `WorkflowBuilder` bruker ELLER-semantikk for innkommende kanter - en nedstrøms eksekutør aktiveres så snart **en hvilken som helst** forløper er fullført. Hvis `matching_executor` har to innkommende kanter (en fra `resume_executor` og en fra `jd_executor`), aktiveres den to ganger: én gang når ResumeParser avsluttes og igjen når JD Agent avsluttes. GapAnalyzer kjører da også to ganger.
+**Årsak:** `WorkflowBuilder` bruker ELLER-semantikk for innkommende kanter – en nedstrøms utfører trigges så snart **hvilken som helst** forgjenger fullfører. Hvis `matching_executor` har to innkommende kanter (en fra `resume_executor` og en fra `jd_executor`), trigges den to ganger: én gang når ResumeParser fullfører og en gang til når JD Agent fullfører. GapAnalyzer kjører da også to ganger.
 
-**Løsning:** Sørg for at `WorkflowBuilder`-grafen er en strikt sekvensiell pipeline uten samløp (fan-in):
+**Løsning:** Sørg for at `WorkflowBuilder`-grafen er en strengt sekvensiell pipeline uten fan-in:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # IKKE fra resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Hvis du har en løs `.add_edge(resume_executor, matching_executor)` linje, fjern den. `[PARSED RESUME PASS-THROUGH]` overføringen i JD Agents utdata gir allerede MatchingAgent tilgang til CV-en.
+Hvis du har en feilplassert `.add_edge(resume_executor, matching_executor)`-linje, fjern den. `[PARSED RESUME PASS-THROUGH]`-relayet i JD Agents utdata gir allerede MatchingAgent tilgang til CV-en.
 
 ---
 
@@ -62,7 +62,7 @@ Hvis du har en løs `.add_edge(resume_executor, matching_executor)` linje, fjern
 
 ### Manglende eller feil `.env`-verdier
 
-`.env`-filen må ligge i `PersonalCareerCopilot/` katalogen (samme nivå som `main.py`):
+Filen `.env` må ligge i katalogen `PersonalCareerCopilot/` (samme nivå som `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -73,40 +73,40 @@ PersonalCareerCopilot/
 └── requirements.txt
 ```
 
-Forventet `.env`-innhold:
+Forventet innhold i `.env`:
 
-**Sti A - Foundry sky:**
+**Sti A - Foundry cloud:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-project-name>.services.ai.azure.com/api/projects/<your-project-id>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-**Sti B - Foundry lokal:**
+**Sti B - Foundry Local:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Begge stier bruker `FOUNDRY_PROJECT_ENDPOINT`. Verdien er forskjellig: sky bruker en `https://` Foundry-endepunkt; lokal bruker `http://localhost:5273/v1`. Kjør `foundry model list` for å bekrefte eksakt modell-alias for Sti B.
+> Begge stier bruker `FOUNDRY_PROJECT_ENDPOINT`. Verdiene er forskjellige: cloud bruker en `https://` Foundry-endepunkt; lokal bruker `http://localhost:5273/v1`. Kjør `foundry model list` for å bekrefte eksakt modellalias for sti B.
 
-> **Finne din `FOUNDRY_PROJECT_ENDPOINT`:**
-- Åpne **Foundry Toolkit** sidepanelet i VS Code → høyreklikk prosjektet ditt → **Copy Project Endpoint**.
-- Eller gå til [Azure Portal](https://portal.azure.com) → ditt Foundry-prosjekt → **Oversikt** → **Prosjekt-endepunkt**.
+> **Slik finner du din `FOUNDRY_PROJECT_ENDPOINT`:** 
+- Åpne **Foundry Toolkit**-sidefeltet i VS Code → høyreklikk prosjektet ditt → **Kopier prosjektendepunkt**. 
+- Eller gå til [Azure Portal](https://portal.azure.com) → ditt Foundry-prosjekt → **Oversikt** → **Prosjektendepunkt**.
 
-> **Finne ditt `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** I Foundry Toolkit-sidepanelet, utvid prosjektet ditt → **Models** → finn navnet på din utplasserte modell (f.eks. `gpt-4.1-mini`).
+> **Slik finner du din `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** I Foundry Toolkit-sidefeltet, utvid prosjektet ditt → **Modeller** → finn navnet på den distribuerte modellen (f.eks. `gpt-4.1-mini`).
 
-### Prioritering av miljøvariable
+### Prioritering av miljøvariabler
 
 `main.py` bruker `load_dotenv(override=True)`, som betyr:
 
 | Prioritet | Kilde | Vinner når begge er satt? |
-|----------|--------|--------------------------|
-| 1 (høyest) | `.env` fil | Ja |
+|----------|--------|-------------------------|
+| 1 (høyest) | `.env`-fil | Ja |
 | 2 | Shell / container miljøvariabel | Brukes når samme nøkkel ikke finnes i `.env` |
 
-I lokal utvikling gjør dette `.env` til sannhetskilden (endinger i `.env` påvirker kjøringer umiddelbart). Ved hostet utrulling injiserer Foundry miljøvariable på container-nivå; siden `.env` ikke er en del av det utplasserte bildet for denne lab-oppsettet, brukes de injiserte containerverdiene.
+Ved lokal utvikling gjør dette `.env` til sannhetskilden (endring i `.env` påvirker kjøringer umiddelbart). Ved hosted distribusjon injiserer Foundry miljøvariabler på container-nivå; siden `.env` ikke er del av det distribuerte bildet for dette lab-oppsettet, brukes de injiserte container-verdiene.
 
 ---
 
@@ -114,10 +114,10 @@ I lokal utvikling gjør dette `.env` til sannhetskilden (endinger i `.env` påvi
 
 ### Pakkeversjonsmatrise
 
-Multi-agent arbeidsflyten krever spesifikke pakkeversjoner. Uoverensstemmelser i versjoner forårsaker kjøretidsfeil.
+Multi-agent arbeidsflyten krever spesifikke pakkeversjoner. Feil versjoner forårsaker kjøretidsfeil.
 
-| Pakke | Påkrevd versjon | Sjekk-kommando |
-|-------|-----------------|-----------------|
+| Pakke | Krevet versjon | Sjekk-kommando |
+|---------|-----------------|---------------|
 | `agent-framework-foundry` | nyeste | `pip show agent-framework-foundry` |
 | `agent-framework-foundry-hosting` | nyeste | `pip show agent-framework-foundry-hosting` |
 | `mcp` | `<2,>=1.24.0` | `pip show mcp` |
@@ -129,18 +129,18 @@ Multi-agent arbeidsflyten krever spesifikke pakkeversjoner. Uoverensstemmelser i
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Fiks: installer agent-framework-foundry på nytt
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Fiks: oppgrader mcp-pakken
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
-### Bekreft alle versjoner samtidig
+### Verifiser alle versjoner på en gang
 
 ```powershell
 pip list | Select-String "agent-framework|mcp|debugpy"
@@ -157,63 +157,63 @@ mcp                              x.x.x
 
 ---
 
-## Utrullingsproblemer
+## Distribusjonsproblemer
 
-### Container starter ikke etter utrulling
+### Container starter ikke etter distribusjon
 
-1. **Sjekk containerlogger:**
-   - Åpne **Foundry Toolkit** sidepanelet → utvid **Hosted Agents (Preview)** → klikk på agenten din → utvid versjonen → **Container Details** → **Logs**.
+1. **Sjekk container-logger:** 
+   - Åpne **Foundry Toolkit**-sidefeltet → under prosjektet ditt, klikk **Agents** → **Hosted Agent**-fanen → klikk agenten din. Sjekk **Status** under **Detaljer**-fanen, åpne deretter **Playground**-fanen og bruk **Logs**-fanen i **Session Details**-panelet for å se containerens output.
    - Se etter Python stack traces eller manglende modul-feil.
 
-2. **Vanlige container startup-feil:**
+2. **Vanlige container-startfeil:**
 
    | Feil i logger | Årsak | Løsning |
    |--------------|-------|---------|
    | `ModuleNotFoundError` | `requirements.txt` mangler en pakke | Legg til pakken, deploy på nytt |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` eller `.env` miljøvariabler ikke satt | Oppdater `agent.yaml` → `environment_variables` seksjon (hostet) eller `.env` (lokal) |
-   | `azure.identity.CredentialUnavailableError` | Managed Identity ikke konfigurert | Foundry setter dette automatisk - sørg for at du deployerer via utvidelsen |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` eller `.env` miljøvariabler ikke satt | Oppdater `agent.yaml` → `environment_variables` seksjon (hosted) eller `.env` (lokal) |
+   | `azure.identity.CredentialUnavailableError` | Administrert identitet ikke konfigurert | Foundry setter dette automatisk – sørg for at du deployer via utvidelsen |
    | `OSError: port 8088 already in use` | Dockerfile eksponerer feil port eller portkonflikt | Verifiser `EXPOSE 8088` i Dockerfile og `CMD ["python", "main.py"]` |
-   | Container avsluttes med kode 1 | Uhåndtert unntak i `main()` | Test lokalt først ([Modul 5](05-test-locally.md)) for å fange feil før deploy |
+   | Container avsluttes med kode 1 | Ubehandlet unntak i `main()` | Test lokalt først ([Modul 5](05-test-locally.md)) for å fange feil før distribusjon |
 
-3. **Deploy på nytt etter fiksing:**
-   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → velg samme agent → deploy en ny versjon.
+3. **Distribuer på nytt etter fiksering:** 
+   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → velg samme agent → deploy ny versjon.
 
-### Utrulling tar for lang tid
+### Distribusjonen tar for lang tid
 
-Multi-agent containere tar lengre tid å starte fordi de lager 4 agentinstanser ved oppstart. Normale oppstartstider:
+Multi-agent containere tar lengre tid å starte fordi de oppretter 4 agent-instansene ved oppstart. Vanlige oppstartstider:
 
 | Fase | Forventet varighet |
-|------|------------------|
+|-------|-------------------|
 | Bygging av containerbilde | 1-3 minutter |
 | Push av bilde til ACR | 30-60 sekunder |
-| Containerstart (enkel agent) | 15-30 sekunder |
-| Containerstart (multi-agent) | 30-120 sekunder |
+| Start av container (enkel agent) | 15-30 sekunder |
+| Start av container (multi-agent) | 30-120 sekunder |
 | Agent tilgjengelig i Playground | 1-2 minutter etter «Started» |
 
-> Hvis statusen "Pending" vedvarer utover 5 minutter, sjekk container-logger for feil.
+> Hvis status «Pending» vedvarer mer enn 5 minutter, sjekk container-logger for feil.
 
 ---
 
-## RBAC og tillatelsesproblemer
+## RBAC- og rettighetsproblemer
 
 ### `403 Forbidden` eller `AuthorizationFailed`
 
-Du trenger rollen **[Foundry User](https://aka.ms/foundry-ext-project-role)** på ditt Foundry-prosjekt (tidligere kalt **Azure AI User** - rolle-ID uendret):
+Du trenger rollen **[Foundry User](https://aka.ms/foundry-ext-project-role)** på Foundry-prosjektet ditt (tidligere kalt **Azure AI User** – rolle-ID er uendret):
 
-1. Gå til [Azure Portal](https://portal.azure.com) → ditt Foundry **prosjekt**-ressurs.
+1. Gå til [Azure Portal](https://portal.azure.com) → Finn Foundry **prosjekt**-ressursen din.
 2. Klikk **Access control (IAM)** → **Role assignments**.
-3. Søk etter navnet ditt → bekreft at **Foundry User** (eller det gamle navnet **Azure AI User**) er oppført.
+3. Søk på navnet ditt → bekreft at **Foundry User** (eller den gamle etiketten **Azure AI User**) er oppført.
 4. Hvis mangler: **Legg til** → **Add role assignment** → søk etter **Foundry User** → tilordne til kontoen din.
 
 Se [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) dokumentasjonen for detaljer.
 
-### Modellutrulling ikke tilgjengelig
+### Modell-distribusjon er ikke tilgjengelig
 
 Hvis agenten returnerer modellrelaterte feil:
 
-1. Bekreft at modellen er utplassert: Foundry sidepanel → utvid prosjekt → **Models** → sjekk etter `gpt-4.1-mini` (eller din modell) med status **Succeeded**.
-2. Bekreft at utrullingsnavnet stemmer: sammenlign `AZURE_AI_MODEL_DEPLOYMENT_NAME` i `.env` (eller `agent.yaml`) med det faktiske utrullingsnavnet i sidepanelet.
-3. Hvis utrullingen er utløpt (gratisnivå): deploy på nytt fra [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
+1. Verifiser at modellen er distribuert: Foundry sidebar → utvid prosjekt → **Modeller** → sjekk etter `gpt-4.1-mini` (eller modellen din) med status **Succeeded**.
+2. Kontroller at distribusjonsnavnet samsvarer: sammenlign `AZURE_AI_MODEL_DEPLOYMENT_NAME` i `.env` (eller `agent.yaml`) med det faktiske distribusjonsnavnet i sidebar.
+3. Hvis distribusjonen har utløpt (gratisnivå): distribuer på nytt fra [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
 
 ---
 
@@ -222,25 +222,25 @@ Hvis agenten returnerer modellrelaterte feil:
 ### Foundry Local-tjenesten kjører ikke
 
 ```powershell
-# Sjekk status
+# Check status
 foundry local status
 
-# Start tjenesten hvis den er stoppet
+# Start the service if it is stopped
 foundry local start
 ```
 
 | Symptom | Årsak | Løsning |
 |---------|-------|---------|
-| Helse-sjekk returnerer `503` | Tjenesten ikke startet | `foundry local start` eller klikk **Start** i Foundry Toolkit-sidepanelet |
-| Helse-sjekk timeouter | Modell lastes fortsatt | Vent 30–60 s etter oppstart; større modeller tar lengre tid |
+| Helsekontroll returnerer `503` | Tjenesten er ikke startet | `foundry local start` eller klikk **Start** i Foundry Toolkit-sidefeltet |
+| Helsekontroll går ut på tid | Modell lastes fortsatt | Vent 30–60 sekunder etter oppstart; større modeller tar lengre tid |
 | `StatusCode: 404` på `/v1/health` | Feil port | Standard er `5273`. Sjekk `foundry local status` for faktisk port |
 | Utilstrekkelige ressurser | Foundry Local trenger ~4 GB RAM ledig | Lukk andre applikasjoner |
-| Nedlasting av modell feiler | Lav diskplass | Modeller er 2–8 GB. Frigjør plass, så `foundry model pull <name>` |
+| Modellnedlasting mislykkes | Lite diskplass | Modeller er 2–8 GB. Frigjør plass, så `foundry model pull <name>` |
 
 ### Modellnavn stemmer ikke
 
 ```powershell
-# Liste over nedlastede modeller og deres eksakte aliaser
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
@@ -248,39 +248,39 @@ Sett `AZURE_AI_MODEL_DEPLOYMENT_NAME` i `.env` til eksakt alias som vist (f.eks.
 
 ### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ved lokal kjøring (Sti B)
 
-Labens `main.py` bruker `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local krever at denne variabelen peker til den lokale tjenesten - **ikke** `AZURE_AI_PROJECT_ENDPOINT`. Sørg for at `.env` inneholder:
+Labens `main.py` bruker `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local krever at denne variabelen peker til lokal tjeneste – **ikke** `AZURE_AI_PROJECT_ENDPOINT`. Sørg for at `.env` inneholder:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### MCP-verktøyet gjør fortsatt en utgående kall (Sti B)
+### MCP-verktøyet gjør fortsatt utgående kall (Sti B)
 
-Dette er forventet. Verktøyet `search_microsoft_learn_for_plan` henter læringsressurser fra `https://learn.microsoft.com/api/mcp`. **Bare ferdighetsnavn-spørringen** går over nettverket - CV og JD-tekst behandles helt på din enhet og sendes aldri bort. Hvis fullstendig offline drift kreves, legg til en `try/except` fallback i verktøyet som returnerer en statisk `learn.microsoft.com` URL når endepunktet ikke er tilgjengelig.
+Dette er forventet. `search_microsoft_learn_for_plan`-verktøyet henter læringsressurser fra `https://learn.microsoft.com/api/mcp`. **Kun ferdighetsnavn-forespørselen** går over nettverket – CV og JD-tekst bearbeides fullstendig på enheten din og sendes aldri. Hvis full offline-operasjon kreves, legg til en `try/except` fallback i verktøyet som returnerer en statisk `learn.microsoft.com`-URL når endepunktet ikke er tilgjengelig.
 
 ---
 
 ## Få hjelp
 
-Hvis du sitter fast etter å ha prøvd rettelsene ovenfor:
+Hvis du sitter fast etter å ha prøvd løsningene over:
 
-1. **Sjekk serverloggene** - De fleste feil gir en Python stack trace i terminalen. Les hele tracebacken.
-2. **Søk etter feilmeldingen** - Kopier feilmeldingen og søk i [Microsoft Q&A for Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Åpne en sak** - Opprett en issue i [workshop-repositoriet](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) med:
+1. **Sjekk serverloggene** – De fleste feil gir en Python stack trace i terminalen. Les hele tracebacken.
+2. **Søk på feilmeldingen** – Kopier feiltekst og søk i [Microsoft Q&A for Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Åpne en sak** – Opprett en sak i [workshop-repositoriet](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) med:
    - Feilmeldingen eller skjermbilde
-   - Dine pakkversjoner (`pip list | Select-String "agent-framework"`)
+   - Dine pakkeversjoner (`pip list | Select-String "agent-framework"`)
    - Din Python-versjon (`python --version`)
-   - Om problemet er lokalt eller etter utrulling
+   - Om problemet oppstår lokalt eller etter distribusjon
 
 ---
 
 ### Sjekkpunkter
 
-- [ ] Du vet hvordan du sjekker og fjerner `.env` konfigurasjonsproblemer
-- [ ] Du kan verifisere at pakkeversjoner samsvarer med den påkrevde matrisen
-- [ ] Du vet hvordan du sjekker containerlogger for utrullingsfeil
-- [ ] Du kan verifisere RBAC-roller i Azure-portalen
+- [ ] Du vet hvordan du sjekker og fikser `.env` konfigurasjonsproblemer
+- [ ] Du kan verifisere at pakkeversjonene samsvarer med kravmatrisen
+- [ ] Du vet hvordan du sjekker container-logger for distribusjonsfeil
+- [ ] Du kan verifisere RBAC-roller i Azure Portal
 
 ---
 

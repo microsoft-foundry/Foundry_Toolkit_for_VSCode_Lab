@@ -1,15 +1,15 @@
-# Modul 4 - Test lokalt
+# Modul 4 - Test Lokalt
 
 ⏱️ ~10 min
 
-I denne modulen kjører du agenten din lokalt og validerer at den fungerer korrekt ved å bruke **happy-path funksjonstester**. Du vil bruke Agent Inspector (visuelt grensesnitt) eller direkte HTTP-kall for å bekrefte at agenten produserer strukturerte, nøyaktige svar.
+I denne modulen kjører du agenten din lokalt og validerer at den fungerer korrekt ved å bruke **happy-path funksjonstester**. Du vil bruke Agent Inspector (visuelt brukergrensesnitt) eller direkte HTTP-kall for å bekrefte at agenten produserer strukturerte, nøyaktige svar.
 
 ### Lokal testflyt
 
 ```mermaid
 flowchart TD
-    A["Start agentserver"] --> B["Åpne agentinspektør"]
-    B --> C["Send testinnspill"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -27,47 +27,49 @@ flowchart TD
 
 ### Start feilsøkeren
 
-1. Åpne **executive-summary-agent/**-mappen direkte i VS Code (`Fil → Åpne mappe`).
-2. Åpne **Kjør og Feilsøk**-panelet (`Ctrl+Shift+D`).
-3. Velg **Debug Local Agent Server** fra nedtrekksmenyen.
+1. Åpne **executive-summary-agent/**-mappen direkte i VS Code (`File → Open Folder`).
+2. Åpne **Kjør og feilsøk**-panelet (`Ctrl+Shift+D`).
+3. Velg **Debug Local Agent HTTP Server** fra rullegardinmenyen.
 4. Trykk **F5** (eller klikk ▶ Start feilsøking).
 
 > ⚠️ **Kritisk: Velg din Python-tolk**
 > Hvis du får "ModuleNotFoundError" eller feilsøkeren ikke starter, må du fortelle VS Code å bruke ditt virtuelle miljø:
   > 1. Trykk `Ctrl+Shift+P` $\rightarrow$ skriv **Python: Select Interpreter**.
-  > 2. Velg tolken som er plassert i prosjektets `.venv`-mappe (for eksempel `.\.venv\Scripts\python.exe` på Windows).
+  > 2. Velg tolken som ligger i prosjektets `.venv`-mappe (f.eks. `.\.venv\Scripts\python.exe` på Windows).
   > 3. Start feilsøkingsøkten på nytt.
-> Hvis du fortsatt får feil, oppdater manuelt filen `tasks.json` slik:
-  > 1. Naviger til `.vscode/tasks.json`-filen
-  > 2. Gå til kommandoen merket: `Run Agent/Workflow HTTP Server`
-  > 3. Oppdater kommandoverdien slik: `"value": "${workspaceFolder}/.venv/bin/python",`
+> Hvis du fortsatt får feil, oppdater filen manuelt `tasks.json` som følger:
+  > 1. Gå til `.vscode/tasks.json`-filen
+  > 2. Finn oppgaven merket: `Run Agent HTTP Server`
+  > 3. Oppdater kommandoverdien som følger:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
-### Hva skjer
+### Hva som skjer
 
 1. HTTP-serveren starter på `http://localhost:8088/responses`.
 2. **Agent Inspector**-panelet åpnes automatisk - et visuelt chattegrensesnitt for testing.
-3. Breakpoints er aktivert i `main.py`.
+3. Pausepunkter er aktivert i `main.py`.
 
-Følg med på Terminalen for:
+Se på terminalen for:
 ```
 Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Hvis Agent Inspector ikke åpnes:** Trykk `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+> **Hvis Agent Inspector ikke åpnes:** Trykk `Ctrl+Shift+P` → **Foundry Toolkit: Åpne Agent Inspector**.
 
-![Agent Inspector connected to localhost:8088 showing an Executive Summary response](../../../../../translated_images/no/05-agent-inspector-response.9d761cc9bd77818b.webp)
+![Agent Inspector koblet til localhost:8088 som viser et svar med Executive Summary](../../../../../translated_images/no/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Skjermbildet kan vise eldre 'AI TOOLKIT'-branding fra en tidligere utgave av utvidelsen.*
+> *Skjermbildet kan vise eldre 'AI TOOLKIT'-branding fra en tidligere utvidelsesversjon.*
 
 ---
 
-## Alternativ 2: Test via terminal (alternativ)
+## Alternativ 2: Test via Terminal (alternativ)
 
 Start agenten i ett terminalvindu, send forespørsler fra et annet:
 
 ```bash
-# Terminal 1: Start agenten
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Scenario-tester: Happy-path funksjonell validering
+## Scenariotester: Happy-path funksjonell validering
 
-Kjør **alle tre** scenariene nedenfor. Disse validerer at agenten din produserer korrekt, strukturert output for realistiske input.
+Kjør **alle tre** scenariene nedenfor. Disse validerer at agenten din produserer riktig, strukturert output for realistiske input.
 
-![VS Code Run and Debug panel showing Agent Inspector running with executive summary response](../../../../../translated_images/no/04-local-testing.0c9b1b37b14b0b25.webp)
+![VS Code Kjør og feilsøk-panelet som viser Agent Inspector kjørende med executive summary-svar](../../../../../translated_images/no/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Scenario 1: IT-hendelse - økning i API-latens
+### Scenario 1: IT-incident - API latency spike
 
 **Input:**
 ```
@@ -97,11 +99,11 @@ Root cause: thread pool starvation from synchronous calls in /orders.
 Rolled back at 10:14.
 ```
 
-**Forventet oppførsel:**
-- ✅ Følger "Executive Summary"-strukturen (Hva skjedde / Forretningspåvirkning / Neste steg)
+**Forventet atferd:**
+- ✅ Følger «Executive Summary»-strukturen (Hva skjedde / Forretningspåvirkning / Neste steg)
 - ✅ Ingen teknisk sjargong (ingen "thread pool", ingen "/orders", ingen "v3.2")
-- ✅ Klart angir forretningspåvirkning (f.eks. brukere opplevde forsinkelser)
-- ✅ Inkluderer et neste steg (f.eks. løsning implementert, overvåking på plass)
+- ✅ Tydelig angir forretningspåvirkning (f.eks. brukere opplevde forsinkelser)
+- ✅ Inkluderer et neste steg (f.eks. fikset, overvåkning på plass)
 
 ---
 
@@ -112,11 +114,11 @@ Rolled back at 10:14.
 The nightly ETL job failed because the upstream schema changed. APAC dashboards show missing data.
 ```
 
-**Forventet oppførsel:**
+**Forventet atferd:**
 - ✅ Oppsummerer dataoppdateringsfeilen i vanlig språk
-- ✅ Nevner APAC-dashboard-påvirkningen
-- ✅ Inkluderer et utbedringssteg
-- ✅ Nevner IKKE "ETL", "skjema" eller andre tekniske termer
+- ✅ Nevner påvirkning på APAC-dashboard
+- ✅ Inkluderer en remediering som neste steg
+- ✅ Nevner IKKE "ETL", "skjema" eller andre tekniske begreper
 
 ---
 
@@ -128,11 +130,11 @@ Static analysis flagged a hardcoded secret in the repository.
 The secret may have been exposed in commit history.
 ```
 
-**Forventet oppførsel:**
-- ✅ Beskriver et legitimasjons-/sikkerhetsproblem på et ledelsesvennlig språk
-- ✅ Påpeker potensiell risiko (uautorisert tilgang)
-- ✅ Angir utbedrende tiltak (rullering av legitimasjon, revisjon)
-- ✅ Inkluderer IKKE termer som "statisk analyse", "commit-historikk" eller "hardkodet"
+**Forventet atferd:**
+- ✅ Beskriver en legitimasjons-/sikkerhetsutfordring med et ledelsesvennlig språk
+- ✅ Fremhever potensiell risiko (uautorisert tilgang)
+- ✅ Angir remedieringstiltak (rotasjon av legitimasjon, revisjon)
+- ✅ Inkluderer IKKE begreper som "statisk analyse", "commit-historikk" eller "hardkodet"
 
 ---
 
@@ -141,12 +143,12 @@ The secret may have been exposed in commit history.
 For hvert scenario, sjekk:
 
 | # | Kriterium | Godkjent betingelse |
-|---|----------|---------------------|
+|---|----------|--------------------|
 | 1 | **Struktur** | Svaret bruker "Executive Summary"-format med alle tre punkter |
-| 2 | **Vanlig språk** | Ingen teknisk sjargong som en leder ikke ville forstå |
+| 2 | **Klarspråk** | Ingen teknisk sjargong som en leder ikke ville forstå |
 | 3 | **Nøyaktighet** | Oppsummeringen reflekterer input - ingen fabrikerte detaljer |
-| 4 | **Kortfattethet** | Svaret er under 100 ord |
-| 5 | **Neste steg** | En klar handling eller avbøtning er angitt |
+| 4 | **Kortfattethet** | Svar er under 100 ord |
+| 5 | **Neste steg** | En klar handling eller avbøtende tiltak er angitt |
 
 ---
 
@@ -154,24 +156,24 @@ For hvert scenario, sjekk:
 
 | Problem | Løsning |
 |---------|---------|
-| Agent starter ikke | Sjekk `.env`-verdier, verifiser at venv er aktivert, kjør `pip install -r requirements.txt` |
-| Tomt eller generisk svar | Se gjennom instruksjoner i `main.py` - sørg for at utdataformat er spesifisert |
-| Svaret inneholder sjargong | Styrk reglene for "fjern tekniske termer" i instruksjonene |
-| Agent Inspector åpnes ikke | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Modellfeil i Terminal | Verifiser at `AZURE_AI_MODEL_DEPLOYMENT_NAME` stemmer eksakt (skiller mellom store og små bokstaver) |
+| Agenten starter ikke | Sjekk `.env` verdier, verifiser at venv er aktivert, kjør `pip install -r requirements.txt` |
+| Tomt eller generisk svar | Gå gjennom instruksjoner i `main.py` - forsikre at output-formatet er spesifisert |
+| Svaret inneholder sjargong | Styrk "fjern tekniske termer"-reglene i instruksjonene |
+| Agent Inspector åpnes ikke | `Ctrl+Shift+P` → **Foundry Toolkit: Åpne Agent Inspector** |
+| Modellfeil i Terminal | Bekreft at `AZURE_AI_MODEL_DEPLOYMENT_NAME` matcher nøyaktig (store/små bokstaver) |
 
 ---
 
-### ✅ Kontrollpunkt
+### ✅ Sjekkpunkter
 
-- [ ] Agent starter lokalt uten feil
-- [ ] Agent Inspector åpnes og viser chattegrensesnitt (hvis du bruker F5)
-- [ ] **Scenario 1** (IT-hendelse) - strukturert Executive Summary, ingen sjargong
+- [ ] Agenten starter lokalt uten feil
+- [ ] Agent Inspector åpnes og viser et chattegrensesnitt (hvis du bruker F5)
+- [ ] **Scenario 1** (IT-incident) - strukturert Executive Summary, ingen sjargong
 - [ ] **Scenario 2** (datapipeline) - relevant oppsummering med forretningspåvirkning
 - [ ] **Scenario 3** (sikkerhetsvarsling) - passende risikokommunikasjon
-- [ ] Alle svar følger definert utdata-struktur
+- [ ] Alle svar følger definert output-struktur
 
-> **Lagre svarene dine** (kopier eller ta skjermbilde) - du skal sammenligne dem med sky-resultater i Modul 06.
+> **Lagre svarene dine** (kopier eller skjermbilde) - du vil sammenligne dem med skyløsningen i Modul 06.
 
 ---
 

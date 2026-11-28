@@ -2,7 +2,7 @@
 
 ⏱️ ~15 min
 
-Tässä moduulissa ajat monitoimittajatyönkulun paikallisesti, testaat sitä Agent Inspectorilla ja varmistat, että kaikki neljä agenttia ja MCP-työkalu toimivat oikein ennen käyttöönottoa.
+Tässä moduulissa suoritat moni-agenttisen työnkulun paikallisesti, testaat sitä Agent Inspectorilla ja varmistat, että kaikki neljä agenttia ja MCP-työkalu toimivat oikein ennen käyttöönottoa.
 
 ---
 
@@ -10,52 +10,53 @@ Tässä moduulissa ajat monitoimittajatyönkulun paikallisesti, testaat sitä Ag
 
 ### Vaihtoehto A: VS Code -tehtävän käyttäminen (suositeltu)
 
-1. Avaa `workshop/lab02-multi-agent/PersonalCareerCopilot/` VS Code -kansiona.
+1. Avaa `workshop/lab02-multi-agent/PersonalCareerCopilot/` VS Code -kansioon.
 2. Paina `Ctrl+Shift+P` → kirjoita **Tasks: Run Task** → valitse **Run Agent HTTP Server**.
-3. Tehtävä käynnistää palvelimen, johon on liitetty debugpy portissa `5679` ja agentti portissa `8088`.
-4. Odota, että tuloste näyttää:
+3. Tehtävä käynnistää palvelimen debugpy-liitännällä portissa `5679` ja agentin portissa `8088`.
+4. Odota, että tuloste näyttää käynnistysviestin, jota seuraa palvelimen oma valmiusviesti (muita lokirivejä saattaa näkyä välissä):
 
 ```
 INFO:resume-job-fit:Starting Resume -> Job Fit Evaluator HTTP server...
-INFO:resume-job-fit:Server running on http://localhost:8088
+...
+INFO:hypercorn.error:Running on http://0.0.0.0:8088 (CTRL + C to quit)
 ```
 
-### Vaihtoehto B: F5:n käyttäminen (virheenkorjaustila)
+### Vaihtoehto B: F5:n käyttäminen (debug-tila)
 
 1. Paina `F5` → valitse **Debug Local Agent HTTP Server**.
-2. Palvelin käynnistyy täydellä breakpoint-tueella - hyödyllistä MCP-vastausten tai agentin tulosteiden tarkasteluun.
+2. Palvelin käynnistyy täydellä breakpoint-tuesta - hyödyllistä MCP-vastausten tai agentin tulosteiden tarkasteluun.
 
 ---
 
 ## Vaihe 2: Avaa Agent Inspector
 
 1. Paina `Ctrl+Shift+P` → kirjoita **Foundry Toolkit: Open Agent Inspector**.
-2. Agent Inspector avautuu VS Code -paneelina, joka on yhdistetty osoitteeseen `http://localhost:8088`.
-3. Näet agentin käyttöliittymän vastaanottovalmiina viesteille.
+2. Agent Inspector avautuu VS Code -paneelina, joka on yhdistetty palvelimeen `http://localhost:8088`.
+3. Näet agentin käyttöliittymän valmiina vastaanottamaan viestejä.
 
-![Agent Inspector open and ready - Playground shows the welcome prompt](../../../../../translated_images/fi/04-debug-console-matching-input.ed5c06395e25aec0.webp)
+![Agent Inspector avoinna ja valmiina - Playground näyttää tervetuloviestin](../../../../../translated_images/fi/04-debug-console-matching-input.ed5c06395e25aec0.webp)
 
-> **Jos Agent Inspector ei aukea:** Varmista, että palvelin on kokonaan käynnistynyt (näet "Server running" lokin). Jos portti 5679 on varattu, katso [Moduuli 8 - Vianmääritys](08-troubleshooting.md).
+> **Jos Agent Inspector ei aukea:** Varmista, että palvelin on täysin käynnistynyt (näet `Running on http://0.0.0.0:8088`-lokin). Jos portti 5679 on varattu, katso [Moduuli 8 - Vianmääritys](08-troubleshooting.md).
 
 ---
 
 ## Vaihe 2b: (Valinnainen) Avaa Workflow Visualizer
 
-Foundry Toolkit sisältää reaaliaikaisen **Workflow Visualizerin**, joka näyttää agenttien vuorovaikutuksen graafin suorittamisen aikana. Tämä on erityisen hyödyllistä monitoimittajan virheenkorjauksessa.
+Foundry Toolkit sisältää reaaliaikaisen **Workflow Visualizerin**, joka näyttää, miten agentit vuorovaikuttavat työnkulun suorittamisen aikana. Tämä on erityisen hyödyllistä moni-agenttisen virheenkorjauksessa.
 
 1. Paina `Ctrl+Shift+P` → kirjoita **Foundry Toolkit: Open Visualizer for Hosted Agents**.
-2. Uusi VS Code -välilehti avautuu näyttämään suoritusgraafin reaaliajassa.
-3. Kun lähetät viestejä Agent Inspectorissa, visualizer päivittyy automaattisesti - vihreät solmut tarkoittavat valmiita agenteja, ja animoidut kaaret näyttävät tietovirran niiden välillä.
+2. Uusi VS Code -välilehti avautuu näyttäen käynnissä olevan suorituksen kaavion.
+3. Kun lähetät viestejä Agent Inspectorissa, visualizer päivittyy automaattisesti - vihreät solmut kertovat suoritetuista agenteista ja animoidut reunat näyttävät tiedon virtaavan niiden välillä.
 
-> **Porttikonflikti:** Jos visualizerin portti on jo käytössä, vaihda se VS Code -asetuksissa → **Extensions** → **Microsoft Foundry Configuration** → **Hosted Agents: Visualizer Port**.
+> **Porttikonflikti:** Jos visualizer-portti on jo käytössä, vaihda se VS Code -asetuksissa → **Extensions** → **Microsoft Foundry Configuration** → **Hosted Agents: Visualizer Port**.
 
 ---
 
-## Vaihe 3: Suorita savutestit
+## Vaihe 3: Suorita smoke-testit
 
-Suorita nämä kolme testiä järjestyksessä. Kukin testaa yhä laajemmin työnkulkua.
+Suorita nämä kaksi testiä tässä järjestyksessä. Jokainen testi kattaa sitä laajemmin työnkulkua.
 
-### Testi 1: Perus CV + työkuvaus
+### Testi 1: Perusansioluettelo + työkuvaus
 
 Liitä seuraava Agent Inspectoriin:
 
@@ -77,31 +78,31 @@ Certifications: Azure Solutions Architect Expert preferred.
 
 **Odotettu tulosteen rakenne:**
 
-Vasteen tulee sisältää kaikkien neljän agentin tuloste peräjälkeen:
+Vastauksen tulisi sisältää kaikkien neljän agentin tulosteet peräkkäin:
 
-1. **Resume Parser -tulos** - Kaksi nimettyä osiota: `[PARSED RESUME]` (ehdokasprofiili ryhmitellyillä taidoilla) ja `[JOB DESCRIPTION PASS-THROUGH]` (kirjaimellinen työkuvausteksti, joka syötetään JD Agentille)
-2. **JD Agentin tulos** - Rakenteelliset vaatimukset, joissa vaaditut ja toivotut taidot eroteltuna
-3. **Matching Agentin tulos** - Soveltuvuuspiste (0-100) erittelyineen, osuvat taidot, puuttuvat taidot, aukot
-4. **Gap Analyzerin tulos** - Yksittäiset aukkojen kuvakortit jokaiselle puuttuvalla taidolla, jokaisessa Microsoft Learn -URL-osoite
+1. **Ansioluettelon jäsentäjän tuloste** - Kaksi nimettyä osiota: `[PARSED RESUME]` (ehdokkaan profiili ryhmiteltyine taitoineen) ja `[JOB DESCRIPTION PASS-THROUGH]` (sanasta sanaan työkuvauksen teksti, joka syötetään JD-agentille)
+2. **JD-agentin tuloste** - Rakenteelliset vaatimukset, joissa eritelty vaaditut ja toivotut taidot
+3. **Matching-agentin tuloste** - Soveltuvuuspisteet (0–100) erittelyineen, sovitetut taidot, puuttuvat taidot, aukot
+4. **Gap Analyzerin tuloste** - Yksittäiset aukkokortit jokaiselle puuttuvalle taidolle, jokaisessa Microsoft Learn -URL-osoitteet
 
-![Agent Inspector showing complete response with fit score, gap cards, and Microsoft Learn URLs](../../../../../translated_images/fi/05-inspector-test1-complete-response.8c63a52995899333.webp)
+![Agent Inspector näyttää täydellisen vastauksen soveltuvuuspisteellä, aukkokorteilla ja Microsoft Learn -linkeillä](../../../../../translated_images/fi/05-inspector-test1-complete-response.8c63a52995899333.webp)
 
-![Agent Inspector response panel showing learning resources with Microsoft Learn links](../../../../../translated_images/fi/04-inspector-streaming-output.df2781aaa02df6bc.webp)
+![Agent Inspector -vastauspaneeli näyttää oppimisresurssit Microsoft Learnin linkkien kera](../../../../../translated_images/fi/04-inspector-streaming-output.df2781aaa02df6bc.webp)
 
-### Mitä tarkistaa Testissä 1
+### Mitä varmistaa Testissä 1
 
 | Tarkista | Odotettu | Läpäisy? |
-|----------|----------|----------|
-| Vaste sisältää soveltuvuuspisteen | Luku 0-100 välillä erittelyllä | |
-| Osuvat taidot on listattu | Python, CI/CD (osittain), ym. | |
-| Puuttuvat taidot on listattu | Azure, Kubernetes, Terraform, ym. | |
-| Aukkojen kuvakortit ovat olemassa | Yksi kortti per taito | |
-| Microsoft Learn -URL-osoitteet ovat läsnä | Oikeat `learn.microsoft.com` -linkit | |
-| Ei virheilmoituksia vastauksessa | Siisti rakenteellinen tuloste | |
+|-------|----------|-------|
+| Vastauksessa on soveltuvuuspiste | Numero 0-100 ja erittely | |
+| Sovitetut taidot on listattu | Python, CI/CD (osittain), jne. | |
+| Puuttuvat taidot on listattu | Azure, Kubernetes, Terraform jne. | |
+| Aukonkortteja on kaikille puuttuville taidoille | Yksi kortti per taito | |
+| Microsoft Learn -URL-osoitteet ovat läsnä | Todelliset `learn.microsoft.com` -linkit | |
+| Ei virheilmoituksia vastauksessa | Selkeä ja jäsennelty tuloste | |
 
-### Testi 2: Ääriesimerkki - korkean soveltuvuuden ehdokas
+### Testi 2: Reunaustapaus - korkea soveltuvuus
 
-Liitä CV, joka vastaa työkuvausta hyvin, varmistaaksesi että GapAnalyzer osaa käsitellä korkean soveltuvuuden tilanteet:
+Liitä ansioluettelo, joka vastaa tarkasti työkuvausta, varmistaaksesi, että GapAnalyzer käsittelee korkean soveltuvuuden tilanteet:
 
 ```
 Resume:
@@ -120,40 +121,40 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Odotettu käyttäytyminen:**
-- Soveltuvuuspisteen tulee olla **80+** (useimmat taidot täsmäävät)
-- Aukkojen kuvakorttien tulisi keskittyä viimeistelyyn/haastatteluun valmistautumiseen eikä perustason oppimiseen
-- GapAnalyzerin ohjeissa lukee: "Jos soveltuvuus >= 80, keskity viimeistelyyn/haastatteluun valmistautumiseen"
+**Odotettu käytös:**
+- Soveltuvuuspisteen tulisi olla **80+** (suuri osa taidoista osuu)
+- Aukonkorttien tulisi keskittyä hiomiseen/haastatteluun valmistautumiseen perustason oppimisen sijaan
+- GapAnalyzerin ohjeistus sanoo: "Jos soveltuvuus >= 80, keskity hiomiseen/haastatteluun valmistautumiseen"
 
 ---
 
 ## Vaihe 4: Testaa omilla tiedoillasi (valinnainen)
 
-Kokeile liittää oma CV:si ja oikea työkuvaus. Tämä auttaa varmistamaan:
+Kokeile liittää oma ansioluettelosi ja oikea työkuvaus. Tämä auttaa varmistamaan:
 
-- Agenttien käsittelevän erilaiset CV-muodot (kronologinen, funktionaalinen, hybridi)
-- JD Agentin käsittelevän erilaiset työkuvaustyylit (luettelomerkit, kappaleet, rakenteellinen)
-- MCP-työkalun palauttavan asiaankuuluvat resurssit todellisille taidoille
-- Aukkojen kuvakorttien olevan henkilökohtaisia juuri sinun taustaasi varten
+- Agentit käsittelevät eri ansioluettelomuotoja (kronologinen, toiminnallinen, hybridi)
+- JD-agentti käsittelee eri työkuvaustyylejä (luettelomerkit, kappaleet, jäsennelty)
+- MCP-työkalu palauttaa aiheeseen liittyviä resursseja todellisille taidoille
+- Aukonkortit ovat räätälöityjä sinun omaan taustaasi
 
-> **Yksityisyys - Polku A (Foundry-pilvi):** CV ja työkuvausteksti lähetetään Azure OpenAI -käyttöönotollesi päättelyä varten. Niitä ei kirjata tai tallenneta workshopin infrastruktuurissa. Käytä paikkamerkkinimiä (esim. "Jane Doe"), jos haluat.
+> **Yksityisyys - Polku A (Foundry pilvi):** Ansioluettelo ja työkuvauksen teksti lähetetään Azure OpenAI -asennukseesi inferenssiä varten. Työpajan infrastruktuuri ei kirjaa tai tallenna näitä tietoja. Käytä tarvittaessa korvaavia nimiä (esim. "Jane Doe").
 >
-> **Yksityisyys - Polku B (Foundry Local):** Kaikki neljä agentin päättelyä ajetaan kokonaan omalla laitteellasi. CV:si ja työkuvaustekstisi **eivät koskaan poistu koneeltasi**. Ainoa ulkoinen kutsu on MCP-työkalu, joka hakee resursseja osoitteesta `https://learn.microsoft.com/api/mcp`; siinä kyselyssä on vain taitojen nimet, ei henkilökohtaisia tietojasi.
+> **Yksityisyys - Polku B (Foundry paikallinen):** Kaikki neljä agentin inferenssiä ajetaan täysin omalla laitteellasi. Ansioluettelosi ja työkuvauksen tekstisi **ei koskaan poistu koneeltasi**. Ainoa ulospäin menevä kutsu on MCP-työkalun resurssien haku osoitteesta `https://learn.microsoft.com/api/mcp`; kysely sisältää vain taidon nimen, ei henkilökohtaisia tietojasi.
 
 ---
 
-### Välitarkistus
+### Välitarkastus
 
-- [ ] Palvelin käynnistyi onnistuneesti portissa `8088` (lokissa näkyy "Server running")
-- [ ] Agent Inspector avattiin ja yhdistettiin agenttiin
-- [ ] Testi 1: Täydellinen vastaus soveltuvuuspisteineen, osuvat/puuttuvat taidot, aukkojen kuvakortit ja Microsoft Learn -linkit
-- [ ] Testi 2: Korkean soveltuvuuden ehdokas saa pisteen 80+ viimeistelyyn keskittyvien suositusten kanssa
-- [ ] Kaikki aukkojen kuvakortit ovat paikallaan (yksi per puuttuva taito, ei leikkausta)
-- [ ] Ei virheitä tai pinojälkiä palvelimen pääteikkunassa
+- [ ] Palvelin käynnistyi onnistuneesti portissa `8088` (loki näyttää `Running on http://0.0.0.0:8088`)
+- [ ] Agent Inspector on avattu ja yhdistetty agenttiin
+- [ ] Testi 1: Täydellinen vastaus soveltuvuuspisteellä, sovitetut/puuttuvat taidot, aukkokortit ja Microsoft Learn -URL-osoitteet
+- [ ] Testi 2: Korkean soveltuvuuden ehdokas saa pisteen 80+ ja hiomiseen keskittyvät suositukset
+- [ ] Kaikki aukkokortit läsnä (yksi per puuttuva taito, ei katkaisuja)
+- [ ] Ei virheitä tai pinojälkiä palvelinpäätteessä
 
 ---
 
-**Edellinen:** [04 - Orkestraatiomallit](04-orchestration-patterns.md) · **Seuraava:** [06 - Ota käyttöön Foundryssa →](06-deploy-to-foundry.md)
+**Edellinen:** [04 - Orkestrointimallit](04-orchestration-patterns.md) · **Seuraava:** [06 - Käyttöönotto Foundryssä →](06-deploy-to-foundry.md)
 
 ---
 

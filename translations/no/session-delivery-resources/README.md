@@ -1,14 +1,14 @@
-# Hvordan levere denne sesjonen
+# Hvordan holde denne økten
 
-Takk for at du leverer denne sesjonen!
+Takk for at du holder denne økten!
 
-Før du leverer workshoppen, vennligst:
+Før du holder workshoppen, vennligst:
 
 1. Les dette dokumentet og alle inkluderte ressurser i sin helhet.
-2. Se gjennom økten sin leveringsopptak og workshopens ende-til-ende gjennomgang.
-3. Gå gjennom begge praktiske laboratoriene ende-til-ende på din egen maskin **minst én gang** før arrangementet.
-4. Valider ditt Microsoft Foundry-prosjekt, modellutplasseringer og kvoter.
-5. Ta kontakt med vedlikeholderen dersom noe er uklart.
+2. Se opptaket av sesjonsleveringen og gjennomgangen av workshoppen fra start til slutt.
+3. Gå gjennom begge praktiske labber fra start til slutt på din egen maskin **minst én gang** før arrangementet.
+4. Verifiser ditt Microsoft Foundry-prosjekt, modellutrullinger og kvoter.
+5. Ta kontakt med vedlikeholderen hvis noe er uklart.
 
 ---
 
@@ -16,152 +16,152 @@ Før du leverer workshoppen, vennligst:
 
 | Ressurs                      | Lenke                                                                             | Beskrivelse                                                                                |
 |-------------------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| Workshop slide deck           | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                               | Presentasjonsbilder for denne workshoppen med presentatørnotater og innebygde demovideoer   |
-| Økt sitt leveringsopptak    | _Skal leveres av vedlikeholderen_                                               | Workshop-intro og gjennomgang av lysbilder opptak                                           |
-| Workshop ende-til-ende opptak | _Skal leveres av vedlikeholderen_                                               | Ende-til-ende opptak av begge laboratorier fra en lærers perspektiv                         |
-| Workshop dokumentasjon        | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | Kildearkiv, lab README-filer, trinn-for-trinn moduler                                      |
-| Lab 01 - enkeltagent         | [Lab 01](../workshop/lab01-single-agent/README.md)                               | Praktisk lab: bygg, test og deployer *Explain Like I'm an Executive* hostet agent           |
+| Workshop-presentasjon         | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                               | Presentasjonslysbilder for denne workshopen med presentatørnotater og innebygde demovideoer |
+| Opptak av sesjonslevering    | _Vil bli levert av vedlikeholder_                                               | Innledning til workshoppen og gjennomgang av lysbildene i opptak                           |
+| Opptak av end-to-end workshop | _Vil bli levert av vedlikeholder_                                               | End-to-end opptak av begge labber fra en deltakers perspektiv                              |
+| Workshopdokumentasjon        | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | Kilde-repository, lab-lesmeg, trinnvise moduler                                            |
+| Lab 01 - enkelt agent         | [Lab 01](../workshop/lab01-single-agent/README.md)                               | Praktisk lab: bygg, test, og deployer *Explain Like I'm an Executive* hostet agent         |
 | Lab 02 - fleragent arbeidsflyt | [Lab 02](../workshop/lab02-multi-agent/README.md)                                | Praktisk lab: bygg 4-agent *Resume to Job Fit Evaluator* arbeidsflyt                       |
-| Demo 1: Executive Agent             | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                                              | Lab 01 demo: oversett teknisk sjargong til en lederoppsummering                            |
-| Demo 2: Resume to Job Fit Evaluator | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)                     | Lab 02 demo: 4-agent arbeidsflyt som vurderer resume-job matching og genererer anbefalinger |
+| Demo 1: Executive Agent       | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                                              | Lab 01 demo: oversett teknisk sjargong til en lederoppsummering                            |
+| Demo 2: Resume to Job Fit Evaluator | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)                     | Lab 02 demo: 4-agent arbeidsflyt som vurderer CV-jobb-pasning og genererer anbefalinger     |
 
-> **Merk for trenere:** Slides og videolenker vil legges til så snart opptakene er publisert. Inntil da, ta kontakt med vedlikeholder (se [Kontakter](#kontakter)) for de siste ressursene.
+> **Merk til trenere:** Lysbildebunken og video lenker blir lagt til når opptakene er publisert. Inntil da, kontakt vedlikeholder (se [Kontakter](#contacts)) for siste oppdateringer.
 
 ---
 
 ## Kom i gang
 
-Denne workshoppen lærer utviklere hvordan de kan bygge, teste og deployere AI-agenter til **Microsoft Foundry Agent Service** som **Hosted Agents** helt fra VS Code, ved å bruke **Microsoft Foundry Toolkit**-utvidelsen.
+Denne workshopen lærer utviklere å bygge, teste og deployere AI-agenter til **Microsoft Foundry Agent Service** som **Hosted Agents** helt fra VS Code, ved bruk av **Microsoft Foundry Toolkit**-utvidelsen.
 
-Workshoppen er delt inn i flere seksjoner inkludert lysbilder, **2 live demoer**, og **2 praktiske laboratorier**.
+Workshopen er delt inn i flere seksjoner, inkludert lysbilder, **2 live-demoer**, og **2 praktiske labber**.
 
-### Tidsskjema
+### Tidspunkt
 
 #### Full levering (omtrent 2 timer)
 
-| Tid             | Beskrivelse                                                          |
-|-----------------|----------------------------------------------------------------------|
-| 0:00 - 10:00    | Intro: hosted agents, Foundry Agent Service og toolkit                |
-| 10:00 - 20:00   | Demo: Executive Agent ende-til-ende                                 |
-| 20:00 - 60:00   | Lab 01 - enkeltagent (bygg, lokal test, deploy, lekeområde)          |
-| 60:00 - 110:00  | Lab 02 - fleragent arbeidsflyt (Resume to Job Fit Evaluator)         |
-| 110:00 - 120:00 | Oppsummering, spørsmål & svar og videre læringsressurser             |
+| Tid              | Beskrivelse                                                          |
+|------------------|----------------------------------------------------------------------|
+| 0:00 - 10:00     | Introduksjon: Hosted agents, Foundry Agent Service og toolkit        |
+| 10:00 - 20:00    | Demo: Executive Agent end-to-end                                     |
+| 20:00 - 60:00    | Lab 01 - enkelt agent (bygg, test lokalt, deploy, lekeområde)        |
+| 60:00 - 110:00   | Lab 02 - fleragent arbeidsflyt (Resume to Job Fit Evaluator)         |
+| 110:00 - 120:00  | Oppsummering, spørsmål og svar, og ressurser for videre læring       |
 
 #### Kort levering (omtrent 75 minutter)
 
-| Tid          | Beskrivelse                                                  |
-|---------------|--------------------------------------------------------------|
-| 0:00 - 10:00  | Intro og oversikt                                           |
-| 10:00 - 20:00 | Demo: Executive Agent                                        |
-| 20:00 - 70:00 | Kun Lab 01 (peke deltakere til Lab 02 som selvstudium)        |
-| 70:00 - 75:00 | Oppsummering og spørsmål & svar                              |
+| Tid             | Beskrivelse                                                      |
+|-----------------|-----------------------------------------------------------------|
+| 0:00 - 10:00    | Introduksjon og oversikt                                        |
+| 10:00 - 20:00   | Demo: Executive Agent                                           |
+| 20:00 - 70:00   | Kun Lab 01 (vis Lab 02 som selvstudium)                        |
+| 70:00 - 75:00   | Oppsummering og spørsmål og svar                               |
 
 ### Forberedelse
 
-| Ressurs                       | Lenke                                                                                          | Beskrivelse                                       |
-|--------------------------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------|
-| Workshop dokumentasjon         | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)             | Workshop dokumentasjon og kilde                    |
-| Lab 01 instruksjoner            | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                | Praktisk lab: enkelt hostet agent                  |
-| Lab 02 instruksjoner            | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                  | Praktisk lab: fleragent arbeidsflyt                 |
-| Forutsetningssjekkliste        | [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                | Verktøy, kontoer og tilgang til Azure som kreves  |
-| Hurtigstart Hosted agents (azd) | [Learn](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | Offisiell hurtigstart for å distribuere en hosted agent med `azd` |
-| Tilgjengelighet av hosted agents regioner | [Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | Støttede regioner for hosted agents (preview)     |
+| Ressurs                        | Lenke                                                                                          | Beskrivelse                                    |
+|-------------------------------|-----------------------------------------------------------------------------------------------|------------------------------------------------|
+| Workshopdokumentasjon          | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)             | Workshopdokumentasjon og kildekode             |
+| Lab 01 instruksjoner           | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                | Praktisk lab: enkelt hostet agent              |
+| Lab 02 instruksjoner           | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                  | Praktisk lab: fleragent arbeidsflyt            |
+| Sjekkliste for forutsetninger | [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                | Verktøy, kontoer og Azure-tilgang kreves       |
+| Hosted agents kjappstart (azd) | [Learn](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | Offisiell kjappstart for å deployere en hosted agent med `azd` |
+| Tilgjengelighet av hosted agents regioner | [Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | Støttede regioner for hosted agents (preview)  |
 
-### Treningsforutsetninger
+### Forutsetninger for treneren
 
-Før du leverer, sørg for at du har:
+Før du holder økten, sørg for at du har:
 
 - Et **Azure-abonnement** med tillatelse til å opprette ressurser (Owner eller Contributor på en ressursgruppe).
 - Tilgang til et **Microsoft Foundry-prosjekt** i en [region som støtter hosted agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
-- Kvote for **gpt-4.1** (eller **gpt-4.1-mini**) i ditt Foundry-prosjekt.
+- Kvote for **gpt-4.1** (eller **gpt-4.1-mini**) i Foundry-prosjektet ditt.
 - Følgende verktøy installert:
   - [Visual Studio Code](https://code.visualstudio.com/)
-  - [Microsoft Foundry Toolkit-utvidelsen](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
+  - [Microsoft Foundry Toolkit extension](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
   - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
   - [Azure Developer CLI (`azd`)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
   - [Docker Desktop](https://www.docker.com/) (valgfritt)
-  - Python 3.10 eller nyere
+  - Python 3.12 eller nyere
 
-Kjør [Hosted agents hurtigstart med `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) minst én gang før levering slik at du har et kjent-godt Foundry-prosjekt, modellutplassering, og Azure Container Registry å referere til hvis en deltaker skulle stå fast.
+Kjør [Hosted agents kjappstart med `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) minst én gang før økten, slik at du har et kjent fungerende Foundry-prosjekt, modellutrulling, og Azure Container Registry å referere til hvis en deltaker støter på problemer.
 
 ---
 
-## Gjennomgang av slides
+## Lysbildegjennomgang
 
-Lysbildene følger samme flyt som laboratoriene. Foreslåtte samtalepunkter for hver seksjon:
+Presentasjonen følger samme flyt som labbene. Forslag til viktige punkter for hver seksjon:
 
 | Seksjon                     | Hovedbudskap                                                                                                  |
-|-----------------------------|--------------------------------------------------------------------------------------------------------------|
-| Tittel og agenda            | Rammeverk workshoppen som *VS Code til Foundry* uten behov for å bytte portal.                               |
-| Hvorfor hosted agents?      | Administrert runtime, ACR-basert deploy, OpenAI-kompatibel `/responses` API, avgrenset til Foundry-prosjekter.  |
-| Arkitekturdiagram          | Gå gjennom [README arkitekturen](../README.md#architecture): scaffold, Inspector, ACR, Agent Service.         |
-| Anatomi av en hosted agent | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - hva hver fil gjør.                                |
-| Live demo: Executive Agent  | Bytt til VS Code og kjør demoen [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) ende-til-ende (se [Demo 1](#demo-1-executive-agent)). |
+|----------------------------|--------------------------------------------------------------------------------------------------------------|
+| Tittel og agenda           | Rammeverk workshoppen som *VS Code til Foundry* uten behov for å bytte portal.                               |
+| Hvorfor hosted agents?     | Administrert runtime, ACR-basert deploy, OpenAI-kompatibel `/responses` API, avgrenset til Foundry-prosjekter.|
+| Arkitekturdiagram          | Gå gjennom [README-arkitektur](../README.md#architecture): scaffold, Inspector, ACR, Agent Service.            |
+| Anatomien til en hosted agent | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - hva hver fil gjør.                        |
+| Live demo: Executive Agent | Bytt til VS Code og kjør [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) demoen fra start til slutt (se [Demo 1](#demo-1-executive-agent)). |
 | Live demo: Resume to Job Fit Evaluator | Bytt til VS Code og kjør [`PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) 4-agent demo (se [Demo 2](#demo-2-resume-to-job-fit-evaluator)). |
-| Lab 01 kort                 | Overlever til deltakerne. Peker til [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md). |
-| Multi-agent mønstre         | Sekvensiell vs parallell vs overlevering - forhåndsvis før Lab 02 starter.                                   |
-| Lab 02 kort                 | Overlever til deltakerne. Peker til [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md). |
-| Oppsummering og ressurser   | Videre læringslenker fra [Tilleggsressurser](#tilleggsressurser) seksjonen.                              |
+| Kort om Lab 01             | Overlever til deltakerne. Vis til [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md). |
+| Fleragentmønstre           | Sekvensiell vs samtidig vs overlevering - forhåndsvis før Lab 02 starter.                                   |
+| Kort om Lab 02             | Overlever til deltakerne. Vis til [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md). |
+| Oppsummering og ressurser  | Lenker for videre læring fra [Ytterligere ressurser](#additional-resources) seksjonen.                    |
 
 ---
 
 ## Demoer
 
-To live demoer er inkludert i leveringen. Sett av 10 minutter til hver.
+To live-demoer er inkludert i leveringen. Allocér 10 minutter til hver.
 
-| Demo | Lab | Filer | Hva å vise |
-|------|-----|-------|--------------|
-| Executive Agent | Lab 01 | [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | Enkelt hostet agent; oversett teknisk sjargong til en lederoppsummering |
-| Resume to Job Fit Evaluator | Lab 02 | [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | 4-agent orkestrering; vurder resume-job matching og generer anbefaling |
+| Demo                     | Lab   | Filer                     | Hva som skal vises                            |
+|--------------------------|-------|---------------------------|----------------------------------------------|
+| Executive Agent          | Lab 01| [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | Enkelt hostet agent; oversett teknisk sjargong til en lederoppsummering |
+| Resume to Job Fit Evaluator | Lab 02| [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | 4-agent orkestrering; vurder CV-jobb-pasning og lag en anbefaling    |
 
 ### Demo 1: Executive Agent
 
 En frittstående agent i [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent). Bruk denne som en 10-minutters demo før Lab 01.
 
-1. Åpne [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) og gå gjennom agent-definisjonen (system prompt, modell, rammeverk).
+1. Åpne [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) og gå gjennom agentdefinisjonen (systemprompt, modell, rammeverk).
 2. Trykk `F5` for å starte **Agent Inspector** lokalt.
-3. Lim inn eksempelprompten fra [README](../README.md#see-it-in-action) og vis oppsummeringssvar for leder.
-4. Vis [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) og [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile) for å forklare distribusjonsartefaktene.
-5. Demonstrer deploy-flyten (Docker build, ACR push, hosted agent create) uten å vente på fullføring.
+3. Lim inn eksempelprompt fra [README](../README.md#see-it-in-action) og vis responset for lederoppsummering.
+4. Vis [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) og [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile) for å forklare deployartefaktene.
+5. Demonstrer deployflyten (Docker build, ACR push, hosted agent opprettelse) uten å vente på fullføring.
 
 ### Demo 2: Resume to Job Fit Evaluator
 
-En arbeidsflyt med 4 agenter i [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot). Bruk denne som en 10-minutters demo før Lab 02.
+En 4-agent arbeidsflyt i [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot). Bruk denne som en 10-minutters demo før Lab 02.
 
-1. Åpne [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) og vis hvordan de fire agentene er koblet sammen i en sekvensiell orkestrering.
-2. Trykk `F5` for å starte **Agent Inspector** for fler-agent arbeidsflyten.
-3. Lim inn en kort stillingsbeskrivelse og et eksempel på CV i Inspector chatten.
-4. Gå gjennom fire-agent pipeline: CV-parser, jobbkrav-uttrekker, matchingsvurderer og anbefalingsskriver.
-5. Pek ut hvordan hver sub-agent sitt output blir neste agents kontekst, fremhev overleveringsmønsteret.
-6. Vis [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) for å sammenligne med enkel-agent-ekvivalenten fra Demo 1.
-
----
-
-## Leveringstips
-
-- **Sett forventninger tidlig.** Hosted agents er i preview - påpek regionsbegrensninger og kvoter på forhånd slik at deltakerne ikke blir overrasket midt i laben.
-- **Kjør forutsetningsoppgaven først.** Begge labene har en `Validate prerequisites` VS Code-oppgave - la deltakerne kjøre den før det skrives kode.
-- **Hold Agent Inspector synlig.** De fleste "aha"-øyeblikk skjer når deltakerne ser lokal `/responses` tur-retur blinke.
-- **Ha et reserveprosjekt.** Hvis en deltakers Foundry-prosjekt treffer kvotebegrensning, del et ferdig oppsatt prosjekt for deploy-steget istedenfor å blokkere rommet.
-- **Parvis deltakere.** Lab 02 (fleragent) er betydelig enklere når deltakerne kan snakke gjennom orkestreringen med en partner.
-- **Bruk dokumentasjonsmoduler som sjekkpunkter.** Hver labs `docs/`-mappe er delt i 8 nummererte moduler - bruk disse som naturlige pausesteder.
-- **Forhåndstrekk basis Docker-image** på delte labmaskiner for å unngå rate limits i registeret.
+1. Åpne [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) og vis hvordan de fire agentene er koblet i en sekvensiell orkestrering.
+2. Trykk `F5` for å starte **Agent Inspector** for fleragent arbeidsflyt.
+3. Lim inn en kort stillingsbeskrivelse og et eksempel på CV i Inspector-chatten.
+4. Gå gjennom den fire-agenters pipeline: CV-parser, jobbkravsekstraktor, vurderingsskårer, og anbefalingsskriver.
+5. Påpek hvordan hver underagents utdata blir neste agents kontekst, og fremhev overleveringsmønsteret.
+6. Vis [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) for å sammenligne med enkelt-agent ekvivalent fra Demo 1.
 
 ---
 
-## Feilsøking under levering
+## Tips for leveringen
 
-| Symptom                                      | Første forsøk på løsning                                                                                |
+- **Sett forventninger tidlig.** Hosted agents er i forhåndsvisning – informer om regionsbegrensninger og kvoter på forhånd så deltakerne ikke blir overrasket midt i labben.
+- **Kjør forutsetningsoppgaven først.** Begge labber har en `Validate prerequisites` VS Code-oppgave – la deltakerne kjøre den før noen koding.
+- **Hold Agent Inspector synlig.** De fleste “aha”-øyeblikk skjer når deltakerne ser den lokale `/responses` rundtur lyse opp.
+- **Ha et reserveprosjekt.** Hvis en deltakers Foundry-prosjekt treffer en kvotebegrensning, del et forhåndsprovisionert prosjekt for deploy-steget i stedet for å blokkere rommet.
+- **Par deltakerne.** Lab 02 (fleragent) er betydelig enklere når deltakerne kan diskutere orkestreringen med en partner.
+- **Bruk dokumentasjonsmodulene som sjekkpunkter.** Hver labs `docs/`-mappe er delt opp i nummererte moduler – bruk disse som naturlige pausepunkter.
+- **Forhåndstrekk basis Docker-bilde** på delte lab-maskiner for å unngå ratebegrensninger i registeret.
+
+---
+
+## Feilsøking under leveringen
+
+| Symptom                                      | Første ting å prøve                                                                                       |
 |----------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| Agent Inspector kan ikke koble til           | Bekreft at port `8088` er ledig og at `Run Lab01 HTTP Server` / `Run Lab02 HTTP Server` oppgaven kjører. |
-| Feilsøker klarer ikke å koble til             | Sjekk at port `5679` er ledig; restart VS Code hvis `debugpy` allerede er bundet.                        |
-| `azd up` feiler med autentiseringsfeil       | Kjør `az login` og `azd auth login`, sørg for at riktig leietaker er valgt.                             |
-| Deploy henger ved ACR push                      | Sjekk at Docker Desktop kjører og at brukeren har `AcrPush` på registeret.                             |
-| Modell returnerer 404 / deployment-not-found  | Modellutplasseringens navn i `agent.yaml` må samsvare med deploy i Foundry-prosjektet.                  |
-| Vert agent sitter fast i `Provisioning`         | Verifiser at prosjektregionen [støtter vertede agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) og at kvoten er tilgjengelig. |
-| Playground returnerer 401                       | Autentiser Foundry-utvidelsen på nytt fra VS Code-aktivitetslinjen.                                     |
+| Agent Inspector kan ikke koble til           | Bekreft at port `8088` er ledig og at `Run Agent HTTP Server`-oppgaven kjører.                      |
+| Debugger klarer ikke å koble til             | Sjekk at port `5679` er ledig; start VS Code på nytt hvis `debugpy` allerede er bundet. |
+| `azd up` feiler med autentiseringsfeil | Kjør `az login` og `azd auth login`, sørg for at riktig tenant er valgt.                         |
+| Deploy henger på ACR push                     | Sjekk at Docker Desktop kjører og at brukeren har `AcrPush` på registeret.                       |
+| Modell returnerer 404 / deployment-not-found | Navnet på modellutrullingen i `agent.yaml` må samsvare med deployeringen i Foundry-prosjektet.       |
+| Hosted agent sitter fast i `Provisioning`     | Verifiser at prosjektets region [støtter hosted agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) og at kvote er tilgjengelig. |
+| Playground returnerer 401                      | Re-autentiser Foundry-utvidelsen fra VS Code aktivitetspanelet.                                          |
 
-For dypere veiledning leveres hver lab med sin egen `08-troubleshooting.md`-fil - lenk deltakere dit:
+For grundigere veiledning, hver lab har sin egen `08-troubleshooting.md`-dokumentasjon - lenk deltakerne dit:
 
 - Lab 01: [`workshop/lab01-single-agent/docs/08-troubleshooting.md`](../workshop/lab01-single-agent/docs/08-troubleshooting.md)
 - Lab 02: [`workshop/lab02-multi-agent/docs/08-troubleshooting.md`](../workshop/lab02-multi-agent/docs/08-troubleshooting.md)
@@ -172,33 +172,33 @@ For dypere veiledning leveres hver lab med sin egen `08-troubleshooting.md`-fil 
 
 Du er velkommen til å tilpasse workshoppen for ditt publikum. Vanlige variasjoner:
 
-- **Backend-publikum:** bruk mer tid på `agent.yaml`, Docker og ACR; forkort playground-demoen.
-- **Citizen-developer-publikum:** bli i Foundry-utvidelsens brukergrensesnitt for oppsett; reduser CLI-trinn.
-- **Enkel 60-minutters sesjon:** gjennomfør kun introduksjon, demo og Lab 01.
-- **Kun workshop (ingen lysbilder)-format:** åpne begge lab-README-ene og bruk dem som hovedmanus.
+- **Backend-publikum:** bruk mer tid på `agent.yaml`, Docker og ACR; kutt ned demoen i lekeområdet.
+- **Citizen-utvikler publikum:** hold deg i Foundry-utvidelsens UI for scaffold; reduser CLI-steget.
+- **Enkeltspor 60-minutters økt:** lever kun intro, demo og Lab 01.
+- **Kun workshop-format (ingen lysbilder):** åpne begge lab-READMEene og bruk dem som hovedmanus.
 
 Hvis du utvider labene, vennligst bidra med endringene via PR slik at andre trenere kan dra nytte av dem.
 
 ---
 
-## Tilleggsressurser
+## Ytterligere ressurser
 
 - [Microsoft Foundry-dokumentasjon](https://learn.microsoft.com/azure/ai-foundry/)
-- [Oversikt over vertede agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Rask start: distribuer din første vertede agent (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
-- [Distribuer en vertet agent (hvordan)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Agent Framework](https://github.com/microsoft/agents)
+- [Oversikt over hostede agenter](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [Raskstart: distribuer din første hostede agent (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
+- [Distribuer en hostet agent (hvordan)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/)
 - [Microsoft Foundry Toolkit for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 
 ---
 
 ## Kontakter
 
-Hvis du har spørsmål om gjennomføringen av denne økten, vennligst åpne en sak i [workshop-repositoriet](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) og merk vedlikeholderen.
+Hvis du har spørsmål om gjennomføringen av denne økten, vennligst åpne en sak i [workshop-repositoriet](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) og tagg vedlikeholderen.
 
-| Rolle                | Navn           | GitHub                                                  |
+| Rolle               | Navn           | GitHub                                                  |
 |---------------------|----------------|---------------------------------------------------------|
-| Vedlikeholder / kontakt| Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)      |
+| Vedlikeholder / kontakt | Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)      |
 
 ---
 

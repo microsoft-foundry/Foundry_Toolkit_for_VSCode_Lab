@@ -3,59 +3,59 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Esikatselu ja rajoitukset:** [Isännöidyt agentit](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) ovat tällä hetkellä **julkisessa esikatselussa** – ei suositella tuotantokuormiin. Huomioi seuraavat asiat:
-> - **Tuetut alueet ovat rajattuja** – tarkista [alueen saatavuus](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ennen resurssien luomista. Jos valitset tuetun alueen ulkopuolelta, käyttöönotto epäonnistuu.
-> - `azure-ai-agentserver-agentframework`-paketti on esijulkaisuvaiheessa – API:t voivat muuttua versioiden välillä.
-> - Skaalarajoitukset: isännöidyt agentit tukevat 0–5 kopiota (sisältäen nollaskaalauksen).
-> - Jotkut tässä työpajassa esitetyt ominaisuudet voivat muuttua palvelun siirtyessä GA-vaiheeseen.
+> **Esikatselu & rajoitukset:** [Isännöidyt agentit](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) ovat tällä hetkellä **julkisessa esikatselussa** - eivät suositeltavia tuotantokuormituksiin. Huomioi seuraavat seikat:
+> - **Tuetut alueet ovat rajoitettuja** - tarkista [alueiden saatavuus](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) ennen resurssien luomista. Jos valitset tukemattoman alueen, käyttöönotto epäonnistuu.
+> - `agent-framework-foundry-hosting` -paketti on ennakkoversio - sovellusrajapinnat saattavat muuttua versioiden välillä.
+> - Skaalausrajat: isännöidyt agentit tukevat 0–5 kopiota (mukaan lukien nollaan skaalaus).
+> - Joitain tässä työpajassa esitettyjä ominaisuuksia saatetaan muuttaa palvelun siirtyessä yleiseen saatavuuteen (GA).
 
 ## Mitä rakennat
 
-Tässä työpajassa rakennat **"Selitä kuin olisin johtaja"** -agentin – isännöidyn tekoälyagentin, joka ottaa monimutkaiset tekniset päivitykset ja kirjoittaa ne uudelleen selkokielisiksi johdon tiivistelmiksi.
+Tässä työpajassa rakennat **"Selitä ikään kuin olisin johtaja"** -agentin – isännöidyn tekoälyagentin, joka ottaa monimutkaiset tekniset päivitykset ja kirjoittaa ne uudelleen yksinkertaisina johtajayhteenvetoina.
 
 ```mermaid
 flowchart LR
-    A["🧑‍💻 Lähetät teknisen päivityksen"] --> B["🤖 Tiivistelmäagentti"]
-    B --> C["📝 Yksinkertainen johtopäätös"]
+    A["🧑‍💻 You send a\ntechnical update"] --> B["🤖 Executive Summary\nAgent"]
+    B --> C["📝 Plain-English\nexecutive summary"]
 ```
 
 **Agentti käyttää:**
-- **Microsoft Agent Frameworkia** – agentin logiikkaan ja rakenteeseen
-- **Foundry Toolkit for VS Codea** – kehykseen, paikalliseen testaukseen ja käyttöönottoon
-- **Tekoälymallia** (esim. `gpt-4.1-mini/gpt-5-mini`) – tiivistelmien generointiin
+- **Microsoft Agent Frameworkia** - agentin logiikkaan ja rakenteeseen
+- **Foundry Toolkit for VS Codea** - kehykseen, paikalliseen testaukseen ja käyttöönottoon
+- **Tekoälymallia** (esim. `gpt-4.1-mini/gpt-5-mini`) - yhteenvetojen luomiseen
 
-Tämän labran lopussa sinulla on toimiva agentti, jota voit testata paikallisesti Agent Inspectorin kautta ja halutessasi ottaa käyttöön pilveen.
+Tämän harjoituksen lopussa sinulla on toimiva agentti, jota voit testata paikallisesti Agenttien tarkastajan avulla ja tarvittaessa ottaa käyttöön pilvessä.
 
 ---
 
 ## Mitä ovat isännöidyt agentit?
 
-**Isännöity agentti** on tekoälyagentti, joka toimii hallinnoituna palveluna Microsoft Foundryssä. Sen sijaan, että hallinnoisit omaa infrastruktuuriasi, pakkaat agenttikoodisi konttiin ja Foundry hoitaa skaalauksen, isännöinnin ja paljastamisen standardin HTTP-päätepisteen kautta.
+**Isännöity agentti** on tekoälyagentti, joka toimii Microsoft Foundryn hallittuna palveluna. Sen sijaan, että hallinnoisit omaa infrastruktuuria, pakkaat agenttikoodisi konttiin, ja Foundry huolehtii skaalaamisesta, isännöinnistä ja altistaa sen vakiomuotoisen HTTP-päätepisteen kautta.
 
 | Käsite | Mitä se tarkoittaa |
 |---------|--------------|
 | **Agentti** | Python-koodisi, joka vastaanottaa käyttäjän viestin, kutsuu tekoälymallia ja palauttaa rakenteellisen vastauksen |
-| **Isännöity** | Foundry ajaa konttisi puolestasi – ei VM:iä, ei Kubernetesia, ei infrastruktuurin hallintaa |
-| **Vastausprotokolla** | Standardoitu HTTP-API (`POST /responses`), jota mikä tahansa asiakas voi käyttää kommunikointiin agenttisi kanssa |
-| **Agent Inspector** | Paikallinen testauskäyttöliittymä (sisältyy Foundry Toolboxiin), jonka avulla voit keskustella agenttisi kanssa ennen käyttöönottoa |
+| **Isännöity** | Foundry ajaa konttisi puolestasi - ei virtuaalikoneita, ei Kubernetesia, ei infrastruktuurin hallintaa |
+| **Vastausprotokolla** | Standardi HTTP-rajapinta (`POST /responses`), jonka mikä tahansa asiakas voi kutsua kommunikoidakseen agenttisi kanssa |
+| **Agenttien tarkastaja** | Paikallinen testauskäyttöliittymä (sisältyy Foundry Toolkitiin), jonka avulla voit keskustella agenttisi kanssa ennen vaihetta käyttöön |
 
-Tässä työpajassa etenet nollasta täysin isännöityyn agenttiin – tai voit pysähtyä paikalliseen testaukseen, jos haluat.
+Tässä työpajassa etenet nollasta täysin isännöityyn agenttiin – tai pysähdyt paikalliseen testaukseen, jos haluat.
 
 ---
 
 ## Valitse polkusi
 
-> ⚠️ **Valitse yksi polku ennen jatkamista.** Valintasi määrittää asennettavat työkalut ja käytettävät moduulit. Voit vaihtaa polkua B → polkuun A myöhemmin, jos saat tilauksen.
+> ⚠️ **Valitse yksi polku ennen jatkamista.** Valintasi määrää, mitkä työkalut asennetaan ja mitkä moduulit soveltuvat. Voit vaihtaa polkua myöhemmin Polusta B → Polkuun A, jos saat tilauksen.
 
 <details open>
 <summary><strong>🅰️ Polku A - Azure-pilvi (vaatii Azure-tilauksen)</strong></summary>
 
 | | Yksityiskohdat |
 |---|---|
-| **Kenelle tämä sopii?** | Sinulla on aktiivinen Azure-tilaus ja voit luoda Foundry-resursseja |
+| **Kenelle tämä on tarkoitettu?** | Sinulla on aktiivinen Azure-tilaus ja voit luoda Foundry-resursseja |
 | **Malli** | Azure OpenAI Foundryn kautta (esim. `gpt-4.1-mini/gpt-5-mini`) |
 | **Käsitellyt moduulit** | Kaikki moduulit (00–07) |
-| **Ota käyttöön pilveen?** | ✅ Kyllä – täydellinen koko käyttöönotto |
+| **Käyttöönotto pilveen?** | ✅ Kyllä - täysi päästä päähän käyttöönotto |
 
 </details>
 
@@ -64,39 +64,39 @@ Tässä työpajassa etenet nollasta täysin isännöityyn agenttiin – tai voit
 
 | | Yksityiskohdat |
 |---|---|
-| **Kenelle tämä sopii?** | MVP:t, opiskelijat tai muut ilman Azure-pääsyä |
-| **Malli** | **Foundry Local** (ilmainen, toimii koneellasi) |
-| **Käsitellyt moduulit** | Moduulit 00–04 (ohita käyttöönotto ja pilvivarmistus) |
-| **Ota käyttöön pilveen?** | ❌ Ei – vain paikallinen testaus Agent Inspectorilla |
+| **Kenelle tämä on tarkoitettu?** | MVP:t, opiskelijat tai kaikki, joilla ei ole Azure-käyttöoikeutta |
+| **Malli** | **Foundry Local** (ilmainen, toimii omalla koneellasi) |
+| **Käsitellyt moduulit** | Moduulit 00–04 (ohita käyttöönotto & pilvitarkistus) |
+| **Käyttöönotto pilveen?** | ❌ Ei - vain paikallinen testaus Agenttien tarkastajalla |
 
 </details>
 
 ---
 
-## Kaikki polut: tarpeelliset työkalut
+## Kaikki polut: vaaditut työkalut
 
-Asenna alla olevat työkalut. Asennuksen jälkeen varmista toimivuus suorittamalla tarkastuskomento.
+Asenna alla jokainen työkalu. Asennuksen jälkeen varmista, että se toimii suorittamalla tarkistuskomento.
 
-| # | Työkalu | Versio | Asennus | Varmistus (odotettu tulos) |
+| # | Työkalu | Versio | Asennus | Vahvistus (Odotettu tulos) |
 |---|------|---------|---------|---------------------------|
 | 1 | **Visual Studio Code** | Uusin | [code.visualstudio.com](https://code.visualstudio.com/) | Aukeaa ilman virheitä |
-| 2 | **Python** | 3.12 tai uudempi| [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
-| 3 | **Foundry Toolkit for VS Code** | Uusin | Laajennuksen tunnus: `ms-windows-ai-studio.windows-ai-studio` | Foundry-kuvake Aktiviteettipalkissa |
-| 4 | **Python-laajennus VS Codeen** | Uusin | Laajennuksen tunnus: `ms-python.python` | Asennettuna Laajennukset-paneelissa |
+| 2 | **Python** | 3.12 tai uudempi | [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
+| 3 | **Foundry Toolkit for VS Code** | Uusin | Laajennuksen tunnus: `ms-windows-ai-studio.windows-ai-studio` | Foundryn kuvake Aktiviteettipalkissa |
+| 4 | **Python-laajennus VS Codeen** | Uusin | Laajennuksen tunnus: `ms-python.python` | Asennettu Laajennukset-paneelissa |
 
 > [!TIP]
-> **Asennuksen pro-vinkit:**
-> - **Python PATH (Windows):** Valitse aina **"Add Python to PATH"** Pythonin asennuksen ensimmäisellä ruudulla. Ilman tätä `python`-komentoa ei tunnisteta päätelaitteessasi.
-> - **Useita Python-versioita:** Jos sinulla on sekä Python 3.10 että 3.12 asennettuna, käytä komentoa `python3.12 -m venv .venv` varmistaaksesi oikean version virtual environmenttiin.
-> - **Docker WSL 2 (Windows):** Docker Desktopin asennuksen aikana varmistu, että **WSL 2 -taustajärjestelmä** on valittuna. Docker Hyper-V:llä toimii hitaammin ja voi aiheuttaa ongelmia Foundryn konttirakennuksessa.
-> - **Docker ei käynnisty?** Odota 30–60 sekuntia Docker Desktopin käynnistämisen jälkeen. Suorita `docker info` – jos näet ilmoituksen "Cannot connect to the Docker daemon," Docker on vielä käynnistymässä.
+> **Asennuksen vinkkejä:**
+> - **Python PATH (Windows):** Muista aina valita **"Add Python to PATH"** Python-asennuksen ensimmäisellä näytöllä. Ilman tätä `python` ei tunnisteta komentoikkunassasi.
+> - **Useita Python-versioita:** Jos sinulla on asennettuna sekä Python 3.10 että 3.12, käytä `python3.12 -m venv .venv` varmistaaksesi, että oikea versio käytetään virtuaaliympäristössäsi.
+> - **Docker WSL 2 (Windows):** Docker Desktopin asennuksessa varmista, että **WSL 2 back-end** on valittu. Docker Hyper-V:llä on hitaampi ja voi aiheuttaa ongelmia Foundryn konttirakennuksissa.
+> - **Docker ei käynnisty?** Odota 30–60 sekuntia Docker Desktopin käynnistyksen jälkeen. Suorita `docker info` - jos näkyy "Cannot connect to the Docker daemon", Docker on vielä käynnistymässä.
 > - **VS Code -laajennukset eivät lataudu?** Asennuksen jälkeen lataa ikkuna uudelleen: `Ctrl+Shift+P` → `Developer: Reload Window`.
 
-> **Windows-käyttäjät:** Muistakaa valita **"Add Python to PATH"** Pythonin asennuksessa.
+> **Windows-käyttäjille:** Muista valita **"Add Python to PATH"** Pythonin asennuksen yhteydessä.
 
 
 
-**Seuraava:** [01 - Käyttöönotto →](01-setup.md)
+**Seuraava:** [01 - Asennus →](01-setup.md)
 
 ---
 

@@ -1,8 +1,8 @@
-# Moduuli 7 - Yhteenveto ja seuraavat askeleet
+# Moduuli 7 - Yhteenveto & Seuraavat askeleet
 
 ⏱️ ~5 min
 
-**Onnittelut!** Olet rakentanut, testannut ja (jos polku A) ottanut käyttöön isännöidyn tekoälyagentin Microsoft Foundryn ja Foundry Toolkitin VS Coden kanssa.
+**Onnittelut!** Olet rakentanut, testannut ja (jos polulla A) ottanut käyttöön isännöidyn tekoälyagentin käyttäen Microsoft Foundrya ja Foundry Toolkitia VS Codeen.
 
 ---
 
@@ -11,9 +11,9 @@
 **"Selitä kuin olisin johtaja"** -agentin, joka:
 - Vastaanottaa teknisiä häiriöraportteja tai operatiivisia päivityksiä HTTP:n kautta (`POST /responses`)
 - Kääntää ne selkokielisiksi johtajayhteenvetoiksi
-- Noudattaa jäsenneltyä tulostemuotoa (Mitä tapahtui / Liiketoiminnan vaikutus / Seuraava askel)
-- Kieltäytyy aiheen ulkopuolisista pyynnöistä ja kehotteen injektiokokeiluista
-- Toimii säilöitettynä isännöitynä agenttina Microsoft Foundry Agent Servicessä
+- Noudata jäsenneltyä tulostemuotoa (Mitä tapahtui / Liiketoiminnan vaikutus / Seuraava askel)
+- Kieltäytyy aiheen ulkopuolisista pyynnöistä ja kehotteiden injektiokokeiluista
+- Toimii säilöistettynä isännöitynä agenttina Microsoft Foundry Agent Service -palvelussa
 
 ---
 
@@ -22,32 +22,32 @@
 | Käsite | Mitä harjoittelit |
 |---------|-------------------|
 | **Agenttikehyksen arkkitehtuuri** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` putki |
-| **Isännöidyn agentin elinkaari** | Rakentele → Määritä → Testaa paikallisesti → Ota käyttöön → Vahvista pilvessä |
-| **Järjestelmäkehotteen suunnittelu** | Rooli, yleisö, tulostemuoto, säännöt, turvallisuusrajoitteet ja esimerkit |
-| **Paikallisen ja isännöidyn erot** | Identiteetti (henkilökohtainen tunnus vs. hallittu identiteetti), päätepiste, verkkopolku |
-| **Turvallisuusrajat** | Kehotteen injektiovastaus, roolin noudattaminen, reunatapauksien sujuva käsittely |
-| **Foundry Toolkit -työnkulku** | Projektin luonti, mallin käyttöönotto, agentin rakentaminen, Agent Inspector, yhden klikkauksen käyttöönotto |
+| **Isännöidyn agentin elinkaari** | Kehikko → Määrittely → Paikallinen testaus → Julkaisu → Pilven varmistus |
+| **Järjestelmäkehotteiden suunnittelu** | Rooli, yleisö, tulostemuoto, säännöt, turvallisuusrajoitukset ja esimerkit |
+| **Paikallinen vs. isännöity eroavaisuus** | Identiteetti (henkilökohtainen tunnistus vs. hallittu identiteetti), päätepiste, verkkopolku |
+| **Turvallisuusrajat** | Kehoteinjektioiden torjunta, roolin noudattaminen, reunatapauksien hallittu käsittely |
+| **Foundryn työkaluputken työnkulku** | Projektin luonti, mallien käyttöönotto, agentin kehikko, Agenttitarkastaja, yhdellä klikkauksella julkaisu |
 
 ---
 
-## Mitä suorutit
+## Mitä teit valmiiksi
 
 ### Polku A (Foundry-tilaus)
 
-- [x] Perustit Foundry Toolkitin ja loit Foundry-projektin, jossa on otettu käyttöön malli
-- [x] Rakensit isännöidyn agentin automaattisesti generoituine projektirakenteineen
-- [x] Kirjoitit jäsennellyt agentin ohjeet turvallisuussääntöineen
-- [x] Testasit paikallisesti kolmella toiminnallisella skenaariolla (Agent Inspector)
-- [x] Otit käyttöön Foundry Agent Servicessä (säilöitettynä)
-- [x] Vahvistit pilvipelikentässä neljällä reunatapaus/turvallisuustestillä
+- [x] Asensit Foundry Toolkitin ja loit Foundry-projektin julkaistulla mallilla
+- [x] Kehitit isännöidyn agentin automaattisesti luodulla projektirakenteella
+- [x] Kirjoitit jäsennellyt agentin ohjeet turvallisuussäännöillä
+- [x] Testasit paikallisesti 3 toiminnallisessa skenaariossa (Agenttitarkastaja)
+- [x] Otit käyttöön Foundry Agent Servicessä (säilöitetty)
+- [x] Varmistit pilvileikkikentässä 4 reunatapaus-/turvallisuustestiä
 
 ### Polku B (Foundry Local)
 
-- [x] Perustit Foundry Toolkitin paikallisen mallipäätepisteen kanssa
-- [x] Rakensit isännöidyn agenttiprojektin
-- [x] Kirjoitit jäsennellyt agentin ohjeet turvallisuussääntöineen
-- [x] Testasit paikallisesti kolmella toiminnallisella skenaariolla
-- [x] Varmistit agentin toiminnan ilman pilviresursseja
+- [x] Asensit Foundry Toolkitin paikallisella malli-päätepisteellä
+- [x] Kehitit isännöidyn agenttiprojektin
+- [x] Kirjoitit jäsennellyt agentin ohjeet turvallisuussäännöillä
+- [x] Testasit paikallisesti 3 toiminnallisessa skenaariossa
+- [x] Varmistit agentin käyttäytymisen ilman pilviresursseja
 
 ---
 
@@ -57,28 +57,28 @@
 
 | Resurssi | Kuvaus |
 |----------|-------------|
-| **[Lab 02 - Moni-agentin orkestrointi](../../lab02-multi-agent/docs/README.md)** | Rakenna 4-agentin työnkulku (Ansioluettelo → Työpaikan soveltuvuusarvioija) orkestrointimalleineen |
-| **[Lisää työkaluja agentillesi](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Yhdistä API:t, tietokannat tai mukautetut funktiot Työkalukatalogin kautta |
-| **[Lisää tietämystä (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Perusta agenttisi dokumentteihin, vektorivarastoihin tai Bing-haun avulla |
-| **[Microsoft Foundryn dokumentaatio](https://learn.microsoft.com/azure/foundry/)** | Täydellinen alustaviite |
-| **[Agent Framework SDK -viite](https://learn.microsoft.com/agent-framework/)** | `agent-framework`-paketin API-dokumentaatio |
-| **[Foundry Toolkit - Uutta](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Laajennuksen julkaisumuistiinpanot ja muutokset |
+| **[Lab 02 - Moniagenttien orkestrointi](../../lab02-multi-agent/docs/README.md)** | Rakenna 4-agenttinen työnkulku (Ansioluettelo → Työn soveltuvuusarvioija) orkestrointimalleilla |
+| **[Lisää työkaluja agenttiisi](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Yhdistä API:t, tietokannat tai mukautetut funktiot Työkaluluettelon kautta |
+| **[Lisää tietoa (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Perusta agenttisi dokumentteihin, vektorisäilöihin tai Bing-hakuun |
+| **[Microsoft Foundryn dokumentaatio](https://learn.microsoft.com/azure/foundry/)** | Kattava alustan viite |
+| **[Agent Framework SDK viitetiedot](https://learn.microsoft.com/agent-framework/)** | API-dokumentaatio `agent-framework`-paketille |
+| **[Foundry Toolkit - Mitä uutta](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Laajennuksen julkaisumuistiinpanot ja muutosloki |
 
 ### Ideoita agenttisi laajentamiseen
 
-- **Lisää päivämäärätyökalu** - Anna agentin sisällyttää "tämän päivän tilanne" yhteenvetoihin
-- **Yhdistä häiriötietokantaan** - Hae todellisia häiriötietoja työkalutoiminnon avulla
-- **Lisää Bing-pohjainen haku** - Anna agentin hakea viimeaikaisia uutisia lisäkontekstiksi
-- **Kokeile eri malleja** - Vertaa `gpt-4.1`- ja `gpt-4.1-mini`-mallien tuloslaatua
-- **Arvioi Foundryn avulla** - Käytä Arviointitoimintoa mitataksesi agentin laatua laajassa mittakaavassa
+- **Lisää päivämäärätyökalu** - Anna agentin sisällyttää "tämän päivän tilanteen" konteksti yhteenvetoihin
+- **Yhdistä häiriötietokantaan** - Hae todellisia häiriötietoja työkalufunktion kautta
+- **Lisää Bing-hakutyökalu** - Anna agentin hakea viimeaikaisia uutisia lisäkontekstiksi
+- **Kokeile erilaisia malleja** - Vertaa `gpt-4.1` ja `gpt-4.1-mini` tulosten laatua
+- **Arvioi Foundryn avulla** - Käytä Arviointitoimintoa mittaamaan agentin laatua laajassa mittakaavassa
 
-### Polun B käyttäjille: Päivitys pilvikäyttöönottoon
+### Polun B käyttäjille: Päivitys pilvipalveluun
 
-Kun olet valmis ottamaan käyttöön pilvipalvelussa:
+Kun olet valmis julkaisemaan pilveen:
 1. Hanki Azure-tilaus ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
 2. Suorita [Moduuli 01, Asennus](01-setup.md#step-2-set-up-based-on-your-access) (luo projekti, ota malli käyttöön, määritä RBAC)
-3. Päivitä `.env`-tiedoston Foundry-projektin päätepisteellä ja mallin käyttöönoton nimellä
-4. Jatka kohdasta [Moduuli 05 - Käyttöönotto Foundryyn](05-deploy-to-foundry.md)
+3. Päivitä `.env` Foundry-projektin päätepisteellä ja mallin julkaisun nimellä
+4. Jatka osiosta [Module 05 - Deploy to Foundry](05-deploy-to-foundry.md)
 
 ---
 
@@ -92,21 +92,21 @@ Jos haluat poistaa tämän työpajan aikana luodut Azure-resurssit:
 az group delete --name rg-hosted-agents-workshop --yes --no-wait
 ```
 
-### Vaihtoehto 2: Poista vain isännöity agentti
+### Vaihtoehto 2: Poista pelkkä isännöity agentti
 
-1. Avaa [ai.azure.com](https://ai.azure.com) → projektisi → **Rakenna** → **Agentit**.
-2. Napsauta agenttiasi → napsauta **Poista**.
+1. Avaa [ai.azure.com](https://ai.azure.com) → projektisi → **Build** → **Agents**.
+2. Klikkaa agenttiasi → klikkaa **Delete**.
 
 ### Vaihtoehto 3: Poista mallin käyttöönotto
 
-1. Laajenna Foundryn sivupalkissa projektisi → **Mallit**.
-2. Napsauta mallin käyttöönottoa hiiren oikealla → **Poista**.
+1. Foundry-sivupalkissa laajenna projektisi → **Models**.
+2. Oikealla napsautuksella mallin käyttöönotto → **Delete**.
 
-> **Kustannushuomautus:** Isännöidyt agentit aiheuttavat kustannuksia vain toimiessaan. Jos pysäytät tai poistat agentin, juoksevia kuluja ei synny. Mallin käyttöönotto saattaa aiheuttaa pienen maksun varatusta kapasiteetista – poista se, jos et enää tarvitse.
+> **Kustannusmuistutus:** Isännöidyt agentit aiheuttavat kustannuksia vain, kun ne ovat käynnissä. Jos pysäytät tai poistat agentin, kustannuksia ei tule. Mallin käyttöönotosta voi tulla pieni maksu varatusta kapasiteetista – poista se, jos olet valmis.
 
 ---
 
-**Edellinen:** [06 - Vahvista pelialustalla](06-verify-in-playground.md) · **Seuraava:** [08 - Vianmääritys (Viite) →](08-troubleshooting.md)
+**Edellinen:** [06 - Verify in Playground](06-verify-in-playground.md) · **Seuraava:** [08 - Troubleshooting (Reference) →](08-troubleshooting.md)
 
 ---
 
