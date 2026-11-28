@@ -1,7 +1,7 @@
-# Foundry Toolkit + Foundry Hosted Agents వర్క్‌షాప్
+# ఫౌండ్రి టూల్‌కిట్ + ఫౌండ్రి హోస్టెడ్ ఏజెంట్స్ వర్క్‌షాప్
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)
 [![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
@@ -9,24 +9,24 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-AI ఏజెంట్లను **Microsoft Foundry Agent Service**లో **Hosted Agents**గా నిర్మించండి, పరీక్షించండి మరియు డిప్లాయ్ చేయండి - పూర్తిగా VS Code నుండి **Microsoft Foundry extension** మరియు **Foundry Toolkit** ఉపయోగించి.
+**మైక్రోసాఫ్ట్ ఫౌండ్రి ఏజెంట్ సర్వీస్**కు **హోస్టెడ్ ఏజెంట్స్**గా AI ఏజెంట్లను నిర్మించండి, పరీక్షించండి మరియు నిర్వహించండి - పూర్తిగా VS కోడ్ నుండి **Microsoft Foundry విస్తరణ** మరియు **Foundry Toolkit** ఉపయోగించి.
 
-> **Hosted Agents ప్రస్తుతం ప్రివ్యూ లో ఉన్నాయి.** మద్దతు పొందే ప్రాంతాలు పరిమితంగా ఉన్నాయి - చూడండి [ప్రాంతాల లభ్యత](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **హోస్టెడ్ ఏజెంట్స్ ప్రస్తుతం ప్రివ్యూ లో ఉన్నాయి.** మద్దతు పొందిన ప్రాంతాలు పరిమితం చేయబడ్డాయి - చూడండి [ప్రాంత ఉనికి](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> ప్రతి ల్యాబ్‌లోని `agent/` ఫోల్డర్ Foundry విస్తరణ ద్వారా **స్వయంచాలకంగా స్కాఫోల్డ్** చేయబడుతుంది - మీరు తరువాత కోడ్‌ను అనుకూలీకరించి, లోకల్‌గా పరీక్షించి, ఆపై డిప్లాయ్ చేస్తారు.
+> ప్రతి ప్రయోగశాలలో ఉన్న `agent/` ఫోల్‌డర్ **Foundry విస్తరణ ద్వారా ఆటోమేటిక్‌గా స్కాఫోల్డింగ్** చేయబడింది - ఆ తరువాత మీరు కోడ్‌ను అనుకూలీకరించి, స్థానికంగా పరీక్షించి, డిప్లాయ్ చేయవచ్చు.
 
 ### 🌐 బహుభాషా మద్దతు
 
-#### GitHub Action ద్వారా మద్దతు (స్వయంచాలక మరియు ఎప్పుడూ తాజా)
+#### GitHub యాక్షన్ ద్వారా మద్దతు పొందింది (ఆటోమేటెడ్ & ఎల్లప్పుడూ తాజా)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[అరబిక్](../ar/README.md) | [బెంగాలీ](../bn/README.md) | [బల్గేరియన్](../bg/README.md) | [బర్మీస్ (మ్యాన్మార్)](../my/README.md) | [చైనీస్ (సరళీకృత)](../zh-CN/README.md) | [చైనీస్ (పారంపర్య, హాంకాంగ్)](../zh-HK/README.md) | [చైనీస్ (పారంపర్య, మకావు)](../zh-MO/README.md) | [చైనీస్ (పారంపర్య, తైవాన్)](../zh-TW/README.md) | [క్రొయేషియన్](../hr/README.md) | [చెక్](../cs/README.md) | [డానిష్](../da/README.md) | [డచ్](../nl/README.md) | [ఎస్టోనియన్](../et/README.md) | [ఫిన్నిష్](../fi/README.md) | [ఫ్రెంచ్](../fr/README.md) | [జర్మన్](../de/README.md) | [గ్రీక్](../el/README.md) | [హీబ్రూ](../he/README.md) | [హిందీ](../hi/README.md) | [హంగేరియన్](../hu/README.md) | [ఇండోనేషియన్](../id/README.md) | [ఇటాలియన్](../it/README.md) | [జపనీస్](../ja/README.md) | [కన్నడ](../kn/README.md) | [ఖ్మేర్](../km/README.md) | [కొరియన్](../ko/README.md) | [లిథువేనియాన్](../lt/README.md) | [మలయ్](../ms/README.md) | [మలయాళం](../ml/README.md) | [మరాఠీ](../mr/README.md) | [నేపాలి](../ne/README.md) | [నైజీరియన్ పిడ్జిన్](../pcm/README.md) | [నార్వేజియన్](../no/README.md) | [పర్షియన్ (ఫార్సీ)](../fa/README.md) | [పోలిష్](../pl/README.md) | [పోర్చుగీస్ (బ్రెజిల్)](../pt-BR/README.md) | [పోర్చుగీస్ (పోర్చుగల్)](../pt-PT/README.md) | [పంజాబీ (గుర్ముఖి)](../pa/README.md) | [రోమేనియన్](../ro/README.md) | [రష్యన్](../ru/README.md) | [సెర్బియన్ (సిరిలిక్)](../sr/README.md) | [స్లోవాక్](../sk/README.md) | [స్లోవేనియన్](../sl/README.md) | [స్పానిష్](../es/README.md) | [స్వాహిలి](../sw/README.md) | [స్వీడిష్](../sv/README.md) | [టాగలాగ్ (ఫిలిపినో)](../tl/README.md) | [తమిళం](../ta/README.md) | [తెలుగు](./README.md) | [థాయ్](../th/README.md) | [టర్కిష్](../tr/README.md) | [ఉక్రేనియన్](../uk/README.md) | [ఉర్దూ](../ur/README.md) | [వియత్నామీస్](../vi/README.md)
+[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](./README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **స్థానికంగా క్లోన్ చేయాలని ఇష్టపడుతున్నారా?**
+> **స్థానికంగా క్లోన్ చేయాలని ఇష్టమా?**
 >
-> ఈ రిపోజిటరీలో 50+ భాషా అనువాదాలు ఉన్నాయి, అవి డౌన్‌లోడ్ పరిమాణాన్ని గణనీయంగా పెంచుతాయి. అనువాదాలు లేకుండా క్లోన్ చేయాలంటే, sparse checkout ఉపయోగించండి:
+> ఈ రిపాజిటరీ 50+ భాషల్లో అనువాదాలను కలిగి ఉంది, ఇది డౌన్లోడ్ పరిమాణాన్ని గణనీయంగా పెంచుతుంది. అనువాదాల లేకుండా క్లోన్ చేయడానికి, స్పార్స్ చెకౌట్ ఉపయోగించండి:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,12 +42,12 @@ AI ఏజెంట్లను **Microsoft Foundry Agent Service**లో **Hoste
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> ఇది మీకు కోర్సును పూర్తి చేయడానికి అవసరమైన ప్రతిదాన్ని, చాలా వేగవంతమైన డౌన్లోడ్‌తో అందిస్తుంది.
+> ఇవి కోర్సును పూర్తి చేయడానికి మీరు కావలసిన అన్ని అంశాలను చాలా వేగంగా డౌన్లోడ్ చేస్తుంది.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## ఆర్కిటెక్చర్
+## నిర్మాణం
 
 ```mermaid
 flowchart TB
@@ -92,44 +92,44 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**Flow:** Foundry విస్తరణ ఏజెంట్‌ను స్కాఫోల్డ్ చేస్తుంది → మీరు కోడ్ & సూచనలను అనుకూలీకరిస్తారు → Agent Inspector తో లోకల్‌గా పరీక్షిస్తారు → Foundryకు డిప్లాయ్ చేయండి (Docker image ను ACRకు పుష్ చేయబడుతుంది) → Playgroundలో ధృవీకరించండి.
+**ప్రవాహం:** Foundry విస్తరణ ఏజెంట్‌ను స్కాఫోల్డ్ చేస్తుంది → మీరు కోడ్ & సూచనలను అనుకూలీకరిస్తారు → Agent Inspector తో స్థానికంగా పరీక్షించడం → Foundry కి డిప్లాయ్ చేయడం (Docker చిత్రం ACR కి పుష్ చేయబడింది) → ప్లేగ్రౌండ్ లో ధృవీకరించడం.
 
 ---
 
 ## మీరు ఏమి నిర్మించబోతున్నారు
 
-| ల్యాబ్ | వివరణ | స్థితి |
+| ప్రయోగశాల | వివరణ | స్థితి |
 |-----|-------------|--------|
-| **Lab 01 - Single Agent** | **"Explain Like I'm an Executive" Agent** ను నిర్మించండి, దాన్ని లోకల్‌గా పరీక్షించి, Foundryకి డిప్లాయ్ చేయండి | ✅ అందుబాటులో |
-| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** ను నిర్మించండి - 4 ఏజెంట్లు రిజ్యూమ్ ఫిట్‌ను స్కోర్ చేయడానికి సహకరించుకుని, ఒక నేర్చుకునే రోడ్‌మ్యాప్‌ను రూపొందిస్తాయి | ✅ అందుబాటులో |
+| **ప్రయోగశాల 01 - సింగిల్ ఏజెంట్** | **"నన్ను ఎగ్జిక్యూటివ్ లా వివరించు" ఏజెంట్**ను నిర్మించండి, స్థానికంగా పరీక్షించండి, మరియు Foundry కు డిప్లాయ్ చేయండి | ✅ అందుబాటులో ఉంది |
+| **ప్రయోగశాల 02 - మల్టీ-ఏజెంట్ వర్క్‌ఫ్లో** | **"రిస్యూమ్ → ఉద్యోగమేలుకల్పన పరీక్షకుడు"**ను నిర్మించండి - 4 ఏజెంట్లు రిజ్యూమ్ అనుకూలతకు స్కోరు ఇవ్వడానికి కలసి పనిచేయడం మరియు లెర్నింగ్ రోడ్‌మ్యాప్ సృష్టించడం | ✅ అందుబాటులో ఉంది |
 
 ---
 
 ## ఎగ్జిక్యూటివ్ ఏజెంట్‌ను పరిచయం చేసుకోండి
 
-ఈ వర్క్‌షాప్లో మీరు **"Explain Like I'm an Executive" Agent** ను నిర్మించబోతారు - ఇది ఒక AI ఏజెంట్, ఇది క్లిష్టమైన సాంకేతిక జార్గాన్‌ను తీసుకుని శాంతమైన, బోర్డు-మీటింగ్‌కు సిద్ధమైన సారాంశాలలోకి అనువదిస్తుంది. నిజంగా చెప్పాలంటే, C-suiteలో ఎవ్వరూ "thread pool exhaustion caused by synchronous calls introduced in v3.2." గురించి వినాలని కోరుకోరు.
+ఈ వర్క్‌షాప్‌లో మీరు **"నన్ను ఎగ్జిక్యూటివ్ లా వివరించు" ఏజెంట్**ను నిర్మించబోతున్నారు - ఒక AI ఏజెంట్ ఇది క్లిష్ట టెక్నికల్ జార్గన్లను తీసుకుని అతి సాంత్వనకరమైన, బోర్డ్రూం-ప్రసిద్ధ సారాంశాలలోకి అనువదిస్తుంది. నిజానికి, C-సూట్ లో ఎవరూ "v3.2 లో ప్రవేశపెట్టిన సింక్రనస్ కాల్స్ వల్ల ఏర్పడిన త్రెడ్ పూల్ ఎగ్జాస్ట్‌షన్" గురించి వింటారు అనుకోను.
 
-నేను ఈ ఏజెంట్‌ను కొన్ని సంఘటనల తర్వాత నిర్మించాను, ఎక్కడ నా ఖచ్చితంగా రూపొందించిన పోస్ట్-మార్టెంకు ప్రతిస్పందన వచ్చింది: *"అంటే... వెబ్‌సైట్ డౌన్ అయిందా లేక కాదు?"*
+నా సరైన రీతిలో తయారు చేసిన పోస్ట్-మార్టెమ్ కు వచ్చిన స్పందన "*కాబట్టి... వెబ్‌సైట్ డౌన్ అయిందా లేదా?*" అనే ప్రసంగాల తరువాతనే నేను ఈ ఏజెంట్‌ను నిర్మించాను.
 
-### ఇది ఎలా పని చేస్తుంది
+### ఇది ఎలా పనిచేస్తుంది
 
-మీరు దీనికి ఒక సాంకేతిక నవీకరణ ఇస్తారు. అది తిరిగి ఒక ఎగ్జిక్యూటివ్ సారాంశాన్ని ఇస్తుంది - మూడు బుల్లెట్ పాయింట్లు, జార్గాన్ లేదు, స్టాక్ ట్రేస్‌లు నివ్వలేదు, aucune existential dread లేదు. కేవలం **ఏం జరిగింది**, **వ్యాపార ప్రభావం**, మరియు **తదుపరి దశ**.
+మీరు టెక్నికల్ అప్డేట్ ఇస్తారు. ఇది మూడు బుల్లెట్ పాయింట్లు, జార్గన్ లేదు, స్టాక్ ట్రేస్‌లేదు, ఉన్నతమైన ధైర్యం లేదు - కేవలం **ఏ జరిగింది**, **వ్యాపార ప్రభావం**, మరియు **తరువాతి దశ** అనే ఎగ్జిక్యూటివ్ సారాంశాన్ని ఇస్తుంది.
 
-### దీనిని కార్యాచరణలో చూడండి
+### ఇది క్రియాశీలంలో చూడండి
 
-**మీరు అంటారు:**
-> "v3.2లో పరిచయమైన synchronous calls కారణంగా thread pool ఆక్రమణ వల్ల API లేటెన్సీ పెరిగింది."
+**మీరు చెబుతారు:**
+> "విభాగం పొరపాట్ల కారణంగా API లేటెన్సీ పెరిగింది."
 
-**ఏజెంట్ ఇలా సమాధానం ఇస్తుంది:**
+**ఏజెంట్ సమాధానం ఇస్తుంది:**
 
 > **ఎగ్జిక్యూటివ్ సారాంశం:**
-> - **ఏం జరిగింది:** తాజా విడుదల తర్వాత సిస్టమ్ మందగించింది.
-> - **వ్యాపార ప్రభావం:** కొంత మంది వినియోగదారులకు సేవ ఉపయోగించేటప్పుడు ఆలస్యం అనుభవమయ్యింది.
-> - **తదుపరి దశ:** మార్పు రోల్బ్యాక్ చేయబడింది మరియు తిరిగి డిప్లాయ్ చేయడానికి ముందు పరిష్కారం సిద్ధం చేయబడుతోంది.
+> - **ఏ జరిగింది:** తాజా విడుదల తర్వాత, సిస్టం నెమ్మదిగా పని చేసింది.
+> - **వ్యాపార ప్రభావం:** కొన్ని వినియోగదారులకు సేవ వాడే సమయంలో ఆలస్యం అనుభవించాము.
+> - **తరువాతి దశ:** మార్పు తిరిగి తీసుకోబడింది మరియు మళ్లీ విడుదలకు ముందు పరిష్కారం తయారు చేస్తోంది.
 
 ### ఈ ఏజెంట్ ఎందుకు?
 
-ఇది ఒక బాగా సింపుల్, ఒకే ఉద్దేశ్యంతో తెలిసిన ఏజెంట్ — క్లిష్టమైన టూల్ గొలుసుల్లో చిక్కకుండా హోస్టెడ్ ఏజెంట్ వర్క్‌ఫ్లోని మొదటి నుండి చివరి వరకు నేర్చుకోవడానికి పరిపూర్ణం. నిజంగా? ప్రతి ఇంజనీరింగ్ టీమ్ ఈవిధంగా ఒకటి ఉపయోగించుకోవచ్చు.
+ఇది ఒక సులభమైన, ఒక్కే ఉద్దేశ్యం గల ఏజెంట్ - హోస్టెడ్ ఏజెంట్ వర్క్‌ఫ్లోని పూర్తిగా నేర్చుకోవడానికి గొప్పది, క్లిష్టమైన టూల్ చైన్‌లో చిక్కకుండా. నిజంగా? ప్రతి ఇంజనీరింగ్ బృందం ఇలాంటి ఏజెంట్ అవసరం.
 
 ---
 
@@ -167,7 +167,8 @@ flowchart TB
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,26 +176,26 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **గమనిక:** ప్రతి ల్యాబ్‌లోని `agent/` ఫోల్డర్ **Microsoft Foundry extension** ద్వారా Command Palette నుంచి `Microsoft Foundry: Create a New Hosted Agent` నడిపినప్పుడు రూపొందించబడుతుంది. ఫైళ్లను తర్వాత మీ ఏజెంట్ సూచనల, టూల్స్, మరియు కాన్ఫిగరేషన్‌తో అనుకూలీకరించవచ్చు. ల్యాబ్ 01 దీనిని మొదట నుంచే మళ్లీ సృష్టించడం ఎలా చేయాలో మీకు చూపిస్తుంది.
+> **గమనిక:** ప్రతి ప్రయోగశాలలో ఉన్న `agent/` ఫోల్‌డర్ **Microsoft Foundry విస్తరణ** నిర్వహిస్తుంది, మీరు కమాండ్ ప్యాలెట్ నుండి `Microsoft Foundry: Create a New Hosted Agent` ని అమలు చేసినప్పుడు. ఆపై ఫైళ్లు మీ ఏజెంట్ సూచనలు, టూల్స్ మరియు కాన్ఫిగరేషన్‌తో అనుకూలీకరించబడతాయి. ప్రయోగశాల 01 ఈ ప్రక్రియను పూర్తిగా మళ్ళీ సృష్టించడం నేర్పుతుంది.
 
 ---
 
 ## ప్రారంభించడం
 
-### 1. రిపోజిటరీను క్లోన్ చేయండి
+### 1. రిపాజిటరీని క్లోన్ చేయండి
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. Python వర్చువల్ ఎన్విరాన్‌మెంట్ సెట్ చేయండి
+### 2. Python వర్చువల్ ఎన్విరాన్‌మెంట్ సెటప్ చేయండి
 
 ```bash
 python -m venv venv
 ```
 
-Activate it:
+దీన్ని యాక్టివేట్ చేయండి:
 
 - **Windows (PowerShell):**
   ```powershell
@@ -211,62 +212,64 @@ Activate it:
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. ఎన్విరాన్‌మెంట్ వేరియబుల్స్‌ని కాన్ఫిగర్ చేయండి
+### 4. ఎన్విరాన్‌మెంట్ వేరియబుల్స్ సెట్ చేయండి
 
-ఏజెంట్ ఫోల్డర్‌లోని ఉదాహరణ `.env` ఫైల్‌ను కాపీ చేసి మీ విలువలను పూరించండి:
+ఏజెంట్ ఫోల్డర్ లో ఉన్న ఉదాహరణ `.env` ఫైల్‌ని కాపీ చేసి మీ విలువలు చేర్చి ఫిలప్ చేయండి:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-`workshop/lab01-single-agent/agent/.env` ను సవరించండి:
+`workshop/lab01-single-agent/agent/.env`ను ఎడిట్ చేయండి:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. వర్క్‌షాప్ ల్యాబ్స్‌ను అనుసరించండి
+### 5. వర్క్‌షాప్ ప్రయోగశాలలను అనుసరించండి
 
-ప్రతి ల్యాబ్ స్వయం-సంపూర్ణంగా ఉంటుంది, తమ స్వంత మాడ్యూల్‌లతో. ప్రాథమికాలను నేర్చుకోవడానికి **Lab 01** తో ప్రారంభించి, ఆపై బహుఎజెంట్ వర్క్‌ఫ్లో కోసం **Lab 02** కి వెళ్లండి.
+ప్రతి ప్రయోగశాల దాని స్వంత మాడ్యూల్స్‌తో స్వయంపూర్తిగా ఉంటుంది. ప్రాథమికంగా నేర్చుకోవడానికి **ప్రయోగశాల 01** నుండి ప్రారంభించండి, ఆపై **ప్రయోగశాల 02**కి వెళ్ళి మల్టీ-ఏజెంట్ వర్క్‌ఫ్లోలను అధ్యయనం చేయండి.
 
-#### Lab 01 - Single Agent ([పూర్తి సూచనలు](workshop/lab01-single-agent/README.md))
+#### ప్రయోగశాల 01 - సింగిల్ ఏజెంట్ ([పూర్తి సూచనలు](workshop/lab01-single-agent/README.md))
 
 | # | మాడ్యూల్ | లింక్ |
 |---|--------|------|
-| 1 | అవశ్యకతలు చదవండి | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry Toolkit & Foundry extension ను ఇన్‌స్టాల్ చేయండి | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 3 | Foundry ప్రాజెక్ట్ సృష్టించండి | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 1 | ప్రీరిక్విజిట్స్ చదవండి | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit & Foundry విస్తరణ ఇన్‌స్టాల్ చేయండి | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 3 | Foundry ప్రాజెక్ట్ నిర్మించండి | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | హోస్టెడ్ ఏజెంట్ సృష్టించండి | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | సూచనలు & ఎన్విరాన్‌మెంట్ ని కాన్ఫిగర్ చేయండి | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | లోకల్‌గా పరీక్షించండి | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Foundryకి డిప్లాయ్ చేయండి | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Playgroundలో ధృవీకరించండి | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | సమస్యల పరిష్కారం | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 5 | సూచనలు & ఎన్విరాన్‌మెంట్ కాన్ఫిగర్ చేయండి | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | స్థానికంగా పరీక్షించండి | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | Foundry కి డిప్లాయ్ చేయండి | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | ప్లేగ్రౌండ్ లో ధృవీకరించండి | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | సమ్మరీ & తదుపరి దశలు | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | సమస్యలు పరిష్కారం | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - Multi-Agent Workflow ([పూర్తి సూచనలు](workshop/lab02-multi-agent/README.md))
+#### ప్రయోగశాల 02 - మల్టీ-ఏజెంట్ వర్క్‌ఫ్లో ([పూర్తి సూచనలు](workshop/lab02-multi-agent/README.md))
 
 | # | మాడ్యూల్ | లింక్ |
 |---|--------|------|
-| 1 | అవశ్యకతలు (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | బహుఎజెంట్ ఆర్కిటెక్చర్‌ను అర్థం చేసుకోండి | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | బహుఎజెంట్ ప్రాజెక్ట్‌ను స్కాఫోల్డ్ చేయండి | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | ఏజెంట్లు & ఎన్విరాన్‌మెంట్‌ను కాన్ఫిగర్ చేయండి | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | సమన్వయ నమూనాలు | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | లోకల్‌గా పరీక్షించండి (బహుఎజెంట్) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Foundryకి డిప్లాయ్ చేయండి | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Playgroundలో ధృవీకరించండి | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | సమస్యల పరిష్కారం (బహుఎజెంట్) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 1 | ప్రీరిక్విజిట్స్ (ప్రయోగశాల 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | మల్టీ-ఏజెంట్ నిర్మాణాన్ని అర్థం చేసుకోండి | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | మల్టీ-ఏజెంట్ ప్రాజెక్ట్ స్కాఫోల్డ్ చేయండి | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | ఏజెంట్లు & ఎన్విరాన్‌మెంట్ కాన్ఫిగర్ చేయండి | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | ఆర్కెస్ట్రేషన్ నమూనాలు | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | స్థానికంగా పరీక్షించండి (మల్టీ-ఏజెంట్) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | Foundry కి డిప్లాయ్ చేయండి | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | ప్లేగ్రౌండ్ లో ధృవీకరించండి | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | సమస్యలు పరిష్కారం (మల్టీ-ఏజెంట్) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | సమ్మరీ & తదుపరి దశలు | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
-## నిర్వహణకర్త
+## నిర్వహణ
 
 <table>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>Shivam Goyal</b></sub>
+        <sub><b>శివం గోయల్</b></sub>
     </a><br />
     </td>
 </tr>
@@ -276,24 +279,24 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ## అవసరమైన అనుమతులు (త్వరిత సూచిక)
 
-| సన్నివేశం | అవసరమైన పాత్రలు |
+| పరిస్థితి | అవసరమైన పాత్రలు |
 |----------|---------------|
-| కొత్త Foundry ప్రాజెక్ట్ సృష్టించండి | Foundry రిసోర్స్‌పై **Azure AI Owner** |
-| ఉన్న ప్రాజెక్ట్‌కు (కొత్త రిసోర్సులు) డిప్లాయ్ చేయండి | సబ్స్క్రిప్షన్‌పై **Azure AI Owner** + **Contributor** |
-| పూర్తిగా కాన్ఫిగర్ చేయబడిన ప్రాజెక్ట్‌కు డిప్లాయ్ చేయండి | ఖాతాపై **Reader** + ప్రాజెక్ట్‌పై **Azure AI User** |
+| కొత్త Foundry ప్రాజెక్ట్ సృష్టించండి | Foundry వనరుపై **Azure AI ఓనర్** |
+| ఉన్న ప్రాజెక్ట్‌కు డిప్లాయ్ చేయండి (కొత్త వనరులు) | సబ్స్క్రిప్షన్‌పై **Azure AI ఓనర్** + **కాంట్రిబ్యూట‌ర్** |
+| పూర్తిగా కాన్ఫిగర్ చేయబడిన ప్రాజెక్ట్‌కు డిప్లాయ్ చేయండి | ఖాతాపై **రీడర్** + ప్రాజెక్ట్ పై **Azure AI యూజర్** |
 
-> **ముఖ్యమైనది:** Azure `Owner` మరియు `Contributor` పాత్రలు కేవలం *management* అనుమతులను మాత్రమే కలిగి ఉంటాయి, *development* (డేటా చర్య) అనుమతులు కాదు. ఏజెంట్లు నిర్మించడానికి మరియు డిప్లాయ్ చేయడానికి మీకు **Azure AI User** లేదా **Azure AI Owner** అవసరం.
+> **ముఖ్యమైనది:** Azure `Owner` మరియు `Contributor` పాత్రలు *వ్యవస్థాపనా* అనుమతులనే కలిగి ఉంటాయి, *అభివృద్ధి* (డేటా చర్య) అనుమతులు కలిగి ఉండవు. మీరు ఏజెంట్లను నిర్మించి, వినియోగించడానికి **Azure AI User** లేదా **Azure AI Owner** కావలసి ఉంటుంది.
 
 ---
 
-## రిఫరెన్సులు
+## సూచనలు
 
-- [త్వరిత ప్రారంభం: మీ మొదటి హోస్టెడ్ ఏజెంట్‌ను డిప్లాయ్ చేయండి (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [హోస్టెడ్ ఏజెంట్లు ఏమిటి?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS Codeలో హోస్టెడ్ ఏజెంట్ వర్క్‌ఫ్లోలను సృష్టించండి](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [హోస్టెడ్ ఏజెంట్‌ను డిప్లాయ్ చేయండి](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [త్వరితప్రారంభం: మీ మొదటి హోస్టెడ్ ఏజెంట్ను డిప్లాయ్ చేయండి (VS కోడ్)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [హోస్టెడ్ ఏజెంట్లు అంటే ఏమిటి?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [VS కోడ్‌లో హోస్టెడ్ ఏజెంట్ వర్క్‌ఫ్లోలను సృష్టించండి](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [హోస్టెడ్ ఏజెంట్ను డిప్లాయ్ చేయండి](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [Microsoft Foundry కోసం RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [ఆర్కిటెక్చర్ సమీక్ష ఏజెంట్ నమూనా](https://github.com/Azure-Samples/agent-architecture-review-sample) - వాస్తవ-ప్రపంచ హోస్టెడ్ ఏజెంట్ MCP టూల్స్, Excalidraw డయాగ్రామ్‌లు, మరియు ద్వైపాక్షిక డిప్లాయ్‌మెంట్‌తో
+- [ఆర్కిటెక్చర్ రివ్యూ ఏజెంట్ నమూనా](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP టూల్స్, ఎక్స్కలిడ్రా డయాగ్రామ్స్ మరియు ద్వ Domenployment కలిగిన వాస్తవ హోస్టెడ్ ఏజెంట్
 
 ---
 
