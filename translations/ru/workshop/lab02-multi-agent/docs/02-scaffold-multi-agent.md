@@ -1,14 +1,14 @@
-# Module 2 - Создание каркаса мультиагентного проекта
+# Модуль 2 - Создание каркаса для проекта с несколькими агентами
 
-⏱️ ~5 мин
+⏱️ ~5 минут
 
-В этом модуле вы используете [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) для **создания каркаса мультиагентного проекта**. Мастер генерирует `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, и конфигурацию отладки VS Code — чтобы вы могли сосредоточиться на подключении рабочего процесса из 4 агентов в Модуле 3.
+В этом модуле вы используете [Foundry Toolkit для VS Code](https://aka.ms/foundrytk), чтобы **создать каркас проекта с несколькими агентами**. Мастер генерирует `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` и конфигурацию отладки VS Code — чтобы вы могли сосредоточиться на настройке рабочего процесса из 4 агентов в Модуле 3.
 
-> **Ключевая концепция:** Каркас — это рабочая заглушка с одним агентом. Вы замените заглушечную логику графом `WorkflowBuilder` в Модуле 3. Вам не нужно писать шаблонный код с нуля.
+> **Ключевая идея:** Каркас — это рабочий шаблон с одним агентом. Вы заменяете логический заполнитель графом `WorkflowBuilder` в Модуле 3. Вам не нужно писать шаблонный код с нуля.
 
-> **Реализация примера:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) — это полный рабочий пример. Используйте его, чтобы сравнивать свою работу по ходу.
+> **Референсная реализация:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) — полный рабочий пример. Используйте его для сравнения с вашей работой по мере продвижения.
 
-### Порядок работы мастера создания каркаса
+### Поток мастера создания каркаса
 
 ```mermaid
 flowchart LR
@@ -24,48 +24,48 @@ flowchart LR
 
 ## Шаг 1: Откройте мастер Create Hosted Agent
 
-1. Нажмите `Ctrl+Shift+P`, чтобы открыть **Command Palette**.
-2. Введите: **Foundry Toolkit: Create a New Hosted Agent** и выберите его.
+1. Нажмите `Ctrl+Shift+P` для открытия **Command Palette**.
+2. Введите: **Foundry Toolkit: Create new Hosted Agent** и выберите эту команду.
 3. Мастер откроется на вкладке **Agent Details**.
 
-> **Альтернатива:** Нажмите на значок **Foundry Toolkit** в Activity Bar → нажмите значок **+** рядом с **Hosted Agents** → **Create New Hosted Agent**.
+> **Альтернатива:** Нажмите на иконку **Foundry Toolkit** на панели Activity Bar → кликните на значок **+** рядом с **Hosted Agents** → выберите **Create New Hosted Agent**.
 
 ---
 
 ## Шаг 2: Выберите настройки
 
-![Создание Hosted Agent из примера — вкладка Agent Details с выбранным шаблоном Workflows](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/ru/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. В левой части навигации/параметров выберите следующее:
+1. В секции слева выберите следующие параметры:
 
 | Меню | Выбор | Примечания |
 |--------|-----------|-------|
 | **Язык** | Python | Также поддерживается C# (.NET) |
 | **Фреймворк** | Agent Framework | Предоставляет `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **Тип API** | Response API | `POST /responses` - история управляется платформой, поддержка стриминга |
-| **Шаблон** | **Workflows** | Обрабатывает запросы через нескольких агентов последовательно |
+| **Тип API** | Response API | `POST /responses` - история платформы, поддержка потоковой передачи |
+| **Шаблон** | **Workflows** | Обрабатывает запросы с последовательным участием нескольких агентов |
 
 2. После выбора нажмите **Next**
 
-![Создание Hosted Agent из примера — вкладка Create с именем папки PersonalCareerCopilot](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/ru/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. В следующем окне выберите следующее:
+3. В следующем окне выберите следующие параметры:
 
 | Меню | Выбор | Примечания |
 |--------|-----------|-------|
-| **Папка рабочей области** | Browse to target folder | например, `workshop/lab02-multi-agent/` в этом репозитории |
-| **Имя агента** | `PersonalCareerCopilot` | Это становится именем директории проекта |
-| **Развертывание модели** | Выберите развернутую модель | например, `gpt-4.1-mini` из Lab 01 |
+| **Папка проекта** | Выберите целевую папку | например, `workshop/lab02-multi-agent/` в этом репозитории |
+| **Имя агента** | `PersonalCareerCopilot` | Это станет именем директории проекта |
+| **Развернутый модель** | Выберите вашу развернутую модель | например, `gpt-4.1-mini` из Лабораторной работы 01 |
 
 4. Нажмите **Create**, чтобы создать каркас проекта. VS Code сгенерирует файлы и откроет папку.
 
-> **Совет:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) хорошо балансирует скорость и качество для разработки с несколькими агентами.
+> **Совет:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) хорошо сбалансирован по скорости и качеству для разработки с несколькими агентами.
 
 ---
 
-## Шаг 3: Просмотрите сгенерированный проект
+## Шаг 3: Осмотрите созданный проект
 
-После завершения создания каркаса убедитесь, что вы видите эти файлы в Проводнике (`Ctrl+Shift+E`):
+После завершения создания каркаса проверьте, что в Проводнике (`Ctrl+Shift+E`) отображаются следующие файлы:
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Важно:** Откройте эту сгенерированную папку непосредственно в VS Code, чтобы `.vscode/launch.json` и `tasks.json` корректно применялись для отладки F5.
+> **Важно:** Открывайте эту созданную папку напрямую в VS Code, чтобы `.vscode/launch.json` и `tasks.json` корректно применялись при отладке по F5.
 
 ### Объяснение ключевых файлов
 
 | Файл | Назначение |
 |------|---------|
 | `agent.yaml` | Объявляет `kind: hosted`, сопоставляет переменные окружения, определяет протокол `/responses` |
-| `main.py` | Заглушка: один `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Вы замените это на 4 агентов + `WorkflowBuilder` в Модуле 3 |
+| `main.py` | Заглушка: один `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Вы замените это 4 агентами + `WorkflowBuilder` в Модуле 3 |
 | `Dockerfile` | `python:3.12-slim`, устанавливает `requirements.txt`, открывает порт 8088, запускает `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Справка:** Смотрите [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) и [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) для полного сгенерированного содержимого.
+> **Справка:** Смотрите [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) и [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) для полного содержания сгенерированных файлов.
 
 ---
 
-### ✅ Контрольная точка
+### ✅ Контрольный список
 
-- [ ] Мастер создания каркаса завершён - новая папка проекта видна в Проводнике
-- [ ] Все ожидаемые файлы присутствуют: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Мастер создания каркаса завершён — новая папка проекта видна в Проводнике
+- [ ] Все ожидаемые файлы на месте: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` показывает `kind: hosted` и `protocol: responses`
 - [ ] `main.py` импортирует `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Сгенерированная папка открыта как корень рабочей области VS Code
-- [ ] Вы понимаете, что `main.py` — это заглушка - `WorkflowBuilder` будет добавлен в Модуле 3
+- [ ] Каркасная папка открыта как корень рабочей области VS Code
+- [ ] Вы понимаете, что `main.py` — это заглушка, а `WorkflowBuilder` будет добавлен в Модуле 3
 
 ---
 
-**Предыдущее:** [01 - Понимание архитектуры мультиагентной системы](01-understand-multi-agent.md) · **Далее:** [03 - Настройка агентов и окружения →](03-configure-agents.md)
+**Предыдущий:** [01 - Понимание архитектуры с несколькими агентами](01-understand-multi-agent.md) · **Следующий:** [03 - Конфигурация агентов и окружения →](03-configure-agents.md)
 
 ---
 

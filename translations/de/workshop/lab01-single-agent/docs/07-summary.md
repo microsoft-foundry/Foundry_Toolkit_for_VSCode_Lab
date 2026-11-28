@@ -1,53 +1,53 @@
-# Modul 7 - Zusammenfassung & nächste Schritte
+# Modul 7 - Zusammenfassung & Nächste Schritte
 
-⏱️ ~5 min
+⏱️ ~5 Min.
 
-**Herzlichen Glückwunsch!** Du hast einen gehosteten KI-Agenten mit Microsoft Foundry und dem Foundry Toolkit für VS Code erstellt, getestet und (wenn auf Pfad A) bereitgestellt.
-
----
-
-## Was du gebaut hast
-
-Einen **„Erkläre es mir wie einem Geschäftsführer“-Agenten**, der:
-- Technische Vorfallberichte oder Betriebsupdates per HTTP (`POST /responses`) empfängt
-- Diese in verständliche Executive Summaries übersetzt
-- Ein strukturiertes Ausgabeformat folgt (Was ist passiert / Geschäftliche Auswirkungen / Nächster Schritt)
-- Themenfremde Anfragen und Versuche von Prompt Injection ablehnt
-- Als containerisierter gehosteter Agent im Microsoft Foundry Agent Service läuft
+**Herzlichen Glückwunsch!** Sie haben einen gehosteten KI-Agenten mit Microsoft Foundry und dem Foundry Toolkit für VS Code erstellt, getestet und (falls auf Pfad A) bereitgestellt.
 
 ---
 
-## Wichtige Konzepte, die du gelernt hast
+## Was Sie erstellt haben
 
-| Konzept | Was du geübt hast |
+Einen **„Erkläre es mir wie einem Geschäftsführer“** Agenten, der:
+- Empfängt technische Vorfallmeldungen oder betriebliche Updates über HTTP (`POST /responses`)
+- Übersetzt sie in verständliche Executive Summaries
+- Folgt einem strukturierten Ausgabeformat (Was ist passiert / Geschäftsauswirkung / Nächster Schritt)
+- Lehnt themenfremde Anfragen und Prompt Injection Versuche ab
+- Läuft als containerisierter gehosteter Agent im Microsoft Foundry Agent Service
+
+---
+
+## Wichtige erlernte Konzepte
+
+| Konzept | Was Sie geübt haben |
 |---------|-------------------|
 | **Agent Framework Architektur** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` Pipeline |
-| **Lebenszyklus eines gehosteten Agents** | Scaffold → Konfigurieren → Lokal testen → Bereitstellen → In der Cloud verifizieren |
-| **System-Prompt-Engineering** | Rolle, Zielgruppe, Ausgabeformat, Regeln, Sicherheitsbeschränkungen und Beispiele |
-| **Unterschiede lokal vs. gehostet** | Identität (persönliche Anmeldeinformationen vs. verwaltete Identität), Endpunkt, Netzwerkpfad |
-| **Sicherheitsgrenzen** | Schutz gegen Prompt Injection, Rollentreue, ordnungsgemäße Behandlung von Randfällen |
-| **Foundry Toolkit Arbeitsablauf** | Projekterstellung, Modellausbringung, Agentengerüst, Agent Inspector, One-Click-Deploy |
+| **Lebenszyklus gehosteter Agents** | Scaffold → Konfigurieren → Lokal testen → Bereitstellen → Im Cloud überprüfen |
+| **System Prompt Engineering** | Rolle, Zielgruppe, Ausgabeformat, Regeln, Sicherheitsvorgaben und Beispiele |
+| **Lokale vs. gehostete Unterschiede** | Identität (persönliche Anmeldedaten vs. verwaltete Identität), Endpunkt, Netzwerkpfad |
+| **Sicherheitsgrenzen** | Prompt-Injection-Abwehr, Rollentreue, eleganter Umgang mit Randfällen |
+| **Foundry Toolkit Workflow** | Projektanlage, Modellbereitstellung, Agent Scaffold, Agent Inspector, Ein-Klick-Bereitstellung |
 
 ---
 
-## Was du abgeschlossen hast
+## Was Sie abgeschlossen haben
 
-### Pfad A (Foundry-Abonnement)
+### Weg A (Foundry-Abonnement)
 
 - [x] Foundry Toolkit eingerichtet und ein Foundry-Projekt mit bereitgestelltem Modell erstellt
-- [x] Einen gehosteten Agenten mit automatisch generierter Projektstruktur gescaffoldt
+- [x] Einen gehosteten Agenten mit automatisch generierter Projektstruktur gescaffoldet
 - [x] Strukturierte Agentenanweisungen mit Sicherheitsregeln geschrieben
 - [x] Lokal mit 3 funktionalen Szenarien getestet (Agent Inspector)
-- [x] Im Foundry Agent Service bereitgestellt (containerisiert)
-- [x] Im Cloud-Playground mit 4 Randfall-/Sicherheitstests verifiziert
+- [x] Im Foundry Agent Service (containerisiert) bereitgestellt
+- [x] Im Cloud Playground mit 4 Randfall-/Sicherheits-Tests verifiziert
 
-### Pfad B (Foundry Local)
+### Weg B (Foundry Local)
 
-- [x] Foundry Toolkit mit lokalem Modell-Endpunkt eingerichtet
-- [x] Ein gehostetes Agentenprojekt gescaffoldt
+- [x] Foundry Toolkit mit lokalem Modellendpunkt eingerichtet
+- [x] Einen gehosteten Agentenprojekt gescaffoldet
 - [x] Strukturierte Agentenanweisungen mit Sicherheitsregeln geschrieben
 - [x] Lokal mit 3 funktionalen Szenarien getestet
-- [x] Agentenverhalten validiert ohne Cloud-Ressourcen zu benötigen
+- [x] Agentenverhalten validiert, ohne Cloud-Ressourcen zu benötigen
 
 ---
 
@@ -57,56 +57,56 @@ Einen **„Erkläre es mir wie einem Geschäftsführer“-Agenten**, der:
 
 | Ressource | Beschreibung |
 |----------|-------------|
-| **[Lab 02 - Multi-Agent Orchestrierung](../../lab02-multi-agent/docs/README.md)** | Erstelle einen 4-Agenten-Workflow (Lebenslauf → Job-Fit-Bewerter) mit Orchestrierungsmustern |
-| **[Füge deinem Agenten Tools hinzu](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Verbinde APIs, Datenbanken oder benutzerdefinierte Funktionen über den Tool-Katalog |
-| **[Wissen hinzufügen (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Verankere deinen Agenten mit Dokumenten, Vektorspeichern oder Bing-Suche |
-| **[Microsoft Foundry Dokumentation](https://learn.microsoft.com/azure/foundry/)** | Komplette Plattformreferenz |
-| **[Agent Framework SDK-Referenz](https://learn.microsoft.com/agent-framework/)** | API-Dokumentation für das `agent-framework` Paket |
-| **[Foundry Toolkit - Neuigkeiten](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Erweiterungsveröffentlichungen und Änderungsprotokoll |
+| **[Lab 02 - Multi-Agent Orchestrierung](../../lab02-multi-agent/docs/README.md)** | Erstellen eines Workflows mit 4 Agenten (Lebenslauf → Job Fit Evaluator) mit Orchestrierungsmustern |
+| **[Werkzeuge zu Ihrem Agenten hinzufügen](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Verbinden von APIs, Datenbanken oder benutzerdefinierten Funktionen über den Tool-Katalog |
+| **[Wissen hinzufügen (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Ihren Agenten mit Dokumenten, Vektor-Stores oder Bing-Suche fundieren |
+| **[Microsoft Foundry Dokumentation](https://learn.microsoft.com/azure/foundry/)** | Vollständige Plattformreferenz |
+| **[Agent Framework SDK Referenz](https://learn.microsoft.com/agent-framework/)** | API-Dokumentation für `agent-framework` Paket |
+| **[Foundry Toolkit - Neuigkeiten](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Erweiterungs-Release-Notes und Änderungsprotokoll |
 
-### Ideen zur Erweiterung deines Agenten
+### Ideen zur Erweiterung Ihres Agenten
 
-- **Füge ein Datums-Tool hinzu** - Lass den Agenten „Stand heute“ Kontext in Zusammenfassungen einfügen
-- **Verbinde dich mit einer Incident-Datenbank** - Ziehe echte Vorfalldetails über eine Tool-Funktion
-- **Füge ein Bing-Grundierungs-Tool hinzu** - Lass den Agenten aktuelle Nachrichten für zusätzlichen Kontext nachschlagen
-- **Teste verschiedene Modelle** - Vergleiche die Ausgabequalität von `gpt-4.1` vs. `gpt-4.1-mini`
-- **Bewerte mit Foundry** - Nutze die Evaluationsfunktion, um Agentenqualität im großen Maßstab zu messen
+- **Fügen Sie ein Datumswerkzeug hinzu** - Ermöglichen Sie dem Agenten, den Kontext "Stand heute" in Zusammenfassungen einzubeziehen
+- **Verbinden Sie eine Incident-Datenbank** - Ziehen Sie reale Vorfalldetails über eine Tool-Funktion
+- **Fügen Sie ein Bing-Fundament-Werkzeug hinzu** - Ermöglichen Sie dem Agenten, aktuelle Nachrichten für zusätzlichen Kontext nachzuschlagen
+- **Probieren Sie verschiedene Modelle aus** - Vergleichen Sie die Ausgabequalität von `gpt-4.1` vs. `gpt-4.1-mini`
+- **Bewerten Sie mit Foundry** - Verwenden Sie die Evaluationsfunktion, um die Agentenqualität im Maßstab zu messen
 
-### Für Pfad-B-Nutzer: Upgrade zur Cloud-Bereitstellung
+### Für Weg B Nutzer: Upgrade zur Cloud-Bereitstellung
 
-Wenn du bereit bist, in die Cloud zu deployen:
-1. Hole dir ein Azure-Abonnement ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
-2. Schließe [Modul 01, Einrichtung](01-setup.md#step-2-set-up-based-on-your-access) ab (Projekt erstellen, Modell bereitstellen, RBAC zuweisen)
-3. Aktualisiere deine `.env` mit dem Foundry-Projektendpunkt und dem Namen der Modellbereitstellung
-4. Setze fort bei [Modul 05 - Bereitstellung in Foundry](05-deploy-to-foundry.md)
+Wenn Sie bereit sind, in die Cloud bereitzustellen:
+1. Holen Sie sich ein Azure-Abonnement ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
+2. Komplettieren Sie [Modul 01, Einrichtung](01-setup.md#step-2-set-up-based-on-your-access) (Projekt erstellen, Modell bereitstellen, RBAC zuweisen)
+3. Aktualisieren Sie Ihre `.env` mit dem Foundry-Projektendpunkt und dem Namen der Modellbereitstellung
+4. Fahren Sie fort mit [Modul 05 - Bereitstellung in Foundry](05-deploy-to-foundry.md)
 
 ---
 
 ## Ressourcen bereinigen (optional)
 
-Wenn du die während dieses Workshops erstellten Azure-Ressourcen entfernen möchtest:
+Wenn Sie die während dieses Workshops erstellten Azure-Ressourcen entfernen möchten:
 
-### Option 1: Lösche die Ressourcengruppe (entfernt alles)
+### Option 1: Löschen der Ressourcengruppe (entfernt alles)
 
 ```bash
 az group delete --name rg-hosted-agents-workshop --yes --no-wait
 ```
 
-### Option 2: Lösche nur den gehosteten Agenten
+### Option 2: Nur den gehosteten Agent löschen
 
-1. Öffne [ai.azure.com](https://ai.azure.com) → dein Projekt → **Build** → **Agents**.
-2. Klicke deinen Agenten an → klicke **Löschen**.
+1. Öffnen Sie [ai.azure.com](https://ai.azure.com) → Ihr Projekt → **Build** → **Agents**.
+2. Klicken Sie auf Ihren Agent → klicken Sie auf **Löschen**.
 
-### Option 3: Lösche die Modellbereitstellung
+### Option 3: Die Modellbereitstellung löschen
 
-1. Erweitere in der Foundry-Seitenleiste dein Projekt → **Modelle**.
-2. Rechtsklicke die Modellbereitstellung → **Löschen**.
+1. Erweitern Sie in der Foundry-Seitenleiste Ihr Projekt → **Models**.
+2. Rechtsklicken Sie auf die Modellbereitstellung → **Löschen**.
 
-> **Kostenhinweis:** Gehostete Agenten verursachen nur Kosten, wenn sie laufen. Wenn du den Agenten stoppst oder löscht, gibt es keine laufenden Kosten. Die Modellbereitstellung kann geringe Kosten für reservierte Kapazität verursachen – lösche sie, wenn du fertig bist.
+> **Kostenhinweis:** Gehostete Agenten verursachen nur Kosten, wenn sie laufen. Wenn Sie den Agent stoppen oder löschen, fallen keine laufenden Gebühren an. Die Modellbereitstellung kann eine kleine Gebühr für reservierte Kapazität verursachen – löschen Sie sie, wenn Sie fertig sind.
 
 ---
 
-**Zurück:** [06 - Verifizieren im Playground](06-verify-in-playground.md) · **Weiter:** [08 - Fehlerbehebung (Referenz) →](08-troubleshooting.md)
+**Vorherige:** [06 - Überprüfung im Playground](06-verify-in-playground.md) · **Nächste:** [08 - Fehlerbehebung (Referenz) →](08-troubleshooting.md)
 
 ---
 

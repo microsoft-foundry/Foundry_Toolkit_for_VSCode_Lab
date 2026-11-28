@@ -1,10 +1,10 @@
-# Modul 2 - Erstellen eines neuen gehosteten Agents
+# Modul 2 - Einen neuen Hosted Agent erstellen
 
 ⏱️ ~5 min
 
-In diesem Modul verwenden Sie das Foundry Toolkit, um ein **Projekt für einen gehosteten Agenten zu erstellen**. Das Gerüst erzeugt die vollständige Projektstruktur - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` und die VS Code-Debug-Konfiguration -, sodass Sie sich auf die Anpassung des Agentenverhaltens konzentrieren können.
+In diesem Modul verwendest du das Foundry Toolkit, um **ein Hosted Agent-Projekt zu scaffolden**. Das Scaffold erzeugt die vollständige Projektstruktur - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` und die VS Code-Debug-Konfiguration - damit du dich auf die Anpassung des Agentenverhaltens konzentrieren kannst.
 
-> **Schlüsselkonzept:** Der Ordner `agent/` in diesem Labor ist ein Beispiel dafür, was das Foundry Toolkit erzeugt. Sie schreiben diese Dateien nicht von Grund auf neu.
+> **Schlüsselkonzept:** Der Ordner `agent/` in diesem Labor ist ein Beispiel dessen, was das Foundry Toolkit generiert. Du schreibst diese Dateien nicht von Grund auf neu.
 
 ### Ablauf des Scaffold-Assistenten
 
@@ -13,14 +13,15 @@ flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Modell auswählen"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Generiertes Projekt"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## Schritt 1: Öffnen Sie den Assistenten zum Erstellen eines gehosteten Agents
+## Schritt 1: Öffne den Create Hosted Agent-Assistenten
 
-1. Drücken Sie `Ctrl+Shift+P`, um die **Befehlspalette** zu öffnen.
-2. Geben Sie ein: **Foundry Toolkit: Create new Hosted Agent** und wählen Sie es aus.
+1. Drücke `Ctrl+Shift+P`, um die **Befehls-Palette** zu öffnen.
+2. Tippe: **Foundry Toolkit: Create new Hosted Agent** und wähle es aus.
 
 > **Alternative: Erstellung über das Foundry-Portal**
-> Wenn Sie lieber den Browser verwenden, können Sie Ihr Projekt unter [https://ai.azure.com](https://ai.azure.com) erstellen. Sobald das Projekt bereitgestellt ist, kehren Sie zu VS Code zurück und verwenden die **Foundry Toolkit**-Seitenleiste, um eine Verbindung herzustellen.
+> Wenn du lieber den Browser verwendest, kannst du dein Projekt unter [https://ai.azure.com](https://ai.azure.com) erstellen. Sobald das Projekt bereitgestellt ist, kehre zu VS Code zurück und verbinde dich über die **Foundry Toolkit**-Seitenleiste damit.
 
-> **Alternative:** Klicken Sie neben **Hosted Agents (Preview)** in der Foundry Toolkit-Seitenleiste auf das **+**-Symbol.
+> **Alternative:** Bewege in der Foundry Toolkit-Seitenleiste die Maus über **Agents** unter deinem Projekt, klicke auf das **+**-Symbol und wähle dann **Create in Code With Template**.
 
 ## Schritt 2: Einstellungen auswählen
 
-![Create Hosted Agent from Sample - Agent Details tab showing Language, Framework, Protocol, and Template filters](../../../../../translated_images/de/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Create Hosted Agent from Sample - Registerkarte Agentendetails zeigt Filter für Sprache, Framework, Protokoll und Vorlage](../../../../../translated_images/de/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. Wählen Sie im linken Navigations-/Optionsbereich Folgendes aus:
+1. Wähle im linken Navigations-/Optionsbereich Folgendes aus:
 
-| Menü | Auswahl | Hinweise |
-|--------|-----------|-------|
-| **Sprache** | Python | C# wird ebenfalls unterstützt |
-| **Framework** | Agent Framework | Einfacher Einstieg mit dem Agent Framework SDK |
+| Menü | Auswahl | Anmerkungen |
+|--------|-----------|----------|
+| **Sprache** | Python | C# ebenfalls unterstützt |
+| **Framework** | Agent Framework | Einfacher Einstiegspunkt mit Agent Framework SDK |
 | **API-Typ** | Response API | `POST /responses` - konversationell, mit plattformverwaltetem Verlauf |
-| **Vorlage** | Basic | Einfacher Einstieg mit dem Agent Framework SDK |
+| **Vorlage** | Basic | Einfacher Einstiegspunkt mit Agent Framework SDK |
 
-2. Nach der Auswahl klicken Sie auf **Weiter**
+2. Nachdem du ausgewählt hast, klicke auf **Next**
 
-![Create Hosted Agent - Create tab showing Workspace Folder, Folder Name, and Environment Setup options](../../../../../translated_images/de/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Create Hosted Agent - Registerkarte Create zeigt Workspace-Ordner, Ordnername und Umgebungs-Setup-Optionen](../../../../../translated_images/de/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-3. Wählen Sie im nächsten Fenster Folgendes aus:
+3. Wähle im nächsten Fenster Folgendes aus:
 
-| Menü | Auswahl | Hinweise |
-|--------|-----------|-------|
-| **Arbeitsbereichsordner** | Wählen Sie einen Zielordner | z.B. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` oder einen Unterordner in diesem Repo |
-| **Agentenname** | Geben Sie einen Namen ein | z.B. `executive-summary-agent` |
-| **Umgebungseinrichtung** | Einrichtung vorerst überspringen |  |
+| Menü | Auswahl | Anmerkungen |
+|--------|-----------|----------|
+| **Arbeitsbereich-Ordner** | Zielordner wählen | z.B. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` oder ein Unterordner in diesem Repo |
+| **Agentenname** | Name eingeben | z.B. `executive-summary-agent` |
+| **Umgebungs-Setup** | Setup vorerst überspringen |  |
 
-Klicken Sie auf **erstellen**, um unseren Agenten zu erzeugen. Ein neuer Ordner wird mit dem Namen des gehosteten Agenten erstellt.
+Klicke auf **create**, um unseren Agenten zu erstellen. Ein neuer Ordner mit dem Namen des Hosted Agents wird angelegt.
 
-## Schritt 3: Überprüfen Sie das generierte Projekt
+## Schritt 3: Das generierte Projekt überprüfen
 
-Nach Abschluss des Scaffoldings überprüfen Sie im Explorer (`Ctrl+Shift+E`), ob Sie diese Dateien sehen:
+Nach Abschluss des Scaffoldings überprüfe, ob du diese Dateien im Explorer (`Ctrl+Shift+E`) siehst:
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -90,25 +91,25 @@ Nach Abschluss des Scaffoldings überprüfen Sie im Explorer (`Ctrl+Shift+E`), o
 
 | Datei | Zweck |
 |------|---------|
-| `agent.yaml` | Deklariert den Agenten als `kind: hosted`, ordnet Umgebungsvariablen zu, definiert das `/responses`-Protokoll |
-| `main.py` | Erstellt einen `FoundryChatClient` → umschließt ihn in einem `Agent` mit Anweisungen → stellt ihn über `ResponsesHostServer` auf Port 8088 bereit |
-| `Dockerfile` | Verwendet `python:3.12-slim`, installiert Abhängigkeiten, legt Port 8088 offen, führt `main.py` aus |
+| `agent.yaml` | Deklariert den Agenten als `kind: hosted`, bildet Umgebungsvariablen ab, definiert das `/responses`-Protokoll |
+| `main.py` | Erstellt ein `FoundryChatClient` → umschließt es in einem `Agent` mit Anweisungen → bedient über `ResponsesHostServer` auf Port 8088 |
+| `Dockerfile` | Nutzt `python:3.12-slim`, installiert Abhängigkeiten, öffnet Port 8088, führt `main.py` aus |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Wichtig:** Öffnen Sie den gerüsteten Agentenordner direkt in VS Code (den `agent/`-Ordner selbst), damit `.vscode/launch.json` und `tasks.json` für das F5-Debugging korrekt funktionieren.
+> **Wichtig:** Öffne den scaffoldeten Agentenordner direkt in VS Code (den `agent/`-Ordner selbst), damit `.vscode/launch.json` und `tasks.json` für das F5-Debugging korrekt funktionieren.
 
 ---
 
-### ✅ Checkpoint
+### ✅ Kontrollpunkt
 
-- [ ] Gerüstetes Projekt mit allen erwarteten Dateien erstellt
+- [ ] Scaffold-Projekt mit allen erwarteten Dateien erstellt
 - [ ] `agent.yaml` zeigt `kind: hosted` und `protocol: responses`
 - [ ] `main.py` importiert `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Der Agentenordner ist in VS Code als Arbeitsbereichs-Root geöffnet
+- [ ] Der Agentenordner ist als Arbeitsbereichs-Root in VS Code geöffnet
 
 ---
 
-**Zurück:** [01 - Setup](01-setup.md) · **Weiter:** [03 - Konfigurieren & Codieren →](03-configure-and-code.md)
+**Vorherige:** [01 - Einrichtung](01-setup.md) · **Nächste:** [03 - Konfigurieren & Programmieren →](03-configure-and-code.md)
 
 ---
 

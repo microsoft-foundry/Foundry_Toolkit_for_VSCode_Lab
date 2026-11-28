@@ -1,10 +1,10 @@
-# Labor 02 - Multi-Agent Workflow: Lebenslauf → Job-Fit-Bewertung
+# Labor 02 - Multi-Agent Workflow: Lebenslauf → Stellen-Passung Evaluator
 
-## Übersicht
+## Überblick
 
-In diesem praxisnahen Labor erstellen Sie eine **Workflow-First Multi-Agent-Anwendung** mit dem Foundry Toolkit in VS Code und stellen diese beim Microsoft Foundry Agent Service bereit.
+In diesem praktischen Labor baust du eine **workflow-zentrierte Multi-Agenten-App** mit dem Foundry Toolkit in VS Code und stellst sie im Microsoft Foundry Agent Service bereit.
 
-**Was Sie bauen werden:** Ein Lebenslauf → Job-Fit-Bewerter, der einen Lebenslauf und eine Stellenbeschreibung analysiert, die Übereinstimmung bewertet und eine personalisierte Lern-Roadmap mit Microsoft Learn-Ressourcen erstellt.
+**Was du bauen wirst:** ein Lebenslauf → Stellen-Passung Evaluator, der einen Lebenslauf und eine Stellenbeschreibung analysiert, die Übereinstimmung bewertet und einen personalisierten Lernplan mit Microsoft Learn Ressourcen erstellt.
 
 ---
 
@@ -12,11 +12,11 @@ In diesem praxisnahen Labor erstellen Sie eine **Workflow-First Multi-Agent-Anwe
 
 ```mermaid
 flowchart TD
-    A["Benutzereingabe"] --> B["Lebenslauf Parser"]
-    B -->|"[GEANALYSIERTER LEBENSLAUF] + [STELLENBESCHREIBUNG DURCHLEITUNG]"| C["Stellenbeschreibungs-Agent"]
-    C -->|"[JD ANFORDERUNGEN] + [GEANALYSIERTER LEBENSLAUF DURCHLEITUNG]"| D["Matching-Agent"]
-    D -->|Passbericht + Lücken| E["Lückenanalysator + Microsoft Learn MCP"]
-    E -->|Passpunktzahl + Fahrplan| F["Ausgabe"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -29,52 +29,53 @@ flowchart TD
 **So funktioniert es:**
 1. Der Benutzer fügt einen Lebenslauf und eine Stellenbeschreibung ein.
 2. **ResumeParser** analysiert den Lebenslauf und kopiert die Stellenbeschreibung wortwörtlich in einen `[JOB DESCRIPTION PASS-THROUGH]` Abschnitt.
-3. **JD Agent** extrahiert strukturierte Anforderungen aus dem Pass-Through und leitet dann den `[PARSED RESUME]` weiter als `[PARSED RESUME PASS-THROUGH]`.
-4. **MatchingAgent** vergleicht `[PARSED RESUME PASS-THROUGH]` mit `[JD REQUIREMENTS]` und erstellt eine Passgenauigkeitsbewertung.
-5. **GapAnalyzer** wandelt die Lücken in eine praktische Roadmap um und holt echte Microsoft Learn-Links über MCP.
+3. **JD Agent** extrahiert strukturierte Anforderungen aus dem Durchlauf, dann leitet er den `[PARSED RESUME]` als `[PARSED RESUME PASS-THROUGH]` weiter.
+4. **MatchingAgent** vergleicht `[PARSED RESUME PASS-THROUGH]` mit `[JD REQUIREMENTS]` und erzeugt eine Passungsbewertung.
+5. **GapAnalyzer** wandelt die Lücken in einen praktischen Lernplan um und holt echte Microsoft Learn Links über MCP.
 
 ---
 
 ## Voraussetzungen
 
-Abschließen Sie zuerst Labor 01:
+Schließe zuerst Labor 01 ab:
 
-- [Labor 01 - Einzelner Agent](../lab01-single-agent/README.md)
+- [Labor 01 - Ein Agent](../lab01-single-agent/README.md)
 
 ---
 
-## Teil 1: Lesen Sie die Module der Reihenfolge nach
+## Teil 1: Lies die Module in Reihenfolge
 
-Sehen Sie sich den vollständigen Lernpfad an unter:
+Siehe den vollständigen Lernpfad unter:
 
-- [Labor 2 Docs - Voraussetzungen](docs/00-prerequisites.md)
-- [Labor 2 Docs - Vollständiger Lernpfad](docs/README.md)
+- [Labor 2 Dokumentation - Voraussetzungen](docs/00-prerequisites.md)
+- [Labor 2 Dokumentation - Vollständiger Lernpfad](docs/README.md)
 - [PersonalCareerCopilot Anleitung](PersonalCareerCopilot/README.md)
 
 ---
 
-## Teil 2: Workflow erstellen und testen
+## Teil 2: Erstelle und teste den Workflow
 
-1. Verwenden Sie den Foundry Toolkit Assistenten, um das workflow-basierte Projekt zu erstellen.
-2. Kopieren Sie die Prompt-Blöcke und den Workflow-Graph aus `PersonalCareerCopilot/main.py` in Ihren Arbeitsbereich.
-3. Führen Sie lokal mit dem Agent Inspector aus und verifizieren Sie alle vier Agenten sowie das MCP-Tool.
-4. Stellen Sie den gehosteten Agenten in Foundry bereit, wenn der lokale Test erfolgreich war.
+1. Nutze den Foundry Toolkit Assistenten, um das workflow-basierte Projekt zu erstellen.
+2. Kopiere die Prompt-Blöcke und den Workflow-Graphen von `PersonalCareerCopilot/main.py` in deinen Arbeitsbereich.
+3. Führe lokal mit dem Agent Inspector aus und überprüfe alle vier Agenten sowie das MCP Tool.
+4. Stelle den gehosteten Agent nach bestandenem lokalen Test in Foundry bereit.
 
 ---
 
-## Orchestrierungsmuster
+## Orchestrierungs-Muster
 
-Labor 02 enthält den Standard **Fan-out → Fan-in → sequentiellen** Ablauf, und die Dokumentation beschreibt auch alternative Orchestrierungsmuster zur Experimentierung.
+Labor 02 verwendet eine **sequentielle Pipeline**: die Ausgabe jedes Agenten wird an den nächsten weitergeleitet und der Workflow gibt die Antwort des letzten Agenten zurück. Zwei Muster ermöglichen dies:
 
-- **Fan-out/Fan-in mit gewichteter Konsensbildung**
-- **Reviewer/Kritiker Durchgang vor der finalen Roadmap**
-- **Bedingter Router** basierend auf Passgenauigkeitsbewertung und fehlenden Fähigkeiten
+- **Sequentielle Kette** - `WorkflowBuilder` verbindet ResumeParser → JD Agent → MatchingAgent → GapAnalyzer mit einem `add_edge()` Aufruf pro Schritt
+- **Datenweiterleitung** - da jeder Agent nur die Ausgabe seines direkten Vorgängers sieht, kopieren ResumeParser und JD Agent die für weitere Agenten benötigten Daten in beschriftete Durchlauf-Abschnitte
+
+Die Dokumentation erklärt auch, warum das Labor kein Fan-out/Fan-in verwendet und wie man den Graphen mit einem weiteren Agenten erweitert.
 
 Siehe [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Vorher:** [Labor 01 - Einzelner Agent](../lab01-single-agent/README.md) · **Zurück zu:** [Workshop Home](../../README.md)
+**Vorheriges:** [Labor 01 - Ein Agent](../lab01-single-agent/README.md) · **Zurück zu:** [Workshop Startseite](../../README.md)
 
 ---
 

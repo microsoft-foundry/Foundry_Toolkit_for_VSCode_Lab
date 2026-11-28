@@ -1,32 +1,32 @@
-# الوحدة 2 - إنشاء هيكل مشروع متعدد الوكلاء
+# الوحدة 2 - إعداد مشروع الوكلاء المتعددين
 
 ⏱️ ~5 دقائق
 
-في هذه الوحدة، تستخدم [Foundry Toolkit لـ VS Code](https://aka.ms/foundrytk) لـ **إنشاء هيكل مشروع متعدد الوكلاء**. يقوم المعالج بإنشاء الملفات `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`، وتكوين تصحيح الأخطاء لـ VS Code - حتى تتمكن من التركيز على توصيل سير العمل بأربعة وكلاء في الوحدة 3.
+في هذه الوحدة، تستخدم [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) لـ **إنشاء مشروع وكلاء متعددين**. يقوم المعالج بتوليد `agent.yaml` و `main.py` و `Dockerfile` و `requirements.txt` و `.env`، بالإضافة إلى تكوين تصحيح الأخطاء لـ VS Code - حتى تتمكن من التركيز على ربط سير العمل المكون من 4 وكلاء في الوحدة 3.
 
-> **المفهوم الرئيسي:** الهيكل هو نموذج عمل بوكيل واحد. تقوم باستبدال منطق العنصر النائب بـ `WorkflowBuilder` في الوحدة 3. لا تحتاج إلى كتابة أساسيات المشروع من الصفر.
+> **المفهوم الأساسي:** الهيكل الأولي هو نموذج عملي يحتوي على وكيل واحد. تستبدل المنطق النمطي بالرسم البياني `WorkflowBuilder` في الوحدة 3. لا تحتاج إلى كتابة الكود الأساسي من الصفر.
 
-> **التطبيق المرجعي:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) هو مثال عملي كامل. استخدمه لمقارنة عملك أثناء التقدم.
+> **التنفيذ المرجعي:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) هو مثال عملي كامل. استخدمه للمقارنة مع عملك أثناء التقدم.
 
-### تدفق معالج إنشاء الهيكل
+### سير عمل معالج الهيكل الأولي
 
 ```mermaid
 flowchart LR
-    A[Command Palette: إنشاء وكيل مستضاف جديد] --> B[اللغة: بايثون]
-    B --> C[API Type: واجهة برمجة التطبيقات للرد]
-    C --> D[Template: سير العمل]
-    D --> E[اختر النموذج]
-    E --> F[مجلد مساحة العمل واسم الوكيل]
-    F --> G[المشروع المُنشأ]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
 ## الخطوة 1: افتح معالج إنشاء وكيل مستضاف
 
-1. اضغط `Ctrl+Shift+P` لفتح **لوحة الأوامر**.
-2. اكتب: **Foundry Toolkit: Create a New Hosted Agent** واختره.
-3. يفتح المعالج على علامة التبويب **تفاصيل الوكيل**.
+1. اضغط على `Ctrl+Shift+P` لفتح **لوحة الأوامر**.
+2. اكتب: **Foundry Toolkit: Create new Hosted Agent** واختره.
+3. يفتح المعالج على علامة تبويب **تفاصيل الوكيل**.
 
 > **بديل:** انقر على أيقونة **Foundry Toolkit** في شريط النشاط → انقر على أيقونة **+** بجانب **الوكلاء المستضافين** → **إنشاء وكيل مستضاف جديد**.
 
@@ -34,38 +34,38 @@ flowchart LR
 
 ## الخطوة 2: اختر الإعدادات
 
-![إنشاء وكيل مستضاف من نموذج - علامة تبويب تفاصيل الوكيل مع اختيار قالب Workflows](../../../../../translated_images/ar/02-scaffold-wizard-details.af4798708b4a87f4.webp)
+![إنشاء وكيل مستضاف من العينة - علامة تبويب تفاصيل الوكيل مع اختيار قالب سير العمل](../../../../../translated_images/ar/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. في قسم التنقل/الخيارات الأيسر اختر التالي:
+1. في قسم التنقل/الخيارات على اليسار اختر ما يلي:
 
-| القائمة | الاختيار | ملاحظات |
+| القائمة | الاختيار | الملاحظات |
 |--------|-----------|-------|
-| **اللغة** | Python | .NET (#C) مدعومة أيضًا |
-| **الإطار** | Agent Framework | يوفر `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **نوع API** | Response API | `POST /responses` - التاريخ المدار من المنصة، دعم البث |
-| **القالب** | **Workflows** | يعالج الطلبات عبر عدة وكلاء متتالية |
+| **اللغة** | بايثون | يدعم أيضاً C# (.NET) |
+| **الإطار** | إطار العمل الخاص بالوكيل | يوفر `Agent`، `AgentExecutor`، `WorkflowBuilder` |
+| **نوع API** | API الاستجابة | `POST /responses` - سجل تدار بواسطة المنصة، دعم للبث |
+| **القالب** | **سير العمل** | يعالج الطلبات عبر عدة وكلاء بالتتابع |
 
 2. بعد الاختيار، انقر على **التالي**
 
-![إنشاء وكيل مستضاف من نموذج - علامة تبويب الإنشاء تعرض PersonalCareerCopilot كاسم المجلد](../../../../../translated_images/ar/02-scaffold-wizard-create.ae0c285c309698ba.webp)
+![إنشاء وكيل مستضاف من العينة - علامة تبويب الإنشاء مع عرض PersonalCareerCopilot كاسم المجلد](../../../../../translated_images/ar/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. في النافذة التالية، اختر التالي:
+3. في النافذة التالية، اختر ما يلي:
 
-| القائمة | الاختيار | ملاحظات |
+| القائمة | الاختيار | الملاحظات |
 |--------|-----------|-------|
-| **مجلد مساحة العمل** | تصفح إلى المجلد الهدف | مثلا `workshop/lab02-multi-agent/` في هذا المستودع |
+| **مجلد مساحة العمل** | تصفح إلى المجلد الهدف | على سبيل المثال `workshop/lab02-multi-agent/` في هذا المستودع |
 | **اسم الوكيل** | `PersonalCareerCopilot` | هذا يصبح اسم مجلد المشروع |
-| **نشر النموذج** | اختر النموذج المنشور الخاص بك | مثلا `gpt-4.1-mini` من المختبر 01 |
+| **نشر النموذج** | اختر النموذج المنشور الخاص بك | على سبيل المثال `gpt-4.1-mini` من المختبر 01 |
 
-4. انقر على **إنشاء** لإنشاء هيكل المشروع. يقوم VS Code بإنشاء الملفات وفتح المجلد.
+4. انقر على **إنشاء** لإعداد المشروع. يقوم VS Code بإنشاء الملفات وفتح المجلد.
 
-> **نصيحة:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) يوازن جيدًا بين السرعة والجودة لتطوير متعدد الوكلاء.
+> **نصيحة:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) يوزّن بين السرعة والجودة بشكل جيد لتطوير الوكلاء المتعددين.
 
 ---
 
 ## الخطوة 3: تفقد المشروع المنشأ
 
-بعد الانتهاء من إنشاء الهيكل، تأكد من وجود هذه الملفات في المستكشف (`Ctrl+Shift+E`):
+بعد إكمال البناء، تحقق من ظهور هذه الملفات في المستكشف (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **مهم:** افتح هذا المجلد المنشأ مباشرة في VS Code حتى تطبق ملفات `.vscode/launch.json` و `tasks.json` بشكل صحيح عند تصحيح الأخطاء بالضغط على F5.
+> **مهم:** افتح هذا المجلد المنشأ مباشرة في VS Code حتى يتم تطبيق `.vscode/launch.json` و `tasks.json` بشكل صحيح لتصحيح الأخطاء باستخدام F5.
 
 ### شرح الملفات الرئيسية
 
 | الملف | الغرض |
 |------|---------|
-| `agent.yaml` | يعلن `kind: hosted`، يربط متغيرات البيئة، يعرف بروتوكول `/responses` |
-| `main.py` | نموذج مبدئي: `FoundryChatClient` → `Agent` → `ResponsesHostServer`. تستبدله بـ 4 وكلاء + `WorkflowBuilder` في الوحدة 3 |
-| `Dockerfile` | `python:3.12-slim`, يثبت `requirements.txt`, يفتح المنفذ 8088، يشغل `python main.py` |
-| `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
+| `agent.yaml` | يعلن `kind: hosted`، يربط متغيرات البيئة، يعرّف بروتوكول `/responses` |
+| `main.py` | نموذج: وكيل واحد `FoundryChatClient` → `Agent` → `ResponsesHostServer`. تستبدل هذا بـ4 وكلاء + `WorkflowBuilder` في الوحدة 3 |
+| `Dockerfile` | `python:3.12-slim`، يثبت `requirements.txt`، يفتح المنفذ 8088، يشغل `python main.py` |
+| `requirements.txt` | `agent-framework-foundry`، `agent-framework-foundry-hosting`، `mcp<2,>=1.24.0`، `debugpy` |
 
-> **مرجع:** انظر إلى [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) و [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) للمحتوى الكامل المنشأ.
+> **مرجع:** انظر [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) و [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) لمحتوى كامل المنشأ.
 
 ---
 
 ### ✅ نقطة تحقق
 
-- [ ] تم الانتهاء من معالج إنشاء الهيكل - مجلد المشروع الجديد ظاهر في المستكشف
-- [ ] جميع الملفات المتوقعة موجودة: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] في `agent.yaml` يظهر `kind: hosted` و `protocol: responses`
-- [ ] في `main.py` تستورد `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] المجلد المنشأ مفتوح كجذر مساحة عمل VS Code
-- [ ] تفهم أن `main.py` هو نموذج مبدئي - يضاف `WorkflowBuilder` في الوحدة 3
+- [ ] تم إنهاء معالج الهيكل الأولي - مجلد المشروع الجديد ظاهر في المستكشف
+- [ ] جميع الملفات المتوقعة موجودة: `agent.yaml`، `main.py`، `Dockerfile`، `requirements.txt`، `.env`
+- [ ] `agent.yaml` يعرض `kind: hosted` و `protocol: responses`
+- [ ] `main.py` يستورد `Agent`، `FoundryChatClient`، `ResponsesHostServer`
+- [ ] تم فتح المجلد المنشأ كمجلد جذر لمساحة عمل VS Code
+- [ ] أنت تفهم أن `main.py` هو نموذج - يتم إضافة `WorkflowBuilder` في الوحدة 3
 
 ---
 
-**السابق:** [01 - فهم بنية متعدد الوكلاء](01-understand-multi-agent.md) · **التالي:** [03 - تكوين الوكلاء والبيئة →](03-configure-agents.md)
+**السابق:** [01 - فهم بنية الوكلاء المتعددين](01-understand-multi-agent.md) · **التالي:** [03 - تكوين الوكلاء والبيئة →](03-configure-agents.md)
 
 ---
 

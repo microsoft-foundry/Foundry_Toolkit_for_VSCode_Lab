@@ -1,39 +1,39 @@
 # Modul 4 - Orchestrierungsmuster
 
-⏱️ ~10 min
+⏱️ ~10 Min
 
-In diesem Modul erkunden Sie die Orchestrierungsmuster, die im Resume Job Fit Evaluator verwendet werden, und lernen, wie Sie den Workflow-Graph lesen, ändern und erweitern können. Das Verständnis dieser Muster ist entscheidend, um Probleme im Datenfluss zu beheben und eigene [Multi-Agenten-Workflows](https://learn.microsoft.com/agent-framework/workflows/) zu erstellen.
+In diesem Modul erkunden Sie die in Resume Job Fit Evaluator verwendeten Orchestrierungsmuster und lernen, wie Sie den Workflow-Graph lesen, modifizieren und erweitern können. Das Verständnis dieser Muster ist entscheidend, um Probleme im Datenfluss zu debuggen und Ihre eigenen [Multi-Agenten-Workflows](https://learn.microsoft.com/agent-framework/workflows/) zu erstellen.
 
 ---
 
 ## Muster 1: Sequenzielle Kette
 
-Das grundlegende Muster im Workflow ist eine **sequenzielle Kette** – die Ausgabe jedes Agenten fließt direkt in den nächsten.
+Das grundlegende Muster im Workflow ist eine **sequenzielle Kette** – die Ausgabe eines Agenten fließt direkt in den nächsten.
 
 ```mermaid
 flowchart LR
-    RP[Lebenslauf-Parser] --> JD[JD-Agent]
-    JD --> MA[Matching-Agent]
-    MA --> GA[Lückenanalysator]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
 Im Code erzeugt jeder `add_edge()`-Aufruf einen Schritt in der Kette:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # ResumeParser Ausgabe → JD Agent
-.add_edge(jd_executor, matching_executor)     # JD Agent Ausgabe → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # MatchingAgent Ausgabe → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Warum sequenziell und nicht Fan-out/Fan-in?** `WorkflowBuilder` verwendet **ODER-Semantik** für eingehende Kanten: Ein nachgelagerter Executor wird ausgelöst, sobald **irgendein** Vorgänger abgeschlossen ist. Wenn `matching_executor` zwei eingehende Kanten hätte (von sowohl `resume_executor` als auch `jd_executor`), würde es zweimal getriggert - einmal wenn ResumeParser fertig ist und nochmals, wenn der JD-Agent fertig ist - wodurch GapAnalyzer ebenfalls zweimal läuft und die Ausgabe zweimal erscheint. Die sequenzielle Pipeline vermeidet dies vollständig.
+> **Warum sequenziell und nicht Fan-out/Fan-in?** `WorkflowBuilder` verwendet **ODER-Semantik** für eingehende Kanten: Ein nachgeschalteter Executor wird ausgelöst, sobald **irgendein** Vorgänger fertig ist. Wenn `matching_executor` zwei eingehende Kanten hätte (von `resume_executor` und `jd_executor`), würde es zweimal ausgelöst – einmal wenn ResumeParser fertig ist und nochmal, wenn JD Agent fertig ist – was dazu führen würde, dass GapAnalyzer auch zweimal läuft und die Ausgabe doppelt erscheint. Die sequenzielle Pipeline vermeidet dies vollständig.
 
 ## Muster 2: Inhaltsweiterleitung
 
-Da `context_mode="last_agent"` bedeutet, dass jeder Executor nur die Ausgabe seines **direkten Vorgängers** sieht, müssen Agenten in einer sequenziellen Kette explizit die Daten weitergeben, die nachgelagerte Agenten benötigen.
+Da `context_mode="last_agent"` bedeutet, dass jeder Executor nur die Ausgabe seines **direkten Vorgängers** sieht, müssen Agenten in der sequenziellen Kette explizit alle Daten weiterreichen, die nachgeschaltete Agenten benötigen.
 
 In diesem Workflow:
-- **ResumeParser** kopiert die JD unverändert in `[JOB DESCRIPTION PASS-THROUGH]` (damit der JD-Agent sie finden kann).
-- **JD Agent** kopiert das `[PARSED RESUME]` unverändert in `[PARSED RESUME PASS-THROUGH]` (damit MatchingAgent beide Profile vergleichen kann).
+- **ResumeParser** kopiert die Stellenbeschreibung wortwörtlich in `[JOB DESCRIPTION PASS-THROUGH]` (damit JD Agent sie finden kann).
+- **JD Agent** kopiert die `[PARSED RESUME]` wortwörtlich in `[PARSED RESUME PASS-THROUGH]` (damit MatchingAgent beide Profile vergleichen kann).
 
 ```
 ResumeParser output
@@ -45,89 +45,89 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Jeder Weiterleitungsabschnitt muss **wortwörtlich** kopiert werden – eine Zusammenfassung oder Paraphrasierung zerstört den nachgelagerten Agenten, der darauf angewiesen ist.
+Jeder Weiterleitungsabschnitt muss **wortwörtlich** kopiert werden – eine Zusammenfassung oder Paraphrase bricht den nachgelagerten Agenten, der darauf angewiesen ist.
 
 ---
 
-## Der vollständige Graph
+## Der komplette Graph
 
-Die Kombination der Muster sequenzielle Kette und Inhaltsweiterleitung ergibt den vollständigen Workflow:
+Die Kombination der Muster der sequenziellen Kette und Inhaltsweiterleitung ergibt den vollständigen Workflow:
 
 ```mermaid
 flowchart LR
-    U[Benutzereingabe] --> RP[Lebenslauf-Parser]
-    RP --> JD[Stellenbeschreibungs-Agent]
-    JD --> MA[Matching-Agent]
-    MA --> GA[Lücken-Analysator + MCP]
-    GA --> O[Endausgabe]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Der Agent Inspector zeigt diese gleiche Graphstruktur, wenn der Agent lokal läuft. Siehe [Modul 5 - Lokal testen](05-test-locally.md) für Screenshots.
+Der Agent Inspector zeigt diese gleiche Graphstruktur, wenn der Agent lokal läuft. Siehe [Modul 5 - Lokal testen](05-test-locally.md) für Bildschirmfotos.
 
 ---
 
 ## Den WorkflowBuilder-Code lesen
 
-Die komplette `create_workflow()`-Funktion befindet sich in [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Die drei `add_edge()`-Aufrufe bauen die sequenzielle Pipeline:
+Der Workflow-Graph wird in der Funktion `main()` in [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) erstellt. Die drei `add_edge()`-Aufrufe bauen die sequenzielle Pipeline auf:
 
 | # | Kante | Effekt |
-|---|-------|---------|
+|---|-------|--------|
 | 1 | `resume_executor → jd_executor` | JD Agent erhält `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent erhält `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer erhält Fit-Report + Lückenliste |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer erhält Fit-Bericht + Lückentabelle |
 
 ---
 
-## Graph ändern
+## Den Graph modifizieren
 
-### Einen neuen Agenten hinzufügen
+### Einen neuen Agent hinzufügen
 
-Um einen fünften Agenten hinzuzufügen (z. B. einen **InterviewPrepAgent** nach GapAnalyzer):
+Um einen fünften Agenten hinzuzufügen (z.B. einen **InterviewPrepAgent** nach GapAnalyzer):
 
-1. Definieren Sie eine Konstante `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Erstellen Sie `Agent`- und `AgentExecutor`-Objekte (gleiches Muster wie bei den vorhandenen vieren).
+1. Definieren Sie eine `INTERVIEW_PREP_INSTRUCTIONS`-Konstante.
+2. Erstellen Sie `Agent` + `AgentExecutor` Objekte (gleiches Muster wie bei den vorhandenen vier).
 3. Fügen Sie `.add_edge(gap_executor, interview_exec)` in `WorkflowBuilder` hinzu.
 4. Aktualisieren Sie `output_executors=[interview_exec]`.
 
-> **Wichtig:** `start_executor` ist der einzige Agent, der rohe Benutzereingaben erhält. Alle anderen Agenten erhalten die Ausgabe von ihrer vorgelagerten Kante.
+> **Wichtig:** `start_executor` ist der einzige Agent, der rohe Benutzereingaben erhält. Alle anderen Agenten erhalten Ausgabe von ihrer vorgelagerten Kante.
 
 ---
 
-## Häufige Graph-Fehler
+## Häufige Fehler im Graph
 
 | Fehler | Symptom | Lösung |
 |--------|---------|--------|
-| Fehlende Kante zu `output_executors` | Agent läuft, Ausgabe ist aber leer | Sicherstellen, dass ein Pfad von `start_executor` zu jedem Agenten in `output_executors` existiert |
-| Zyklische Abhängigkeit | Endlosschleife oder Zeitüberschreitung | Prüfen, dass kein Agent rückwärts auf einen vorgelagerten Agenten verweist |
+| Fehlende Kante zu `output_executors` | Agent läuft, aber Ausgabe ist leer | Sicherstellen, dass ein Pfad von `start_executor` zu jedem Agent in `output_executors` besteht |
+| Zyklische Abhängigkeit | Endlosschleife oder Timeout | Prüfen, dass kein Agent einem vorgelagerten Agenten zurückspeist |
 | Agent in `output_executors` ohne eingehende Kante | Leere Ausgabe | Mindestens eine `add_edge(source, that_agent)` hinzufügen |
-| Mehrere `output_executors` ohne Fan-in | Ausgabe enthält nur die Antwort eines Agenten | Einen einzelnen Ausgabeagenten verwenden, der aggregiert, oder mehrere Ausgaben akzeptieren |
-| Fehlender `start_executor` | `ValueError` zur Build-Zeit | Immer `start_executor` in `WorkflowBuilder()` angeben |
+| Mehrere `output_executors` ohne Fan-in | Ausgabe enthält nur Antwort eines Agenten | Einen einzelnen Ausgabeagenten verwenden, der aggregiert, oder mehrere Ausgaben akzeptieren |
+| Fehlende `start_executor` | `ValueError` zur Erstellungszeit | Immer `start_executor` in `WorkflowBuilder()` angeben |
 
 ---
 
-## Graph debuggen
+## Den Graph debuggen
 
 ### Agent Inspector verwenden
 
-1. Starten Sie den Agenten lokal mit F5.
-2. Öffnen Sie den Agent Inspector (`Strg+Shift+P` → **Foundry Toolkit: Agent Inspector öffnen**).
+1. Starten Sie den Agent lokal mit F5.
+2. Öffnen Sie Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
 3. Senden Sie eine Testnachricht.
-4. Im Antwortbereich des Inspectors sehen Sie die **Streaming-Ausgabe** - sie zeigt die Beiträge jedes Agenten in der Reihenfolge.
+4. Im Antwortbereich des Inspectors suchen Sie nach der **Streaming-Ausgabe** – sie zeigt die Beiträge jedes Agenten nacheinander.
 
 
 ### Logging verwenden
 
-Fügen Sie Logging in `main.py` hinzu, um den Datenfluss nachzuverfolgen:
+Fügen Sie Logging zu `main.py` hinzu, um den Datenfluss nachzuvollziehen:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# In main(), nach dem Erstellen des Workflows:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Die Server-Logs zeigen die Reihenfolge der Agent-Ausführung und die MCP-Tool-Aufrufe:
+Die Server-Logs zeigen die Ausführungsreihenfolge der Agenten und MCP-Tool-Aufrufe:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -145,10 +145,10 @@ POST https://learn.microsoft.com/api/mcp → 200
 ### Checkpoint
 
 - [ ] Sie können die zwei Orchestrierungsmuster im Workflow identifizieren: sequenzielle Kette und Inhaltsweiterleitung
-- [ ] Sie verstehen, warum `context_mode="last_agent"` eine explizite Weiterleitung der Daten zwischen den Agenten erfordert
-- [ ] Sie können den `WorkflowBuilder`-Code lesen und jeden `add_edge()`-Aufruf dem visuellen Graph zuordnen
-- [ ] Sie wissen, wie man einen neuen Agenten ans Ende der Pipeline hinzufügt
-- [ ] Sie können häufige Graph-Fehler und ihre Symptome erkennen
+- [ ] Sie verstehen, warum `context_mode="last_agent"` eine explizite Datenweiterleitung zwischen Agenten erfordert
+- [ ] Sie können den `WorkflowBuilder`-Code lesen und jeden `add_edge()`-Aufruf der visuellen Graphik zuordnen
+- [ ] Sie wissen, wie man einen neuen Agent am Ende der Pipeline hinzufügt
+- [ ] Sie können häufige Fehler im Graph und deren Symptome erkennen
 
 ---
 

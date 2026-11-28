@@ -1,71 +1,71 @@
-# Modul 2 - Das Multi-Agenten-Projekt aufsetzen
+# Modul 2 - Das Multi-Agenten-Projekt Grundgerüst erstellen
 
 ⏱️ ~5 min
 
-In diesem Modul verwendest du das [Foundry Toolkit für VS Code](https://aka.ms/foundrytk), um **ein Multi-Agenten-Projekt zu erstellen**. Der Assistent generiert `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` und die VS Code-Debug-Konfiguration – sodass du dich im Modul 3 auf die Vernetzung des Workflows mit 4 Agenten konzentrieren kannst.
+In diesem Modul verwendest du [Foundry Toolkit for VS Code](https://aka.ms/foundrytk), um **ein Multi-Agenten-Projekt zu erstellen**. Der Assistent generiert `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` und die VS Code Debug-Konfiguration - sodass du dich in Modul 3 auf die Verkettung des 4-Agenten-Workflows konzentrieren kannst.
 
-> **Wichtiges Konzept:** Das Gerüst ist eine funktionierende Vorlage mit einem Agenten. Du ersetzt die Platzhalter-Logik durch den `WorkflowBuilder`-Graphen im Modul 3. Du musst den Boilerplate-Code nicht von Grund auf neu schreiben.
+> **Schlüsselkonzept:** Das Grundgerüst ist ein funktionierender Platzhalter mit einem Agenten. Du ersetzt die Platzhalterlogik in Modul 3 durch den `WorkflowBuilder` Graph. Du schreibst die Boilerplate nicht von Grund auf neu.
 
-> **Referenzimplementation:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ist ein vollständiges, funktionierendes Beispiel. Nutze es, um deine Arbeit während des Fortschreitens zu vergleichen.
+> **Referenzimplementierung:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ist ein vollständiges funktionierendes Beispiel. Nutze es zum Vergleich deiner Arbeit.
 
 ### Ablauf des Scaffold-Assistenten
 
 ```mermaid
 flowchart LR
-    A[Command Palette: Neuer gehosteter Agent erstellen] --> B[Sprache: Python]
-    B --> C[API Type: Antwort-API]
-    C --> D[Template: Arbeitsabläufe]
-    D --> E[Modell auswählen]
-    E --> F[Arbeitsbereichsordner und Agentenname]
-    F --> G[Generiertes Projekt]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
-## Schritt 1: Öffne den Assistenten „Hosted Agent erstellen“
+## Schritt 1: Öffne den Create Hosted Agent Assistenten
 
 1. Drücke `Ctrl+Shift+P`, um die **Befehls-Palette** zu öffnen.
-2. Tippe: **Foundry Toolkit: Create a New Hosted Agent** und wähle diesen Eintrag aus.
-3. Der Assistent öffnet sich auf der Registerkarte **Agent Details**.
+2. Tippe: **Foundry Toolkit: Create new Hosted Agent** und wähle es aus.
+3. Der Assistent öffnet sich im Reiter **Agent Details**.
 
-> **Alternative:** Klicke auf das **Foundry Toolkit**-Symbol in der Aktivitätsleiste → klicke auf das **+**-Symbol neben **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternative:** Klicke auf das **Foundry Toolkit** Symbol in der Aktivitätsleiste → klicke auf das **+** Symbol neben **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
-## Schritt 2: Einstellungen wählen
+## Schritt 2: Wähle die Einstellungen aus
 
 ![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/de/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
 1. Wähle im linken Navigations-/Optionsbereich Folgendes aus:
 
-| Menü | Auswahl | Anmerkungen |
+| Menü | Auswahl | Hinweise |
 |--------|-----------|-------|
-| **Sprache** | Python | C# (.NET) wird ebenfalls unterstützt |
-| **Framework** | Agent Framework | Stellt `Agent`, `AgentExecutor`, `WorkflowBuilder` bereit |
-| **API-Typ** | Response API | `POST /responses` – Plattformverwaltete Historie, Streaming-Unterstützung |
-| **Vorlage** | **Workflows** | Verarbeitet Anfragen sequentiell durch mehrere Agenten |
+| **Sprache** | Python | C# (.NET) wird auch unterstützt |
+| **Framework** | Agent Framework | Bietet `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **API-Typ** | Response API | `POST /responses` - Plattformverwaltete Historie, Streaming-Unterstützung |
+| **Vorlage** | **Workflows** | Verarbeitet Anfragen nacheinander durch mehrere Agenten |
 
-2. Nachdem du die Auswahl getroffen hast, klicke auf **Next**
+2. Nach Auswahl klicke auf **Next**
 
 ![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/de/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
 3. Im nächsten Fenster wähle Folgendes:
 
-| Menü | Auswahl | Anmerkungen |
+| Menü | Auswahl | Hinweise |
 |--------|-----------|-------|
-| **Arbeitsbereichsordner** | Navigiere zum Zielordner | z. B. `workshop/lab02-multi-agent/` in diesem Repository |
-| **Agentenname** | `PersonalCareerCopilot` | Wird zum Projektordnernamen |
-| **Modelldeployment** | Wähle dein bereitgestelltes Modell | z. B. `gpt-4.1-mini` aus Lab 01 |
+| **Arbeitsbereichsordner** | Navigiere zum Zielordner | z.B. `workshop/lab02-multi-agent/` in diesem Repo |
+| **Agentenname** | `PersonalCareerCopilot` | Dieser wird zum Projektordnernamen |
+| **Modellbereitstellung** | Wähle dein bereitgestelltes Modell aus | z.B. `gpt-4.1-mini` aus Labor 01 |
 
-4. Klicke auf **Create**, um das Projekt zu scaffolden. VS Code generiert die Dateien und öffnet den Ordner.
+4. Klicke auf **Create**, um das Projekt zu erstellen. VS Code generiert die Dateien und öffnet den Ordner.
 
 > **Tipp:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) bietet eine gute Balance zwischen Geschwindigkeit und Qualität für die Multi-Agenten-Entwicklung.
 
 ---
 
-## Schritt 3: Betrachte das generierte Projekt
+## Schritt 3: Untersuche das generierte Projekt
 
-Überprüfe nach Abschluss des Scaffoldings, ob du diese Dateien im Explorer (`Ctrl+Shift+E`) sehen kannst:
+Nach Abschluss der Gerüsterstellung überprüfe, dass du diese Dateien im Explorer (`Ctrl+Shift+E`) siehst:
 
 ```
 📂 <your-agent-name>/
@@ -81,14 +81,14 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Wichtig:** Öffne diesen scaffoldeten Ordner direkt in VS Code, damit `.vscode/launch.json` und `tasks.json` korrekt für das F5-Debugging angewendet werden.
+> **Wichtig:** Öffne diesen gestalteten Ordner direkt in VS Code, damit `.vscode/launch.json` und `tasks.json` korrekt für das F5-Debugging angewendet werden.
 
 ### Wichtige Dateien erklärt
 
 | Datei | Zweck |
 |------|---------|
-| `agent.yaml` | Deklariert `kind: hosted`, mappt Umgebungsvariablen, definiert das `/responses`-Protokoll |
-| `main.py` | Stub: ein `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Dies ersetzt du im Modul 3 durch 4 Agenten + `WorkflowBuilder` |
+| `agent.yaml` | Deklariert `kind: hosted`, ordnet Umgebungsvariablen zu, definiert das `/responses` Protokoll |
+| `main.py` | Platzhalter: ein `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Du ersetzt dies durch 4 Agenten + `WorkflowBuilder` in Modul 3 |
 | `Dockerfile` | `python:3.12-slim`, installiert `requirements.txt`, öffnet Port 8088, führt `python main.py` aus |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
@@ -96,18 +96,18 @@ flowchart LR
 
 ---
 
-### ✅ Checkpunkt
+### ✅ Kontrollpunkt
 
-- [ ] Scaffold-Assistent abgeschlossen – neuer Projektordner ist im Explorer sichtbar
+- [ ] Scaffold-Assistent abgeschlossen - neuer Projektordner ist im Explorer sichtbar
 - [ ] Alle erwarteten Dateien vorhanden: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` zeigt `kind: hosted` und `protocol: responses`
 - [ ] `main.py` importiert `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Scaffoldeter Ordner ist als VS Code-Arbeitsbereichs-Root geöffnet
-- [ ] Du verstehst, dass `main.py` ein Stub ist – `WorkflowBuilder` wird in Modul 3 ergänzt
+- [ ] Der gestaltete Ordner ist als VS Code Arbeitsbereichs-Root geöffnet
+- [ ] Du verstehst, dass `main.py` ein Platzhalter ist - `WorkflowBuilder` wird in Modul 3 hinzugefügt
 
 ---
 
-**Vorheriges:** [01 - Multi-Agenten-Architektur verstehen](01-understand-multi-agent.md) · **Nächstes:** [03 - Agenten & Umgebung konfigurieren →](03-configure-agents.md)
+**Zurück:** [01 - Multi-Agenten-Architektur verstehen](01-understand-multi-agent.md) · **Weiter:** [03 - Agenten & Umgebung konfigurieren →](03-configure-agents.md)
 
 ---
 
