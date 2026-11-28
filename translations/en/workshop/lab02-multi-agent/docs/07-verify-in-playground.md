@@ -25,23 +25,23 @@ A misconfigured env var, RBAC issue, or blocked MCP outbound call would show up 
 ### Step 1: Navigate to your hosted agent
 
 1. Click the **Foundry Toolkit** icon in the Activity Bar.
-2. Expand your project → **Hosted Agents (Preview)** → find your agent.
+2. Under **My Resources**, click **Agents** under your project, select the **Hosted Agent** tab, then click your agent.
 
-![Foundry Toolkit sidebar showing Hosted Agents (Preview) with resume-job-fit-evaluator and its deployed versions](../../../../../translated_images/en/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
+![Hosted agent playground open on the Details tab, with Deployment Details showing the agent's status as Running](../../../../../translated_images/en/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
 
-### Step 2: Select a version
+### Step 2: Check the status
 
-1. Click on the agent to expand its versions.
-2. Click `v1` → verify status is **active** (the sidebar may display "Running" or "Started" - both indicate the same ready state).
+1. The **Hosted agent playground** opens on the **Details** tab.
+2. Verify **Deployment Details** → **Status** is **active** (VS Code may display "Running" or "Started" - both indicate the same ready state).
 
 ### Step 3: Open the Playground
 
-1. Click **Playground** (or right-click version → **Open in Playground**).
+1. Click the **Playground** tab.
 2. A chat window opens in a VS Code tab.
 
 ### Step 4: Run your smoke tests
 
-Use the same 3 tests from [Module 5](05-test-locally.md). Type each message in the Playground input box and press **Send** (or **Enter**).
+Run the three smoke tests below - Test 1 reuses the prompt from [Module 5](05-test-locally.md). Type each message in the Playground input box and press **Send** (or **Enter**).
 
 #### Test 1 - Full resume + JD (standard flow)
 
@@ -116,13 +116,13 @@ The [Foundry Portal](https://ai.azure.com) provides a web-based playground usefu
 ### Step 3: Find your deployed agent
 
 1. In the project left navigation, click **Build** → **Agents** (or look for the **Agents** section).
-2. You should see a list of agents. Find your deployed agent (e.g., `resume-job-fit-evaluator`).
+2. You should see a list of agents. Find your deployed agent (e.g., `PersonalCareerCopilot`).
 3. Click on the agent name to open its detail page.
 
 ### Step 4: Open the Playground
 
-1. On the agent detail page, look at the top toolbar.
-2. Click **Open in playground** (or **Try in playground**).
+1. The agent page opens on the **Playground** tab. If another tab is selected, click **Playground**.
+2. Check that the **Version** selector at the top right shows the version you just deployed.
 3. A chat interface opens.
 
 ### Step 5: Run the same smoke tests

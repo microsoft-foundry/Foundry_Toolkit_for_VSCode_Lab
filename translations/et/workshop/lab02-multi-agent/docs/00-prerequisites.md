@@ -1,62 +1,62 @@
 # Moodul 0 - Sissejuhatus
 
-⏱️ ~10 min
+⏱️ ~10 minutit
 
 > [!WARNING]
-> **Eelvaade ja piirangud:** [Hostitud agendid](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) on praegu **avalikus eelvaates** - ei soovitata tootmiskoormuste jaoks. Mõned selles töötoas näidatud funktsioonid võivad teenuse GA-sse liikumisel muutuda.
+> **Eelvaade & piirangud:** [Hostitud agendid](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) on hetkel **avalikus eelvaates** – tootmiskoormuste jaoks ei soovitata. Mõned selle töötoa funktsioonid võivad muutuda teenuse GA-sse jõudes.
 
 ## Mida sa ehitad
 
-Selles laboris laiendad ühe agendi oskusi Lab 01-st, et ehitada **mitme agendi töövoog** - CV → töö sobivuse hindaja.
+Selles laboris laiendad üheaagentsete oskuste komplekti Laborist 01 ja ehitad **mitmeagendilise töövoo** - CV → Töö sobivuse hindaja.
 
-Sa kleebid sisse **CV** ja **töö kirjelduse**. Neli spetsialiseerunud agenti töötlevad sisendi järjestikku, seejärel tagastavad:
-- Sobivuse skoori (0–100 koos skoori jaotusega)
+Sisestad **cv** ja **töö kirjelduse**. Neli spetsialiseerunud agenti töötlevad sisendi järjestikku ning tagastavad:
+- Sobivuse skoori (0–100 skooride jaotusega)
 - Oskuste ja sertifikaatide puuduste nimekirja
-- Isikupärastatud õpiraja koos tegelike Microsoft Learn linkidega iga puuduse kohta
+- Isikupärastatud õppeplaani koos tegelike Microsoft Learni linkidega iga puuduse jaoks
 
 **Töövoog kasutab:**
-- **Microsoft Agent Framework** - `WorkflowBuilder` järjestikuseks torujuhtme orkestreerimiseks
-- **Foundry tööriistakomplekti VS Code jaoks** - skafsolderimine, kohalik testimine, juurutamine
-- **Tehisintellekti mudelit** (nt `gpt-4.1-mini`) - kasutavad kõik neli agenti
-- **Microsoft Learn MCP serverit** - pakub tegelikke õppematerjalide linke iga oskuse puuduse jaoks
+- **Microsoft Agent Frameworki** - `WorkflowBuilder` järjestikuse torujuhtme orkestreerimiseks
+- **Foundry VS Code tööriistakomplekti** - karkass, kohalik testimine, juurutamine
+- **Tehisintellekti mudelit** (nt `gpt-4.1-mini`) - mida kasutavad kõik neli agenti
+- **Microsoft Learni MCP serverit** - pakub tegelikke õppematerjalide linke iga oskuspuuduse jaoks
 
 ---
 
 ## Vali oma tee
 
-> ⚠️ **Jätka samal teel, mida kasutasid laboris 01.**
+> ⚠️ **Jätka sama teega, mida kasutasid Laboris 01.**
 
 <details open>
-<summary><strong>🅰️ Tee A - Azure pilv (vajab Azure tellimust)</strong></summary>
+<summary><strong>🅰️ Tee A - Azure pilv (nõuab Azure tellimust)</strong></summary>
 
-| | Detailid |
+| | Üksikasjad |
 |---|---|
-| **Kellele mõeldud?** | Sa lõpetasid Lab 01 Azure tellimuse kasutades |
-| **Mudeli tüüp** | Azure OpenAI kaudu Foundry (nt `gpt-4.1-mini`) |
-| **Käsitletud moodulid** | Kõik moodulid (00–09) |
-| **Kas pilve juurutada?** | ✅ Jah - täiemahuline lõpp-lõpuks juurutus |
+| **Kellele see on?** | Sa lõpetasid Labor 01 kasutades Azure tellimust |
+| **Mudelitüüp** | Azure OpenAI läbi Foundry (nt `gpt-4.1-mini`) |
+| **Kaetud moodulid** | Kõik moodulid (00–09) |
+| **Juurutada pilve?** | ✅ Jah – täielik otsast lõpuni juurutus |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Tee B - Foundry lokaalne (Azure tellimust ei ole vaja)</strong></summary>
+<summary><strong>🅱️ Tee B - Foundry kohalik (ei nõua Azure tellimust)</strong></summary>
 
-| | Detailid |
+| | Üksikasjad |
 |---|---|
-| **Kellele mõeldud?** | Sa lõpetasid Lab 01 Foundry lokal kasutades |
-| **Mudeli tüüp** | Foundry lokaalne (tasuta, töötab su masinas) |
-| **Käsitletud moodulid** | Moodulid 00–05 (vaata üle 06–07 - juurutus & pilve kontroll) |
-| **Kas pilve juurutada?** | ❌ Ei - ainult kohalik testimine Agent Inspectoriga |
+| **Kellele see on?** | Sa lõpetasid Labor 01 kasutades Foundry Kohalikku |
+| **Mudelitüüp** | Foundry Kohalik (tasuta, jookseb su masina peal) |
+| **Kaetud moodulid** | Moodulid 00–05 (vahele jätta 06–07 - juurutamine ja pilvekinnitamine) |
+| **Juurutada pilve?** | ❌ Ei – ainult kohalik testimine Agent Inspectori kaudu |
 
 </details>
 
 ---
 
-## Kontrolli Lab 01
+## Labor 01 kontroll
 
-Lab 02 tugineb otseselt Lab 01-le. Lõpeta Lab 01 enne siin alustamist.
+Labor 02 ehitab otseselt Labor 01 peale. Enne alustamist lõpeta Labor 01.
 
-Pole veel Lab 01 teinud? Alusta siit: [Lab 01 - Sissejuhatus](../../lab01-single-agent/docs/00-prerequisites.md)
+Pole veel Labor 01 lõpetanud? Alusta siit: [Labor 01 - Sissejuhatus](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
 <summary><strong>🅰️ Tee A - Azure pilv</strong></summary>
@@ -65,27 +65,27 @@ Pole veel Lab 01 teinud? Alusta siit: [Lab 01 - Sissejuhatus](../../lab01-single
 az account show --query "{name:name, id:id}" --output table
 ```
 
-Kui see ebaõnnestub, käivita `az login`. Seejärel kontrolli VS Code:
+Kui see ebaõnnestub, käivita `az login`. Seejärel kontrolli VS Code’is:
 
-1. `Ctrl+Shift+P` → kirjuta **Foundry Toolkit** → veendu, et käsud ilmuvad.
-2. Klõpsa **Foundry Toolkit** ikoonile → su projekt ja juurutatud mudel näitavad **Õnnestus**.
+1. `Ctrl+Shift+P` → tipi **Foundry Toolkit** → kinnita, et käsud kuvatakse.
+2. Klõpsa **Foundry Toolkit** ikoonile → su projekt ja juurutatud mudel näitab **On õnnestunud**.
 
-![Foundry Toolkit külgriba, mis näitab OMA RESSURSSE sektsiooni projektivahetusakna avatud olekus](../../../../../translated_images/et/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit külgriba näitab projekti Minu Ressursside all, avatud projekti vahetamise / loomise valija](../../../../../translated_images/et/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Sa määrasid endale Lab 01-s **Foundry kasutaja** rolli. Kui vajad uuesti määramist, vaata [Lab 01, Moodul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). See roll kandis varem nime **Azure AI User** - samad õigused.
+> **RBAC:** Sa määrasid Laboris 01 **Foundry Kasutaja** rolli. Kui vajad rolli uuesti määramist, vaata [Labor 01, Moodul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Roll kandis varem nime **Azure AI Kasutaja** – samad õigused.
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Tee B - Foundry lokaalne</strong></summary>
+<summary><strong>🅱️ Tee B - Foundry kohalik</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
 ```
 
-Oodatav: `StatusCode: 200`. Kui ei, taaskäivita Foundry Local Foundry Toolkit külgribalt.
+Oodatav: `StatusCode: 200`. Kui ei, taaskäivita Foundry Kohalik Foundry Toolkit külgribalt.
 
-> Kõik tuletised töötavad su masinas. Ainuke väljuv päring on MCP tööriistale aadressil `https://learn.microsoft.com/api/mcp`.
+> Kõik inferentsid töötavad su masinas. Ainuke väljaminev kõne on MCP tööriistale aadressile `https://learn.microsoft.com/api/mcp`.
 
 </details>
 
@@ -93,12 +93,12 @@ Oodatav: `StatusCode: 200`. Kui ei, taaskäivita Foundry Local Foundry Toolkit k
 
 ## Mis on uut laboris 02
 
-| | Lab 01 | Lab 02 |
+| | Labor 01 | Labor 02 |
 |--|--------|--------|
 | Agendid | 1 | 4 (järjestatud WorkflowBuilderiga) |
-| Skafoldi mall | Põhiline - Agent Framework | Töövood - Agent Framework |
+| Karkassimall | Põhiline - Agent Framework | Töövood - Agent Framework |
 | Uus pakett | - | `mcp` |
-| Orkestreerimine | Üks vestlusagent | Järjestikune torujuhe (WorkflowBuilder) |
+| Orkestreerimine | Üks vestlusagent | Järjestikune torujuhtme orkestreerimine (WorkflowBuilder) |
 | Uus tööriist | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---

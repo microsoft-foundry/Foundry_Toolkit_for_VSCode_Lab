@@ -2,18 +2,18 @@
 
 ⏱️ ~5 min
 
-**Congratulations!** You don build, test, an (if na Path A) deploy multi-agent workflow wey use Microsoft Foundry an di Foundry Toolkit for VS Code.
+**Congrats!** You don build, test, and (if you dey for Path A) deploy multi-agent workflow wey use Microsoft Foundry and Foundry Toolkit for VS Code.
 
 ---
 
 ## Wetin you build
 
-Di **Resume → Job Fit Evaluator** - na multi-agent hosted workflow wey:
+The **Resume → Job Fit Evaluator** - na multi-agent hosted workflow wey:
 - Dey receive resume + job description via HTTP (`POST /responses`)
-- Dey run four specialized agents one after di oda - each agent dey pass di data wey im successor need
-- Dey return fit score (0–100 wit breakdown), skill an certification gap list, plus personalized learning roadmap wit real Microsoft Learn links for each gap
-- Dey call Microsoft Learn MCP server (`https://learn.microsoft.com/api/mcp`) to fetch official learning resources for each skill gap wey dem find
-- Dey run as one single containerized hosted agent for Microsoft Foundry Agent Service
+- Dey run four specialized agents one after another - each agent dey pass the data wey the next agent need
+- Dey return fit score (0–100 with breakdown), skill and certification gap list, plus personalized learning roadmap with beta Microsoft Learn links for each gap
+- Dey call Microsoft Learn MCP server (`https://learn.microsoft.com/api/mcp`) to collect official learning resources for each skill gap we dem identify
+- Dey run as one containerized hosted agent in Microsoft Foundry Agent Service
 
 ---
 
@@ -21,13 +21,13 @@ Di **Resume → Job Fit Evaluator** - na multi-agent hosted workflow wey:
 
 | Concept | Wetin you practice |
 |---------|-------------------|
-| **Multi-agent orchestration** | `WorkflowBuilder` sequential pipeline wit `add_edge()` |
-| **Agent specialization** | Four focused agents do pass one general-purpose agent |
-| **Content Router pattern** | ResumeParser still dey act as router - e dey keep di JD text inside `[JOB DESCRIPTION PASS-THROUGH]` section so downstream agents fit access am (dis na because `context_mode="last_agent"` mean sey only di `start_executor` go see di raw user message) |
-| **Content Relay pattern** | JD Agent dey relay `[PARSED RESUME PASS-THROUGH]` forward so MatchingAgent go get both profiles; e dey avoid di OR-semantics double-trigger wey fan-in graphs cause |
-| **MCP tool integration** | `@tool` + `streamable_http_client` wey dey call external MCP server |
+| **Multi-agent orchestration** | `WorkflowBuilder` pipeline wey run sequentially with `add_edge()` |
+| **Agent specialization** | Four focused agents pass one general-purpose agent |
+| **Content Router pattern** | ResumeParser dey work as router too - e dey keep JD text for inside `[JOB DESCRIPTION PASS-THROUGH]` section so downstream agents fit access am (e necessary because `context_mode="last_agent"` mean say only `start_executor` go fit see raw user message) |
+| **Content Relay pattern** | JD Agent dey pass `[PARSED RESUME PASS-THROUGH]` go forward so MatchingAgent go get both profiles; e avoid the OR-semantics double-trigger way fan-in graphs fit cause |
+| **MCP tool integration** | `@tool` + `streamable_http_client` dey call external MCP server |
 | **Hosted Agent lifecycle** | Scaffold → Configure → Test locally → Deploy → Verify for cloud |
-| **`context_mode="last_agent"`** | Each executor dey see only wetin im direct predecessor output |
+| **`context_mode="last_agent"`** | Each executor dey see only the output of the agent wey come before am |
 | **Foundry Toolkit workflow** | Scaffold wizard, Agent Inspector, Workflow Visualizer, one-click deploy |
 
 ---
@@ -37,25 +37,25 @@ Di **Resume → Job Fit Evaluator** - na multi-agent hosted workflow wey:
 <details open>
 <summary><strong>🅰️ Path A - Foundry subscription</strong></summary>
 
-- [x] Verify Lab 01 setup: project, model, an RBAC still dey active
-- [x] Scaffold multi-agent project wey use di Workflows template
+- [x] Verify Lab 01 setup: project, model, and RBAC still dey active
+- [x] Scaffolded multi-agent project using Workflows template
 - [x] Write four agent instruction sets (ResumeParser, JD Agent, MatchingAgent, GapAnalyzer)
-- [x] Integrate Microsoft Learn MCP tool wit `streamable_http_client`
-- [x] Wire di workflow graph wit `WorkflowBuilder` (sequential pipeline wit content relay)
-- [x] Test locally wit 3 smoke tests (Agent Inspector) - fit score, gap cards, an MCP URLs
+- [x] Integrate Microsoft Learn MCP tool with `streamable_http_client`
+- [x] Wire workflow graph with `WorkflowBuilder` (sequential pipeline with content relay)
+- [x] Test locally with 2 smoke tests (Agent Inspector) - fit score, gap cards, MCP URLs
 - [x] Deploy to Foundry Agent Service (containerized, managed identity)
-- [x] Verify for cloud playground - structural consistency wit local results
+- [x] Verify for cloud playground - structural consistency with local results
 
 </details>
 
 <details open>
 <summary><strong>🅱️ Path B - Foundry Local</strong></summary>
 
-- [x] Verify Lab 01 setup: Foundry Local dey run wit one local model
-- [x] Scaffold multi-agent project wey use Workflows template
-- [x] Write four agent instruction sets an wire di workflow graph
+- [x] Verify Lab 01 setup: Foundry Local dey run with local model
+- [x] Scaffolded multi-agent project using Workflows template
+- [x] Write four agent instruction sets and wire workflow graph
 - [x] Integrate Microsoft Learn MCP tool
-- [x] Test locally wit 3 smoke tests
+- [x] Test locally with 2 smoke tests
 - [x] Validate multi-agent behavior without cloud resources
 
 </details>
@@ -69,51 +69,51 @@ Di **Resume → Job Fit Evaluator** - na multi-agent hosted workflow wey:
 | Resource | Description |
 |----------|-------------|
 | **[Agent Framework SDK reference](https://learn.microsoft.com/agent-framework/)** | API docs for `agent-framework-foundry`, `WorkflowBuilder`, `AgentExecutor` |
-| **[MCP tool catalog](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol)** | Connect agents to oda MCP servers (Bing, GitHub, custom) |
-| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Ground agents wit documents, vector stores, or Bing search |
-| **[Foundry Evaluations](https://learn.microsoft.com/azure/foundry/evaluations/overview)** | Measure agent quality at scale wit automated evaluators |
+| **[MCP tool catalog](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol)** | Connect agents to other MCP servers (Bing, GitHub, custom) |
+| **[Add knowledge (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Ground agents with documents, vector stores, or Bing search |
+| **[Foundry Evaluations](https://learn.microsoft.com/azure/foundry/concepts/evaluation-overview)** | Measure agent quality at scale with automated evaluators |
 | **[Microsoft Foundry documentation](https://learn.microsoft.com/azure/foundry/)** | Full platform reference |
-| **[Foundry Toolkit - What's New](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Extension release notes an changelog |
+| **[Foundry Toolkit - What's New](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Extension release notes and changelog |
 
 ### Ideas to extend dis workflow
 
-- **Add 5th agent** - Interview coach wey go produce likely interview questions based on gap report
-- **Add Bing grounding tool** - Make JD Agent fit search for similar job postings to enrich requirements
+- **Add one 5th agent** - Interview coach wey go produce likely interview questions based on the gap report
+- **Add Bing grounding tool** - Make JD Agent fit search for similar job postings to make requirements better
 - **Connect to resume database** - Pull candidate profiles from database via custom `@tool`
-- **Try different models** - Compare `gpt-4.1` vs. `gpt-4.1-mini` for output quality an latency
-- **Evaluate wit Foundry** - Use Evaluations feature to score fit reports against golden dataset
+- **Try different models** - Compare `gpt-4.1` vs. `gpt-4.1-mini` output quality and latency
+- **Evaluate with Foundry** - Use Evaluations feature to score fit reports against golden dataset
 
-### For Path B users: Upgrade go cloud deployment
+### For Path B users: Upgrade to cloud deployment
 
-When you don ready to deploy to cloud:
+When you ready to deploy to cloud:
 1. Get Azure subscription ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
 2. Complete [Lab 01, Module 01](../../lab01-single-agent/docs/01-setup.md) (create project, deploy model, assign RBAC)
-3. Update your `.env` wit Foundry project endpoint an model deployment name
+3. Update your `.env` with Foundry project endpoint and model deployment name
 4. Continue from [Module 06 - Deploy to Foundry](06-deploy-to-foundry.md)
 
 ---
 
 ## Clean up resources (optional)
 
-If you want remove di Azure resources wey you create during dis workshop:
+If you want remove Azure resources wey this workshop create:
 
-### Option 1: Delete di resource group (e go remove everything)
+### Option 1: Delete resource group (go remove everything)
 
 ```powershell
 az group delete --name rg-hosted-agents-workshop --yes --no-wait
 ```
 
-### Option 2: Delete only di hosted agent
+### Option 2: Delete just the hosted agent
 
 1. Open [ai.azure.com](https://ai.azure.com) → your project → **Build** → **Agents**.
 2. Find **PersonalCareerCopilot** → click **Delete**.
 
-### Option 3: Delete di model deployment
+### Option 3: Delete model deployment
 
 1. For Foundry sidebar, expand your project → **Models**.
-2. Right-click di model deployment → **Delete**.
+2. Right-click model deployment → **Delete**.
 
-> **Cost note:** Hosted agents dey cost only when dem dey run. If you stop or delete agent, no charge go dey again. Model deployment fit get small charge for reserved capacity - delete am if you done.
+> **Cost note:** Hosted agents dey only cost money when e dey run. If you stop or delete the agent, you no go dey pay again. Model deployment fit get small charge for reserved capacity - delete am if you don finish.
 
 ---
 

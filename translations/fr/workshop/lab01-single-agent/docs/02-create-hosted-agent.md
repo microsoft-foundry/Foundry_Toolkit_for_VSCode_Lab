@@ -2,25 +2,26 @@
 
 ⏱️ ~5 min
 
-Dans ce module, vous utilisez Foundry Toolkit pour **générer la structure d'un projet d'agent hébergé**. Le générateur crée la structure complète du projet - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, et la configuration de débogage de VS Code - afin que vous puissiez vous concentrer sur la personnalisation du comportement de l’agent.
+Dans ce module, vous utilisez Foundry Toolkit pour **échafauder un projet d'agent hébergé**. L'échafaudage génère la structure complète du projet - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` et la configuration de débogage VS Code - afin que vous puissiez vous concentrer sur la personnalisation du comportement de l'agent.
 
-> **Concept clé :** Le dossier `agent/` dans ce laboratoire est un exemple de ce que Foundry Toolkit génère. Vous ne rédigez pas ces fichiers de zéro.
+> **Concept clé :** Le dossier `agent/` dans ce laboratoire est un exemple de ce que génère Foundry Toolkit. Vous ne devez pas écrire ces fichiers à partir de zéro.
 
-### Processus de l'assistant de génération
+### Flux de l'assistant d'échafaudage
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Sélectionner un modèle"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Projet généré"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## Étape 1 : Ouvrir l’assistant de création d’un agent hébergé
+## Étape 1 : Ouvrir l'assistant Créer un agent hébergé
 
-1. Appuyez sur `Ctrl+Shift+P` pour ouvrir la **palette de commandes**.
+1. Appuyez sur `Ctrl+Shift+P` pour ouvrir la **Palette de commandes**.
 2. Tapez : **Foundry Toolkit : Créer un nouvel agent hébergé** et sélectionnez-le.
 
-> **Alternative : Création via Foundry Portal**
-> Si vous préférez le navigateur, vous pouvez créer votre projet sur [https://ai.azure.com](https://ai.azure.com). Une fois le projet provisionné, revenez à VS Code et utilisez la barre latérale **Foundry Toolkit** pour vous y connecter.
+> **Alternative : Créer via le portail Foundry**
+> Si vous préférez le navigateur, vous pouvez créer votre projet à [https://ai.azure.com](https://ai.azure.com). Une fois le projet provisionné, revenez à VS Code et utilisez la barre latérale **Foundry Toolkit** pour vous y connecter.
 
-> **Alternative :** Cliquez sur l’icône **+** à côté de **Hosted Agents (Preview)** dans la barre latérale Foundry Toolkit.
+> **Alternative :** Dans la barre latérale Foundry Toolkit, survolez **Agents** sous votre projet, cliquez sur l'icône **+**, puis sélectionnez **Créer dans le code avec un modèle**.
 
-## Étape 2 : Choisissez les réglages
+## Étape 2 : Choisir les paramètres
 
-![Créer un agent hébergé à partir d’un exemple - Onglet Détails de l’agent affichant les filtres Langue, Framework, Protocole et Modèle](../../../../../translated_images/fr/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Créer un agent hébergé à partir d'un exemple - Onglet Détails de l'agent affichant les filtres Langage, Framework, Protocole et Modèle](../../../../../translated_images/fr/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. Dans la section de navigation/options à gauche, sélectionnez ce qui suit :
+1. Dans la section navigation/options à gauche, sélectionnez ce qui suit :
 
-| Menu | Sélection | Remarques |
+| Menu | Sélection | Notes |
 |--------|-----------|-------|
-| **Langue** | Python | C# est également pris en charge |
-| **Framework** | Agent Framework | Point de départ simple utilisant le SDK Agent Framework |
-| **Type d’API** | Response API | `POST /responses` – conversationnel, avec historique géré par la plateforme |
-| **Modèle** | Basic | Point de départ simple utilisant le SDK Agent Framework |
+| **Langage** | Python | C# également pris en charge |
+| **Framework** | Agent Framework | Point de départ simple utilisant Agent Framework SDK |
+| **Type d'API** | API de réponse | `POST /responses` - conversationnelle, avec historique géré par la plateforme |
+| **Modèle** | Basique | Point de départ simple utilisant Agent Framework SDK |
 
 2. Une fois sélectionné, cliquez sur **Suivant**
 
-![Créer un agent hébergé - Onglet Créer affichant options Dossier de travail, Nom du dossier et Configuration de l'environnement](../../../../../translated_images/fr/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Créer un agent hébergé - Onglet Créer affichant le dossier de l'espace de travail, le nom du dossier et les options de configuration de l'environnement](../../../../../translated_images/fr/02-create-hosted-agents.9f10b6a566df3053.webp)
 
 3. Dans la fenêtre suivante, sélectionnez ce qui suit :
 
-| Menu | Sélection | Remarques |
+| Menu | Sélection | Notes |
 |--------|-----------|-------|
-| **Dossier de travail** | Choisissez un dossier cible | ex. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` ou un sous-dossier de ce dépôt |
-| **Nom de l’agent** | Entrez un nom | ex. `executive-summary-agent` |
-| **Configuration de l’environnement** | passer la configuration pour l’instant |  |
+| **Dossier de l'espace de travail** | Choisissez un dossier cible | par ex., `/workspace/Foundry_Toolkit_for_VSCode_Lab/` ou un sous-dossier de ce dépôt |
+| **Nom de l'agent** | Entrez un nom | par ex., `executive-summary-agent` |
+| **Configuration de l'environnement** | ignorer la configuration pour l'instant |  |
 
-Cliquez sur **créer** pour créer notre agent. Un nouveau dossier sera créé avec le nom de l’agent hébergé.
+Cliquez sur **créer** pour créer notre agent. Un nouveau dossier sera créé avec le nom de l'agent hébergé.
 
 ## Étape 3 : Inspecter le projet généré
 
-Après la génération, vérifiez que vous voyez ces fichiers dans l’Explorateur (`Ctrl+Shift+E`) :
+Une fois l'échafaudage terminé, vérifiez que vous voyez ces fichiers dans l'Explorateur (`Ctrl+Shift+E`) :
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -88,23 +89,23 @@ Après la génération, vérifiez que vous voyez ces fichiers dans l’Explorate
 
 ### Explication des fichiers clés
 
-| Fichier | Objectif |
+| Fichier | But |
 |------|---------|
 | `agent.yaml` | Déclare l’agent comme `kind: hosted`, mappe les variables d’environnement, définit le protocole `/responses` |
-| `main.py` | Crée un `FoundryChatClient` → l’enveloppe dans un `Agent` avec des instructions → sert via `ResponsesHostServer` sur le port 8088 |
+| `main.py` | Crée un `FoundryChatClient` → l'enveloppe dans un `Agent` avec instructions → sert via `ResponsesHostServer` sur le port 8088 |
 | `Dockerfile` | Utilise `python:3.12-slim`, installe les dépendances, expose le port 8088, exécute `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Important :** Ouvrez directement le dossier de l’agent généré dans VS Code (le dossier `agent/` lui-même) afin que `.vscode/launch.json` et `tasks.json` fonctionnent correctement pour le débogage F5.
+> **Important :** Ouvrez directement le dossier agent échafaudé dans VS Code (le dossier `agent/` lui-même) afin que `.vscode/launch.json` et `tasks.json` fonctionnent correctement pour le débogage F5.
 
 ---
 
-### ✅ Points de contrôle
+### ✅ Point de contrôle
 
-- [ ] Projet généré avec tous les fichiers attendus
-- [ ] `agent.yaml` affiche `kind: hosted` et `protocol: responses`
+- [ ] Projet échafaudé créé avec tous les fichiers attendus
+- [ ] `agent.yaml` montre `kind: hosted` et `protocol: responses`
 - [ ] `main.py` importe `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Le dossier de l’agent est ouvert dans VS Code en tant que racine de l’espace de travail
+- [ ] Le dossier de l’agent est ouvert dans VS Code comme racine de l’espace de travail
 
 ---
 

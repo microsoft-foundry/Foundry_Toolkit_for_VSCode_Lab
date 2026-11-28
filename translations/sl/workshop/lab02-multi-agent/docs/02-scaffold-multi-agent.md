@@ -1,14 +1,14 @@
-# Modul 2 - Postavite ogrodje večagentnega projekta
+# Modul 2 - Postavitev projekta z več agenti
 
 ⏱️ ~5 min
 
-V tem modulu uporabite [Foundry Toolkit za VS Code](https://aka.ms/foundrytk), da **postavite ogrodje večagentnega projekta**. Čarovnik ustvari `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, in konfiguracijo za razhroščevanje v VS Code - tako se lahko osredotočite na povezovanje delovnega toka s 4 agenti v Modulu 3.
+V tem modulu uporabite [Foundry Toolkit za VS Code](https://aka.ms/foundrytk), da **postavite projekt z več agenti**. Čarovnik ustvari `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` in konfiguracijo za razhroščevanje v VS Code - tako se lahko osredotočite na povezovanje poteka dela s 4 agenti v Modulu 3.
 
-> **Ključni koncept:** Ogrodje je delujoč osnutek z enim agentom. Nadomestite nadomestno logiko z grafom `WorkflowBuilder` v Modulu 3. Ne pišete kode ogrodja iz nič.
+> **Ključni koncept:** Postavitev je delujoča osnova z enim agentom. Nadomestite logiko nadomestnega znaka z `WorkflowBuilder` grafom v Modulu 3. Ne pišete izhodiščne kode od začetka.
 
-> **Referenčna izvedba:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) je popoln delujoč primer. Uporabite ga za primerjavo vašega dela med postopkom.
+> **Referenčna implementacija:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) je popoln delujoči primer. Uporabite ga za primerjavo svojega dela med postopkom.
 
-### Potek čarovnika za ogrodje
+### Potek čarovnika za postavitev
 
 ```mermaid
 flowchart LR
@@ -25,47 +25,47 @@ flowchart LR
 ## Korak 1: Odprite čarovnika Create Hosted Agent
 
 1. Pritisnite `Ctrl+Shift+P` za odprtje **Command Palette**.
-2. Vnesite: **Foundry Toolkit: Create a New Hosted Agent** in ga izberite.
+2. Vpišite: **Foundry Toolkit: Create new Hosted Agent** in ga izberite.
 3. Čarovnik se odpre na zavihku **Agent Details**.
 
-> **Alternativa:** Kliknite ikono **Foundry Toolkit** v Activity Bar → kliknite ikono **+** poleg **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternativa:** Kliknite ikono **Foundry Toolkit** v vrstici aktivnosti → kliknite ikono **+** poleg **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
 ## Korak 2: Izberite nastavitve
 
-![Ustvarjanje Hosted Agent iz vzorca - zavihek Agent Details z izbrano predlogo Workflows](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Create Hosted Agent iz vzorca - zavihk Agent Details z izbranim predlogom Workflows](../../../../../translated_images/sl/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. V levem navigacijskem/izbirnem razdelku izberite naslednje:
+1. Na levi navigaciji/oddelku za možnosti izberite naslednje:
 
 | Meni | Izbira | Opombe |
 |--------|-----------|-------|
-| **Jezik** | Python | Podprto je tudi C# (.NET) |
-| **Okvir** | Agent Framework | Nudi `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **Tip API** | Response API | `POST /responses` - zgodovina, ki jo upravlja platforma, podpora pretakanju |
-| **Predloga** | **Workflows** | Obdeluje zahteve skozi več agentov zaporedno |
+| **Jezik** | Python | Podprt je tudi C# (.NET) |
+| **Okvir** | Agent Framework | Zagotavlja `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **Vrsta API** | Response API | `POST /responses` - zgodovina podprta s platformo, podpora za pretakanje |
+| **Predloga** | **Workflows** | Obdeluje zahteve skozi več agentov zaporedoma |
 
-2. Ko je izbrano, kliknite **Next**
+2. Ko izberete, kliknite **Next**
 
-![Ustvari Hosted Agent iz vzorca - zavihek Create, ki prikazuje PersonalCareerCopilot kot ime mape](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Create Hosted Agent iz vzorca - zavihk Create, prikazan kot ime mape PersonalCareerCopilot](../../../../../translated_images/sl/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
 3. V naslednjem oknu izberite naslednje:
 
 | Meni | Izbira | Opombe |
 |--------|-----------|-------|
-| **Mapa delovnega prostora** | Brskajte do ciljne mape | npr. `workshop/lab02-multi-agent/` v tem repozitoriju |
+| **Mapa delovnega prostora** | Izberite ciljno mapo | npr. `workshop/lab02-multi-agent/` v tem repozitoriju |
 | **Ime agenta** | `PersonalCareerCopilot` | To postane ime imenika projekta |
-| **Model Deployment** | Izberite svoj nameščeni model | npr. `gpt-4.1-mini` iz Lab 01 |
+| **Model Deployment** | Izberite svoj nameščeni model | npr. `gpt-4.1-mini` iz Laboratorija 01 |
 
-4. Kliknite **Create** za postavitev ogrodja projekta. VS Code ustvari datoteke in odpre mapo.
+4. Kliknite **Create** da postavite projekt. VS Code ustvari datoteke in odpre mapo.
 
-> **Namig:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) dobro uravnoteži hitrost in kakovost za razvoj večagentnih sistemov.
+> **Nasvet:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) dobro uravnoteži hitrost in kakovost za razvoj z več agenti.
 
 ---
 
-## Korak 3: Preverite ustvarjen projekt
+## Korak 3: Preverite ustvarjeni projekt
 
-Ko je postavitev ogrodja zaključena, preverite, ali v Explorerju (`Ctrl+Shift+E`) vidite te datoteke:
+Ko je postavitev končana, preverite, da v Explorerju (`Ctrl+Shift+E`) vidite te datoteke:
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ Ko je postavitev ogrodja zaključena, preverite, ali v Explorerju (`Ctrl+Shift+E
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Pomembno:** Odprite to ustvarjeno mapo neposredno v VS Code, da se `.vscode/launch.json` in `tasks.json` pravilno uporabita za razhroščevanje s F5.
+> **Pomembno:** To postavljeno mapo odprite neposredno v VS Code, da se pravilno uporabita `.vscode/launch.json` in `tasks.json` za razhroščevanje s pritiskom na F5.
 
-### Razlaga ključnih datotek
+### Pojasnilo ključnih datotek
 
 | Datoteka | Namen |
 |------|---------|
-| `agent.yaml` | Določa `kind: hosted`, preslika okoljske spremenljivke, definira protokol `/responses` |
-| `main.py` | Osnutek: en `FoundryChatClient` → `Agent` → `ResponsesHostServer`. To nadomestite s 4 agenti + `WorkflowBuilder` v modulu 3 |
-| `Dockerfile` | `python:3.12-slim`, namesti `requirements.txt`, odpre vrata 8088, zažene `python main.py` |
+| `agent.yaml` | Določa `kind: hosted`, mapira okoljske spremenljivke, definira protokol `/responses` |
+| `main.py` | Osnova: en `FoundryChatClient` → `Agent` → `ResponsesHostServer`. To nadomestite z 4 agenti + `WorkflowBuilder` v Modulu 3 |
+| `Dockerfile` | `python:3.12-slim`, namesti `requirements.txt`, razkriva vrata 8088, zažene `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Referenca:** Glejte [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) in [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) za popolno ustvarjeno vsebino.
+> **Referenca:** Oglejte si [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) in [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) za celotno ustvarjeno vsebino.
 
 ---
 
 ### ✅ Kontrolna točka
 
-- [ ] Čarovnik za ogrodje končan - nova mapa projekta je vidna v Explorerju
-- [ ] Vse pričakovane datoteke prisotne: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Čarovnik za postavitev zaključen - nova mapa projekta vidna v Explorerju
+- [ ] Prisotne vse pričakovane datoteke: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` prikazuje `kind: hosted` in `protocol: responses`
-- [ ] `main.py` uvozi `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Ustvarjena mapa je odprta kot koren delovnega prostora v VS Code
-- [ ] Razumete, da je `main.py` osnutek - `WorkflowBuilder` je dodan v modulu 3
+- [ ] `main.py` uvaža `Agent`, `FoundryChatClient`, `ResponsesHostServer`
+- [ ] Postavljena mapa je odprta kot koren delovnega prostora VS Code
+- [ ] Razumete, da je `main.py` osnova - `WorkflowBuilder` je dodan v Modulu 3
 
 ---
 
-**Prejšnje:** [01 - Razumite arhitekturo več agentov](01-understand-multi-agent.md) · **Naslednje:** [03 - Konfigurirajte agente in okolje →](03-configure-agents.md)
+**Prejšnji:** [01 - Razumeti arhitekturo z več agenti](01-understand-multi-agent.md) · **Naslednji:** [03 - Konfiguracija agentov in okolja →](03-configure-agents.md)
 
 ---
 

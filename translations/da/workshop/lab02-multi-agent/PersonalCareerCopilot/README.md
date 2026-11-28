@@ -1,15 +1,15 @@
-# PersonalCareerCopilot - CV → Job Match Evaluator
+# PersonalCareerCopilot - CV → Jobmatch Evaluator
 
-En workflow-først multi-agent app, der vurderer, hvor godt et CV matcher en jobbeskrivelse, og derefter genererer en personlig læringsplan for at lukke hullerne.
+En workflow-først multi-agent app, der vurderer hvor godt et CV matcher en jobbeskrivelse, og derefter genererer en personlig læringsplan for at lukke hullerne.
 
 ---
 
 ## Agenter
 
 | Agent | Rolle | Værktøjer |
-|-------|-------|----------|
-| **ResumeParser** | Udtrækker strukturerede færdigheder, erfaring, certificeringer fra CV-tekst | - |
-| **JobDescriptionAgent** | Udtrækker krævede/foretrukne færdigheder, erfaring, certificeringer fra en jobbeskrivelse | - |
+|-------|------|---------|
+| **ResumeParser** | Ekstraherer strukturerede færdigheder, erfaring, certificeringer fra CV-tekst | - |
+| **JobDescriptionAgent** | Ekstraherer krævede/foretrukne færdigheder, erfaring, certificeringer fra en jobbeskrivelse | - |
 | **MatchingAgent** | Sammenligner profil vs krav → matchscore (0-100) + matchede/manglende færdigheder | - |
 | **GapAnalyzer** | Bygger en personlig læringsplan med Microsoft Learn ressourcer | `search_microsoft_learn_for_plan` (MCP) |
 
@@ -17,11 +17,11 @@ En workflow-først multi-agent app, der vurderer, hvor godt et CV matcher en job
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: CV + Jobbeskrivelse"] --> ResumeParser
-    ResumeParser -- "fortolket CV + JD relay" --> JobDescriptionAgent
-    JobDescriptionAgent -- "JD krav + CV relay" --> MatchingAgent
-    MatchingAgent -- "fit rapport + huller" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Køreplan"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Opsæt miljø
 
-Denne mappe er referenceimplementeringen for workflow-baserede Lab 02 scaffold. Dens `main.py` bruger de eksisterende promptblokke plus `WorkflowBuilder` til at forbinde de fire agenter.
+Denne mappe er referencens implementering for workflow-baserede Lab 02 skabelon. Dens `main.py` bruger de eksisterende prompt-blocks plus `WorkflowBuilder` til at forbinde de fire agenter.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Værdi | Hvor findes den |
-|-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidepanel → højreklik dit projekt → **Kopier projektendepunkt** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidepanel → udvid projekt → **Modeller + endepunkter** → deploymentsnavn |
+| Værdi | Hvor findes det |
+|-------|-----------------|
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidebjælke → højreklik dit projekt → **Kopiér projektendepunkt** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidebjælke → udvid projekt → **Modeller + endepunkter** → udrulningsnavn |
 
 ### 3. Kør lokalt
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Eller brug VS Code opgaven: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Eller brug VS Code opgaven: `Ctrl+Shift+P` → **Opgaver: Kør opgave** → **Kør Agent HTTP-server**.
 
-For F5 debugging, brug **Debug Local Agent HTTP Server**.
+For F5-debugging, brug **Debug Local Agent HTTP Server**.
 
 ### 4. Test med Agent Inspector
 
-Åbn Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Åbn Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Åbn Agent Inspector**.
 
-Indsæt denne test prompt:
+Indsæt denne testprompt:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Forventet:** En matchscore (0-100), matchede/manglende færdigheder, og en personlig læringsplan med Microsoft Learn URLs.
+**Forventet:** En matchscore (0-100), matchede/manglende færdigheder og en personlig læringsplan med Microsoft Learn URL'er.
 
-### 5. Deploy til Foundry
+### 5. Udrul til Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → vælg dit projekt → bekræft.
+`Ctrl+Shift+P` → **Foundry Toolkit: Udrul hostet agent** → vælg dit projekt → bekræft.
 
 ---
 
@@ -115,42 +115,42 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-Definerer den hostede agent til Foundry Agent Service:
+Definerer den hostede agent for Foundry Agent Service:
 - `kind: hosted` - kører som en administreret container
-- `protocols` - `responses` protokol med `version: 1.0.0`, eksponerer `/responses` HTTP-endepunkt
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` er deklareret her; `FOUNDRY_PROJECT_ENDPOINT` injiceres automatisk ved deployment
+- `protocols` - `responses` protokol med `version: 2.0.0`, der eksponerer `/responses` HTTP-endepunktet
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` er deklareret her; `FOUNDRY_PROJECT_ENDPOINT` injiceres automatisk ved udrulning
 
 ### `main.py`
 
 Indeholder:
-- **Agent instruktioner** - fire `*_INSTRUCTIONS` konstanter, én per agent
-- **MCP værktøj** - `search_microsoft_learn_for_plan()` kalder `https://learn.microsoft.com/api/mcp` via Streamable HTTP
-- **Agent oprettelse** - fire `Agent()` + `AgentExecutor()` instanser der deler en `FoundryChatClient`
-- **Workflow graf** - `WorkflowBuilder` forbinder agenter som en sekventiel pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Agent-instruktioner** - fire `*_INSTRUCTIONS` konstanter, én pr. agent
+- **MCP-værktøj** - `search_microsoft_learn_for_plan()` kalder `https://learn.microsoft.com/api/mcp` via Streamable HTTP
+- **Agent oprettelse** - fire `Agent()` + `AgentExecutor()` instanser, der deler én `FoundryChatClient`
+- **Workflow diagram** - `WorkflowBuilder` forbinder agenter som en sekventiel pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
 - **Server opstart** - `ResponsesHostServer` kører på port 8088
 
 ### `requirements.txt`
 
 | Pakke | Formål |
 |---------|---------|
-| `agent-framework-foundry` | Kerneruntime: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry` | Kernemiljø: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
 | `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry hosting integration |
-| `mcp<2,>=1.24.0` | MCP klient for GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Python debugging (F5 i VS Code) |
+| `mcp<2,>=1.24.0` | MCP-klient til GapAnalyzer (`streamable_http_client`) |
+| `debugpy` | Python-debugging (F5 i VS Code) |
 
 ---
 
 ## Fejlfinding
 
 | Problem | Løsning |
-|--------|---------|
+|-------|--------|
 | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` eller `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Opret `.env` med både `FOUNDRY_PROJECT_ENDPOINT` og `AZURE_AI_MODEL_DEPLOYMENT_NAME` sat |
 | `ModuleNotFoundError: No module named 'agent_framework'` | Aktivér venv og kør `pip install -r requirements.txt` |
-| Ingen Microsoft Learn URLs i output | Tjek internetforbindelse til `https://learn.microsoft.com/api/mcp` |
-| Kun 1 gap card (afkortet) | Bekræft at `GAP_ANALYZER_INSTRUCTIONS` inkluderer `CRITICAL:` blokken |
-| Port 8088 er i brug | Stop andre servere: `netstat -ano \| findstr :8088` |
+| Ingen Microsoft Learn URL'er i output | Tjek internetforbindelse til `https://learn.microsoft.com/api/mcp` |
+| Kun 1 gap-kort (afkortet) | Bekræft `GAP_ANALYZER_INSTRUCTIONS` inkluderer `CRITICAL:` blokken |
+| Port 8088 i brug | Stop andre servere: `netstat -ano \| findstr :8088` |
 
-For detaljeret fejlfinding, se [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+For detaljeret fejlfinding, se [Modul 8 - Fejlfinding](../docs/08-troubleshooting.md).
 
 ---
 

@@ -1,68 +1,68 @@
-# 8 skyrius - trikčių šalinimas
+# 8 modulis - Trikčių šalinimas
 
-Šiame skyriuje aptariamos dažnos klaidos, pataisymai ir derinimo strategijos, specifinės daugiaagentiniam darbo eigai.
+Šiame modulyje aptariamos dažniausios klaidos, jų taisymai ir derinimo strategijos, būdingos daugiaagentiniam darbo eigai.
 
 ## Agentų išvesties problemos
 
-### GapAnalyzer sako „Aš vis dar neturiu atitinkančio pranešimo“
+### GapAnalyzer sako „Aš vis dar neturiu atitinkančio ataskaitos“
 
-**Simptomas:** GapAnalyzer atsakymas prašo įklijuoti atitinkantį pranešimą su „Trūkstamais įgūdžiais“ ir „Sertifikavimo spragomis“. Tai vyksta net kai pateikėte tiek gyvenimo aprašymą, tiek darbo aprašymą.
+**Simptomai:** GapAnalyzer atsakymas prašo įklijuoti atitinkančią ataskaitą su „Trūkstamais įgūdžiais“ ir „Sertifikavimo spragomis“. Tai vyksta net jei jūs išsiuntėte tiek gyvenimo aprašymą, tiek darbo aprašymą.
 
-**Priežastis:** Darbo aprašymo tekstas nebuvo perduotas žemyn JD agentui. Naudojant `context_mode="last_agent"`, `resume_executor` yra vienintelis vykdytojas, kuris mato vartotojo pradinį pranešimą. Jei `RESUME_PARSER_INSTRUCTIONS` neįtraukia darbo aprašymo teksto į išvestį, JD agentas neturi darbo aprašymo parsinti, MatchingAgent negali apskaičiuoti atitikimo balo, o GapAnalyzer gauna beprasmį įvestį.
+**Priežastis:** JD tekstas nebuvo perduotas žemyn JD agentui. Su `context_mode="last_agent"`, `resume_executor` yra vienintelis vykdytojas, kuris kada nors mato vartotojo pradinį pranešimą. Jei `RESUME_PARSER_INSTRUCTIONS` neįtraukia JD teksto į savo išvestį, JD agentas neturi JD, kurį galėtų analizuoti, MatchingAgent negali apskaičiuoti tinkamumo įvertinimo, o GapAnalyzer gauna beprasmę įvestį.
 
-**Diagnostika:**
+**Diagnozė:**
 
-Serverio žurnaluose ieškokite MatchingAgent sekos. Jei joje yra:
+Serverio žurnaluose ieškokite MatchingAgent ploto. Jei jame yra:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
-pralaidumas yra praleistas arba sugadintas.
+tada perdavimas trūksta arba yra sugadintas.
 
-**Pataisa:** Patikrinkite, ar `RESUME_PARSER_INSTRUCTIONS` faile `main.py` yra `[JOB DESCRIPTION PASS-THROUGH]` skyrius ir taisyklė:
+**Taisymas:** Patvirtinkite, kad `RESUME_PARSER_INSTRUCTIONS` faile `main.py` yra `[JOB DESCRIPTION PASS-THROUGH]` skyrius ir taisyklė:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
-Taip pat patikrinkite, ar `JOB_DESCRIPTION_INSTRUCTIONS` turi `[PARSED RESUME PASS-THROUGH]` perdavimo taisyklę:
+Taip pat patvirtinkite, kad `JOB_DESCRIPTION_INSTRUCTIONS` turi `[PARSED RESUME PASS-THROUGH]` perdavimo taisyklę:
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Jei kuris nors instrukcijų blokas yra šablonas iš karkaso vedlio, pakeiskite jį pilna versija iš [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Jei kuri nors instrukcijų dalis yra šablonas iš ramstinio vedlio, pakeiskite ją pilna versija iš [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### MatchingAgent išveda „Negali apskaičiuoti atitikimo balo - darbo aprašymas nepateiktas“
+### MatchingAgent išveda „Negalima apskaičiuoti tinkamumo įvertinimo - JD nepateiktas“
 
-Tai ta pati pagrindinė priežastis kaip aukščiau. MatchingAgent gavo JD agento išvestį, bet `[PARSED RESUME PASS-THROUGH]` skyrius trūko arba buvo tuščias, todėl jis negalėjo palyginti abiejų profilių. Patikrinkite:
-1. `JOB_DESCRIPTION_INSTRUCTIONS` apima perdavimo taisyklę: `Nukopijuokite [PARSED RESUME] žodžiu žodin - Matching Agent remiasi tuo žemyninis.`
+Tai ta pati pagrindinė priežastis kaip aukščiau. MatchingAgent gavo JD agento išvestį, bet `[PARSED RESUME PASS-THROUGH]` skyrius trūko arba buvo tuščias, todėl negalėjo palyginti dviejų profilių. Patvirtinkite:
+1. `JOB_DESCRIPTION_INSTRUCTIONS` įtraukia perdavimo taisyklę: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
 2. `MATCHING_AGENT_INSTRUCTIONS` nurodo agentui ieškoti `[JD REQUIREMENTS]` ir `[PARSED RESUME PASS-THROUGH]` skyrių.
 
-Pakeiskite abu instrukcijų blokus su pilnomis versijomis iš [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Pakeiskite abu instrukcijų blokus pilnomis versijomis iš [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
 ### Atsakymas pasirodo du kartus
 
-**Simptomas:** GapAnalyzer išvestis (arba visa kanalo išvestis) Agent Inspector atsakyme pasirodo du kartus.
+**Simptomai:** GapAnalyzer išvestis (arba visas darbo eigos išvestis) pasirodo du kartus Agent Inspector atsakyme.
 
-**Priežastis:** `WorkflowBuilder` naudoja ARBA semantiką įeinančioms jungtims - žemyninis vykdytojas įsijungia, kai tik bet kuris priešininkas baigiasi. Jei `matching_executor` turi dvi įeinančias jungtis (viena iš `resume_executor` ir kita iš `jd_executor`), jis paleidžiamas du kartus: vieną kartą kai ResumeParser baigia ir dar kartą kai JD agentas baigia. Tada ir GapAnalyzer taip pat paleidžiamas du kartus.
+**Priežastis:** `WorkflowBuilder` naudoja OR-semantiką atėjimo kraštinėms – pakopinį vykdytoją paleidžia vos tik baigiasi **bet kuris** tiesioginis pirmtakas. Jei `matching_executor` turi dvi atėjimo kraštines (vieną iš `resume_executor` ir kitą iš `jd_executor`), jis paleidžiamas du kartus: kartą kai baigia ResumeParser ir dar kartą kai baigia JD Agent. Tada GapAnalyzer taip pat veikia du kartus.
 
-**Pataisa:** Užtikrinkite, kad `WorkflowBuilder` grafikas būtų griežtai sekvencinis kanalas be konvergencijos:
+**Sprendimas:** Užtikrinkite, kad `WorkflowBuilder` grafas būtų griežtai sekanti linija be susijungimų:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # NE iš resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Jei turite klaidžiojančią `.add_edge(resume_executor, matching_executor)` eilutę, pašalinkite ją. `[PARSED RESUME PASS-THROUGH]` perdavimas JD agento išvestyje jau suteikia MatchingAgent priėjimą prie gyvenimo aprašymo.
+Jei turite klaidžiojančią `.add_edge(resume_executor, matching_executor)` eilutę, ją pašalinkite. `[PARSED RESUME PASS-THROUGH]` perdavimas JD Agent išvestyje jau suteikia MatchingAgent prieigą prie CV.
 
 ---
 
 ## Aplinkos ir konfigūracijos problemos
 
-### Trūkstamos arba netinkamos `.env` reikšmės
+### Trūksta arba neteisingos `.env` reikšmės
 
-`.env` failas turi būti `PersonalCareerCopilot/` kataloge (tame pačiame lygyje kaip `main.py`):
+`.env` failas turi būti `PersonalCareerCopilot/` kataloge (toje pačioje lygyje kaip ir `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -73,55 +73,55 @@ PersonalCareerCopilot/
 └── requirements.txt
 ```
 
-Laukiamas `.env` turinys:
+Tikėtinas `.env` turinys:
 
-**A variantas - Foundry debesyje:**
+**1 kelias - Foundry debesyje:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-project-name>.services.ai.azure.com/api/projects/<your-project-id>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-**B variantas - Foundry vietinis:**
+**2 kelias - Foundry lokaliai:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Abu keliai naudoja `FOUNDRY_PROJECT_ENDPOINT`. Vertė skiriasi: debesyje naudojamas `https://` Foundry galinis taškas; vietiniame naudojamas `http://localhost:5273/v1`. Paleiskite komandą `foundry model list`, kad patvirtintumėte tikslią modelio slapyvardį B keliui.
+> Abu keliai naudoja `FOUNDRY_PROJECT_ENDPOINT`. Vertė skiriasi: debesyje naudojamas `https://` Foundry galinis taškas; lokaliai - `http://localhost:5273/v1`. Vykdykite `foundry model list`, kad patvirtintumėte tikslią modelio pravardę 2 keliui.
 
 > **Kaip rasti savo `FOUNDRY_PROJECT_ENDPOINT`:** 
-- Atidarykite **Foundry Toolkit** šoninę juostą VS Code → dešiniuoju pelės mygtuku spustelėkite savo projektą → **Copy Project Endpoint**. 
+- Atidarykite **Foundry Toolkit** šoninę juostą VS Code → dešiniuoju pelės klavišu spauskite projektą → **Copy Project Endpoint**. 
 - Arba eikite į [Azure Portal](https://portal.azure.com) → savo Foundry projektą → **Overview** → **Project endpoint**.
 
-> **Kaip rasti `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** Foundry Toolkit šoninėje juostoje išplėskite projektą → **Models** → raskite savo diegto modelio pavadinimą (pvz., `gpt-4.1-mini`).
+> **Kaip rasti savo `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** Foundry Toolkit šoninėje juostoje išplėskite projektą → **Models** → raskite diegiamo modelio pavadinimą (pvz., `gpt-4.1-mini`).
 
-### Aplinkos kintamųjų prioriteto tvarka
+### Aplinkos kintamųjų prioritetas
 
-`main.py` naudoja `load_dotenv(override=True)`, kas reiškia:
+`main.py` naudoja `load_dotenv(override=True)`, tai reiškia:
 
-| Prioritetas | Šaltinis | Laimi, kai abu nustatyti? |
-|------------|----------|---------------------------|
+| Prioritetas | Šaltinis | Kuris laimi, jei abu nustatyti? |
+|----------|--------|-------------------------------|
 | 1 (aukščiausias) | `.env` failas | Taip |
-| 2 | Korpuso / konteinerio aplinkos kintamasis | Naudojamas, kai to paties rakto nėra `.env` |
+| 2 | Shell / konteinerio aplinkos kintamasis | Naudojamas, jei to paties rakto nėra `.env` |
 
-Vietinėje kūrimo aplinkoje tai reiškia, kad `.env` yra tikrasis šaltinis (redaguojant `.env` iš karto paveikiamos vykdymo kartos). Talpinant serveriuose, Foundry įpurškia aplinkos kintamuosius konteinerio lygyje; kadangi `.env` nėra diegiamo paveikslo dalis šioje laboratorijoje, naudojamos įpurškintos konteinerio reikšmės.
+Vietinėje plėtroje tai reiškia, kad `.env` yra tiesos šaltinis (redaguojant `.env` iš karto paveikiami vykdymai). Hostinamo diegimo metu Foundry injekuoja aplinkos kintamuosius konteinerio lygiu; kadangi `.env` nėra įtrauktas į šio laboratorinio rinkinio diegimo atvaizdą, naudojamos injekuotos konteinerio reikšmės.
 
 ---
 
 ## Versijų suderinamumas
 
-### Paketų versijų matrica
+### Paketo versijų matrica
 
-Daugiaagentė darbo eiga reikalauja tam tikrų paketų versijų. Nesuderintos versijos sukelia vykdymo klaidas.
+Multi-agent darbo eiga reikalauja specifinių paketų versijų. Nesuderinamos versijos sukelia vykdymo klaidas.
 
-| Paketas | Reikalinga versija | Patikros komanda |
-|---------|-------------------|------------------|
-| `agent-framework-foundry` | naujausia | `pip show agent-framework-foundry` |
-| `agent-framework-foundry-hosting` | naujausia | `pip show agent-framework-foundry-hosting` |
+| Paketas | Reikalaujama versija | Patikrinimo komanda |
+|---------|---------------------|---------------------|
+| `agent-framework-foundry` | latest | `pip show agent-framework-foundry` |
+| `agent-framework-foundry-hosting` | latest | `pip show agent-framework-foundry-hosting` |
 | `mcp` | `<2,>=1.24.0` | `pip show mcp` |
-| `debugpy` | naujausia | `pip show debugpy` |
+| `debugpy` | latest | `pip show debugpy` |
 | Python | 3.12+ | `python --version` |
 
 ### Dažnos versijų klaidos
@@ -129,14 +129,14 @@ Daugiaagentė darbo eiga reikalauja tam tikrų paketų versijų. Nesuderintos ve
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Pataisyti: iš naujo įdiegti agent-framework-foundry
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Ištaisyti: atnaujinti mcp paketą
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
@@ -146,7 +146,7 @@ pip install mcp --upgrade
 pip list | Select-String "agent-framework|mcp|debugpy"
 ```
 
-Laukiamas išvestis:
+Tikėtinas rezultatas:
 
 ```
 agent-framework-foundry          x.x.x
@@ -159,38 +159,38 @@ mcp                              x.x.x
 
 ## Diegimo problemos
 
-### Konteineris nepavyksta paleisti po diegimo
+### Konteineris nepaleidžiamas po diegimo
 
 1. **Patikrinkite konteinerio žurnalus:**
-   - Atidarykite **Foundry Toolkit** šoninę juostą → išplėskite **Hosted Agents (Preview)** → spustelėkite savo agentą → išplėskite versiją → **Container Details** → **Logs**.
-   - Ieškokite Python klaidų aprašų arba trūkstamų modulių klaidų.
+   - Atidarykite **Foundry Toolkit** šoninę juostą → po savo projektu spauskite **Agents** → **Hosted Agent** skirtuką → spauskite savo agentą. Patikrinkite **Status** skiltyje **Details**, tuomet atidarykite skirtuką **Playground** ir naudokite **Logs** kortelę **Session Details** panele pamatyti konteinerio išvestį.
+   - Ieškokite Python išimtinių sekų arba trūkstamų modulių klaidų.
 
 2. **Dažnos konteinerio paleidimo klaidos:**
 
-   | Klaida žurnaluose | Priežastis | Pataisa |
-   |------------------|------------|----------|
-   | `ModuleNotFoundError` | `requirements.txt` trūksta paketo | Pridėkite paketą, įdiekite iš naujo |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` arba `.env` aplinkos kintamieji nenustatyti | Atnaujinkite `agent.yaml` → `environment_variables` skyrių (hosted) arba `.env` (vietinis) |
-   | `azure.identity.CredentialUnavailableError` | Nesuinstaliuota Managed Identity | Foundry tai kuriama automatiškai - įsitikinkite, kad diegiate per plėtinį |
-   | `OSError: port 8088 already in use` | Dockerfile atskleidžia netinkamą uostą arba kyla uosto konfliktas | Patikrinkite `EXPOSE 8088` Dockerfile ir `CMD ["python", "main.py"]` |
-   | Konteineris išeina su kodu 1 | Nepažymėta išimtis `main()` | Patikrinkite vietoje pirmiausia ([5 skyrius](05-test-locally.md)) klaidų sugavimui prieš diegimą |
+   | Klaidų žurnaluose | Priežastis | Sprendimas |
+   |-------------------|-----------|------------|
+   | `ModuleNotFoundError` | Trūksta `requirements.txt` paketo | Įdiekite paketą, iš naujo diegkite |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | Nepakankami `agent.yaml` ar `.env` aplinkos kintamieji | Atnaujinkite `agent.yaml` → `environment_variables` skyrių (hostinimas) arba `.env` (lokaliai) |
+   | `azure.identity.CredentialUnavailableError` | Valdomas identitetas nekonfigūruotas | Foundry nustato automatiškai – įsitikinkite diegiant per plėtinį |
+   | `OSError: port 8088 already in use` | Dockerfile atskleidžia netinkamą prievadą arba prievadų konfliktas | Patikrinkite `EXPOSE 8088` Dockerfile ir `CMD ["python", "main.py"]` |
+   | Konteineris išeina su 1 kodu | Nepavaduota išimtis `main()` | Pirmiausia testuokite lokaliai ([5 modulis](05-test-locally.md)) klaidoms sužinoti prieš diegiant |
 
-3. **Paleiskite diegimą iš naujo pataisę:**
+3. **Iš naujo įdiekite ištaisę:**
    - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → pasirinkite tą patį agentą → įdiekite naują versiją.
 
-### Diegimo užtrukimas per ilgai
+### Diegimas užtrunka per ilgai
 
-Daugiaagentiški konteineriai užtrunka ilgiau paleisti, nes paleidimo metu sukuria 4 agentų egzempliorius. Įprasti paleidimo laikai:
+Daugiagentiniai konteineriai užtrunka ilgiau pradėti, nes sukuriami 4 agento egzemplioriai paleidimo metu. Normalūs paleidimo laikai:
 
-| Etapas | Laukiamas trukmė |
-|--------|------------------|
+| Etapas | Tikėtinas trukmė |
+|-------|-------------------|
 | Konteinerio vaizdo kūrimas | 1-3 minutės |
-| Vaizdo nusiuntimas į ACR | 30-60 sekundžių |
+| Vaizdo įkėlimas į ACR | 30-60 sekundžių |
 | Konteinerio paleidimas (vienas agentas) | 15-30 sekundžių |
-| Konteinerio paleidimas (daugiaagentis) | 30-120 sekundžių |
-| Agentas pasiekiamas Playground | 1-2 minutės po „Started“ pranešimo |
+| Konteinerio paleidimas (daugiaagentinis) | 30-120 sekundžių |
+| Agentas pasiekiamas Playground | 1-2 minutės po "Started" |
 
-> Jei „Pending“ būsena trunka ilgiau nei 5 minutes, patikrinkite konteinerio žurnalus klaidoms.
+> Jei statusas "Pending" išlieka ilgiau nei 5 minutes, patikrinkite konteinerio žurnalus klaidoms.
 
 ---
 
@@ -198,93 +198,93 @@ Daugiaagentiški konteineriai užtrunka ilgiau paleisti, nes paleidimo metu suku
 
 ### `403 Forbidden` arba `AuthorizationFailed`
 
-Jums reikalinga **[Foundry vartotojo](https://aka.ms/foundry-ext-project-role)** rolė jūsų Foundry projekte (anksčiau vadinosi **Azure AI vartotojas** - rolės ID nepasikeitė):
+Jums reikalinga **[Foundry User](https://aka.ms/foundry-ext-project-role)** rolė jūsų Foundry projekte (anksčiau pavadinta **Azure AI User** – rolės ID nepasikeitė):
 
 1. Eikite į [Azure Portal](https://portal.azure.com) → savo Foundry **projekto** išteklių.
-2. Spustelėkite **Prieigos valdymas (IAM)** → **Rolės priskyrimai**.
-3. Ieškokite savo vardo → patikrinkite, ar nurodyta **Foundry vartotojas** (arba senoji žyma **Azure AI vartotojas**).
-4. Jei trūksta: spustelėkite **Pridėti** → **Pridėti rolės priskyrimą** → ieškokite **Foundry vartotojas** → priskirkite savo paskyrai.
+2. Spauskite **Access control (IAM)** → **Role assignments**.
+3. Susiraskite savo vardą → patikrinkite, ar yra sąraše **Foundry User** (ar senasis pavadinimas **Azure AI User**).
+4. Jei trūksta: spauskite **Add** → **Add role assignment** → ieškokite **Foundry User** → priskirkite savo paskyrai.
 
-Daugiau informacijos ieškokite [RBAC dokumentacijoje Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+Daugiau informacijos rasite [RBAC for Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) dokumentacijoje.
 
-### Modelio diegimas neprieinamas
+### Modelio diegimas nepasiekiamas
 
-Jei agentas grąžina su modeliu susijusias klaidas:
+Jei agentas grąžina modelio susijusias klaidas:
 
-1. Patikrinkite, ar modelis įdiegtas: Foundry šoninėje juostoje išplėskite projektą → **Models** → ieškokite `gpt-4.1-mini` (ar jūsų modelio) su statusu **Succeeded**.
-2. Patikrinkite, ar diegimo pavadinimas sutampa: palyginkite `AZURE_AI_MODEL_DEPLOYMENT_NAME` `.env` faile (arba `agent.yaml`) su faktiniu diegimo vardu šoninėje juostoje.
-3. Jei diegimas pasibaigė (nemokama versija): įdiekite iš naujo iš [Modelų katalogo](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
+1. Patikrinkite, ar modelis įdiegtas: Foundry šoninėje juostoje išplėskite projektą → **Models** → patikrinkite ar yra `gpt-4.1-mini` (ar jūsų modelis) su statusu **Succeeded**.
+2. Patikrinkite diegimo vardą: palyginkite `AZURE_AI_MODEL_DEPLOYMENT_NAME` faile `.env` (ar `agent.yaml`) su faktiniu diegimo vardu šoninėje juostoje.
+3. Jei diegimas pasibaigęs (nemokamas sluoksnis): iš naujo įdiekite iš [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
 
 ---
 
-## Foundry Local problemos (B variantas)
+## Foundry Local problemos (2 kelias)
 
 ### Foundry Local paslauga neveikia
 
 ```powershell
-# Patikrinti būseną
+# Check status
 foundry local status
 
-# Paleisti paslaugą, jei ji sustabdyta
+# Start the service if it is stopped
 foundry local start
 ```
 
-| Simptomas | Priežastis | Pataisa |
-|---------|------------|----------|
-| Sveikatos patikra grąžina `503` | Paslauga neįjungta | Paleiskite `foundry local start` arba spustelėkite **Start** Foundry Toolkit šoninėje juostoje |
-| Sveikatos patikra baigiasi laiko limitu | Modelis dar kraunasi | Palaukite 30–60 sek. po paleidimo; didesni modeliai užtrunka ilgiau |
-| `StatusCode: 404` adresu `/v1/health` | Netinkamas uostas | Numatyta `5273`. Patikrinkite `foundry local status`, kad sužinotumėte faktinį uostą |
-| Nepakanka resursų | Foundry Local reikalauja ~4 GB laisvos RAM | Uždarykite kitas programas |
-| Modelio atsisiuntimas nepavyksta | Mažai disko vietos | Modeliai užima 2–8 GB. Atlaisvinkite vietos ir tada paleiskite `foundry model pull <name>` |
+| Simptomas | Priežastis | Sprendimas |
+|---------|-----------|----------|
+| Health check grąžina `503` | Paslauga nepaleista | `foundry local start` arba spustelėkite **Start** Foundry Toolkit šoninėje juostoje |
+| Health check išeina dėl laiko | Modelis dar kraunasi | Palaukite 30–60 sek. po paleidimo; didesni modeliai kraunasi ilgiau |
+| `StatusCode: 404` ant `/v1/health` | Netinkamas prievadas | Numatytoji reikšmė yra `5273`. Patikrinkite `foundry local status` dėl faktinio prievado |
+| Nepakanka resursų | Foundry Local reikia maždaug 4 GB RAM laisvos | Uždarykite kitas programas |
+| Modelio atsisiuntimas nepavyksta | Maža disko vieta | Modeliai užima 2–8 GB. Atlaisvinkite vietos ir tada `foundry model pull <name>` |
 
-### Modelio pavadinimo neatitikimas
+### Modelio pavadinimo neatitiktis
 
 ```powershell
-# Išvardinkite atsisiųstus modelius ir jų tikrus aliasus
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
-Nustatykite `AZURE_AI_MODEL_DEPLOYMENT_NAME` `.env` faile tiksliai pagal rodomą slapyvardį (pvz., `phi-4-mini`, ne `Phi-4-mini`).
+Nustatykite `AZURE_AI_MODEL_DEPLOYMENT_NAME` faile `.env` tiksliai tokią pravardę, kaip nurodyta (pvz., `phi-4-mini`, ne `Phi-4-mini`).
 
-### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` vietiniam paleidimui (B variantas)
+### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` vietiniame paleidime (2 kelias)
 
-Laboratorijos `main.py` naudoja `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local reikalauja, kad šis kintamasis nurodytų vietinę paslaugą - **ne** `AZURE_AI_PROJECT_ENDPOINT`. Užtikrinkite, kad jūsų `.env` failas turi:
+Laboratorijos `main.py` naudoja `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local reikalauja, kad ši kintamoji rodytų į lokalią paslaugą - **ne** `AZURE_AI_PROJECT_ENDPOINT`. Įsitikinkite, kad jūsų `.env` turi:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### MCP įrankis vis dar siunčia išorinį kvietimą (B variantas)
+### MCP įrankis vis dar siunčia išėjimą į tinklą (2 kelias)
 
-Tai tikėtina. Įrankis `search_microsoft_learn_for_plan` gauna mokymosi išteklius iš `https://learn.microsoft.com/api/mcp`. **Tik įgūdžių pavadinimo užklausa** keliauja tinklu - gyvenimo aprašymas ir darbo aprašymas apdorojami visiškai jūsų įrenginyje ir niekada nepasiunčiami tinklu. Jei reikalinga visiškai offline veikla, pridėkite `try/except` rezervinį variantą į įrankį, kuris, jei endpointas nepasiekiamas, grąžina statinį `learn.microsoft.com` URL.
+Tai normalu. `search_microsoft_learn_for_plan` įrankis gauna mokymosi išteklius iš `https://learn.microsoft.com/api/mcp`. **Tik užklausa dėl įgūdžio pavadinimo** keliauja per tinklą – CV ir JD tekstas apdorojamas visiškai jūsų įrenginyje ir niekada nėra perduodamas. Jei reikalinga visiškai neprisijungus veikianti operacija, pridėkite `try/except` atsarginį metodą į įrankį, kuris grąžina statinį `learn.microsoft.com` URL, kai galinis taškas nepasiekiamas.
 
 ---
 
 ## Pagalbos gavimas
 
-Jei likote įstrigę net ir išbandę aukščiau pateiktus pataisymus:
+Jei užstrigote po aukščiau pateiktų pataisymų bandymo:
 
-1. **Patikrinkite serverio žurnalus** - dauguma klaidų pateikia Python klaidų aprašą terminale. Perskaitykite visą klaidos grandinę.
-2. **Ieškokite klaidos pranešimo** - Nukopijuokite klaidos tekstą ir ieškokite [Microsoft Q&A for Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Atidarykite problemą** - Pateikite klausimą [workshop saugykloje](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) su:
-   - Klaidos pranešimu arba ekrano nuotrauka
+1. **Peržiūrėkite serverio žurnalus** – dauguma klaidų pateikia Python klaidų seką terminale. Perskaitykite visą klaidų seką.
+2. **Ieškokite klaidos pranešimo** – nukopijuokite klaidos tekstą ir ieškokite [Microsoft Q&A for Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Atidarykite problemos pranešimą** – pateikite problemą [darbo sandėlyje](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) kartu su:
+   - Klaidos pranešimu arba ekrano kopija
    - Jūsų paketų versijomis (`pip list | Select-String "agent-framework"`)
    - Jūsų Python versija (`python --version`)
-   - Ar problema vietinė, ar po diegimo
+   - Ar klaida lokali, ar po diegimo
 
 ---
 
-### Tikrinimo taškas
+### Patikrinimo taškas
 
-- [ ] Mokate patikrinti ir išspręsti `.env` konfigūracijos problemas
-- [ ] Galite patikrinti, kad paketų versijos atitiktų reikalaujamą matricą
-- [ ] Mokate tikrinti konteinerio žurnalus diegimo nesėkmėms
-- [ ] Galite patikrinti RBAC roles Azure portale
+- [ ] Jūs žinote, kaip patikrinti ir taisyti `.env` konfigūracijos problemas
+- [ ] Galite patikrinti, kad paketų versijos atitinka reikalaujamas matricas
+- [ ] Jūs žinote, kaip patikrinti konteinerio žurnalus dėl diegimo klaidų
+- [ ] Galite patikrinti RBAC roles Azure Portale
 
 ---
 
-**Ankstesnis:** [07 - Tikrinimas Playground](07-verify-in-playground.md) · **Kitas:** [09 - Santrauka →](09-summary.md) · **Pradžia:** [Laboratorija 02 README](../README.md) · [Dirbtuvės pradžia](../../../README.md)
+**Ankstesnis:** [07 - Verify in Playground](07-verify-in-playground.md) · **Kitas:** [09 - Summary →](09-summary.md) · **Pradžia:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

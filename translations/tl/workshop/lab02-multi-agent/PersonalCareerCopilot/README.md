@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - Pagsusuri ng Resume → Pagtutugma sa Trabaho
+# PersonalCareerCopilot - Resume → Tagapagsuri ng Pagkakatugma sa Trabaho
 
-Isang app na multi-agent na nakatuon sa workflow na sumusuri kung gaano kahusay tugma ang isang resume sa deskripsyon ng trabaho, pagkatapos ay bumubuo ng isang personal na plano sa pag-aaral upang punan ang mga kakulangan.
+Isang workflow-first na multi-agent na app na sumusuri kung gaano kahusay nagtatapat ang resume sa job description, pagkatapos ay bumubuo ng personalisadong learning roadmap upang punan ang mga kakulangan.
 
 ---
 
@@ -8,29 +8,29 @@ Isang app na multi-agent na nakatuon sa workflow na sumusuri kung gaano kahusay 
 
 | Ahente | Papel | Mga Kasangkapan |
 |-------|------|-------|
-| **ResumeParser** | Kumukuha ng istrukturadong mga kasanayan, karanasan, sertipikasyon mula sa teksto ng resume | - |
-| **JobDescriptionAgent** | Kumukuha ng kinakailangan/ginustong mga kasanayan, karanasan, sertipikasyon mula sa JD | - |
-| **MatchingAgent** | Inihahambing ang profile vs mga kinakailangan → iskor ng pagtutugma (0-100) + mga kasanayang tugma/hindi pa mayroon | - |
-| **GapAnalyzer** | Gumagawa ng personal na roadmap ng pag-aaral gamit ang mga resource ng Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | Kumukuha ng istrakturadong mga kasanayan, karanasan, sertipikasyon mula sa teksto ng resume | - |
+| **JobDescriptionAgent** | Kumukuha ng kinakailangang/preperadong mga kasanayan, karanasan, sertipikasyon mula sa JD | - |
+| **MatchingAgent** | Inihahambing ang profile vs mga kinakailangan → iskor ng pagkakatugma (0-100) + tugmang/missing na mga kasanayan | - |
+| **GapAnalyzer** | Gumagawa ng personalisadong learning roadmap gamit ang mga Microsoft Learn na mapagkukunan | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Daloy ng Trabaho
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Resume + Deskripsyon ng Trabaho"] --> ResumeParser
-    ResumeParser -- "na-parse na resume + relay ng JD" --> JobDescriptionAgent
-    JobDescriptionAgent -- "mga kinakailangan ng JD + relay ng resume" --> MatchingAgent
-    MatchingAgent -- "ulat ng pagkakatugma + mga agwat" --> GapAnalyzerMCP["Tagasuri ng Agwat +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nIskor ng Pagkakatugma + Mapa ng Daan"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## Mabilisang simula
+## Mabilis na Pagsisimula
 
-### 1. Ihanda ang kapaligiran
+### 1. I-set up ang kapaligiran
 
-Ang folder na ito ay ang reference na implementasyon para sa workflow-based Lab 02 scaffold. Ang `main.py` nito ay gumagamit ng umiiral na mga prompt block kasama ang `WorkflowBuilder` upang pagdugtungin ang apat na ahente.
+Ang folder na ito ang reference implementation para sa workflow-based Lab 02 scaffold. Ang `main.py` nito ay gumagamit ng umiiral na mga prompt blocks kasama ang `WorkflowBuilder` upang pagdugtungin ang apat na ahente.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,9 +40,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Isaayos ang mga kredensyal
+### 2. I-configure ang mga kredensyal
 
-Gumawa ng `.env` file sa folder na ito:
+Lumikha ng isang `.env` file sa folder na ito:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Halaga | Saan Makikita |
+| Halaga | Saan ito mahahanap |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Sidebar ng Foundry Toolkit → i-right click ang iyong proyekto → **Kopyahin ang Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Sidebar ng Foundry → palawakin ang proyekto → **Mga Modelo + mga endpoint** → pangalan ng deployment |
+| `FOUNDRY_PROJECT_ENDPOINT` | Sidebar ng Foundry Toolkit → right-click ang iyong proyekto → **Copy Project Endpoint** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Sidebar ng Foundry → palawakin ang proyekto → **Models + endpoints** → pangalan ng deployment |
 
 ### 3. Patakbuhin nang lokal
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-O gamitin ang VS Code task: `Ctrl+Shift+P` → **Tasks: Run Task** → **Patakbuhin ang Agent HTTP Server**.
+O gamitin ang task sa VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
 
 Para sa F5 debugging, gamitin ang **Debug Local Agent HTTP Server**.
 
 ### 4. Subukan gamit ang Agent Inspector
 
-Buksan ang Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Buksan ang Agent Inspector**.
+Buksan ang Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
 
-Idikit ang test prompt na ito:
+I-paste ang test prompt na ito:
 
 ```
 Resume:
@@ -92,15 +92,15 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Inaasahan:** Isang iskor ng pagtutugma (0-100), mga kasanayang tugma/hindi pa mayroon, at isang personal na roadmap sa pag-aaral kasama ang mga URL ng Microsoft Learn.
+**Inaasahan:** Isang iskor ng pagkakatugma (0-100), mga tugmang/missing na kasanayan, at isang personalisadong learning roadmap gamit ang mga URL ng Microsoft Learn.
 
 ### 5. I-deploy sa Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: I-deploy ang Hosted Agent** → piliin ang iyong proyekto → kumpirmahin.
+`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → piliin ang iyong proyekto → kumpirmahin.
 
 ---
 
-## Estruktura ng proyekto
+## Istruktura ng Proyekto
 
 ```
 PersonalCareerCopilot/
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## Pangunahing mga file
+## Mga Pangunahing file
 
 ### `agent.yaml`
 
-Nagpapakahulugan ng hosted agent para sa Foundry Agent Service:
-- `kind: hosted` - tumatakbo bilang isang pinamamahalaang container
-- `protocols` - `responses` protocol na may `version: 1.0.0`, na naglalantad ng `/responses` HTTP endpoint
-- `environment_variables` - idineklara dito ang `AZURE_AI_MODEL_DEPLOYMENT_NAME`; awtomatiko namang ini-inject ang `FOUNDRY_PROJECT_ENDPOINT` sa oras ng pag-deploy
+Nagdedeklara ng hosted agent para sa Foundry Agent Service:
+- `kind: hosted` - tumatakbo bilang isang managed container
+- `protocols` - `responses` protocol kasama ang `version: 2.0.0`, na nagpapakita ng `/responses` HTTP endpoint
+- `environment_variables` - Dito dineklara ang `AZURE_AI_MODEL_DEPLOYMENT_NAME`; awtomatikong ini-inject ang `FOUNDRY_PROJECT_ENDPOINT` sa oras ng deploy
 
 ### `main.py`
 
 Naglalaman ng:
-- **Mga tagubilin para sa Ahente** - apat na `*_INSTRUCTIONS` constants, isa para sa bawat ahente
-- **MCP tool** - `search_microsoft_learn_for_plan()` tumatawag sa `https://learn.microsoft.com/api/mcp` gamit ang Streamable HTTP
-- **Paglikha ng Ahente** - apat na `Agent()` + `AgentExecutor()` instances na gumagamit ng isang `FoundryChatClient`
-- **Workflow graph** - `WorkflowBuilder` na pinagdugtong-dugtong ang mga ahente bilang isang sunod-sunod na pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **Pagsisimula ng server** - `ResponsesHostServer` ay tumatakbo sa port 8088
+- **Tagubilin para sa Ahente** - apat na `*_INSTRUCTIONS` constants, isa bawat ahente
+- **MCP tool** - `search_microsoft_learn_for_plan()` tumatawag sa `https://learn.microsoft.com/api/mcp` sa pamamagitan ng Streamable HTTP
+- **Paglikha ng Ahente** - apat na `Agent()` + `AgentExecutor()` instances na nagbabahagi ng isang `FoundryChatClient`
+- **Workflow graph** - `WorkflowBuilder` nag-uugnay sa mga ahente bilang magkakasunod na pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Pagpatakbo ng Server** - `ResponsesHostServer` tumatakbo sa port 8088
 
 ### `requirements.txt`
 
 | Package | Layunin |
 |---------|----------|
 | `agent-framework-foundry` | Core runtime: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integrasyon sa Foundry hosting |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integrasyon ng Foundry hosting |
 | `mcp<2,>=1.24.0` | MCP client para sa GapAnalyzer (`streamable_http_client`) |
 | `debugpy` | Python debugging (F5 sa VS Code) |
 
 ---
 
-## Pag-aayos ng mga problema
+## Pag-aayos ng Problema
 
 | Isyu | Ayusin |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` o `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Gumawa ng `.env` na may parehong `FOUNDRY_PROJECT_ENDPOINT` at `AZURE_AI_MODEL_DEPLOYMENT_NAME` na naka-set |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` o `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Lumikha ng `.env` na may parehong naka-set na `FOUNDRY_PROJECT_ENDPOINT` at `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
 | `ModuleNotFoundError: No module named 'agent_framework'` | I-activate ang venv at patakbuhin ang `pip install -r requirements.txt` |
-| Walang Microsoft Learn URLs sa output | Suriin ang koneksyon sa internet papuntang `https://learn.microsoft.com/api/mcp` |
-| Isa lamang ang gap card (putol) | Tiyaking kasama sa `GAP_ANALYZER_INSTRUCTIONS` ang `CRITICAL:` block |
-| Ang Port 8088 ay ginagamit na | Itigil ang ibang server: `netstat -ano \| findstr :8088` |
+| Walang Microsoft Learn URL sa output | Suriin ang koneksyon sa internet papuntang `https://learn.microsoft.com/api/mcp` |
+| Isang gap card lamang (naputol) | Suriin ang `GAP_ANALYZER_INSTRUCTIONS` kung kasama ang `CRITICAL:` block |
+| Port 8088 ay ginagamit na | Itigil ang ibang mga server: `netstat -ano \| findstr :8088` |
 
-Para sa mas detalyadong paglutas ng problema, tingnan ang [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+Para sa mas detalyadong pag-aayos ng problema, tingnan ang [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 
 ---
 
-**Kompletong walkthrough:** [Lab 02 Docs](../docs/README.md) · **Bumalik sa:** [Lab 02 README](../README.md) · [Tahanan ng Workshop](../../../README.md)
+**Buong gabay:** [Lab 02 Docs](../docs/README.md) · **Bumalik sa:** [Lab 02 README](../README.md) · [Tahanan ng Workshop](../../../README.md)
 
 ---
 

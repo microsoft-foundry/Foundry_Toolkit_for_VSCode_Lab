@@ -68,7 +68,7 @@ The Agent Inspector shows this same graph structure when the agent is running lo
 
 ## Reading the WorkflowBuilder code
 
-The full `create_workflow()` function is in [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). The three `add_edge()` calls build the sequential pipeline:
+The workflow graph is built in the `main()` function in [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). The three `add_edge()` calls build the sequential pipeline:
 
 | # | Edge | Effect |
 |---|------|--------|

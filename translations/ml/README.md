@@ -1,53 +1,53 @@
-# Foundry Toolkit + Foundry Hosted Agents വർക്ഷോപ്പ്
+# ഫൗണ്ട്രി ടൂള്കിറ്റ് + ഫൗണ്ട്രി ഹോസ്റ്റഡ് ഏജന്റുകൾ വര്‍ക്ക്‌ഷോപ്പ്
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft എജന്റ് ഫ്രെയിംവർക്ക്](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
-[![ഹോസ്റ്റഡ് ഏജന്റുകൾ](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)
+[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
 [![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![ലൈസൻസ്](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Build, test, and deploy AI agents to **Microsoft Foundry Agent Service** as **Hosted Agents** - entirely from VS Code using the **Microsoft Foundry extension** and **Foundry Toolkit**.
+**Microsoft Foundry ഒമ്പത് എജന്റ് സർവീസിലേക്ക്** AI ഏജന്റുകളെ തയാറാക്കുക, పరీక్షിക്കുക, വിന്യസിക്കുക - പൂർണമായും VS കോഡ് ഉപയോഗിച്ച് **Microsoft Foundry എക്സ്റ്റെൻഷൻ** ക്കും **Foundry Toolkit** ക്കും വഴി **Hosted Agents** എന്ന നിലയിൽ.
 
-> **Hosted Agents ഇപ്പോൾ പ്രിവ്യൂവിലാണ്.** Supported regions are limited - see [പ്രദേശങ്ങളുടെ ലഭ്യത](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents ഇപ്പോൾ പ്രിവ്യൂയിൽ ആണ്.** പിന്തുണയ്‌ക്കുന്ന മേഖലയുകൾ പരിമിതമാണ് - [മേഖല ലഭ്യത](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) കാണുക.
 
-> The `agent/` folder inside each lab is **സ്വയം സൃഷ്ടിക്കപ്പെടുന്നു** by the Foundry extension - you then customize the code, test locally, and deploy.
+> ഓരോ ലാബിനുള്ളിൽ ഉള്ള `agent/` ഫോൾഡർ **Foundry എക്സ്റ്റെൻഷൻ** സ്വയം സ്രഷ്ടിക്കുന്നു - പിന്നീട് നിങ്ങൾ കോഡ് ഇഷ്‌ടാനുസൃതമാക്കാം, പ്രാദേശികമായി പരീക്ഷിക്കാം, വിന്യസിക്കാം.
 
-### 🌐 ബഹുഭാഷാ പിന്തുണ
+### 🌐 ബഹു-ഭാഷാ പിന്തുണ
 
-#### GitHub Action വഴി ലഭ്യമാണ് (ഓട്ടോമേറ്റഡ് & എല്ലായ്പ്പോഴും പുതുക്കപ്പെട്ട)
+#### GitHub പ്രവർത്തനത്തിലൂടെ പിന്തുണ (ഓട്ടോമാറ്റികും എല്ലായ്പ്പോഴും പുതുക്കപ്പെട്ടതും)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[അറബി](../ar/README.md) | [ബംഗ്ലാ](../bn/README.md) | [ബൾഗേറിയൻ](../bg/README.md) | [ബർമീസ് (മിയാൻമർ)](../my/README.md) | [ചൈനീസ് (സിംപ്ലിഫൈഡ്)](../zh-CN/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, ഹോങ്കോംഗ്)](../zh-HK/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, മക്കാവ്)](../zh-MO/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, തായ്‌വാൻ)](../zh-TW/README.md) | [ക്രൊയേഷ്യൻ](../hr/README.md) | [ചെക്ക്](../cs/README.md) | [ഡാനിഷ്](../da/README.md) | [ഡച്ച്](../nl/README.md) | [എസ്റ്റോണിയൻ](../et/README.md) | [ഫിന്നിഷ്](../fi/README.md) | [ഫ്രഞ്ച്](../fr/README.md) | [ജർമ്മൻ](../de/README.md) | [ഗ്രീക്ക്](../el/README.md) | [ഹീബ്രു](../he/README.md) | [ഹിന്ദി](../hi/README.md) | [ഹംഗേറിയൻ](../hu/README.md) | [ഇന്ദോണേഷ്യൻ](../id/README.md) | [ഇറ്റാലിയൻ](../it/README.md) | [ജാപ്പനീസ്](../ja/README.md) | [കന്നഡ](../kn/README.md) | [ഖ്മേർ](../km/README.md) | [കൊറിയൻ](../ko/README.md) | [ലിത്വേനിയൻ](../lt/README.md) | [മലയ്](../ms/README.md) | [മലയാളം](./README.md) | [മറാത്തി](../mr/README.md) | [നെപ്പാലി](../ne/README.md) | [നൈജീരിയൻ പിഡ്ജിൻ](../pcm/README.md) | [നോർവീജിയൻ](../no/README.md) | [പെർഷ്യൻ (ഫാർസി)](../fa/README.md) | [പോളിഷ്](../pl/README.md) | [പോർച്ചുഗീസ് (ബ്രസീൽ)](../pt-BR/README.md) | [പോർച്ചുഗീസ് (പോർച്ചുഗൽ)](../pt-PT/README.md) | [പഞ്ചാബി (ഗുരുമുഖി)](../pa/README.md) | [റൊമാനിയൻ](../ro/README.md) | [റഷ്യൻ](../ru/README.md) | [സെർബിയൻ (സൈറിലിക്)](../sr/README.md) | [സ്ലോവാക്](../sk/README.md) | [സ്ലോവേനിയൻ](../sl/README.md) | [സ്പാനിഷ്](../es/README.md) | [സ്വാഹിലി](../sw/README.md) | [സ്വീഡിഷ്](../sv/README.md) | [താഗലോഗ് (ഫിലിപ്പീൻ)](../tl/README.md) | [തമിഴ്](../ta/README.md) | [తెలుగు](../te/README.md) | [തായ്](../th/README.md) | [ടർക്കിഷ്](../tr/README.md) | [ഉക്രൈനീയൻ](../uk/README.md) | [ഉറുദു](../ur/README.md) | [വിയറ്റ്നാമീസ്](../vi/README.md)
+[അറബിക്](../ar/README.md) | [ബംഗാളി](../bn/README.md) | [ബൾഗേറിയൻ](../bg/README.md) | [ബർമീസ് (മ്യാന്മാർ)](../my/README.md) | [ചൈനീസ് (ലളിതം)](../zh-CN/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, ഹോങ്ങ് കോങ്)](../zh-HK/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, മകാവ്)](../zh-MO/README.md) | [ചൈനീസ് (പരമ്പരാഗതം, തായ്‌വാൻ)](../zh-TW/README.md) | [ക്രൊയേഷ്യൻ](../hr/README.md) | [ചെക്ക്](../cs/README.md) | [ഡാനിഷ്](../da/README.md) | [ഡച്ച്ഡ്](../nl/README.md) | [എസ്റ്റോണിയൻ](../et/README.md) | [ഫിന്നിഷ്](../fi/README.md) | [ഫ്രഞ്ച്](../fr/README.md) | [ജർമ്മൻ](../de/README.md) | [ഗ്രേക്ക്](../el/README.md) | [ഹീബ്രു](../he/README.md) | [ഹിന്ദി](../hi/README.md) | [ഹംഗേറിയൻ](../hu/README.md) | [ഇന്തോനേഷ്യൻ](../id/README.md) | [ഇറ്റാലിയൻ](../it/README.md) | [ജാപ്പനീസ്](../ja/README.md) | [കന്നഡ](../kn/README.md) | [ഖ്മേർ](../km/README.md) | [കൊറിയൻ](../ko/README.md) | [ലിത്വേനിയൻ](../lt/README.md) | [മലായ്](../ms/README.md) | [മലയാളം](./README.md) | [മറാത്തി](../mr/README.md) | [നേപ്പാളി](../ne/README.md) | [നൈജീരിയൻ പിഡ്ജിൻ](../pcm/README.md) | [നോർവീജിയൻ](../no/README.md) | [ഫേർഷ്യൻ (ഫാർസി)](../fa/README.md) | [പോളിഷ്](../pl/README.md) | [പോർച്ചുഗീസ് (ബ്രസീൽ)](../pt-BR/README.md) | [പോർച്ചുഗീസ് (പോർച്ചുഗൽ)](../pt-PT/README.md) | [പഞ്ചാബി (ഗുർമുഖി)](../pa/README.md) | [റോമേനിയൻ](../ro/README.md) | [റഷ്യൻ](../ru/README.md) | [സെർബിയൻ (സിറിലിക്)](../sr/README.md) | [സ്ലോവാക്](../sk/README.md) | [സ്ലോവീനിയൻ](../sl/README.md) | [സ്പാനിഷ്](../es/README.md) | [സ്വാഹിലി](../sw/README.md) | [സ്വീഡിഷ്](../sv/README.md) | [ടാഗലോഗ് (ഫിലിപ്പിനോ)](../tl/README.md) | [തമിഴ്](../ta/README.md) | [തെലുങ്കു](../te/README.md) | [തായ്](../th/README.md) | [തുര്‍ക്കിഷ്](../tr/README.md) | [യുക്രെയ്നിയൻ](../uk/README.md) | [ഉർදු](../ur/README.md) | [വിയറ്റ്നാമീസ്](../vi/README.md)
 
-> **പ്രാദേശികമായി ക്ലോൺ ചെയ്യാൻ ഇഷ്ടമുണ്ടോ?**
+> **സ്ഥാനാന്തരിക്കാൻ ഇഷ്ടമാണോ?**
 >
-> ഈ റിപ്പോസിറ്ററി 50-ലധികം ഭാഷാ പരിഭാഷകൾ ഉൾക്കൊള്ളുന്നുവെങ്കിൽ ഡൗൺലോഡ് വലുപ്പം ഗണ്യമായി വർദ്ധിക്കുന്നു. പരിഭാഷകൾ ഒഴിവാക്കി ക്ലോൺ ചെയ്യാൻ sparse checkout ഉപയോഗിക്കുക:
+> ഈ റിപ്പോസിറ്ററിയിൽ 50 ലധികം ഭാഷാ പരിഭാഷകൾ ഉൾപ്പെട്ടിരിക്കുന്നു, ഇത് ഡൗൺലോഡ് വലിപ്പം കൂടുന്നു. പരിഭവങ്ങളില്ലാതെ ക്ലോൺ ചെയ്യാനായി sparse checkout ഉപയോഗിക്കുക:
 >
-> **Bash / macOS / Linux:**
+> **ബാഷ് / മാക്ക്ഓ.എസ് / ലിനക്സ്:**
 > ```bash
 > git clone --filter=blob:none --sparse https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 > cd Foundry_Toolkit_for_VSCode_Lab
 > git sparse-checkout set --no-cone '/*' '!translations' '!translated_images'
 > ```
 >
-> **CMD (Windows):**
+> **CMD (വിൻഡോസ്):**
 > ```cmd
 > git clone --filter=blob:none --sparse https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 > cd Foundry_Toolkit_for_VSCode_Lab
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> ഇത് കോഴ്‌സ് പൂർത്തിയാക്കാൻ നിങ്ങൾക്ക് ആവശ്യമായ എല്ലാ ഘടകങ്ങളും നൽകും, കൂടാതെ ഡൗൺലോഡ് വളരെ വേഗത്തിലാണ്.
+> ഇതു നിങ്ങളുടെ കോഴ്സ് പൂർത്തിയാക്കാൻ ആവശ്യമായ എല്ലാം നൽകുന്നു പതിയെ ഡൗൺലോഡ് ചെയ്യുന്നതിനു പകരം.
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## ആർക്കിടെക്ചർ
+## രൂപരേഖ
 
 ```mermaid
 flowchart TB
@@ -92,48 +92,48 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**പ്രവാഹം:** Foundry എക്സ്റ്റൻഷൻ ഏജന്റ് സ്കാഫോൾഡ് ചെയ്യുന്നു → നിങ്ങൾ കോഡ് & നിർദ്ദേശങ്ങൾ കസ്റ്റമൈസ് ചെയ്യുക → Agent Inspector ഉപയോഗിച്ച് ലോക്കലായി ടെസ്റ്റ് ചെയ്യുക → Foundry-ലേക്ക് ഡിപ്ലോയ് ചെയ്യുക (Docker ഇമേജ് ACR-യിലേക്ക് പുഷ് ചെയ്യുന്നു) → Playground-ൽ സ്ഥിരീകരിക്കുക.
+**ഫ്ലോ:** ഫൗണ്ട്രി എക്സ്റ്റെൻഷൻ ഏജന്റ് സ്കാഫോൾഡ് ചെയ്യുന്നു → നിങ്ങൾ കോഡ് & നിർദ്ദേശങ്ങൾ ഇഷ്‌ടാനുസൃതമാക്കുന്നു → ഏജന്റ് ഇൻസ്‌പെക്ടറുമായി പ്രാദേശികമായി പരീക്ഷിക്കുന്നു → ഫൗണ്ട്രിയിലേക്ക് വിന്യസിക്കുന്നു (ഡോക്കർ ഇമേജ് ACR-ലേക്ക് പുഷ് ചെയ്യുന്നു) → പ്ലേഗ്രസ്‌ളിയിൽ പരിശോധന നടത്തുന്നു.
 
 ---
 
-## നിങ്ങൾ നിർമ്മിക്കുന്നതെന്താണ്
+## നിങ്ങൾ തയാറാക്കുക
 
-| Lab | വിവരണം | നില |
+| ലാബ് | വിവരണം | നില |
 |-----|-------------|--------|
-| **Lab 01 - Single Agent** | **"Explain Like I'm an Executive" ഏജന്റ്** നിർമ്മിക്കുക, ലോക്കലായി ടെസ്റ്റ് ചെയ്ത് Foundry-ലേക്ക് ഡിപ്ലോയ് ചെയ്യുക | ✅ ലഭ്യമാണ് |
-| **Lab 02 - Multi-Agent Workflow** | **"Resume → Job Fit Evaluator"** നിർമ്മിക്കുക - റിസ്യൂം ഫിറ്റ് സ്കോർ ചെയ്യാനും പഠന റോഡ്‌മാപ്പ് സൃഷ്ടിക്കാനും 4 ഏജന്റുകൾ സഹകരിക്കുന്നു | ✅ ലഭ്യമാണ് |
+| **ലാബ് 01 - സിംഗിൾ ഏജന്റ്** | **"ഞാൻ എക്സിക്യൂട്ടീവ് ആണെന്ന് വിശദീകരിക്കുക" ഏജന്റ്** നിർമ്മിച്ച്, പ്രാദേശികമായി പരീക്ഷിച്ച്, ഫൗണ്ട്രിയിലേക്ക് വിന്യസിക്കുക | ✅ ലഭ്യമാണ് |
+| **ലാബ് 02 - ബഹു-ഏജന്റ് വർക്ക്‌ഫ്ലോവ്** | **"റിസ്യൂമേ → ജോലി യോഗ്യതാ വിലയിരുത്തൽ"** - 4 ഏജന്റുകൾ കൂട്ടായ്മയിൽ റിസ്യൂമേ യോഗ്യത വിലയിരുത്തൽ സ്കോർ ചെയ്യുന്നു, പഠന രൂപരേഖ സൃഷ്ടിക്കുന്നു | ✅ ലഭ്യമാണ് |
 
 ---
 
-## എക്സിക്യൂട്ടീവ് ഏജന്റുമായി പരിചയം
+## എക്സിക്യൂട്ടീവ് ഏജന്റിനെ കണ്ടു നോക്കൂ
 
-ഈ വർക്ഷോപ്പിൽ നിങ്ങൾ നിർമ്മിക്കുന്നത് ആണ് **"Explain Like I'm an Executive" ഏജന്റ്** - സങ്കീർണ സാങ്കേതിക ജാർഗൺ എടുത്ത് അതിനെ ശാന്തവും ബോർഡറൂം-സൗഹൃദവും ആയ സാരാംശങ്ങളായി തർജ്ജമ ചെയ്യാൻ കഴിയുന്ന ഒരു AI ഏജന്റ്. യാഥാർത്ഥ്യമായി പറഞ്ഞാൽ, C-സ്യൂട്ട്里的 ആര്‍ക്കും "v3.2-ൽ ചേർത്ത synchronous calls മൂലം thread pool exhaustion" എന്നത് കേൾക്കാൻ ഇഷ്ടമില്ല.
+ഈ വര്‍ക്ക്‌ഷോപ്പിൽ നിങ്ങൾ **"ഞാൻ എക്സിക്യൂട്ടീവ് ആണെന്ന് വിശദീകരിക്കുക" ഏജന്റ്** നിർമ്മിക്കും - സങ്കീർണ്ണ സాంకേതിക പദങ്ങൾ എടുത്ത്, സമാധാനപരമായ, ബോർഡ് റൂം-സജ്ജമായ സംക്ഷിപ്തരൂപത്തിൽ ആസ്വദിക്കാവുന്ന രൂപത്തിൽ പരിഭാഷപ്പെടുത്തുന്ന AI ഏജന്റ്. കാരണം, സിഐസിൻറെ അംഗങ്ങൾ "v3.2-ൽ പ്രবর্তിപ്പിച്ച സമകാലിക കറങ്കൾ കൊണ്ട് ത്രെഡ് പൂൾ എക്സോസ്റ്റഷൻ" എന്ന തലത്തിലുള്ള സാങ്കേതിക ചർച്ച കേൾക്കാൻ ആഗ്രഹിക്കുന്നില്ല.
 
-ഞാൻ ഈ ഏജന്റ് നിർമ്മിച്ചത് പലസന്ദർഭങ്ങളിലും എന്റെ സൂക്ഷ്മമായി തയ്യാറാക്കിയ പോസ്റ്റ്-മോർട്ടത്തിനു ലഭിച്ച മറുപടി *"അപ്പോൾ... വെബ്സൈറ്റ് താഴെയാണോ അല്ലയോ?"* എന്നതുപോലുള്ള നിസ്സാരമായ പ്രതികരണങ്ങൾ മൂലമാണ്.
+ഈ ഏജന്റ് ഞാൻ നിർമ്മിച്ചത്, നിരവധി തവണയ്ക്ക് എന്റെ പൂർണ്ണമായ പോസ്റ്റ് മോർട്ടം പ്രസ്താവനയ്ക്ക് പ്രതികരണം ഉണ്ടായി: *"അപ്പോൾ... വെബ്സൈറ്റ് ഡൗൺ ആയോ അല്ലയോ?"*
 
 ### ഇത് എങ്ങനെ പ്രവർത്തിക്കുന്നു
 
-നിങ്ങൾ അതിന് ഒരു സാങ്കേതിക അപ്ഡേറ്റ് നൽകും. അത് ഒരു എക്സിക്യൂട്ടീവ് സംഗ്രഹം തിരികെ നൽകുന്നു - മൂന്ന് ബുള്ളറ്റ് പോയിന്റുകൾ, ജാർഗൺ ഇല്ല, സ്ടാക്ക് ട്രേസുകൾ ഇല്ല, അത്യന്തം ഭയം ഇല്ല. വെറും **എന്താണ് സംഭവിച്ചത്**, **ബിസിനസ് സ്വാധീനം**, এবং **അടുത്ത ചുവട്**.
+നിങ്ങൾ ഒരു സാങ്കേതിക അപ്‌ഡേറ്റ് നൽകുന്നു. അതിന് തിരിച്ചടി നൽകുന്നത് ഒരു എക്സിക്യൂട്ടീവ് സംക്ഷേപം - മൂന്ന് ബുള്ളറ്റ് പോയിന്റുകൾ, jargon ഇല്ല, സ്റ്റാക്ക് ട്രേസുകൾ ഇല്ല, ഒരു ഉളവും ഇല്ല. വെറും **എന്ത് സംഭവിച്ചു**, **ബിസിനസ് പ്രഭാവം**, **അടുത്ത ചുവടു**.
 
-### പ്രവർത്തനത്തിൽ കാണുക
+### പ്രവർത്തനത്തിൽ കണ്ടു നോക്കൂ
 
-**നിങ്ങൾ പറയുന്നത്:**
-> "API ലാറ്റൻസി വർദ്ധിച്ചു കാരണം thread pool exhaustionതാണ്, ഇത് v3.2-ൽ ചേർത്ത synchronous calls മൂലമാണ്."
+**നിങ്ങൾ പറയുന്നു:**
+> "API ലേറ്റൻസി വർധിച്ചത് v3.2-ൽ പരിചയപ്പെടുത്തിയ സമകാലിക കറങ്കൾ കൊണ്ട് ത്രെഡ് പൂൾ എക്സോസ്റ്റഷൻ മൂലമാണ്."
 
-**ഏജന്റ് മറുപടി നൽകുന്നു:**
+**ഏജന്റ് പ്രതികരിക്കുന്നു:**
 
-> **എക്സിക്യൂട്ടീവ് സംഗ്രഹം:**
-> - **എന്താണ് സംഭവിച്ചത്:** ഏറ്റവും പുതിയ റിലീസിനുശേഷം സിസ്റ്റം മന്ദഗതിയില്‍ ആയിരുന്നു.
-> - **ബിസിനസ് സ്വാധീനം:** ചില ഉപയോക്താക്കൾ സർവീസ് ഉപയോഗിക്കുമ്പോൾ വൈകല്യം അനുഭവിച്ചു.
-> - **അടുത്ത ചുവട്:** മാറ്റം റോള്ബാക്ക് ചെയ്തു; വീണ്ടും ഡിപ്ലോയ്മെന്റ് നടത്തുന്നതിന് മുൻപ് ഒരു ഫിക്സ് തയ്യാറാവുകയാണ്.
+> **എക്സിക്യൂട്ടീവ് സംക്ഷേപം:**
+> - **എന്ത് സംഭവിച്ചു:** ഏറ്റവും പുതിയ റിലീസിന് ശേഷം സിസ്റ്റം മന്ദഗതിയിലായി.
+> - **ബിസിനസ് പ്രഭാവം:** ചില ഉപയോക്താക്കൾ സേവനം ഉപയോഗിക്കുമ്പോൾ താമസം അനുഭവപ്പെടുത്തി.
+> - **അടുത്ത ചുവടു:** മാറ്റം പിൻവലിച്ചു, പുതിയ വിന്യസനത്തിന് മുമ്പ് പരിഹാരം ഒരുക്കുകയാണ്.
 
 ### ഈ ഏജന്റ് എന്തിന്?
 
-ഇത് വളരെ ലളിതവും ഏകലക്ഷ്യവുമായ ഏജന്റാണ് — ഹോസ്റ്റഡ് ഏജന്റ് വർക്‌ഫ്ലോ തുടക്കം മുതൽ അവസാനത്തോടെ വരെ പഠിക്കാൻ, സങ്കീർണ ടൂൾചെയിനുകളിൽ ചോർന്നുയരാതെയും, അതിനായി അനുയോജ്യമാണ്. സത്യമായി പറയുമ്പോൾ, ഓരോ എൻജിനീയറിംഗ് ടീമ്മിനും ഇതുപോലൊരു ഏജൻറ് വേണോ എന്ന് തോന്നാം.
+അത് ഒരു പ്രാണപരിപൂർണവും, ഒറ്റലക്ഷ്യം ലഭിക്കുന്ന ഏജന്റാണ് - ബഹു-ഏജന്റ് വർക്ക്‌ഫ്ലോവിന്റെ തുടക്കം മുതൽ അവസാനം വരെ പഠിക്കാൻ മികച്ചത്, സങ്കീർണ്ണ ഉപകരണ ശൃംഖലകളിൽ കുടുങ്ങാതെ. സത്യത്തിൽ? എല്ലാ എൻജിനീയറിംഗ് ടീമിനും ഇതുപോലൊരു ഏജന്റ് വേണ്ടി വരും.
 
 ---
 
-## വർക്ഷോപ്പ് ഘടന
+## വര്‍ക്ക്‌ഷോപ്പ് ഘടന
 
 ```
 📂 Foundry_Toolkit_for_VSCode_Lab/
@@ -167,7 +167,8 @@ flowchart TB
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,26 +176,26 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **കുറിപ്പ്:** ഓരോ ലാബിലെയും `agent/` ഫോൾഡർ ആണ് **Microsoft Foundry extension** Command Palette-ൽ നിന്നു `Microsoft Foundry: Create a New Hosted Agent` ഓടിക്കുമ്പോൾ ജനറേറ്റ് ചെയ്യപ്പെടുന്നത്. ഫയലുകൾ പിന്നീട് നിങ്ങളുടെ ഏജന്റിന്റെ നിർദ്ദേശങ്ങൾ, ഉപകരണങ്ങൾ, കോൺഫിഗറേഷൻ എന്നിവ അനുസരിച്ച് കസ്റ്റമൈസ് ചെയ്യപ്പെടുന്നു. Lab 01 നിങ്ങളെ ഇത് സ്ക്രാച്ചിൽ നിന്ന് വീണ്ടും സൃഷ്ടിക്കാൻ നയിക്കുന്നു.
+> **കുറിപ്പ്:** ഓരോ ലാബിനുള്ളിലെ `agent/` ഫോൾഡർ **Microsoft Foundry എക്സ്റ്റെൻഷൻ** കമാൻഡ് പാലറ്റിൽ നിന്ന് `Microsoft Foundry: Create a New Hosted Agent` പ്രവർത്തിപ്പിക്കുമ്പോൾ സൃഷ്ടിക്കുന്നു. ഫയലുകൾ പിന്നീട് നിങ്ങളുടെ ഏജന്റിന്റെ നിർദ്ദേശങ്ങൾ, ടൂളുകൾ, കോൺഫിഗറേഷനുസൃതമാക്കി ഇഷ്‌ടാനുസൃതമാക്കുന്നു. ലാബ് 01 നിങ്ങൾക്ക് ഇത് പൂർത്തിയാക്കുന്ന വഴി കാണിക്കുന്നു.
 
 ---
 
-## ആരംഭിക്കുക
+## ആരംഭിക്കുന്നത് എങ്ങനെ
 
-### 1. റെപ്പോസിറ്ററി ക്ലോൺ ചെയ്യുക
+### 1. റിപ്പോസിറ്ററി ക്ലോൺ ചെയ്യുക
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. ഒരു Python വെർച്വൽ എൻവയോൺമെന്റ് ക്രമീകരിക്കുക
+### 2. Python വേർച്വൽ എൻവയർമെന്റ് സജ്ജമാക്കുക
 
 ```bash
 python -m venv venv
 ```
 
-അതെ സജീവമാക്കുക:
+അത് പ്രവർത്തിപ്പിക്കുക:
 
 - **Windows (PowerShell):**
   ```powershell
@@ -205,58 +206,60 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### 3. ആവശ്യമായ ഡിപ്പെൻഡൻസികൾ ഇൻസ്റ്റാൾ ചെയ്യുക
+### 3. ആശ്രിതങ്ങൾ ഇൻസ്റ്റാൾ ചെയ്യുക
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. എൻവയോൺമെന്റ് വേരിയബിളുകൾ കോൺഫിഗർ ചെയ്യുക
+### 4. എൻവയർമെന്റ് വേരിയബിളുകൾ കോൺഫിഗർ ചെയ്യുക
 
-ഏജന്റ് ഫോൾഡറിനുള്ളിലെ ഉദാഹരണ `.env` ഫയൽ പകർത്തി നിങ്ങളുടെ മൂല്യങ്ങൾ പൂർത്തിയാക്കുക:
+ഏജന്റ് ഫോൾഡറിനുള്ളിൽ ഉദാഹരണ `.env` ഫയൽ പകർത്ത് നിങ്ങളുടെ മൂല്യങ്ങൾ നിറക്കുക:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-`workshop/lab01-single-agent/agent/.env` തിരുത്തുക:
+`workshop/lab01-single-agent/agent/.env` ഫയൽ എഡിറ്റ് ചെയ്യുക:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. വർക്ഷോപ്പ് ലാബുകൾ പിന്തുടരുക
+### 5. വര്‍ക്ക്‌ഷോപ്പ് ലാബുകൾ പിന്തുടരുക
 
-ഓരോ ലാബും സ്വതന്ത്രമായി അതിന്റെ സ്വന്തം മോഡ്യൂളുകൾ ഉൾക്കൊള്ളുന്നു. അടിസ്ഥാനങ്ങൾ പഠിക്കാൻ **Lab 01**-ൽ തുടങ്ങി, പിന്നീട് മൾട്ടി-ഏജന്റ് വർക്‌ഫ്ലോകൾക്കായി **Lab 02**-ലേക്ക് Movers ചെയ്യുക.
+ഓരോ ലാബും സ്വന്തം മോദ്യൂളുകളോട് സ്വയംപര്യാപ്തമാണ്. **ലാബ് 01** മുതൽ ആരംഭിച്ച് അടിസ്ഥാനങ്ങൾ പഠിക്കുക, പിന്നീട് ബഹു-ഏജന്റ് വർക്ക്‌ഫ്ലോക്കായി **ലാബ് 02** യിലേക്ക് മുന്നോട്ട് പോവുക.
 
-#### Lab 01 - Single Agent ([പൂർണ്ണ നിർദ്ദേശങ്ങൾ](workshop/lab01-single-agent/README.md))
+#### ലാബ് 01 - സിംഗിൾ ഏജന്റ് ([സമ്പൂർണ്ണ നിർദ്ദേശങ്ങൾ](workshop/lab01-single-agent/README.md))
 
-| # | മോഡ്യൂൾ | ലിങ്ക് |
+| # | മോദ്യൂൾ | ലിങ്ക് |
 |---|--------|------|
-| 1 | ആവശ്യകതകൾ വായിക്കുക | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | Foundry Toolkit & Foundry എക്സ്റ്റൻഷൻ ഇൻസ്റ്റാൾ ചെയ്യുക | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 3 | Foundry പ്രോജക്ട் സൃഷ്ടിക്കുക | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | ഒരു ഹോസ്റ്റഡ് ഏജന്റ് സൃഷ്ടിക്കുക | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | നിർദ്ദേശങ്ങളും എൻവയോൺമെന്റും കോൺഫിഗർ ചെയ്യുക | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
-| 6 | ലോക്കലായി ടെസ്റ്റ് ചെയ്യുക | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | Foundry-ലേക്ക് ഡിപ്ലോയ് ചെയ്യുക | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | Playground-ൽ സ്ഥിരീകരിക്കുക | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | പ്രശ്നപരിഹാരം | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 1 | മുൻപരിചയം വായിക്കുക | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | Foundry Toolkit & Foundry എക്സ്റ്റെൻഷൻ ഇൻസ്റ്റാൾ ചെയ്യുക | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 3 | Foundry പ്രൊജക്ട് സൃഷ്ടിക്കുക | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 4 | ഹോസ്റ്റഡ് ഏജന്റ് സൃഷ്ടിക്കുക | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | നിർദ്ദേശങ്ങളും എൻവയർമെന്റും കോൺഫിഗർ ചെയ്യുക | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 6 | പ്രാദേശികമായി പരീക്ഷിക്കുക | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
+| 7 | ഫൗണ്ട്രിയിലേക്ക് വിന്യസിക്കുക | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | പ്ലേഗ്രൗണ്ടിൽ സ്ഥിരീകരിക്കുക | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | സംക്ഷേപവും അടുത്ത ചുവടുകളും | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | പ്രശ്നപരിഹാരം | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### Lab 02 - Multi-Agent Workflow ([പൂർണ്ണ നിർദ്ദേശങ്ങൾ](workshop/lab02-multi-agent/README.md))
+#### ലാബ് 02 - ബഹു-ഏജന്റ് വർക്ക്‌ഫ്ലോ ([സമ്പൂർണ്ണ നിർദ്ദേശങ്ങൾ](workshop/lab02-multi-agent/README.md))
 
-| # | മോഡ്യൂൾ | ലിങ്ക് |
+| # | മോദ്യൂൾ | ലിങ്ക് |
 |---|--------|------|
-| 1 | ആവശ്യകതകൾ (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | മൾട്ടി-ഏജന്റ് ആർക്കിടെക്ചർ മനസ്സിലാക്കുക | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | മൾട്ടി-ഏജന്റ് പ്രോജക്ട് സ്കാഫോൾഡ് ചെയ്യുക | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | ഏജന്റുകളും എൻവയോൺമെന്റും കോൺഫിഗർ ചെയ്യുക | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 1 | മുൻപരിചയം (ലാബ് 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | ബഹുഏജന്റ് ആർക്കിടെക്ചർ മനസിലാക്കുക | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | ബഹുഏജന്റ് പ്രൊജക്ട് സ്കാഫോൾഡ് ചെയ്യുക | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | ഏജന്റുകളും എൻവയർമെന്റും കോൺഫിഗർ ചെയ്യുക | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
 | 5 | ഓർക്കസ്ട്രേഷൻ പാറ്റേണുകൾ | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | ലോക്കലായി ടെസ്റ്റ് ചെയ്യുക (മൾട്ടി-ഏജന്റ്) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | Foundry-ലേക്ക് ഡിപ്ലോയ് ചെയ്യുക | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | Playground-ൽ സ്ഥിരീകരിക്കുക | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | പ്രശ്നപരിഹാരം (മൾട്ടി-ഏജന്റ്) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 6 | പ്രാദേശികമായി പരീക്ഷിക്കുക (ബഹുഏജന്റ്) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | ഫൗണ്ട്രിയിലേക്ക് വിന്യസിക്കുക | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | പ്ലേഗ്രൗണ്ടിൽ പരിശോധിക്കുക | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 9 | പ്രശ്നപരിഹാരം (ബഹുഏജന്റ്) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | സംക്ഷേപവും അടുത്ത ചുവടുകളും | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
@@ -266,7 +269,7 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>Shivam Goyal</b></sub>
+        <sub><b>ശിവം ഗോയൽ</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,26 +277,26 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## ആവശ്യമായ അനുമതികൾ (എളുപ്പത്തിലുള്ള റഫറൻസ്)
+## ആവശ്യമായ അർഹതകൾ (ത്വരിത പരിഗണന)
 
-| സീനാരിയോ | ആവശ്യമായ റോളുകൾ |
+| സാഹചര്യം | ആവശ്യമായ റോളുകൾ |
 |----------|---------------|
-| പുതിയ Foundry പ്രോജക്ട് സൃഷ്ടിക്കുക | **Azure AI Owner** Foundry റിസോഴ്സിൽ |
-| നിലവിലുള്ള പ്രോജക്ടിലേക്ക് ഡിപ്ലോയ് ചെയ്യുക (പുതിയ റിസോഴ്സുകൾ) | **Azure AI Owner** + **Contributor** സബ്സ്ക്രിപ്ഷനിൽ |
-| പൂർണ്ണമായി കോൺഫിഗർ ചെയ്ത പ്രോജക്ടിലേക്ക് ഡിപ്ലോയ് ചെയ്യുക | അക്കൗണ്ടിൽ **Reader** + പ്രോജക്ടിൽ **Azure AI User** |
+| പുതിയ Foundry പ്രൊജക്ട് സൃഷ്ടിക്കുക | **Azure AI ഉടമ** ഫൗണ്ട്രി റിസോഴ്സിൽ |
+| നിലവിലുള്ള പ്രൊജക്ടിൽ വിന്യസിക്കുക (പുതിയ റിസോഴ്സ്) | **Azure AI ഉടമ** + **കൊണ്ട്രിബ്യൂട്ടർ** സബ്സ്ക്രിപ്ഷനിൽ |
+| പൂർണ്ണമായും കോൺഫിഗർ ചെയ്ത പ്രൊജക്ടിലേക്ക് വിന്യസിക്കുക | അക്കൗണ്ടിൽ **റീഡർ** + പ്രൊജക്ടിൽ **Azure AI ഉപയോക്താവ്** |
 
-> **പ്രധാനമായത്:** Azure `Owner` and `Contributor` റോളുകൾ에는 *മാനേജ്മെന്റ്* അനുമതികൾ മാത്രമേ ഉൾക്കൊള്ളാറുള്ളൂ, *ഡവലപ്പ്മെന്റ്* (ഡാറ്റാ ആക്ഷൻ) അനുമതികൾ അല്ല. ഏജന്റുകൾ നിർമിക്കാനും ഡിപ്ലോയ് ചെയ്യാനും നിങ്ങൾക്കു **Azure AI User** അല്ലെങ്കിൽ **Azure AI Owner** ആവശ്യമുണ്ട്.
+> **പ്രധാനമാണ്:** Azure `Owner` ಮತ್ತು `Contributor` ಪಾತ್ರങ്ങൾ *മാൻേജ്‌മെന്റ്* അനുമതികളേ അടങ്ങിയിട്ടുണ്ട്, *ഡെവലപ്‌മെന്റ്* (ഡേറ്റാ ആക്ഷൻ) അനുമതികൾ അല്ല. ഏജൻറുകൾ നിർമ്മിക്കുകയും വെയ്ക്കുകയും ചെയ്യാൻ നിങ്ങൾക്ക് **Azure AI User** അല്ലെങ്കിൽ **Azure AI Owner** വേണം.
 
 ---
 
 ## റഫറൻസുകൾ
 
-- [ഉടൻ തുടങ്ങൽ: നിങ്ങളുടെ ആദ്യ ഹോസ്റ്റഡ് ഏജന്റ് (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [ഹോസ്റ്റഡ് ഏജന്റുകൾ എന്താണ്?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [VS Code-ൽ ഹോസ്റ്റഡ് ഏജന്റ് വർക്‌ഫ്ലോകൾ സൃഷ്ടിക്കുക](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [ഹോസ്റ്റഡ് ഏജന്റ് വിന്യസിക്കുക](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Foundry-യ്ക്കുള്ള RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [ആർക്കിടെക്ചർ റിവ്യൂ ഏജന്റ് സാമ്പിൾ](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP ടൂളുകൾ, Excalidraw രേഖാചിത്രങ്ങൾ, ഇരട്ട വിന്യാസമുള്ള യാഥാർത്ഥ്യ ഹോസ്റ്റഡ് ഏജന്റ്
+- [ക്വിക്ക്സ്റ്റാർട്ട്: നിങ്ങളുടെ ആദ്യ ഹോസ്റ്റുഡ് ഏജന്റുമായി (VS കോഡ്)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [ഹോസ്റ്റുഡ് ഏജന്റുകൾ എന്താണ്?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [VS കോഡിൽ ഹോസ്റ്റുഡ് ഏജന്റ് വർക്‌ഫ്ലേകൾ സൃഷ്ടിക്കുക](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [ഒരു ഹോസ്റ്റുഡ് ഏജന്റ് വിന്യസിക്കുക](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Microsoft Foundry-നുള്ള RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
+- [ആർക്കിടെക്ചർ റിവ്യൂ ഏജന്റ് സാമ്പിൾ](https://github.com/Azure-Samples/agent-architecture-review-sample) - MCP ടൂളുകൾ, എക്സ്കാലിഡ്രോ ഡയർഗ്രാമുകൾ, കൂടാതെ ഇരട്ട വിന്യസണമുള്ള യഥാർത്ഥ ഹോസ്റ്റുഡ് ഏജന്റ്
 
 ---
 

@@ -2,22 +2,22 @@
 
 ⏱️ ~10 menit
 
-> ⚠️ **Pengguna Jalur B:** Modul ini memerlukan langganan Foundry. Jika Anda menggunakan Foundry Lokal, lewati ke [Modul 07 - Ringkasan](07-summary.md). Anda telah berhasil menyelesaikan alur kerja pengembangan lokal!
+> ⚠️ **Pengguna Jalur B:** Modul ini memerlukan langganan Foundry. Jika Anda menggunakan Foundry Local, lanjutkan ke [Modul 07 - Ringkasan](07-summary.md). Anda telah berhasil menyelesaikan alur kerja pengembangan lokal!
 
-Dalam modul ini, Anda menerapkan agen yang telah diuji secara lokal ke Microsoft Foundry sebagai **Hosted Agent**. Penerapan membangun image container, mendorongnya ke Azure Container Registry, dan memulai agen dalam infrastruktur yang dikelola Foundry.
+Dalam modul ini, Anda akan menerapkan agent yang telah diuji secara lokal ke Microsoft Foundry sebagai **Hosted Agent**. Penyebaran membangun image container, mendorongnya ke Azure Container Registry, dan memulai agent di infrastruktur terkelola Foundry.
 
-### Pipeline penerapan
+### Pipeline penyebaran
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|bangun docker| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|dorong docker| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|daftarkan agen| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|mulai kontainer| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -31,15 +31,15 @@ flowchart LR
 
 ## Pemeriksaan prasyarat
 
-Sebelum menerapkan, verifikasi:
+Sebelum melakukan penyebaran, pastikan:
 
-- [ ] Agen lulus semua 3 skenario lokal dari [Modul 04](04-test-locally.md)
-- [ ] Anda memiliki peran **Azure AI User** pada tingkat proyek ([Modul 01, Menetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] Anda sudah masuk ke Azure di VS Code (ikon Akun menunjukkan nama Anda)
+- [ ] Agent lulus semua 3 skenario lokal dari [Modul 04](04-test-locally.md)
+- [ ] Anda memiliki peran **Azure AI User** pada tingkat proyek ([Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Anda sudah masuk ke Azure di VS Code (ikon Akun menampilkan nama Anda)
 
 ---
 
-## Langkah 1: Mulai penerapan
+## Langkah 1: Mulai penyebaran
 
 ### Opsi A: Deploy dari Agent Inspector (direkomendasikan)
 
@@ -52,79 +52,79 @@ Jika Agent Inspector terbuka (dari pengujian):
 
 ---
 
-## Langkah 2: Konfigurasikan penerapan
+## Langkah 2: Konfigurasikan penyebaran
 
-Wizard akan menanyakan Anda untuk:
+Wizard akan menanyakan kepada Anda:
 
-![Konfigurasi Proyek](../../../../../translated_images/id/05-foundry-project-setup.ca6ad16a6484e054.webp)
+![Project Config](../../../../../translated_images/id/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Permintaan | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
-| **Langganan** | Langganan Azure Anda |
-| **Proyek target** | Proyek Foundry Anda (misal, `workshop-agents`) |
+| **Subscription** | Langganan Azure Anda |
+| **Target project** | Proyek Foundry Anda (misalnya `workshop-agents`) |
 
-Klik **next** untuk mengonfigurasi agen Anda.
+Klik **next** untuk mengkonfigurasi agent Anda.
 
-![Konfigurasi dasar](../../../../../translated_images/id/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Basics config](../../../../../translated_images/id/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Permintaan | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
-| **Metode penerapan** | Container |
-| **Container registry** | **ACR Default** (Microsoft Foundry membuat dan mengelola satu untuk Anda) |
-| **Deploy ke** | Agen Baru (nama, `executive-summary-agent`) |
+| **Metode Penyebaran** | Kontainer |
+| **Container registry** | **Default ACR** (Microsoft Foundry membuat dan mengelolanya untuk Anda) |
+| **Deploy ke** | Agent Baru (nama, `executive-summary-agent`) |
 
 Klik **next** untuk meninjau dan menerapkan agen Anda.
 
-![Tinjau dan terapkan](../../../../../translated_images/id/05-review-deploy.12b449d426bff886.webp)
+![Review and deploy](../../../../../translated_images/id/05-review-deploy.12b449d426bff886.webp)
 
-| Permintaan | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
-| **CPU dan memori** | **0.25 core CPU, 0.5 Gi memori** (cukup untuk workshop) |
+| **CPU dan memori** | **0.5 CPU cores, 1.0 Gi memori** (default - cukup untuk workshop) |
 
 ---
 
 ## Langkah 3: Deploy dan pantau
 
 1. Klik **Deploy**.
-2. Amati panel **Output** (pilih **Microsoft Foundry** dari dropdown).
-3. Proses penerapan menjalani tahap-tahap ini:
+2. Pantau panel **Output** (pilih **Microsoft Foundry** dari dropdown).
+3. Penyebaran berjalan melalui tahap-tahap berikut:
    - **Docker build** - membangun container dari Dockerfile Anda
-   - **Docker push** - mendorong image ke ACR (1–3 menit pada deploy pertama)
-   - **Registrasi agen** - membuat agen hosted di Foundry
+   - **Docker push** - mendorong image ke ACR (1–3 menit pada penyebaran pertama)
+   - **Pendaftaran agent** - membuat hosted agent di Foundry
    - **Container start** - memulai dengan identitas yang dikelola sistem
 
-4. Saat selesai, sebuah notifikasi muncul:
-   > **my-agent berhasil diterapkan.** `Lihat log` `Jalankan agen`
+4. Setelah selesai, akan muncul notifikasi:
+   > **executive-summary-agent berhasil disebarkan.** `View logs` `Run agent`
 
-5. Klik **Jalankan agen** untuk membuka Agent Playground.
+5. Klik **Run agent** untuk membuka Agent Playground.
 
-![Keberhasilan deploy menampilkan Agent Playground dengan status Running](../../../../../translated_images/id/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Keberhasilan penyebaran menampilkan Agent Playground dengan status Running](../../../../../translated_images/id/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Nilai status penerapan
+### Nilai status penyebaran
 
 | Status | Arti |
 |--------|---------|
-| **Running** | Container siap, agen merespon |
-| **Pending** | Container sedang mulai - tunggu 30–60 detik |
-| **Failed** | Periksa log (lihat pemecahan masalah di bawah) |
+| **Running** | Kontainer siap, agent merespon |
+| **Pending** | Kontainer sedang mulai - tunggu 30–60 detik |
+| **Failed** | Periksa log (lihat troubleshooting di bawah) |
 
 ---
 
-## Kesalahan penerapan umum
+## Kesalahan umum saat penyebaran
 
 | Kesalahan | Penyebab utama | Solusi |
 |-------|-----------|-----|
-| `agents/write` izin ditolak | Tidak memiliki peran **Azure AI User** pada tingkat proyek | [Modul 01, Menetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| `agents/write` izin ditolak | Peran **Azure AI User** hilang di tingkat proyek | [Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac) |
 | Docker tidak berjalan | Docker Desktop belum dimulai | Mulai Docker Desktop → verifikasi `docker info` |
-| Otorisasi ACR | Identitas terkelola tidak bisa menarik image | Lihat [Modul 08 - Pemecahan Masalah](08-troubleshooting.md) |
+| Otorisasi ACR | Identitas terkelola tidak dapat menarik gambar | Lihat [Modul 08 - Pemecahan Masalah](08-troubleshooting.md) |
 
 ---
 
-### ✅ Titik pemeriksaan
+### ✅ Titik Pemeriksaan
 
-- [ ] Penerapan selesai tanpa kesalahan
-- [ ] Agen muncul di bawah **Hosted Agents (Pratinjau)** di sidebar Foundry
-- [ ] Status container menunjukkan **Running**
+- [ ] Penyebaran selesai tanpa kesalahan
+- [ ] Agen muncul di tab **Hosted Agent** saat Anda mengklik **Agents** di bawah proyek Anda di sidebar Foundry Toolkit
+- [ ] Status kontainer menunjukkan **Running**
 - [ ] Tab Agent Playground terbuka menampilkan detail agen dan URL endpoint
 
 ---

@@ -1,23 +1,23 @@
-# Modul 5 - Deployment zum Foundry Agent Service
+# Modul 5 - Bereitstellung im Foundry Agent Service
 
 ⏱️ ~10 Min.
 
-> ⚠️ **Benutzer von Pfad B:** Dieses Modul erfordert ein Foundry-Abonnement. Wenn Sie Foundry Local verwenden, überspringen Sie zu [Modul 07 - Zusammenfassung](07-summary.md). Sie haben den lokalen Entwicklungsworkflow erfolgreich abgeschlossen!
+> ⚠️ **Pfad B Benutzer:** Dieses Modul erfordert ein Foundry-Abonnement. Wenn Sie Foundry Local verwenden, springen Sie zu [Modul 07 - Zusammenfassung](07-summary.md). Sie haben den lokalen Entwicklungsworkflow erfolgreich abgeschlossen!
 
-In diesem Modul stellen Sie Ihren lokal getesteten Agent als **Hosted Agent** bei Microsoft Foundry bereit. Das Deployment erstellt ein Container-Image, lädt es in das Azure Container Registry hoch und startet den Agent in der verwalteten Infrastruktur von Foundry.
+In diesem Modul stellen Sie Ihren lokal getesteten Agent als **Gehosteten Agent** in Microsoft Foundry bereit. Die Bereitstellung erstellt ein Container-Image, schiebt es in das Azure Container Registry und startet den Agenten in der verwalteten Infrastruktur von Foundry.
 
-### Deployment-Pipeline
+### Bereitstellungspipeline
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|docker bauen| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|docker pushen| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|Agent registrieren| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|Container starten| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -29,107 +29,107 @@ flowchart LR
 
 ---
 
-## Voraussetzungen überprüfen
+## Voraussetzungen prüfen
 
-Überprüfen Sie vor dem Deployment:
+Vor der Bereitstellung überprüfen Sie:
 
-- [ ] Der Agent besteht alle 3 lokalen Testszenarien aus [Modul 04](04-test-locally.md)
+- [ ] Agent besteht alle 3 lokalen Szenarien aus [Modul 04](04-test-locally.md)
 - [ ] Sie haben die **Azure AI User**-Rolle auf Projektebene ([Modul 01, RBAC zuweisen](01-setup.md#deploy-a-model--assign-rbac))
 - [ ] Sie sind in VS Code bei Azure angemeldet (Kontosymbol zeigt Ihren Namen)
 
 ---
 
-## Schritt 1: Deployment starten
+## Schritt 1: Starten Sie die Bereitstellung
 
-### Option A: Deployment über Agent Inspector (empfohlen)
+### Option A: Bereitstellung aus dem Agent Inspector (empfohlen)
 
 Wenn der Agent Inspector geöffnet ist (vom Testen):
-1. Klicken Sie auf die Schaltfläche **Deploy** oben rechts (Cloud-Symbol ↑).
+1. Klicken Sie oben rechts auf die **Bereitstellen**-Schaltfläche (Cloud-Symbol ↑).
 
-### Option B: Deployment über Befehls-Palette
+### Option B: Bereitstellung über die Befehls-Palette
 
-1. Drücken Sie `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
+1. Drücken Sie `Ctrl+Shift+P` → **Foundry Toolkit: Gehosteten Agent bereitstellen**.
 
 ---
 
-## Schritt 2: Deployment konfigurieren
+## Schritt 2: Konfigurieren Sie die Bereitstellung
 
-Der Assistent fragt Sie nach:
+Die Eingabeaufforderung fragt Sie nach:
 
 ![Projektkonfiguration](../../../../../translated_images/de/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Eingabe | Auswahl |
-|--------|----------|
+| Eingabeaufforderung | Auswahl |
+|--------|-----------|
 | **Abonnement** | Ihr Azure-Abonnement |
 | **Zielprojekt** | Ihr Foundry-Projekt (z. B. `workshop-agents`) |
 
 Klicken Sie auf **Weiter**, um Ihren Agent zu konfigurieren.
 
-![Grundkonfiguration](../../../../../translated_images/de/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Basis-Konfiguration](../../../../../translated_images/de/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Eingabe | Auswahl |
-|--------|----------|
-| **Deploy-Methode** | Container |
+| Eingabeaufforderung | Auswahl |
+|--------|-----------|
+| **Bereitstellungsmethode** | Container |
 | **Container-Registry** | **Standard-ACR** (Microsoft Foundry erstellt und verwaltet eine für Sie) |
-| **Deployment nach** | Neuer Agent (Name, `executive-summary-agent`) |
+| **Bereitstellen auf** | Neuer Agent (Name, `executive-summary-agent`) |
 
 Klicken Sie auf **Weiter**, um Ihren Agent zu überprüfen und bereitzustellen.
 
-![Überprüfen und deployen](../../../../../translated_images/de/05-review-deploy.12b449d426bff886.webp)
+![Überprüfen und bereitstellen](../../../../../translated_images/de/05-review-deploy.12b449d426bff886.webp)
 
-| Eingabe | Auswahl |
-|--------|----------|
-| **CPU und Speicher** | **0,25 CPU-Kerne, 0,5 Gi Speicher** (ausreichend für Workshop) |
+| Eingabeaufforderung | Auswahl |
+|--------|-----------|
+| **CPU und Arbeitsspeicher** | **0,5 CPU-Kerne, 1,0 Gi Arbeitsspeicher** (Standard - ausreichend für den Workshop) |
 
 ---
 
-## Schritt 3: Deployment und Überwachung
+## Schritt 3: Bereitstellen und überwachen
 
-1. Klicken Sie auf **Deploy**.
-2. Beobachten Sie das **Ausgabe**-Fenster (wählen Sie **Microsoft Foundry** aus dem Dropdown).
-3. Das Deployment durchläuft diese Phasen:
-   - **Docker Build** - baut den Container aus Ihrer Dockerfile
-   - **Docker Push** - lädt Image in ACR hoch (1–3 Min. beim ersten Deployment)
-   - **Agent-Registrierung** - erstellt den Hosted Agent in Foundry
-   - **Container-Start** - startet mit systemverwalteter Identität
+1. Klicken Sie auf **Bereitstellen**.
+2. Beobachten Sie das **Ausgabe**-Fenster (wählen Sie **Microsoft Foundry** aus dem Dropdown-Menü).
+3. Die Bereitstellung durchläuft diese Phasen:
+   - **Docker Build** - erstellt Container aus Ihrer Dockerdatei
+   - **Docker Push** - schiebt Image in ACR (1–3 Min. bei erster Bereitstellung)
+   - **Agent Registrierung** - erstellt gehosteten Agent in Foundry
+   - **Container Start** - startet mit systemverwalteter Identität
 
 4. Nach Abschluss erscheint eine Benachrichtigung:
-   > **my-agent wurde erfolgreich bereitgestellt.** `Logs anzeigen` `Agent starten`
+   > **executive-summary-agent wurde erfolgreich bereitgestellt.** `View logs` `Run agent`
 
-5. Klicken Sie auf **Agent starten**, um die Agent-Spielwiese zu öffnen.
+5. Klicken Sie auf **Agent ausführen**, um den Agent Playground zu öffnen.
 
-![Erfolgreiches Deployment, Agent Playground mit Status "Running"](../../../../../translated_images/de/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Bereitstellungserfolg zeigt Agent Playground mit Status "Running"](../../../../../translated_images/de/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Werte für Deployment-Status
+### Werte für den Bereitstellungsstatus
 
 | Status | Bedeutung |
-|--------|----------|
-| **Running** | Container bereit, Agent antwortet |
-| **Pending** | Container startet – bitte 30–60 Sekunden warten |
-| **Failed** | Protokolle überprüfen (siehe Fehlerbehebung unten) |
+|--------|---------|
+| **Running** | Container bereit, Agent reagiert |
+| **Pending** | Container startet - warten Sie 30–60 Sekunden |
+| **Failed** | Überprüfen Sie die Protokolle (siehe Fehlerbehebung weiter unten) |
 
 ---
 
-## Häufige Deployment-Fehler
+## Häufige Bereitstellungsfehler
 
 | Fehler | Ursache | Lösung |
-|--------|---------|--------|
+|-------|--------|--------|
 | `agents/write` Berechtigung verweigert | Fehlende **Azure AI User**-Rolle auf Projektebene | [Modul 01, RBAC zuweisen](01-setup.md#deploy-a-model--assign-rbac) |
-| Docker läuft nicht | Docker Desktop nicht gestartet | Docker Desktop starten → `docker info` prüfen |
+| Docker läuft nicht | Docker Desktop nicht gestartet | Starten Sie Docker Desktop → prüfen Sie `docker info` |
 | ACR-Autorisierung | Verwaltete Identität kann Image nicht ziehen | Siehe [Modul 08 - Fehlerbehebung](08-troubleshooting.md) |
 
 ---
 
-### ✅ Kontrollpunkt
+### ✅ Checkpoint
 
-- [ ] Deployment ohne Fehler abgeschlossen
-- [ ] Agent erscheint unter **Hosted Agents (Preview)** in der Foundry-Seitenleiste
-- [ ] Container-Status zeigt **Running**
-- [ ] Agent-Spielwiese-Tab geöffnet mit Agent-Details und Endpunkt-URL
+- [ ] Bereitstellung abgeschlossen ohne Fehler
+- [ ] Agent erscheint auf der Registerkarte **Hosted Agent**, wenn Sie unter Ihrem Projekt im Foundry Toolkit-Sidebar auf **Agents** klicken
+- [ ] Containerstatus zeigt **Running**
+- [ ] Registerkarte Agent Playground geöffnet zeigt Agent-Details und Endpunkt-URL
 
 ---
 
-**Vorheriges:** [04 - Lokal testen](04-test-locally.md) · **Nächstes:** [06 - Im Playground überprüfen →](06-verify-in-playground.md)
+**Vorheriges:** [04 - Lokal testen](04-test-locally.md) · **Nächstes:** [06 - Im Playground prüfen →](06-verify-in-playground.md)
 
 ---
 

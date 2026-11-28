@@ -1,27 +1,27 @@
-# PersonalCareerCopilot - Lebenslauf → Job-Matching-Bewerter
+# PersonalCareerCopilot – Lebenslauf → Job-Passung Evaluator
 
-Eine Workflow-zentrierte Multi-Agenten-App, die bewertet, wie gut ein Lebenslauf zu einer Stellenbeschreibung passt, und dann eine personalisierte Lernroadmap erstellt, um die Lücken zu schließen.
+Eine Workflow-zentrierte Multi-Agenten-App, die bewertet, wie gut ein Lebenslauf zur Stellenbeschreibung passt, und dann eine personalisierte Lern-Roadmap zur Schließung der Lücken erstellt.
 
 ---
 
 ## Agenten
 
-| Agent | Rolle | Tools |
-|-------|------|-------|
-| **ResumeParser** | Extrahiert strukturierte Fähigkeiten, Erfahrungen, Zertifikate aus dem Lebenslauftext | - |
-| **JobDescriptionAgent** | Extrahiert erforderliche/bevorzugte Fähigkeiten, Erfahrungen, Zertifikate aus einer Stellenbeschreibung | - |
-| **MatchingAgent** | Vergleicht Profil vs Anforderungen → Passgenauigkeitsbewertung (0-100) + übereinstimmende/fehlende Fähigkeiten | - |
-| **GapAnalyzer** | Erstellt eine personalisierte Lernroadmap mit Microsoft Learn-Ressourcen | `search_microsoft_learn_for_plan` (MCP) |
+| Agent | Rolle | Werkzeuge |
+|-------|------|-----------|
+| **ResumeParser** | Extrahiert strukturierte Fähigkeiten, Erfahrungen, Zertifizierungen aus dem Lebenslauft text | - |
+| **JobDescriptionAgent** | Extrahiert erforderliche/bevorzugte Fähigkeiten, Erfahrungen, Zertifizierungen aus einer Stellenbeschreibung | - |
+| **MatchingAgent** | Vergleicht Profil vs Anforderungen → Passungsbewertung (0-100) + übereinstimmende/fehlende Fähigkeiten | - |
+| **GapAnalyzer** | Erstellt eine personalisierte Lern-Roadmap mit Microsoft Learn Ressourcen | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Workflow
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Lebenslauf + Stellenbeschreibung"] --> ResumeParser
-    ResumeParser -- "geparster Lebenslauf + JD-Weiterleitung" --> JobDescriptionAgent
-    JobDescriptionAgent -- "JD-Anforderungen + Lebenslauf-Weiterleitung" --> MatchingAgent
-    MatchingAgent -- "Passformbericht + Lücken" --> GapAnalyzerMCP["Lückenanalysator +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nPassformbewertung + Fahrplan"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Umgebung einrichten
 
-Dieser Ordner ist die Referenzimplementierung für das workflow-basierte Lab 02 Gerüst. Die `main.py` verwendet die vorhandenen Prompt-Blöcke plus `WorkflowBuilder`, um die vier Agenten zu verbinden.
+Dieser Ordner ist die Referenzimplementierung für das workflow-basierte Lab 02 Gerüst. Seine `main.py` nutzt die bestehenden Prompt-Blöcke plus `WorkflowBuilder`, um die vier Agenten zu verbinden.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,9 +40,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Anmeldedaten konfigurieren
+### 2. Zugangsdaten konfigurieren
 
-Erstellen Sie in diesem Ordner eine `.env`-Datei:
+Erstellen Sie eine `.env` Datei in diesem Ordner:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Wert | Wo finden Sie ihn |
-|-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit-Sidebar → Rechtsklick auf Ihr Projekt → **Projektendpunkt kopieren** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry Sidebar → Projekt erweitern → **Modelle + Endpunkte** → Bereitstellungsname |
+| Wert | Wo zu finden |
+|-------|--------------|
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit Seitenleiste → Rechtsklick auf Ihr Projekt → **Projekt-Endpunkt kopieren** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry Seitenleiste → Projekt ausklappen → **Modelle + Endpunkte** → Bereitstellungsname |
 
 ### 3. Lokal ausführen
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Oder verwenden Sie die VS Code-Task: `Strg+Shift+P` → **Tasks: Aufgabe ausführen** → **Agent HTTP Server ausführen**.
+Oder verwenden Sie die VS Code Aufgabe: `Ctrl+Shift+P` → **Aufgaben: Aufgabe ausführen** → **Agent HTTP Server ausführen**.
 
-Für F5-Debugging verwenden Sie **Debug Local Agent HTTP Server**.
+Für F5-Debugging: **Lokalen Agent HTTP Server debuggen** verwenden.
 
 ### 4. Testen mit Agent Inspector
 
-Öffnen Sie den Agent Inspector: `Strg+Shift+P` → **Foundry Toolkit: Agent Inspector öffnen**.
+Öffnen Sie Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Agent Inspector öffnen**.
 
-Fügen Sie diese Testabfrage ein:
+Fügen Sie diese Testaufforderung ein:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Erwartet:** Eine Passgenauigkeitsbewertung (0-100), übereinstimmende/fehlende Fähigkeiten und eine personalisierte Lernroadmap mit Microsoft Learn-URLs.
+**Erwartet:** Eine Passungsbewertung (0-100), übereinstimmende/fehlende Fähigkeiten und eine personalisierte Lern-Roadmap mit Microsoft Learn URLs.
 
-### 5. Zu Foundry bereitstellen
+### 5. Bereitstellen in Foundry
 
-`Strg+Shift+P` → **Foundry Toolkit: Gehosteten Agent bereitstellen** → Projekt auswählen → bestätigen.
+`Ctrl+Shift+P` → **Foundry Toolkit: Gehosteten Agent bereitstellen** → wählen Sie Ihr Projekt → bestätigen.
 
 ---
 
@@ -117,44 +117,44 @@ PersonalCareerCopilot/
 
 Definiert den gehosteten Agent für Foundry Agent Service:
 - `kind: hosted` - läuft als verwalteter Container
-- `protocols` - `responses`-Protokoll mit `version: 1.0.0`, exponiert den HTTP-Endpunkt `/responses`
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` wird hier deklariert; `FOUNDRY_PROJECT_ENDPOINT` wird zur Bereitstellungszeit automatisch injiziert
+- `protocols` - `responses` Protokoll mit `version: 2.0.0`, stellt den `/responses` HTTP-Endpunkt bereit
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` wird hier deklariert; `FOUNDRY_PROJECT_ENDPOINT` wird bei Bereitstellung automatisch injiziert
 
 ### `main.py`
 
 Enthält:
-- **Agent-Anweisungen** - vier `*_INSTRUCTIONS` Konstanten, je eine pro Agent
-- **MCP-Tool** - `search_microsoft_learn_for_plan()` ruft `https://learn.microsoft.com/api/mcp` über Streamable HTTP auf
-- **Agent-Erstellung** - vier `Agent()` + `AgentExecutor()` Instanzen teilen sich einen `FoundryChatClient`
-- **Workflow-Diagramm** - `WorkflowBuilder` verbindet Agenten als sequentielle Pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **Server-Start** - `ResponsesHostServer` läuft auf Port 8088
+- **Agentenanweisungen** - vier `*_INSTRUCTIONS` Konstanten, eine pro Agent
+- **MCP Tool** - `search_microsoft_learn_for_plan()` ruft `https://learn.microsoft.com/api/mcp` via Streamable HTTP auf
+- **Agentenerstellung** - vier `Agent()` + `AgentExecutor()` Exemplare teilen sich eine `FoundryChatClient`
+- **Workflow-Graph** - `WorkflowBuilder` verbindet Agenten als sequenzielle Pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Serverstart** - `ResponsesHostServer` läuft auf Port 8088
 
 ### `requirements.txt`
 
 | Paket | Zweck |
-|---------|----------|
-| `agent-framework-foundry` | Kern-Laufzeit: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry-Hosting-Integration |
+|---------|--------|
+| `agent-framework-foundry` | Kernlaufzeit: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry Hosting Integration |
 | `mcp<2,>=1.24.0` | MCP-Client für GapAnalyzer (`streamable_http_client`) |
 | `debugpy` | Python-Debugging (F5 in VS Code) |
 
 ---
 
-## Problembehandlung
+## Fehlerbehebung
 
 | Problem | Lösung |
-|-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` oder `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Erstellen Sie `.env` mit beiden `FOUNDRY_PROJECT_ENDPOINT` und `AZURE_AI_MODEL_DEPLOYMENT_NAME` gesetzt |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Aktivieren Sie das virtuelle Umfeld und führen Sie `pip install -r requirements.txt` aus |
-| Keine Microsoft Learn-URLs in der Ausgabe | Überprüfen Sie die Internetverbindung zu `https://learn.microsoft.com/api/mcp` |
-| Nur 1 Gap-Karte (abgeschnitten) | Vergewissern Sie sich, dass `GAP_ANALYZER_INSTRUCTIONS` den `CRITICAL:`-Block enthält |
-| Port 8088 ist belegt | Stoppen Sie andere Server: `netstat -ano \| findstr :8088` |
+|---------|--------|
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` oder `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Erstellen Sie `.env` mit sowohl `FOUNDRY_PROJECT_ENDPOINT` als auch `AZURE_AI_MODEL_DEPLOYMENT_NAME` gesetzt |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Aktivieren Sie venv und führen Sie `pip install -r requirements.txt` aus |
+| Keine Microsoft Learn URLs in der Ausgabe | Prüfen Sie die Internetverbindung zu `https://learn.microsoft.com/api/mcp` |
+| Nur 1 Gap-Karte (abgeschnitten) | Überprüfen Sie, ob `GAP_ANALYZER_INSTRUCTIONS` den `CRITICAL:` Block enthält |
+| Port 8088 bereits in Verwendung | Stoppen Sie andere Server: `netstat -ano \| findstr :8088` |
 
-Für detaillierte Problembehandlung siehe [Modul 8 - Problembehandlung](../docs/08-troubleshooting.md).
+Für detaillierte Fehlerbehebung siehe [Modul 8 - Fehlerbehebung](../docs/08-troubleshooting.md).
 
 ---
 
-**Komplette Anleitung:** [Lab 02 Dokumentation](../docs/README.md) · **Zurück zu:** [Lab 02 README](../README.md) · [Workshop Startseite](../../../README.md)
+**Vollständige Anleitung:** [Lab 02 Docs](../docs/README.md) · **Zurück zu:** [Lab 02 README](../README.md) · [Workshop Startseite](../../../README.md)
 
 ---
 

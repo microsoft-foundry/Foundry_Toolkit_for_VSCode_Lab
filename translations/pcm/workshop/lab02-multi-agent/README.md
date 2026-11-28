@@ -2,9 +2,9 @@
 
 ## Overview
 
-For dis hands-on lab, you go build **workflow-first multi-agent app** wey dey use Foundry Toolkit for VS Code and deploy am to Microsoft Foundry Agent Service.
+For dis hands-on lab, you go build **workflow-first multi-agent app** using Foundry Toolkit for VS Code and deploy am to Microsoft Foundry Agent Service.
 
-**Wetin you go build:** Resume → Job Fit Evaluator wey go parse resume and job description, score di match, then produce personalized learning roadmap wey dey use Microsoft Learn resources.
+**Wetin you go build:** Resume → Job Fit Evaluator wey go parse resume and job description, score how dem match, and make personalized learning roadmap using Microsoft Learn resources.
 
 ---
 
@@ -28,10 +28,10 @@ flowchart TD
 
 **How e dey work:**
 1. User go paste resume and job description.
-2. **ResumeParser** go parse di resume and copy di JD verbatim enter `[JOB DESCRIPTION PASS-THROUGH]` section.
-3. **JD Agent** go comot structured requirements from di pass-through, then e go relay di `[PARSED RESUME]` forward as `[PARSED RESUME PASS-THROUGH]`.
-4. **MatchingAgent** go compare `[PARSED RESUME PASS-THROUGH]` vs `[JD REQUIREMENTS]` then e go produce fit score.
-5. **GapAnalyzer** go turn di gaps to practical roadmap and go find real Microsoft Learn links through MCP.
+2. **ResumeParser** go parse the resume and copy the JD exactly for inside `[JOB DESCRIPTION PASS-THROUGH]` section.
+3. **JD Agent** go comot structured requirements from the pass-through, then pass the `[PARSED RESUME]` forward as `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** go compare `[PARSED RESUME PASS-THROUGH]` and `[JD REQUIREMENTS]` then produce fit score.
+5. **GapAnalyzer** go turn di gaps to practical roadmap and find correct Microsoft Learn links via MCP.
 
 ---
 
@@ -43,9 +43,9 @@ Make you finish Lab 01 first:
 
 ---
 
-## Part 1: Read di modules for order
+## Part 1: Read the modules in order
 
-See di full learning path for:
+See the full learning path for:
 
 - [Lab 2 Docs - Prerequisites](docs/00-prerequisites.md)
 - [Lab 2 Docs - Full Learning Path](docs/README.md)
@@ -53,22 +53,23 @@ See di full learning path for:
 
 ---
 
-## Part 2: Build and test di workflow
+## Part 2: Build and test the workflow
 
-1. Use Foundry Toolkit wizard to scaffold di workflow-based project.
-2. Copy di prompt blocks and workflow graph from `PersonalCareerCopilot/main.py` go your workspace.
-3. Run am locally with Agent Inspector and verify all di four agents plus di MCP tool.
-4. Deploy di hosted agent to Foundry when local testing pass.
+1. Use Foundry Toolkit wizard to start the workflow-based project.
+2. Copy the prompt blocks and workflow graph from `PersonalCareerCopilot/main.py` go put am for your workspace.
+3. Run am locally with Agent Inspector and make sure sey all four agents plus MCP tool dey work.
+4. Deploy the hosted agent to Foundry when local testing don pass.
 
 ---
 
 ## Orchestration patterns
 
-Lab 02 get di default **fan-out → fan-in → sequential** flow, plus di docs describe alternative orchestration patterns for experiment.
+Lab 02 dey use **sequential pipeline**: each agent output dey feed the next one, and the workflow go return final agent response. Two patterns dey make am work:
 
-- **Fan-out/Fan-in with weighted consensus**
-- **Reviewer/critic pass before final roadmap**
-- **Conditional router** based on fit score and missing skills
+- **Sequential chain** - `WorkflowBuilder` connect ResumeParser → JD Agent → MatchingAgent → GapAnalyzer with one `add_edge()` call for each step
+- **Content relay** - because each agent fit only see output from direct predecessor, ResumeParser and JD Agent copy data wey downstream agents need enter labeled pass-through sections
+
+The docs still explain why the lab no use fan-out/fan-in, and how to add another agent for the graph.
 
 See [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 

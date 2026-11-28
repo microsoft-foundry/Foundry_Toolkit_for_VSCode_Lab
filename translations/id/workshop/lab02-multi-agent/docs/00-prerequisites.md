@@ -1,40 +1,40 @@
-# Modul 0 - Pengantar
+# Modul 0 - Pendahuluan
 
 ⏱️ ~10 menit
 
 > [!WARNING]
-> **Pratinjau & Keterbatasan:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) saat ini dalam **pratinjau publik** - tidak disarankan untuk beban kerja produksi. Beberapa fitur yang ditunjukkan dalam lokakarya ini mungkin berubah seiring layanan menuju GA.
+> **Pratinjau & Batasan:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) saat ini dalam **pratinjau publik** - tidak disarankan untuk beban kerja produksi. Beberapa fitur yang ditampilkan dalam workshop ini mungkin berubah saat layanan menuju GA.
 
-## Apa yang akan Anda bangun
+## Apa yang akan Anda buat
 
-Dalam lab ini, Anda memperluas kemampuan agen tunggal dari Lab 01 untuk membangun **alur kerja multi-agen** - Evaluator Kecocokan Job dari Resume.
+Dalam lab ini, Anda memperluas keterampilan agen tunggal dari Lab 01 untuk membangun **alur kerja multi-agen** - Resume → Evaluator Kecocokan Pekerjaan.
 
-Anda menyalin sebuah **resume** dan **deskripsi pekerjaan**. Empat agen spesialis memproses input secara berurutan, lalu mengembalikan:
-- Skor kecocokan (0–100 dengan rincian skor)
+Anda menempelkan **resume** dan **deskripsi pekerjaan**. Empat agen khusus memproses input secara berurutan, kemudian mengembalikan:
+- Skor kecocokan (0–100 dengan rincian penilaian)
 - Daftar kesenjangan keterampilan dan sertifikasi
-- Peta pembelajaran yang dipersonalisasi dengan tautan Microsoft Learn nyata untuk setiap kesenjangan
+- Peta jalan pembelajaran yang dipersonalisasi dengan tautan Microsoft Learn nyata untuk setiap kesenjangan
 
-**Alur kerja menggunakan:**
+**Alur kerja ini menggunakan:**
 - **Microsoft Agent Framework** - `WorkflowBuilder` untuk orkestrasi pipeline berurutan
-- **Foundry Toolkit untuk VS Code** - membuat kerangka, pengujian lokal, penerapan
-- **Model AI** (misal, `gpt-4.1-mini`) - digunakan oleh keempat agen
-- **Server Microsoft Learn MCP** - menyediakan tautan sumber pembelajaran nyata untuk setiap kesenjangan keterampilan
+- **Foundry Toolkit untuk VS Code** - membangun, uji secara lokal, deploy
+- **Model AI** (misalnya, `gpt-4.1-mini`) - digunakan oleh keempat agen
+- **Microsoft Learn MCP server** - menyediakan tautan sumber pembelajaran nyata untuk setiap kesenjangan keterampilan
 
 ---
 
 ## Pilih jalur Anda
 
-> ⚠️ **Lanjutkan dengan jalur yang sama yang Anda gunakan di Lab 01.**
+> ⚠️ **Lanjutkan dengan jalur yang sama dengan yang Anda gunakan di Lab 01.**
 
 <details open>
-<summary><strong>🅰️ Jalur A - Azure cloud (memerlukan langganan Azure)</strong></summary>
+<summary><strong>🅰️ Jalur A - cloud Azure (memerlukan langganan Azure)</strong></summary>
 
 | | Detail |
 |---|---|
-| **Untuk siapa ini?** | Anda telah menyelesaikan Lab 01 menggunakan langganan Azure |
-| **Model** | Azure OpenAI via Foundry (misal, `gpt-4.1-mini`) |
+| **Untuk siapa ini?** | Anda menyelesaikan Lab 01 menggunakan langganan Azure |
+| **Model** | Azure OpenAI via Foundry (misalnya `gpt-4.1-mini`) |
 | **Modul yang dibahas** | Semua modul (00–09) |
-| **Deploy ke cloud?** | ✅ Ya - penerapan end-to-end penuh |
+| **Deploy ke cloud?** | ✅ Ya - deploy end-to-end penuh |
 
 </details>
 
@@ -43,10 +43,10 @@ Anda menyalin sebuah **resume** dan **deskripsi pekerjaan**. Empat agen spesiali
 
 | | Detail |
 |---|---|
-| **Untuk siapa ini?** | Anda telah menyelesaikan Lab 01 menggunakan Foundry Lokal |
+| **Untuk siapa ini?** | Anda menyelesaikan Lab 01 menggunakan Foundry Lokal |
 | **Model** | Foundry Lokal (gratis, berjalan di mesin Anda) |
-| **Modul yang dibahas** | Modul 00–05 (lewati 06–07 - penerapan & verifikasi cloud) |
-| **Deploy ke cloud?** | ❌ Tidak - hanya pengujian lokal melalui Agent Inspector |
+| **Modul yang dibahas** | Modul 00–05 (lewati 06–07 - deploy & verifikasi cloud) |
+| **Deploy ke cloud?** | ❌ Tidak - pengujian lokal saja lewat Agent Inspector |
 
 </details>
 
@@ -54,25 +54,25 @@ Anda menyalin sebuah **resume** dan **deskripsi pekerjaan**. Empat agen spesiali
 
 ## Pemeriksaan Lab 01
 
-Lab 02 dibangun langsung di Lab 01. Selesaikan Lab 01 terlebih dahulu sebelum memulai di sini.
+Lab 02 dibangun langsung di atas Lab 01. Selesaikan Lab 01 terlebih dahulu sebelum memulai di sini.
 
-Belum melakukan Lab 01? Mulai di sini: [Lab 01 - Pengantar](../../lab01-single-agent/docs/00-prerequisites.md)
+Belum mengerjakan Lab 01? Mulai di sini: [Lab 01 - Pendahuluan](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ Jalur A - Azure cloud</strong></summary>
+<summary><strong>🅰️ Jalur A - cloud Azure</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
 ```
 
-Jika ini gagal, jalankan `az login`. Lalu verifikasi di VS Code:
+Jika ini gagal, jalankan `az login`. Kemudian verifikasi di VS Code:
 
-1. `Ctrl+Shift+P` → ketik **Foundry Toolkit** → pastikan perintah muncul.
-2. Klik ikon **Foundry Toolkit** → proyek dan model yang diterapkan menunjukkan **Berhasil**.
+1. `Ctrl+Shift+P` → ketik **Foundry Toolkit** → konfirmasi perintah muncul.
+2. Klik ikon **Foundry Toolkit** → proyek dan model yang di-deploy menunjukkan **Berhasil**.
 
-![Foundry Toolkit sidebar showing MY RESOURCES section with the project switcher modal open](../../../../../translated_images/id/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit sidebar showing the project under My Resources, with the Switch project / Create project picker open](../../../../../translated_images/id/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Anda menetapkan **Foundry User** di Lab 01. Jika perlu menetapkannya kembali, lihat [Lab 01, Modul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Peran ini sebelumnya bernama **Azure AI User** - dengan izin yang sama.
+> **RBAC:** Anda telah menetapkan **Foundry User** di Lab 01. Jika perlu menetapkannya kembali, lihat [Lab 01, Modul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Role ini sebelumnya bernama **Azure AI User** - dengan izin yang sama.
 
 </details>
 
@@ -95,8 +95,8 @@ Diharapkan: `StatusCode: 200`. Jika tidak, mulai ulang Foundry Lokal dari sideba
 
 | | Lab 01 | Lab 02 |
 |--|--------|--------|
-| Agen | 1 | 4 (berantai dengan WorkflowBuilder) |
-| Template scaffold | Dasar - Agent Framework | Alur Kerja - Agent Framework |
+| Agen | 1 | 4 (rantai dengan WorkflowBuilder) |
+| Template scaffolding | Dasar - Agent Framework | Alur Kerja - Agent Framework |
 | Paket baru | - | `mcp` |
 | Orkestrasi | Agen percakapan tunggal | Pipeline berurutan (WorkflowBuilder) |
 | Alat baru | - | `search_microsoft_learn_for_plan` (MCP) |

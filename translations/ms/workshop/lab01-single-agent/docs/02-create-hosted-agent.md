@@ -1,10 +1,10 @@
-# Modul 2 - Cipta Ejen Terhos Baru
+# Modul 2 - Buat Ejen Hosted Baru
 
 ⏱️ ~5 min
 
-Dalam modul ini, anda menggunakan Foundry Toolkit untuk **membina projek ejen terhos**. Scaffold menjana struktur projek penuh - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, dan konfigurasi debug VS Code - supaya anda boleh memberi tumpuan untuk menyesuaikan tingkah laku ejen.
+Dalam modul ini, anda menggunakan Foundry Toolkit untuk **menyusunnya projek ejen hosted**. Struktur penuh projek dijana - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, dan konfigurasi debug VS Code - supaya anda boleh memberi tumpuan kepada menyesuaikan tingkah laku ejen.
 
-> **Konsep utama:** Folder `agent/` dalam makmal ini adalah contoh apa yang dihasilkan oleh Foundry Toolkit. Anda tidak menulis fail-fail ini dari awal.
+> **Konsep utama:** Folder `agent/` dalam makmal ini adalah contoh apa yang dijana oleh Foundry Toolkit. Anda tidak menulis fail-fail ini dari awal.
 
 ### Aliran wizard scaffold
 
@@ -13,14 +13,15 @@ flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Pilih model"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Projek yang dihasilkan"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## Langkah 1: Buka wizard Cipta Ejen Terhos
+## Langkah 1: Buka wizard Buat Hosted Agent
 
-1. Tekan `Ctrl+Shift+P` untuk membuka **Command Palette**.
-2. Taip: **Foundry Toolkit: Create new Hosted Agent** dan pilih.
+1. Tekan `Ctrl+Shift+P` untuk buka **Command Palette**.
+2. Taip: **Foundry Toolkit: Create new Hosted Agent** dan pilihnya.
 
-> **Alternatif: Cipta melalui Foundry Portal**
-> Jika anda lebih suka menggunakan pelayar, anda boleh mencipta projek anda di [https://ai.azure.com](https://ai.azure.com). Setelah projek disediakan, kembali ke VS Code dan gunakan bar sisi **Foundry Toolkit** untuk menyambung kepadanya.
+> **Alternatif: Buat melalui Foundry Portal**
+> Jika anda lebih suka pelayar web, anda boleh buat projek anda di [https://ai.azure.com](https://ai.azure.com). Setelah projek disediakan, kembali ke VS Code dan gunakan bar sisi **Foundry Toolkit** untuk menyambung kepadanya.
 
-> **Alternatif:** Klik ikon **+** di sebelah **Hosted Agents (Preview)** dalam bar sisi Foundry Toolkit.
+> **Alternatif:** Di bar sisi Foundry Toolkit, hover pada **Agents** di bawah projek anda, klik ikon **+**, kemudian pilih **Create in Code With Template**.
 
 ## Langkah 2: Pilih tetapan
 
-![Cipta Ejen Terhos dari Contoh - Tab Butiran Ejen menunjukkan penapis Bahasa, Rangka Kerja, Protokol, dan Templat](../../../../../translated_images/ms/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Buat Hosted Agent dari Sampel - Tab Perincian Ejen menunjukkan penapis Bahasa, Rangka Kerja, Protokol, dan Templat](../../../../../translated_images/ms/02-hosted-agents-sample.0aabd1638936c591.webp)
 
 1. Pada bahagian navigasi/pilihan kiri pilih yang berikut:
 
 | Menu | Pilihan | Nota |
 |--------|-----------|-------|
-| **Language** | Python | C# juga disokong |
-| **Framework** | Agent Framework | Titik permulaan mudah menggunakan Agent Framework SDK |
-| **API type** | Response API | `POST /responses` - perbualan, dengan sejarah diurus platform |
-| **Template** | Basic | Titik permulaan mudah menggunakan Agent Framework SDK |
+| **Bahasa** | Python | C# juga disokong |
+| **Rangka Kerja** | Agent Framework | Titik permulaan mudah menggunakan Agent Framework SDK |
+| **Jenis API** | Response API | `POST /responses` - perbualan, dengan sejarah yang diuruskan platform |
+| **Templat** | Basic | Titik permulaan mudah menggunakan Agent Framework SDK |
 
 2. Setelah dipilih, klik **Next**
 
-![Cipta Ejen Terhos - Tab Cipta menunjukkan Pilihan Folder Workspace, Nama Folder, dan Persediaan Persekitaran](../../../../../translated_images/ms/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Buat Hosted Agent - Tab Buat menunjukkan Folder Workspace, Nama Folder, dan pilihan Penetapan Persekitaran](../../../../../translated_images/ms/02-create-hosted-agents.9f10b6a566df3053.webp)
 
 3. Dalam tetingkap seterusnya, pilih yang berikut:
 
 | Menu | Pilihan | Nota |
 |--------|-----------|-------|
-| **Workspace folder** | Pilih folder sasaran | contohnya, `/workspace/Foundry_Toolkit_for_VSCode_Lab/` atau subfolder dalam repo ini |
-| **Agent name** | Masukkan nama | contohnya, `executive-summary-agent` |
-| **Environment Setup** | langkau persediaan buat masa ini |  |
+| **Folder Workspace** | Pilih folder sasaran | e.g., `/workspace/Foundry_Toolkit_for_VSCode_Lab/` atau subfolder dalam repo ini |
+| **Nama ejen** | Masukkan nama | e.g., `executive-summary-agent` |
+| **Penetapan Persekitaran** | langkau penetapan buat masa ini |  |
 
-Klik **create** untuk mencipta ejen kita. Folder baru akan diwujudkan dengan nama ejen terhos itu.
+Klik **create** untuk membuat ejen kita. Folder baru akan dibuat dengan nama ejen yang dihoskan.
 
-## Langkah 3: Periksa projek yang dijana
+## Langkah 3: Semak projek yang dijana
 
-Selepas scaffolding selesai, sahkan anda melihat fail-fail ini dalam Explorer (`Ctrl+Shift+E`):
+Selepas scaffolding selesai, pastikan anda melihat fail-fail ini dalam Explorer (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -86,29 +87,29 @@ Selepas scaffolding selesai, sahkan anda melihat fail-fail ini dalam Explorer (`
 └── requirements.txt    ← Python dependencies
 ```
 
-### Penjelasan fail utama
+### Penerangan fail utama
 
 | Fail | Tujuan |
 |------|---------|
 | `agent.yaml` | Mengisytiharkan ejen sebagai `kind: hosted`, memetakan pembolehubah persekitaran, mentakrifkan protokol `/responses` |
-| `main.py` | Mencipta `FoundryChatClient` → membungkusnya dalam `Agent` dengan arahan → menyajikan melalui `ResponsesHostServer` di port 8088 |
-| `Dockerfile` | Menggunakan `python:3.12-slim`, memasang kebergantungan, mendedahkan port 8088, menjalankan `main.py` |
+| `main.py` | Membuat `FoundryChatClient` → membungkusnya dalam `Agent` dengan arahan → menghidangkan melalui `ResponsesHostServer` pada port 8088 |
+| `Dockerfile` | Menggunakan `python:3.12-slim`, memasang pergantungan, mendedahkan port 8088, menjalankan `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Penting:** Buka folder ejen scaffolded terus dalam VS Code (folder `agent/` itu sendiri) supaya `.vscode/launch.json` dan `tasks.json` berfungsi dengan betul untuk debugging F5.
+> **Penting:** Buka folder ejen yang telah di-scaffold terus di VS Code (folder `agent/` itu sendiri) supaya `.vscode/launch.json` dan `tasks.json` berfungsi dengan betul untuk debugging F5.
 
 ---
 
 ### ✅ Titik semak
 
-- [ ] Projek scaffolded dicipta dengan semua fail yang dijangka
+- [ ] Projek yang di-scaffold dibuat dengan semua fail dijangka
 - [ ] `agent.yaml` menunjukkan `kind: hosted` dan `protocol: responses`
 - [ ] `main.py` mengimport `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Folder ejen dibuka dalam VS Code sebagai akar workspace
+- [ ] Folder ejen dibuka di VS Code sebagai root workspace
 
 ---
 
-**Sebelum:** [01 - Persediaan](01-setup.md) · **Seterusnya:** [03 - Konfig & Kod →](03-configure-and-code.md)
+**Sebelumnya:** [01 - Setup](01-setup.md) · **Seterusnya:** [03 - Configure & Code →](03-configure-and-code.md)
 
 ---
 

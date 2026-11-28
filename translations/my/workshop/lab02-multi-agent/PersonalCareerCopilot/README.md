@@ -1,36 +1,36 @@
-# PersonalCareerCopilot - ကိုယ်ရေးရာဇဝင် → အလုပ်သင့်တော်မှု အကဲဖြတ်သူ
+# PersonalCareerCopilot - ရုပ်သိမ်းစာတမ်း → အလုပ်သင့်ဆောင်ချက်အကဲဖြတ်သူ
 
-ကိုယ်ရေးရာဇဝင်နှင့် အလုပ်အကြောင်းအရာ အညီမှန်မှုကို အကဲဖြတ်ပြီး၊ ချို့တဲ့နေရာများကို ပြည့်စုံစေမည့် ကိုယ်ပိုင်သင်ယူမှု ရွှေ့ပြောင်းလမ်းကြောင်းကို ဖန်တီးပေးသော workflow-ပထမ Multi-Agent အက်ပ်တစ်ခု။
+ရုပ်သိမ်းစာတမ်းနှင့် အလုပ်ဖော်ပြချက်ကို မည်မျှကိုက်ညီမှုရှိသည်ကို အကဲဖြတ်ပြီး၊ အကွာအဝေးများကို ပိတ်သိမ်းရန် နှိပ်နယ်သင်ယူရေးအစီအစဉ်ကို ကိုယ်ပိုင်ထုတ်လုပ်ပေးသည့် workflow-အရ ရှေ့ဆောင် multi-agent အက်ပ်။
 
 ---
 
-## အေးဂျင့်များ
+## ကိုယ်စားလှယ်များ
 
-| အေးဂျင့် | အခန်းကဏ္ဍ | ကိရိယာများ |
+| ကိုယ်စားလှယ် | တာဝန် | ကိရိယာများ |
 |-------|------|-------|
-| **ResumeParser** | ကိုယ်ရေးရာဇဝင်စာသားမှ ဖွဲ့စည်းထားသော ကျွမ်းကျင်မှုများ၊ အတွေ့အကြုံများ၊ အထောက်အထားများ ထုတ်ယူသည် | - |
-| **JobDescriptionAgent** | အလုပ်အကြောင်းအရာမှ လိုအပ်/နှစ်သက်သော ကျွမ်းကျင်မှုများ၊ အတွေ့အကြုံများ၊ အထောက်အထားများ ထုတ်ယူသည် | - |
-| **MatchingAgent** | ကိုယ်ရေးရာဇဝင်နှင့် လိုအပ်ချက်များကို နှိုင်းယှဉ် → ကိုက်ညီမှု အမှတ်(0-100) + ကိုက်ညီ/လိမ့်မကျကျွမ်းကျင်မှုများ | - |
-| **GapAnalyzer** | Microsoft Learn နဲ့ ပတ်သက်မဲ့ သတင်းအချက်အလက်များကို အသုံးပြုကာ ကိုယ်ပိုင် သင်ယူမှု ရွှေ့ပြောင်းလမ်းကြောင်း ဖန်တီးသည် | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | ရုပ်သိမ်းစာတမ်းစာသားမှ တိုးတက်ကျွမ်းကျင်မှုများ၊ အတွေ့အကြုံများ၊ လက်မှတ်များကို ရယူသည် | - |
+| **JobDescriptionAgent** | အလုပ်ဖော်ပြချက်မှ လိုအပ်/အကြိုက်ဆုံး ကျွမ်းကျင်မှုများ၊ အတွေ့အကြုံများ၊ လက်မှတ်များကို ရယူသည် | - |
+| **MatchingAgent** | ကိုယ်ရေးအချက်အလက်နှင့် လိုအပ်ချက်များကို နှိုင်းယှဉ် → သင့်တော်မှုအမှတ် (0-100) + ကိုက်ညီ/မရှိသော ကျွမ်းကျင်မှုများ | - |
+| **GapAnalyzer** | Microsoft Learn အရင်းအမြစ်များဖြင့် ကိုယ်ပိုင်သင်ယူရေးအစီအစဉ်တစ်ခု ဆောက်လုပ်ပေးသည် | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Workflow
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: ရုပ်သိမ်းစာတမ်း + အလုပ်အကြောင်းအရာ"] --> ResumeParser
-    ResumeParser -- "ယူထားပြီးသော ရုပ်သိမ်းစာတမ်း + JD ပေးပို့ခြင်း" --> JobDescriptionAgent
-    JobDescriptionAgent -- "JD လိုအပ်ချက်များ + ရုပ်သိမ်းစာတမ်း ပေးပို့ခြင်း" --> MatchingAgent
-    MatchingAgent -- "ကိုက်ညီမှုအစီရင်ခံစာ + ကြားကွာချက်များ" --> GapAnalyzerMCP["ကြားကွာချက်စစ်စနစ် +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nကိုက်ညီမှုဆန်းစစ်ချက် + လမ်းညွှန်ပြမြေပုံ"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## လျင်မြန်စွာ စတင်ရန်
+## လျင်မြန်စွာစတင်ခြင်း
 
-### 1. ပတ်ဝန်းကျင်ကို စီစစ်တပ်ဆင်ခြင်း
+### 1. ပတ်ဝန်းကျင် ပြင်ဆင်ခြင်း
 
-ဤဖိုင်ဖိုဒါသည် workflow-အခြေပြု Lab 02 scaffold ၏ ကိုးကားအကောင်အထည်ဖော်မှုဖြစ်သည်။ ၎င်း၏ `main.py` မှာ ရှိပြီးသား prompt block များနှင့် `WorkflowBuilder` ကို အသုံးပြုကာ အေးဂျင့်လေးဦးကို ဆက်သွယ်ထားသည်။
+ဤဖိုလ်ဒါသည် workflow အခြေခံ Lab 02 scaffold အတွက် ကိုးကားအဖြစ် အသုံးပြုသည်။ ၎င်း၏ `main.py` သည် ရှိပြီးသား prompt blocks များနှင့်`WorkflowBuilder` ကို အသုံးပြုပြီး ကိုယ်စားလှယ်လေးဦးကို ဆက်သွယ်ထားသည်။
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,41 +40,41 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. အသိအမှတ်ပြုချက်များကို ဖွဲ့စည်းခြင်း
+### 2. လက်မှတ်များ တပ်ဆင်ခြင်း
 
-ဤဖိုင်ဖိုဒါတွင် `.env` ဖိုင်တစ်ခု ဖန်တီးပါ။
+ဤဖိုလ်ဒါတွင် `.env` ဖိုင် ဖန်တီးပါ။
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
 ```
 
-`.env` ကိုပြင်ဆင်ပါ။
+`.env` ကို တည်းဖြတ်ပါ။
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| တန်ဖိုး | မည်သည့်နေရာတွင် ရှာဖွေမည် |
+| တန်ဖိုး | ရှာဖွေရန်နေရာ |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidebar → သင့်ပရောဂျက်ကိုညာချက်နှိပ်ပြီး → **Copy Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidebar → ပရောဂျက်ဖွင့်၍ → **Models + endpoints** → deployment name |
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidebar → ပရောဂျက်မှာညာဘက်ကလစ် → **Copy Project Endpoint** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidebar → ပရောဂျက် ကိုချဲ့ထွင် → **Models + endpoints** → ဖြန့်ချိထားသောနာမည် |
 
-### 3. ဒေသအတွင်းတွင် ပြေးရန်
+### 3. ဒေသတွင်းမှာ ပြေးဆွဲခြင်း
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-ဒါမှမဟုတ် VS Code task ကို အသုံးပြုပါ။ `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**။
+ဒါမှမဟုတ် VS Code tasks: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server** ကို အသုံးပြုနိုင်သည်။
 
 F5 debugging အတွက် **Debug Local Agent HTTP Server** ကို အသုံးပြုပါ။
 
-### 4. Agent Inspector ဖြင့် စမ်းသပ်ခြင်း
+### 4. Agent Inspector ဖြင့် စစ်ဆေးခြင်း
 
-Agent Inspector ကို ဖွင့်ပါ။ `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**။
+Agent Inspector ကိုဖွင့်ပါ: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**။
 
-ဒီ စမ်းသပ် prompt ကို ကူးထည့်ပါ။
+စမ်းသပ်ရန် prompt အကြောင်းအရာကို ကူးထည့်ပါ။
 
 ```
 Resume:
@@ -92,15 +92,15 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**မျှော်မှန်းချက်:** ကိုက်ညီမှု အမှတ် (0-100), ကိုက်ညီသော / လိုအပ်သော ကျွမ်းကျင်မှုများ၊ Microsoft Learn URL များပါ ၀ င်သည့် ကိုယ်ပိုင် သင်ယူမှု ရွှေ့ပြောင်းလမ်းကြောင်း။
+**မျှော်မှန်းချက်:** သင့်တော်မှုအမှတ် (0-100), ကိုက်ညီသော/မရှိသော ကျွမ်းကျင်မှုများနှင့် Microsoft Learn URL များပါသည့် ကိုယ်ပိုင်သင်ယူရေးအစီအစဉ်။
 
-### 5. Foundry တွင် ဖြန့်ချိခြင်း
+### 5. Foundry သို့ ဖြန့်ချိခြင်း
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → သင့်ပရောဂျက်ရွေးချယ်ပြီး → အတည်ပြုပါ။
+`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → သင့်ပရောဂျက်ကို ရွေးချယ် → အတည်ပြု။
 
 ---
 
-## ပရောဂျက် ဖွဲ့စည်းမှု
+## ပရောဂျက်ဖွဲ့စည်းမှု
 
 ```
 PersonalCareerCopilot/
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## အဓိက ဖိုင်များ
+## အဓိကဖိုင်များ
 
 ### `agent.yaml`
 
-Foundry Agent Service အတွက် hosted agent ကို သတ်မှတ်သည်။
-- `kind: hosted` - managed container အဖြစ် ပြေးပါသည်။
-- `protocols` - `responses` protocol နှင့် `version: 1.0.0` ကို အသုံးပြု၍ `/responses` HTTP endpoint ကို ဖော်ပြသည်။
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` ကို ၎င်းတွင် ကြေညာထားသည်။ `FOUNDRY_PROJECT_ENDPOINT` ကို deploy ဝေငှခိုင်းစဥ် အလိုအလျောက် ထည့်သွင်းသည်။
+Foundry Agent Service အတွက် hosted agent ကို သတ်မှတ်ထားသည်။
+- `kind: hosted` - စီမံခန့်ခွဲထားသော container အဖြစ် ပြေးဆွဲသည်
+- `protocols` - `responses` ပရိုတောကေါ်နှင့် `version: 2.0.0` ကို အသုံးပြုကာ `/responses` HTTP endpoint ကို ဖော်ပြသည်
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` မှတ်ပုံတင်ထားသည်; `FOUNDRY_PROJECT_ENDPOINT` ကို ဖြန့်ချိရာတွင် အလိုအလျောက် ထည့်သွင်းသည်
 
 ### `main.py`
 
-ပါဝင်မှုများ៖
-- **Agent အညွှန်းများ** - အေးဂျင့် လေးဦးအတွက် `*_INSTRUCTIONS` constants လေးခု
-- **MCP ကိရိယာ** - `search_microsoft_learn_for_plan()` သည် Streamable HTTP ဖြင့် `https://learn.microsoft.com/api/mcp` ကို ခေါ်ဆိုသည်။
-- **အေးဂျင့်ဖန်တီးမှု** - အေးဂျင့်(၄) + `AgentExecutor()` instances များ တစ်ခုတည်း `FoundryChatClient` ကို မျှဝေသုံးသည်။
-- **Workflow ဂရပ်ဖ်** - `WorkflowBuilder` က ResumeParser → JD Agent → MatchingAgent → GapAnalyzer အတိုင်း အစီအစဉ်တကျ အေးဂျင့်များ ဆက်သွယ်သည်။
-- **ဆာဗာ စတင်ခြင်း** - `ResponsesHostServer` သည် port 8088 ပေါ်တွင် ပြေးနေသည်။
+ပါဝင်သည်။
+- **Agent အညွှန်းများ** - ကိုယ်စားလှယ်လေးဦးအတွက် `*_INSTRUCTIONS` သတ်မှတ်ချက်များ
+- **MCP ကိရိယာ** - `search_microsoft_learn_for_plan()` က `https://learn.microsoft.com/api/mcp` ကို Streamable HTTP မှတဆင့် ခေါ်သည်
+- **Agent ဖန်တီးခြင်း** - ကိုယ်စားလှယ်လေးဦးအတွက် `Agent()` နှင့် `AgentExecutor()` အခြေအနေများသည် `FoundryChatClient` တစ်ခုကို လက်ခံဝေစုသည်
+- **Workflow ကွန်ရက်** - `WorkflowBuilder` သည် ကိုယ်စားလှယ်များအား စဉ်ဆက်မပြတ် လမ်းကြောင်းအနေနဲ့ ဆက်သွယ်သည်။ ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **ဆာဗာ စတင်မှု** - `ResponsesHostServer` သည် port 8088 မှာ ပြေးဆွဲသည်။
 
 ### `requirements.txt`
 
-| Package | ရည်ရွယ်ချက် |
+| မှပက် | ရည်ရွယ်ချက် |
 |---------|----------|
-| `agent-framework-foundry` | မူလ runtime - `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry hosting ပေါင်းစည်းမှု |
+| `agent-framework-foundry` | အဓိက runtime: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` နှင့် Foundry hosting ပေါင်းစပ်မှု |
 | `mcp<2,>=1.24.0` | GapAnalyzer အတွက် MCP client (`streamable_http_client`) |
-| `debugpy` | Python debugging (VS Code တွင် F5 မှာ) |
+| `debugpy` | Python debugging (VS Code မှာ F5) |
 
 ---
 
 ## ပြဿနာဖြေရှင်းခြင်း
 
-| ပြဿနာ | ဖြေရှင်းနည်း |
+| ပြဿနာ | ဖြေရှင်းချက် |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` သို့မဟုတ် `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `.env` ဖိုင်တွင် `FOUNDRY_PROJECT_ENDPOINT` နှင့် `AZURE_AI_MODEL_DEPLOYMENT_NAME` ကြေညာပါ |
-| `ModuleNotFoundError: No module named 'agent_framework'` | venv ကို စတင် ဖွင့်ပြီး `pip install -r requirements.txt` ကို အကောင်အထည်ဖော်ပါ |
-| Microsoft Learn URL မပါရှိသော အထွက်များ | `https://learn.microsoft.com/api/mcp` သို့ အင်တာနက်ချိတ်ဆက်မှု ကို စစ်ဆေးပါ |
-| gap card တစ်ခုတည်းသာ ( ဖြတ်တောက်ထား) | `GAP_ANALYZER_INSTRUCTIONS` တွင် `CRITICAL:` အပိုင်း ပါဝင်သည်ကို သေချာစစ်ဆေးပါ |
-| Port 8088 ကို အသုံးပြုနေသည် | အခြားဆာဗာများကို ပိတ်ပါ။ `netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` သို့မဟုတ် `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `.env` ဖန်တီးပြီး `FOUNDRY_PROJECT_ENDPOINT` နှင့် `AZURE_AI_MODEL_DEPLOYMENT_NAME` ကို နှစ်ပေါင်းတင်ထားပါ။ |
+| `ModuleNotFoundError: No module named 'agent_framework'` | venv ကို တက်ဆင်ပြီး `pip install -r requirements.txt` ကို ပြေးပါ။ |
+| မ output မှာ Microsoft Learn URLs မပါ | `https://learn.microsoft.com/api/mcp` သို့ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။ |
+| gap card တစ်ခုတည်းသာရှိ (လျှော့ချ) | `GAP_ANALYZER_INSTRUCTIONS` မှ `CRITICAL:` block ပါဝင်မှုကို အတည်ပြုပါ။ |
+| Port 8088 တွင် အသုံးပြုနေပါသည် | အခြားဆာဗာများကို ရပ်တန့်ပါ: `netstat -ano \| findstr :8088` |
 
-အသေးစိတ် ပြဿနာဖြေရှင်းရန်အတွက် [Module 8 - Troubleshooting](../docs/08-troubleshooting.md) ကို ကြည့်ပါ။
+အသေးစိတ် ပြဿနာဖြေရှင်းအတွက် [Module 8 - Troubleshooting](../docs/08-troubleshooting.md) ကို ကြည့်ပါ။
 
 ---
 
-**ပြည့်စုံ လမ်းညွှန်:** [Lab 02 Docs](../docs/README.md) · **ပြန်သွားရန်:** [Lab 02 README](../README.md) · [အက်လုပ်ရုံ မူလစာမျက်နှာ](../../../README.md)
+**တစ်ပြည့်စုံ လမ်းညွှန်ချက်အတိုင်း:** [Lab 02 Docs](../docs/README.md) · **နောက်သို့:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

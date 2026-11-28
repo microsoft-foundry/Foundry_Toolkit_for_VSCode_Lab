@@ -1,14 +1,14 @@
-# Module 2 - Générer l'ossature du projet multi-agents
+# Module 2 - Échafauder le projet multi-agent
 
 ⏱️ ~5 min
 
-Dans ce module, vous utilisez [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) pour **générer l'ossature d'un projet multi-agents**. L'assistant génère `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, et la configuration de débogage VS Code - afin que vous puissiez vous concentrer sur le câblage du flux de travail à 4 agents dans le Module 3.
+Dans ce module, vous utilisez [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) pour **échafauder un projet multi-agent**. L’assistant génère `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, et la configuration de débogage VS Code - afin que vous puissiez vous concentrer sur le câblage du flux de travail à 4 agents dans le Module 3.
 
-> **Concept clé :** L'ossature est une ébauche fonctionnelle avec un agent. Vous remplacez la logique factice par le graphe `WorkflowBuilder` dans le Module 3. Vous ne réécrivez pas le code de base depuis zéro.
+> **Concept clé :** L’échafaudage est un stub fonctionnel avec un agent. Vous remplacez la logique placeholder par le graphe `WorkflowBuilder` dans le Module 3. Vous ne codez pas le boilerplate depuis zéro.
 
-> **Implémentation de référence :** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) est un exemple complet et fonctionnel. Servez-vous-en pour comparer votre travail au fur et à mesure.
+> **Implémentation de référence :** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) est un exemple complet fonctionnel. Utilisez-le pour comparer votre travail au fur et à mesure.
 
-### Déroulement de l'assistant de génération
+### Flux de l’assistant d’échafaudage
 
 ```mermaid
 flowchart LR
@@ -22,50 +22,50 @@ flowchart LR
 
 ---
 
-## Étape 1 : Ouvrez l'assistant Create Hosted Agent
+## Étape 1 : Ouvrir l’assistant Créer un agent hébergé
 
 1. Appuyez sur `Ctrl+Shift+P` pour ouvrir la **Palette de commandes**.
-2. Tapez : **Foundry Toolkit: Create a New Hosted Agent** et sélectionnez-le.
-3. L'assistant s'ouvre sur l'onglet **Détails de l'agent**.
+2. Tapez : **Foundry Toolkit : Créer un nouvel agent hébergé** et sélectionnez-le.
+3. L’assistant s’ouvre sur l’onglet **Détails de l’agent**.
 
-> **Alternative :** Cliquez sur l'icône **Foundry Toolkit** dans la Barre d'activités → cliquez sur l'icône **+** à côté de **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternative :** Cliquez sur l’icône **Foundry Toolkit** dans la barre d’activité → cliquez sur l’icône **+** à côté de **Agents hébergés** → **Créer un nouvel agent hébergé**.
 
 ---
 
 ## Étape 2 : Choisir les paramètres
 
-![Créer Hosted Agent depuis un exemple - onglet Détails de l'agent avec le modèle Workflows sélectionné](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Créer un agent hébergé à partir d’un exemple - Onglet Détails de l’agent avec le modèle Workflows sélectionné](../../../../../translated_images/fr/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Dans la section de navigation/options à gauche, sélectionnez les éléments suivants :
+1. Dans la section de navigation/options à gauche, sélectionnez ce qui suit :
 
 | Menu | Sélection | Remarques |
 |--------|-----------|-------|
-| **Langue** | Python | C# (.NET) également pris en charge |
-| **Framework** | Agent Framework | Fournit `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **Type d'API** | Response API | `POST /responses` - historique géré par la plateforme, prise en charge du streaming |
+| **Langage** | Python | C# (.NET) est aussi supporté |
+| **Framework** | Framework Agent | Fournit `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **Type d’API** | API de réponse | `POST /responses` - historique géré par la plateforme, support du streaming |
 | **Modèle** | **Workflows** | Traite les requêtes via plusieurs agents en séquence |
 
-2. Une fois sélectionné, cliquez sur **Next**
+2. Une fois sélectionné, cliquez sur **Suivant**
 
-![Créer Hosted Agent depuis un exemple - onglet Create montrant PersonalCareerCopilot comme nom de dossier](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Créer un agent hébergé à partir d’un exemple - Onglet Créer montrant PersonalCareerCopilot comme nom de dossier](../../../../../translated_images/fr/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. Dans la fenêtre suivante, sélectionnez les éléments suivants :
+3. Dans la fenêtre suivante, sélectionnez ce qui suit :
 
 | Menu | Sélection | Remarques |
 |--------|-----------|-------|
-| **Dossier de l'espace de travail** | Parcourez jusqu'au dossier cible | p. ex., `workshop/lab02-multi-agent/` dans ce dépôt |
-| **Nom de l'agent** | `PersonalCareerCopilot` | Ceci devient le nom du répertoire du projet |
-| **Déploiement du modèle** | Sélectionnez votre modèle déployé | p. ex., `gpt-4.1-mini` du Lab 01 |
+| **Dossier de l’espace de travail** | Parcourir jusqu’au dossier cible | par ex. `workshop/lab02-multi-agent/` dans ce dépôt |
+| **Nom de l’agent** | `PersonalCareerCopilot` | Cela devient le nom du répertoire du projet |
+| **Déploiement du modèle** | Sélectionnez votre modèle déployé | par ex. `gpt-4.1-mini` du Lab 01 |
 
-4. Cliquez sur **Create** pour générer l'ossature du projet. VS Code génère les fichiers et ouvre le dossier.
+4. Cliquez sur **Créer** pour échafauder le projet. VS Code génère les fichiers et ouvre le dossier.
 
-> **Astuce :** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) offre un bon compromis entre rapidité et qualité pour le développement multi-agent.
+> **Astuce :** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) équilibre bien vitesse et qualité pour le développement multi-agent.
 
 ---
 
 ## Étape 3 : Inspecter le projet généré
 
-Après la génération, vérifiez que vous voyez ces fichiers dans l'Explorateur (`Ctrl+Shift+E`) :
+Après l’échafaudage, vérifiez que vous voyez ces fichiers dans l’Explorateur (`Ctrl+Shift+E`) :
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ Après la génération, vérifiez que vous voyez ces fichiers dans l'Explorateur
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Important :** Ouvrez ce dossier généré directement dans VS Code afin que `.vscode/launch.json` et `tasks.json` s'appliquent correctement pour le débogage F5.
+> **Important :** Ouvrez ce dossier échafaudé directement dans VS Code pour que `.vscode/launch.json` et `tasks.json` s’appliquent correctement lors du débogage avec F5.
 
-### Fichiers clés expliqués
+### Explication des fichiers clés
 
-| Fichier | Objectif |
+| Fichier | But |
 |------|---------|
-| `agent.yaml` | Déclare `kind: hosted`, mappe les variables d'environnement, définit le protocole `/responses` |
-| `main.py` | Stub : un `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Vous remplacez ceci par 4 agents + `WorkflowBuilder` dans le Module 3 |
+| `agent.yaml` | Déclare `kind: hosted`, mappe les variables d’environnement, définit le protocole `/responses` |
+| `main.py` | Stub : un `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Vous le remplacez par 4 agents + `WorkflowBuilder` dans le Module 3 |
 | `Dockerfile` | `python:3.12-slim`, installe `requirements.txt`, expose le port 8088, exécute `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Référence :** Voir [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) et [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) pour le contenu complet généré.
+> **Référence :** Voir [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) et [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) pour le contenu généré complet.
 
 ---
 
 ### ✅ Point de contrôle
 
-- [ ] Assistant de génération terminé - le nouveau dossier du projet est visible dans l'Explorateur
-- [ ] Tous les fichiers attendus sont présents : `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] `agent.yaml` affiche `kind: hosted` et `protocol: responses`
+- [ ] Assistant d’échafaudage terminé - nouveau dossier de projet visible dans l’Explorateur
+- [ ] Tous les fichiers attendus présents : `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] `agent.yaml` montre `kind: hosted` et `protocol: responses`
 - [ ] `main.py` importe `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Le dossier généré est ouvert en tant que racine de l'espace de travail VS Code
-- [ ] Vous comprenez que `main.py` est une ébauche - `WorkflowBuilder` est ajouté dans le Module 3
+- [ ] Le dossier échafaudé est ouvert en tant que racine de l’espace de travail VS Code
+- [ ] Vous comprenez que `main.py` est un stub - `WorkflowBuilder` est ajouté dans le Module 3
 
 ---
 
-**Précédent :** [01 - Comprendre l'architecture multi-agents](01-understand-multi-agent.md) · **Suivant :** [03 - Configurer les agents et l'environnement →](03-configure-agents.md)
+**Précédent :** [01 - Comprendre l’architecture multi-agent](01-understand-multi-agent.md) · **Suivant :** [03 - Configurer les agents et l’environnement →](03-configure-agents.md)
 
 ---
 

@@ -1,10 +1,10 @@
-# Laboratorinis darbas 02 - Daugiaagentis darbo eiga: CV → Darbo tinkamumo vertintojas
+# Laboratorinis darbas 02 - Daugiaprogramis Darbo Srautas: gyvenimo aprašymas → darbo tinkamumo vertintojas
 
 ## Apžvalga
 
-Šiame praktiniame užsiėmime kursite **darbo eigą pirmiausia orientuotą daugiaagentę programėlę** naudodami Foundry Toolkit VS Code aplinkoje ir paskelbsite ją Microsoft Foundry Agent paslaugoje.
+Šiame praktiniame laboratoriniame darbe sukursite **darbo srauto pagrindu veikiantį daugiaagentį programėlę** naudodami Foundry Toolkit VS Code aplinkoje ir ją paleisite Microsoft Foundry Agent Service.
 
-**Ką kursite:** CV → Darbo tinkamumo vertintojas, kuris analizuoja CV ir darbo aprašymą, įvertina atitikimą ir sukuria suasmenintą mokymosi planą naudojant Microsoft Learn išteklius.
+**Ką kursite:** gyvenimo aprašymo → darbo tinkamumo vertintojas, kuris analizuoja gyvenimo aprašymą ir darbo aprašymą, įvertina jų atitikimą ir sudaro asmeninę mokymosi planą naudojant Microsoft Learn išteklius.
 
 ---
 
@@ -12,11 +12,11 @@
 
 ```mermaid
 flowchart TD
-    A["Vartotojo įvestis"] --> B["Gyvenimo aprašymo analizatorius"]
-    B -->|"[IŠANALIZUOTAS GYVENIMO APRAŠYMAS] + [DARBO APRAŠYMO PERDAVIMAS]"| C["Darbo aprašymo agentas"]
-    C -->|"[DARBO REIKALAVIMAI] + [IŠANALIZUOTO GYVENIMO APRAŠYMO PERDAVIMAS]"| D["Atitikimo agentas"]
-    D -->|atitikimo ataskaita + spragos| E["Spragų analizatorius + Microsoft Learn MCP"]
-    E -->|atitikimo balas + veiksmų planas| F["Išvestis"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -27,54 +27,55 @@ flowchart TD
 ```
 
 **Kaip tai veikia:**
-1. Vartotojas įklijuoja CV ir darbo aprašymą.
-2. **ResumeParser** analizuoja CV ir nukopijuoja darbo aprašymą tiksliai į `[JOB DESCRIPTION PASS-THROUGH]` skyrių.
-3. **JD Agent** ištraukia struktūrizuotus reikalavimus iš perduoto teksto, tada perduoda `[PARSED RESUME]` kaip `[PARSED RESUME PASS-THROUGH]`.
-4. **MatchingAgent** palygina `[PARSED RESUME PASS-THROUGH]` su `[JD REQUIREMENTS]` ir apskaičiuoja tinkamumo balą.
-5. **GapAnalyzer** paverčia spragas į praktišką veiksmų planą ir gauna tikras Microsoft Learn nuorodas per MCP.
+1. Vartotojas įklijuoja gyvenimo aprašymą ir darbo aprašymą.
+2. **ResumeParser** analizuoja gyvenimo aprašymą ir pažodžiui kopijuoja darbo aprašymą į `[JOB DESCRIPTION PASS-THROUGH]` sekciją.
+3. **JD Agent** ištraukia struktūruotus reikalavimus iš pernešimo, tada perduoda `[PARSED RESUME]` kaip `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** lygina `[PARSED RESUME PASS-THROUGH]` su `[JD REQUIREMENTS]` ir sukuria tinkamumo įvertinimą.
+5. **GapAnalyzer** paverčia spragas į praktišką planą ir gauna tikrus Microsoft Learn nuorodas per MCP.
 
 ---
 
-## Išankstinės sąlygos
+## Reikalavimai
 
-Pirmiausia užbaikite Laboratorinį darbą 01:
+Pirmiausia įvykdykite laboratorinį darbą 01:
 
 - [Laboratorinis darbas 01 - Vienas agentas](../lab01-single-agent/README.md)
 
 ---
 
-## 1 dalis: Skaitykite modulius iš eilės
+## 1 dalis: skaitykite modulius iš eilės
 
-Pilną mokymosi kelią rasite:
+Visą mokymosi kelią rasite:
 
-- [Laboratorijos 2 dokumentai - Išankstinės sąlygos](docs/00-prerequisites.md)
-- [Laboratorijos 2 dokumentai - Pilnas mokymosi kelias](docs/README.md)
-- [PersonalCareerCopilot paleidimo vadovas](PersonalCareerCopilot/README.md)
+- [Laboratorinio darbo 2 dokumentai - Reikalavimai](docs/00-prerequisites.md)
+- [Laboratorinio darbo 2 dokumentai - Pilnas mokymosi kelias](docs/README.md)
+- [PersonalCareerCopilot vykdymo vadovas](PersonalCareerCopilot/README.md)
 
 ---
 
-## 2 dalis: Kurkite ir testuokite darbo eigą
+## 2 dalis: sukurkite ir išbandykite darbo srautą
 
-1. Naudokite Foundry Toolkit vedlį, kad sukurtumėte darbo eigos pagrindu veikiančią programėlę.
-2. Nukopijuokite užklausų blokus ir darbo eigos schemą iš `PersonalCareerCopilot/main.py` į savo darbo aplinką.
-3. Paleiskite vietoje su Agent Inspector ir patikrinkite visus keturis agentus bei MCP įrankį.
-4. Kai vietinis testavimas praeina, diegkite agentą Foundry platformoje.
+1. Naudokite Foundry Toolkit vedlį, kad sukurtumėte darbo srauto pagrindu veikiantį projektą.
+2. Nukopijuokite užklausų blokus ir darbo srauto schemą iš `PersonalCareerCopilot/main.py` į savo darbo aplinką.
+3. Vietoje paleiskite su Agent Inspector ir patikrinkite visus keturis agentus bei MCP įrankį.
+4. Jeigu vietinis testavimas sėkmingas, paleiskite agentą Foundry serveryje.
 
 ---
 
 ## Orkestracijos modeliai
 
-Laboratoriniame darbe 02 taikoma numatytoji **fan-out → fan-in → nuosekli** eiga, o dokumentai taip pat aprašo alternatyvius orkestracijos modelius eksperimentams.
+Laboratorinis darbas 02 naudoja **sekinę dujotiekio grandinę**: kiekvieno agentei išvestis tiekiama kitam, o darbo srautas grąžina paskutinio agentei atsakymą. Du modeliai tai užtikrina:
 
-- **Fan-out/Fan-in su svoriniu konsensusu**
-- **Peržiūrėtojo/ kritikų peržiūra prieš galutinį veiksmų planą**
-- **Sąlyginis maršrutizatorius** remiantis tinkamumo balu ir trūkstamais įgūdžiais
+- **Sekinė grandinė** - `WorkflowBuilder` jungia ResumeParser → JD Agent → MatchingAgent → GapAnalyzer su vienu `add_edge()` kvietimu kiekviename žingsnyje
+- **Turinio perdavimas** - kadangi kiekvienas agentas mato tik ankstesnio agento išvestį, ResumeParser ir JD Agent kopijuoja duomenis į žymėtas pernešimo sekcijas, kurių reikia tolesniems agentams
+
+Dokumentai taip pat paaiškina, kodėl laboratorinis darbas nenaudoja daugiašakio išskirstymo/sujungimo ir kaip pridėti dar vieną agentą į schemą.
 
 Žr. [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Ankstesnis:** [Laboratorinis darbas 01 - Vienas agentas](../lab01-single-agent/README.md) · **Atgal į:** [Dirbtuvių pagrindinį puslapį](../../README.md)
+**Ankstesnis:** [Laboratorinis darbas 01 - Vienas agentas](../lab01-single-agent/README.md) · **Atgal į:** [Dirbtuvių pradžia](../../README.md)
 
 ---
 

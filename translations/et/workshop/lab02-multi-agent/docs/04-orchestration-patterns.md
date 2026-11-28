@@ -1,39 +1,39 @@
-# Moodul 4 - Orkestreerimise mustrid
+# Moodul 4 - Otsustusmustrid
 
 ⏱️ ~10 minutit
 
-Selles moodulis uurid Resume Job Fit Evaluatori orkestreerimismustreid ning õpid, kuidas lugeda, muuta ja laiendada töövoo graafikut. Nende mustrite mõistmine on oluline andmevoo probleemide silumiseks ja omaenda [mitmeagendiliste töövoogude](https://learn.microsoft.com/agent-framework/workflows/) loomise jaoks.
+Selles moodulis uurite orkestreerimise mustreid, mida kasutatakse Resume Job Fit Evaluatori juures, ning õpite lugema, muutma ja laiendama töövoo graafikut. Nende mustrite mõistmine on oluline andmevoo probleemide silumiseks ja omaenda [mitmeagentsete töövoogude](https://learn.microsoft.com/agent-framework/workflows/) loomiseks.
 
 ---
 
 ## Muster 1: Järjestikune ahel
 
-Töövoo põhineb **järjestikus ahelal** – iga agendi väljund suunatakse otse järgmisele.
+Töövoo põhistruktuur on **järjestikune ahel** – iga agendi väljund läheb otse järgmisele.
 
 ```mermaid
 flowchart LR
-    RP[CV parser] --> JD[Töökuulutuste agent]
-    JD --> MA[Sobivusagent]
-    MA --> GA[Lünka analüsaator]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-Koodis loob iga `add_edge()` kutse ahelas ühe sammu:
+Koodis loob iga `add_edge()` kõne ühe sammu ahelas:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # CV-parsija väljund → JD Agent
-.add_edge(jd_executor, matching_executor)     # JD Agenti väljund → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # MatchingAgendi väljund → Lüngaanalüsaator
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Miks järjestikune, mitte hargnemine/ühinemine?** `WorkflowBuilder` kasutab saabuvatele servadele **VÕI-semantikat**: allavoolu täideviija käivitub kohe, kui **ükskõik milline** eelkäija lõpetab. Kui `matching_executor`il oleks kaks saabuvat serva (nii `resume_executor`ilt kui `jd_executor`ilt), käivituks see kaks korda – korra kui ResumeParser lõpetab ja teist korda, kui JD Agent lõpetab – põhjustades GapAnalyzerile kahekordse jooksu ja väljund ilmuks kahekordselt. Järjestikune torujuhe väldib seda täielikult.
+> **Miks järjestikune, mitte harunemine/koondumine?** `WorkflowBuilder` kasutab sisenevate servade jaoks **VÕI-semantikat**: järeltöötlus käivitub kohe, kui **ükskõik milline** eelkäija lõpetab. Kui `matching_executor` oleksil kaks sisendserva (nii `resume_executor` kui ka `jd_executor` poolt), käivituks see kaks korda – korra ResumeParser-i lõpetamisel ja korra JD Agent-i lõpetamisel – mis põhjustaks GapAnalyzeri käivitumise kahel korral ja väljundi ilmumise kahel korral. Järjestikune torujuhe väldib seda täiesti.
 
-## Muster 2: Sisu vahendamine
+## Muster 2: Sisu edastamine
 
-Kuna `context_mode="last_agent"` tähendab, et iga täideviija näeb ainult oma **otse eelkäija väljundit**, peavad järjestikuse ahela agendid selgesõnaliselt edastama andmeid, mida allavoolu agendid vajavad.
+Kuna `context_mode="last_agent"` tähendab, et iga täitja näeb ainult oma **otse eelkäija väljundit**, peavad järjestiku ahela agendid edastama selgesõnaliselt edasi kõik andmed, mida järeltöötluse agendid vajavad.
 
 Selles töövoos:
-- **ResumeParser** kopeerib JD täpselt `[JOB DESCRIPTION PASS-THROUGH]`i (et JD Agent selle leiaks).
-- **JD Agent** kopeerib `[PARSED RESUME]` täpselt `[PARSED RESUME PASS-THROUGH]`i (et MatchingAgent saaks mõlemaid profiile võrrelda).
+- **ResumeParser** kopeerib JD otse `[JOB DESCRIPTION PASS-THROUGH]` (nii et JD Agent leiab selle).
+- **JD Agent** kopeerib `[PARSED RESUME]` otse `[PARSED RESUME PASS-THROUGH]` (nii et MatchingAgent saab mõlema profiili võrrelda).
 
 ```
 ResumeParser output
@@ -45,36 +45,36 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Iga vahendamise osa peab olema kopeeritud **sõnasõnaliselt** – selle kokkuvõtmine või ümberütlemine rikub allavoolu agenti, mis sellest sõltub.
+Iga edastamise sektsioon tuleb kopeerida **sõna-sõnalt** – selle kokkuvõtlemine või ümberütlemine rikub selle järeltöötlusagendi, mis sellest sõltub.
 
 ---
 
-## Täielik graafik
+## Täielik graaf
 
-Järjestikuse ahela ja sisu vahendamise mustrite kombineerimine loob kogu töövoo:
+Järjestikuse ahela ja sisu edastamise mustrite kombineerimine annab täieliku töövoo:
 
 ```mermaid
 flowchart LR
-    U[Kasutaja sisend] --> RP[CV parser]
-    RP --> JD[Töökirjelduse agent]
-    JD --> MA[Sobitamise agent]
-    MA --> GA[Lünkade analüsaator + MCP]
-    GA --> O[Lõplik väljund]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Agent Inspector kuvab sama graafiku struktuuri, kui agent töötab lokaalselt. Vaata ekraanipilte peatükist [Moodul 5 - Testi lokaalselt](05-test-locally.md).
+Agent Inspector kuvab sama graafiku struktuuri siis, kui agent töötab lokaalselt. Vaadake ekraanipilte [Moodul 5 - Testi lokaalselt](05-test-locally.md).
 
 ---
 
-## WorkflowBuilderi koodi lugemine
+## WorkflowBuilder koodi lugemine
 
-Täielik `create_workflow()` funktsioon on faili [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) sees. Kolm `add_edge()` kutsungit ehitavad järjestikuse torujuhtme:
+Töövoo graaf on ehitatud funktsioonis `main()` failis [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Kolm `add_edge()` kõnet ehitavad järjestikuse torujuhe:
 
 | # | Serv | Mõju |
 |---|------|--------|
 | 1 | `resume_executor → jd_executor` | JD Agent saab `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent saab `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer saab sobivusaruanne + lünkade nimekirja |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer saab sobivusaruande + vahede nimekirja |
 
 ---
 
@@ -82,26 +82,26 @@ Täielik `create_workflow()` funktsioon on faili [`PersonalCareerCopilot/main.py
 
 ### Uue agendi lisamine
 
-Viienda agendi lisamiseks (nt **InterviewPrepAgent** pärast GapAnalyzerit):
+Viienda agendi lisamiseks (nt **InterviewPrepAgent** pärast GapAnalyzer-it):
 
-1. Määra `INTERVIEW_PREP_INSTRUCTIONS` konstant.
-2. Loo `Agent` + `AgentExecutor` objektid (nagu olemasoleval neljal).
-3. Lisa `.add_edge(gap_executor, interview_exec)` `WorkflowBuilder`isse.
-4. Uuenda `output_executors=[interview_exec]`.
+1. Määrake `INTERVIEW_PREP_INSTRUCTIONS` konstant.
+2. Looge `Agent` + `AgentExecutor` objektid (sama muster nagu olemasolevatel neljal).
+3. Lisage `.add_edge(gap_executor, interview_exec)` funktsioonis `WorkflowBuilder`.
+4. Uuendage `output_executors=[interview_exec]`.
 
-> **Oluline:** `start_executor` on ainus agent, kes saab otse kasutaja sisendi. Kõik teised agendid saavad väljundi oma ülemisest servast.
+> **Oluline:** `start_executor` on ainus agent, kes saab otse kasutaja sisendi. Kõik teised agendid saavad väljundi oma ülesvoolu servast.
 
 ---
 
-## Tavalised graafiku vead
+## Levinud graafikavead
 
 | Viga | Sümptom | Parandus |
 |---------|---------|-----|
-| Puuduv serv `output_executors`ile | Agent töötab, aga väljund on tühi | Veendu, et `start_executor`ist juhitakse tee kõigi `output_executorsi` agentideni |
-| Tsükliline sõltuvus | Lõputu tsükkel või ajapiirangu viga | Kontrolli, et ükski agent ei toidaks tagasi eelnevasse agendisse |
-| Agent `output_executors`is ilma saabuvata servata | Tühi väljund | Lisa vähemalt üks `add_edge(allikas, see_agent)` |
-| Mitmed `output_executors`id ilma hargnemiseta | Väljundis on ainult ühe agendi vastus | Kasuta ühte väljundi agenti, mis koondab, või aktsepteeri mitut väljundit |
-| Puuduv `start_executor` | `ValueError` ehitusajal | Määra alati `start_executor` `WorkflowBuilder()` sees |
+| Puuduv serv `output_executors` jaoks | Agent töötab, aga väljund on tühi | Veenduge, et oleks tee `start_executor`-st iga `output_executors` agrendi juurde |
+| Tsükliline sõltuvus | Lõpmatu tsükkel või ajalõpp | Kontrollige, et ükski agent ei toidaks tagasi ülesvoolu agenti |
+| Agent `output_executors`, kellel puudub sissetulev serv | Tühi väljund | Lisage vähemalt üks `add_edge(source, that_agent)` |
+| Mitmed `output_executors` ilma fan-in-ta | Väljundis on ainult ühe agendi vastus | Kasutage ühte väljundagentit, mis koondab, või aktsepteerige mitut väljundit |
+| Puuduv `start_executor` | `ValueError` ehitamise ajal | Määrake alati `start_executor` `WorkflowBuilder()`-s |
 
 ---
 
@@ -109,25 +109,25 @@ Viienda agendi lisamiseks (nt **InterviewPrepAgent** pärast GapAnalyzerit):
 
 ### Agent Inspectori kasutamine
 
-1. Käivita agent kohalikus keskkonnas F5-ga.
-2. Ava Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
+1. Käivitage agent lokaalselt F5-ga.
+2. Avage Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
 3. Saada test-sõnum.
-4. Inspectori vastuse paneelis vaata **voogesitatavat väljundit** – see kuvab iga agendi panuse järjest.
+4. Inspector'i vastuse paneelis otsige **voogedastuse väljundit** - see näitab iga agendi panust järjestuses.
 
 
 ### Logimise kasutamine
 
-Lisa logimine faili `main.py`, et jälgida andmevoogu:
+Lisage logimine `main.py`, et jälgida andmevoogu:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Peaprogrammis peamise töövoo loomise järel:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Serveri logid näitavad agendi täideviimise järjekorda ja MCP tööriistakutseid:
+Serveri logides kuvatakse agendi täitmise järjekord ja MCP tööriistakõned:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### Kontrollpunkt
 
-- [ ] Sa suudad tuvastada töövoos kaks orkestreerimismustrit: järjestikuse ahela ja sisu vahendamise
-- [ ] Sa mõistad, miks `context_mode="last_agent"` nõuab agentide vahel selgesõnalist andmevahendust
-- [ ] Sa suudad lugeda `WorkflowBuilder`i koodi ja siduda iga `add_edge()` kutse graafikuga
-- [ ] Sa tead, kuidas lisada uus agent pipeline lõppu
-- [ ] Sa suudad tuvastada levinud graafiku vigu ja nende sümptomeid
+- [ ] Sa suudad tuvastada töövoos kaks orkestreerimise mustrit: järjestikune ahel ja sisu edastamine
+- [ ] Sa mõistad, miks `context_mode="last_agent"` nõuab agentide vahel selgesõnalist andmete edastamist
+- [ ] Sa oskad lugeda `WorkflowBuilder` koodi ja siduda iga `add_edge()` kõne visuaalse graafikuga
+- [ ] Sa tead, kuidas lisada torujuhtme lõppu uus agent
+- [ ] Sa suudad tuvastada levinud graafikuvigu ja nende sümptomeid
 
 ---
 
-**Eelmine:** [03 - Kontrolli agente & keskkonda](03-configure-agents.md) · **Järgmine:** [05 - Testi lokaalselt →](05-test-locally.md)
+**Eelmine:** [03 - Konfigureeri Agendid & Keskkond](03-configure-agents.md) · **Järgmine:** [05 - Testi lokaalselt →](05-test-locally.md)
 
 ---
 

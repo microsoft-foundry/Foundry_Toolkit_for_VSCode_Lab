@@ -2,14 +2,14 @@
 
 ⏱️ ~10 min
 
-Tässä moduulissa ajat agenttisi paikallisesti ja varmistat, että se toimii oikein käyttämällä **onnistuneen reitin toiminnallisia testejä**. Käytät Agenttien tarkastajaa (visuaalinen käyttöliittymä) tai suoria HTTP-kutsuja varmistaaksesi, että agentti tuottaa jäsenneltyjä ja tarkkoja vastauksia.
+Tässä moduulissa ajat agenttisi paikallisesti ja varmistat, että se toimii oikein käyttämällä **onnistuneen polun toiminnallisia testejä**. Käytät Agent Inspector -työkalua (visuaalinen käyttöliittymä) tai suoria HTTP-kutsuja vahvistaaksesi, että agentti tuottaa rakenteellisia ja tarkkoja vastauksia.
 
 ### Paikallisen testauksen kulku
 
 ```mermaid
 flowchart TD
-    A["Käynnistä agenttipalvelin"] --> B["Avaa Agenttien tarkastaja"]
-    B --> C["Lähetä testisyöte"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -23,58 +23,60 @@ flowchart TD
 
 ---
 
-## Vaihtoehto 1: Paina F5 - Debuggaa Agenttien tarkastajalla (suositeltu)
+## Vaihtoehto 1: Paina F5 - Virheenkorjaus Agent Inspectorin kanssa (suositeltu)
 
-### Käynnistä virheenkorjaus
+### Käynnistä virheenkorjaaja
 
-1. Avaa **executive-summary-agent/** -kansio suoraan VS Codessa (`File → Open Folder`).
-2. Avaa **Run and Debug** -paneeli (`Ctrl+Shift+D`).
-3. Valitse alasvetovalikosta **Debug Local Agent Server**.
-4. Paina **F5** (tai klikkaa ▶ Aloita virheenkorjaus).
+1. Avaa kansio **executive-summary-agent/** suoraan VS Codessa (`File → Open Folder`).
+2. Avaa **Suorita ja virheenkorjaa** -paneeli (`Ctrl+Shift+D`).
+3. Valitse pudotusvalikosta **Debug Local Agent HTTP Server**.
+4. Paina **F5** (tai klikkaa ▶ Käynnistä virheenkorjaus).
 
 > ⚠️ **Tärkeää: Valitse Python-tulkki**
-> Jos saat "ModuleNotFoundError" -virheen tai virheenkorjaus ei käynnisty, sinun täytyy kertoa VS Codelle käyttää virtuaaliympäristöäsi:
-  > 1. Paina `Ctrl+Shift+P` → kirjoita **Python: Select Interpreter**.
-  > 2. Valitse tulkki, joka sijaitsee projektisi `.venv` -kansiossa (esim. `.\.venv\Scripts\python.exe` Windowsilla).
+> Jos saat "ModuleNotFoundError" -virheen tai virheenkorjaaja ei käynnisty, sinun täytyy kertoa VS Codelle käyttää virtuaaliympäristöäsi:
+  > 1. Paina `Ctrl+Shift+P` $\rightarrow$ kirjoita **Python: Select Interpreter**.
+  > 2. Valitse tulkki, joka sijaitsee projektisi `.venv`-kansiossa (esim. `.\.venv\Scripts\python.exe` Windowsissa).
   > 3. Käynnistä virheenkorjaussessio uudelleen.
-> Jos virheitä esiintyy edelleen, päivitä tiedostosi `tasks.json` manuaalisesti seuraavasti:
+> Jos saat edelleen virheitä, päivitä käsin tiedosto `tasks.json` seuraavasti:
   > 1. Siirry tiedostoon `.vscode/tasks.json`
-  > 2. Etsi komento nimeltä: `Run Agent/Workflow HTTP Server`
-  > 3. Päivitä komennon arvo seuraavasti: `"value": "${workspaceFolder}/.venv/bin/python",`
+  > 2. Mene tehtävään, jonka nimi on: `Run Agent HTTP Server`
+  > 3. Päivitä komennon arvo näin:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### Mitä tapahtuu
 
-1. HTTP-palvelin käynnistyy osoitteeseen `http://localhost:8088/responses`.
-2. **Agenttien tarkastaja** avautuu automaattisesti - visuaalinen chat-käyttöliittymä testausta varten.
-3. Keskeytyspisteet ovat käytössä tiedostossa `main.py`.
+1. HTTP-palvelin käynnistyy osoitteessa `http://localhost:8088/responses`.
+2. **Agent Inspector** -paneeli aukeaa automaattisesti – visuaalinen chat-käyttöliittymä testaamiseen.
+3. Taukopisteet ovat käytössä kohdassa `main.py`.
 
-Tarkkaile Terminaalia seuraavaksi:
+Tarkkaile Terminalia seuraavaksi:
 ```
 Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Jos Agenttien tarkastaja ei avaudu:** Paina `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+> **Jos Agent Inspector ei avaudu:** Paina `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
 
-![Agenttien tarkastaja yhdistettynä localhost:8088 näyttäen Executive Summary -vastauksen](../../../../../translated_images/fi/05-agent-inspector-response.9d761cc9bd77818b.webp)
+![Agent Inspector yhteydessä localhost:8088 näyttää Executive Summary -vastauksen](../../../../../translated_images/fi/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Kuvakaappaus saattaa näyttää vanhempaa 'AI TOOLKIT' -brändäystä aiemman laajennusversion ajalta.*
+> *Näyttökuva saattaa näyttää aiemman 'AI TOOLKIT' -brändäyksen vanhemmasta laajennusversiosta.*
 
 ---
 
-## Vaihtoehto 2: Testaa terminaalin kautta (vaihtoehtoinen)
+## Vaihtoehto 2: Testaa terminaalin kautta (vaihtoehto)
 
 Käynnistä agentti yhdessä terminaalissa, lähetä pyyntöjä toisessa:
 
 ```bash
-# Terminaali 1: Käynnistä agentti
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
 ```
 
 ```bash
-# Terminaali 2: Lähetä testi (curl)
+# Terminal 2: Send test (curl)
 curl -sS -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "The API latency increased due to thread pool exhaustion caused by sync calls in v3.2.", "stream": false}'
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Tilannetestit: Onnistuneen reitin toiminnallinen validointi
+## Tilanneskenaariot: Onnistuneen polun toiminnallinen validointi
 
-Suorita **kaikki kolme** alla olevaa tilannetta. Ne varmistavat, että agenttisi tuottaa oikean, jäsennellyn vastauksen realistisille syötteille.
+Suorita **kaikki kolme** alla olevaa skenaariota. Ne varmistavat, että agenttisi tuottaa oikean, rakenteellisen vastauksen realistisiin syötteisiin.
 
-![VS Coden Run and Debug -paneeli näyttämässä Agenttien tarkastajaa ajamassa executive summary -vastausta](../../../../../translated_images/fi/04-local-testing.0c9b1b37b14b0b25.webp)
+![VS Code Run and Debug -paneeli näyttää Agent Inspectorin käynnissä, Executive Summary -vapautus](../../../../../translated_images/fi/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Tilanne 1: IT-tapahtuma - API-viiveen piikki
+### Skenaario 1: IT-häiriö – API:n viivepiikki
 
 **Syöte:**
 ```
@@ -97,30 +99,30 @@ Root cause: thread pool starvation from synchronous calls in /orders.
 Rolled back at 10:14.
 ```
 
-**Odotettu toiminta:**
-- ✅ Noudata "Executive Summary" -rakennetta (Mitä tapahtui / Liiketoiminnan vaikutus / Seuraava vaihe)
+**Odotettu käyttäytyminen:**
+- ✅ Noudattaa "Executive Summary" -rakennetta (Mitä tapahtui / Liiketoiminnan vaikutus / Seuraava askel)
 - ✅ Ei teknistä jargonia (ei "thread pool", ei "/orders", ei "v3.2")
-- ✅ Selkeästi ilmoitetaan liiketoiminnan vaikutus (esim. käyttäjät kokivat viiveitä)
-- ✅ Mukana on seuraava vaihe (esim. korjaus käyttöön otettu, valvonta paikallaan)
+- ✅ Ilmaisee selkeästi liiketoiminnan vaikutuksen (esim. käyttäjät kokivat viiveitä)
+- ✅ Sisältää seuraavan askeleen (esim. korjaus julkaistu, valvonta käytössä)
 
 ---
 
-### Tilanne 2: Datan putki - ETL-virhe
+### Skenaario 2: Data Pipeline – ETL-virhe
 
 **Syöte:**
 ```
 The nightly ETL job failed because the upstream schema changed. APAC dashboards show missing data.
 ```
 
-**Odotettu toiminta:**
-- ✅ Yhteenvedossa kuvataan datan päivitysongelma selkokielellä
-- ✅ Mainitaan APAC-hallintapaneelin vaikutus
-- ✅ Mukana on korjaava seuraava vaihe
-- ✅ EI mainita "ETL", "skeema" tai muita teknisiä termejä
+**Odotettu käyttäytyminen:**
+- ✅ Tiivistää datan päivitysvirheen yksinkertaisella kielellä
+- ✅ Mainitsee APAC-hallintapaneelin vaikutuksen
+- ✅ Sisältää korjaavan seuraavan askeleen
+- ✅ Ei mainitse "ETL", "skaema" tai muita teknisiä termejä
 
 ---
 
-### Tilanne 3: Tietoturva - Paljastettu tunnistautumistieto
+### Skenaario 3: Turvallisuus – Paljastunut tunnistetieto
 
 **Syöte:**
 ```
@@ -128,54 +130,54 @@ Static analysis flagged a hardcoded secret in the repository.
 The secret may have been exposed in commit history.
 ```
 
-**Odotettu toiminta:**
-- ✅ Kuvaa tunnistautumis-/turvaongelman johdonmukaisella kielellä
-- ✅ Mainitsee potentiaalisen riskin (luvatonta pääsyä)
-- ✅ Ilmoittaa korjaavan toimenpiteen (tunnistautumistietojen kierto, auditointi)
-- ✅ EI sisällä termejä kuten "staattinen analyysi", "commit-historia" tai "kovakoodattu"
+**Odotettu käyttäytyminen:**
+- ✅ Kuvaa tunniste-/turvallisuusongelman johtavalle käyttäjälle sopivalla kielellä
+- ✅ Korostaa mahdollisen riskin (valtuuttamaton pääsy)
+- ✅ Ilmaisee korjaustoimenpiteen (tunnistetietojen kierto, tarkastus)
+- ✅ EI sisällä termejä kuten "staattinen analyysi", "commit history" tai "kovakoodattu"
 
 ---
 
 ## Validointikriteerit
 
-Tarkista jokaisesta tilanteesta:
+Tarkista jokaiselle skenaariolle:
 
-| # | Kriteeri | Läpäisyvaatimus |
-|---|----------|------------------|
-| 1 | **Rakenne** | Vastaus käyttää "Executive Summary" -muotoa kaikkien kolmen kohdan kanssa |
-| 2 | **Selkokieli** | Ei teknistä jargonia, jota johto ei ymmärtäisi |
-| 3 | **Tarkkuus** | Tiivistelmä vastaa syötettä - ei keksittyjä yksityiskohtia |
-| 4 | **Ytimekkyys** | Vastaus alle 100 sanan |
-| 5 | **Seuraava vaihe** | Selkeä toimenpide tai lievennys mainittu |
+| # | Kriteeri | Hyväksymisehto |
+|---|----------|---------------|
+| 1 | **Rakenne** | Vastaus käyttää "Executive Summary" -muotoa, jossa on kaikki kolme kohtaa |
+| 2 | **Yksinkertainen kieli** | Ei teknistä jargonia, jota johtaja ei ymmärtäisi |
+| 3 | **Tarkkuus** | Tiivistelmä vastaa syötettä – ei keksittyjä yksityiskohtia |
+| 4 | **Ytimekkyys** | Vastaus on alle 100 sanan pituinen |
+| 5 | **Seuraava askel** | Selkeä toimintakehotus tai lievennys on ilmaistu |
 
 ---
 
-## Virheenkorjausvinkit
+## Virheenkorjauksen vinkit
 
-| Ongelma | Korjaus |
-|---------|---------|
-| Agentti ei käynnisty | Tarkista `.env` arvojen oikeellisuus, varmista venv on aktivoitu, suorita `pip install -r requirements.txt` |
-| Tyhjä tai geneerinen vastaus | Tarkista ohjeet `main.py` -tiedostosta - varmista, että lähtömuoto on määritelty |
-| Vastaus sisältää jargonin | Tiukennetaan ohjeita "poista tekniset termit" |
-| Agenttien tarkastaja ei avaudu | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Mallivirheet terminaalissa | Varmista, että `AZURE_AI_MODEL_DEPLOYMENT_NAME` vastaa täsmälleen (koko merkkikoko huomioiden) |
+| Ongelmia | Ratkaisu |
+|----------|---------|
+| Agentti ei käynnisty | Tarkista `.env`-arvot, varmista että venv on aktivoitu, suorita `pip install -r requirements.txt` |
+| Tyhjä tai geneerinen vastaus | Tarkista ohjeet tiedostossa `main.py` – varmista, että tulostemuoto on määritelty |
+| Vastaus sisältää jargonia | Vahvista "poista tekniset termit" -säännöt ohjeissa |
+| Agent Inspector ei aukea | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
+| Mallin virheitä terminaalissa | Varmista, että `AZURE_AI_MODEL_DEPLOYMENT_NAME` on kirjoitettu täsmälleen oikein (tarkka kirjainkoko) |
 
 ---
 
 ### ✅ Tarkistuspiste
 
 - [ ] Agentti käynnistyy paikallisesti ilman virheitä
-- [ ] Agenttien tarkastaja avautuu ja näyttää chattikäyttöliittymän (jos käytät F5:tä)
-- [ ] **Tilanne 1** (IT-tapahtuma) - jäsennelty Executive Summary, ilman jargonin käyttöä
-- [ ] **Tilanne 2** (datan putki) - relevantti tiivistelmä liiketoiminnan vaikutuksineen
-- [ ] **Tilanne 3** (tietoturvahälytys) - asianmukainen riskiviestintä
-- [ ] Kaikki vastaukset noudattavat määriteltyä tulostruktuuria
+- [ ] Agent Inspector aukeaa ja näyttää chat-käyttöliittymän (jos käytät F5)
+- [ ] **Skenaario 1** (IT-häiriö) - rakenteellinen Executive Summary, ei jargonia
+- [ ] **Skenaario 2** (dataputki) - asiaankuuluva tiivistelmä liiketoiminnan vaikutuksella
+- [ ] **Skenaario 3** (turvahälytys) - asianmukainen riskiviestintä
+- [ ] Kaikki vastaukset noudattavat määriteltyä tulosteen rakennetta
 
-> **Tallenna vastauksesi** (kopio tai kuvakaappaus) - vertaat niitä pilvivaiheen tuloksiin Moduulissa 06.
+> **Tallenna vastauksesi** (kopioi tai tee kuvakaappaus) – vertailet niitä pilven tuloksiin moduulissa 06.
 
 ---
 
-**Edellinen:** [03 - Configure & Code](03-configure-and-code.md) · **Seuraava:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
+**Edellinen:** [03 - Määritä & Koodaa](03-configure-and-code.md) · **Seuraava:** [05 - Julkaise Foundryssa →](05-deploy-to-foundry.md)
 
 ---
 

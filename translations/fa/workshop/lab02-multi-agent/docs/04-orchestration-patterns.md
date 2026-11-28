@@ -1,39 +1,39 @@
-# ماژول ۴ - الگوهای هماهنگی
+# ماژول ۴ - الگوهای ارکستراسیون
 
 ⏱️ حدود ۱۰ دقیقه
 
-در این ماژول، الگوهای هماهنگی استفاده‌شده در Resume Job Fit Evaluator را بررسی می‌کنید و یاد می‌گیرید چگونه نمودار جریان کاری را بخوانید، اصلاح کنید و توسعه دهید. درک این الگوها برای اشکال‌زدایی مشکلات جریان داده و ساختن [جریان‌های کاری چندعاملی](https://learn.microsoft.com/agent-framework/workflows/) خودتان ضروری است.
+در این ماژول، الگوهای ارکستراسیونی که در Resume Job Fit Evaluator استفاده شده‌اند را بررسی می‌کنید و یاد می‌گیرید چگونه نمودار جریان کاری را بخوانید، اصلاح کنید و گسترش دهید. درک این الگوها برای رفع اشکال مسائل جریان داده‌ها و ساخت [workflow‌های چندععاملی](https://learn.microsoft.com/agent-framework/workflows/) خودتان ضروری است.
 
 ---
 
-## الگو ۱: زنجیره متوالی
+## الگو ۱: زنجیره ترتیبی
 
-الگوی اساسی در جریان کاری یک **زنجیره متوالی** است - خروجی هر عامل مستقیماً به ورودی عامل بعدی می‌رود.
+الگوی پایه‌ای در جریان کاری یک **زنجیره ترتیبی** است - خروجی هر عامل مستقیما وارد عامل بعدی می‌شود.
 
 ```mermaid
 flowchart LR
-    RP[تحلیل‌گر رزومه] --> JD[عامل شرح شغل]
-    JD --> MA[عامل تطبیق]
-    MA --> GA[تحلیل‌گر فاصله‌ها]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-در کد، هر فراخوانی `add_edge()` یک مرحله در زنجیره ایجاد می‌کند:
+در کد، هر فراخوانی `add_edge()` یک قدم در زنجیره ایجاد می‌کند:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # خروجی ResumeParser → JD Agent
-.add_edge(jd_executor, matching_executor)     # خروجی JD Agent → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # خروجی MatchingAgent → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **چرا متوالی، نه fan-out/fan-in؟** `WorkflowBuilder` از **معنای OR** برای لبه‌های ورودی استفاده می‌کند: یک اجراکننده پایین‌دستی به محض اتمام هر یک از پیش‌نیازهایش فعال می‌شود. اگر `matching_executor` دو لبه ورودی داشت (از سمت `resume_executor` و `jd_executor`)، دوبار فعال می‌شد - یک‌بار پس از پایان ResumeParser و بار دیگر پس از پایان JD Agent - که باعث می‌شد GapAnalyzer هم دوبار اجرا شود و خروجی دو بار ظاهر شود. این خط لوله متوالی به‌طور کامل از این مشکل جلوگیری می‌کند.
+> **چرا ترتیبی، نه fan-out/fan-in؟** `WorkflowBuilder` از **OR-سمانتیک** برای یال‌های ورودی استفاده می‌کند: یک اجراکننده پایین‌دستی به محض تکمیل شدن **هرکدام** از پیشینیان فعال می‌شود. اگر `matching_executor` دو یال ورودی داشت (از هر دو `resume_executor` و `jd_executor`)، دو بار فعال می‌شد - یکبار وقتی ResumeParser تمام می‌شود و یکبار وقتی JD Agent تمام می‌شود - که باعث می‌شد GapAnalyzer هم دو بار اجرا شود و خروجی دو بار ظاهر شود. خط لوله ترتیبی این مشکل را کاملا رفع می‌کند.
 
 ## الگو ۲: انتقال محتوا
 
-چون `context_mode="last_agent"` به این معنی است که هر اجراکننده فقط خروجی **مستقیم پیش‌نیاز خود** را می‌بیند، عوامل داخل یک زنجیره متوالی باید به‌صراحت هر داده‌ای را که عوامل پایین‌دستی نیاز دارند به جلو منتقل کنند.
+چون `context_mode="last_agent"` یعنی هر اجراکننده فقط خروجی **پیشینی مستقیم خودش** را می‌بیند، عوامل در یک زنجیره ترتیبی باید صراحتا هر داده‌ای را که عوامل پایین‌دستی نیاز دارند، به جلو منتقل کنند.
 
 در این جریان کاری:
-- **ResumeParser** متن کامل JD را بدون تغییر در `[PASS-THROUGH DESCRIPTION JOB]` کپی می‌کند (تا JD Agent بتواند آن را پیدا کند).
-- **JD Agent** پرونده رزومه تجزیه‌شده را به‌صورت دقیق در `[PARSED RESUME PASS-THROUGH]` کپی می‌کند (تا MatchingAgent بتواند هر دو پروفایل را مقایسه کند).
+- **ResumeParser** متن JD را کلمه به کلمه در `[JOB DESCRIPTION PASS-THROUGH]` کپی می‌کند (تا JD Agent بتواند آن را پیدا کند).
+- **JD Agent** خروجی `[PARSED RESUME]` را کلمه به کلمه در `[PARSED RESUME PASS-THROUGH]` کپی می‌کند (تا MatchingAgent هر دو پروفایل را مقایسه کند).
 
 ```
 ResumeParser output
@@ -45,85 +45,85 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-هر بخش انتقال باید **دقیقا** کپی شود - خلاصه کردن یا بازگویی آن موجب خراب شدن عامل پایین‌دستی که به آن نیاز دارد، می‌شود.
+هر بخش رله باید **کلمه به کلمه** کپی شود - خلاصه کردن یا بازنویسی آن باعث خراب شدن عاملی می‌شود که به آن وابسته است.
 
 ---
 
 ## نمودار کامل
 
-ترکیب الگوهای زنجیره متوالی و انتقال محتوا، جریان کاری کامل را ایجاد می‌کند:
+ترکیب الگوهای زنجیره ترتیبی و انتقال محتوا، جریان کاری کامل را می‌سازد:
 
 ```mermaid
 flowchart LR
-    U[ورودی کاربر] --> RP[تجزیه‌کننده رزومه]
-    RP --> JD[عامل JD]
-    JD --> MA[عامل تطبیق]
-    MA --> GA[تحلیل‌گر فاصله + MCP]
-    GA --> O[خروجی نهایی]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-بازرس عامل همین ساختار گراف را هنگام اجرای محلی عامل نمایش می‌دهد. برای تصاویر به [ماژول ۵ - تست محلی](05-test-locally.md) مراجعه کنید.
+Agent Inspector همین ساختار نمودار را هنگام اجرای محلی عامل نمایش می‌دهد. به [ماژول ۵ - تست محلی](05-test-locally.md) برای تصاویر مراجعه کنید.
 
 ---
 
 ## خواندن کد WorkflowBuilder
 
-تابع کامل `create_workflow()` در [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) قرار دارد. سه فراخوانی `add_edge()` خط لوله متوالی را می‌سازند:
+نمودار جریان کاری در تابع `main()` در [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ساخته می‌شود. سه فراخوانی `add_edge()` خط لوله ترتیبی را می‌سازند:
 
-| # | لبه | تأثیر |
+| # | یال | تاثیر |
 |---|------|--------|
-| ۱ | `resume_executor → jd_executor` | JD Agent `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` را دریافت می‌کند |
-| ۲ | `jd_executor → matching_executor` | MatchingAgent `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` را دریافت می‌کند |
-| ۳ | `matching_executor → gap_executor` | GapAnalyzer گزارش تناسب + فهرست فاصله‌ها را دریافت می‌کند |
+| ۱ | `resume_executor → jd_executor` | عامل JD ورودی `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` را دریافت می‌کند |
+| ۲ | `jd_executor → matching_executor` | عامل MatchingAgent ورودی `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` را دریافت می‌کند |
+| ۳ | `matching_executor → gap_executor` | عامل GapAnalyzer گزارش تناسب + لیست شکاف‌ها را دریافت می‌کند |
 
 ---
 
-## اصلاح نمودار
+## تغییر نمودار
 
-### افزودن عامل جدید
+### اضافه کردن عامل جدید
 
-برای افزودن عامل پنجم (مثلاً یک **InterviewPrepAgent** پس از GapAnalyzer):
+برای اضافه کردن عامل پنجم (مثلا یک **InterviewPrepAgent** بعد از GapAnalyzer):
 
-۱. یک مقدار ثابت `INTERVIEW_PREP_INSTRUCTIONS` تعریف کنید.
-۲. اشیاء `Agent` و `AgentExecutor` را بسازید (با همان الگوی چهار عامل موجود).
-۳. در `WorkflowBuilder` از `.add_edge(gap_executor, interview_exec)` استفاده کنید.
-۴. `output_executors=[interview_exec]` را بروزرسانی کنید.
+۱. یک ثابت `INTERVIEW_PREP_INSTRUCTIONS` تعریف کنید.
+۲. اشیاء `Agent` + `AgentExecutor` ایجاد کنید (همان الگوی چهار عامل موجود).
+۳. `.add_edge(gap_executor, interview_exec)` را در `WorkflowBuilder` اضافه کنید.
+۴. `output_executors=[interview_exec]` را به‌روزرسانی کنید.
 
-> **مهم:** `start_executor` تنها عاملی است که ورودی خام کاربر را دریافت می‌کند. سایر عوامل خروجی از لبه بالادستی خود را دریافت می‌کنند.
+> **مهم:** فقط `start_executor` ورودی خام کاربر را دریافت می‌کند. سایر عوامل خروجی را از یال بالادستی خود دریافت می‌کنند.
 
 ---
 
-## اشتباهات رایج گراف
+## اشتباهات رایج نمودار
 
 | اشتباه | نشانه | رفع |
 |---------|---------|-----|
-| فقدان لبه به `output_executors` | عامل اجرا می‌شود اما خروجی خالی است | اطمینان حاصل کنید مسیری از `start_executor` به هر عاملی در `output_executors` وجود دارد |
-| وابستگی دایره‌ای | حلقه بی‌نهایت یا تایم‌اوت | بررسی کنید که هیچ عاملی به عامل بالادست خود داده بازنویسی نکند |
-| عاملی در `output_executors` بدون لبه ورودی | خروجی خالی | حداقل یک `add_edge(source, that_agent)` اضافه کنید |
-| چندین `output_executors` بدون fan-in | خروجی فقط پاسخ یک عامل را دارد | از یک عامل خروجی استفاده کنید که جمع‌بندی کند، یا چند خروجی را بپذیرید |
-| فقدان `start_executor` | خطای `ValueError` در زمان ساخت | همیشه `start_executor` را در `WorkflowBuilder()` مشخص کنید |
+| فقدان یال به `output_executors` | عامل اجرا می‌شود ولی خروجی خالی است | مطمئن شوید راهی از `start_executor` به هر عامل در `output_executors` وجود دارد |
+| وابستگی حلقوی | حلقه بی‌نهایت یا تایم‌اوت | بررسی کنید که هیچ عاملی به یک عامل بالادستی خود بازخورد ندهد |
+| عاملی در `output_executors` بدون یال ورودی | خروجی خالی | حداقل یک `add_edge(source, that_agent)` اضافه کنید |
+| چندین `output_executors` بدون fan-in | خروجی فقط پاسخ یک عامل را دارد | از یک عامل خروجی واحد که همه را تجمیع می‌کند استفاده کنید، یا چند خروجی قبول کنید |
+| فقدان `start_executor` | `ValueError` در زمان ساخت | همیشه `start_executor` را در `WorkflowBuilder()` مشخص کنید |
 
 ---
 
-## اشکال‌زدایی نمودار
+## رفع اشکال نمودار
 
 ### استفاده از Agent Inspector
 
-۱. عامل را به صورت محلی با F5 اجرا کنید.
+۱. عامل را با F5 به‌صورت محلی اجرا کنید.
 ۲. Agent Inspector را باز کنید (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
-۳. یک پیام آزمایشی ارسال کنید.
-۴. در پنل پاسخ Inspector، برای **خروجی جریانی** نگاه کنید - که مشارکت هر عامل را به ترتیب نشان می‌دهد.
+۳. یک پیام تست ارسال کنید.
+۴. در پنل پاسخ Inspector به دنبال **خروجی جریان‌یافته** بگردید - که مشارکت هر عامل به ترتیب را نشان می‌دهد.
 
 
-### استفاده از ثبت لاگ
+### استفاده از لاگ‌برداری
 
-برای ردیابی جریان داده به `main.py` ثبت لاگ اضافه کنید:
+به `main.py` لاگ‌برداری اضافه کنید تا جریان داده را دنبال کنید:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# در main()، پس از ساختن جریان کاری:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
@@ -142,13 +142,13 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### نقطه بررسی
+### ایستگاه بررسی
 
-- [ ] شما می‌توانید دو الگوی هماهنگی در جریان کاری را شناسایی کنید: زنجیره متوالی و انتقال محتوا
-- [ ] شما درک می‌کنید چرا `context_mode="last_agent"` نیازمند انتقال صریح داده بین عوامل است
-- [ ] شما می‌توانید کد `WorkflowBuilder` را بخوانید و هر فراخوانی `add_edge()` را به نمودار تصویری نگاشت کنید
-- [ ] شما می‌دانید چگونه یک عامل جدید را به انتهای خط لوله اضافه کنید
-- [ ] شما می‌توانید اشتباهات رایج گراف و نشانه‌های آن را شناسایی کنید
+- [ ] شما می‌توانید دو الگوی ارکستراسیون در جریان کاری را شناسایی کنید: زنجیره ترتیبی و انتقال محتوا
+- [ ] شما دلیل اینکه چرا `context_mode="last_agent"` نیاز به انتقال صریح داده بین عوامل دارد را می‌فهمید
+- [ ] می‌توانید کد `WorkflowBuilder` را بخوانید و هر فراخوانی `add_edge()` را به نمودار تصویری نگاشت کنید
+- [ ] شما می‌دانید چگونه یک عامل جدید در انتهای خط لوله اضافه کنید
+- [ ] شما می‌توانید اشتباهات رایج نمودار و نشانه‌های آن‌ها را شناسایی کنید
 
 ---
 

@@ -1,10 +1,10 @@
-# Lab 02 - Multi-Agent arbeidsflyt: CV → Job Fit Evaluator
+# Lab 02 - Multi-Agent Arbeidsflyt: CV → Jobbanalyse Evaluator
 
 ## Oversikt
 
-I denne praktiske labben skal du bygge en **arbeidsflyt-først multi-agent app** ved hjelp av Foundry Toolkit i VS Code, og distribuere den til Microsoft Foundry Agent Service.
+I denne praktiske labben skal du bygge en **arbeidsflyt-først multi-agent app** ved bruk av Foundry Toolkit i VS Code og distribuere den til Microsoft Foundry Agent Service.
 
-**Det du skal bygge:** en CV → Job Fit Evaluator som analyserer en CV og stillingsbeskrivelse, vurderer treffet, og produserer en personlig læringsplan ved bruk av Microsoft Learn-ressurser.
+**Hva du skal bygge:** en CV → Jobbanalyse Evaluator som analyserer en CV og stillingsbeskrivelse, vurderer samsvar, og lager en personlig læringsplan med Microsoft Learn-ressurser.
 
 ---
 
@@ -12,11 +12,11 @@ I denne praktiske labben skal du bygge en **arbeidsflyt-først multi-agent app**
 
 ```mermaid
 flowchart TD
-    A["Brukerinput"] --> B["CV-parser"]
-    B -->|"[ANALYSERT CV] + [GJENNOMGANG AV STILLINGSBESKRIVELSE]"| C["Stillingsbeskrivelsesagent"]
-    C -->|"[KRAV I STILLINGSBESKRIVELSE] + [GJENNOMGANG AV ANALYSERT CV]"| D["Matchingsagent"]
-    D -->|tilpasningsrapport + hull| E["Hullanalyse + Microsoft Learn MCP"]
-    E -->|tilpasningsscore + veikart| F["Resultat"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,10 +28,10 @@ flowchart TD
 
 **Slik fungerer det:**
 1. Brukeren limer inn en CV og stillingsbeskrivelse.
-2. **ResumeParser** analyserer CV-en og kopierer JD ordrett inn i en `[JOB DESCRIPTION PASS-THROUGH]` seksjon.
-3. **JD Agent** ekstraherer strukturerte krav fra pass-through, og sender videre `[PARSED RESUME]` som `[PARSED RESUME PASS-THROUGH]`.
-4. **MatchingAgent** sammenligner `[PARSED RESUME PASS-THROUGH]` mot `[JD REQUIREMENTS]` og produserer en treffscore.
-5. **GapAnalyzer** omgjør gapene til en praktisk veikart og henter ekte Microsoft Learn-lenker via MCP.
+2. **ResumeParser** analyserer CV-en og kopierer stillingsbeskrivelsen ordrett inn i en `[JOB DESCRIPTION PASS-THROUGH]` seksjon.
+3. **JD Agent** henter ut strukturerte krav fra gjennomgangen, og sender så `[PARSED RESUME]` videre som `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** sammenligner `[PARSED RESUME PASS-THROUGH]` mot `[JD REQUIREMENTS]` og produserer en samsvars-score.
+5. **GapAnalyzer** omdanner gapene til en praktisk veikart og henter ekte Microsoft Learn-lenker via MCP.
 
 ---
 
@@ -39,7 +39,7 @@ flowchart TD
 
 Fullfør Lab 01 først:
 
-- [Lab 01 - Single Agent](../lab01-single-agent/README.md)
+- [Lab 01 - Enkelt agent](../lab01-single-agent/README.md)
 
 ---
 
@@ -47,34 +47,35 @@ Fullfør Lab 01 først:
 
 Se hele læringsløpet i:
 
-- [Lab 2 Docs - Forutsetninger](docs/00-prerequisites.md)
-- [Lab 2 Docs - Hele læringsløpet](docs/README.md)
+- [Lab 2 Dokumentasjon - Forutsetninger](docs/00-prerequisites.md)
+- [Lab 2 Dokumentasjon - Fullt læringsløp](docs/README.md)
 - [PersonalCareerCopilot kjøreveiledning](PersonalCareerCopilot/README.md)
 
 ---
 
 ## Del 2: Bygg og test arbeidsflyten
 
-1. Bruk Foundry Toolkit-veiviseren til å scaffolde prosjektet basert på arbeidsflyt.
-2. Kopier prompt-blokkene og arbeidsflytdiagrammet fra `PersonalCareerCopilot/main.py` til arbeidsområdet ditt.
+1. Bruk Foundry Toolkit-veiviseren til å lage grunnlaget for arbeidsflytbasert prosjekt.
+2. Kopier prompt-blokkene og arbeidsflyt-grafen fra `PersonalCareerCopilot/main.py` inn i arbeidsområdet ditt.
 3. Kjør lokalt med Agent Inspector og verifiser alle fire agenter pluss MCP-verktøyet.
-4. Distribuer den hostede agenten til Foundry når lokal testing er godkjent.
+4. Distribuer den hostede agenten til Foundry når lokal testing er gjennomført.
 
 ---
 
 ## Orkestreringsmønstre
 
-Lab 02 inkluderer standard **fan-out → fan-in → sekvensiell** flyt, og dokumentasjonen beskriver også alternative orkestreringsmønstre for eksperimentering.
+Lab 02 bruker en **sekvensiell pipeline**: hver agents output går til den neste, og arbeidsflyten returnerer den siste agentens respons. To mønstre får dette til å fungere:
 
-- **Fan-out/Fan-in med vektet konsensus**
-- **Gjennomgang/ kritikk før endelig veikart**
-- **Betinget ruting** basert på treffscore og manglende ferdigheter
+- **Sekvensiell kjede** - `WorkflowBuilder` kobler ResumeParser → JD Agent → MatchingAgent → GapAnalyzer med ett `add_edge()` kall per steg
+- **Innholdsoverføring** - fordi hver agent kun ser output fra sin forrige agent, kopierer ResumeParser og JD Agent dataen ned til merkede pass-through-seksjoner som downstream agentene trenger
+
+Dokumentasjonen forklarer også hvorfor labben ikke bruker fan-out/fan-in, og hvordan man kan utvide grafen med en annen agent.
 
 Se [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Forrige:** [Lab 01 - Single Agent](../lab01-single-agent/README.md) · **Tilbake til:** [Workshop Hjem](../../README.md)
+**Forrige:** [Lab 01 - Enkelt agent](../lab01-single-agent/README.md) · **Tilbake til:** [Workshop Hjem](../../README.md)
 
 ---
 

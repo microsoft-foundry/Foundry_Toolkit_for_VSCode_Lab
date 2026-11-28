@@ -1,26 +1,27 @@
-# Modulo 2 - Creare un Nuovo Agente Ospitato
+# Modulo 2 - Creare un nuovo Hosted Agent
 
 ⏱️ ~5 min
 
-In questo modulo, utilizzi Foundry Toolkit per **impalcature un progetto agente ospitato**. L'impalcatura genera la struttura completa del progetto - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` e la configurazione di debug di VS Code - così puoi concentrarti sulla personalizzazione del comportamento dell'agente.
+In questo modulo, usi Foundry Toolkit per **creare lo scheletro di un progetto hosted agent**. Lo scheletro genera la struttura completa del progetto - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` e la configurazione di debug di VS Code - così puoi concentrarti sulla personalizzazione del comportamento dell'agente.
 
-> **Concetto chiave:** La cartella `agent/` in questo laboratorio è un esempio di ciò che Foundry Toolkit genera. Non devi scrivere questi file da zero.
+> **Concetto chiave:** La cartella `agent/` in questo laboratorio è un esempio di quello che genera Foundry Toolkit. Non scrivi questi file da zero.
 
-### Flusso della procedura guidata di scaffolding
+### Flusso della procedura guidata scaffold
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Seleziona modello"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Progetto generato"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -35,47 +36,47 @@ flowchart LR
 
 ## Passo 1: Apri la procedura guidata Create Hosted Agent
 
-1. Premi `Ctrl+Shift+P` per aprire la **Command Palette**.
+1. Premi `Ctrl+Shift+P` per aprire la **Palette comandi**.
 2. Digita: **Foundry Toolkit: Create new Hosted Agent** e selezionalo.
 
-> **Alternativa: Creazione tramite Foundry Portal**
-> Se preferisci il browser, puoi creare il tuo progetto su [https://ai.azure.com](https://ai.azure.com). Una volta che il progetto è stato predisposto, torna in VS Code e usa la barra laterale di **Foundry Toolkit** per collegarti ad esso.
+> **Alternativa: Crea tramite Foundry Portal**
+> Se preferisci il browser, puoi creare il tuo progetto su [https://ai.azure.com](https://ai.azure.com). Una volta che il progetto è stato allestito, torna a VS Code e usa la sidebar di **Foundry Toolkit** per connetterti ad esso.
 
-> **Alternativa:** Clicca sull'icona **+** accanto a **Hosted Agents (Preview)** nella barra laterale di Foundry Toolkit.
+> **Alternativa:** Nella sidebar di Foundry Toolkit, posiziona il cursore su **Agents** sotto il tuo progetto, clicca l'icona **+**, poi seleziona **Create in Code With Template**.
 
-## Passo 2: Scegli le impostazioni
+## Passo 2: Scegli impostazioni
 
-![Create Hosted Agent from Sample - Agent Details tab showing Language, Framework, Protocol, and Template filters](../../../../../translated_images/it/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Create Hosted Agent from Sample - scheda Dettagli agente che mostra filtri Lingua, Framework, Protocollo e Template](../../../../../translated_images/it/02-hosted-agents-sample.0aabd1638936c591.webp)
 
 1. Nella sezione di navigazione/opzioni a sinistra seleziona quanto segue:
 
 | Menu | Selezione | Note |
 |--------|-----------|-------|
-| **Language** | Python | Anche C# è supportato |
+| **Lingua** | Python | Anche C# è supportato |
 | **Framework** | Agent Framework | Punto di partenza semplice usando Agent Framework SDK |
-| **API type** | Response API | `POST /responses` - conversazionale, con cronologia gestita dalla piattaforma |
+| **Tipo di API** | Response API | `POST /responses` - conversazionale, con cronologia gestita dalla piattaforma |
 | **Template** | Basic | Punto di partenza semplice usando Agent Framework SDK |
 
-2. Una volta selezionato, clicca su **Next**
+2. Una volta selezionato, clicca **Next**
 
-![Create Hosted Agent - Create tab showing Workspace Folder, Folder Name, and Environment Setup options](../../../../../translated_images/it/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Create Hosted Agent - scheda Create che mostra opzioni Cartella Workspace, Nome Cartella e Configurazione Ambiente](../../../../../translated_images/it/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-3. Nella finestra successiva, seleziona quanto segue:
+3. Nella finestra successiva seleziona quanto segue:
 
 | Menu | Selezione | Note |
 |--------|-----------|-------|
-| **Workspace folder** | Scegli una cartella di destinazione | es. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` o una sottocartella di questo repository |
-| **Agent name** | Inserisci un nome | es. `executive-summary-agent` |
-| **Environment Setup** | salta la configurazione per ora |  |
+| **Cartella workspace** | Scegli una cartella di destinazione | es. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` o una sottocartella in questo repo |
+| **Nome agente** | Inserisci un nome | es. `executive-summary-agent` |
+| **Configurazione ambiente** | salta la configurazione per ora |  |
 
-Clicca su **create** per creare il nostro agente. Verrà creata una nuova cartella con il nome dell'agente ospitato.
+Clicca **create** per creare il tuo agente. Verrà creata una nuova cartella con il nome dell'agente hosted.
 
-## Passo 3: Esamina il progetto generato
+## Passo 3: Ispeziona il progetto generato
 
-Dopo il completamento dello scaffolding, verifica di vedere questi file in Explorer (`Ctrl+Shift+E`):
+Dopo il completamento dello scaffolding, verifica che tu veda questi file nell'Explorer (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -91,20 +92,20 @@ Dopo il completamento dello scaffolding, verifica di vedere questi file in Explo
 | File | Scopo |
 |------|---------|
 | `agent.yaml` | Dichiara l'agente come `kind: hosted`, mappa le variabili d'ambiente, definisce il protocollo `/responses` |
-| `main.py` | Crea un `FoundryChatClient` → lo incapsula in un `Agent` con istruzioni → fornisce tramite `ResponsesHostServer` sulla porta 8088 |
+| `main.py` | Crea un `FoundryChatClient` → lo avvolge in un `Agent` con istruzioni → serve tramite `ResponsesHostServer` sulla porta 8088 |
 | `Dockerfile` | Usa `python:3.12-slim`, installa dipendenze, espone la porta 8088, esegue `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Importante:** Apri la cartella dell'agente scaffoldata direttamente in VS Code (la cartella `agent/` stessa) così che `.vscode/launch.json` e `tasks.json` funzionino correttamente per il debug con F5.
+> **Importante:** Apri la cartella dell'agente scaffolding direttamente in VS Code (la cartella `agent/` stessa) così che `.vscode/launch.json` e `tasks.json` funzionino correttamente per il debug con F5.
 
 ---
 
-### ✅ Checkpoint
+### ✅ Punto di controllo
 
-- [ ] Progetto scaffoldato creato con tutti i file previsti
+- [ ] Progetto scaffolding creato con tutti i file attesi
 - [ ] `agent.yaml` mostra `kind: hosted` e `protocol: responses`
 - [ ] `main.py` importa `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] La cartella agente è aperta in VS Code come radice dello spazio di lavoro
+- [ ] La cartella agente è aperta in VS Code come root del workspace
 
 ---
 

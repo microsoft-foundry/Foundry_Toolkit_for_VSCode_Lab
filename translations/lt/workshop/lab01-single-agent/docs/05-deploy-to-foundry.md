@@ -1,12 +1,12 @@
-# 5 modulis – Diegimas į Foundry agentų tarnybą
+# 5 modulis - Diegimas į Foundry Agent Service
 
 ⏱️ ~10 min
 
-> ⚠️ **B kelio vartotojams:** Šiam moduliui reikalinga Foundry prenumerata. Jei naudojate Foundry Local, pereikite prie [07 modulio – Santrauka](07-summary.md). Jūs sėkmingai užbaigėte vietinio kūrimo darbo eigą!
+> ⚠️ **B maršruto vartotojams:** Šiam moduliui reikalinga Foundry prenumerata. Jei naudojate Foundry Local, pereikite prie [7 modulio - Santrauka](07-summary.md). Jūs sėkmingai atlikote vietinio kūrimo darbo eigą!
 
-Šiame modulyje jūs įdiegiate vietoje išbandytą agentą į Microsoft Foundry kaip **talpinamą agentą**. Diegimo metu kuriamas konteinerio atvaizdas, siunčiamas į Azure Container Registry ir paleidžiamas agentas Foundry valdomoje infrastruktūroje.
+Šiame modulyje įdiegiate savo vietoje patikrintą agentą į Microsoft Foundry kaip **Talpinamą Agentą**. Diegimo metu sukuriamas konteinerio vaizdas, įkeliama jį į Azure Container Registry ir agentas paleidžiamas Foundry valdomoje infrastruktūroje.
 
-### Diegimo pipeline'as
+### Diegimo vamzdelis
 
 ```mermaid
 flowchart LR
@@ -15,9 +15,9 @@ flowchart LR
     Image"]
     B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|registruoti agentą| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|paleisti konteinerį| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -29,13 +29,13 @@ flowchart LR
 
 ---
 
-## Išankstinis reikalavimų patikrinimas
+## Reikalavimų patikra
 
-Prieš diegiant, įsitikinkite:
+Prieš diegdami įsitikinkite:
 
-- [ ] Agentas praeina visus 3 vietinius scenarijus iš [04 modulio](04-test-locally.md)
-- [ ] Turite **Azure AI vartotojo** vaidmenį projekte ([01 modulis, RBAC priskyrimas](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] Esate prisijungę prie Azure per VS Code (Paskyrų piktograma rodo jūsų vardą)
+- [ ] Agentas praeina visus 3 vietinius scenarijus iš [4 modulio](04-test-locally.md)
+- [ ] Jūs turite **Azure AI User** rolę projekte ([1 modulis, RBAC priskyrimas](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Esate prisijungę prie Azure per VS Code (Paskyrų piktogramoje matomas jūsų vardas)
 
 ---
 
@@ -43,10 +43,10 @@ Prieš diegiant, įsitikinkite:
 
 ### A variantas: Diegimas iš Agent Inspector (rekomenduojama)
 
-Jei Agent Inspector yra atidarytas (iš testavimo):
-1. Spustelėkite mygtuką **Deploy** viršutiniame dešiniajame kampe (debesis su rodykle ↑).
+Jei Agent Inspector langas atidarytas (iš testavimo):
+1. Spustelėkite **Deploy** mygtuką viršutiniame dešiniajame kampe (debesies piktograma ↑).
 
-### B variantas: Diegimas per komandų paletę
+### B variantas: Diegimas iš komandų paletės
 
 1. Paspauskite `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
@@ -58,54 +58,54 @@ Vedlys paprašys:
 
 ![Project Config](../../../../../translated_images/lt/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Klausimas | Pasirinkimas |
-|--------|-----------|
+| Laukas | Pasirinkimas |
+|--------|-------------|
 | **Prenumerata** | Jūsų Azure prenumerata |
 | **Tikslinis projektas** | Jūsų Foundry projektas (pvz., `workshop-agents`) |
 
-Spustelėkite **next**, kad konfigūruotumėte agentą.
+Spustelėkite **next**, norėdami konfigūruoti agentą.
 
 ![Basics config](../../../../../translated_images/lt/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Klausimas | Pasirinkimas |
-|--------|-----------|
+| Laukas | Pasirinkimas |
+|--------|-------------|
 | **Diegimo būdas** | Konteineris |
-| **Konteinerių saugykla** | **Numatytoji ACR** (Microsoft Foundry sukuria ir valdo ją už jus) |
+| **Konteinerių registras** | **Numatytasis ACR** (Microsoft Foundry sukuria ir valdo vieną už jus) |
 | **Diegti į** | Naują agentą (pavadinimas, `executive-summary-agent`) |
 
-Spustelėkite **next**, kad peržiūrėtumėte ir diegtumėte agentą.
+Spustelėkite **next**, norėdami peržiūrėti ir diegti agentą.
 
 ![Review and deploy](../../../../../translated_images/lt/05-review-deploy.12b449d426bff886.webp)
 
-| Klausimas | Pasirinkimas |
-|--------|-----------|
-| **CPU ir atmintis** | **0.25 CPU branduoliai, 0.5 Gi atminties** (užtenka dirbtuvių darbui) |
+| Laukas | Pasirinkimas |
+|--------|-------------|
+| **CPU ir atmintis** | **0.5 CPU branduoliai, 1.0 Gi atmintis** (numatytasis - pakanka dirbtuvėms) |
 
 ---
 
-## 3 žingsnis: Diekite ir stebėkite
+## 3 žingsnis: Diegimas ir stebėjimas
 
 1. Spustelėkite **Deploy**.
-2. Stebėkite **Output** skydelį (pasirinkite **Microsoft Foundry** iš išskleidžiamojo sąrašo).
-3. Diegimas vyksta šiais etapais:
-   - **Docker build** – sukuria konteinerį iš jūsų Dockerfile
-   - **Docker push** – siunčia atvaizdą į ACR (pirmą diegimą užtrunka 1–3 min)
-   - **Agent registration** – sukuria talpinamą agentą Foundry sistemoje
-   - **Container start** – paleidžia konteinerį su sistemos valdomu identitetu
+2. Stebėkite **Output** skydelį (išskleidžiamajame sąraše pasirinkite **Microsoft Foundry**).
+3. Diegimas vyksta per šiuos etapus:
+   - **Docker build** - sukuria konteinerį iš jūsų Dockerfile
+   - **Docker push** - įkelia vaizdą į ACR (pirmo diegimo metu trunka 1–3 min)
+   - **Agent registracija** - sukuria talpinamą agentą Foundry
+   - **Konteinerio paleidimas** - paleidžia su sistemos valdomu identitetu
 
-4. Baigus, pasirodo pranešimas:
-   > **my-agent sėkmingai įdiegtas.** `Peržiūrėti žurnalus` `Paleisti agentą`
+4. Baigus, pasirodys pranešimas:
+   > **executive-summary-agent yra sėkmingai įdiegtas.** `View logs` `Run agent`
 
-5. Spustelėkite **Run agent** norėdami atidaryti Agent Playground.
+5. Spustelėkite **Run agent**, kad atidarytumėte Agent Playground.
 
 ![Deployment success showing Agent Playground with Running status](../../../../../translated_images/lt/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
 ### Diegimo būsenos reikšmės
 
-| Būsena | Reiškia |
-|--------|---------|
+| Būsena | Reikšmė |
+|--------|----------|
 | **Running** | Konteineris paruoštas, agentas atsako |
-| **Pending** | Konteineris pradeda veikti – palaukite 30–60 sekundžių |
+| **Pending** | Konteineris paleidžiamas - palaukite 30–60 sekundžių |
 | **Failed** | Patikrinkite žurnalus (žr. toliau trikčių šalinimą) |
 
 ---
@@ -113,23 +113,23 @@ Spustelėkite **next**, kad peržiūrėtumėte ir diegtumėte agentą.
 ## Dažnos diegimo klaidos
 
 | Klaida | Pagrindinė priežastis | Sprendimas |
-|-------|-----------|-----|
-| Leidimas `agents/write` atmestas | Trūksta **Azure AI vartotojo** vaidmens projekte | [01 modulis, RBAC priskyrimas](01-setup.md#deploy-a-model--assign-rbac) |
-| Docker neveikia | Docker Desktop nepaleistas | Paleiskite Docker Desktop → patikrinkite komandą `docker info` |
-| ACR autorizacija | Valdomas identitetas negali atsisiųsti atvaizdo | Žr. [08 modulis – Trikčių šalinimas](08-troubleshooting.md) |
+|--------|--------------------|----------|
+| `agents/write` leidimas atmestas | Trūksta **Azure AI User** rolės projekte | [1 modulis, RBAC priskyrimas](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker neveikia | Docker Desktop nepradėtas | Paleiskite Docker Desktop → patikrinkite `docker info` |
+| ACR autorizacija | Valdomas identitetas negali parsisiųsti vaizdo | Žr. [8 modulis - Trikčių šalinimas](08-troubleshooting.md) |
 
 ---
 
-### ✅ Kontrolinis taškas
+### ✅ Patikros taškas
 
-- [ ] Diegimas baigtas be klaidų
-- [ ] Agentas matomas po **Talpinamų agentų (peržiūra)** skiltyje Foundry šoniniame meniu
-- [ ] Konteinerio būsena rodoma kaip **Running**
-- [ ] Atidaryta Agent Playground kortelė, rodanti agente informaciją ir galinio taško URL
+- [ ] Diegimas užbaigtas be klaidų
+- [ ] Agentas matomas **Hosted Agent** skirtuke, spustelėjus **Agents** jūsų projekte Foundry Toolkit šoninėje juostoje
+- [ ] Konteineryje rodoma būsena **Running**
+- [ ] Agent Playground skirtukas atidarytas, rodantis agento duomenis ir galinio taško URL
 
 ---
 
-**Ankstesnis:** [04 - Testavimas vietoje](04-test-locally.md) · **Kitas:** [06 - Patikra Playground →](06-verify-in-playground.md)
+**Ankstesnis:** [04 - Testavimas vietoje](04-test-locally.md) · **Kitas:** [06 - Patikrinimas Playground →](06-verify-in-playground.md)
 
 ---
 

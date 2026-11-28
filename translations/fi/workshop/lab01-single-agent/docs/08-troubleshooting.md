@@ -1,57 +1,57 @@
 # Moduuli 8 - Vianmääritys
 
-Tämä moduuli on viiteopas yleisiin ongelmiin. Kirjanmerkit se ja palaa, kun jokin menee pieleen.
+Tämä moduuli on viiteopas yleisimpiin ongelmiin. Tallenna se kirjanmerkkeihin ja palaa siihen, kun jokin menee vikaan.
 
 ---
 
-## 1. Oikeusvirheet
+## 1. Käyttöoikeusvirheet
 
-### 1.1 `agents/write` -oikeus evätty
+### 1.1 `agents/write` käyttö estetty
 
 ```
 Error: lacks the required data action 
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Juuri syy:** Puuttuva `Azure AI User` -rooli **projektin** tasolla. Tämä on yleisin työpajaongelma.
+**Juuri:** `Azure AI User` -rooli puuttuu **projektin** tasolla. Tämä on työpajan yleisin virhe.
 
 **Korjaus:**
 1. Avaa [portal.azure.com](https://portal.azure.com).
-2. Etsi Foundry-projektisi nimi → napsauta **"Microsoft Foundry project"** -tyyppistä tulosta (EI päätiliä).
-3. **Access control (IAM)** → **+ Lisää** → **Lisää roolimääritys**.
+2. Etsi Foundryn **projektin** nimi → napsauta tulosta, jonka tyyppi on **"Microsoft Foundry project"** (EI yläkäyttäjätiliä).
+3. **Käyttöoikeuden hallinta (IAM)** → **+ Lisää** → **Lisää roolimääritys**.
 4. Rooli: **Azure AI User** → Seuraava.
-5. Jäsenet: Valitse itsesi → Tarkista + myönnä → Tarkista + myönnä.
-6. **Odottele 1–2 minuuttia** → yritä uudelleen.
+5. Jäsenet: Valitse itsesi → Tarkista + määritä → Tarkista + määritä.
+6. **Odota 1–2 minuuttia** → kokeile uudelleen.
 
-> **Miksi Owner/Contributor ei riitä:** Nämä roolit antavat vain *hallintaoikeudet*. Agentin toiminnot vaativat `agents/write` - *data-toiminnon*, joka löytyy vain `Azure AI User`-, `Azure AI Developer`- tai `Azure AI Owner` -rooleista. Katso [Foundry RBAC docs](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+> **Miksi Owner/Contributor ei riitä:** Nämä roolit myöntävät *hallintatoimet* vain. Agentin toiminnot vaativat `agents/write` *data-toiminnon*, joka löytyy vain `Azure AI User`, `Azure AI Developer` tai `Azure AI Owner`. Katso [Foundryn RBAC-dokumentaatio](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-### 1.2 `AuthorizationFailed` käyttöönottovaiheessa
+### 1.2 `AuthorizationFailed` provisioinnin aikana
 
-**Korjaus:** Pyydä ylläpitäjääsi määrittämään **Contributor** resurssiryhmään tai antamaan sinulle **Azure AI User** projektissa luomisen yhteydessä.
+**Korjaus:** Pyydä ylläpitäjääsi antamaan **Contributor** resurssiryhmälle tai luomaan projekti puolestasi ja myöntämään sinulle **Azure AI User** -rooli siihen.
 
 ### 1.3 `SubscriptionNotRegistered`
 
 ```bash
 az provider register --namespace Microsoft.CognitiveServices
 az provider show --namespace Microsoft.CognitiveServices --query "registrationState"
-# Odota, kunnes: "Rekisteröity"
+# Wait until: "Registered"
 ```
 
 ---
 
 ## 2. Docker-virheet
 
-> Docker on **valinnainen**. Nämä koskevat vain, jos Docker Desktop on asennettu ja laajennus yrittää paikallista käännöstä.
+> Docker on **valinnainen**. Nämä virheet koskevat vain, jos Docker Desktop on asennettu ja laajennus yrittää paikallista rakennusta.
 
-### 2.1 Docker daemon ei käynnissä
+### 2.1 Docker daemon ei ole käynnissä
 
-**Korjaus:** Käynnistä Docker Desktop → odota "running"-tila → varmista `docker info` -komennolla → yritä uudelleen.
+**Korjaus:** Käynnistä Docker Desktop → odota "käynnissä"-tila → varmista `docker info` → yritä uudelleen.
 
-### 2.2 Käännös epäonnistuu riippuvuusvirheisiin
+### 2.2 Rakennus epäonnistuu riippuvuuksien vuoksi
 
-**Korjaus:** Tarkista `requirements.txt` oikeinkirjoitus, testaa ensin paikallisesti: `pip install -r requirements.txt`.
+**Korjaus:** Varmista `requirements.txt` oikeinkirjoitus, testaa ensin paikallisesti: `pip install -r requirements.txt`.
 
-### 2.3 Alusta ei vastaa (Apple Silicon)
+### 2.3 Alustayhteensopimattomuus (Apple Silicon)
 
 ```bash
 docker build --platform linux/amd64 -t myagent:v1 .
@@ -59,106 +59,106 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ---
 
-## 3. Autentikointivirheet
+## 3. Todennusvirheet
 
 ### 3.1 `DefaultAzureCredential` epäonnistuu
 
-**Korjaus (kokeile järjestyksessä):**
+**Korjaus (yritä järjestyksessä):**
 1. `az login` (kirjaudu uudelleen)
 2. `az account set --subscription "<id>"` (oikea tilaus)
 3. VS Code → Tilit → Kirjaudu ulos → Kirjaudu sisään uudelleen
 4. Varmista: `az account get-access-token --resource https://cognitiveservices.azure.com`
 
-### 3.2 Token toimii paikallisesti, mutta ei isännöidyssä
+### 3.2 Token toimii paikallisesti, mutta ei isännöitynä
 
-**Odotettu:** Isännöidyt agentit käyttävät järjestelmän hallitsemaa identiteettiä, eivät sinun tunnuksiasi. Jos isännöity agentti saa todennusvirheitä:
-- Varmista, että `AZURE_AI_PROJECT_ENDPOINT` agent.yamlissa on oikein
-- Tarkista, että projektin hallittu identiteetti pääsee malliin
+**Odotettu:** Isännöidyt agentit käyttävät järjestelmän hallinnoimaa identiteettiä, eivät sinun tunnistettasi. Jos isännöity agentti saa todennusvirheitä:
+- Varmista, että `AZURE_AI_MODEL_DEPLOYMENT_NAME` `agent.yaml` osoittaa mallin käyttöönoton nimeen (`FOUNDRY_PROJECT_ENDPOINT` lisätään Foundryn toimesta ajonaikaisesti - älä määritä sitä `agent.yaml`)
+- Tarkista, että projektin hallinnoidulla identiteetillä on malli käyttöoikeudet
 
 ---
 
 ## 4. Mallivirheet
 
-### 4.1 Mallin käyttöönottoa ei löytynyt
+### 4.1 Mallin käyttöönottoa ei löydy
 
-**Korjaus:** Nimi on **kokonaan kirjainkoolla erotteleva**. Vertaa `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` täsmälleen Foundry-sivupalkin mallien nimiin.
+**Korjaus:** Nimi on **herkkä kirjainko'oille**. Vertaa `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` täsmälliseen nimeen Foundryn sivupalkissa → Models.
 
 ### 4.2 Odottamaton mallin tulos
 
-**Korjaus:** Tarkista `AGENT_INSTRUCTIONS` main.pyssä (ei olekatkaistu?). Kokeile eri mallia (`gpt-4.1` vs `gpt-4.1-mini`).
+**Korjaus:** Tarkista `AGENT_INSTRUCTIONS` `main.py` (leikattu?). Kokeile eri mallia (`gpt-4.1` vs `gpt-4.1-mini`).
 
 ---
 
 ## 5. Käyttöönotto-ongelmat
 
-### 5.1 ACR pull ei valtuutettu
+### 5.1 ACR-pullointioikeus puuttuu
 
-**Korjaus:** Azure Portal → Container Registry → Access control (IAM) → Lisää **AcrPull** rooli Foundry-projektin hallitulle identiteetille.
+**Korjaus:** Azure-portaali → Container Registry → Käyttöoikeuden hallinta (IAM) → Lisää **AcrPull** rooli Foundry-projektin hallinnoidulle identiteetille.
 
-### 5.2 Agentti ei käynnisty (jää "Pending" tai "Failed" tilaan)
+### 5.2 Agentti ei käynnisty (jää tilaan "Pending" tai "Failed")
 
-Tarkista säilön lokit sivupalkista. Yleisiä syitä:
+Tarkista konttilokit sivupalkista. Yleisiä syitä:
 
 | Lokiviesti | Korjaus |
 |-------------|-----|
-| `ModuleNotFoundError` | Lisää puuttuva paketti `requirements.txt` tiedostoon, ota käyttöön uudelleen |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Lisää ympäristömuuttuja `agent.yaml` tiedostoon `environment_variables` alle |
-| `Address already in use` | Varmista, että vain yksi prosessi kuuntelee porttia 8088 |
+| `ModuleNotFoundError` | Lisää puuttuva paketti `requirements.txt`, ota käyttöön uudelleen |
+| `ValueError: Missing required environment variables` | Varmista, että `AZURE_AI_MODEL_DEPLOYMENT_NAME` on määritelty `agent.yaml` alla `environment_variables` ja sillä on arvo, sitten ota käyttöön uudelleen. `FOUNDRY_PROJECT_ENDPOINT` lisätään Foundryn toimesta ajonaikaisesti |
+| `Address already in use` | Varmista, että vain yksi prosessi käyttää porttia 8088 |
 
-### 5.3 Käyttöönoton aikakatkaisu
+### 5.3 Käyttöönotto aikakatkaisee
 
-**Korjaus:** Tarkista internet-yhteys. Ensimmäinen käyttöönotto siirtää >100MB. Käytätkö proxyä? Määritä Docker Desktopin proxy-asetukset.
+**Korjaus:** Tarkista internet-yhteys. Ensimmäinen käyttöönotto siirtää >100 Mt. Käytätkö välityspalvelinta? Konfiguroi Docker Desktopin välityspalvelinasetukset.
 
 ---
 
-## 6. Reitti B - Foundry Local
+## 6. Polku B - Foundry Local
 
 ### 6.1 Foundry Local ei käynnisty
 
-| Ongelmia | Korjaus |
+| Ongelma | Korjaus |
 |-------|-----|
 | `foundry: command not found` | Asenna uudelleen: `winget install Microsoft.FoundryLocal` |
-| Riittämättömät resurssit | Foundry Local tarvitsee noin 4GB vapaata RAM-muistia. Sulje muut sovellukset. |
-| Mallin lataus epäonnistuu | Tarkista levytila (mallit ovat 2–8 GB). Yritä uudelleen: `foundry local models pull <name>` |
+| Riittämättömät resurssit | Foundry Local tarvitsee ~4 Gt RAM vapaana. Sulje muut sovellukset. |
+| Mallin lataus epäonnistuu | Tarkista levytila (mallit ovat 2–8 Gt). Yritä uudelleen: `foundry local models pull <name>` |
 
-### 6.2 Foundry Local mallivirheet
+### 6.2 Foundry Localin mallivirheet
 
-| Ongelmia | Korjaus |
+| Ongelma | Korjaus |
 |-------|-----|
-| Hitaat vastaukset | Odotettua - paikalliset mallit käyttävät CPU:ta ellei GPU:ta ole. Ole kärsivällinen. |
-| Huono laatutulos | Kokeile isompaa mallia, jos laitteistosi sallii. `phi-4-mini` on hyvä tasapaino. |
-| Yhteys evätty | Varmista että Foundry Local on käynnissä: `foundry local status`. Käynnistä uudelleen tarvittaessa. |
+| Hitaat vastaukset | Odotettu - paikalliset mallit toimivat CPU:lla, ellei sinulla ole GPU:ta. Ole kärsivällinen. |
+| Huono laatuinen tulos | Kokeile suurempaa mallia, jos laitteistosi sallii. `phi-4-mini` on hyvä tasapaino. |
+| Yhteys evätty | Varmista, että Foundry Local toimii: `foundry local status`. Käynnistä uudelleen tarvittaessa. |
 
 ---
 
-## 7. Pikaviite: RBAC-roolit
+## 7. Pikatarkistus: RBAC-roolit
 
-| Rooli | Kohde | Myöntää |
+| Rooli | Laajuus | Oikeudet |
 |------|-------|--------|
 | **Azure AI User** | Projekti | Data-toiminnot: `agents/write`, `agents/read` |
 | **Azure AI Developer** | Projekti/Tili | Data-toiminnot + projektin luonti |
-| **Azure AI Owner** | Tili | Täysi pääsy + roolinhallinta |
-| **Contributor** | Tilaus/RG | Vain hallintatoiminnot (**ei** data-toimintoja) |
-| **Owner** | Tilaus/RG | Hallinnointi + roolimääritykset (**ei** data-toimintoja) |
+| **Azure AI Owner** | Tili | Täysi käyttö + roolien hallinta |
+| **Contributor** | Tilaus/Resurssiryhmä | Vain hallintatoimet (**ei** data-toimintoja) |
+| **Owner** | Tilaus/Resurssiryhmä | Hallinta + roolien määrittely (**ei** data-toimintoja) |
 
 ---
 
-## 8. Työpajan valmistumislista
+## 8. Työpajan valmistumisen tarkistuslista
 
 | # | Kohta | Moduuli |
 |---|------|--------|
-| 1 | Esivaatimukset asennettu ja tarkistettu | [00](00-prerequisites.md) |
-| 2 | Foundry Toolkit -laajennus asennettu, projekti yhdistetty (tai Reitti B konfiguroitu) | [01](01-setup.md) |
+| 1 | Esivaatimusten asennus ja varmistus | [00](00-prerequisites.md) |
+| 2 | Foundry Toolkit -laajennus asennettu, projekti liitetty (tai Polku B määritetty) | [01](01-setup.md) |
 | 3 | Isännöity agentti luotu | [02](02-create-hosted-agent.md) |
 | 4 | `.env` konfiguroitu, ohjeet kirjoitettu, riippuvuudet asennettu | [03](03-configure-and-code.md) |
-| 5 | Agentti testattu paikallisesti - kolme toimivaa skenaariota läpäisty | [04](04-test-locally.md) |
-| 6 | Otettu käyttöön Foundryssä (vain Reitti A) | [05](05-deploy-to-foundry.md) |
-| 7 | Reunaehdot/turvallisuustestit läpäisty pilvessä (vain Reitti A) | [06](06-verify-in-playground.md) |
-| 8 | Yhteenveto käyty läpi, seuraavat askeleet tunnistettu | [07](07-summary.md) |
+| 5 | Agentti testattu paikallisesti - 3 toimivaa skenaariota läpäisty | [04](04-test-locally.md) |
+| 6 | Käyttöönotto Foundryssa (vain Polku A) | [05](05-deploy-to-foundry.md) |
+| 7 | Erikoistilanne-/turvatestit läpäisty pilvessä (vain Polku A) | [06](06-verify-in-playground.md) |
+| 8 | Yhteenveto tarkistettu, seuraavat askeleet määritetty | [07](07-summary.md) |
 
 ---
 
-**Edellinen:** [07 - Yhteenveto](07-summary.md) · **Koti:** [Workshop README](../../../README.md)
+**Edellinen:** [07 - Yhteenveto](07-summary.md) · **Koti:** [Työpajan README](../../../README.md)
 
 ---
 

@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - 簡歷 → 工作適配評估器
+# PersonalCareerCopilot - 履歷表 → 職位符合度評估器
 
-一個工作流程優先的多代理應用，評估簡歷與職位描述的匹配度，然後生成個性化學習路線圖以彌補差距。
+一個以工作流程為先的多代理應用程式，用於評估履歷表與職位描述的匹配程度，然後生成個人化的學習路線圖以彌補差距。
 
 ---
 
@@ -8,29 +8,29 @@
 
 | 代理 | 角色 | 工具 |
 |-------|------|-------|
-| **ResumeParser** | 從簡歷文本中提取結構化技能、經驗、認證 | - |
-| **JobDescriptionAgent** | 從職位描述中提取必需/優先技能、經驗、認證 | - |
-| **MatchingAgent** | 比較履歷與要求 → 適配分數 (0-100) + 匹配/缺少技能 | - |
-| **GapAnalyzer** | 利用 Microsoft Learn 資源構建個性化學習路線圖 | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | 從履歷文本中提取結構化的技能、經驗、證書 | - |
+| **JobDescriptionAgent** | 從職位描述中提取必備/偏好技能、經驗、證書 | - |
+| **MatchingAgent** | 比較履歷與需求 → 符合度分數 (0-100) + 匹配/缺失技能 | - |
+| **GapAnalyzer** | 建立個人化學習路線圖並提供 Microsoft Learn 資源 | `search_microsoft_learn_for_plan` (MCP) |
 
 ## 工作流程
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: 履歷 + 職位描述"] --> ResumeParser
-    ResumeParser -- "已解析履歷 + 職位描述傳遞" --> JobDescriptionAgent
-    JobDescriptionAgent -- "職位要求 + 履歷傳遞" --> MatchingAgent
-    MatchingAgent -- "適合度報告 + 差距" --> GapAnalyzerMCP["差距分析器 +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\n適合度分數 + 路線圖"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
 ## 快速開始
 
-### 1. 設置環境
+### 1. 設定環境
 
-此文件夾是基於工作流程的 Lab 02 骨架的參考實現。其 `main.py` 使用現有提示塊加上 `WorkflowBuilder` 來連接四個代理。
+此資料夾為基於工作流程的實驗室 02 範例實作。其 `main.py` 使用既有提示區塊加上 `WorkflowBuilder` 以串聯四個代理。
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### 2. 配置憑證
 
-在此文件夾中創建 `.env` 文件：
+在此資料夾中建立一個 `.env` 檔案：
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -57,24 +57,24 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | 值 | 取得位置 |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit 側邊欄 → 右鍵你的項目 → <strong>複製項目端點</strong> |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry 側邊欄 → 展開項目 → **模型 + 端點** → 部署名稱 |
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry 工具箱側欄 → 對專案點擊右鍵 → <strong>複製專案端點</strong> |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry 側欄 → 展開專案 → **模型 + 端點** → 部署名稱 |
 
-### 3. 在本地運行
+### 3. 本地執行
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-或使用 VS Code 任務：`Ctrl+Shift+P` → **任務: 執行任務** → **運行代理 HTTP 服務器**。
+或使用 VS Code 任務：`Ctrl+Shift+P` → **Tasks: Run Task** → **啟動代理 HTTP 服務**。
 
-調試使用 F5，選擇 **調試本地代理 HTTP 服務器**。
+若使用 F5 偵錯，請使用 **偵錯本地代理 HTTP 服務**。
 
-### 4. 使用代理檢查器測試
+### 4. 使用 Agent Inspector 測試
 
-打開代理檢查器：`Ctrl+Shift+P` → **Foundry Toolkit: 打開代理檢查器**。
+開啟 Agent Inspector：`Ctrl+Shift+P` → **Foundry 工具箱：開啟 Agent Inspector**。
 
-粘貼此測試提示：
+貼上此測試提示：
 
 ```
 Resume:
@@ -92,15 +92,15 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**預期結果：** 一個適配分數 (0-100)、匹配/缺少技能，以及含 Microsoft Learn 鏈接的個性化學習路線圖。
+**預期結果：** 符合度分數 (0-100)、匹配/缺失技能，以及含 Microsoft Learn 網址的個人化學習路線圖。
 
-### 5. 部署到 Foundry
+### 5. 部署至 Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: 部署托管代理** → 選擇你的項目 → 確認。
+`Ctrl+Shift+P` → **Foundry 工具箱：部署託管代理** → 選擇專案 → 確認。
 
 ---
 
-## 項目結構
+## 專案結構
 
 ```
 PersonalCareerCopilot/
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## 關鍵文件
+## 主要檔案
 
 ### `agent.yaml`
 
-定義了 Foundry 代理服務的托管代理：
-- `kind: hosted` - 作為托管容器運行
-- `protocols` - 使用 `responses` 協議版本 `1.0.0`，暴露 `/responses` HTTP 端點
-- `environment_variables` - 這裡宣告了 `AZURE_AI_MODEL_DEPLOYMENT_NAME`；`FOUNDRY_PROJECT_ENDPOINT` 在部署時自動注入
+定義 Foundry 代理服務的託管代理：
+- `kind: hosted` - 以受管容器形式運行
+- `protocols` - 使用 `responses` 協議與 `version: 2.0.0`，暴露 `/responses` HTTP 端點
+- `environment_variables` - 在此宣告 `AZURE_AI_MODEL_DEPLOYMENT_NAME`；`FOUNDRY_PROJECT_ENDPOINT` 會在部署時自動注入
 
 ### `main.py`
 
 包含：
-- <strong>代理指令</strong> - 四個 `*_INSTRUCTIONS` 常量，每個代理一個
-- **MCP 工具** - `search_microsoft_learn_for_plan()` 使用 Streamable HTTP 調用 `https://learn.microsoft.com/api/mcp`
-- <strong>代理創建</strong> - 四個 `Agent()` + `AgentExecutor()` 實例共用一個 `FoundryChatClient`
-- <strong>工作流程圖</strong> - `WorkflowBuilder` 將代理串接為順序管線：ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- <strong>服務器啟動</strong> - `ResponsesHostServer` 運行於 8088 埠
+- <strong>代理指令</strong> - 四個 `*_INSTRUCTIONS` 常數，分別對應四個代理
+- **MCP 工具** - `search_microsoft_learn_for_plan()` 以串流 HTTP 調用 `https://learn.microsoft.com/api/mcp`
+- <strong>代理建立</strong> - 四個 `Agent()` 與 `AgentExecutor()` 實例共用一個 `FoundryChatClient`
+- <strong>工作流程圖</strong> - `WorkflowBuilder` 將代理依序串接：ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- <strong>伺服器啟動</strong> - `ResponsesHostServer` 在 8088 埠運行
 
 ### `requirements.txt`
 
 | 套件 | 目的 |
 |---------|----------|
-| `agent-framework-foundry` | 核心運行時：`Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry 托管集成 |
-| `mcp<2,>=1.24.0` | GapAnalyzer 的 MCP 客戶端 (`streamable_http_client`) |
-| `debugpy` | Python 調試工具 (VS Code F5) |
+| `agent-framework-foundry` | 核心執行時：`Agent`、`AgentExecutor`、`WorkflowBuilder`、`@tool`、`FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` 與 Foundry 託管整合 |
+| `mcp<2,>=1.24.0` | GapAnalyzer 的 MCP 用戶端 (`streamable_http_client`) |
+| `debugpy` | Python 偵錯 (VS Code 中 F5) |
 
 ---
 
-## 故障排除
+## 疑難排解
 
-| 問題 | 解決方法 |
+| 問題 | 解決方式 |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` 或 `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | 創建 `.env` 並設定 `FOUNDRY_PROJECT_ENDPOINT` 和 `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
-| `ModuleNotFoundError: No module named 'agent_framework'` | 啟動虛擬環境並執行 `pip install -r requirements.txt` |
-| 輸出無 Microsoft Learn URL | 檢查是否能訪問 `https://learn.microsoft.com/api/mcp` 的網絡連接 |
-| 只有 1 張 gap 卡片（被截斷） | 確認 `GAP_ANALYZER_INSTRUCTIONS` 包含 `CRITICAL:` 區塊 |
-| 8088 埠被使用中 | 停止其他伺服器：`netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` 或 `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | 建立 `.env` 且同時設置 `FOUNDRY_PROJECT_ENDPOINT` 和 `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | 啟用 venv 並執行 `pip install -r requirements.txt` |
+| 輸出中無 Microsoft Learn 網址 | 檢查網路連線至 `https://learn.microsoft.com/api/mcp` |
+| 只顯示 1 張 gap 卡片 (截斷) | 確認 `GAP_ANALYZER_INSTRUCTIONS` 包含 `CRITICAL:` 區塊 |
+| 8088 埠被占用 | 停用其他伺服器：`netstat -ano \| findstr :8088` |
 
-詳細故障排除見 [Module 8 - Troubleshooting](../docs/08-troubleshooting.md)。
+詳細疑難排解，請參考 [Module 8 - Troubleshooting](../docs/08-troubleshooting.md)。
 
 ---
 
-**完整演練：** [Lab 02 Docs](../docs/README.md) · **返回：** [Lab 02 README](../README.md) · [工作坊首頁](../../../README.md)
+**完整操作步驟：** [Lab 02 文件](../docs/README.md) · **返回：** [Lab 02 自述檔](../README.md) · [工作坊首頁](../../../README.md)
 
 ---
 

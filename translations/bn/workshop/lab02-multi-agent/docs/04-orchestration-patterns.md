@@ -2,38 +2,38 @@
 
 ⏱️ ~১০ মিনিট
 
-এই মডিউলটিতে, আপনি Resume Job Fit Evaluator-এ ব্যবহৃত অর্কেস্ট্রেশন প্যাটার্নগুলি অন্বেষণ করবেন এবং শেখাবেন কিভাবে ওয়ার্কফ্লো গ্রাফ পড়তে, পরিবর্তন করতে এবং বাড়াতে হয়। এই প্যাটার্নগুলি বোঝা ডেটা ফ্লো সমস্যাগুলির ডিবাগিং এবং আপনার নিজস্ব [মাল্টি-এজেন্ট ওয়ার্কফ্লো](https://learn.microsoft.com/agent-framework/workflows/) তৈরি করার জন্য অপরিহার্য।
+এই মডিউলে, আপনি রিজুমে জব ফিট ইভ্যালুয়েটরে ব্যবহৃত অর্কেস্ট্রেশন প্যাটার্নগুলি অন্বেষণ করবেন এবং শিখবেন কীভাবে ওয়ার্কফ্লো গ্রাফ পড়তে, পরিবর্তন করতে এবং সম্প্রসারিত করতে হয়। এই প্যাটার্নগুলি বোঝা ডেটা ফ্লো সমস্যাগুলি ডিবাগ করার এবং আপনার নিজস্ব [মাল্টি-এজেন্ট ওয়ার্কফ্লো](https://learn.microsoft.com/agent-framework/workflows/) তৈরি করার জন্য অত্যাবশ্যক।
 
 ---
 
-## প্যাটার্ন ১: ধারাবাহিক চেইন
+## প্যাটার্ন ১: সিকোয়েন্সিয়াল চেইন
 
-ওয়ার্কফ্লোর মৌলিক প্যাটার্ন হল একটি **ধারাবাহিক চেইন** - প্রতিটি এজেন্টের আউটপুট সরাসরি পরবর্তী এজেন্টকে পৌঁছে দেয়।
+ওয়ার্কফ্লোতে মৌলিক প্যাটার্ন হল **সিকোয়েন্সিয়াল চেইন** - প্রতিটি এজেন্টের আউটপুট সরাসরি পরবর্তী এজেন্টে যোগ হয়।
 
 ```mermaid
 flowchart LR
-    RP[সিভি পার্সার] --> JD[JD এজেন্ট]
-    JD --> MA[ম্যাচিং এজেন্ট]
-    MA --> GA[গ্যাপ বিশ্লেষক]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
 কোডে, প্রতিটি `add_edge()` কল চেইনে একটি ধাপ তৈরি করে:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # রিজুমে পার্সার আউটপুট → জেডি এজেন্ট
-.add_edge(jd_executor, matching_executor)     # জেডি এজেন্ট আউটপুট → ম্যাচিংএজেন্ট
-.add_edge(matching_executor, gap_executor)    # ম্যাচিংএজেন্ট আউটপুট → গ্যাপঅ্যানালাইজার
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **কেন ধারাবাহিক, ফ্যান-আউট/ফ্যান-ইন নয়?** `WorkflowBuilder` ইনকামিং এজগুলির জন্য **OR-অর্থ** ব্যবহার করে: একটি নিচের_executor ওভার চালু হয় যেতোকোনও পূর্বসূরি সম্পন্ন হওয়ার সাথে সাথেই। যদি `matching_executor`-এর দুটি ইনকামিং এজ থাকে (`resume_executor` এবং `jd_executor` থেকে), তাহলে এটি দুইবার ট্রিগার হবে - একবার ResumeParser শেষ হলে এবং আরেকবার JD Agent শেষ হলে - ফলে GapAnalyzer ও দুইবার চালু হবে এবং আউটপুটও দুইবার দেখাবে। ধারাবাহিক পাইপলাইন এটি সম্পূর্ণরূপে এড়ায়।
+> **কেন ধারাবাহিক, ফ্যান-আউট/ফ্যান-ইন নয়?** `WorkflowBuilder` আসা এজগুলোর জন্য **OR-সেমান্টিকস** ব্যবহার করে: একটি ডাউনস্ট্রিম এক্সিকিউটর তখনই কাজ শুরু করে যখন **যেকোনো** পূর্বসূরি শেষ করে। যদি `matching_executor` এর দুটি আসা এজ (উভয় `resume_executor` এবং `jd_executor` থেকে) থাকে, তাহলে এটি দুইবার ট্রিগার করবে - একবার ResumeParser শেষ হলে এবং একবার JD Agent শেষ হলে - যার ফলে GapAnalyzer ও দুইবার চলবে এবং আউটপুট দুইবার প্রদর্শিত হবে। ধারাবাহিক পাইপলাইন এটি পুরোপুরি এড়ায়।
 
-## প্যাটার্ন ২: কনটেন্ট রিলে
+## প্যাটার্ন ২: কন্টেন্ট রিলে
 
-কারণ `context_mode="last_agent"` মানে প্রতিটি Executor শুধুমাত্র তার **সরাসরি পূর্বসূরির আউটপুট** দেখে, ধারাবাহিক চেইনের এজেন্টগুলিকে স্পষ্টভাবে অগ্রবর্তী কোনো এজেন্টের ডেটা যা দরকার তা ফরোয়ার্ড করতে হয়।
+কারণ `context_mode="last_agent"` মানে প্রতিটি এক্সিকিউটর শুধুমাত্র তার **সোজাসুজি পূর্বসূরির আউটপুট** দেখে, ধারাবাহিক চেইনের এজেন্টদের স্পষ্টভাবে যে কোন ডাউনস্ট্রিম এজেন্টের প্রয়োজনীয় ডাটা সামনের দিকে পাস করতে হয়।
 
-এই ওয়ার্কফ্লোতে:
-- **ResumeParser** JD-কে Word-to-word `[JOB DESCRIPTION PASS-THROUGH]`-এ অনুলিপি করে (যাতে JD Agent সেটি খুঁজে পায়)।
-- **JD Agent** `[PARSED RESUME]`-কে Word-to-word `[PARSED RESUME PASS-THROUGH]`-এ অনুলিপি করে (যাতে MatchingAgent উভয় প্রোফাইল তুলনা করতে পারে)।
+এই ওয়ার্কফ্লো-তে:
+- **ResumeParser** JD শব্দশঃ `[JOB DESCRIPTION PASS-THROUGH]`-এ অনুলিপি করে (যাতে JD Agent এটি পেতে পারে)।
+- **JD Agent** `[PARSED RESUME]` শব্দশঃ `[PARSED RESUME PASS-THROUGH]`-এ অনুলিপি করে (যাতে MatchingAgent উভয় প্রোফাইল তুলনা করতে পারে)।
 
 ```
 ResumeParser output
@@ -45,85 +45,85 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-প্রতিটি রিলে অংশ **Word-to-word** অনুলিপি করতে হবে - এর সংক্ষিপ্তসার বা প্যারাফ্রেজ করলে নিচের এজেন্টের কাজ নষ্ট হয়।
+প্রতিটি রিলে অংশ **শব্দশঃ** অনুলিপি করতে হবে - এটি সারাংশ বা পুনরুল্লেখ করলে ডাউনস্ট্রিম এজেন্ট যা তার উপর নির্ভর করে সেটি ভেঙে যাবে।
 
 ---
 
 ## সম্পূর্ণ গ্রাফ
 
-ধারাবাহিক চেইন এবং কনটেন্ট রিলে প্যাটার্ন একত্র করে সম্পূর্ণ ওয়ার্কফ্লো তৈরী হয়:
+ধারাবাহিক চেইন এবং কনটেন্ট রিলে প্যাটার্নগুলি মিলিয়ে পূর্ণ কাজের প্রবাহ গঠন করে:
 
 ```mermaid
 flowchart LR
-    U[ব্যবহারকারীর ইনপুট] --> RP[রেসুমে পার্সার]
-    RP --> JD[জেডি এজেন্ট]
-    JD --> MA[মিলানো এজেন্ট]
-    MA --> GA[গ্যাপ বিশ্লেষক + এমসিপি]
-    GA --> O[চূড়ান্ত আউটপুট]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-এজেন্ট Inspector একই গ্রাফ গঠন দেখায় যখন এজেন্ট লোকালি চলছে। [মডিউল ৫ - টেস্ট লোকালি](05-test-locally.md) দেখুন স্ক্রিনশটের জন্য।
+এজেন্ট ইন্সপেক্টর এই একই গ্রাফ কাঠামো দেখায় যখন এজেন্টটি লোকালভাবে চলছে। স্ক্রিনশটের জন্য [মডিউল ৫ - টেস্ট লোকালি](05-test-locally.md) দেখুন।
 
 ---
 
-## WorkflowBuilder কোড পড়া
+## WorkflowBuilder কোড পড়া
 
-সম্পূর্ণ `create_workflow()` ফাংশন [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py)-তে রয়েছে। তিনটি `add_edge()` কল ধারাবাহিক পাইপলাইন তৈরি করে:
+কাজের প্রবাহ গ্রাফ `main()` ফাংশনে তৈরি করা হয় [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) এ। তিনটি `add_edge()` কল ধারাবাহিক পাইপলাইন তৈরি করে:
 
 | # | এজ | প্রভাব |
 |---|------|--------|
-| ১ | `resume_executor → jd_executor` | JD Agent `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` পায় |
-| ২ | `jd_executor → matching_executor` | MatchingAgent `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` পায় |
-| ৩ | `matching_executor → gap_executor` | GapAnalyzer ফিট রিপোর্ট + গ্যাপ তালিকা পায় |
+| 1 | `resume_executor → jd_executor` | JD এজেন্ট `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` গ্রহণ করে |
+| 2 | `jd_executor → matching_executor` | MatchingAgent `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` গ্রহণ করে |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer ফিট রিপোর্ট + গ্যাপ তালিকা গ্রহণ করে |
 
 ---
 
 ## গ্রাফ পরিবর্তন করা
 
-### নতুন একটি এজেন্ট যোগ করা
+### নতুন এজেন্ট যোগ করা
 
-পঞ্চম এজেন্ট (যেমন, GapAnalyzer এর পর একটি **InterviewPrepAgent**) যোগ করতে:
+পঞ্চম এজেন্ট যোগ করতে (যেমন, GapAnalyzer এর পরে একটি **InterviewPrepAgent**):
 
-১. একটি `INTERVIEW_PREP_INSTRUCTIONS` ধ্রুবক সংজ্ঞায়িত করুন।
-২. `Agent` + `AgentExecutor` অবজেক্ট তৈরি করুন (আগের চারটির মতো প্যাটার্নে)।
-৩. `WorkflowBuilder`-এ `.add_edge(gap_executor, interview_exec)` যোগ করুন।
-৪. `output_executors=[interview_exec]` আপডেট করুন।
+1. একটি `INTERVIEW_PREP_INSTRUCTIONS` ধ্রুবক সংজ্ঞায়িত করুন।
+2. `Agent` + `AgentExecutor` অবজেক্ট তৈরি করুন (বিদ্যমান চারটির মতো একই প্যাটার্ন)।
+3. `.add_edge(gap_executor, interview_exec)` `WorkflowBuilder` এ যোগ করুন।
+4. `output_executors=[interview_exec]` আপডেট করুন।
 
-> **গুরুত্বপূর্ণ:** `start_executor` হল একমাত্র এজেন্ট যা কাঁচা ব্যবহারকারী ইনপুট পায়। অন্য সব এজেন্ট তাদের upstream এজ থেকে আউটপুট পায়।
+> **গুরুত্বপূর্ণ:** `start_executor` হল একমাত্র এজেন্ট যা কাঁচা ব্যবহারকারীর ইনপুট গ্রহণ করে। সকল অন্যান্য এজেন্ট তাদের ওপরের এজ থেকে আউটপুট গ্রহণ করে।
 
 ---
 
 ## সাধারণ গ্রাফ ভুল
 
-| ভুল | লক্ষণ | সমাধান |
+| ভুল | লক্ষণ | সংশোধন |
 |---------|---------|-----|
-| `output_executors`-এ এজ অনুপস্থিত | এজেন্ট চলে কিন্তু আউটপুট খালি | নিশ্চিত করুন `start_executor` থেকে প্রতিটি `output_executors` এজেন্ট পর্যন্ত একটি পথ আছে |
-| বৃত্তাকার নির্ভরতা | অসীম লুপ বা টাইমআউট | পরীক্ষা করুন কোনো এজেন্ট উপরের এজেন্টে ফিরে ফিড না করে |
-| `output_executors` এ থাকা এজেন্টের কাছে কোনো ইনকামিং এজ নেই | আউটপুট খালি | কমপক্ষে একটি `add_edge(source, that_agent)` যোগ করুন |
-| একাধিক `output_executors` ফ্যান-ইন ছাড়া | আউটপুটে শুধুমাত্র এক এজেন্টের প্রতিক্রিয়া থাকে | একটি একক আউটপুট এজেন্ট ব্যবহার করুন যা সকলকে একত্র করে অথবা একাধিক আউটপুট গ্রহণ করুন |
-| `start_executor` অনুপস্থিত | বিল্ড টাইমে `ValueError` | সর্বদা `WorkflowBuilder()`-এ `start_executor` উল্লেখ করুন |
+| `output_executors` এজ মিসিং | এজেন্ট চললেও আউটপুট শূন্য | নিশ্চিত করুন `start_executor` থেকে `output_executors` এর প্রতিটি এজেন্টের জন্য একটি পথ আছে |
+| বৃত্তাকার নির্ভরতা | অসীম লুপ বা টাইমআউট | পরীক্ষা করুন কোনো এজেন্ট তার ওপরের এজেন্টকে পুনরায় ফিড দিচ্ছে না |
+| `output_executors` এ এজেন্ট যার কোন ইনকামিং এজ নেই | খালি আউটপুট | অন্তত একটি `add_edge(source, that_agent)` যোগ করুন |
+| একাধিক `output_executors` ফ্যান-ইন ছাড়া | আউটপুটে শুধুমাত্র এক এজেন্টের প্রতিক্রিয়া থাকে | একটি একক আউটপুট এজেন্ট ব্যবহার করুন যা যােগান্বিত করে, অথবা বহু আউটপুট গ্রহণ করুন |
+| `start_executor` মিসিং | `ValueError` বক্স তৈরি সময় | সবসময় `start_executor` নির্দিষ্ট করুন `WorkflowBuilder()` এ |
 
 ---
 
-## গ্রাফ ডিবাগ করা
+## গ্রাফ ডিবাগিং
 
-### Agent Inspector ব্যবহার করা
+### এজেন্ট ইনস্পেক্টর ব্যবহার
 
-১. F5 দিয়ে এজেন্ট লোকালি শুরু করুন।
-২. Agent Inspector খুলুন (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**)।
-৩. একটি টেস্ট মেসেজ পাঠান।
-৪. Inspector এর রেস্পন্স প্যানেলে **স্ট্রিমিং আউটপুট** দেখুন - এটি ধারাবাহিকভাবে প্রতিটি এজেন্টের অবদান দেখায়।
+1. এজেন্টটি লোকালিতে F5 দিয়ে শুরু করুন।
+2. এজেন্ট ইনস্পেক্টর খুলুন (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**)।
+3. একটি টেস্ট মেসেজ পাঠান।
+4. ইনস্পেক্টরের রেসপন্স প্যানেলে **স্ট্রীমিং আউটপুট** দেখুন - এটি ধারাবাহিকভাবে প্রতিটি এজেন্টের অবদানকে দেখায়।
 
 
-### লগিং ব্যবহার করে
+### লগিং ব্যবহার
 
-`main.py`-তে লগিং যোগ করুন ডেটা ফ্লো ট্রেস করার জন্য:
+ডেটা ফ্লো ট্রেস করতে `main.py` এ লগিং যোগ করুন:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# main() এ, ওয়ার্কফ্লো তৈরি করার পর:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### চেকপয়েন্ট
 
-- [ ] আপনি ওয়ার্কফ্লোতে দুটি অর্কেস্ট্রেশন প্যাটার্ন চিনতে পারেন: ধারাবাহিক চেইন এবং কনটেন্ট রিলে
+- [ ] আপনি কাজের প্রবাহের দুটি অর্কেসট্রেশন প্যাটার্ন চিনতে পারেন: ধারাবাহিক চেইন এবং কন্টেন্ট রিলে
 - [ ] আপনি বুঝতে পারেন কেন `context_mode="last_agent"` এজেন্টদের মধ্যে স্পষ্ট ডেটা রিলে প্রয়োজন
-- [ ] আপনি `WorkflowBuilder` কোড পড়তে পারেন এবং প্রতিটি `add_edge()` কলকে ভিজ্যুয়াল গ্রাফের সাথে মেলাতে পারেন
-- [ ] আপনি পাইপলাইনের শেষে নতুন এজেন্ট যোগ করতে পারেন
+- [ ] আপনি `WorkflowBuilder` কোড পড়তে পারেন এবং প্রতিটি `add_edge()` কলকে ভিজ্যুয়াল গ্রাফের সাথে ম্যাপ করতে পারেন
+- [ ] আপনি পাইপলাইনের শেষে একটি নতুন এজেন্ট কিভাবে যোগ করতে হয় জানেন
 - [ ] আপনি সাধারণ গ্রাফ ভুল এবং তাদের লক্ষণ চিনতে পারেন
 
 ---
 
-**আগের:** [03 - Configure Agents & Environment](03-configure-agents.md) · **পরবর্তী:** [05 - Test Locally →](05-test-locally.md)
+**আগে:** [03 - Configure Agents & Environment](03-configure-agents.md) · **পরবর্তী:** [05 - Test Locally →](05-test-locally.md)
 
 ---
 

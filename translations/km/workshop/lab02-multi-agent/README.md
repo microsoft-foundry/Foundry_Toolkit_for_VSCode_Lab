@@ -1,10 +1,10 @@
-# ក្រុមហ៊ុន 02 - កម្មវីធីចំរូងភាគីច្រើន: ការវាយតម្លៃតម្រូវការងារ → ប្រវត្តិរូប
+# មន្ទីរពិសោធន៍ 02 - របៀបធ្វើ Multi-Agent: Resume → Job Fit Evaluator
 
 ## ទិដ្ឋភាពទូទៅ
 
-ក្នុងការប្រជុំដៃនេះ អ្នកនឹងបង្កើតកម្មវិធី **ភាគីច្រើនមួយដែលផ្អែកលើវេហាសាស្រ្ត** ដោយប្រើ Foundry Toolkit នៅក្នុង VS Code ហើយបញ្ចេញវាទៅសេវាកម្ម Microsoft Foundry Agent។
+នៅក្នុងមន្ទីរពិសោធន៍ការប្រតิบត្តិនេះ អ្នកនឹងបង្កើតកម្មវិធី**multi-agent ប្រើរបៀប workflow ជាមុន** ដោយប្រើ Foundry Toolkit ក្នុង VS Code ហើយដាក់បញ្ចោញវាទៅ Microsoft Foundry Agent Service។
 
-**អ្វីដែលអ្នកនឹងបង្កើត:** កម្មវិធីវាយតម្លៃ Resume → Job Fit ដែលបកស្រាយប្រវត្តិរូប និងការពិពណ៌នាការងារ កំណត់ពិន្ទុការចងក្រង ហើយបង្កើតផែនការសិក្សាផ្ទាល់ខ្លួនប្រើធនធាន Microsoft Learn។
+**អ្វីដែលអ្នកនឹងបង្កើត:** Resume → Job Fit Evaluator ដែលច្រកប្រមាញ resume និង job description ផ្តល់ពិន្ទុភាពសមនឹង និងបង្កើតផែនទីរៀនផ្ទាល់ខ្លួនដោយប្រើធនធាន Microsoft Learn។
 
 ---
 
@@ -12,11 +12,11 @@
 
 ```mermaid
 flowchart TD
-    A["បញ្ចូលព័ត៌មានដោយអ្នកប្រើ"] --> B["កម្មវិធីបំលែងប្រវត្តិរូប"]
-    B -->|"[ប្រវត្តិរូបដែលបានបំលែង] + [ការបញ្ជូនព័ត៌មានព័ត៌មានការងារ]"| C["ភ្នាក់ងារពណ៌នាការងារ"]
-    C -->|"[តម្រូវការការងារ] + [ការបញ្ជូនប្រវត្តិរូបដែលបានបំលែង]"| D["ភ្នាក់ងារផ្គូផ្សំ"]
-    D -->|របាយការណ៍សម្របសម្រួល + ចន្លោះ| E["អ្នកវិភាគចន្លោះ + Microsoft Learn MCP"]
-    E -->|ពិន្ទុសមរម្យ + ផែនទីដំណើរការ| F["លទ្ធផល"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -26,55 +26,56 @@ flowchart TD
     style F fill:#4A90D9,color:#fff
 ```
 
-**វិធីសាស្រ្តפעל:**
-1. អ្នកប្រើប្រាស់បិទបញ្ចូលប្រវត្តិរូប និងការពិពណ៌នាការងារ។
-2. **ResumeParser** បកស្រាយប្រវត្តិរូប ហើយចម្លងការពិពណ៌នាការងារឱ្យដូចដើមក្នុងផ្នែក `[JOB DESCRIPTION PASS-THROUGH]`។
-3. **JD Agent** បានដកស្រង់ការទាមទារត្រូវបានរៀបចំពីការបញ្ចូលនេះ បន្ទាប់មកបញ្ជូន `[PARSED RESUME]` ជា `[PARSED RESUME PASS-THROUGH]` ទៅមុខ។
-4. **MatchingAgent** ប្រៀបធៀប `[PARSED RESUME PASS-THROUGH]` ជាមួយ `[JD REQUIREMENTS]` ហើយបង្កើតពិន្ទុតម្រូវការ។
-5. **GapAnalyzer** បម្លែងចន្លោះកន្លែងទៅជា​ផែនការអនុវត្តន៍ ហើយទាញយកតំណ Microsoft Learn ពិតពី MCP។
+**របៀបវាដំណើរការ:**
+1. អ្នកប្រើប្រាស់ភ្ជាប់ resume និង job description។
+2. **ResumeParser** ច្រក resume និងចម្លង JD ដូចដើមទៅខ្នង `[JOB DESCRIPTION PASS-THROUGH]`។
+3. **JD Agent** បំបែកតម្រូវការយ៉ាងរចនាសម្ព័ន្ធពី pass-through ហើយបញ្ជូន `[PARSED RESUME]` ទៅមុខជាមជ្ឈមណ្ឌល `[PARSED RESUME PASS-THROUGH]`។
+4. **MatchingAgent** ប្រៀបធៀប `[PARSED RESUME PASS-THROUGH]` ជាមួយ `[JD REQUIREMENTS]` និងបង្កើតពិន្ទុភាពសមនឹង។
+5. **GapAnalyzer** បម្លែងចន្លោះទៅជាផែនទីអនុវត្ត និងទាញយកតំណ Microsoft Learn ពិតៗតាមរយៈ MCP។
 
 ---
 
-## លក្ខខណ្ឌជាមុន
+## លក្ខខណ្ឌមុន
 
-សូមបញ្ចប់ក្រុមហ៊ុន 01 មុន៖
+សូមបញ្ចប់មន្ទីរពិសោធន៍ 01 ជាមុនបំផុត៖
 
-- [Lab 01 - Single Agent](../lab01-single-agent/README.md)
-
----
-
-## ផ្នែក 1: អានម៉ូឌុលតាមលំដាប់
-
-មើលផ្លូវសិក្សាពេញលេញនៅ៖
-
-- [Lab 2 Docs - Prerequisites](docs/00-prerequisites.md)
-- [Lab 2 Docs - Full Learning Path](docs/README.md)
-- [PersonalCareerCopilot run guide](PersonalCareerCopilot/README.md)
+- [មន្ទីរពិសោធន៍ 01 - Single Agent](../lab01-single-agent/README.md)
 
 ---
 
-## ផ្នែក 2: កសាង និងតេស្តកម្មវីធី
+## ផ្នែក 1៖ អានមូឌុលៗតាមលំដាប់
 
-1. ប្រើកម្មវិធីស្វ័យប្រវត្តិ Foundry Toolkit ដើម្បីបង្កើតគំរោងផ្អែកលើកម្មវិធី។
-2. ចម្លងប្លុកបញ្ចូល និងសៀវភៅកម្មវិធីពី `PersonalCareerCopilot/main.py` ទៅកន្លែងធ្វើការ​របស់អ្នក។
-3. រត់ឥតគិតថ្លៃជាមួយ Agent Inspector ហើយផ្ទៀងផ្ទាត់ភាគីទាំងបួន និងឧបករណ៍ MCP។
-4. ផ្ទុកភាគីបញ្ចាប់ទៅ Foundry ពេលតេស្តក្នុងផ្ទះបានជោគជ័យ។
+មើលផ្លូវរៀនពេញលេញក្នុង៖
 
----
-
-## ទម្រង់ការរៀបចំ
-
-ក្រុមហ៊ុន 02 រួមបញ្ចូលផ្លូវដើម **ចេញရន្លែង → ចូលកន្លែង → ជាដំណើរមួយជំហាន** ហើយឯកសារបង្ហាញពីទម្រង់ការរៀបចំជំនួសសម្រាប់ការប្រឡងចំណេះ។
-
-- **ផ្សារចេញ/ចូលជាមួយការយល់ព្រមមានទំងន់**
-- **អ្នកអាន/អ្នកវិភាគផ្លាស់ជាសមាជិកមុនផែនការចុងក្រោយ**
-- **អ្នកផ្លាស់ប្ដូរផ្លូវផ្អែកលើពិន្ទុតម្រូវ និងជំនាញខ្វះ**
-
-វាយតម្លៃ [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)។
+- [ឯកសារ Lab 2 - លក្ខខណ្ឌមុន](docs/00-prerequisites.md)
+- [ឯកសារ Lab 2 - ផ្លូវរៀនពេញលេញ](docs/README.md)
+- [មគ្គុទ្ទេសក៍កំណត់ PersonalCareerCopilot](PersonalCareerCopilot/README.md)
 
 ---
 
-**មុន៖** [Lab 01 - Single Agent](../lab01-single-agent/README.md) · **ត្រឡប់ទៅ៖** [Workshop Home](../../README.md)
+## ផ្នែក 2៖ បង្កើត និងសាកល្បង workflow
+
+1. ប្រើកម្មវិធីរង Foundry Toolkit ដើម្បីបង្កើតគំរោងផ្អែកលើ workflow។
+2. ចម្លងប្លុកបញ្ជា និងក្រាហ្វ workflow ពី `PersonalCareerCopilot/main.py` ទៅតំបន់ធ្វើការ។
+3. ប្រតិបត្តិការព្រឺព្រួចជាកន្លែងជាមួយ Agent Inspector ហើយផ្ទៀងផ្ទាត់ភ្នាក់ងារទាំងបួននិងឧបករណ៍ MCP។
+4. ផ្ញើភ្នាក់ងាររក្សាទុកទៅ Foundry នៅពេលសាកល្បងក្នុងកន្លែងជោគជ័យ។
+
+---
+
+## គំរូ orchestration
+
+Lab 02 ប្រើ **pipeline តាមលំដាប់**៖ លទ្ធផលភ្នាក់ងារមួយផ្គត់ផ្គង់ទៅភ្នាក់ងារបន្ទាប់ ហើយ workflow ត្រឡប់ការឆ្លើយតបចុងក្រោយពីភ្នាក់ងារ។ គូរគំរូពីរនេះធ្វើឱ្យវាដំណើរការ៖
+
+- **ខ្សែតាមលំដាប់** - `WorkflowBuilder` សម្ភាស ResumeParser → JD Agent → MatchingAgent → GapAnalyzer ដោយមានការហៅ `add_edge()` មួយសម្រាប់ក្នងជំហានមួយៗ
+- **ការផ្ទេរគំនិត** - ព្រោះភ្នាក់ងារណាមួយមើលតែនៅលទ្ធផលភ្នាក់ងារមុនរបស់ខ្លួន ResumeParser និង JD Agent ចម្លងទិន្នន័យទៅភ្នាក់ងារដែលត្រូវការនៅខាងក្រោមក្នុង pass-through ដែលមានស្លាក។
+
+ឯកសារបកស្រាយហេតុអ្វីមន្ទីរពិសោធន៍មិនប្រើ fan-out/fan-in និងរបៀបបន្ថែមភ្នាក់ងារថ្មីជាមួយក្រាហ្វនេះ។
+
+មើល [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)។
+
+---
+
+**មុននេះ:** [មន្ទីរពិសោធន៍ 01 - Single Agent](../lab01-single-agent/README.md) · **ត្រឡប់ទៅ:** [ទំព័រផ្ទះសិក្ខាសាលា](../../README.md)
 
 ---
 

@@ -1,23 +1,23 @@
-# 模組 5 - 部署至 Foundry 代理服務
+# 模組 5 - 部署到 Foundry Agent 服務
 
 ⏱️ 約 10 分鐘
 
-> ⚠️ **路徑 B 使用者：** 此模組需要 Foundry 訂閱。如果您使用 Foundry Local，請跳至 [模組 07 - 總結](07-summary.md)。您已成功完成本地開發工作流程！
+> ⚠️ **路徑 B 用戶：** 本模組需要 Foundry 訂閱。如果您使用的是 Foundry Local，請跳至 [模組 07 - 摘要](07-summary.md)。您已成功完成本地開發工作流程！
 
-在本模組中，您將本地測試完成的代理部署到 Microsoft Foundry 作為 <strong>託管代理</strong>。部署將構建容器映像，推送至 Azure 容器註冊表，並在 Foundry 的管理基礎架構中啟動代理。
+在本模組中，您將本地測試的代理部署到 Microsoft Foundry 作為 <strong>託管代理</strong>。部署過程會建立容器映像，推送至 Azure Container Registry，並在 Foundry 的託管基礎架構中啟動代理。
 
-### 部署流程
+### 部署流水線
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|docker 構建| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|docker 推送| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|註冊代理| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|啟動容器| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -29,22 +29,22 @@ flowchart LR
 
 ---
 
-## 前置條件檢查
+## 先決條件檢查
 
-部署前請確認：
+在部署之前，請確認：
 
-- [ ] 代理已通過 [模組 04](04-test-locally.md) 中的全部 3 項本地場景測試
-- [ ] 您在專案層級擁有 **Azure AI User** 角色 ([模組 01，指定 RBAC](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] 您在 VS Code 已登入 Azure（帳戶圖示顯示您的名稱）
+- [ ] 代理通過所有 3 個本地情景自 [Module 04](04-test-locally.md)
+- [ ] 您於項目層級擁有 **Azure AI 使用者** 角色 ([Module 01, 指派 RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] 你已在 VS Code 中登入 Azure（帳戶圖示顯示你的名字）
 
 ---
 
 ## 步驟 1：開始部署
 
-### 選項 A：從 Agent Inspector 部署（建議）
+### 選項 A：從 Agent Inspector 部署（推薦）
 
-若 Agent Inspector 已開啟（來自測試）：
-1. 點擊右上角的 <strong>部署</strong> 按鈕（雲端圖示 ↑）。
+如果 Agent Inspector 已開啟（從測試開始）：
+1. 點擊右上角的 **Deploy** 按鈕（雲端圖示 ↑）。
 
 ### 選項 B：從命令面板部署
 
@@ -52,84 +52,84 @@ flowchart LR
 
 ---
 
-## 步驟 2：設定部署
+## 步驟 2：配置部署
 
-精靈將提示您：
+精靈會提示你：
 
-![Project Config](../../../../../translated_images/zh-HK/05-foundry-project-setup.ca6ad16a6484e054.webp)
+![專案設定](../../../../../translated_images/zh-HK/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| 提示 | 選擇內容 |
+| 提示 | 選擇 |
 |--------|-----------|
 | <strong>訂閱</strong> | 您的 Azure 訂閱 |
-| <strong>目標專案</strong> | 您的 Foundry 專案（例如 `workshop-agents`） |
+| <strong>目標專案</strong> | 您的 Foundry 專案 (例如 `workshop-agents`) |
 
-點擊 <strong>下一步</strong> 以配置您的代理。
+點擊 <strong>下一步</strong> 以設定您的代理程式。
 
-![Basics config](../../../../../translated_images/zh-HK/05-configure-basics.4d5f3d6b0d96f033.webp)
+![基本設定](../../../../../translated_images/zh-HK/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| 提示 | 選擇內容 |
+| 提示 | 選擇 |
 |--------|-----------|
-| <strong>部署方法</strong> | 容器 |
-| <strong>容器註冊表</strong> | **預設 ACR**（Microsoft Foundry 為您建立並管理） |
-| <strong>部署到</strong> | 新代理（名稱，`executive-summary-agent`） |
+| <strong>部署方式</strong> | 容器 |
+| <strong>容器註冊中心</strong> | **預設 ACR** (Microsoft Foundry 會為您建立並管理一個) |
+| <strong>部署至</strong> | 新代理程式 (名稱，`executive-summary-agent`) |
 
-點擊 <strong>下一步</strong>，審查並部署您的代理。
+點擊 <strong>下一步</strong> 以檢閱並部署您的代理程式。
 
-![Review and deploy](../../../../../translated_images/zh-HK/05-review-deploy.12b449d426bff886.webp)
+![檢閱與部署](../../../../../translated_images/zh-HK/05-review-deploy.12b449d426bff886.webp)
 
-| 提示 | 選擇內容 |
+| 提示 | 選擇 |
 |--------|-----------|
-| **CPU 和記憶體** | **0.25 CPU 核心，0.5 Gi 記憶體**（足夠工作坊使用） |
+| **CPU 及記憶體** | **0.5 CPU 核心，1.0 Gi 記憶體**（預設值－足夠用於工作坊） |
 
 ---
 
-## 步驟 3：部署和監控
+## 第3步：部署及監察
 
-1. 點擊 <strong>部署</strong>。
-2. 監看 <strong>輸出</strong> 面板（從下拉選單選擇 **Microsoft Foundry**）。
-3. 部署完成以下階段：
-   - **Docker 建置** - 從您的 Dockerfile 建置容器
-   - **Docker 推送** - 推送映像至 ACR（首次部署約 1–3 分鐘）
-   - <strong>代理註冊</strong> - 在 Foundry 建立託管代理
-   - <strong>容器啟動</strong> - 以系統管理的身分啟動
+1. 按 **Deploy**。
+2. 觀看 **Output** 面板（從下拉選單選擇 **Microsoft Foundry**）。
+3. 部署會經歷以下階段：
+   - **Docker build** - 從你的 Dockerfile 建構容器
+   - **Docker push** - 推送映像至 ACR（首次部署約需 1–3 分鐘）
+   - **Agent registration** - 在 Foundry 創建託管代理
+   - **Container start** - 以系統管理身份啟動
 
-4. 完成後，會出現通知：
-   > **my-agent 已成功部署。** `查看日誌` `執行代理`
+4. 完成時會出現通知：
+   > **executive-summary-agent 已成功部署。** `View logs` `Run agent`
 
-5. 點擊 <strong>執行代理</strong> 打開代理遊樂場。
+5. 按 **Run agent** 開啟 Agent Playground。
 
 ![Deployment success showing Agent Playground with Running status](../../../../../translated_images/zh-HK/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### 部署狀態說明
+### 部署狀態值
 
 | 狀態 | 意義 |
 |--------|---------|
-| <strong>執行中</strong> | 容器已就緒，代理回應中 |
-| <strong>待處理</strong> | 容器啟動中 - 請等待 30–60 秒 |
-| <strong>失敗</strong> | 請檢查日誌（參見下方故障排除） |
+| **Running** | 容器準備就緒，代理運作中 |
+| **Pending** | 容器啟動中 - 請等待 30–60 秒 |
+| **Failed** | 檢查日誌（見以下故障排除） |
 
 ---
 
 ## 常見部署錯誤
 
-| 錯誤 | 根本原因 | 解決方案 |
+| 錯誤 | 根本原因 | 解決方法 |
 |-------|-----------|-----|
-| `agents/write` 權限被拒 | 專案層級缺少 **Azure AI User** 角色 | [模組 01，指定 RBAC](01-setup.md#deploy-a-model--assign-rbac) |
-| Docker 未啟動 | Docker Desktop 未啟動 | 啟動 Docker Desktop → 確認 `docker info` |
-| ACR 授權問題 | 管理身分無法拉取映像 | 參見 [模組 08 - 故障排除](08-troubleshooting.md) |
+| `agents/write` 權限被拒 | 項目層級缺少 **Azure AI User** 角色 | [模組 01，指定 RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker 未運行 | Docker Desktop 未啟動 | 啟動 Docker Desktop → 驗證 `docker info` |
+| ACR 授權 | 管理身分無法拉取映像檔 | 請參閱 [Module 08 - 故障排除](08-troubleshooting.md) |
 
 ---
 
-### ✅ 檢查點
+### ✅ 核對清單
 
 - [ ] 部署完成且無錯誤
-- [ ] 代理在 Foundry 側邊欄的 **託管代理 (預覽)** 下可見
-- [ ] 容器狀態顯示為 <strong>執行中</strong>
-- [ ] 已打開代理遊樂場標籤，顯示代理詳細資訊和端點 URL
+- [ ] 點擊 Foundry Toolkit 側邊欄中專案下的 <strong>代理程式</strong>，在 <strong>託管代理程式</strong> 分頁出現代理程式
+- [ ] 容器狀態顯示為 <strong>運行中</strong>
+- [ ] 開啟代理程式遊樂場分頁，顯示代理程式詳細資料及端點 URL
 
 ---
 
-**上一節：** [04 - 本地測試](04-test-locally.md) · **下一節：** [06 - 遊樂場驗證 →](06-verify-in-playground.md)
+**上一頁：** [04 - 本地測試](04-test-locally.md) · **下一頁：** [06 - 在遊樂場驗證 →](06-verify-in-playground.md)
 
 ---
 

@@ -1,39 +1,39 @@
-# ਮਾਡਿਊਲ 4 - ਓਰਕੇਸਟ੍ਰੇਸ਼ਨ ਪੈਟਰਨ
+# ਮੋਡਿਊਲ 4 - ਆਰਕੀਸਟਰੈਸ਼ਨ ਪੈਟਰਨ
 
 ⏱️ ~10 ਮਿੰਟ
 
-ਇਸ ਮਾਡਿਊਲ ਵਿੱਚ, ਤੁਸੀਂ Resume Job Fit Evaluator ਵਿੱਚ ਵਰਤੇ ਜਾਂਦੇ ਓਰਕੇਸਟ੍ਰੇਸ਼ਨ ਪੈਟਰਨ ਦੀ ਜਾਂਚ ਕਰਦੇ ਹੋ ਅਤੇ ਸਕਿੱਖਦੇ ਹੋ ਕਿ ਵਰਕਫਲੋ ਗ੍ਰਾਫ ਨੂੰ ਕਿਵੇਂ ਪੜ੍ਹਨਾ, ਸੋਧਣਾ ਅਤੇ ਵਿਸਥਾਰ ਕਰਨਾ ਹੈ। ਇਹ ਪੈਟਰਨ ਸਮਝਣਾ ਡੇਟਾ ਫਲੋ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਨੂੰ ਡੀਬੱਗ ਕਰਨ ਅਤੇ ਆਪਣਾ ਖ਼ੁਦ ਦਾ [ਮਲਟੀ-ਏਜੰਟ ਵਰਕਫਲੋ](https://learn.microsoft.com/agent-framework/workflows/) ਬਣਾਉਣ ਲਈ ਜ਼ਰੂਰੀ ਹੈ।
+ਇਸ ਮੋਡਿਊਲ ਵਿੱਚ, ਤੁਸੀਂ Resume Job Fit Evaluator ਵਿੱਚ ਵਰਤੇ ਗਏ ਆਰਕੀਸਟਰੈਸ਼ਨ ਪੈਟਰਨਾਂ ਦੀ ਖੋਜ ਕਰਦੇ ਹੋ ਅਤੇ ਸਿੱਖਦੇ ਹੋ ਕਿ ਵਰਕਫਲੋ ਗ੍ਰਾਫ ਨੂੰ ਕਿਵੇਂ ਪੜ੍ਹਨਾ, ਸੋਧਣਾ ਅਤੇ ਵਧਾਉਣਾ ਹੈ। ਇਹ ਪੈਟਰਨ ਸਮਝਣਾ ਡਾਟਾ ਫਲੋ ਸਮੱਸਿਆਵਾਂ ਨੂੰ ਡੀਬੱਗ ਕਰਨ ਅਤੇ ਆਪਣੇ [ਮਲਟੀ-ਏਜੰਟ ਵਰਕਫਲੋਜ਼](https://learn.microsoft.com/agent-framework/workflows/) ਬਣਾਉਣ ਲਈ ਜਰੂਰੀ ਹੈ।
 
 ---
 
 ## ਪੈਟਰਨ 1: ਲੜੀਵਾਰ ਚੇਨ
 
-ਵਰਕਫਲੋ ਵਿੱਚ ਮੂਲ ਪੈਟਰਨ ਇੱਕ **ਲੜੀਵਾਰ ਚੇਨ** ਹੈ - ਹਰ ਏਜੰਟ ਦਾ ਨਤੀਜਾ ਸਿੱਧਾ ਅਗਲੇ ਏਜੰਟ ਨੂੰ ਮਿਲਦਾ ਹੈ।
+ਵਰਕਫਲੋ ਵਿੱਚ ਮੂਲ ਪੈਟਰਨ **ਲੜੀਵਾਰ ਚੇਨ** ਹੈ - ਹਰ ਏਜੰਟ ਦਾ ਨਤੀਜਾ ਸਿੱਧਾ ਅਗਲੇ ਨੂੰ ਮਿਲਦਾ ਹੈ।
 
 ```mermaid
 flowchart LR
-    RP[ਰੇਜ਼ਿਊਮ ਪਾਰਸਰ] --> JD[ਜੇਡੀ ਏਜੰਟ]
-    JD --> MA[ਮੈਚਿੰਗ ਏਜੰਟ]
-    MA --> GA[ਗੈਪ ਵਿਸ਼ਲੇਸ਼ਕ]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-ਕੋਡ ਵਿੱਚ, ਹਰ `add_edge()` ਕਾਲ ਲੜੀ ਵਿੱਚ ਇੱਕ ਕਦਮ ਬਣਾਉਂਦਾ ਹੈ:
+ਕੋਡ ਵਿੱਚ, ਹਰ `add_edge()` ਕਾਲ ਨਾਲ ਚੇਨ ਵਿੱਚ ਇੱਕ ਕਦਮ ਬਣਦਾ ਹੈ:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # ResumeParser ਆਉਟਪੁੱਟ → JD Agent
-.add_edge(jd_executor, matching_executor)     # JD Agent ਆਉਟਪੁੱਟ → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # MatchingAgent ਆਉਟਪੁੱਟ → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **ਲੜੀਵਾਰ ਕਿਉਂ, ਫੈਨ-ਆਉਟ/ਫੈਨ-ਇਨ ਨਹੀਂ?** `WorkflowBuilder` ਆਉਣ ਵਾਲੀਆਂ ਏਜਾਂ ਲਈ **OR-ਸੈਮਾਂਟਿਕਸ** ਵਰਤਦਾ ਹੈ: ਜਿਵੇਂ ਹੀ **ਕੋਈ ਵੀ** ਪੂਰਵ-ਹੇਠਾਂ ਵਾਲਾ ਕੰਮ ਪੂਰਾ ਹੁੰਦਾ ਹੈ, ਨੀਵਾਂ ਮਸ਼ੀਨ ਚਾਲੂ ਹੋ ਜਾਂਦੀ ਹੈ। ਜੇ `matching_executor` ਕੋਲ ਦੋ ਆਉਣ ਵਾਲੀਆਂ ਲੜੀਆਂ ਹੁੰਦੀਆਂ (ਦੋਹਾਂ `resume_executor` ਅਤੇ `jd_executor` ਤੋਂ), ਤਾਂ ਇਹ ਦੋ ਵਾਰੀ ਚਾਲੂ ਹੁੰਦਾ - ਇੱਕ ਵਾਰੀ ResumeParser ਦੇ ਖ਼ਤਮ ਹੋਣ ਤੇ ਅਤੇ ਇਕ ਵਾਰੀ JD Agent ਦੇ ਖ਼ਤਮ ਹੋਣ ਤੇ - ਜਿਸ ਨਾਲ GapAnalyzer ਵੀ ਦੋ ਵਾਰੀ ਚੱਲਦਾ ਅਤੇ ਨਤੀਜਾ ਵੀ ਦੋ ਵਾਰੀ ਦਿਖਾਈ ਦਿੰਦਾ। ਲੜੀਵਾਰ ਪਾਈਪਲਾਈਨ ਇਸ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਰੋਕਦੀ ਹੈ।
+> **ਲੜੀਵਾਰ ਕਿਉਂ, fan-out/fan-in ਨਹੀਂ?** `WorkflowBuilder` ਆਉਣ ਵਾਲੀਆਂ ਕਨੈਕਸ਼ਨਾਂ ਲਈ **OR-ਸੈਂਮੈਂਟਿਕਸ** ਵਰਤਦਾ ਹੈ: ਜਦੋਂ ਵੀ **ਕੋਈ ਵੀ** ਪੂਰਵਜ ਖਤਮ ਹੁੰਦਾ ਹੈ, ਇੱਕ ਦਾਅਵਾ ਕਰਨ ਵਾਲਾ ਚਾਲੂ ਹੋ ਜਾਂਦਾ ਹੈ। ਜੇ `matching_executor` ਕੋਲ ਦੋ ਆਉਣ ਵਾਲੀਆਂ ਕਨੈਕਸ਼ਨਾਂ ਹੁੰਦੀਆਂ (ਦੋਹਾਂ `resume_executor` ਅਤੇ `jd_executor` ਤੋਂ), ਤਾਂ ਇਹ ਦੂਜਾ ਦਫਾ ਚਾਲੂ ਹੋਵੇਗਾ - ਇੱਕ ਵਾਰ ResumeParser ਖਤਮ ਹੋਣ ਤੇ ਅਤੇ ਇੱਕ ਵਾਰ JD Agent ਖਤਮ ਹੋਣ ਤੇ - ਜਿਸ ਨਾਲ GapAnalyzer ਵੀ ਦੋ ਵਾਰੀ ਚੱਲੇਗਾ ਅਤੇ ਨਤੀਜਾ ਦੋ ਵਾਰੀ ਦਿਖਾਈ ਦੇਵੇਗਾ। ਲੜੀਵਾਰ ਪਾਈਪਲਾਈਨ ਇਸ ਦੀ ਪੂਰੀ ਤਰ੍ਹਾਂ ਰੋਕਥਾਮ ਕਰਦੀ ਹੈ।
 
 ## ਪੈਟਰਨ 2: ਸਮੱਗਰੀ ਰੀਲੇ
 
-ਕਿਉਂਕਿ `context_mode="last_agent"` ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਹਰ ਏਜੰਟ ਸਿਰਫ ਆਪਣੇ **ਸਿੱਧੇ ਪੂਰਵਵਤੀ ਦਾ ਨਤੀਜਾ** ਵੇਖਦਾ ਹੈ, ਲੜੀਵਾਰ ਚੇਨ ਦੇ ਏਜੰਟਾਂ ਨੂੰ ਖੁਦਵੇਖੀ ਅੱਗੇ ਉਹ ਡੇਟਾ ਭੇਜਣਾ ਪੈਂਦਾ ਹੈ ਜੋ ਹੇਠਾਂ ਵਾਲੇ ਏਜੰਟਾਂ ਨੂੰ ਚਾਹੀਦਾ ਹੈ।
+ਕਿਉਂਕਿ `context_mode="last_agent"` ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਹਰ ਐਗਜ਼ਿਕਿਊਟਰ ਕੇਵਲ ਆਪਣੇ **ਸਿੱਧੇ ਪੂਰਵਜ ਦਾ ਨਤੀਜਾ** ਵੇਖਦਾ ਹੈ, ਇਸ ਲਈ ਲੜੀਵਾਰ ਚੇਨ ਵਿੱਚ ਏਜੰਟਾਂ ਨੂੰ ਕਿਸੇ ਵੀ ਡਾਟਾ ਨੂੰ ਸਪష్ట ਤੌਰ 'ਤੇ ਅਗਲੇ ਏਜੰਟਾਂ ਨੂੰ ਭੇਜਣਾ ਪੈਂਦਾ ਹੈ।
 
 ਇਸ ਵਰਕਫਲੋ ਵਿੱਚ:
-- **ResumeParser** JD ਨੂੰ ਸਿੱਧਾ `[JOB DESCRIPTION PASS-THROUGH]` ਵਿੱਚ ਕਾਪੀ ਕਰਦਾ ਹੈ (ਤਾਂ ਜੋ JD Agent ਇਸਨੂੰ ਲੱਭ ਸਕੇ)।
-- **JD Agent** `[PARSED RESUME]` ਨੂੰ ਸਿੱਧਾ `[PARSED RESUME PASS-THROUGH]` ਵਿੱਚ ਕਾਪੀ ਕਰਦਾ ਹੈ (ਤਾਂ ਜੋ MatchingAgent ਦੋਹਾਂ ਪ੍ਰੋਫ਼ਾਈਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰ ਸਕੇ)।
+- **ResumeParser** JD ਨੂੰ ਬਿਨਾਂ ਕਿਸੇ ਤਬਦੀਲੀ ਦੇ ਕੇ `[JOB DESCRIPTION PASS-THROUGH]` ਵਿੱਚ ਕਾਪੀ ਕਰਦਾ ਹੈ (ਤਾਂ ਜੋ JD Agent ਇਸ ਨੂੰ ਲੱਭ ਸਕੇ).
+- **JD Agent** `[PARSED RESUME]` ਨੂੰ ਬਿਨਾਂ ਬਦਲਾਅ ਦੇ `[PARSED RESUME PASS-THROUGH]` ਵਿੱਚ ਕਾਪੀ ਕਰਦਾ ਹੈ (ਤਾਂ ਜੋ MatchingAgent ਦੋਹਾਂ ਪ੍ਰੋਫਾਈਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰ ਸਕੇ).
 
 ```
 ResumeParser output
@@ -45,89 +45,89 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-ਹਰ ਇੱਕ ਰੀਲੇ ਭਾਗ ਨੂੰ **ਸਾਬਤ ਸਿਰਫ ਸਾਬਤ** ਕਾਪੀ ਕਰਨਾ ਲਾਜ਼ਮੀ ਹੈ - ਇਸਨੂੰ ਸੰਖੇਪ ਜਾਂ ਮੁੜ-ਲਿਖਣਾ ਹੇਠਾਂ ਵਾਲੇ ਏਜੰਟ ਨੂੰ ਬਰਬਾਦ ਕਰ ਦਿੰਦਾ ਹੈ ਜੋ ਇਸ 'ਤੇ ਮੋਹਰ ਰੱਖਦਾ ਹੈ।
+ਹਰ ਰੀਲੇ ਸੈਕਸ਼ਨ ਨੂੰ **ਬਿਨਾਂ ਕਿਸੇ ਤਬਦੀਲੀ ਦੇ** ਕਾਪੀ ਕਰਨਾ ਲਾਜ਼ਮੀ ਹੈ - ਇਸ ਦਾ ਸਾਰ ਜਾਂ ਤਬਦੀਲੀ ਅੱਗੇ ਆਉਣ ਵਾਲੇ ਏਜੰਟ ਨੂੰ ਖਰਾਬ ਕਰਦਾ ਹੈ ਜੋ ਇਸ 'ਤੇ ਨਿਰਭਰ ਹੈ।
 
 ---
 
-## ਪੂਰਾ ਗ੍ਰਾਫ਼
+## ਪੂਰਾ ਗ੍ਰਾਫ
 
-ਲੜੀਵਾਰ ਚੇਨ ਅਤੇ ਸਮੱਗਰੀ ਰੀਲੇ ਪੈਟਰਨ ਨੂੰ ਮਿਲਾ ਕੇ ਪੂਰਾ ਵਰਕਫਲੋ ਬਣਦਾ ਹੈ:
+ਲੜੀਵਾਰ ਚੇਨ ਅਤੇ ਸਮੱਗਰੀ ਰੀਲੇ ਪੈਟਰਨ ਨੂੰ ਮਿਲਾ ਕੇ ਪੂਰਾ ਵਰਕਫਲੋ ਤਿਆਰ ਹੁੰਦਾ ਹੈ:
 
 ```mermaid
 flowchart LR
-    U[ਉਪਭੋਗਤਾ ਐਨਪੁਟ] --> RP[ਰੇਜ਼ਿਊਮ ਪਾਰਸਰ]
-    RP --> JD[ਜੇਡੀ ਏਜੰਟ]
-    JD --> MA[ਮੈਚਿੰਗ ਏਜੰਟ]
-    MA --> GA[ਗੈਪ ਵਿਸ਼ਲੇਸ਼ਕ + MCP]
-    GA --> O[ਆਖਰੀ ਨਤੀਜਾ]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਇਸੇ ਗ੍ਰਾਫ਼ ਸਟ੍ਰਕਚਰ ਨੂੰ ਦਿਖਾਉਂਦਾ ਹੈ ਜਦੋਂ ਏਜੰਟ ਲੋਕਲ ਤੌਰ ਤੇ ਚੱਲ ਰਿਹਾ ਹੁੰਦਾ ਹੈ। ਸਕ੍ਰੀਨਸ਼ਾਟ ਲਈ ਵੇਖੋ [ਮਾਡਿਊਲ 5 - ਯਥास्थਿਤੀ ਵਿੱਚ ਟੈਸਟ](05-test-locally.md)।
+ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਇਹੀ ਗ੍ਰਾਫ ਬਣਤਰ ਦਿਖਾਉਂਦਾ ਹੈ ਜਦੋਂ ਏਜੰਟ ਲੋਕਲ ਰੂਪ ਵਿੱਚ ਚੱਲ ਰਿਹਾ ਹੁੰਦਾ ਹੈ। ਸਕਰੀਨਸ਼ਾਟ ਲਈ [ਮੋਡਿਊਲ 5 - ਟੈਸਟ ਲੋਕਲੀ](05-test-locally.md) ਵੇਖੋ।
 
 ---
 
 ## WorkflowBuilder ਕੋਡ ਪੜ੍ਹਨਾ
 
-ਪੂਰਾ `create_workflow()` ਫੰਕਸ਼ਨ [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ਵਿੱਚ ਹੈ। ਤਿੰਨ `add_edge()` ਕਾਲ ਲੜੀਵਾਰ ਪਾਈਪਲਾਈਨ ਬਣਾਉਂਦੀਆਂ ਹਨ:
+ਵਰਕਫਲੋ ਗ੍ਰਾਫ `main()` ਫੰਕਸ਼ਨ ਵਿੱਚ ਬਣਾਇਆ ਗਿਆ ਹੈ [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ਵਿੱਚ। ਤਿੰਨ `add_edge()` ਕਾਲਾਂ ਅਨੁਕ੍ਰਮਿਕ ਪਾਈਪਲਾਈਨ ਬਣਾਉਂਦੀਆਂ ਹਨ:
 
-| # | ਲੜੀ | ਪ੍ਰਭਾਵ |
+| # | ਕਿਨਾਰਾ | ਪ੍ਰਭਾਵ |
 |---|------|--------|
-| 1 | `resume_executor → jd_executor` | JD Agent ਨੂੰ `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` ਮਿਲਦਾ ਹੈ |
-| 2 | `jd_executor → matching_executor` | MatchingAgent ਨੂੰ `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` ਮਿਲਦਾ ਹੈ |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer ਨੂੰ ਫਿਟ ਰਿਪੋਰਟ + ਗੈਪ ਲਿਸਟ ਮਿਲਦੀ ਹੈ |
+| 1 | `resume_executor → jd_executor` | JD ਏਜੰਟ ਨੂੰ `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` ਮਿਲਦਾ ਹੈ |
+| 2 | `jd_executor → matching_executor` | ਮੈਚਿੰਗਏਜੰਟ ਨੂੰ `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` ਮਿਲਦੇ ਹਨ |
+| 3 | `matching_executor → gap_executor` | ਗੈਪਅਨਾਲਾਈਜ਼ਰ ਨੂੰ ਫਿੱਟ ਰਿਪੋਰਟ + ਗੈਪ ਸੂਚੀ ਮਿਲਦੀ ਹੈ |
 
 ---
 
-## ਗ੍ਰਾਫ਼ ਸੋਧਣਾ
+## ਗ੍ਰਾਫ ਸੋਧਨਾ
 
-### ਨਵਾਂ ਏਜੰਟ ਜੋੜਣਾ
+### ਨਵਾਂ ਏਜੰਟ ਸ਼ਾਮਲ ਕਰਨਾ
 
-ਪੰਜਾਂਵੇਂ ਏਜੰਟ ਨੂੰ ਜੋੜਨ ਲਈ (ਜਿਵੇਂ ਕਿ GapAnalyzer ਤੋਂ ਬਾਅਦ **InterviewPrepAgent**):
+ਗੈਪਅਨਾਲਾਈਜ਼ਰ ਤੋਂ ਬਾਅਦ ਪੰਜਵਾਂ ਏਜੰਟ (ਜਿਵੇਂ ਕਿ **InterviewPrepAgent**) ਸ਼ਾਮਲ ਕਰਨ ਲਈ:
 
 1. ਇੱਕ `INTERVIEW_PREP_INSTRUCTIONS` ਕਾਂਸਟੈਂਟ ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ।
-2. `Agent` ਅਤੇ `AgentExecutor` ਓਬਜੈਕਟ ਬਣਾਓ (ਮੌਜੂਦਾ ਚਾਰਾਂ ਵਾਂਗ ਹੀ)।
-3. `WorkflowBuilder` ਵਿੱਚ `.add_edge(gap_executor, interview_exec)` ਜੋੜੋ।
-4. `output_executors=[interview_exec]` ਅਪਡੇਟ ਕਰੋ।
+2. `Agent` + `AgentExecutor` ਆਬਜੈਕਟ ਬਣਾਓ (ਮੌਜੂਦਾ ਚਾਰਾਂ ਵਰਗਾ ਹੀ ਪੈਟਰਨ).
+3. `.add_edge(gap_executor, interview_exec)` ਨੂੰ `WorkflowBuilder` ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ।
+4. `output_executors=[interview_exec]` ਨੂੰ ਅਪਡੇਟ ਕਰੋ।
 
-> **ਮਹੱਤਵਪੂਰਨ:** `start_executor` ਹੀ ਇਕੋ ਇੱਕ ਏਜੰਟ ਹੈ ਜੋ ਕੱਚਾ ਯੂਜ਼ਰ ਇੰਪੁੱਟ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਹੋਰ ਸਾਰੇ ਏਜੰਟ ਆਪਣੇ ਉਪਰਲੇ ਕਿਨਾਰੇ ਤੋਂ ਆਉਟਪੁੱਟ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹਨ।
+> **ਜਰੂਰੀ:** `start_executor` ਇਕਮਾਤਰ ਏਜੰਟ ਹੈ ਜੋ ਕੱਚਾ ਯੂਜ਼ਰ ਇਨਪੁੱਟ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਬਾਕੀ ਸਾਰੇ ਏਜੰਟ ਆਪਣੇ ਅਪਸਟ੍ਰੀਮ ਕਿਨਾਰੇ ਤੋਂ ਆਉਟਪੁੱਟ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹਨ।
 
 ---
 
-## ਆਮ ਗ੍ਰਾਫ਼ ਦੀਆਂ ਗਲਤੀਆਂ
+## ਆਮ ਗ੍ਰਾਫ ਗਲਤੀਆਂ
 
-| ਗਲਤੀ | ਲਛਣ | ਸੁਧਾਰ |
+| ਗਲਤੀ | ਲੱਛਣ | ਠੀਕ ਕਰਨਾ |
 |---------|---------|-----|
-| `output_executors` ਵੱਲੋਂ ਕਿਨਾਰਾ ਗੁੰਮ ਹੋਣਾ | ਏਜੰਟ ਚੱਲਦਾ ਹੈ ਪਰ ਨਤੀਜਾ ਖਾਲੀ ਹੁੰਦਾ ਹੈ | ਯਕੀਨੀ ਬਣਾਓ ਕਿ `start_executor` ਤੋਂ ਹਰੇਕ ਏਜੰਟ ਤੱਕ ਰਸਤਾ ਹੈ ਜੋ `output_executors` ਵਿੱਚ ਹੈ |
-| ਗੋਲ ਚੱਕਰ ਦਾ ਨਿਰਭਰਤਾ | ਅਨੰਤ ਲੂਪ ਜਾਂ ਸਮਾਂ ਬਾਹਰ | ਚੈੱਕ ਕਰੋ ਕਿ ਕੋਈ ਏਜੰਟ ਆਪਣੇ ਉਪਰਲੇ ਏਜੰਟ ਨੂੰ ਮੁੜ ਨਹੀਂ ਭੇਜ ਰਿਹਾ |
-| `output_executors` ਵਿੱਚ ਏਜੰਟ ਜਿਸਦੇ ਕੋਲ ਕੋਈ ਆਉਣ ਵਾਲਾ ਕਿਨਾਰਾ ਨਹੀਂ | ਨਤੀਜਾ ਖਾਲੀ | ਘੱਟੋ-ਘੱਟ ਇੱਕ `add_edge(source, that_agent)` ਜੋੜੋ |
-| ਕਈ `output_executors` ਬਿਨਾਂ ਫੈਨ-ਇਨ ਦੇ | ਨਤੀਜਾ ਸਿਰਫ ਇੱਕ ਏਜੰਟ ਦਾ ਹੁੰਦਾ ਹੈ | ਇੱਕ ਮੁੱਖ ਆਉਟਪੁੱਟ ਏਜੰਟ ਵਰਤੋ ਜੋ ਸਭ ਨੂੰ ਮਿਲਾ ਕੇ ਦਿੰਦਾ ਹੈ, ਜਾਂ ਵੱਖ-ਵੱਖ ਆਉਟਪੁੱਟ ਮੰਨੋ |
-| `start_executor` ਗੁੰਮ ਹੋਣਾ | ਬਣਾਉਂਦੇ ਸਮੇਂ `ValueError` | ਹਮੇਸ਼ਾ `WorkflowBuilder()` ਵਿੱਚ `start_executor` ਦਿਓ |
+| `output_executors` ਲਈ ਕਿਨਾਰਾ ਗੁੰਮ ਹੈ | ਏਜੰਟ ਚਲਦਾ ਹੈ ਪਰ ਆਉਟਪੁੱਟ ਖਾਲੀ ਹੈ | ਯਕੀਨ ਕਰੋ ਕਿ ਹਰ ਏਜੰਟ ਲਈ `start_executor` ਤੋਂ ਮਾਰਗ ਹੈ `output_executors` ਵਿੱਚ |
+| ਸਿਰਕੁਲਰ ਨਿਰਭਰਤਾ | ਅਨੰਤ ਲੂਪ ਜਾਂ ਟਾਈਮਆਊਟ | ਚੈੱਕ ਕਰੋ ਕਿ ਕੋਈ ਵੀ ਏਜੰਟ ਆਪਣੇ ਅਪਸਟ੍ਰੀਮ ਏਜੰਟ ਨੂੰ ਫੀਡ ਬੈਕ ਨਹੀਂ ਕਰ ਰਿਹਾ |
+| `output_executors` ਵਿੱਚ ਏਜੰਟ ਜਿਸਦਾ ਕੋਈ ਅਗਲਾ ਕਿਨਾਰਾ ਨਹੀਂ | ਖਾਲੀ ਆਉਟਪੁੱਟ | ਘੱਟੋ-ਘੱਟ ਇੱਕ `add_edge(source, that_agent)` ਸ਼ਾਮਲ ਕਰੋ |
+| ਕਈ `output_executors` ਬਿਨਾਂ ਫੈਨ-ਇਨ ਦੇ | ਆਉਟਪੁੱਟ ਵਿੱਚ ਸਿਰਫ਼ ਇੱਕ ਏਜੰਟ ਦੀ ਪ੍ਰਤੀਕ੍ਰਿਆ ਹੁੰਦੀ ਹੈ | ਇੱਕਲੌਤਾ ਆਉਟਪੁੱਟ ਏਜੰਟ ਵਰਤੋ ਜੋ ਸਾਰਾ ਇਕੱਤਰ ਕਰਦਾ ਹੈ, ਜਾਂ ਕਈ ਆਉਟਪੁੱਟ ਸਵੀਕਾਰ ਕਰੋ |
+| `start_executor` ਗੁੰਮ | ਤਿਆਰ ਕਰਨ ਸਮੇਂ `ValueError` | ਹਮੇਸ਼ਾ `start_executor` ਨੂੰ `WorkflowBuilder()` ਵਿੱਚ ਨਿਰਧਾਰਿਤ ਕਰੋ |
 
 ---
 
-## ਗ੍ਰਾਫ਼ ਡੀਬੱਗਿੰਗ
+## ਗ੍ਰਾਫ ਡੀਬੱਗ ਕਰਨਾ
 
-### ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਵਰਤਣਾ
+### ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਦੀ ਵਰਤੋਂ
 
-1. F5 ਨਾਲ ਏਜੰਟ ਨੂੰ ਲੋਕਲ ਤੌਰ 'ਤੇ ਸ਼ੁਰੂ ਕਰੋ।
-2. ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਖੋਲ੍ਹੋ (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**)।
-3. ਇੱਕ ਟੈਸਟ ਸੁਨੇਹਾ ਭੇਜੋ।
-4. ਇੰਸਪੈਕਟਰ ਦੇ ਜਵਾਬ ਪੈਨਲ ਵਿੱਚ **ਸਟਰੀਮਿੰਗ ਆਉਟਪੁੱਟ** ਵੇਖੋ - ਇਹ ਹਰ ਏਜੰਟ ਦਾ ਯੋਜਨਾ ਦੇ ਅਨੁਕੂਲ ਯੋਗਦਾਨ ਦਿਖਾਉਂਦਾ ਹੈ।
+1. F5 ਨਾਲ ਲੋਕੇਲ ਐਜੰਟ ਸ਼ੁਰੂ ਕਰੋ।
+2. ਏਜੰਟ ਇੰਸਪੈਕਟਰ ਖੋਲ੍ਹੋ (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
+3. ਇੱਕ ਟੈਸਟ ਸੰਦਰਭ ਭੇਜੋ।
+4. ਇੰਸਪੈਕਟਰ ਦੇ ਪ੍ਰਤੀਕ੍ਰਿਆ ਪੈਨਲ ਵਿੱਚ, **ਸਟ੍ਰੀਮਿੰਗ ਆਉਟਪੁੱਟ** ਵੇਖੋ - ਇਹ ਹਰ ਏਜੰਟ ਦੀ ਯੋਗਦਾਨ ਕ੍ਰਮਵਾਰ ਦਿਖਾਉਂਦਾ ਹੈ।
 
 
 ### ਲੌਗਿੰਗ ਦੀ ਵਰਤੋਂ
 
-ਡੇਟਾ ਫਲੋ ਟ੍ਰੇਸ ਕਰਨ ਲਈ `main.py` ਵਿੱਚ ਲੌਗਿੰਗ ਸ਼ਾਮਲ ਕਰੋ:
+ਡਾਟਾ ਫਲੋ ਟ੍ਰੇਸ ਕਰਨ ਲਈ `main.py` ਵਿੱਚ ਲੌਗਿੰਗ ਸ਼ਾਮਲ ਕਰੋ:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# main() ਵਿੱਚ, workflow ਬਣਾਉਣ ਤੋਂ ਬਾਅਦ:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-ਸਰਵਰ ਲੌਗ ਏਜੰਟ ਐਗਜ਼ੈਕਯੂਸ਼ਨ ਕ੍ਰਮ ਅਤੇ MCP ਟੂਲ ਕਾਲ ਦਿਖਾਉਂਦੇ ਹਨ:
+ਸਰਵਰ ਲੌਗਾਂ ਵਿੱਚ ਏਜੰਟ ਐਗਜ਼ਿਕਿਊਸ਼ਨ ਆਰਡਰ ਅਤੇ MCP ਟੂਲ ਕਾਲ ਦਿੱਤੀਆਂ ਹਨ:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -142,17 +142,17 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### ਚੈਕਪੋਇੰਟ
+### ਚੈਕਪੌਇੰਟ
 
-- [ ] ਤੁਸੀਂ ਵਰਕਫਲੋ ਵਿੱਚ ਦੋ ਓਰਕੇਸਟ੍ਰੇਸ਼ਨ ਪੈਟਰਨ, ਲੜੀਵਾਰ ਚੇਨ ਅਤੇ ਸਮੱਗਰੀ ਰੀਲੇ ਦੀ ਪਛਾਣ ਕਰ ਸਕਦੇ ਹੋ
-- [ ] ਤੁਸੀਂ ਸਮਝਦੇ ਹੋ ਕਿ ਕਿਉਂ `context_mode="last_agent"` ਏਜੰਟਾਂ ਵਿਚਕਾਰ ਖੁੱਲ੍ਹੇ ਤੌਰ 'ਤੇ ਡੇਟਾ ਰੀਲੇ ਮੰਗਦਾ ਹੈ
+- [ ] ਤੁਸੀਂ ਵਰਕਫਲੋ ਵਿੱਚ ਦੋ ਓਰਕੇਸਟਰਸ਼ਨ ਪੈਟਰਨਾਂ ਦੀ ਪਹਚਾਣ ਕਰ ਸਕਦੇ ਹੋ: ਕ੍ਰਮਬੱਧ ਚੇਨ ਅਤੇ ਸਮੱਗਰੀ ਰੀਲੇ
+- [ ] ਤੁਸੀਂ ਸਮਝਦੇ ਹੋ ਕਿ ਕਿਉਂ `context_mode="last_agent"` ਨੂੰ ਏਜੰਟਾਂ ਵਿਚਕਾਰ ਸਪਸ਼ਟ ਡਾਟਾ ਰੀਲੇ ਦੀ ਲੋੜ ਹੈ
 - [ ] ਤੁਸੀਂ `WorkflowBuilder` ਕੋਡ ਪੜ੍ਹ ਸਕਦੇ ਹੋ ਅਤੇ ਹਰ `add_edge()` ਕਾਲ ਨੂੰ ਵਿਜ਼ੂਅਲ ਗ੍ਰਾਫ ਨਾਲ ਜੋੜ ਸਕਦੇ ਹੋ
-- [ ] ਤੁਸੀਂ ਪਾਈਪਲਾਈਨ ਦੇ ਅੰਤ ਵਿੱਚ ਨਵਾਂ ਏਜੰਟ ਜੋੜਣ ਦੇ ਤਰੀਕੇ ਜਾਣਦੇ ਹੋ
-- [ ] ਤੁਸੀਂ ਆਮ ਗ੍ਰਾਫ਼ ਦੀਆਂ ਗਲਤੀਆਂ ਅਤੇ ਉਹਨਾਂ ਦੇ ਲੱਛਣਾਂ ਨੂੰ ਪਛਾਣ ਸਕਦੇ ਹੋ
+- [ ] ਤੁਸੀਂ ਪਾਈਪਲਾਈਨ ਦੇ ਅੰਤ ਵਿੱਚ ਨਵਾਂ ਏਜੰਟ ਸ਼ਾਮਲ ਕਰਨਾ ਜਾਣਦੇ ਹੋ
+- [ ] ਤੁਸੀਂ ਆਮ ਗ੍ਰਾਫ ਗਲਤੀਆਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਲੱਛਣਾਂ ਦੀ ਪਹਚਾਣ ਕਰ ਸਕਦੇ ਹੋ
 
 ---
 
-**ਪਿਛਲਾ:** [03 - ਏਜੰਟ ਅਤੇ ਵਾਤਾਵਰਣ ਸੈੱਟਅੱਪ ਕਰੋ](03-configure-agents.md) · **ਅਗਲਾ:** [05 - ਲੋਕਲ ਤੌਰ ਤੇ ਟੈਸਟ ਕਰੋ →](05-test-locally.md)
+**ਪਿਛਲਾ:** [03 - ਏਜੰਟ ਅਤੇ ਵਾਤਾਵਰਣ ਸੈਟ ਅੱਪ](03-configure-agents.md) · **ਅਗਲਾ:** [05 - ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਟੈਸਟ ਕਰੋ →](05-test-locally.md)
 
 ---
 

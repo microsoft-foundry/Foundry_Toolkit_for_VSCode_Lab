@@ -1,34 +1,34 @@
-# Modul 2 - Membangun Kerangka Proyek Multi-Agen
+# Modul 2 - Membuat Kerangka Proyek Multi-Agen
 
 ⏱️ ~5 menit
 
-Dalam modul ini, Anda menggunakan [Foundry Toolkit untuk VS Code](https://aka.ms/foundrytk) untuk **membangun kerangka proyek multi-agen**. Wizard menghasilkan `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, dan konfigurasi debug VS Code - sehingga Anda dapat fokus pada penyambungan alur kerja 4-agen di Modul 3.
+Dalam modul ini, Anda menggunakan [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) untuk **membuat kerangka proyek multi-agen**. Wizard menghasilkan `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, dan konfigurasi debug VS Code - sehingga Anda dapat fokus pada pengkabelan alur kerja 4-agen di Modul 3.
 
-> **Konsep utama:** Kerangka ini adalah stub kerja dengan satu agen. Anda mengganti logika placeholder dengan grafik `WorkflowBuilder` di Modul 3. Anda tidak menulis kode boilerplate dari awal.
+> **Konsep utama:** Kerangka adalah stub yang berfungsi dengan satu agen. Anda mengganti logika placeholder dengan grafik `WorkflowBuilder` di Modul 3. Anda tidak menulis kode dasar dari awal.
 
-> **Implementasi referensi:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) adalah contoh kerja lengkap. Gunakan untuk membandingkan pekerjaan Anda saat berjalan.
+> **Implementasi referensi:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) adalah contoh lengkap yang berfungsi. Gunakan untuk membandingkan pekerjaan Anda seiring berjalan.
 
-### Alur wizard kerangka
+### Alur wizard pembuatan kerangka
 
 ```mermaid
 flowchart LR
-    A[Command Palette: Buat Agen Hosted Baru] --> B[Bahasa: Python]
-    B --> C[API Type: Respon API]
-    C --> D[Template: Alur Kerja]
-    D --> E[Pilih Model]
-    E --> F[Folder Workspace dan Nama Agen]
-    F --> G[Proyek yang Dihasilkan]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
-## Langkah 1: Buka wizard Buat Hosted Agent
+## Langkah 1: Buka wizard Create Hosted Agent
 
 1. Tekan `Ctrl+Shift+P` untuk membuka **Command Palette**.
-2. Ketik: **Foundry Toolkit: Create a New Hosted Agent** dan pilih.
+2. Ketik: **Foundry Toolkit: Create new Hosted Agent** dan pilih.
 3. Wizard terbuka pada tab **Agent Details**.
 
-> **Alternatif:** Klik ikon **Foundry Toolkit** di Activity Bar → klik ikon **+** di samping **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternatif:** Klik ikon **Foundry Toolkit** di Activity Bar → klik ikon **+** di sebelah **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
@@ -36,7 +36,7 @@ flowchart LR
 
 ![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/id/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Pada bagian navigasi/pilihan di kiri pilih sebagai berikut:
+1. Di bagian navigasi/pilihan kiri pilih yang berikut:
 
 | Menu | Pilihan | Catatan |
 |--------|-----------|-------|
@@ -45,19 +45,19 @@ flowchart LR
 | **API type** | Response API | `POST /responses` - riwayat dikelola platform, dukungan streaming |
 | **Template** | **Workflows** | Memproses permintaan melalui beberapa agen secara berurutan |
 
-2. Setelah dipilih, klik **Next**
+2. Setelah memilih, klik **Next**
 
 ![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/id/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. Pada jendela berikut, pilih sebagai berikut:
+3. Pada jendela berikutnya, pilih yang berikut:
 
 | Menu | Pilihan | Catatan |
 |--------|-----------|-------|
-| **Workspace folder** | Telusuri folder target | misal, `workshop/lab02-multi-agent/` di repo ini |
-| **Agent name** | `PersonalCareerCopilot` | Ini menjadi nama direktori proyek |
-| **Model Deployment** | Pilih model yang dideploy | misal, `gpt-4.1-mini` dari Lab 01 |
+| **Workspace folder** | Telusuri ke folder target | misal, `workshop/lab02-multi-agent/` di repo ini |
+| **Agent name** | `PersonalCareerCopilot` | Ini akan menjadi nama direktori proyek |
+| **Model Deployment** | Pilih model yang sudah Anda deploy | misal, `gpt-4.1-mini` dari Lab 01 |
 
-4. Klik **Create** untuk membangun kerangka proyek. VS Code akan menghasilkan file dan membuka foldernya.
+4. Klik **Create** untuk membuat kerangka proyek. VS Code menghasilkan file dan membuka folder tersebut.
 
 > **Tips:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) menyeimbangkan kecepatan dan kualitas dengan baik untuk pengembangan multi-agen.
 
@@ -65,7 +65,7 @@ flowchart LR
 
 ## Langkah 3: Periksa proyek yang dihasilkan
 
-Setelah pembangunan kerangka selesai, pastikan Anda melihat file-file ini di Explorer (`Ctrl+Shift+E`):
+Setelah selesai membuat kerangka, pastikan Anda melihat file-file ini di Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,14 +81,14 @@ Setelah pembangunan kerangka selesai, pastikan Anda melihat file-file ini di Exp
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Penting:** Buka folder kerangka ini langsung di VS Code agar `.vscode/launch.json` dan `tasks.json` diterapkan dengan benar saat debug F5.
+> **Penting:** Buka folder kerangka ini langsung di VS Code agar `.vscode/launch.json` dan `tasks.json` berlaku dengan benar saat debugging F5.
 
-### Penjelasan file utama
+### Penjelasan file kunci
 
 | File | Tujuan |
 |------|---------|
-| `agent.yaml` | Mendeklarasikan `kind: hosted`, memetakan variabel lingkungan, mendefinisikan protokol `/responses` |
-| `main.py` | Stub: satu `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Anda ganti dengan 4 agen + `WorkflowBuilder` di Modul 3 |
+| `agent.yaml` | Mendeklarasikan `kind: hosted`, memetakan variabel env, mendefinisikan protokol `/responses` |
+| `main.py` | Stub: satu `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Anda mengganti ini dengan 4 agen + `WorkflowBuilder` di Modul 3 |
 | `Dockerfile` | `python:3.12-slim`, menginstal `requirements.txt`, membuka port 8088, menjalankan `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
@@ -98,16 +98,16 @@ Setelah pembangunan kerangka selesai, pastikan Anda melihat file-file ini di Exp
 
 ### ✅ Titik pemeriksaan
 
-- [ ] Wizard kerangka selesai - folder proyek baru terlihat di Explorer
+- [ ] Wizard pembuatan kerangka selesai - folder proyek baru terlihat di Explorer
 - [ ] Semua file yang diharapkan ada: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] `agent.yaml` menunjukkan `kind: hosted` dan `protocol: responses`
+- [ ] `agent.yaml` menampilkan `kind: hosted` dan `protocol: responses`
 - [ ] `main.py` mengimpor `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Folder kerangka dibuka sebagai root workspace di VS Code
-- [ ] Anda mengerti `main.py` adalah stub - `WorkflowBuilder` ditambahkan di Modul 3
+- [ ] Folder yang sudah dibuat dibuka sebagai root workspace di VS Code
+- [ ] Anda memahami `main.py` adalah stub - `WorkflowBuilder` akan ditambahkan di Modul 3
 
 ---
 
-**Sebelumnya:** [01 - Memahami Arsitektur Multi-Agen](01-understand-multi-agent.md) · **Berikutnya:** [03 - Konfigurasi Agen & Lingkungan →](03-configure-agents.md)
+**Sebelumnya:** [01 - Memahami Arsitektur Multi-Agen](01-understand-multi-agent.md) · **Berikutnya:** [03 - Konfigurasikan Agen & Lingkungan →](03-configure-agents.md)
 
 ---
 

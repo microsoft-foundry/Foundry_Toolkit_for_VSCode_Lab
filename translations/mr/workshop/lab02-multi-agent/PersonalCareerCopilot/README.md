@@ -1,36 +1,36 @@
-# PersonalCareerCopilot - रिज्युमे → नोकरीशी जुळणी मूल्यांकन करणारा
+# PersonalCareerCopilot - रिझ्युमे → नोकरी अनुकूलता मूल्यमापनकर्ता
 
-एक वर्कफ्लो-प्रथम मल्टी-एजंट अ‍ॅप जो रिज्युमे नोकरीच्या वर्णनाशी किती चांगला जुळतो हे मूल्यांकन करतो, नंतर अंतर भरण्यासाठी वैयक्तिकृत शिक्षण रोडमॅप तयार करतो.
+एक वर्कफ्लो-प्रथम मल्टी-एजंट अ‍ॅप जे रिझ्युमे नोकरीच्या वर्णनाशी किती चांगले जुळतो हे मूल्यांकन करते, आणि नंतर अंतर भरण्यासाठी वैयक्तिकृत शिक्षण मार्गनकाशा तयार करते.
 
 ---
 
 ## एजंट्स
 
 | एजंट | भूमिका | साधने |
-|-------|------|-------|
-| **ResumeParser** | रिज्युमे मजकूरातून संरचित कौशल्ये, अनुभव, प्रमाणपत्रे काढतो | - |
-| **JobDescriptionAgent** | एका JD मधून आवश्यक/प्राथमिक कौशल्ये, अनुभव, प्रमाणपत्रे काढतो | - |
-| **MatchingAgent** | प्रोफाइल विरुद्ध आवश्यकता तुलना करतो → जुळणी गुणांकन (0-100) + जुळलेली/गायब कौशल्ये | - |
-| **GapAnalyzer** | Microsoft Learn संसाधनांसह वैयक्तिकृत शिक्षण रोडमॅप तयार करतो | `search_microsoft_learn_for_plan` (MCP) |
+|-------|--------|--------|
+| **ResumeParser** | रिझ्युमे मजकूरातून संरचित कौशल्ये, अनुभव, प्रमाणपत्रे काढते | - |
+| **JobDescriptionAgent** | JD मधून आवश्यक/आग्रह केलेली कौशल्ये, अनुभव, प्रमाणपत्रे काढते | - |
+| **MatchingAgent** | प्रोफाइल विरूद्ध आवश्यकतांची तुलना करते → फिट स्कोअर (0-100) + जुळणारी/गहाळ कौशल्ये | - |
+| **GapAnalyzer** | Microsoft Learn संसाधनांसह वैयक्तिकृत शिक्षण मार्गनकाशा तयार करते | `search_microsoft_learn_for_plan` (MCP) |
 
 ## वर्कफ्लो
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: रेज्युमे + नोकरी वर्णन"] --> ResumeParser
-    ResumeParser -- "पार्स केलेले रेज्युमे + JD रिले" --> JobDescriptionAgent
-    JobDescriptionAgent -- "JD आवश्यकता + रेज्युमे रिले" --> MatchingAgent
-    MatchingAgent -- "फिट रिपोर्ट + गॅप्स" --> GapAnalyzerMCP["गॅप विश्लेषक +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nफिट स्कोअर + रोडमॅप"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## जलद सुरूवात
+## जलद प्रारंभ
 
 ### 1. पर्यावरण सेट करा
 
-हा फोल्डर वर्कफ्लो-आधारित Lab 02 स्कॅफोल्डसाठी संदर्भ अंमलबजावणी आहे. याचे `main.py` विद्यमान प्रॉम्प्ट ब्लॉक्स आणि `WorkflowBuilder` वापरून चार एजंट्स एकत्र जोडतो.
+हा फोल्डर वर्कफ्लो-आधारित Lab 02 scaffolding साठी संदर्भ अंमलबजावणूक आहे. त्याच्या `main.py` मध्ये विद्यमान प्रॉम्प्ट ब्लॉक्ससह चार एजंट्सना जोडण्यासाठी `WorkflowBuilder` वापरले आहे.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,9 +40,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. क्रेडेंशियल्स कॉन्फिगर करा
+### 2. प्रमाणपत्रे कॉन्फिगर करा
 
-या फोल्डरमध्ये `.env` फाइल तयार करा:
+या फोल्डरमध्ये एक `.env` फाइल तयार करा:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| मूल्य | कुठे शोधायचे |
-|-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit साइडबार → आपल्या प्रोजेक्टवर उजवे-क्लिक करा → **Copy Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry साइडबार → प्रोजेक्ट विस्तृत करा → **Models + endpoints** → तैनातीचे नाव |
+| मूल्य | कुठे सापडेल |
+|-------|-------------|
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit साइडबार → प्रकल्पावर उजवे-क्लिक करा → **प्रोजेक्ट एंडपॉइंट कॉपी करा** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry साइडबार → प्रकल्प विस्तृत करा → **मॉडेल्स + एंडपॉइंट्स** → डिप्लॉयमेंट नाव |
 
 ### 3. स्थानिकरित्या चालवा
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-किंवा VS कोड टास्क वापरा: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+किंवा VS Code टास्क वापरा: `Ctrl+Shift+P` → **टास्क: टास्क चालवा** → **एजंट HTTP सर्व्हर चालवा**.
 
-F5 डिबगिंगसाठी, वापरा **Debug Local Agent HTTP Server**.
+F5 डिबगिंगसाठी, **Debug Local Agent HTTP Server** वापरा.
 
-### 4. Agent Inspector सह तपासा
+### 4. एजंट निरीक्षकासह चाचणी करा
 
-Agent Inspector उघडा: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+एजंट निरीक्षक उघडा: `Ctrl+Shift+P` → **Foundry Toolkit: एजंट निरीक्षक उघडा**.
 
-हा तपास प्रॉम्प्ट पेस्ट करा:
+हा चाचणी प्रॉम्प्ट पेस्ट करा:
 
 ```
 Resume:
@@ -92,15 +92,15 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**अपेक्षित:** एक जुळणी गुणांकन (0-100), जुळलेली/गायब कौशल्ये, आणि Microsoft Learn URLs सह वैयक्तिकृत शिक्षण रोडमॅप.
+**अपेक्षित:** फिट स्कोअर (0-100), जुळणारी/गहाळ कौशल्ये, आणि Microsoft Learn URL सह वैयक्तिकृत शिक्षण मार्गनकाशा.
 
-### 5. Foundry मध्ये तैनात करा
+### 5. Foundry मध्ये डिप्लॉय करा
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → आपला प्रोजेक्ट निवडा → पुष्टी करा.
+`Ctrl+Shift+P` → **Foundry Toolkit: होस्टेड एजंट डिप्लॉय करा** → आपला प्रकल्प निवडा → पुष्टी करा.
 
 ---
 
-## प्रोजेक्ट संरचना
+## प्रकल्प संरचना
 
 ```
 PersonalCareerCopilot/
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## मुख्य फाइल्स
+## महत्त्वाच्या फाइल्स
 
 ### `agent.yaml`
 
-Foundry Agent Service साठी होस्टेड एजंट निश्चित करते:
-- `kind: hosted` - एक व्यवस्थापित कंटेनर म्हणून चालतो
-- `protocols` - `responses` प्रोटोकॉलसह `version: 1.0.0`, `/responses` HTTP एंडपॉइंट उघडतो
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` येथे घोषित; `FOUNDRY_PROJECT_ENDPOINT` तैनाती वेळी स्वयंचलितपणे इंजेक्ट केला जातो
+Foundry एजंट सेवा साठी होस्टेड एजंट परिभाषित करते:
+- `kind: hosted` - व्यवस्थापित कंटेनर म्हणून चालते
+- `protocols` - `responses` प्रोटोकॉलसह `version: 2.0.0`, `/responses` HTTP एंडपॉइंट उघडते
+- `environment_variables` - येथे `AZURE_AI_MODEL_DEPLOYMENT_NAME` घोषित आहे; `FOUNDRY_PROJECT_ENDPOINT` डिप्लॉय वेळेस स्वयंचलितपणे इंजेक्ट होते
 
 ### `main.py`
 
-यात समाविष्ट आहे:
-- **एजंट सूचना** - चार `*_INSTRUCTIONS` स्थिरांक, प्रत्येक एजंटसाठी एक
-- **MCP साधन** - `search_microsoft_learn_for_plan()` `https://learn.microsoft.com/api/mcp` ला Streamable HTTP द्वारे कॉल करतो
-- **एजंट निर्मिती** - चार `Agent()` + `AgentExecutor()` उदाहरणे जी एक `FoundryChatClient` शेअर करतात
-- **वर्कफ्लो ग्राफ** - `WorkflowBuilder` एजंट्सना अनुक्रमिक पाईपलाईन म्हणून जोडतो: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **सर्व्हर सुरूवात** - `ResponsesHostServer` पोर्ट 8088 वर चालतो
+यामध्ये आहे:
+- **एजंट सूचना** - चार `*_INSTRUCTIONS` स्थिरांक, प्रत्येकी एक एजंटसाठी
+- **MCP साधन** - `search_microsoft_learn_for_plan()` डंबिबध HTTP द्वारे `https://learn.microsoft.com/api/mcp` कॉल करते
+- **एजंट निर्मिती** - चार `Agent()` + `AgentExecutor()` उदाहरणे एकच `FoundryChatClient` शेअर करतात
+- **वर्कफ्लो ग्राफ** - `WorkflowBuilder` एजंट्सना क्रमवार पाइपलाइन म्हणून जोडते: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **सर्व्हर सुरूवात** - `ResponsesHostServer` पोर्ट 8088 वर चालते
 
 ### `requirements.txt`
 
 | पॅकेज | उद्देश |
-|---------|----------|
-| `agent-framework-foundry` | मुख्य रनटाइम: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+|---------|---------|
+| `agent-framework-foundry` | कोर रनटाइम: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
 | `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry होस्टिंग इंटिग्रेशन |
 | `mcp<2,>=1.24.0` | GapAnalyzer साठी MCP क्लायंट (`streamable_http_client`) |
-| `debugpy` | Python डिबगिंग (VS कोड मध्ये F5) |
+| `debugpy` | पायथन डिबगिंग (VS Code मधील F5) |
 
 ---
 
-## त्रुटी निराकरण
+## त्रुटी निवारण
 
-| समस्या | निराकरण |
-|-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` किंवा `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `.env` तयार करा ज्यात दोन्ही `FOUNDRY_PROJECT_ENDPOINT` आणि `AZURE_AI_MODEL_DEPLOYMENT_NAME` सेट केलेले असतील |
-| `ModuleNotFoundError: No module named 'agent_framework'` | वर्चुअल एन्व्हायर्नमेंट सक्रिय करा आणि `pip install -r requirements.txt` चालवा |
-| आउटपुटमध्ये Microsoft Learn URLs नाहीत | `https://learn.microsoft.com/api/mcp` कडे इंटरनेट कनेक्टिव्हिटी तपासा |
-| फक्त 1 गॅप कार्ड (कपातलेले) | खात्री करा की `GAP_ANALYZER_INSTRUCTIONS` मध्ये `CRITICAL:` ब्लॉक समाविष्ट आहे |
-| पोर्ट 8088 वापरात आहे | इतर सर्व्हर थांबवा: `netstat -ano \| findstr :8088` |
+| समस्या | दुरुस्ती |
+|-------|-------|
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` किंवा `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `.env` तयार करा ज्यात `FOUNDRY_PROJECT_ENDPOINT` आणि `AZURE_AI_MODEL_DEPLOYMENT_NAME` प्लगइन एकत्र सेट असतील |
+| `ModuleNotFoundError: No module named 'agent_framework'` | venv सक्रिय करा आणि `pip install -r requirements.txt` चालवा |
+| आउटपुट मध्ये Microsoft Learn URL नाहीत | `https://learn.microsoft.com/api/mcp` इंटरनेट कनेक्टिव्हिटी तपासा |
+| फक्त 1 गॅप कार्ड (छाटलेले) | तपासा की `GAP_ANALYZER_INSTRUCTIONS` मध्ये `CRITICAL:` ब्लॉक आहे |
+| पोर्ट 8088 वापरात आहे | इतर सर्व्हर्स थांबवा: `netstat -ano \| findstr :8088` |
 
-तपशीलवार त्रुटी निराकरणासाठी, पहा [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+सविस्तर त्रुटी निवारणासाठी, पहा [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 
 ---
 
-**पूर्ण मार्गदर्शन:** [Lab 02 Docs](../docs/README.md) · **मागे जा:** [Lab 02 README](../README.md) · [कार्यशाळा होम](../../../README.md)
+**पूर्ण मार्गदर्शन:** [Lab 02 Docs](../docs/README.md) · **मागे जा:** [Lab 02 README](../README.md) · [वर्कशॉप होम](../../../README.md)
 
 ---
 

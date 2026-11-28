@@ -2,47 +2,47 @@
 
 ⏱️ ~10 min
 
-I denne modulen distribuerer du din lokalt testede multi-agent arbeidsflyt til [Microsoft Foundry](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) som en **Hosted Agent**. Distribusjonsprosessen bygger et Docker container image, sender det til [Azure Container Registry (ACR)](https://learn.microsoft.com/azure/container-registry/container-registry-intro), og oppretter en hosted agent versjon i [Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-agent).
+I denne modulen distribuerer du ditt lokalt testede multi-agent arbeidsflyt til [Microsoft Foundry](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) som en **Hosted Agent**. Distribusjonsprosessen bygger et Docker-containerbilde, skyver det til [Azure Container Registry (ACR)](https://learn.microsoft.com/azure/container-registry/container-registry-intro), og oppretter en hostet agent-versjon i [Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-agent).
 
-> **Viktig forskjell fra Lab 01:** Distribusjonsprosessen er identisk. Foundry behandler din multi-agent arbeidsflyt som en enkelt hosted agent - kompleksiteten er inne i containeren, men distribusjonsflaten er den samme `/responses` endepunktet.
+> **Viktig forskjell fra Lab 01:** Distribusjonsprosessen er identisk. Foundry behandler ditt multi-agent arbeidsflyt som en enkelt hostet agent - kompleksiteten er inne i containeren, men distribusjonsoverflaten er den samme `/responses` endepunktet.
 
 ### Distribusjonspipeline
 
 ```mermaid
 flowchart LR
-    A[VS Code: Deploy Hosted Agent] --> B[Docker bygg og push til ACR]
-    B --> C[Foundry Agent Service: Lag versjon av hosted agent]
-    C --> D[Hosted agent-container starter i Foundry]
-    D --> E[WorkflowBuilder kjører 4 agenter sekvensielt inne i containeren]
-    E --> F[Agent svarer på /responses-forespørsler]
+    A[VS Code: Deploy Hosted Agent] --> B[Docker build & push to ACR]
+    B --> C[Foundry Agent Service: Create hosted agent version]
+    C --> D[Hosted agent container starts in Foundry]
+    D --> E[WorkflowBuilder runs 4 agents sequentially inside container]
+    E --> F[Agent responds to /responses requests]
 ```
 
 ---
 
-## Sjekkliste for forutsetninger
+## Forutsetningssjekk
 
-Før du distribuerer, sjekk at alle punktene under er oppfylt:
+Før distribusjon, bekreft hvert punkt nedenfor:
 
 1. **Agenten består lokale røyktester:**
-   - Du fullførte alle 3 testene i [Modul 5](05-test-locally.md) og arbeidsflyten produserte fullstendig output med gap-kort og Microsoft Learn URLer.
+   - Du fullførte begge røyktestene i [Modul 5](05-test-locally.md) og arbeidsflyten produserte komplett output med gap-kort og Microsoft Learn URLer.
 
-2. **Du har [Foundry User](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) rollen** (for å distribuere trenger du minimum **Foundry Project Manager** på prosjekt-nivå):
+2. **Du har [Foundry-bruker](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)-rollen** (for distribusjon trenger du minst **Foundry prosjektleder** på prosjektnivå):
 
-   > **Merk:** Foundry RBAC-roller ble nylig omdøpt - **Foundry User**, **Foundry Owner**, og **Foundry Project Manager** het tidligere Azure AI User, Azure AI Owner, og Azure AI Project Manager. Rolle-ID og tillatelser er uendret.
+   > **Merk:** Foundry RBAC-rollene ble nylig omdøpt - **Foundry-bruker**, **Foundry-eier**, og **Foundry prosjektleder** het tidligere Azure AI-bruker, Azure AI-eier, og Azure AI prosjektleder. Rolle-IDer og tillatelser er uendret.
 
-   - Verifiser i [Azure Portal](https://portal.azure.com) → ditt Foundry **prosjekt** ressurs → **Tilgangskontroll (IAM)** → **Rolletildelinger** → bekreft at **Foundry User** (eller høyere) er oppført for kontoen din.
+   - Bekreft i [Azure-portalen](https://portal.azure.com) → din Foundry **prosjekt**-ressurs → **Tilgangskontroll (IAM)** → **Tildeling av roller** → bekreft at **Foundry-bruker** (eller høyere) er oppført for kontoen din.
 
 3. **Du er pålogget Azure i VS Code:**
-   - Se etter Konto-ikonet nederst til venstre i VS Code. Konto-navnet ditt skal være synlig.
+   - Sjekk kontoinnstillingsikonet nederst til venstre i VS Code. Kontonavnet ditt skal være synlig.
 
 4. **`agent.yaml` har riktige verdier:**
-   - Åpne `PersonalCareerCopilot/agent.yaml` og verifiser:
+   - Åpne `PersonalCareerCopilot/agent.yaml` og bekreft:
      ```yaml
      environment_variables:
        - name: AZURE_AI_MODEL_DEPLOYMENT_NAME
          value: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
      ```
-   - `FOUNDRY_PROJECT_ENDPOINT` er **ikke** listet her - Foundry setter denne ved kjøring. Bare `AZURE_AI_MODEL_DEPLOYMENT_NAME` må deklareres.
+   - `FOUNDRY_PROJECT_ENDPOINT` er **ikke** oppført her - Foundry legger det til under kjøring. Bare `AZURE_AI_MODEL_DEPLOYMENT_NAME` må deklareres.
 
 5. **`requirements.txt` har riktige versjoner:**
    ```
@@ -54,34 +54,34 @@ Før du distribuerer, sjekk at alle punktene under er oppfylt:
 
 ---
 
-## Steg 1: Start distribusjonen
+## Trinn 1: Start distribusjonen
 
 ### Alternativ A: Distribuer fra Agent Inspector (anbefalt)
 
 Hvis agenten kjører via F5 med Agent Inspector åpen:
 
-1. Se i **øverste høyre hjørne** på Agent Inspector-panelet.
-2. Klikk på **Deploy** knappen (sky-ikon med oppoverpil ↑).
+1. Se på **øvre høyre hjørne** av Agent Inspector-panelet.
+2. Klikk på **Deploy**-knappen (skyikon med en oppoverpil ↑).
 3. Distribusjonsveiviseren åpnes.
 
-![Agent Inspector øverst til høyre som viser Deploy-knappen (sky-ikon)](../../../../../translated_images/no/06-agent-inspector-deploy-button.cc0ac20f5b1a31b8.webp)
+![Agent Inspector øverst til høyre hjørne som viser Deploy-knappen (skyikon)](../../../../../translated_images/no/06-agent-inspector-deploy-button.cc0ac20f5b1a31b8.webp)
 
-### Alternativ B: Distribuer fra Command Palette
+### Alternativ B: Distribuer fra kommandopaletten
 
-1. Trykk `Ctrl+Shift+P` for å åpne **Command Palette**.
-2. Skriv: **Foundry Toolkit: Deploy Hosted Agent** og velg det.
+1. Trykk `Ctrl+Shift+P` for å åpne **Kommandopaletten**.
+2. Skriv: **Foundry Toolkit: Deploy Hosted Agent** og velg den.
 3. Distribusjonsveiviseren åpnes.
 
 ---
 
 ## Steg 2: Konfigurer distribusjonen
 
-### 2.1 Velg målprosjekt
+### 2.1 Velg målprosjektet
 
-1. En nedtrekksmeny viser dine Foundry prosjekter.
-2. Velg prosjektet du brukte gjennom workshopen (f.eks. `workshop-agents`).
+1. En nedtrekksmeny viser Foundry-prosjektene dine.
+2. Velg prosjektet du brukte gjennom hele workshoppen (f.eks. `workshop-agents`).
 
-### 2.2 Velg container agent fil
+### 2.2 Velg container-agent-fil
 
 1. Du blir bedt om å velge agentens inngangspunkt.
 2. Naviger til `workshop/lab02-multi-agent/PersonalCareerCopilot/` og velg **`main.py`**.
@@ -90,24 +90,24 @@ Hvis agenten kjører via F5 med Agent Inspector åpen:
 
 | Innstilling | Anbefalt verdi | Notater |
 |---------|------------------|-------|
-| **Distribusjonsmetode** | **Container** (anbefalt) eller **Code** | Container bygger et Docker image; Code laster opp kildekoden som en ZIP (preview) |
-| **Container Registry** | **Standard ACR** | Foundry oppretter og administrerer en for deg |
-| **CPU** | `0.25` | Standard. Multi-agent arbeidsflyter trenger ikke mer CPU fordi modellkall er I/O-bundet |
-| **Minne** | `0.5Gi` | Standard. Øk til `1Gi` hvis du legger til store databehandlingsverktøy |
+| **Distribusjonsmetode** | **Container** (anbefalt) eller **Kode** | Container bygger et Docker-bilde; Kode laster opp kildekode som en ZIP (forhåndsvisning) |
+| **Containerregister** | **Standard ACR** | Foundry oppretter og administrerer ett for deg |
+| **CPU** | `0.5` | Standard. Multi-agent arbeidsflyter trenger ikke mer CPU fordi modellkall er I/O-bundet |
+| **Minne** | `1.0Gi` | Standard. Øk om du legger til store databehandlingsverktøy |
 
 ---
 
 ## Steg 3: Bekreft og distribuer
 
-1. Veiviseren viser et distribusjonssammendrag.
+1. Veiviseren viser et sammendrag av distribusjonen.
 2. Gå gjennom og klikk **Bekreft og distribuer**.
 3. Følg fremdriften i VS Code.
 
 ### Hva skjer under distribusjonen
 
-Følg VS Code **Output** panelet (velg "Microsoft Foundry" fra nedtrekksmenyen):
+Se VS Code **Utdata**-panelet (velg "Microsoft Foundry" fra rullegardinmenyen):
 
-1. **Docker build** - bygger containeren fra din `Dockerfile`
+1. **Docker build** - Bygger containeren fra din `Dockerfile`
    ```
    Step 1/6 : FROM python:3.12-slim
    Step 2/6 : WORKDIR /app
@@ -115,31 +115,30 @@ Følg VS Code **Output** panelet (velg "Microsoft Foundry" fra nedtrekksmenyen):
    Successfully built abc123def456
    ```
 
-2. **Docker push** - sender imaget til ACR (1-3 minutter ved første distribusjon).
+2. **Docker push** - Skyver bildet til ACR (1-3 minutter ved første distribusjon).
 
-3. **Agentregistrering** - Foundry oppretter en hosted agent ved hjelp av metadata fra `agent.yaml`. Agentnavnet er `resume-job-fit-evaluator`.
+3. **Agentregistrering** - Foundry oppretter en hostet agent ved hjelp av `agent.yaml` metadata. Agentnavnet er `PersonalCareerCopilot`.
 
-4. **Container start** - Containeren starter i Foundrys administrerte infrastruktur med et system-administrert identitet.
+4. **Containerstart** - Containeren starter i Foundrys administrerte infrastruktur med en systemadministrert identitet.
 
-> **Første distribusjon er tregere** (Docker pusher alle lag). Påfølgende distribusjoner gjenbruker bufrede lag og går raskere.
+> **Første distribusjon er tregere** (Docker skyver alle lagene). Påfølgende distribusjoner gjenbruker bufrede lag og går raskere.
 
-### Spesifikke merknader for multi-agent
+### Notater spesifikt for multi-agent
 
-- **Alle fire agenter er inne i én container.** Foundry ser en enkelt hosted agent. WorkflowBuilder grafen kjører internt.
-- **MCP kall går ut av containeren.** Containeren trenger internett-tilgang for å nå `https://learn.microsoft.com/api/mcp`. Foundrys administrerte infrastruktur gir dette som standard.
-- **[Administrert identitet](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-identity).** Foundry lager automatisk en **dedikert per-agent Entra identitet** for hver Hosted agent ved distribusjonstidspunkt. I det hostede miljøet løser `DefaultAzureCredential` automatisk til denne agentidentiteten - ingen manuell konfigurering av administrert identitet er nødvendig.
+- **Alle fire agenter er i én container.** Foundry ser en enkelt hostet agent. WorkflowBuilder-grafen kjører internt.
+- **MCP-kall går utgående.** Containeren trenger internett-tilgang for å nå `https://learn.microsoft.com/api/mcp`. Foundrys administrerte infrastruktur tilbyr dette som standard.
+- **[Administrert identitet](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-identity).** Foundry oppretter automatisk en **dedikert per-agent Entra-identitet** for hver hostet agent ved distribusjon. I det hostede miljøet løser `DefaultAzureCredential` automatisk til denne agentidentiteten - ingen manuell konfigurasjon av administrert identitet er nødvendig.
 
 ---
 
-## Steg 4: Verifiser distribusjonsstatus
+## Trinn 4: Verifiser distribusjonsstatus
 
-1. Åpne **Microsoft Foundry** sidepanelet (klikk på Foundry-ikonet i Aktivitetslinjen).
-2. Utvid **Hosted Agents (Preview)** under prosjektet ditt.
-3. Finn **resume-job-fit-evaluator** (eller agentnavnet ditt).
-4. Klikk på agentnavnet → utvid versjoner (f.eks. `v1`).
-5. Klikk på versjonen → sjekk **Container-detaljer** → **Status**:
+1. Åpne **Foundry Toolkit**-sidepanelet (klikk på Foundry Toolkit-ikonet i aktivitetslinjen).
+2. Under prosjektet ditt i **Ressursene mine**, klikk **Agenter**, og velg deretter fanen **Hosted Agent**.
+3. Klikk på **PersonalCareerCopilot** (eller agentnavnet ditt).
+4. **Hosted agent-lekeplassen** åpnes på **Detaljer**-fanen. Sjekk **Distribusjonsdetaljer** → **Status**:
 
-![Foundry sidepanel som viser Hosted Agents utvidet med agentversjon og status](../../../../../translated_images/no/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
+![Hosted agent-lekeplassen åpnet på Detaljer-fanen, med Distribusjonsdetaljer som viser agentens status som Kjører](../../../../../translated_images/no/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
 
 | Status | Betydning |
 |--------|---------|
@@ -147,9 +146,9 @@ Følg VS Code **Output** panelet (velg "Microsoft Foundry" fra nedtrekksmenyen):
 | **opprettes** | Containeren starter (vent 30–60 sekunder) |
 | **feilet** | Containeren klarte ikke å starte (sjekk logger - se nedenfor) |
 
-> **Merk:** VS Code sidepanelet kan vise etiketter som "Running" eller "Started" mens underlying API status bruker `active`/`creating`. Begge visningene indikerer samme tilstand.
+> **Merk:** Fanen **Detaljer** kan vise etiketter som "Kjører" eller "Startet" mens den underliggende API-statusen bruker `active`/`creating`. Begge visningene indikerer samme tilstand.
 
-> **Multi-agent oppstart tar lengre tid** enn enkelt-agent fordi containeren starter 4 agent-instanser ved oppstart. `creating` i opptil 2 minutter er normalt.
+> **Oppstart av multi-agent tar lengre tid** enn enkelt-agent fordi beholderen oppretter 4 agent-forekomster ved oppstart. `creating` i opptil 2 minutter er normalt.
 
 ---
 
@@ -162,7 +161,7 @@ Error: lacks the required data action
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Løsning:** Tilordne **[Foundry User](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)** rollen (tidligere **Azure AI User**) på **prosjektnivå**. Se [Modul 8 - Feilsøking](08-troubleshooting.md) for steg-for-steg instruksjoner.
+**Løsning:** Tildel **[Foundry User](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)**-rollen (tidligere **Azure AI User**) på **prosjektnivå**. Se [Modul 8 - Feilsøking](08-troubleshooting.md) for trinnvise instruksjoner.
 
 ### Feil 2: Docker kjører ikke
 
@@ -172,18 +171,18 @@ Error: Docker build failed / Cannot connect to Docker daemon
 
 **Løsning:**
 1. Start Docker Desktop.
-2. Vent på "Docker Desktop is running".
+2. Vent på "Docker Desktop kjører".
 3. Verifiser: `docker info`
-4. **Windows:** Sørg for at WSL 2 backend er aktivert i Docker Desktop-innstillinger.
-5. Prøv på nytt.
+4. **Windows:** Sørg for at WSL 2-backend er aktivert i Docker Desktop-innstillingene.
+5. Prøv igjen.
 
-### Feil 3: pip install feiler under Docker build
+### Feil 3: pip install feiler under Docker-build
 
 ```
 Error: Could not find a version that satisfies the requirement agent-framework-foundry
 ```
 
-**Løsning:** Verifiser at `requirements.txt` stemmer med:
+**Løsning:** Verifiser at `requirements.txt` samsvarer med:
 ```
 agent-framework-foundry
 agent-framework-foundry-hosting
@@ -191,32 +190,32 @@ mcp<2,>=1.24.0
 debugpy
 ```
 
-Hvis byggingen fortsatt feiler, kan nettverket i Docker blokkere PyPI. Sjekk `docker info` for proxy-innstillinger.
+Hvis byggingen fortsatt feiler, kan Docker-nettverket ditt blokkere PyPI. Sjekk `docker info` for proxy-innstillinger.
 
-### Feil 4: MCP-verktøyet feiler i hosted agent
+### Feil 4: MCP-verktøy feiler i hosted agent
 
-Hvis Gap Analyzer slutter å produsere Microsoft Learn URLer etter distribusjon:
+Hvis Gap Analyzer slutter å produsere Microsoft Learn-URL-er etter utrulling:
 
 **Årsak:** Nettverkspolicy kan blokkere utgående HTTPS fra containeren.
 
 **Løsning:**
 1. Dette er vanligvis ikke et problem med Foundrys standardkonfigurasjon.
-2. Dersom det oppstår, sjekk om Foundry prosjektets virtuelle nettverk har en NSG som blokkerer utgående HTTPS.
-3. MCP-verktøyet har innebygde fallback URLer, så agenten vil fortsatt produsere output (uten live URLer).
+2. Hvis det skjer, sjekk om det virtuelle nettverket i Foundry-prosjektet har en NSG som blokkerer utgående HTTPS.
+3. MCP-verktøyet har innebygde reserve-URL-er, så agenten vil fortsatt produsere output (uten levende URL-er).
 
 ---
 
 ### Sjekkpunkt
 
-- [ ] Distribusjonskommando fullført uten feil i VS Code
-- [ ] Agenten vises under **Hosted Agents (Preview)** i Foundry sidepanelet
-- [ ] Agentnavnet er `resume-job-fit-evaluator` (eller valgt navn)
+- [ ] Utrullingskommandoen fullførte uten feil i VS Code
+- [ ] Agenten vises på **Hosted Agent**-fanen når du klikker **Agents** under prosjektet ditt i Foundry Toolkit-sidepanelet
+- [ ] Agentnavnet er `PersonalCareerCopilot` (eller ditt valgte navn)
 - [ ] Containerstatus viser **Started** eller **Running**
-- [ ] (Hvis feil) Du har identifisert feilen, anvendt løsningen, og distribuert på nytt med suksess
+- [ ] (Hvis feil) Du identifiserte feilen, anvendte løsningen og rullet ut på nytt uten problemer
 
 ---
 
-**Forrige:** [05 - Test lokalt](05-test-locally.md) · **Neste:** [07 - Verifiser i Playground →](07-verify-in-playground.md)
+**Forrige:** [05 - Test lokalt](05-test-locally.md) · **Neste:** [07 - Verifiser i lekeplass →](07-verify-in-playground.md)
 
 ---
 

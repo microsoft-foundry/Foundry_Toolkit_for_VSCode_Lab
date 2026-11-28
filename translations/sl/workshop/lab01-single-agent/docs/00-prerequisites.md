@@ -3,100 +3,100 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Predogled in omejitve:** [Gostujoči agenti](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) so trenutno v **javnem predogledu** - niso priporočeni za produkcijske obremenitve. Bodite pozorni na naslednje:
-> - **Podprte regije so omejene** - pred ustvarjanjem virov preverite [razpoložljivost regije](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability). Če izberete nepodprto regijo, bo namestitev neuspešna.
-> - Paket `azure-ai-agentserver-agentframework` je v predizdaji - API-ji se lahko spreminjajo med različicami.
-> - Omejitve merjenja: gostujoči agenti podpirajo 0–5 kopij (vključno z merjenjem na nič).
-> - Nekatere funkcije, prikazane na delavnici, se lahko spremenijo, ko storitev doseže splošno razpoložljivost (GA).
+> **Predogled in omejitve:** [Gostovani agenti](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) so trenutno v **javnem predogledu** - ni priporočljivo za proizvodne obremenitve. Zavedajte se naslednjega:
+> - **Podprte regije so omejene** - pred ustvarjanjem virov preverite [dostopnost regij](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability). Če izberete nepodprto regijo, bo namestitev spodletela.
+> - Paket `agent-framework-foundry-hosting` je predizdaja - API-ji se lahko spreminjajo med različicami.
+> - Omejitve skaliranja: gostovani agenti podpirajo 0–5 replik (vključno z skaliranjem do nič).
+> - Nekatere funkcije, prikazane v tej delavnici, se lahko spremenijo, ko storitev preide v GA.
 
-## Kaj boste zgradili
+## Kar boste ustvarili
 
-V tej delavnici boste zgradili agenta **"Pojasni kot da sem izvršni direktor"** - gostujočega AI agenta, ki vzame kompleksne tehnične posodobitve in jih prepiše v jedrnate povzetke za izvršne direktorje v preprostem angleškem jeziku.
+V tej delavnici boste ustvarili **"Pojasni kot da sem izvršni direktor"** agenta - gostovanega AI agenta, ki vzame kompleksne tehnične posodobitve in jih prepiše v preproste izvršne povzetke v angleščini.
 
 ```mermaid
 flowchart LR
-    A["🧑‍💻 Pošljete\ntehnično posodobitev"] --> B["🤖 Agencija za\nizvršni povzetek"]
-    B --> C["📝 Izvršni povzetek\nv preprostem jeziku"]
+    A["🧑‍💻 You send a\ntechnical update"] --> B["🤖 Executive Summary\nAgent"]
+    B --> C["📝 Plain-English\nexecutive summary"]
 ```
 
 **Agent uporablja:**
 - **Microsoft Agent Framework** - za logiko in strukturo agenta
-- **Foundry Toolkit za VS Code** - za skelet, lokalno testiranje in nameščanje
+- **Foundry Toolkit za VS Code** - za ustvarjanje osnove, lokalno testiranje in nameščanje
 - **AI model** (npr. `gpt-4.1-mini/gpt-5-mini`) - za generiranje povzetkov
 
-Do konca delavnice boste imeli delujočega agenta, katerega boste lahko lokalno testirali preko Agent Inspectorja in po potrebi namestili v oblak.
+Ob koncu tega vnosa boste imeli delujočega agenta, ki ga lahko lokalno testirate prek Agent Inspectorja in po želji namestite v oblak.
 
 ---
 
-## Kaj so gostujoči agenti?
+## Kaj so gostovani agenti?
 
-**Gostujoči agent** je AI agent, ki deluje kot upravljana storitev v Microsoft Foundry. Namesto da upravljate lastno infrastrukturo, zapakirate agenta v vsebnik, Foundry pa poskrbi za merjenje, gostovanje in izpostavitev prek standardnega HTTP vmesnika.
+**Gostovani agent** je AI agent, ki teče kot upravljana storitev v Microsoft Foundry. Namesto da upravljate svojo infrastrukturo, spakirate kodo agenta v vsebnik in Foundry skrbi za skaliranje, gostovanje in izpostavitev prek standardne HTTP končne točke.
 
-| Pojem | Pomen |
+| Pojem | Kaj pomeni |
 |---------|--------------|
-| **Agent** | Vaša Python koda, ki sprejme uporabniško sporočilo, pokliče AI model in vrne strukturiran odgovor |
-| **Gostujoči** | Foundry za vas poganja vsebnik - brez VM-jev, Kubernetes ali upravljanja infrastrukture |
-| **Protokol odgovorov** | Standardni HTTP API (`POST /responses`), ki ga lahko kliče kateri koli odjemalec za interakcijo z agentom |
-| **Agent Inspector** | Lokalni vmesnik za testiranje (vključen v Foundry Toolkit), ki omogoča klepet z agentom pred nameščanjem |
+| **Agent** | Vaša Python koda, ki prejme uporabniško sporočilo, pokliče AI model in vrne strukturiran odgovor |
+| **Gostovan** | Foundry za vas poganja vsebnik - brez VM-jev, Kubernetes ali infrastrukture za upravljanje |
+| **Protokol odgovorov** | Standardni HTTP API (`POST /responses`), ki ga lahko vsak odjemalec kliče za interakcijo z vašim agentom |
+| **Agent Inspector** | Lokalni testni uporabniški vmesnik (vgrajen v Foundry Toolkit), ki vam omogoča, da se pogovarjate z agentom pred nameščanjem |
 
-V tej delavnici boste šli od začetka do popolnoma gostujočega agenta - ali se ustavili pri lokalnem testiranju, če želite.
+V tej delavnici boste prešli od nič do popolnoma gostovanega agenta - ali pa se ustavili pri lokalnem testiranju, če želite.
 
 ---
 
 ## Izberite svojo pot
 
-> ⚠️ **Pred nadaljevanjem izberite eno pot.** Vaša izbira določa, katera orodja boste namestili in kateri moduli veljajo. Kasneje lahko preklopite iz poti B → poti A, če pridobite naročnino.
+> ⚠️ **Pred nadaljevanjem izberite eno pot.** Vaša izbira določa, katera orodja namestiti in kateri moduli veljajo. Kasneje se lahko zamenjate iz poti B → pot A, če pridobite naročnino.
 
 <details open>
-<summary><strong>🅰️ Pot A - Azure oblak (zahteva naročnino na Azure)</strong></summary>
+<summary><strong>🅰️ Pot A - Azure oblak (zahteva naročnino Azure)</strong></summary>
 
 | | Podrobnosti |
 |---|---|
-| **Za koga je to?** | Imate aktivno naročnino na Azure in lahko ustvarjate Foundry vire |
+| **Za koga je?** | Imate aktivno naročnino Azure in lahko ustvarjate Foundry vire |
 | **Model** | Azure OpenAI prek Foundry (npr. `gpt-4.1-mini/gpt-5-mini`) |
 | **Pokriti moduli** | Vsi moduli (00–07) |
-| **Nameščanje v oblak?** | ✅ Da - popolna end-to-end namestitev |
+| **Namestiti v oblak?** | ✅ Da - popolna namestitev od začetka do konca |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Pot B - Lokalno / brezplačni nivo (ni potrebna naročnina na Azure)</strong></summary>
+<summary><strong>🅱️ Pot B - Lokalno / brezplačni paket (naročnina Azure ni potrebna)</strong></summary>
 
 | | Podrobnosti |
 |---|---|
-| **Za koga je to?** | MVP, študenti ali kdorkoli brez dostopa do Azure |
-| **Model** | **Foundry Local** (brezplačno, deluje na vašem računalniku) |
-| **Pokriti moduli** | Moduli 00–04 (preskočite nameščanje in preverjanje v oblaku) |
-| **Nameščanje v oblak?** | ❌ Ne - samo lokalno testiranje preko Agent Inspectorja |
+| **Za koga je?** | MVP-ji, študentje ali kdorkoli brez dostopa do Azure |
+| **Model** | **Foundry Local** (brezplačno, teče na vašem računalniku) |
+| **Pokriti moduli** | Moduli 00–04 (preskočite nameščanje in preverjanje oblaka) |
+| **Namestiti v oblak?** | ❌ Ne - samo lokalno testiranje prek Agent Inspectorja |
 
 </details>
 
 ---
 
-## Vse poti: potrebna orodja
+## Vse poti: Potrebna orodja
 
-Namestite vsako spodaj. Po namestitvi preverite, ali deluje, tako da zaženete ukaz za preverjanje.
+Namestite vsako orodje spodaj. Po namestitvi preverite, če deluje, z zagonom ukaza za preverjanje.
 
-| # | Orodje | Različica | Namestitev | Preverjanje (pričakovan izhod) |
+| # | Orodje | Verzija | Namestitev | Preverjanje (pričakovan izhod) |
 |---|------|---------|---------|---------------------------|
 | 1 | **Visual Studio Code** | Najnovejša | [code.visualstudio.com](https://code.visualstudio.com/) | Se odpre brez napak |
-| 2 | **Python** | 3.12 ali novejša| [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
-| 3 | **Foundry Toolkit za VS Code** | Najnovejša | ID razširitve: `ms-windows-ai-studio.windows-ai-studio` | Ikona Foundry v Activity Bar |
-| 4 | **Python razširitev za VS Code** | Najnovejša | ID razširitve: `ms-python.python` | Nameščena v panelu Razširitve |
+| 2 | **Python** | 3.12 ali novejši | [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
+| 3 | **Foundry Toolkit za VS Code** | Najnovejša | ID razširitve: `ms-windows-ai-studio.windows-ai-studio` | Ikona Foundry v vrstici aktivnosti |
+| 4 | **Python razširitev za VS Code** | Najnovejša | ID razširitve: `ms-python.python` | Nameščena v panelu razširitev |
 
 > [!TIP]
 > **Nasveti za namestitev:**
-> - **Python PATH (Windows):** Vedno izberite **"Add Python to PATH"** na prvem zaslonu namestitvenega programa Python. Brez tega se `python` ne bo prepoznal v terminalu.
-> - **Več verzij Pythona:** Če imate nameščena Python 3.10 in 3.12, uporabite `python3.12 -m venv .venv`, da zagotovite pravilno verzijo v virtualnem okolju.
-> - **Docker WSL 2 (Windows):** Med namestitvijo Docker Desktop poskrbite, da je izbran **WSL 2 backend**. Docker s Hyper-V deluje počasneje in lahko povzroči težave pri gradnji Foundry vsebnikov.
-> - **Docker se ne začne?** Po zagonu Docker Desktop počakajte 30–60 sekund. Zaženite `docker info` - če vidite "Cannot connect to the Docker daemon," se Docker še inicializira.
-> - **Razširitve VS Code se ne naložijo?** Po namestitvi razširitev naložite okno znova: `Ctrl+Shift+P` → `Developer: Reload Window`.
+> - **Pot do Pythona (Windows):** Vedno označite **"Add Python to PATH"** na prvem zaslonu namestitvenega programa za Python. Brez tega ukaz `python` ne bo prepoznan v vašem terminalu.
+> - **Več različic Pythona:** Če imate nameščena tako Python 3.10 kot 3.12, uporabite `python3.12 -m venv .venv`, da zagotovite uporabo pravilne različice za vaše virtualno okolje.
+> - **Docker WSL 2 (Windows):** Med namestitvijo Docker Desktop zagotovite izbiro **WSL 2 backend**. Docker s Hyper-V je počasnejši in lahko povzroča težave pri gradnji Foundry vsebnikov.
+> - **Docker se ne začne?** Po zaganjanju Docker Desktop počakajte 30–60 sekund. Zaženite `docker info` - če vidite "Cannot connect to the Docker daemon," Docker se še vedno inicializira.
+> - **Razširitve VS Code se ne naložijo?** Po namestitvi razširitev osvežite okno: `Ctrl+Shift+P` → `Developer: Reload Window`.
 
-> **Uporabniki Windows:** Pri namestitvi Pythona preverite **"Add Python to PATH"**.
+> **Uporabniki Windows:** Med namestitvijo Pythona označite **"Add Python to PATH"**.
 
 
 
-**Naslednje:** [01 - Namestitev →](01-setup.md)
+**Naslednje:** [01 - Nastavitev →](01-setup.md)
 
 ---
 

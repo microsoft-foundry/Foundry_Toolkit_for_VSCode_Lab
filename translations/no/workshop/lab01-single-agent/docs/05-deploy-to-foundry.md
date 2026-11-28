@@ -1,21 +1,21 @@
-# Modul 5 - Distribuer til Foundry Agent-tjeneste
+# Modul 5 - Distribuer til Foundry Agent Service
 
 ⏱️ ~10 min
 
-> ⚠️ **Brukere i sti B:** Denne modulen krever et Foundry-abonnement. Hvis du bruker Foundry Local, hopp til [Modul 07 - Oppsummering](07-summary.md). Du har fullført den lokale utviklingsflyten!
+> ⚠️ **Brukere av B-sti:** Denne modulen krever et Foundry-abonnement. Hvis du bruker Foundry Local, hopp til [Modul 07 - Sammendrag](07-summary.md). Du har fullført arbeidsflyten for lokal utvikling!
 
-I denne modulen distribuerer du agenten din, som er testet lokalt, til Microsoft Foundry som en **Hosted Agent**. Distribueringen bygger et containerbilde, skyver det til Azure Container Registry, og starter agenten i Foundrys administrerte infrastruktur.
+I denne modulen distribuerer du din lokalt testede agent til Microsoft Foundry som en **Hosted Agent**. Distribusjonen bygger et containerbilde, skyver det til Azure Container Registry, og starter agenten i Foundrys administrerte infrastruktur.
 
 ### Distribusjonspipeline
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|docker bygg| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
     B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|registrer agent| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
     D -->|start container| E["/responses
     endpoint ready"]
@@ -29,34 +29,34 @@ flowchart LR
 
 ---
 
-## Sjekk av forutsetninger
+## Forutsetningssjekk
 
 Før distribusjon, verifiser:
 
-- [ ] Agenten består alle 3 lokale scenarioer fra [Modul 04](04-test-locally.md)
-- [ ] Du har **Azure AI User**-rollen på prosjektnivå ([Modul 01, Tildel RBAC](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] Du er pålogget Azure i VS Code (Konto-ikon viser navnet ditt)
+- [ ] Agenten består alle 3 lokale scenarier fra [Modul 04](04-test-locally.md)
+- [ ] Du har rollen **Azure AI User** på prosjekt-nivå ([Modul 01, Tildel RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Du er pålogget Azure i VS Code (kontoikonet viser navnet ditt)
 
 ---
 
-## Steg 1: Start distribusjonen
+## Trinn 1: Start distribusjonen
 
-### Valg A: Distribuer fra Agent Inspector (anbefalt)
+### Alternativ A: Distribuer fra Agent Inspector (anbefalt)
 
 Hvis Agent Inspector er åpen (fra testing):
-1. Klikk på **Deploy**-knappen øverst til høyre (sky-ikon ↑).
+1. Klikk på **Deploy**-knappen øverst til høyre (sky-ikonet ↑).
 
-### Valg B: Distribuer fra Kommandomeny
+### Alternativ B: Distribuer fra Command Palette
 
 1. Trykk `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
-## Steg 2: Konfigurer distribusjonen
+## Trinn 2: Konfigurer distribusjonen
 
-Veiviseren spør deg om:
+Veiviseren ber om:
 
-![Project Config](../../../../../translated_images/no/05-foundry-project-setup.ca6ad16a6484e054.webp)
+![Prosjektkonfigurasjon](../../../../../translated_images/no/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
 | Spørsmål | Valg |
 |--------|-----------|
@@ -65,67 +65,67 @@ Veiviseren spør deg om:
 
 Klikk **neste** for å konfigurere agenten din.
 
-![Basics config](../../../../../translated_images/no/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Grunnleggende konfigurasjon](../../../../../translated_images/no/05-configure-basics.4d5f3d6b0d96f033.webp)
 
 | Spørsmål | Valg |
 |--------|-----------|
 | **Distribusjonsmetode** | Container |
-| **Container-register** | **Standard ACR** (Microsoft Foundry oppretter og administrerer et for deg) |
-| **Distribuer til** | Ny agent (navn, `executive-summary-agent`) |
+| **Container-register** | **Standard ACR** (Microsoft Foundry oppretter og administrerer ett for deg) |
+| **Distribuer til** | Ny Agent (navn, `executive-summary-agent`) |
 
-Klikk **neste** for å gjennomgå og distribuere agenten.
+Klikk **neste** for å gjennomgå og distribuere agenten din.
 
-![Review and deploy](../../../../../translated_images/no/05-review-deploy.12b449d426bff886.webp)
+![Gjennomgang og distribusjon](../../../../../translated_images/no/05-review-deploy.12b449d426bff886.webp)
 
 | Spørsmål | Valg |
 |--------|-----------|
-| **CPU og minne** | **0.25 CPU-kjerner, 0.5 Gi minne** (nok for workshopen) |
+| **CPU og minne** | **0,5 CPU-kjerner, 1,0 Gi minne** (standard - tilstrekkelig for workshop) |
 
 ---
 
-## Steg 3: Distribuer og overvåk
+## Trinn 3: Distribuer og overvåk
 
 1. Klikk **Deploy**.
-2. Se på **Utdata**-panelet (velg **Microsoft Foundry** fra rullegardinmenyen).
-3. Distribusjonen går gjennom disse fasene:
-   - **Docker build** - bygger container fra din Dockerfil
+2. Følg med på **Output**-panelet (velg **Microsoft Foundry** fra nedtrekksmenyen).
+3. Distribusjonen går gjennom disse stadiene:
+   - **Docker build** - bygger container fra Dockerfile
    - **Docker push** - skyver bildet til ACR (1–3 min ved første distribusjon)
    - **Agent-registrering** - oppretter hostet agent i Foundry
-   - **Container start** - starter med system-administrert identitet
+   - **Container start** - starter med systemadministrert identitet
 
-4. Når ferdig, vises en melding:
-   > **my-agent er distribuert med suksess.** `Se logger` `Kjør agent`
+4. Når fullført, vises en melding:
+   > **executive-summary-agent er distribuert med hell.** `View logs` `Run agent`
 
-5. Klikk **Kjør agent** for å åpne Agent Playground.
+5. Klikk **Run agent** for å åpne Agent Playground.
 
-![Deployment success showing Agent Playground with Running status](../../../../../translated_images/no/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Distribusjon vellykket som viser Agent Playground med status Running](../../../../../translated_images/no/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
 ### Verdier for distribusjonsstatus
 
 | Status | Betydning |
 |--------|---------|
-| **Running** | Container klar, agent responderer |
+| **Running** | Container klar, agent svarer |
 | **Pending** | Container starter - vent 30–60 sekunder |
-| **Failed** | Sjekk logger (se feilsøking nedenfor) |
+| **Failed** | Sjekk logger (se feilsøking under) |
 
 ---
 
 ## Vanlige distribusjonsfeil
 
-| Feil | Årsak | Løsning |
-|-------|-----------|-----|
-| `agents/write`-tillatelse nektet | Mangler **Azure AI User**-rolle på prosjektnivå | [Modul 01, Tildel RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Feil | Rotårsak | Løsning |
+|-------|-----------|---------|
+| `agents/write` tillatelse nektet | Mangler rollen **Azure AI User** på prosjektnivå | [Modul 01, Tildel RBAC](01-setup.md#deploy-a-model--assign-rbac) |
 | Docker kjører ikke | Docker Desktop ikke startet | Start Docker Desktop → verifiser `docker info` |
 | ACR-autorisering | Administrert identitet kan ikke hente bilde | Se [Modul 08 - Feilsøking](08-troubleshooting.md) |
 
 ---
 
-### ✅ Sjekkpunkter
+### ✅ Sjekkpunkt
 
 - [ ] Distribusjon fullført uten feil
-- [ ] Agent vises under **Hosted Agents (Preview)** i Foundry sidepanelet
+- [ ] Agenten vises på fanen **Hosted Agent** når du klikker på **Agents** under prosjektet ditt i Foundry Toolkit sidepanelet
 - [ ] Containerstatus viser **Running**
-- [ ] Agent Playground-fanen åpnet og viser agentdetaljer og endepunkt-URL
+- [ ] Agent Playground-fanen åpnet, viser agentdetaljer og endepunkt-URL
 
 ---
 

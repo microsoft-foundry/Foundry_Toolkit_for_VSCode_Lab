@@ -1,15 +1,15 @@
-# Modul 4 - Test Lokalt
+# Modul 4 - Test lokalt
 
 ⏱️ ~10 min
 
-I dette modul kører du din agent lokalt og validerer, at den fungerer korrekt ved hjælp af **happy-path funktionelle tests**. Du vil bruge Agent Inspector (visuelt UI) eller direkte HTTP-kald for at bekræfte, at agenten producerer strukturerede og nøjagtige svar.
+I dette modul kører du din agent lokalt og validerer, at den fungerer korrekt ved hjælp af **happy-path funktionelle tests**. Du bruger Agent Inspector (visuelt UI) eller direkte HTTP-kald for at bekræfte, at agenten producerer strukturerede, nøjagtige svar.
 
-### Lokal testflow
+### Lokalt testningsflow
 
 ```mermaid
 flowchart TD
-    A["Start agentserver"] --> B["Åbn Agentinspektør"]
-    B --> C["Send testinput"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -23,29 +23,31 @@ flowchart TD
 
 ---
 
-## Mulighed 1: Tryk F5 - Debug med Agent Inspector (anbefalet)
+## Valgmulighed 1: Tryk på F5 - Debug med Agent Inspector (anbefalet)
 
 ### Start debuggeren
 
 1. Åbn mappen **executive-summary-agent/** direkte i VS Code (`File → Open Folder`).
-2. Åbn panelet **Run and Debug** (`Ctrl+Shift+D`).
-3. Vælg **Debug Local Agent Server** i dropdown-menuen.
-4. Tryk **F5** (eller klik på ▶ Start Debugging).
+2. Åbn **Kør og Debug** panelet (`Ctrl+Shift+D`).
+3. Vælg **Debug Local Agent HTTP Server** fra dropdown-menuen.
+4. Tryk på **F5** (eller klik på ▶ Start Debugging).
 
-> ⚠️ **Kritisk: Vælg din Python Interpreter**
+> ⚠️ **Kritisk: Vælg din Python-fortolker**
 > Hvis du får "ModuleNotFoundError" eller debuggeren ikke starter, skal du fortælle VS Code at bruge dit virtuelle miljø:
-  > 1. Tryk `Ctrl+Shift+P` $\rightarrow$ skriv **Python: Select Interpreter**.
-  > 2. Vælg den interpreter, der ligger i dit projekts `.venv`-mappe (f.eks. `.\.venv\Scripts\python.exe` på Windows).
+  > 1. Tryk på `Ctrl+Shift+P` $\rightarrow$ skriv **Python: Select Interpreter**.
+  > 2. Vælg fortolkeren, der ligger i din projekts `.venv` mappe (f.eks. `.\.venv\Scripts\python.exe` på Windows).
   > 3. Genstart debug-sessionen.
-> Hvis du stadig får fejl, skal du manuelt opdatere din fil `tasks.json` som følger:
-  > 1. Gå til filen `.vscode/tasks.json`
-  > 2. Find kommandoen mærket: `Run Agent/Workflow HTTP Server`
-  > 3. Opdater kommandoens værdi til: `"value": "${workspaceFolder}/.venv/bin/python",`
+> Hvis du stadig får fejl, opdater manuelt din fil `tasks.json` som følger:
+  > 1. Naviger til `.vscode/tasks.json` filen
+  > 2. Gå til opgaven mærket: `Run Agent HTTP Server`
+  > 3. Opdater kommandoen som følger:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### Hvad sker der
 
 1. HTTP-serveren starter på `http://localhost:8088/responses`.
-2. Panelet **Agent Inspector** åbnes automatisk - en visuel chatgrænseflade til testning.
+2. **Agent Inspector** panelet åbnes automatisk - en visuel chat-grænseflade til test.
 3. Breakpoints er aktiveret i `main.py`.
 
 Hold øje med Terminalen for:
@@ -54,17 +56,17 @@ Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Hvis Agent Inspector ikke åbner:** Tryk `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+> **Hvis Agent Inspector ikke åbner:** Tryk på `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
 
-![Agent Inspector forbundet til localhost:8088, der viser et Executive Summary-svar](../../../../../translated_images/da/05-agent-inspector-response.9d761cc9bd77818b.webp)
+![Agent Inspector tilsluttet localhost:8088 viser en Executive Summary respons](../../../../../translated_images/da/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Skærmbilledet kan vise ældre 'AI TOOLKIT'-branding fra en tidligere udgave af udvidelsen.*
+> *Skærmbilledet kan vise ældre 'AI TOOLKIT' branding fra en tidligere udvidelsesversion.*
 
 ---
 
 ## Mulighed 2: Test via Terminal (alternativ)
 
-Start agenten i et terminalvindue, og send forespørgsler fra et andet:
+Start agenten i et terminalvindue, send forespørgsler fra et andet:
 
 ```bash
 # Terminal 1: Start agent
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Scenariotests: Happy-path funktionel validering
+## Scenarie tests: Happy-path funktionel validering
 
-Kør **alle tre** scenarier nedenfor. De validerer, at din agent producerer korrekt, struktureret output for realistiske input.
+Kør **alle tre** scenarier nedenfor. Disse validerer, at din agent producerer korrekt, struktureret output for realistiske input.
 
-![VS Code Run and Debug panel, der viser Agent Inspector kørende med executive summary svar](../../../../../translated_images/da/04-local-testing.0c9b1b37b14b0b25.webp)
+![VS Code Kør og Debug panel der viser Agent Inspector kørende med executive summary respons](../../../../../translated_images/da/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Scenario 1: IT-incident - API-latensspids
+### Scenarie 1: IT incident - API latenstop
 
 **Input:**
 ```
@@ -98,14 +100,14 @@ Rolled back at 10:14.
 ```
 
 **Forventet adfærd:**
-- ✅ Følger "Executive Summary"-strukturen (Hvad skete der / Forretningsmæssig påvirkning / Næste skridt)
+- ✅ Følger "Executive Summary" strukturen (Hvad skete der / Forretningspåvirkning / Næste skridt)
 - ✅ Ingen teknisk jargon (ingen "thread pool", ingen "/orders", ingen "v3.2")
-- ✅ Angiver klart forretningspåvirkningen (f.eks. brugere oplevede forsinkelser)
-- ✅ Indeholder et næste skridt (f.eks. fejlrettelse implementeret, overvågning på plads)
+- ✅ Angiver tydeligt forretningspåvirkningen (f.eks. brugere oplevede forsinkelser)
+- ✅ Indeholder et næste skridt (f.eks. fix implementeret, overvågning på plads)
 
 ---
 
-### Scenario 2: Datapipeline - ETL-fejl
+### Scenarie 2: Data Pipeline - ETL fejl
 
 **Input:**
 ```
@@ -113,14 +115,14 @@ The nightly ETL job failed because the upstream schema changed. APAC dashboards 
 ```
 
 **Forventet adfærd:**
-- ✅ Opsummerer dataopdateringsfejlen i almindeligt sprog
-- ✅ Nævner APAC-dashboardets påvirkning
-- ✅ Indeholder et afhjælpningsnæste skridt
-- ✅ Nævner IKKE "ETL", "skema" eller andre tekniske termer
+- ✅ Opsummerer dataopdateringsfejlen i letforståeligt sprog
+- ✅ Nævner APAC dashboard påvirkningen
+- ✅ Indeholder et afhjælpende næste skridt
+- ✅ Nævner IKKE "ETL", "schema" eller andre tekniske termer
 
 ---
 
-### Scenario 3: Sikkerhed - Eksponeret legitimationsoplysning
+### Scenarie 3: Sikkerhed - Udsat legitimationsoplysninger
 
 **Input:**
 ```
@@ -129,53 +131,53 @@ The secret may have been exposed in commit history.
 ```
 
 **Forventet adfærd:**
-- ✅ Beskriver en legitimations-/sikkerhedsfejl i cheflignende sprog
+- ✅ Beskriver en legitimations-/sikkerhedsproblematik på et ledelsesvenligt niveau
 - ✅ Fremhæver potentiel risiko (uautoriseret adgang)
-- ✅ Angiver afhjælpende handling (roskifte, revision)
-- ✅ Indeholder IKKE termer som "statisk analyse", "commit-historik" eller "hardcoded"
+- ✅ Angiver afhjælpende handling (credential rotation, audit)
+- ✅ Indeholder IKKE termer som "static analysis", "commit history" eller "hardcoded"
 
 ---
 
 ## Valideringskriterier
 
-For hvert scenarie, kontroller:
+For hvert scenarie, tjek:
 
-| # | Kriterium | Bestå betingelse |
-|---|----------|---------------|
-| 1 | **Struktur** | Svaret bruger "Executive Summary"-format med alle tre punkter |
-| 2 | **Almindeligt sprog** | Ingen teknisk jargon, som en leder ikke vil forstå |
-| 3 | **Nøjagtighed** | Resuméet afspejler input - ingen fabrikerede detaljer |
-| 4 | **Kortfattethed** | Svaret er under 100 ord |
-| 5 | **Næste skridt** | En klar handling eller afhjælpning er angivet |
+| # | Kriterium | Godkendelsesbetingelse |
+|---|----------|-----------------------|
+| 1 | **Struktur** | Responsen bruger "Executive Summary"-formatet med alle tre punkter |
+| 2 | **Letforståeligt sprog** | Ingen teknisk jargon som en leder ikke ville forstå |
+| 3 | **Nøjagtighed** | Opsummeringen afspejler inputtet - ingen fabrikerede detaljer |
+| 4 | **Kortfattethed** | Responsen er under 100 ord |
+| 5 | **Næste skridt** | En klar handling eller afbødning er angivet |
 
 ---
 
-## Debugging tips
+## Tips til fejlfinding
 
 | Problem | Løsning |
-|-------|---------|
-| Agenten starter ikke | Tjek `.env` værdier, bekræft venv er aktiveret, kør `pip install -r requirements.txt` |
-| Tomt eller generisk svar | Gennemgå instruktionerne i `main.py` - sikre outputformat er angivet |
-| Svaret inkluderer jargon | Styrk "fjern tekniske termer" regler i instruktionerne |
+|---------|---------|
+| Agenten starter ikke | Tjek `.env` værdier, verificer at venv er aktiveret, kør `pip install -r requirements.txt` |
+| Tom eller generisk respons | Gennemgå instruktioner i `main.py` - sørg for at output format er specificeret |
+| Respons indeholder jargon | Forstærk "fjern tekniske termer" regler i instruktionerne |
 | Agent Inspector åbner ikke | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Modelfejl i Terminal | Bekræft at `AZURE_AI_MODEL_DEPLOYMENT_NAME` matcher præcist (casesensitivt) |
+| Model fejl i Terminal | Verificer at `AZURE_AI_MODEL_DEPLOYMENT_NAME` matcher præcist (case-sensitive) |
 
 ---
 
 ### ✅ Tjekpunkt
 
 - [ ] Agenten starter lokalt uden fejl
-- [ ] Agent Inspector åbner og viser en chatgrænseflade (hvis du bruger F5)
-- [ ] **Scenario 1** (IT-incident) - struktureret Executive Summary, ingen jargon
-- [ ] **Scenario 2** (datapipeline) - relevant resumé med forretningspåvirkning
-- [ ] **Scenario 3** (sikkerhedsalert) - passende risiko-kommunikation
+- [ ] Agent Inspector åbner og viser en chat-grænseflade (hvis du bruger F5)
+- [ ] **Scenarie 1** (IT hændelse) - struktureret Executive Summary, ingen jargon
+- [ ] **Scenarie 2** (data pipeline) - relevant opsummering med forretningspåvirkning
+- [ ] **Scenarie 3** (sikkerhedsadvarsel) - passende risikokommunikation
 - [ ] Alle svar følger den definerede outputstruktur
 
-> **Gem dine svar** (kopiér eller tag screenshot) - du vil sammenligne dem med cloud-resultater i Modul 06.
+> **Gem dine svar** (kopier eller tag screenshot) - du vil sammenligne dem med cloud-resultater i Modul 06.
 
 ---
 
-**Forrige:** [03 - Configure & Code](03-configure-and-code.md) · **Næste:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
+**Forrige:** [03 - Konfigurer & Kode](03-configure-and-code.md) · **Næste:** [05 - Deploy til Foundry →](05-deploy-to-foundry.md)
 
 ---
 

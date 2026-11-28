@@ -25,9 +25,9 @@ Edge cases that worked locally might behave differently with a managed identity 
 ## Option A: Test in VS Code Playground (recommended)
 
 1. Click the **Foundry Toolkit** icon in the Activity Bar.
-2. Expand your project → **Hosted Agents (Preview)** → click your agent → select the version.
-3. Verify status is **Running**.
-4. Click **Playground** (or right-click → **Open in Playground**).
+2. Under **My Resources**, click **Agents** under your project, select the **Hosted Agent** tab, then click your agent.
+3. The **Hosted agent playground** opens on the **Details** tab. Verify **Deployment Details** → **Status** is **Running**.
+4. Click the **Playground** tab.
 
 ![VS Code showing deployed agent with Playground tab](../../../../../translated_images/en/06-deployed-agent-playground.52a1a5500fc36d16.webp)
 
@@ -38,11 +38,11 @@ Edge cases that worked locally might behave differently with a managed identity 
 
 ![Microsoft Foundry portal Build > Agents page listing hosted agents](../../../../../translated_images/en/06-foundry-portal-agent-list.5945b6da0028972e.webp)
 
-3. Click your agent → click **Open in playground**.
+3. Click your agent. It opens on the **Playground** tab. Check that the **Version** selector at the top right shows the version you just deployed.
 
 ![Foundry portal showing deployed agent with Playground tab](../../../../../translated_images/en/06-agent-in-foundry.916ffaaff13b1ae6.webp)
 
-![Microsoft Foundry portal Playground showing ExecutiveAgent with Running status and executive summary response in the chat](../../../../../translated_images/en/07-foundry-playground-chat.cc670304eb6b5b22.webp)
+![Microsoft Foundry portal Playground for executive-summary-agent version 2, with the executive summary response in the chat](../../../../../translated_images/en/07-foundry-playground-chat.cc670304eb6b5b22.webp)
 
 ---
 

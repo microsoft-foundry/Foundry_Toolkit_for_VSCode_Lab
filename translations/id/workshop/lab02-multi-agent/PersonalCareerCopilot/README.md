@@ -1,15 +1,15 @@
-# PersonalCareerCopilot - Evaluator Kecocokan Resume → Pekerjaan
+# PersonalCareerCopilot - Evaluator Kesesuaian CV → Pekerjaan
 
-Aplikasi multi-agen berfokus workflow yang mengevaluasi seberapa cocok resume dengan deskripsi pekerjaan, kemudian menghasilkan roadmap pembelajaran yang dipersonalisasi untuk menutup kesenjangan.
+Sebuah aplikasi multi-agen berbasis workflow yang mengevaluasi seberapa baik sebuah CV cocok dengan deskripsi pekerjaan, kemudian menghasilkan roadmap pembelajaran yang dipersonalisasi untuk menutup kesenjangan.
 
 ---
 
 ## Agen
 
-| Agent | Peran | Alat |
-|-------|-------|-------|
-| **ResumeParser** | Mengekstrak keterampilan terstruktur, pengalaman, sertifikasi dari teks resume | - |
-| **JobDescriptionAgent** | Mengekstrak keterampilan, pengalaman, sertifikasi yang diperlukan/diinginkan dari JD | - |
+| Agen | Peran | Alat |
+|-------|------|-------|
+| **ResumeParser** | Mengekstrak keterampilan, pengalaman, sertifikasi yang terstruktur dari teks CV | - |
+| **JobDescriptionAgent** | Mengekstrak keterampilan, pengalaman, sertifikasi yang dibutuhkan/dipilih dari JD | - |
 | **MatchingAgent** | Membandingkan profil vs persyaratan → skor kecocokan (0-100) + keterampilan yang cocok/hilang | - |
 | **GapAnalyzer** | Membangun roadmap pembelajaran yang dipersonalisasi dengan sumber daya Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
@@ -17,20 +17,20 @@ Aplikasi multi-agen berfokus workflow yang mengevaluasi seberapa cocok resume de
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Resume + Deskripsi Pekerjaan"] --> ResumeParser
-    ResumeParser -- "resume yang telah diurai + penghubung JD" --> JobDescriptionAgent
-    JobDescriptionAgent -- "persyaratan JD + penghubung resume" --> MatchingAgent
-    MatchingAgent -- "laporan kecocokan + kesenjangan" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nSkor Kecocokan + Peta Jalan"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## Mulai cepat
+## Memulai dengan cepat
 
 ### 1. Siapkan lingkungan
 
-Folder ini adalah implementasi referensi untuk kerangka kerja Lab 02 berbasis workflow. File `main.py` nya menggunakan blok prompt yang sudah ada plus `WorkflowBuilder` untuk menghubungkan keempat agen bersama-sama.
+Folder ini adalah implementasi referensi untuk kerangka Lab 02 berbasis workflow. `main.py` menggunakan blok prompt yang ada plus `WorkflowBuilder` untuk menghubungkan keempat agen.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -56,9 +56,9 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
 | Nilai | Tempat menemukannya |
-|--------|---------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Sidebar Foundry Toolkit → klik kanan proyek Anda → **Copy Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Sidebar Foundry → perluas proyek → **Models + endpoints** → nama deployment |
+|-------|------------------|
+| `FOUNDRY_PROJECT_ENDPOINT` | Sidebar Foundry Toolkit → klik kanan proyek Anda → **Salin Titik Akhir Proyek** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Sidebar Foundry → perluas proyek → **Model + titik akhir** → nama deployment |
 
 ### 3. Jalankan secara lokal
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Atau gunakan task VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Atau gunakan tugas VS Code: `Ctrl+Shift+P` → **Tugas: Jalankan Tugas** → **Jalankan Server HTTP Agen**.
 
-Untuk debugging dengan F5, gunakan **Debug Local Agent HTTP Server**.
+Untuk debugging F5, gunakan **Debug Server HTTP Agen Lokal**.
 
 ### 4. Uji dengan Agent Inspector
 
-Buka Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Buka Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Buka Agent Inspector**.
 
-Tempel prompt pengujian ini:
+Tempel prompt uji ini:
 
 ```
 Resume:
@@ -92,7 +92,7 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Harapan:** Skor kecocokan (0-100), keterampilan yang cocok/hilang, dan roadmap pembelajaran yang dipersonalisasi dengan URL Microsoft Learn.
+**Yang diharapkan:** Skor kesesuaian (0-100), keterampilan yang cocok/hilang, dan roadmap pembelajaran yang dipersonalisasi dengan URL Microsoft Learn.
 
 ### 5. Deploy ke Foundry
 
@@ -100,7 +100,7 @@ Certifications: Azure Solutions Architect Expert preferred.
 
 ---
 
-## Struktur Proyek
+## Struktur proyek
 
 ```
 PersonalCareerCopilot/
@@ -111,30 +111,30 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## File kunci
+## Berkas kunci
 
 ### `agent.yaml`
 
 Mendefinisikan agen hosted untuk Foundry Agent Service:
-- `kind: hosted` - dijalankan sebagai container terkelola
-- `protocols` - protokol `responses` dengan `version: 1.0.0`, mengekspos endpoint HTTP `/responses`
+- `kind: hosted` - dijalankan sebagai kontainer terkelola
+- `protocols` - protokol `responses` dengan `version: 2.0.0`, mengekspose endpoint HTTP `/responses`
 - `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` dideklarasikan di sini; `FOUNDRY_PROJECT_ENDPOINT` disuntikkan otomatis saat deploy
 
 ### `main.py`
 
 Berisi:
-- **Instruksi Agen** - empat konstanta `*_INSTRUCTIONS`, satu per agen
+- **Instruksi agen** - empat konstanta `*_INSTRUCTIONS`, satu per agen
 - **Alat MCP** - `search_microsoft_learn_for_plan()` memanggil `https://learn.microsoft.com/api/mcp` via Streamable HTTP
-- **Pembuatan Agen** - empat instance `Agent()` + `AgentExecutor()` yang berbagi satu `FoundryChatClient`
-- **Grafik Alur Kerja** - `WorkflowBuilder` menghubungkan agen sebagai pipeline berurutan: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Pembuatan agen** - empat instance `Agent()` + `AgentExecutor()` yang berbagi satu `FoundryChatClient`
+- **Grafik workflow** - `WorkflowBuilder` menghubungkan agen sebagai pipeline berurutan: ResumeParser → Agen JD → MatchingAgent → GapAnalyzer
 - **Startup server** - `ResponsesHostServer` berjalan di port 8088
 
 ### `requirements.txt`
 
 | Paket | Tujuan |
-|--------|---------|
+|---------|----------|
 | `agent-framework-foundry` | Runtime inti: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integrasi hosting Foundry |
+| `agent-framework-foundry-hosting` | Integrasi hosting Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | Klien MCP untuk GapAnalyzer (`streamable_http_client`) |
 | `debugpy` | Debugging Python (F5 di VS Code) |
 
@@ -142,15 +142,15 @@ Berisi:
 
 ## Pemecahan Masalah
 
-| Masalah | Perbaikan |
-|--------|----------|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` atau `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Buat `.env` dengan `FOUNDRY_PROJECT_ENDPOINT` dan `AZURE_AI_MODEL_DEPLOYMENT_NAME` diatur |
+| Masalah | Solusi |
+|-------|-----|
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` atau `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Buat `.env` dengan kedua `FOUNDRY_PROJECT_ENDPOINT` dan `AZURE_AI_MODEL_DEPLOYMENT_NAME` disetel |
 | `ModuleNotFoundError: No module named 'agent_framework'` | Aktifkan venv dan jalankan `pip install -r requirements.txt` |
 | Tidak ada URL Microsoft Learn di output | Periksa koneksi internet ke `https://learn.microsoft.com/api/mcp` |
-| Hanya 1 kartu gap (terpotong) | Verifikasi `GAP_ANALYZER_INSTRUCTIONS` menyertakan blok `CRITICAL:` |
-| Port 8088 sudah digunakan | Hentikan server lain: `netstat -ano \| findstr :8088` |
+| Hanya 1 kartu gap (terpotong) | Pastikan `GAP_ANALYZER_INSTRUCTIONS` menyertakan blok `CRITICAL:` |
+| Port 8088 sedang digunakan | Matikan server lain: `netstat -ano \| findstr :8088` |
 
-Untuk pemecahan masalah secara rinci, lihat [Modul 8 - Pemecahan Masalah](../docs/08-troubleshooting.md).
+Untuk pemecahan masalah mendetail, lihat [Modul 8 - Pemecahan Masalah](../docs/08-troubleshooting.md).
 
 ---
 

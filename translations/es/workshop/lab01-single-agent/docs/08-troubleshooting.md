@@ -1,53 +1,53 @@
 # Módulo 8 - Solución de problemas
 
-Este módulo es una guía de referencia para problemas comunes. Marque esta página y regrese cuando algo salga mal.
+Este módulo es una guía de referencia para problemas comunes. Agréguelo a favoritos y regrese cuando algo salga mal.
 
 ---
 
 ## 1. Errores de permisos
 
-### 1.1 Permiso `agents/write` denegado
+### 1.1 `agents/write` permiso denegado
 
 ```
 Error: lacks the required data action 
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Causa raíz:** Falta el rol `Azure AI User` a nivel de **proyecto**. Este es el error número 1 en el taller.
+**Causa raíz:** Falta el rol `Azure AI User` a nivel de **proyecto**. Este es el error #1 del taller.
 
 **Solución:**
 1. Abra [portal.azure.com](https://portal.azure.com).
-2. Busque el nombre de su **proyecto** Foundry → haga clic en el resultado de tipo **"Microsoft Foundry project"** (NO en la cuenta principal).
+2. Busque el nombre de su **proyecto** Foundry → haga clic en el resultado de tipo **"Microsoft Foundry project"** (NO cuenta principal).
 3. **Control de acceso (IAM)** → **+ Agregar** → **Agregar asignación de rol**.
-4. Rol: **Azure AI User** → Siguiente.
+4. Rol: **Usuario de Azure AI** → Siguiente.
 5. Miembros: Selecciónese a usted mismo → Revisar + asignar → Revisar + asignar.
-6. **Espere 1–2 minutos** → reintente.
+6. **Espere 1–2 minutos** → intente de nuevo.
 
-> **Por qué Owner/Contributor no es suficiente:** Estos roles otorgan solo acciones de *gestión*. Las operaciones del agente requieren la *acción de datos* `agents/write`, que solo está en `Azure AI User`, `Azure AI Developer` o `Azure AI Owner`. Consulte [docs Foundry RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+> **Por qué Propietario/Colaborador no es suficiente:** Estos roles otorgan solo acciones de *gestión*. Las operaciones del agente requieren la `agents/write` *acción de datos*, que solo está en `Azure AI User`, `Azure AI Developer`, o `Azure AI Owner`. Ver [documentación RBAC de Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
 ### 1.2 `AuthorizationFailed` durante la provisión
 
-**Solución:** Pida a su administrador que le asigne **Contributor** en el grupo de recursos, o que cree el proyecto para usted y le conceda **Azure AI User** en él.
+**Solución:** Pida a su administrador asignar **Colaborador** en el grupo de recursos, o que creen el proyecto por usted y le otorguen **Usuario de Azure AI** en él.
 
 ### 1.3 `SubscriptionNotRegistered`
 
 ```bash
 az provider register --namespace Microsoft.CognitiveServices
 az provider show --namespace Microsoft.CognitiveServices --query "registrationState"
-# Esperar hasta: "Registrado"
+# Wait until: "Registered"
 ```
 
 ---
 
 ## 2. Errores de Docker
 
-> Docker es **opcional**. Estos solo aplican si Docker Desktop está instalado y la extensión intenta una compilación local.
+> Docker es **opcional**. Esto solo aplica si Docker Desktop está instalado y la extensión intenta una compilación local.
 
-### 2.1 El demonio de Docker no está en ejecución
+### 2.1 Demonio de Docker no está en ejecución
 
-**Solución:** Inicie Docker Desktop → espere a que el estado sea "en ejecución" → verifique con `docker info` → reintente.
+**Solución:** Inicie Docker Desktop → espere a que el estado sea "en ejecución" → verifique con `docker info` → intente de nuevo.
 
-### 2.2 La compilación falla con errores de dependencias
+### 2.2 La compilación falla por errores de dependencia
 
 **Solución:** Verifique la ortografía de `requirements.txt`, pruebe localmente primero: `pip install -r requirements.txt`.
 
@@ -64,22 +64,22 @@ docker build --platform linux/amd64 -t myagent:v1 .
 ### 3.1 `DefaultAzureCredential` falla
 
 **Solución (intente en orden):**
-1. `az login` (reauthenticar)
+1. `az login` (reautenticar)
 2. `az account set --subscription "<id>"` (suscripción correcta)
-3. VS Code → Cuentas → Cerrar sesión → Iniciar sesión de nuevo
+3. VS Code → Cuentas → Cerrar sesión → Iniciar sesión nuevamente
 4. Verifique: `az account get-access-token --resource https://cognitiveservices.azure.com`
 
-### 3.2 El token funciona localmente pero no en el hospedado
+### 3.2 El token funciona localmente pero no en hospedado
 
-**Esperado:** Los agentes hospedados usan identidad administrada por el sistema, no sus credenciales. Si el agente hospedado obtiene errores de autenticación:
-- Verifique que `AZURE_AI_PROJECT_ENDPOINT` en `agent.yaml` esté correcto
+**Esperado:** Los agentes hospedados usan identidad administrada por el sistema, no su credencial. Si el agente hospedado recibe errores de autenticación:
+- Verifique que `AZURE_AI_MODEL_DEPLOYMENT_NAME` en `agent.yaml` resuelve el nombre de despliegue de su modelo (`FOUNDRY_PROJECT_ENDPOINT` es inyectado por Foundry en tiempo de ejecución - no lo declare en `agent.yaml`)
 - Compruebe que la identidad administrada del proyecto tenga acceso al modelo
 
 ---
 
 ## 4. Errores de modelo
 
-### 4.1 Despliegue del modelo no encontrado
+### 4.1 Despliegue de modelo no encontrado
 
 **Solución:** El nombre es **sensible a mayúsculas y minúsculas**. Compare `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` con el nombre exacto en la barra lateral de Foundry → Modelos.
 
@@ -91,70 +91,70 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ## 5. Errores de despliegue
 
-### 5.1 Pull de ACR no autorizado
+### 5.1 ACR pull no autorizado
 
-**Solución:** Portal de Azure → Registro de contenedores → Control de acceso (IAM) → Agregar rol **AcrPull** a la identidad administrada del proyecto Foundry.
+**Solución:** Portal de Azure → Registro de contenedores → Control de acceso (IAM) → Añadir rol **AcrPull** a la identidad administrada del proyecto Foundry.
 
-### 5.2 El agente no inicia (permanece en "Pendiente" o "Error")
+### 5.2 El agente no arranca (permanece en "Pendiente" o "Fallado")
 
-Revise los registros del contenedor en la barra lateral. Causas comunes:
+Verifique los logs del contenedor en la barra lateral. Causas comunes:
 
-| Mensaje de registro | Solución |
+| Mensaje de log | Solución |
 |-------------|-----|
-| `ModuleNotFoundError` | Agregue el paquete faltante a `requirements.txt`, redepliegue |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Agregue variable de entorno a `agent.yaml` bajo `environment_variables` |
-| `Address already in use` | Asegúrese de que solo un proceso esté enlazando el puerto 8088 |
+| `ModuleNotFoundError` | Añada el paquete faltante a `requirements.txt`, vuelva a desplegar |
+| `ValueError: Missing required environment variables` | Confirme que `AZURE_AI_MODEL_DEPLOYMENT_NAME` está declarado en `agent.yaml` bajo `environment_variables` y tiene un valor, luego vuelva a desplegar. `FOUNDRY_PROJECT_ENDPOINT` es inyectado por Foundry en tiempo de ejecución |
+| `Address already in use` | Asegúrese de que solo un proceso esté enlazado al puerto 8088 |
 
-### 5.3 Tiempo de despliegue agotado
+### 5.3 El despliegue caduca
 
-**Solución:** Verifique la conexión a internet. El primer despliegue sube >100MB. ¿Está detrás de un proxy? Configure las opciones de proxy en Docker Desktop.
+**Solución:** Verifique su conexión a internet. La primera implementación envía >100MB. ¿Detrás de un proxy? Configure la configuración del proxy en Docker Desktop.
 
 ---
 
 ## 6. Camino B - Foundry Local
 
-### 6.1 Foundry Local no inicia
+### 6.1 Foundry Local no se inicia
 
 | Problema | Solución |
 |-------|-----|
 | `foundry: command not found` | Reinstale: `winget install Microsoft.FoundryLocal` |
-| Recursos insuficientes | Foundry Local requiere ~4GB de RAM libre. Cierre otras aplicaciones. |
-| Descarga del modelo falla | Verifique el espacio en disco (los modelos pesan 2–8 GB). Reintente: `foundry local models pull <name>` |
+| Recursos insuficientes | Foundry Local necesita ~4GB de RAM libre. Cierre otras aplicaciones. |
+| Fallo en descarga de modelo | Verifique espacio en disco (los modelos son de 2–8 GB). Reintente: `foundry local models pull <name>` |
 
 ### 6.2 Errores de modelo en Foundry Local
 
 | Problema | Solución |
 |-------|-----|
-| Respuestas lentas | Esperado - los modelos locales se ejecutan en CPU a menos que tenga GPU. Sea paciente. |
+| Respuestas lentas | Esperado: los modelos locales se ejecutan en CPU a menos que tenga GPU. Sea paciente. |
 | Salida de mala calidad | Pruebe un modelo más grande si su hardware lo permite. `phi-4-mini` es un buen equilibrio. |
-| Conexión rechazada | Verifique que Foundry Local esté en ejecución: `foundry local status`. Reinicie si es necesario. |
+| Conexión rechazada | Verifique que Foundry Local esté corriendo: `foundry local status`. Reinicie si es necesario. |
 
 ---
 
-## 7. Referencia rápida: roles RBAC
+## 7. Referencia rápida: Roles RBAC
 
 | Rol | Alcance | Otorga |
 |------|-------|--------|
-| **Azure AI User** | Proyecto | Acciones de datos: `agents/write`, `agents/read` |
-| **Azure AI Developer** | Proyecto/Cuenta | Acciones de datos + creación de proyectos |
-| **Azure AI Owner** | Cuenta | Acceso completo + gestión de roles |
-| **Contributor** | Suscripción/Gupo de recursos | Solo acciones de gestión (**no** acciones de datos) |
-| **Owner** | Suscripción/Grupo de recursos | Gestión + asignación de roles (**no** acciones de datos) |
+| **Usuario de Azure AI** | Proyecto | Acciones de datos: `agents/write`, `agents/read` |
+| **Desarrollador de Azure AI** | Proyecto/Cuenta | Acciones de datos + creación de proyecto |
+| **Propietario de Azure AI** | Cuenta | Acceso completo + gestión de roles |
+| **Colaborador** | Suscripción/GR | Solo acciones de gestión (**no** acciones de datos) |
+| **Propietario** | Suscripción/GR | Gestión + asignación de roles (**no** acciones de datos) |
 
 ---
 
 ## 8. Lista de verificación para completar el taller
 
-| # | Ítem | Módulo |
+| # | Elemento | Módulo |
 |---|------|--------|
 | 1 | Prerrequisitos instalados y verificados | [00](00-prerequisites.md) |
 | 2 | Extensión Foundry Toolkit instalada, proyecto conectado (o Camino B configurado) | [01](01-setup.md) |
-| 3 | Agente hospedado configurado | [02](02-create-hosted-agent.md) |
+| 3 | Agente hospedado estructurado | [02](02-create-hosted-agent.md) |
 | 4 | `.env` configurado, instrucciones escritas, dependencias instaladas | [03](03-configure-and-code.md) |
-| 5 | Agente probado localmente - 3 escenarios funcionales aprobados | [04](04-test-locally.md) |
-| 6 | Desplegado en Foundry (solo Camino A) | [05](05-deploy-to-foundry.md) |
-| 7 | Pruebas de casos límite/seguridad aprobadas en la nube (solo Camino A) | [06](06-verify-in-playground.md) |
-| 8 | Resumen revisado, próximos pasos identificados | [07](07-summary.md) |
+| 5 | Agente probado localmente - pasan 3 escenarios funcionales | [04](04-test-locally.md) |
+| 6 | Desplegado a Foundry (solo Camino A) | [05](05-deploy-to-foundry.md) |
+| 7 | Pruebas de casos extremos / seguridad pasan en la nube (solo Camino A) | [06](06-verify-in-playground.md) |
+| 8 | Resumen revisado, siguientes pasos identificados | [07](07-summary.md) |
 
 ---
 

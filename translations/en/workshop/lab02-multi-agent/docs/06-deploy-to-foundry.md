@@ -24,7 +24,7 @@ flowchart LR
 Before deploying, verify every item below:
 
 1. **Agent passes local smoke tests:**
-   - You completed all 3 tests in [Module 5](05-test-locally.md) and the workflow produced complete output with gap cards and Microsoft Learn URLs.
+   - You completed both smoke tests in [Module 5](05-test-locally.md) and the workflow produced complete output with gap cards and Microsoft Learn URLs.
 
 2. **You have the [Foundry User](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) role** (to deploy, you need at minimum **Foundry Project Manager** at project scope):
 
@@ -92,8 +92,8 @@ If the agent is running via F5 with the Agent Inspector open:
 |---------|------------------|-------|
 | **Deployment Method** | **Container** (recommended) or **Code** | Container builds a Docker image; Code uploads source as a ZIP (preview) |
 | **Container Registry** | **Default ACR** | Foundry creates and manages one for you |
-| **CPU** | `0.25` | Default. Multi-agent workflows don't need more CPU because model calls are I/O-bound |
-| **Memory** | `0.5Gi` | Default. Increase to `1Gi` if you add large data processing tools |
+| **CPU** | `0.5` | Default. Multi-agent workflows don't need more CPU because model calls are I/O-bound |
+| **Memory** | `1.0Gi` | Default. Increase if you add large data processing tools |
 
 ---
 
@@ -117,7 +117,7 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 
 2. **Docker push** - Pushes the image to ACR (1-3 minutes on first deploy).
 
-3. **Agent registration** - Foundry creates a hosted agent using `agent.yaml` metadata. The agent name is `resume-job-fit-evaluator`.
+3. **Agent registration** - Foundry creates a hosted agent using `agent.yaml` metadata. The agent name is `PersonalCareerCopilot`.
 
 4. **Container start** - The container starts in Foundry's managed infrastructure with a system-managed identity.
 
@@ -133,13 +133,12 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 
 ## Step 4: Verify the deployment status
 
-1. Open the **Microsoft Foundry** sidebar (click the Foundry icon in the Activity Bar).
-2. Expand **Hosted Agents (Preview)** under your project.
-3. Find **resume-job-fit-evaluator** (or your agent name).
-4. Click on the agent name → expand versions (e.g., `v1`).
-5. Click on the version → check **Container Details** → **Status**:
+1. Open the **Foundry Toolkit** sidebar (click the Foundry Toolkit icon in the Activity Bar).
+2. Under your project in **My Resources**, click **Agents**, then select the **Hosted Agent** tab.
+3. Click **PersonalCareerCopilot** (or your agent name).
+4. The **Hosted agent playground** opens on the **Details** tab. Check **Deployment Details** → **Status**:
 
-![Foundry sidebar showing Hosted Agents expanded with agent version and status](../../../../../translated_images/en/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
+![Hosted agent playground open on the Details tab, with Deployment Details showing the agent's status as Running](../../../../../translated_images/en/06-foundry-sidebar-agent-status.a45994bfb5c21284.webp)
 
 | Status | Meaning |
 |--------|---------|
@@ -147,7 +146,7 @@ Watch the VS Code **Output** panel (select "Microsoft Foundry" dropdown):
 | **creating** | Container is starting (wait 30–60 seconds) |
 | **failed** | Container failed to start (check logs - see below) |
 
-> **Note:** The VS Code sidebar may display labels like "Running" or "Started" while the underlying API status uses `active`/`creating`. Either display indicates the same state.
+> **Note:** The **Details** tab may display labels like "Running" or "Started" while the underlying API status uses `active`/`creating`. Either display indicates the same state.
 
 > **Multi-agent startup takes longer** than single-agent because the container creates 4 agent instances on startup. `creating` for up to 2 minutes is normal.
 
@@ -209,8 +208,8 @@ If the Gap Analyzer stops producing Microsoft Learn URLs after deployment:
 ### Checkpoint
 
 - [ ] Deployment command completed without errors in VS Code
-- [ ] Agent appears under **Hosted Agents (Preview)** in the Foundry sidebar
-- [ ] Agent name is `resume-job-fit-evaluator` (or your chosen name)
+- [ ] Agent appears on the **Hosted Agent** tab when you click **Agents** under your project in the Foundry Toolkit sidebar
+- [ ] Agent name is `PersonalCareerCopilot` (or your chosen name)
 - [ ] Container status shows **Started** or **Running**
 - [ ] (If errors) You identified the error, applied the fix, and redeployed successfully
 

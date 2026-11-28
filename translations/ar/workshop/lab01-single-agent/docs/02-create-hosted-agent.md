@@ -2,25 +2,26 @@
 
 ⏱️ ~5 دقائق
 
-في هذه الوحدة، ستستخدم Foundry Toolkit لـ **تهيئة مشروع وكيل مستضاف**. تقوم التهيئة بإنشاء هيكل المشروع الكامل - `agent.yaml`، `main.py`، `Dockerfile`، `requirements.txt`، وتكوين تصحيح الأخطاء في VS Code - بحيث يمكنك التركيز على تخصيص سلوك الوكيل.
+في هذه الوحدة، تستخدم Foundry Toolkit لـ **إنشاء مشروع وكيل مستضاف**. يقوم الهيكل بإنشاء هيكل المشروع الكامل - `agent.yaml` و`main.py` و`Dockerfile` و`requirements.txt` بالإضافة إلى تكوين التصحيح في VS Code - حتى تتمكن من التركيز على تخصيص سلوك الوكيل.
 
-> **المفهوم الأساسي:** مجلد `agent/` في هذا المختبر هو مثال لما يولده Foundry Toolkit. لا تحتاج إلى كتابة هذه الملفات من الصفر.
+> **المفهوم الرئيسي:** مجلد `agent/` في هذا المختبر هو مثال لما يولده Foundry Toolkit. أنت لا تكتب هذه الملفات من الصفر.
 
-### سير عمل معالج التهيئة
+### تدفق معالج الهيكلة
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["اختر النموذج"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["المشروع المُنشأ"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## الخطوة 1: افتح معالج إنشاء الوكيل المستضاف
+## الخطوة 1: افتح معالج إنشاء وكيل مستضاف
 
 1. اضغط على `Ctrl+Shift+P` لفتح **لوحة الأوامر**.
 2. اكتب: **Foundry Toolkit: Create new Hosted Agent** واختره.
 
 > **بديل: الإنشاء عبر بوابة Foundry**
-> إذا كنت تفضل المتصفح، يمكنك إنشاء مشروعك على [https://ai.azure.com](https://ai.azure.com). بمجرد تجهيز المشروع، عد إلى VS Code واستخدم الشريط الجانبي لـ **Foundry Toolkit** للاتصال به.
+> إذا فضلت المتصفح، يمكنك إنشاء مشروعك على [https://ai.azure.com](https://ai.azure.com). بمجرد إنشاء المشروع، عد إلى VS Code واستخدم الشريط الجانبي لـ **Foundry Toolkit** للاتصال به.
 
-> **بديل:** انقر على أيقونة **+** بجانب **Hosted Agents (Preview)** في الشريط الجانبي لـ Foundry Toolkit.
+> **بديل:** في الشريط الجانبي لـ Foundry Toolkit، مرر فوق **Agents** ضمن مشروعك، وانقر على أيقونة **+**، ثم اختر **Create in Code With Template**.
 
 ## الخطوة 2: اختر الإعدادات
 
-![إنشاء وكيل مستضاف من نموذج - تبويب تفاصيل الوكيل يعرض عوامل التصفية للغة والإطار وبروتوكول والقالب](../../../../../translated_images/ar/02-hosted-agents-sample.0aabd1638936c591.webp)
+![إنشاء وكيل مستضاف من عينة - تبويب تفاصيل الوكيل يعرض لغات، إطار العمل، البروتوكول، ومرشحات القالب](../../../../../translated_images/ar/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. في قسم التنقل / الخيارات على اليسار، اختر ما يلي:
+1. في قسم التنقل/الخيارات على اليسار اختر التالي:
 
-| القائمة | التحديد | الملاحظات |
+| القائمة | الاختيار | ملاحظات |
 |--------|-----------|-------|
-| **اللغة** | Python | تدعم أيضًا C# |
-| **الإطار** | Agent Framework | نقطة بداية بسيطة باستخدام Agent Framework SDK |
-| **نوع API** | Response API | `POST /responses` - محادثة، مع سجل يديره المنصة |
+| **اللغة** | Python | C# مدعوم أيضًا |
+| **إطار العمل** | Agent Framework | نقطة بداية بسيطة باستخدام Agent Framework SDK |
+| **نوع API** | Response API | `POST /responses` - محادثة، مع سجل مُدار من قبل المنصة |
 | **القالب** | Basic | نقطة بداية بسيطة باستخدام Agent Framework SDK |
 
-2. بمجرد التحديد، انقر على **التالي**
+2. بعد الاختيار، انقر على **التالي**
 
-![إنشاء وكيل مستضاف - تبويب الإنشاء يعرض خيارات مجلد المساحة، اسم المجلد، وإعداد البيئة](../../../../../translated_images/ar/02-create-hosted-agents.9f10b6a566df3053.webp)
+![إنشاء وكيل مستضاف - تبويب الإنشاء يعرض خيارات مجلد العمل، اسم المجلد، وإعداد البيئة](../../../../../translated_images/ar/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-3. في النافذة التالية، اختر ما يلي:
+3. في النافذة التالية، اختر التالي:
 
-| القائمة | التحديد | الملاحظات |
+| القائمة | الاختيار | ملاحظات |
 |--------|-----------|-------|
-| **مجلد مساحة العمل** | اختر مجلد الهدف | مثلًا `/workspace/Foundry_Toolkit_for_VSCode_Lab/` أو مجلد فرعي داخل هذا المستودع |
-| **اسم الوكيل** | أدخل اسمًا | مثلًا `executive-summary-agent` |
+| **مجلد مساحة العمل** | اختر مجلد الهدف | مثال: `/workspace/Foundry_Toolkit_for_VSCode_Lab/` أو مجلد فرعي ضمن هذا المستودع |
+| **اسم الوكيل** | أدخل اسمًا | مثال: `executive-summary-agent` |
 | **إعداد البيئة** | تخطى الإعداد الآن |  |
 
 انقر على **إنشاء** لإنشاء وكيلنا. سيتم إنشاء مجلد جديد باسم الوكيل المستضاف.
 
-## الخطوة 3: فحص المشروع المُنشأ
+## الخطوة 3: تفقد المشروع المنشأ
 
-بعد الانتهاء من التهيئة، تحقق من وجود هذه الملفات في المستكشف (`Ctrl+Shift+E`):
+بعد اكتمال الهيكلة، تأكد من رؤية هذه الملفات في المستعرض (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -86,25 +87,25 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-### شرح الملفات الأساسية
+### شرح الملفات الرئيسية
 
 | الملف | الغرض |
 |------|---------|
-| `agent.yaml` | يعلن عن الوكيل كـ `kind: hosted`، يربط متغيرات البيئة، ويُعرّف بروتوكول `/responses` |
-| `main.py` | ينشئ `FoundryChatClient` → يلفه في `Agent` مع تعليمات → يخدم عبر `ResponsesHostServer` على المنفذ 8088 |
-| `Dockerfile` | يستخدم `python:3.12-slim`، يثبت التبعيات، يفتح المنفذ 8088، يشغّل `main.py` |
+| `agent.yaml` | يعلن الوكيل كـ `kind: hosted`، يربط متغيرات البيئة، يعرّف بروتوكول `/responses` |
+| `main.py` | ينشئ `FoundryChatClient` → يلفّه في `Agent` مع تعليمات → يخدم عبر `ResponsesHostServer` على المنفذ 8088 |
+| `Dockerfile` | يستخدم `python:3.12-slim`، يثبت التبعيات، يعرض المنفذ 8088، يشغّل `main.py` |
 | `requirements.txt` | `agent-framework-foundry`، `agent-framework-foundry-hosting`، `mcp`، `debugpy` |
 
-> **مهم:** افتح مجلد الوكيل المُهيأ مباشرةً في VS Code (مجلد `agent/` نفسه) حتى تعمل ملفات `.vscode/launch.json` و `tasks.json` بشكل صحيح عند تصحيح الأخطاء بالضغط على F5.
+> **مهم:** افتح مجلد الوكيل المهيكل مباشرة في VS Code (مجلد `agent/` نفسه) بحيث تعمل `.vscode/launch.json` و`tasks.json` بشكل صحيح لتصحيح F5.
 
 ---
 
-### ✅ نقطة التحقق
+### ✅ نقطة تحقق
 
-- [ ] تم إنشاء المشروع المُهيأ مع كل الملفات المتوقعة
-- [ ] يعرض `agent.yaml` القيمة `kind: hosted` و`protocol: responses`
+- [ ] تم إنشاء المشروع الهيكلي مع جميع الملفات المتوقعة
+- [ ] `agent.yaml` يعرض `kind: hosted` و `protocol: responses`
 - [ ] `main.py` يستورد `Agent`، `FoundryChatClient`، `ResponsesHostServer`
-- [ ] مجلد الوكيل مفتوح في VS Code كجذر مساحة العمل
+- [ ] مجلد الوكيل مفتوح في VS Code كجذر مساحة عمل
 
 ---
 

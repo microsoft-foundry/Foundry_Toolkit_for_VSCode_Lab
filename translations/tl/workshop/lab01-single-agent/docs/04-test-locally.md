@@ -2,14 +2,14 @@
 
 ⏱️ ~10 min
 
-Sa module na ito, patatakbuhin mo ang iyong ahente nang lokal at susuriin kung ito ay gumagana ng tama gamit ang **happy-path functional tests**. Gagamitin mo ang Agent Inspector (visual UI) o direktang mga tawag sa HTTP upang kumpirmahin na ang ahente ay gumagawa ng istrakturadong, tumpak na mga tugon.
+Sa module na ito, patakbuhin mo ang iyong ahente nang lokal at patunayan na ito ay gumagana nang maayos gamit ang **happy-path functional tests**. Gagamitin mo ang Agent Inspector (visual UI) o direktang mga tawag sa HTTP upang kumpirmahin na ang ahente ay gumagawa ng nakaayos at tumpak na mga tugon.
 
-### Daloy ng lokal na pagsubok
+### Daloy ng lokal na pagsusuri
 
 ```mermaid
 flowchart TD
-    A["Simulan ang server ng ahente"] --> B["Buksan ang Inspektor ng Ahente"]
-    B --> C["Magpadala ng test input"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -27,26 +27,28 @@ flowchart TD
 
 ### Simulan ang debugger
 
-1. Buksan ang **executive-summary-agent/** folder direkta sa VS Code (`File → Open Folder`).
-2. Buksan ang panel na **Run and Debug** (`Ctrl+Shift+D`).
-3. Piliin ang **Debug Local Agent Server** mula sa dropdown.
+1. Buksan ang **executive-summary-agent/** folder nang direkta sa VS Code (`File → Open Folder`).
+2. Buksan ang **Run and Debug** panel (`Ctrl+Shift+D`).
+3. Piliin ang **Debug Local Agent HTTP Server** mula sa dropdown.
 4. Pindutin ang **F5** (o i-click ang ▶ Start Debugging).
 
 > ⚠️ **Mahalaga: Piliin ang iyong Python Interpreter**
-> Kung makakatanggap ka ng "ModuleNotFoundError" o hindi magsimula ang debugger, kailangang sabihin sa VS Code na gamitin ang iyong virtual environment:
+> Kung makakatanggap ka ng "ModuleNotFoundError" o hindi magsimula ang debugger, kailangan mong sabihin sa VS Code na gamitin ang iyong virtual environment:
   > 1. Pindutin ang `Ctrl+Shift+P` $\rightarrow$ i-type ang **Python: Select Interpreter**.
   > 2. Piliin ang interpreter na nasa `.venv` folder ng iyong proyekto (hal., `.\.venv\Scripts\python.exe` sa Windows).
-  > 3. I-restart ang sesyon ng debug.
-> Kung patuloy ang mga error, i-update nang manu-mano ang iyong `tasks.json` file sa mga sumusunod:
-  > 1. Puntahan ang `.vscode/tasks.json` file
-  > 2. Hanapin ang utos na may label na: `Run Agent/Workflow HTTP Server`
-  > 3. I-update ang halaga ng command ng ganito: `"value": "${workspaceFolder}/.venv/bin/python",`
+  > 3. I-restart ang debug session.
+> Kung patuloy pa rin ang mga error, manu-manong i-update ang iyong file `tasks.json` gaya ng sumusunod:
+  > 1. Pumunta sa `.vscode/tasks.json` file
+  > 2. Hanapin ang gawain na may label na: `Run Agent HTTP Server`
+  > 3. I-update ang command value gaya ng sumusunod:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### Ano ang nangyayari
 
 1. Nagsisimula ang HTTP server sa `http://localhost:8088/responses`.
-2. Awtomatikong bumubukas ang panel ng **Agent Inspector** - isang visual chat interface para sa pagsubok.
-3. Naka-enable ang mga breakpoint sa `main.py`.
+2. Awtomatikong bumubukas ang **Agent Inspector** panel - isang visual chat interface para sa pagsusuri.
+3. Ang mga breakpoints ay pinapagana sa `main.py`.
 
 Bantayan ang Terminal para sa:
 ```
@@ -58,7 +60,7 @@ Executive agent server running on http://localhost:8088
 
 ![Agent Inspector connected to localhost:8088 showing an Executive Summary response](../../../../../translated_images/tl/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Maaaring ang screenshot ay nagpapakita ng lumang 'AI TOOLKIT' branding mula sa naunang bersyon ng extension.*
+> *Ang screenshot ay maaaring magpakita ng mas lumang 'AI TOOLKIT' branding mula sa mas maagang bersyon ng extension.*
 
 ---
 
@@ -67,14 +69,14 @@ Executive agent server running on http://localhost:8088
 Simulan ang ahente sa isang terminal, magpadala ng mga kahilingan mula sa isa pa:
 
 ```bash
-# Terminal 1: Simulan ang ahente
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
 ```
 
 ```bash
-# Terminal 2: Magpadala ng pagsubok (curl)
+# Terminal 2: Send test (curl)
 curl -sS -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "The API latency increased due to thread pool exhaustion caused by sync calls in v3.2.", "stream": false}'
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Mga pagsubok sa senaryo: Pagsusuri sa happy-path functional
+## Mga scenario test: Happy-path functional validation
 
-Patakbuhin ang **lahat ng tatlong** senaryo sa ibaba. Sinasuri nito na ang iyong ahente ay gumagawa ng tama, istrakturadong output para sa makatotohanang input.
+Patakbuhin ang **lahat ng tatlong** scenario sa ibaba. Pinapatunayan nito na ang ahente mo ay gumagawa ng tamang nakaayos na output para sa makatotohanang input.
 
 ![VS Code Run and Debug panel showing Agent Inspector running with executive summary response](../../../../../translated_images/tl/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Senaryo 1: IT Incident - Pagsabog ng latency ng API
+### Scenario 1: IT Incident - API latency spike
 
 **Input:**
 ```
@@ -98,14 +100,14 @@ Rolled back at 10:14.
 ```
 
 **Inaasahang kilos:**
-- ✅ Sinusunod ang istruktura ng "Executive Summary" (Ano ang nangyari / Epekto sa negosyo / Susunod na hakbang)
+- ✅ Sinusunod ang estruktura ng "Executive Summary" (Ano ang nangyari / Epekto sa negosyo / Susunod na hakbang)
 - ✅ Walang teknikal na jargon (walang "thread pool", walang "/orders", walang "v3.2")
-- ✅ Maliwanag na sinasabi ang epekto sa negosyo (hal., nagkaroon ng pagkaantala ang mga gumagamit)
-- ✅ May kasamang susunod na hakbang (hal., patch na naipadala, naka-set up ang monitoring)
+- ✅ Malinaw na inilalahad ang epekto sa negosyo (hal., nagkaroon ng delay ang mga gumagamit)
+- ✅ May kasama na susunod na hakbang (hal., naisagawa na ang pag-aayos, may monitoring na)
 
 ---
 
-### Senaryo 2: Data Pipeline - ETL failure
+### Scenario 2: Data Pipeline - ETL failure
 
 **Input:**
 ```
@@ -113,14 +115,14 @@ The nightly ETL job failed because the upstream schema changed. APAC dashboards 
 ```
 
 **Inaasahang kilos:**
-- ✅ Buod ng kabiguan sa pag-refresh ng data sa payak na salita
+- ✅ Binubuod ang failure ng data refresh sa payak na salita
 - ✅ Binanggit ang epekto sa APAC dashboard
-- ✅ Kasama ang susunod na hakbang para sa remedyo
-- ✅ HINDI binanggit ang "ETL", "schema", o ibang teknikal na termino
+- ✅ May kasama na susunod na remedial na hakbang
+- ✅ HINDI binabanggit ang "ETL", "schema", o iba pang teknikal na termino
 
 ---
 
-### Senaryo 3: Seguridad - Bukas na kredensyal
+### Scenario 3: Seguridad - Nailantad na credential
 
 **Input:**
 ```
@@ -129,53 +131,53 @@ The secret may have been exposed in commit history.
 ```
 
 **Inaasahang kilos:**
-- ✅ Inilalarawan ang isyu sa kredensyal/sekuridad sa paraang madaling maintindihan ng isang ehekutibo
-- ✅ Tinatawag ang posibleng panganib (hindi awtorisadong pag-access)
-- ✅ Sinasabi ang aksyon para sa remedyo (pag-ikot ng kredensyal, audit)
-- ✅ HINDI kasama ang mga terminong gaya ng "static analysis", "commit history", o "hardcoded"
+- ✅ Inilalarawan ang isyu sa credential/seguridad gamit ang lengguwaheng friendly sa executive
+- ✅ Itinuro ang potensyal na panganib (walang pahintulot na access)
+- ✅ Inilalahad ang remedial na aksyon (pag-ikot ng credential, audit)
+- ✅ HINDI kasama ang mga terminong tulad ng "static analysis", "commit history", o "hardcoded"
 
 ---
 
 ## Mga pamantayan sa pagsusuri
 
-Para sa bawat senaryo, suriin:
+Para sa bawat scenario, tingnan ang:
 
-| # | Pamantayan | Pasa kapag |
-|---|----------|---------------|
-| 1 | **Istruktura** | Tugon ay gumagamit ng format na "Executive Summary" na may tatlong bullets |
-| 2 | **Payak na wika** | Walang teknikal na jargon na hindi mauunawaan ng ehekutibo |
-| 3 | **Katumpakan** | Buod ay tumutugma sa input - walang imbentong detalye |
-| 4 | **Kalakihan** | Tugon ay hindi lalampas sa 100 salita |
-| 5 | **Susunod na hakbang** | Maliwanag ang tinukoy na aksyon o mitigasyon |
+| # | Pamantayan | Kondisyon ng pagpasa |
+|---|------------|---------------------|
+| 1 | **Estruktura** | Ang tugon ay gumagamit ng "Executive Summary" na format na may tatlong bullets |
+| 2 | **Payak na lengguwahe** | Walang teknikal na jargon na hindi mauunawaan ng isang executive |
+| 3 | **Katumpakan** | Ang buod ay tumutugma sa input - walang pinagdududahang detalye |
+| 4 | **Pagiging maigsi** | Ang tugon ay hindi lalampas sa 100 salita |
+| 5 | **Susunod na hakbang** | Malinaw na aksyon o mitigasyon ang nakasaad |
 
 ---
 
 ## Mga tip sa pag-debug
 
-| Isyu | Ayusin |
-|-------|-----|
-| Hindi nagsisimula ang ahente | Suriin ang mga halaga sa `.env`, tiyakin na naka-activate ang venv, patakbuhin ang `pip install -r requirements.txt` |
-| Walang laman o pangkalahatang tugon | Balikan ang mga tagubilin sa `main.py` - siguraduhing nakasaad ang format ng output |
-| Tugon ay may jargon | Palakasin ang mga panuntunan sa "alisin ang teknikal na termino" sa mga tagubilin |
+| Isyu | Solusyon |
+|-------|----------|
+| Hindi nagsisimula ang ahente | Suriin ang mga halaga ng `.env`, tiyaking naka-activate ang venv, patakbuhin ang `pip install -r requirements.txt` |
+| Walang laman o pangkalahatang tugon | Balikan ang mga tagubilin sa `main.py` - siguraduhing tinukoy ang format ng output |
+| May jargon sa tugon | Palakasin ang mga patakaran na "tanggalin ang mga teknikal na termino" sa mga tagubilin |
 | Hindi bumubukas ang Agent Inspector | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Mga error sa modelo sa Terminal | Tiyakin na ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` ay eksaktong tumutugma (case-sensitive) |
+| Mga error ng modelo sa Terminal | Tiyaking tugma ang `AZURE_AI_MODEL_DEPLOYMENT_NAME` nang eksakto (case-sensitive) |
 
 ---
 
 ### ✅ Checkpoint
 
 - [ ] Nagsisimula ang ahente nang lokal nang walang error
-- [ ] Bumubukas ang Agent Inspector at nagpapakita ng chat interface (kung ginamit ang F5)
-- [ ] **Senaryo 1** (IT incident) - istrakturadong Executive Summary, walang jargon
-- [ ] **Senaryo 2** (data pipeline) - kaugnay na buod na may epekto sa negosyo
-- [ ] **Senaryo 3** (alerto sa seguridad) - angkop na komunikasyon ng panganib
-- [ ] Lahat ng tugon ay sumusunod sa itinakdang istruktura ng output
+- [ ] Bumubukas ang Agent Inspector at nagpapakita ng chat interface (kung gamit ang F5)
+- [ ] **Scenario 1** (IT incident) - nakaayos na Executive Summary, walang jargon
+- [ ] **Scenario 2** (data pipeline) - may kaugnayang buod na may epekto sa negosyo
+- [ ] **Scenario 3** (security alert) - angkop na komunikasyon ng panganib
+- [ ] Lahat ng mga tugon ay sumusunod sa itinakdang estruktura ng output
 
 > **I-save ang iyong mga tugon** (kopyahin o kunan ng screenshot) - ihahambing mo ito sa mga resulta sa cloud sa Module 06.
 
 ---
 
-**Nauna:** [03 - Configure & Code](03-configure-and-code.md) · **Susunod:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
+**Nakaraan:** [03 - Configure & Code](03-configure-and-code.md) · **Susunod:** [05 - Deploy to Foundry →](05-deploy-to-foundry.md)
 
 ---
 

@@ -1,80 +1,80 @@
-# PersonalCareerCopilot - రిజ్యూమ్ → జాబ్ ఫిట్ മൂల్యాంకన యంత్రం
+# PersonalCareerCopilot - రిజ్యూమ్ → ఉద్యోగ అనుకూలత అంచనాదారు
 
-రిజ్యూమ్ జాబ్ వివరణకు ఎంత వరకు సరిపోతుందో అంచనా వేయడం మరియు అంతరాలను భర్తీ చేసుకోవడానికి వ్యక్తిగతీకరించిన నేర్చుకునే మార్గదర్శకం రూపొందించు వర్క్‌ఫ్లో-ప్రథమ బహుజన యజమాని యాప్.
+రిజ్యూమ్ ఉద్యోగ వివరణకు ఎంతవరకు సరిపోయిందో అంచనా వేసే, తర్వాత తగిన శిక్షణ పథకాన్ని రూపొందించే వర్క్‌ఫ్లో-మొదటి బహుళ-ఏజెంట్ యాప్.
 
 ---
 
 ## ఏజెంట్లు
 
-| ఏజెంట్ | పాత్ర | సాధనాలు |
+| ఏజెంట్ | పాత్ర | ఉపకరణాలు |
 |-------|------|-------|
-| **ResumeParser** | రిజ్యూమ్ టెక్స్ట్ నుండి నిర్మిత నైపుణ్యాలు, అనుభవం, సర్టిఫికేషన్లు తీయటం | - |
-| **JobDescriptionAgent** | JD నుండి అవసరమైన/ఇష్టమైన నైపుణ్యాలు, అనుభవం, సర్టిఫికేషన్లు తీయటం | - |
-| **MatchingAgent** | ప్రొఫైల్ vs అవసరాలు → ఫిట్ స్కోరు (0-100) + సరిపోలిన/లేని నైపుణ్యాలు పోలిక | - |
-| **GapAnalyzer** | Microsoft Learn రిసోర్సులతో వ్యక్తిగత నేర్చుకునే మార్గదర్శకం రూపొందించడం | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | రిజ్యూమ్ పాఠ్యత్తొనుండి నిర్మాణాత్మక నైపుణ్యాలు, అనుభవం, సర్టిఫికెషన్స్ తొలగిస్తుంది | - |
+| **JobDescriptionAgent** | JD నుండి అవసరమైన/ప్రాధాన్యమైన నైపుణ్యాలు, అనుభవం, సర్టిఫికెషన్స్ తీసివేస్తుంది | - |
+| **MatchingAgent** | ప్రొఫైన్ సంభంధిత అవసరాలతో పోల్చి → फिट్స్కోరు (0-100) + సరిపోతున్న/లేని నైపుణ్యాలు | - |
+| **GapAnalyzer** | Microsoft Learn వనరులతో వ్యక్తిగతరీతి శిక్షణ పథకం తయారు చేస్తుంది | `search_microsoft_learn_for_plan` (MCP) |
 
 ## వర్క్‌ఫ్లో
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: రిజ్యూమ్ + జాబ్ వివరణ"] --> ResumeParser
-    ResumeParser -- "విశ్లేషించిన రిజ్యూమ్ + JD రీలే" --> JobDescriptionAgent
-    JobDescriptionAgent -- "JD అవసరాలు + రిజ్యూమ్ రీలే" --> MatchingAgent
-    MatchingAgent -- "సరిపోయే నివేదిక + గ్యాప్స్" --> GapAnalyzerMCP["ఆంతరాల విశ్లేషకుడు +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nఫిట్ స్కోర్ + రోడ్‌మ్యాప్"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## వేగవంతమైన ప్రారంభం
+## త్వరిత ప్రారంభం
 
 ### 1. పరిసరాన్ని సెట్ చేయండి
 
-ఈ ఫోల్డర్ వర్క్‌ఫ్లో ఆధారిత ల్యాబ్ 02 స్కాఫోల్డ్ యొక్క రిఫరెన్స్ అమలు. దీని `main.py` ఉన్న ప్రాంప్ట్ బ్లాక్‌లను మరియు `WorkflowBuilder` ని ఉపయోగించి నాలుగు ఏజెంట్లను కలిపి నిర్వహిస్తుంది.
+ఈ ఫోల్డర్ వర్క్‌ఫ్లో-ఆధారిత Lab 02 స్కాఫోల్డ్ కోసం రిఫరెన్స్ అమలుదారిత విజ్ఞాపన. దీనిలో `main.py` ప్రసిద్ధ ప్రాంప్ట్ బ్లాక్స్ మరియు `WorkflowBuilder` ద్వారా నాలుగు ఏజెంట్లను కలుపుతుంది.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # Windows PowerShell
-# source .venv/bin/activate            # మాక్‌ఓఎస్ / లినక్స్
+# source .venv/bin/activate            # macOS / Linux
 pip install -r requirements.txt
 ```
 
-### 2. క్రెడెన్షియల్స్ ని కాన్ఫిగర్ చేయండి
+### 2. గుర్తింపుపత్రాలు కన్ఫిగర్ చేయండి
 
-ఈ ఫోల్డర్‌లో `.env` ఫైల్‌ని సృష్టించండి:
+ఈ ఫోల్డర్లో `.env` ఫైలు సృష్టించండి:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
 ```
 
-`.env` ను సవరించండి:
+మార్చండి `.env`:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| విలువ | ఎక్కడ కనుగొనాలి |
+| విలువ | దాన్ని ఎక్కడ కనుగొనాలి |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry టూల్‌కిట్ సైడ్‌బార్ → మీ ప్రాజెక్టుపై రైట్-క్లిక్ → **ప్రాజెక్టు ఎండ్‌పాయింట్ కాపీ చేయండి** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry సైడ్‌బార్ → ప్రాజెక్టును విస్తరించండి → **మోడల్స్ + ఎండ్‌పాయింట్లు** → డిప్లాయ్‌మెంట్ పేరు |
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry టూల్కిట్ సైడ్‌బార్ → మీ ప్రాజెక్ట్‌పై రైట్ క్లిక్ → **ప్రాజెక్ట్ ఎండ్పాయింట్ కాపీ చేయి** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry సైడ్‌బార్ → ప్రాజెక్ట్ విస్తరించండి → **మోడల్స్ + ఎండ్పాయింట్స్** → డిప్లాయ్‌మెంట్ పేరు |
 
-### 3. లోకల్‌గా నడపండి
+### 3. స్థానికంగా నడపండి
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-లేదా VS కోడ్ టాస్క్ వాడండి: `Ctrl+Shift+P` → **టాస్కులు: టాస్క్ నడపండి** → **ఏజెంట్ HTTP సర్వర్ నడపండి**.
+లేదా VS Code టాస్క్‌ను ఉపయోగించండి: `Ctrl+Shift+P` → **టాస్క్స్: రన్ టాస్క్** → **ఏజెంట్ HTTP సర్వర్ నడపండి**.
 
-F5 డీబగ్గింగ్ కోసం, **డీబగ్ లోకల్ ఏజెంట్ HTTP సర్వర్** వాడండి.
+F5 డీబగ్గింగ్ కోసం, **డీబగ్ లోకల్ ఏజెంట్ HTTP సర్వర్** ఉపయోగించండి.
 
-### 4. ఏజెంట్ ఇన్‌స్పెక్టర్‌తో పరీక్షించండి
+### 4. ఏజెంట్ ఇన్స్పెక్టర్ తో పరీక్షించండి
 
-ఏజెంట్ ఇన్‌స్పెక్టర్ తెరవండి: `Ctrl+Shift+P` → **Foundry Toolkit: ఏజెంట్ ఇన్‌స్పెక్టర్ తెరవండి**.
+ఏజెంట్ ఇన్స్పెక్టర్ ఓపెన్ చేయండి: `Ctrl+Shift+P` → **Foundry Toolkit: ఏజెంట్ ఇన్స్పెక్టర్ ఓపెన్ చేయండి**.
 
-ఈ టెస్ట్ ప్రాంప్ట్‌ని పేస్టు చేయండి:
+ఈ పరీక్ష ప్రాంప్ట్ పేస్ట్ చేయండి:
 
 ```
 Resume:
@@ -92,15 +92,15 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**నిరೀಕ್ಷితమైనది:** ఒక ఫిట్ స్కోరు (0-100), సరిపోలిన/లేని నైపుణ్యాలు, మరియు Microsoft Learn URLలతో వ్యక్తిగతీకరించిన నేర్చుకునే మార్గదర్శకం.
+**అంచనాలు:** ఒక ఫిట్‌స్కోర్ (0-100), సరిపోతున్న/లేని నైపుణ్యాలు, మరియు Microsoft Learn URLs తో వ్యక్తిగత శిక్షణ పథకం.
 
-### 5. Foundryకి డిప్లయ్ చేయండి
+### 5. Foundryకు డిప్లాయ్ చేయండి
 
-`Ctrl+Shift+P` → **Foundry Toolkit: హోస్టెడ్ ఏజెంట్ డిప్లయ్ చేయండి** → మీ ప్రాజెక్ట్‌ను ఎంచుకోండి → నిర్ధారించండి.
+`Ctrl+Shift+P` → **Foundry Toolkit: హోస్టెడ్ ఏజెంట్‌ను డిప్లాయ్ చేయండి** → మీ ప్రాజెక్ట్ ఎంచుకొని → నిర్ధారించండి.
 
 ---
 
-## ప్రాజెక్టు నిర్మాణం
+## ప్రాజెక్ట్ నిర్మాణం
 
 ```
 PersonalCareerCopilot/
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## కీలక ఫైళ్ళు
+## కీలక ఫైళ్లు
 
 ### `agent.yaml`
 
 Foundry ఏజెంట్ సర్వీస్ కోసం హోస్టెడ్ ఏజెంట్ నిర్వచిస్తుంది:
-- `kind: hosted` - నిర్వహిత కంటైనర్‌గా నడుస్తుంది
-- `protocols` - `responses` ప్రోటోకాల్ `version: 1.0.0`తో, `/responses` HTTP ఎండ్‌పాయింట్ ని అందిస్తుంది
-- `environment_variables` - ఇక్కడ `AZURE_AI_MODEL_DEPLOYMENT_NAME` ప్రకటించబడుతుంది; `FOUNDRY_PROJECT_ENDPOINT` డిప్లాయ్ సమయంలో ఆటోమాటిక్‌గా ఇంజెక్ట్ అవుతుంది
+- `kind: hosted` - నిర్వహణ ఉత్పత్తిగా నడుస్తుంది
+- `protocols` - `responses` ప్రోటోకాల్‌తో `version: 2.0.0` ను ఉపయోగించి, `/responses` HTTP ఎండ్పాయింట్ ను బయటపెడుతుంది
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` ఇక్కడ ప్రకటించబడింది; `FOUNDRY_PROJECT_ENDPOINT` అనుసంధానం సమయాన్ని ఆటోమేటిక్‌గా ఇంజెక్ట్ చేస్తుంది
 
 ### `main.py`
 
-ఇందులో ఉంటుంది:
-- **ఏజెంట్ సూచనలు** - ప్రతి ఏజెంట్‌కి నాలుగు `*_INSTRUCTIONS` స్థిరాంకాలు
-- **MCP సాధనం** - `search_microsoft_learn_for_plan()` `https://learn.microsoft.com/api/mcp` ను Streamable HTTP ద్వారా పిలుస్తుంది
-- **ఏజెంట్ల సృష్టి** - నాలుగు `Agent()` + `AgentExecutor()` ఉదాహరణలు ఒకే `FoundryChatClient` ను పంచుకుంటూ
-- **వర్క్‌ఫ్లో గ్రాఫ్** - `WorkflowBuilder` ఏజెంట్లను సీక్వెన్షియల్ పైప్‌లైన్‌లాగా కదిలిస్తుంది: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **సర్వర్ ప్రారంభం** - `ResponsesHostServer` పోర్ట్ 8088పై నడుస్తుంది
+కలిగివుంటుంది:
+- **ఏజెంట్ సూచనలు** - నాలుగు `*_INSTRUCTIONS` కాంస్టెంట్స్, ఒకటి ప్రతి ఏజెంట్కు
+- **MCP టూల్** - `search_microsoft_learn_for_plan()` Streamable HTTP ద్వారా `https://learn.microsoft.com/api/mcp` ను కాల్ చేస్తుంది
+- **ఏజెంట్ సృష్టి** - నాలుగు `Agent()` + `AgentExecutor()` ఉదాహరణలు ఒకటి `FoundryChatClient`ను పంచుకుంటాయి
+- **వర్క్‌ఫ్లో గ్రాఫ్** - `WorkflowBuilder` ఏజెంట్లను అనుక్రమ శ్రేణిగా కలుపుతుంది: ResumeParser → JD ఏజెంట్ → MatchingAgent → GapAnalyzer
+- **సర్వర్ ప్రారంభం** - `ResponsesHostServer` పోర్ట్ 8088 పై నడుస్తుంది
 
 ### `requirements.txt`
 
-| ప్యాకేజ్ | ప్రయోజనం |
+| ప్యాకేజీ | ప్రయోజనం |
 |---------|----------|
-| `agent-framework-foundry` | కోర్ రన్‌టైం: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry` | కోర్ రన్‌టైమ్: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
 | `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry హోస్టింగ్ ఇంటిగ్రేషన్ |
 | `mcp<2,>=1.24.0` | GapAnalyzer కోసం MCP క్లయింట్ (`streamable_http_client`) |
-| `debugpy` | పైథాన్ డీబగ్గింగ్ (VS కోడ్ లో F5) |
+| `debugpy` | Python డీబగింగ్ (VS Code లో F5) |
 
 ---
 
-## సమస్యలు పరిష్కారం
+## సమస్య పరిష్కారం
 
 | సమస్య | పరిష్కారం |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` లేదా `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `FOUNDRY_PROJECT_ENDPOINT` మరియు `AZURE_AI_MODEL_DEPLOYMENT_NAME` రెండింటి సెట్‌తో `.env` సృష్టించండి |
-| `ModuleNotFoundError: No module named 'agent_framework'` | వర్చువల్ ఎన్విరాన్‌మెంట్ యాక్టివేట్ చేసి `pip install -r requirements.txt` నడపండి |
-| అవుట్‌పుట్‌లో Microsoft Learn URLలు లేవు | `https://learn.microsoft.com/api/mcp` కి ఇంటర్నెట్ కనెక్టివిటీని తనిఖీ చేయండి |
-| కేవలం 1 గ్యాప్ కార్డ్ మాత్రమే ఉంది (తిరిగిపోయింది) | `GAP_ANALYZER_INSTRUCTIONS`లో `CRITICAL:` బ్లాక్ ఉన్నదో చూసుకోండి |
-| పోర్ట్ 8088 ఉపయోగంలో ఉంది | ఇతర సర్వర్లను ఆపండి: `netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` లేదా `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | `.env` సృష్టించండి, లో `FOUNDRY_PROJECT_ENDPOINT` మరియు `AZURE_AI_MODEL_DEPLOYMENT_NAME` రెండూ సెట్ చెయ్యండి |
+| `ModuleNotFoundError: No module named 'agent_framework'` | వర్చువల్ ఎన్విరాన్మెంట్ ప్రారంభించి `pip install -r requirements.txt` నడపండి |
+| అవుట్‌పుట్‌లో Microsoft Learn URLs కనిపించడం లేదు | ఇంటర్నెట్ కనెక్టివిటీ `https://learn.microsoft.com/api/mcp` కు తనిఖీ చేయండి |
+| ఒకటి మాత్రమే గ్యాప్ కార్డ్ (తగ్గిపోయింది) | `GAP_ANALYZER_INSTRUCTIONS` లో `CRITICAL:` బ్లాక్ ఉందా అని చూడండి |
+| పోర్ట్ 8088 ఉపయోగంలో ఉంది | ఇతర సర్వర్లను ఆపు: `netstat -ano \| findstr :8088` |
 
-వివరమైన సమస్య పరిష్కారానికి, [Module 8 - Troubleshooting](../docs/08-troubleshooting.md) చూడండి.
+పూర్తిగా సమస్య పరిష్కారం కోసం, [Module 8 - Troubleshooting](../docs/08-troubleshooting.md) చూడండి.
 
 ---
 
-**పూర్తి వాక్ష్‌త్రూ:** [Lab 02 Docs](../docs/README.md) · **వెనక్కి:** [Lab 02 README](../README.md) · [వర్క్‌షాప్ హోం](../../../README.md)
+**పూర్తిగా వాక్‍త్రూ:** [Lab 02 డాక్స్](../docs/README.md) · **తిరిగి:** [Lab 02 README](../README.md) · [ప్రదర్శన హోమ్](../../../README.md)
 
 ---
 

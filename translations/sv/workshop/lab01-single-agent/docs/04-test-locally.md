@@ -1,15 +1,15 @@
-# Modul 4 - Testa lokalt
+# Modul 4 - Testa Lokalt
 
 ⏱️ ~10 min
 
-I denna modul kör du din agent lokalt och verifierar att den fungerar korrekt med hjälp av **happy-path funktionstester**. Du kommer att använda Agent Inspector (visuellt gränssnitt) eller direkta HTTP-anrop för att bekräfta att agenten producerar strukturerade, korrekta svar.
+I denna modul kör du din agent lokalt och validerar att den fungerar korrekt med hjälp av **happy-path funktionella tester**. Du kommer att använda Agent Inspector (visuellt gränssnitt) eller direkta HTTP-anrop för att bekräfta att agenten producerar strukturerade, korrekta svar.
 
-### Lokal testningsflöde
+### Lokalt testflöde
 
 ```mermaid
 flowchart TD
-    A["Starta agentserver"] --> B["Öppna agentinspektör"]
-    B --> C["Skicka testinmatning"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -23,30 +23,32 @@ flowchart TD
 
 ---
 
-## Alternativ 1: Tryck F5 - Debugga med Agent Inspector (rekommenderat)
+## Alternativ 1: Tryck på F5 - Felsök med Agent Inspector (rekommenderat)
 
-### Starta debuggern
+### Starta felsökaren
 
 1. Öppna mappen **executive-summary-agent/** direkt i VS Code (`File → Open Folder`).
-2. Öppna **Run and Debug**-panelen (`Ctrl+Shift+D`).
-3. Välj **Debug Local Agent Server** från dropdown-menyn.
-4. Tryck på **F5** (eller klicka på ▶ Start Debugging).
+2. Öppna **Kör och Felsök**-panelen (`Ctrl+Shift+D`).
+3. Välj **Felsök lokal Agent HTTP-server** från rullgardinsmenyn.
+4. Tryck på **F5** (eller klicka på ▶ Starta felsökning).
 
-> ⚠️ **Viktigt: Välj din Python Interpreter**
-> Om du får "ModuleNotFoundError" eller debuggern misslyckas med att starta, måste du tala om för VS Code att använda din virtuella miljö:
-  > 1. Tryck `Ctrl+Shift+P` $\rightarrow$ skriv **Python: Select Interpreter**.
-  > 2. Välj tolken som finns i projektets `.venv`-mapp (t.ex. `.\.venv\Scripts\python.exe` på Windows).
-  > 3. Starta om debug-sessionen.
-> Om du fortfarande får fel, uppdatera manuellt din fil `tasks.json` enligt följande:
+> ⚠️ **Kritiskt: Välj din Python-tolk**
+> Om du får "ModuleNotFoundError" eller felsökaren inte startar måste du tala om för VS Code att använda din virtuella miljö:
+  > 1. Tryck på `Ctrl+Shift+P` $\rightarrow$ skriv **Python: Välj tolk**.
+  > 2. Välj den tolk som finns i projektets `.venv`-mapp (t.ex., `.\.venv\Scripts\python.exe` på Windows).
+  > 3. Starta om felsökningssessionen.
+> Om du fortfarande får fel, uppdatera filen `tasks.json` manuellt enligt följande:
   > 1. Navigera till filen `.vscode/tasks.json`
-  > 2. Gå till kommandot märkt: `Run Agent/Workflow HTTP Server`
-  > 3. Uppdatera kommando-värdet enligt följande: `"value": "${workspaceFolder}/.venv/bin/python",`
+  > 2. Gå till uppgiften märkt: `Run Agent HTTP Server`
+  > 3. Uppdatera kommandovärdet som följer:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
-### Vad händer
+### Vad som händer
 
-1. HTTP-servern startar på `http://localhost:8088/responses`.
-2. **Agent Inspector**-panelen öppnas automatiskt - ett visuellt chatt-gränssnitt för testning.
-3. Breakpoints är aktiverade i `main.py`.
+1. HTTP-servern startas på `http://localhost:8088/responses`.
+2. **Agentinspektör**-panelen öppnas automatiskt – ett visuellt chattgränssnitt för testning.
+3. Brytpunkter aktiveras i `main.py`.
 
 Håll koll på Terminalen för:
 ```
@@ -54,11 +56,11 @@ Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Om Agent Inspector inte öppnas:** Tryck `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+> **Om Agentinspektören inte öppnas:** Tryck `Ctrl+Shift+P` → **Foundry Toolkit: Öppna Agentinspektör**.
 
 ![Agent Inspector connected to localhost:8088 showing an Executive Summary response](../../../../../translated_images/sv/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Skärmbilden kan visa äldre "AI TOOLKIT"-branding från en tidigare extension-version.*
+> *Skärmbilden kan visa äldre 'AI TOOLKIT'-varumärke från en tidigare version av tillägget.*
 
 ---
 
@@ -67,14 +69,14 @@ Executive agent server running on http://localhost:8088
 Starta agenten i en terminal, skicka förfrågningar från en annan:
 
 ```bash
-# Terminal 1: Starta agent
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
 ```
 
 ```bash
-# Terminal 2: Skicka test (curl)
+# Terminal 2: Send test (curl)
 curl -sS -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "The API latency increased due to thread pool exhaustion caused by sync calls in v3.2.", "stream": false}'
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Scenariotester: Happy-path funktionell validering
+## Scenario-tester: Funktionell validering av framgångsrik väg
 
-Kör **alla tre** scenarion nedan. Dessa validerar att din agent producerar korrekt, strukturerad output för realistiska indata.
+Kör **alla tre** scenarier nedan. Dessa validerar att din agent producerar korrekt, strukturerad output för realistiska indata.
 
 ![VS Code Run and Debug panel showing Agent Inspector running with executive summary response](../../../../../translated_images/sv/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Scenario 1: IT-incident - API-latensspik
+### Scenario 1: IT-incident – API-latensspik
 
 **Indata:**
 ```
@@ -98,41 +100,41 @@ Rolled back at 10:14.
 ```
 
 **Förväntat beteende:**
-- ✅ Följer "Executive Summary"-strukturen (Vad hände / Affärspåverkan / Nästa steg)
+- ✅ Följer strukturen för "Executive Summary" (Vad hände / Affärspåverkan / Nästa steg)
 - ✅ Ingen teknisk jargong (ingen "thread pool", inget "/orders", ingen "v3.2")
-- ✅ Anger tydligt affärspåverkan (t.ex. användare upplevde förseningar)
+- ✅ Klargör affärspåverkan (t.ex. användare upplevde förseningar)
 - ✅ Inkluderar ett nästa steg (t.ex. åtgärd implementerad, övervakning på plats)
 
 ---
 
 ### Scenario 2: Datapipeline - ETL-fel
 
-**Indata:**
+**Inmatning:**
 ```
 The nightly ETL job failed because the upstream schema changed. APAC dashboards show missing data.
 ```
 
 **Förväntat beteende:**
-- ✅ Sammanfattar datauppdateringsfelet med enkel språkdräkt
-- ✅ Nämner APAC-dashboardens påverkan
-- ✅ Inkluderar ett åtgärdssteg för felhantering
-- ✅ Nämner INTE "ETL", "schema" eller andra tekniska termer
+- ✅ Sammanfattar datauppdateringsfelet på enkelt språk
+- ✅ Nämner påverkan på APAC-instrumentpanelen
+- ✅ Inkluderar ett nästa steg för åtgärd
+- ✅ NÄMNER INTE "ETL", "schema" eller andra tekniska termer
 
 ---
 
-### Scenario 3: Säkerhet - Exponerad referens
+### Scenario 3: Säkerhet - Exponerad inloggningsuppgift
 
-**Indata:**
+**Inmatning:**
 ```
 Static analysis flagged a hardcoded secret in the repository.
 The secret may have been exposed in commit history.
 ```
 
 **Förväntat beteende:**
-- ✅ Beskriver ett referens-/säkerhetsproblem med ett språk som chefer förstår
+- ✅ Beskriver ett inloggnings-/säkerhetsproblem på ett ledningsvänligt språk
 - ✅ Påpekar potentiell risk (obehörig åtkomst)
-- ✅ Anger åtgärd (rotation av referenser, audit)
-- ✅ Inkluderar INTE termer som "static analysis", "commit history" eller "hardcoded"
+- ✅ Anger åtgärd (uppdatering av inloggningsuppgifter, granskning)
+- ✅ INNEHÅLLER INTE termer som "statisk analys", "commit-historik" eller "hårdkodad"
 
 ---
 
@@ -140,38 +142,38 @@ The secret may have been exposed in commit history.
 
 För varje scenario, kontrollera:
 
-| # | Kriterium | Godkänd om |
+| # | Kriterium | Godkänd villkor |
 |---|----------|---------------|
 | 1 | **Struktur** | Svaret använder "Executive Summary"-format med alla tre punkter |
-| 2 | **Enkelt språk** | Ingen teknisk jargong som en chef inte skulle förstå |
-| 3 | **Noggrannhet** | Sammanfattningen speglar indata - inga påhittade detaljer |
+| 2 | **Enkelt språk** | Ingen teknisk jargong som en ledare inte skulle förstå |
+| 3 | **Noggrannhet** | Sammanfattningen speglar inmatningen - inga påhittade detaljer |
 | 4 | **Korthet** | Svaret är under 100 ord |
-| 5 | **Nästa steg** | En tydlig åtgärd eller mildring anges |
+| 5 | **Nästa steg** | En tydlig åtgärd eller mildrande åtgärd anges |
 
 ---
 
-## Debuggingtips
+## Felsökningstips
 
 | Problem | Lösning |
-|-------|---------|
-| Agenten startar inte | Kontrollera `.env`-värden, verifiera att venv är aktiverad, kör `pip install -r requirements.txt` |
-| Tomt eller generiskt svar | Granska instruktionerna i `main.py` - säkerställ att outputformat specificeras |
-| Svaret innehåller jargong | Stärk reglerna "ta bort tekniska termer" i instruktionerna |
-| Agent Inspector öppnas inte | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Modellfel i Terminalen | Verifiera att `AZURE_AI_MODEL_DEPLOYMENT_NAME` matchar exakt (skiftlägeskänsligt) |
+|-------|-----|
+| Agent startar inte | Kontrollera `.env`-värden, verifiera att venv är aktiverad, kör `pip install -r requirements.txt` |
+| Tomt eller generiskt svar | Granska instruktionerna i `main.py` - säkerställ att outputformat är specificerat |
+| Svaret innehåller jargong | Stärk reglerna för "ta bort tekniska termer" i instruktionerna |
+| Agent Inspector öppnas inte | `Ctrl+Shift+P` → **Foundry Toolkit: Öppna Agent Inspector** |
+| Modellfel i Terminal | Kontrollera att `AZURE_AI_MODEL_DEPLOYMENT_NAME` matchar exakt (skiftlägeskänsligt) |
 
 ---
 
 ### ✅ Kontrollpunkt
 
-- [ ] Agenten startar lokalt utan fel
+- [ ] Agent startar lokalt utan fel
 - [ ] Agent Inspector öppnas och visar ett chattgränssnitt (om F5 används)
 - [ ] **Scenario 1** (IT-incident) - strukturerad Executive Summary, ingen jargong
 - [ ] **Scenario 2** (datapipeline) - relevant sammanfattning med affärspåverkan
-- [ ] **Scenario 3** (säkerhetsvarning) - adekvat riskkommunikation
-- [ ] Alla svar följer definierad outputstruktur
+- [ ] **Scenario 3** (säkerhetsvarning) - lämplig riskkommunikation
+- [ ] Alla svar följer den definierade utdata-strukturen
 
-> **Spara dina svar** (kopiera eller skärmdumpa) - du kommer jämföra dem med molnresultaten i Modul 06.
+> **Spara dina svar** (kopiera eller skärmdumpa) - du kommer jämföra dem med molnresultat i Modul 06.
 
 ---
 

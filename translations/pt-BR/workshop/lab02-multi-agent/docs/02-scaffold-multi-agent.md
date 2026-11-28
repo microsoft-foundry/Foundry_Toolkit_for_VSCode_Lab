@@ -1,14 +1,14 @@
-# Módulo 2 - Estruture o Projeto Multiagente
+# Módulo 2 - Estruture o Projeto Multi-Agente
 
 ⏱️ ~5 min
 
-Neste módulo, você usa [Foundry Toolkit para VS Code](https://aka.ms/foundrytk) para **estruturar um projeto multiagente**. O assistente gera `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, e a configuração de depuração do VS Code - para que você possa se concentrar em conectar o fluxo de trabalho de 4 agentes no Módulo 3.
+Neste módulo, você usa o [Foundry Toolkit para VS Code](https://aka.ms/foundrytk) para **estruturar um projeto multi-agente**. O assistente gera `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` e a configuração de depuração do VS Code - para que você possa focar na conexão do fluxo de trabalho de 4 agentes no Módulo 3.
 
-> **Conceito-chave:** O scaffold é um esqueleto funcional com um agente. Você substitui a lógica de espaço reservado pelo grafo `WorkflowBuilder` no Módulo 3. Você não precisa escrever o boilerplate do zero.
+> **Conceito-chave:** A estrutura é um esqueleto funcional com um agente. Você substitui a lógica de espaço reservado pelo grafo `WorkflowBuilder` no Módulo 3. Você não escreve o código básico do zero.
 
-> **Implementação de referência:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) é um exemplo completo de funcionamento. Use-o para comparar seu trabalho conforme avança.
+> **Implementação de referência:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) é um exemplo completo funcionando. Use-o para comparar seu trabalho conforme avança.
 
-### Fluxo do assistente de scaffold
+### Fluxo do assistente de estruturação
 
 ```mermaid
 flowchart LR
@@ -22,50 +22,50 @@ flowchart LR
 
 ---
 
-## Etapa 1: Abra o assistente Create Hosted Agent
+## Passo 1: Abra o assistente Criar Agente Hospedado
 
 1. Pressione `Ctrl+Shift+P` para abrir a **Paleta de Comandos**.
-2. Digite: **Foundry Toolkit: Create a New Hosted Agent** e selecione-o.
-3. O assistente abre na aba **Agent Details**.
+2. Digite: **Foundry Toolkit: Create new Hosted Agent** e selecione.
+3. O assistente abre na aba **Detalhes do Agente**.
 
-> **Alternativa:** Clique no ícone **Foundry Toolkit** na Activity Bar → clique no ícone **+** ao lado de **Hosted Agents** → **Create New Hosted Agent**.
+> **Alternativa:** Clique no ícone **Foundry Toolkit** na Barra de Atividades → clique no ícone **+** próximo a **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
-## Etapa 2: Escolha as configurações
+## Passo 2: Escolha as configurações
 
-![Criar Hosted Agent a partir do Exemplo - aba Agent Details com o template Workflows selecionado](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Criar Agente Hospedado a partir de Exemplo - aba Detalhes do Agente com modelo Workflows selecionado](../../../../../translated_images/pt-BR/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Na seção de navegação/opções à esquerda, selecione o seguinte:
+1. Na seção de navegação/opções à esquerda selecione o seguinte:
 
-| Menu | Seleção | Observações |
+| Menu | Seleção | Notas |
 |--------|-----------|-------|
 | **Linguagem** | Python | C# (.NET) também suportado |
 | **Framework** | Agent Framework | Fornece `Agent`, `AgentExecutor`, `WorkflowBuilder` |
 | **Tipo de API** | Response API | `POST /responses` - histórico gerenciado pela plataforma, suporte a streaming |
-| **Modelo** | **Workflows** | Processa solicitações por múltiplos agentes em sequência |
+| **Modelo** | **Workflows** | Processa solicitações através de múltiplos agentes em sequência |
 
-2. Depois de selecionar, clique em **Next**
+2. Uma vez selecionado, clique em **Next**
 
-![Criar Hosted Agent a partir do Exemplo - aba Create mostrando PersonalCareerCopilot como o nome da pasta](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Criar Agente Hospedado a partir de Exemplo - aba Criar mostrando PersonalCareerCopilot como nome da pasta](../../../../../translated_images/pt-BR/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. Na próxima janela, selecione o seguinte:
+3. Na janela seguinte, selecione o seguinte:
 
-| Menu | Seleção | Observações |
+| Menu | Seleção | Notas |
 |--------|-----------|-------|
-| **Pasta do workspace** | Navegue até a pasta de destino | ex.: `workshop/lab02-multi-agent/` neste repositório |
-| **Nome do agente** | `PersonalCareerCopilot` | Isto se tornará o nome do diretório do projeto |
-| **Implantação do Modelo** | Selecione seu modelo implantado | ex.: `gpt-4.1-mini` do Lab 01 |
+| **Pasta do workspace** | Navegue até a pasta de destino | ex., `workshop/lab02-multi-agent/` neste repositório |
+| **Nome do agente** | `PersonalCareerCopilot` | Este será o nome do diretório do projeto |
+| **Implantação do Modelo** | Selecione seu modelo implantado | ex., `gpt-4.1-mini` do Lab 01 |
 
 4. Clique em **Create** para estruturar o projeto. O VS Code gera os arquivos e abre a pasta.
 
-> **Dica:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) equilibra bem velocidade e qualidade para desenvolvimento multiagente.
+> **Dica:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) equilibra bem velocidade e qualidade para desenvolvimento multi-agente.
 
 ---
 
-## Etapa 3: Inspecione o projeto gerado
+## Passo 3: Inspecione o projeto gerado
 
-Após a conclusão do scaffold, verifique se você vê estes arquivos no Explorer (`Ctrl+Shift+E`):
+Após a estruturação, verifique se você vê estes arquivos no Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,14 +81,14 @@ Após a conclusão do scaffold, verifique se você vê estes arquivos no Explore
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Importante:** Abra esta pasta gerada diretamente no VS Code para que `.vscode/launch.json` e `tasks.json` se apliquem corretamente para depuração com F5.
+> **Importante:** Abra esta pasta estruturada diretamente no VS Code para que `.vscode/launch.json` e `tasks.json` apliquem corretamente para depuração com F5.
 
-### Arquivos principais explicados
+### Explicação dos arquivos principais
 
-| Arquivo | Finalidade |
+| Arquivo | Propósito |
 |------|---------|
 | `agent.yaml` | Declara `kind: hosted`, mapeia variáveis de ambiente, define o protocolo `/responses` |
-| `main.py` | Stub: um `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Você substitui isto por 4 agentes + `WorkflowBuilder` no Módulo 3 |
+| `main.py` | Esqueleto: um `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Você substitui por 4 agentes + `WorkflowBuilder` no Módulo 3 |
 | `Dockerfile` | `python:3.12-slim`, instala `requirements.txt`, expõe a porta 8088, executa `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
@@ -98,16 +98,16 @@ Após a conclusão do scaffold, verifique se você vê estes arquivos no Explore
 
 ### ✅ Ponto de verificação
 
-- [ ] Assistente de scaffold concluído - nova pasta do projeto está visível no Explorer
+- [ ] Assistente de estruturação finalizado - nova pasta do projeto visível no Explorer
 - [ ] Todos os arquivos esperados presentes: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` mostra `kind: hosted` e `protocol: responses`
 - [ ] `main.py` importa `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] A pasta gerada está aberta como raiz do espaço de trabalho do VS Code
-- [ ] Você entende que `main.py` é um stub - `WorkflowBuilder` é adicionado no Módulo 3
+- [ ] A pasta estruturada está aberta como raiz do workspace no VS Code
+- [ ] Você entende que `main.py` é um esqueleto - `WorkflowBuilder` será adicionado no Módulo 3
 
 ---
 
-**Anterior:** [01 - Entenda a Arquitetura Multiagente](01-understand-multi-agent.md) · **Próximo:** [03 - Configure Agentes & Ambiente →](03-configure-agents.md)
+**Anterior:** [01 - Entenda a Arquitetura Multi-Agente](01-understand-multi-agent.md) · **Próximo:** [03 - Configure Agentes & Ambiente →](03-configure-agents.md)
 
 ---
 

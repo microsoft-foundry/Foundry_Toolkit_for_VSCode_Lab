@@ -1,12 +1,12 @@
-# Módulo 5 - Desplegar en el Servicio de Agentes de Foundry
+# Módulo 5 - Desplegar en el Servicio Foundry Agent
 
 ⏱️ ~10 min
 
-> ⚠️ **Usuarios del Path B:** Este módulo requiere una suscripción a Foundry. Si estás usando Foundry Local, salta a [Módulo 07 - Resumen](07-summary.md). ¡Has completado con éxito el flujo de trabajo de desarrollo local!
+> ⚠️ **Usuarios del Camino B:** Este módulo requiere una suscripción a Foundry. Si está usando Foundry Local, salte a [Módulo 07 - Resumen](07-summary.md). ¡Ha completado con éxito el flujo de trabajo de desarrollo local!
 
-En este módulo, despliegas tu agente probado localmente en Microsoft Foundry como un **Hosted Agent**. El despliegue construye una imagen de contenedor, la envía a Azure Container Registry y arranca el agente en la infraestructura gestionada de Foundry.
+En este módulo, despliega su agente probado localmente a Microsoft Foundry como un **Agente Hospedado**. El despliegue construye una imagen de contenedor, la sube a Azure Container Registry y arranca el agente en la infraestructura gestionada de Foundry.
 
-### Pipeline de despliegue
+### Canalización de despliegue
 
 ```mermaid
 flowchart LR
@@ -29,13 +29,13 @@ flowchart LR
 
 ---
 
-## Comprobación de requisitos previos
+## Verificación de requisitos previos
 
-Antes de desplegar, verifica:
+Antes de desplegar, verifique:
 
 - [ ] El agente pasa los 3 escenarios locales de [Módulo 04](04-test-locally.md)
-- [ ] Tienes el rol **Azure AI User** a nivel de proyecto ([Módulo 01, Asignar RBAC](01-setup.md#desplegar-un-modelo-y-asignar-rbac))
-- [ ] Has iniciado sesión en Azure en VS Code (el icono de Cuentas muestra tu nombre)
+- [ ] Tiene el rol **Usuario de Azure AI** a nivel de proyecto ([Módulo 01, Asignar RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Está conectado a Azure en VS Code (el icono de Cuentas muestra su nombre)
 
 ---
 
@@ -43,89 +43,89 @@ Antes de desplegar, verifica:
 
 ### Opción A: Desplegar desde Agent Inspector (recomendado)
 
-Si el Agent Inspector está abierto (por las pruebas):
-1. Haz clic en el botón **Deploy** en la esquina superior derecha (ícono de nube ↑).
+Si Agent Inspector está abierto (desde pruebas):
+1. Haga clic en el botón **Desplegar** en la esquina superior derecha (icono de nube ↑).
 
-### Opción B: Desplegar desde Command Palette
+### Opción B: Desplegar desde el Command Palette
 
-1. Presiona `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
+1. Presione `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
 ## Paso 2: Configurar el despliegue
 
-El asistente te pedirá:
+El asistente le solicitará:
 
-![Configuración del proyecto](../../../../../workshop/lab01-single-agent/docs/images/05-foundry-project-setup.png)
+![Project Config](../../../../../translated_images/es/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Prompt | Selection |
+| Pregunta | Selección |
 |--------|-----------|
-| **Subscription** | Your Azure Subscription |
-| **Target project** | Your Foundry project (e.g., `workshop-agents`) |
+| **Suscripción** | Su suscripción de Azure |
+| **Proyecto objetivo** | Su proyecto Foundry (p.ej., `workshop-agents`) |
 
-Haz clic en **next** para configurar tu agente.
+Haga clic en **siguiente** para configurar su agente.
 
-![Configuración básica](../../../../../workshop/lab01-single-agent/docs/images/05-configure-basics.png)
+![Basics config](../../../../../translated_images/es/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Prompt | Selection |
+| Pregunta | Selección |
 |--------|-----------|
-| **Deployment Method** | Container |
-| **Container registry** | **Default ACR** (Microsoft Foundry creates and manages one for you) |
-| **Deploy to** | New Agent (name, `executive-summary-agent`) |
+| **Método de despliegue** | Contenedor |
+| **Registro de contenedores** | **ACR por defecto** (Microsoft Foundry crea y administra uno para usted) |
+| **Desplegar en** | Nuevo Agente (nombre, `executive-summary-agent`) |
 
-Haz clic en **next** para revisar y desplegar tu agente.
+Haga clic en **siguiente** para revisar y desplegar su agente.
 
-![Revisar y desplegar](../../../../../workshop/lab01-single-agent/docs/images/05-review-deploy.png)
+![Review and deploy](../../../../../translated_images/es/05-review-deploy.12b449d426bff886.webp)
 
-| Prompt | Selection |
+| Pregunta | Selección |
 |--------|-----------|
-| **CPU and memory** | **0.25 CPU cores, 0.5 Gi memory** (suficiente para el taller) |
+| **CPU y memoria** | **0.5 núcleos CPU, 1.0 Gi memoria** (el predeterminado - suficiente para el taller) |
 
 ---
 
-## Paso 3: Desplegar y supervisar
+## Paso 3: Desplegar y monitorear
 
-1. Haz clic en **Deploy**.
-2. Observa el panel **Output** (selecciona **Microsoft Foundry** en el desplegable).
-3. El despliegue pasa por estas etapas:
-   - **Docker build** - crea el contenedor a partir de tu Dockerfile
-   - **Docker push** - empuja la imagen a ACR (1–3 min en el primer despliegue)
-   - **Agent registration** - crea el agente alojado en Foundry
-   - **Container start** - inicia con identidad administrada por el sistema
+1. Haga clic en **Desplegar**.
+2. Observe el panel **Salida** (seleccione **Microsoft Foundry** del desplegable).
+3. El despliegue sigue estas etapas:
+   - **Construcción Docker** - construye el contenedor desde su Dockerfile
+   - **Push Docker** - sube la imagen a ACR (1–3 min en el primer despliegue)
+   - **Registro del agente** - crea el agente hospedado en Foundry
+   - **Inicio del contenedor** - inicia con identidad gestionada por el sistema
 
-4. Cuando termine, aparece una notificación:
-   > **my-agent is deployed successfully.** `View logs` `Run agent`
+4. Cuando finalice, aparece una notificación:
+   > **executive-summary-agent se desplegó correctamente.** `View logs` `Run agent`
 
-5. Haz clic en **Run agent** para abrir el Agent Playground.
+5. Haga clic en **Ejecutar agente** para abrir el Agent Playground.
 
-![Despliegue exitoso mostrando Agent Playground con estado Running](../../../../../workshop/lab01-single-agent/docs/images/05-deployed-asset.png)
+![Despliegue exitoso mostrando Agent Playground con estado Ejecutando](../../../../../translated_images/es/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
 ### Valores de estado de despliegue
 
-| Status | Meaning |
-|--------|---------|
-| **Running** | Contenedor listo, agente respondiendo |
-| **Pending** | Contenedor iniciándose - espera 30–60 segundos |
-| **Failed** | Revisa los registros (ver solución de problemas abajo) |
+| Estado | Significado |
+|--------|------------|
+| **Ejecutando** | Contenedor listo, agente respondiendo |
+| **Pendiente** | Contenedor iniciándose - espere 30–60 segundos |
+| **Fallido** | Revise los registros (vea solución de problemas abajo) |
 
 ---
 
-## Errores comunes de despliegue
+## Errores comunes en el despliegue
 
-| Error | Root cause | Fix |
-|-------|-----------|-----|
-| `agents/write` permission denied | Falta el rol **Azure AI User** a nivel de proyecto | [Módulo 01, Asignar RBAC](01-setup.md#desplegar-un-modelo-y-asignar-rbac) |
-| Docker not running | Docker Desktop no iniciado | Inicia Docker Desktop → verifica `docker info` |
-| ACR authorization | La identidad administrada no puede extraer la imagen | Ver [Módulo 08 - Solución de problemas](08-troubleshooting.md) |
+| Error | Causa raíz | Solución |
+|-------|-----------|---------|
+| `agents/write` permiso denegado | Falta el rol **Azure AI User** a nivel de proyecto | [Módulo 01, Asignar RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker no está en ejecución | Docker Desktop no iniciado | Inicie Docker Desktop → verifique `docker info` |
+| Autorización ACR | La identidad administrada no puede obtener la imagen | Consulte [Módulo 08 - Solución de problemas](08-troubleshooting.md) |
 
 ---
 
 ### ✅ Punto de control
 
 - [ ] Despliegue completado sin errores
-- [ ] El agente aparece bajo **Hosted Agents (Preview)** en la barra lateral de Foundry
+- [ ] El agente aparece en la pestaña **Hosted Agent** cuando haces clic en **Agents** bajo tu proyecto en la barra lateral de Foundry Toolkit
 - [ ] El estado del contenedor muestra **Running**
-- [ ] Se abrió la pestaña Agent Playground mostrando detalles del agente y la URL del endpoint
+- [ ] Pestaña de Playground del Agente abierta mostrando detalles del agente y URL del endpoint
 
 ---
 

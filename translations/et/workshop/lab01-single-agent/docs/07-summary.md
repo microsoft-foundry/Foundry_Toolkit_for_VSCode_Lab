@@ -1,92 +1,92 @@
 # Moodul 7 - Kokkuvõte ja järgmised sammud
 
-⏱️ ~5 minutit
+⏱️ ~5 min
 
-**Palju õnne!** Olete loonud, testinud ja (kui valisite tee A) juurutanud majutatud tehisintellekti agendi, kasutades Microsoft Foundryt ja Foundry tööriistakomplekti VS Code jaoks.
-
----
-
-## Mida te ehitasite
-
-**„Selgita nagu juhile“** agent, mis:
-- Võtab vastu tehnilisi intsidentide raporteid või tegevuse uuendusi HTTP kaudu (`POST /responses`)
-- Tõlgib need lihtsas keeles juhile mõeldud kokkuvõteteks
-- Järgib struktureeritud väljundvormingut (Mis juhtus / Ärimõju / Järgmine samm)
-- Keeldub teemavälistest päringutest ja prompt-injektsiooni katsetest
-- Jookseb konteineripõhisena majutatuna Microsoft Foundry Agent Service’is
+**Õnnitlused!** Sa oled loonud, testinud ja (kui valisid tee A) juurutanud majutatud tehisintellekti agendi, kasutades Microsoft Foundryt ja Foundry tööriistakomplekti VS Code jaoks.
 
 ---
 
-## Põhikontseptsioonid, mida õppisite
+## Mida sa lõid
 
-| Kontseptsioon | Mida harjutasite |
+**"Selgita nagu ma oleksin juht"** agent, kes:
+- Võtab vastu tehnilisi intsidentide aruandeid või operatiivseid uuendusi HTTP kaudu (`POST /responses`)
+- Tõlgib need lihtsasti mõistetavateks juhtidele mõeldud kokkuvõteteks
+- Järgib struktureeritud väljundvormingut (Mis juhtus / Äri mõju / Edasi järgmine samm)
+- Keeldub teemast kõrvale kalduvatest päringutest ja promptide süstimisest
+- Jookseb konteineripõhisena majutatud agendina Microsoft Foundry Agent Service’is
+
+---
+
+## Peamised omandatud kontseptsioonid
+
+| Kontseptsioon | Mida sa harjutasid |
 |---------|-------------------|
-| **Agendi raamistiku arhitektuur** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` töövoog |
-| **Majutatud agendi elutsükkel** | Raamistamine → Konfigureerimine → Kohalik testimine → Juurutamine → Pilves kontrollimine |
-| **Süsteemi prompti inseneritöö** | Roll, sihtrühm, väljundvorming, reeglid, turvanõuded ja näited |
-| **Kohaliku ja majutatud erisused** | Identiteet (isiklik volitus vs hallatud identiteet), lõpp-punkt, võrgu rada |
-| **Turvapiirid** | Prompt-injektsiooni kaitse, rolli järgimine, servajuhtumite korrapärane käsitlemine |
-| **Foundry tööriistakomplekti töövoog** | Projekti loomine, mudeli juurutamine, agendi raamistamine, Agent Inspector, ühe klikiga juurutus |
+| **Agendi raamistikupositsiooni arhitektuur** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` torujuhe |
+| **Majutatud agendi elutsükkel** | Alus → Konfigureeri → Testi lokaalselt → Juuruta → Kontrolli pilves |
+| **Süsteemi promptide seadistamine** | Roll, sihtrühm, väljundvorming, reeglid, ohutuspiirangud ja näited |
+| **Lokaalse ja majutatud vaheline erinevus** | Identiteet (isiklik mandarv vs hallatav identiteet), lõpp-punkt, võrgu tee |
+| **Ohutuspiirid** | Promptide süstimise kaitse, rolli järgimine, tagavarade ja servjuhtumite väärikas käsitlemine |
+| **Foundry tööriistakomplekti töövoog** | Projekti loomine, mudeli juurutamine, agendi scaffolding, Agent Inspector, ühe klikiga juurutamine |
 
 ---
 
-## Mida sa tegid lõpetatuks
+## Mida sa lõpetasid
 
 ### Tee A (Foundry tellimus)
 
-- [x] Seadistasin Foundry tööriistakomplekti ja lõin Foundry projekti juurutatud mudeliga
-- [x] Raamistasin majutatud agendi automaatselt genereeritud projektistruktuuriga
-- [x] Kirjutasin struktureeritud agendi juhised turvareeglitega
-- [x] Testisin kohapeal 3 funktsionaalse stsenaariumiga (Agent Inspector)
-- [x] Juurutasin Foundry Agent Servicesse (konteineripõhine)
-- [x] Kontrollisin pilvekeskkonnas 4 servajuhtumi/turvatestiga
+- [x] Seadistasid Foundry tööriistakomplekti ja lõid Foundry projekti koos juurutatud mudeliga
+- [x] Scaffolding majutatud agendi automaatselt genereeritud projekti struktuuriga
+- [x] Kirjutasid struktureeritud agendi juhised ohutusreeglitega
+- [x] Testisid lokaalselt 3 funktsionaalse stsenaariumiga (Agent Inspector)
+- [x] Juurtasid Foundry Agent Service’i (konteineripõhiselt)
+- [x] Kontrollisid pilves mänguväljakul 4 äärmus- ja ohutest’iga
 
-### Tee B (Foundry kohalik)
+### Tee B (Foundry lokaalne)
 
-- [x] Seadistasin Foundry tööriistakomplekti kohaliku mudeli lõpp-punktiga
-- [x] Raamistasin majutatud agendi projekti
-- [x] Kirjutasin struktureeritud agendi juhised turvareeglitega
-- [x] Testisin kohapeal 3 funktsionaalse stsenaariumiga
-- [x] Kinnitasin agendi käitumise ilma pilveteenuseid kasutamata
+- [x] Seadistasid Foundry tööriistakomplekti kohaliku mudeli lõpp-punktiga
+- [x] Scaffolding majutatud agendi projekt
+- [x] Kirjutasid struktureeritud agendi juhised koos ohutusreeglitega
+- [x] Testisid lokaalselt 3 funktsionaalse stsenaariumiga
+- [x] Kontrollisid agendi käitumist ilma pilveressurssideta
 
 ---
 
 ## Järgmised sammud
 
-### Õppimise jätkamine
+### Jätka õppimist
 
 | Ressurss | Kirjeldus |
 |----------|-------------|
-| **[Lab 02 - Mitme agendi orkestreerimine](../../lab02-multi-agent/docs/README.md)** | Loo 4-agendi töövoog (CV → Töö sobivuse hindaja) orkestreerimismustritega |
-| **[Lisa oma agendile tööriistu](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Ühenda API-d, andmebaasid või kohandatud funktsioonid tööriistade kataloogi kaudu |
-| **[Lisa teadmisi (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Põhista oma agent dokumentide, vektorpoe või Bing otsinguga |
-| **[Microsoft Foundry dokumentatsioon](https://learn.microsoft.com/azure/foundry/)** | Täielik platvormi referents |
-| **[Agent Frameworki SDK referents](https://learn.microsoft.com/agent-framework/)** | `agent-framework` paketi API dokumentatsioon |
-| **[Foundry tööriistakomplekt - Mis uut](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Laienduste väljaannete märkmed ja muudatused |
+| **[Lab 02 - Mitme agendi orkestreerimine](../../lab02-multi-agent/docs/README.md)** | Ehita 4-agendi töövoog (CV → Töö sobivuse hindaja) orkestreerimismustritega |
+| **[Lisa oma agendile tööriistad](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Ühenda API-d, andmebaasid või kohandatud funktsioonid tööriistade kataloogi kaudu |
+| **[Lisa teadmisi (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Põhista agent dokumentide, vektoripoe või Bing otsingu kaudu |
+| **[Microsoft Foundry dokumentatsioon](https://learn.microsoft.com/azure/foundry/)** | Platvormi täielik viide |
+| **[Agent Framework SDK viide](https://learn.microsoft.com/agent-framework/)** | API dokumentatsioon `agent-framework` paketi kohta |
+| **[Foundry tööriistakomplekti uuendused](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Laienduste väljalasete ja muudatuste logi |
 
-### Ideed, kuidas oma agenti laiendada
+### Ideed agendi laiendamiseks
 
-- **Lisa kuupäevatööriist** - Lase agendil lisada "seisuga täna" kontekst kokkuvõtetesse
-- **Ühenda intsidentide andmebaasiga** - Tõmba tööriistafunktsiooni kaudu tegelikud intsidentide detailid
-- **Lisa Bing’i baastööriist** - Lase agendil otsida värskeid uudiseid lisakontekstiks
-- **Proovi erinevaid mudeleid** - Võrdle `gpt-4.1` ja `gpt-4.1-mini` väljundite kvaliteeti
-- **Hinda Foundryga** - Kasuta hinnanguid agentide kvaliteedi mõõtmiseks suurel skaalal
+- **Lisa kuupäeva tööriist** - Luba agendil lisada kokkuvõttesse "seisuga tänasest" kontekst
+- **Ühenda intsidentide andmebaasiga** - Tõmba reaalsete intsidentide detailid tööriista funktsiooni kaudu
+- **Lisa Bing põlistamise tööriist** - Luba agendil otsida viimaseid uudiseid lisakontekstiks
+- **Proovi erinevaid mudeleid** - Võrdle `gpt-4.1` ja `gpt-4.1-mini` väljundi kvaliteeti
+- **Hinda Foundryga** - Kasuta hindamisfunktsiooni agentide kvaliteedi mõõtmiseks suurelt
 
-### Tee B kasutajatele: Täienda pilvejuurutuseks
+### Tee B kasutajatele: uuenda pilve juurutuseks
 
-Kui oled valmis pilve juurutamiseks:
-1. Saa Azure tellimus ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
-2. Lõpeta [Moodul 01, Seadistamine](01-setup.md#step-2-set-up-based-on-your-access) (lõi projekt, juurutas mudeli, määras RBAC)
-3. Uuenda oma `.env` fail Foundry projekti lõpp-punkti ja mudelijuhtumi nimega
-4. Jätka [Moodul 05 - Juurutus Foundrys](05-deploy-to-foundry.md) juurest
+Kui oled valmis juurutama pilve:
+1. Hangi Azure tellimus ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
+2. Lõpeta [Moodul 01, Seadistamine](01-setup.md#step-2-set-up-based-on-your-access) (loo projekt, juuruta mudel, määra RBAC)
+3. Uuenda oma `.env` Foundry projekti lõpp-punkti ja mudeli juurutuse nimega
+4. Jätka [Moodul 05 - Juuruta Foundrys](05-deploy-to-foundry.md)
 
 ---
 
-## Ressursside korrastamine (valikuline)
+## Ressursside koristamine (valikuline)
 
-Kui soovid selle töötuba ajal loodud Azure ressursid eemaldada:
+Kui soovid eemaldada selle töötoa jooksul loodud Azure ressursid:
 
-### Variant 1: Kustuta ressursside grupp (eemaldab kõik)
+### Variant 1: Kustuta ressursigrupp (eemaldab kõik)
 
 ```bash
 az group delete --name rg-hosted-agents-workshop --yes --no-wait
@@ -95,18 +95,18 @@ az group delete --name rg-hosted-agents-workshop --yes --no-wait
 ### Variant 2: Kustuta ainult majutatud agent
 
 1. Ava [ai.azure.com](https://ai.azure.com) → oma projekt → **Build** → **Agents**.
-2. Klõpsa oma agenti → klõpsa **Delete**.
+2. Klõpsa oma agendil → klõpsa **Kustuta**.
 
-### Variant 3: Kustuta mudelijuhtum
+### Variant 3: Kustuta mudeli juurutus
 
-1. Foundry külgribal laienda oma projekt → **Models**.
-2. Paremklõps mudelijuhtumil → **Delete**.
+1. Foundry külgribal ava oma projekt → **Models**.
+2. Paremklõps mudeli juurutusel → **Kustuta**.
 
-> **Kulu märkus:** Majutatud agendid tekitavad tasu ainult jooksvatel aegadel. Kui peatad või kustutad agendi, ei teki jätkuvat tasu. Mudelijuhtum võib tekitada väikese tasu reserveeritud mahutavuse eest – kustuta see, kui sul seda enam vaja pole.
+> **Kulu märkus:** Majutatud agendid toovad kulusid ainult töötamise ajal. Kui peatad või kustutad agendi, ei kaasne edasisi kulusid. Mudeli juurutus võib põhjustada väikese tasu eraldatud võimsuse eest — kustuta see, kui oled lõpetanud.
 
 ---
 
-**Eelmine:** [06 - Kontrolli playground’is](06-verify-in-playground.md) · **Järgmine:** [08 - Tõrkeotsing (viide) →](08-troubleshooting.md)
+**Eelmine:** [06 - Kontroll mänguväljakul](06-verify-in-playground.md) · **Järgmine:** [08 - Tõrkeotsing (Viide) →](08-troubleshooting.md)
 
 ---
 

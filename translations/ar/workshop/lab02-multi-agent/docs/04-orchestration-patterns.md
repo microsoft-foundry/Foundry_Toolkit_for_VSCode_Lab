@@ -2,38 +2,38 @@
 
 ⏱️ ~10 دقائق
 
-في هذه الوحدة، تستكشف أنماط التنسيق المستخدمة في مقيم ملاءمة الوظيفة للسيرة الذاتية وتتعلّم كيفية قراءة وتعديل وتمديد مخطط سير العمل. فهم هذه الأنماط ضروري لتصحيح مشكلات تدفق البيانات وبناء [سير عمل متعدد الوكلاء](https://learn.microsoft.com/agent-framework/workflows/) خاص بك.
+في هذه الوحدة، تستكشف أنماط التنسيق المستخدمة في Resume Job Fit Evaluator وتتعلم كيفية قراءة وتعديل وتمديد رسم سير العمل. فهم هذه الأنماط ضروري لتصحيح مشاكل تدفق البيانات وبناء [سير عمل متعدد الوكلاء](https://learn.microsoft.com/agent-framework/workflows/) خاص بك.
 
 ---
 
-## النمط 1: التسلسل المتسلسل
+## النمط 1: السلسلة المتتابعة
 
-النمط الأساسي في سير العمل هو **السلسلة المتسلسلة** - حيث يمر مخرج كل وكيل مباشرة إلى التالية.
+النمط الأساسي في سير العمل هو **سلسلة متتابعة** - إخراج كل وكيل يغذي مباشرة الوكيل التالي.
 
 ```mermaid
 flowchart LR
-    RP[محلل السيرة الذاتية] --> JD[وكيل الوصف الوظيفي]
-    JD --> MA[وكيل المطابقة]
-    MA --> GA[محلل الفجوات]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-في الشيفرة، كل استدعاء `add_edge()` ينشئ خطوة واحدة في السلسلة:
+في الشيفرة، ينشئ كل استدعاء `add_edge()` خطوة في السلسلة:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # إخراج محلل السيرة الذاتية → وكيل الوصف الوظيفي
-.add_edge(jd_executor, matching_executor)     # إخراج وكيل الوصف الوظيفي → وكيل المطابقة
-.add_edge(matching_executor, gap_executor)    # إخراج وكيل المطابقة → محلل الفجوات
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **لماذا تسلسلي وليس توزيع/تجميع؟** يستخدم `WorkflowBuilder` **دلالات OR** للحواف الواردة: حيث يطلق منفذ التشغيل الأسفل فور إكمال **أي** سلف. إذا كان `matching_executor` يحتوي على حافتين واردتين (من `resume_executor` و `jd_executor`)، فسيتفعّل مرتين - مرة عند انتهاء ResumeParser ومرة أخرى عند انتهاء JD Agent - مما يسبب تشغيل GapAnalyzer مرتين أيضاً وظهور النتيجة مرتين. تتجنّب السلسلة المتسلسلة هذه المشكلة تمامًا.
+> **لماذا متتابعة وليس توزيع/تجميع؟** يستخدم `WorkflowBuilder` **دلالات OR** للحواف الواردة: ينفذ الوكيل التحتي بمجرد أن يُكمل **أي** وكيل سابق. إذا كان لدى `matching_executor` حافتان واردتان (من كل من `resume_executor` و `jd_executor`)، فسوف ينفذ مرتين - مرة عند انتهاء ResumeParser ومرة عند انتهاء JD Agent - مما يسبب تشغيل GapAnalyzer مرتين وظهور الإخراج مرتين. الخط المتتابع يتجنب هذا تمامًا.
 
 ## النمط 2: تمرير المحتوى
 
-لأن `context_mode="last_agent"` يعني أن كل منفذ تشغيل يرى فقط **مخرجات السلف المباشر**، يجب على الوكلاء في السلسلة المتسلسلة تمرير أي بيانات يحتاجها الوكلاء اللاحقون بشكل صريح.
+بما أن `context_mode="last_agent"` يعني أن كل منفذ يرى فقط إخراج **الوكيل السابق المباشر**، يجب على الوكلاء في السلسلة المتتابعة تمرير أي بيانات يحتاجها الوكلاء في الأسفل صراحةً.
 
 في هذا سير العمل:
-- **ResumeParser** ينسخ وصف الوظيفة كما هو في `[JOB DESCRIPTION PASS-THROUGH]` (حتى يتمكن وكيل الوصف الوظيفي من إيجاده).
-- **JD Agent** ينسخ `[PARSED RESUME]` كما هو في `[PARSED RESUME PASS-THROUGH]` (حتى يستطيع MatchingAgent مقارنة كلا الملفين الشخصيين).
+- **ResumeParser** ينسخ JD كما هو إلى `[JOB DESCRIPTION PASS-THROUGH]` (حتى يتمكن JD Agent من العثور عليه).
+- **JD Agent** ينسخ `[PARSED RESUME]` كما هو إلى `[PARSED RESUME PASS-THROUGH]` (حتى يستطيع MatchingAgent مقارنة كلا الملفين الشخصيين).
 
 ```
 ResumeParser output
@@ -45,89 +45,89 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-يجب نسخ كل جزء من التمرير **كما هو** - تلخيصه أو إعادة صياغته يكسر الوكيل التالي الذي يعتمد عليه.
+يجب نسخ كل قسم تمرير **كما هو** - تلخيصه أو إعادة صياغته يكسر الوكيل الأسفل الذي يعتمد عليه.
 
 ---
 
-## المخطط الكامل
+## الرسم الكامل
 
-دمج أنماط السلسلة المتسلسلة وتمرير المحتوى ينتج سير العمل الكامل:
+الجمع بين نمط السلسلة المتتابعة وتمرير المحتوى ينتج سير العمل الكامل:
 
 ```mermaid
 flowchart LR
-    U[إدخال المستخدم] --> RP[محلل السيرة الذاتية]
-    RP --> JD[وكيل وصف الوظيفة]
-    JD --> MA[وكيل التوافق]
-    MA --> GA[محلل الفجوات + MCP]
-    GA --> O[المخرجات النهائية]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-يعرض Agent Inspector نفس هيكل المخطط هذا عندما يعمل الوكيل محليًا. راجع [الوحدة 5 - الاختبار محليًا](05-test-locally.md) لصور للشاشة.
+يعرض Agent Inspector نفس بنية الرسم البياني عندما يكون الوكيل قيد التشغيل محليًا. ارجع إلى [الوحدة 5 - الاختبار محليًا](05-test-locally.md) لصور الشاشة.
 
 ---
 
-## قراءة كود WorkflowBuilder
+## قراءة شفرة WorkflowBuilder
 
-الدالة الكاملة `create_workflow()` موجودة في [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). استدعاءات الثلاث `add_edge()` تبني خط الأنابيب المتسلسل:
+يتم بناء رسم سير العمل في الدالة `main()` في [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). تبني ثلاث مكالمات `add_edge()` خط الأنابيب المتتابع:
 
 | # | الحافة | التأثير |
 |---|------|--------|
-| 1 | `resume_executor → jd_executor` | يستقبل وكيل الوصف الوظيفي `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
-| 2 | `jd_executor → matching_executor` | يتلقى MatchingAgent `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | يستقبل GapAnalyzer تقرير الملاءمة + قائمة الفجوات |
+| 1 | `resume_executor → jd_executor` | يستلم JD Agent `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
+| 2 | `jd_executor → matching_executor` | يستلم MatchingAgent `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
+| 3 | `matching_executor → gap_executor` | يستلم GapAnalyzer تقرير الملاءمة + قائمة الفجوات |
 
 ---
 
-## تعديل المخطط
+## تعديل الرسم البياني
 
 ### إضافة وكيل جديد
 
 لإضافة وكيل خامس (مثلاً، **InterviewPrepAgent** بعد GapAnalyzer):
 
-1. تعريف ثابت `INTERVIEW_PREP_INSTRUCTIONS`.
-2. إنشاء كائنات `Agent` + `AgentExecutor` (بنفس نمط الأربعة الموجودين).
-3. إضافة `.add_edge(gap_executor, interview_exec)` في `WorkflowBuilder`.
-4. تحديث `output_executors=[interview_exec]`.
+1. عرف ثابت `INTERVIEW_PREP_INSTRUCTIONS`.
+2. أنشئ كائنات `Agent` + `AgentExecutor` (بنفس نمط الأربعة الموجودين).
+3. أضف `.add_edge(gap_executor, interview_exec)` في `WorkflowBuilder`.
+4. حدث `output_executors=[interview_exec]`.
 
-> **مهم:** `start_executor` هو الوكيل الوحيد الذي يستقبل إدخال المستخدم الخام. جميع الوكلاء الآخرين يتلقون مخرجات من الحافة العلوية لهم.
+> **مهم:** `start_executor` هو الوكيل الوحيد الذي يستلم إدخال المستخدم الخام. كل الوكلاء الآخرين يستلمون المخرجات من الحافة العلوية الخاصة بهم.
 
 ---
 
-## أخطاء المخطط الشائعة
+## أخطاء شائعة في الرسم البياني
 
-| الخطأ | العلامة | التصحيح |
+| الخطأ | العرض | الحل |
 |---------|---------|-----|
-| حافة مفقودة إلى `output_executors` | يعمل الوكيل ولكن الإخراج فارغ | تأكد من وجود مسار من `start_executor` إلى كل وكيل في `output_executors` |
-| تبعية دائرية | حلقة لانهائية أو مهلة | تحقق من عدم تغذية أي وكيل لوكيل أعلاه |
+| فقدان الحافة إلى `output_executors` | يعمل الوكيل لكن الإخراج فارغ | تأكد من أن هناك مسار من `start_executor` إلى كل وكيل في `output_executors` |
+| اعتماد دائري | حلقة لا نهائية أو انتهاء المهلة | تحقق من عدم إعادة تغذية أي وكيل إلى وكيل علوي |
 | وكيل في `output_executors` بدون حافة واردة | إخراج فارغ | أضف على الأقل `add_edge(source, that_agent)` واحد |
-| تعدد `output_executors` بدون تجميع | الإخراج يحتوي على استجابة وكيل واحد فقط | استخدم وكيل إخراج واحد يجمع أو تقبل مخرجات متعددة |
-| عدم وجود `start_executor` | `ValueError` أثناء البناء | حدد دائمًا `start_executor` في `WorkflowBuilder()` |
+| عدة `output_executors` بدون تجميع | الإخراج يحتوي فقط على رد وكيل واحد | استخدم وكيل إخراج واحد يجمع، أو استقبل عدة مخرجات |
+| فقدان `start_executor` | `ValueError` وقت البناء | دائمًا حدد `start_executor` في `WorkflowBuilder()` |
 
 ---
 
-## تصحيح أخطاء المخطط
+## تصحيح الرسم البياني
 
 ### استخدام Agent Inspector
 
-1. شغل الوكيل محليًا باستخدام F5.
+1. شغّل الوكيل محليًا بالضغط على F5.
 2. افتح Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
-3. أرسل رسالة تجريبية.
-4. في لوحة استجابة المفتش، ابحث عن **الإخراج المتدفق** - حيث يظهر مساهمة كل وكيل بالتسلسل.
+3. أرسل رسالة اختبار.
+4. في لوحة استجابة المفتش، ابحث عن **الإخراج المتدفق** - يعرض مساهمة كل وكيل بالتتابع.
 
 
-### استخدام التسجيل
+### استخدام التسجيلات
 
-أضف تسجيلًا إلى `main.py` لتتبع تدفق البيانات:
+أضف تسجيلات إلى `main.py` لتتبع تدفق البيانات:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# في الدالة main()، بعد بناء سير العمل:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-تعرض سجلات الخادم ترتيب تنفيذ الوكلاء واستدعاءات أدوات MCP:
+تُظهر سجلات الخادم ترتيب تنفيذ الوكيل ومكالمات أدوات MCP:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -142,13 +142,13 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### نقطة تحقق
+### نقطة التحقق
 
-- [ ] يمكنك تحديد نمطين للتنسيق في سير العمل: السلسلة المتسلسلة وتمريرة المحتوى
-- [ ] تفهم لماذا يتطلب `context_mode="last_agent"` تمرير بيانات صريح بين الوكلاء
-- [ ] يمكنك قراءة كود `WorkflowBuilder` وربط كل استدعاء `add_edge()` بالمخطط المرئي
-- [ ] تعرف كيف تضيف وكيلًا جديدًا إلى نهاية خط الأنابيب
-- [ ] يمكنك تحديد أخطاء المخطط الشائعة وعلاماتها
+- [ ] يمكنك تحديد نمطي التنسيق في سير العمل: السلسلة المتتابعة وتمرير المحتوى
+- [ ] تفهم لماذا يحتاج `context_mode="last_agent"` إلى تمرير بيانات صريح بين الوكلاء
+- [ ] يمكنك قراءة شفرة `WorkflowBuilder` ومطابقة كل مكالمة `add_edge()` بالرسم البياني المرئي
+- [ ] تعرف كيفية إضافة وكيل جديد إلى نهاية خط الأنابيب
+- [ ] يمكنك التعرف على أخطاء الرسم الشائعة وأعراضها
 
 ---
 

@@ -1,22 +1,22 @@
-# Laboratório 02 - Fluxo de Trabalho Multi-Agente: Avaliador de Correspondência CV → Emprego
+# Laboratório 02 - Fluxo de Trabalho Multi-Agente: Avaliador de Ajuste Currículo → Emprego
 
 ## Visão Geral
 
-Neste laboratório prático, irá construir uma **aplicação multi-agente orientada para fluxo de trabalho** usando o Foundry Toolkit no VS Code e implantá-la no Microsoft Foundry Agent Service.
+Neste laboratório prático, irá construir uma **aplicação multi-agente focada em fluxo de trabalho** utilizando Foundry Toolkit no VS Code e implementá-la no Microsoft Foundry Agent Service.
 
-**O que irá construir:** um Avaliador de Correspondência CV → Emprego que analisa um currículo e uma descrição de trabalho, atribui uma pontuação de correspondência e produz um roteiro de aprendizagem personalizado usando recursos Microsoft Learn.
+**O que irá construir:** um Avaliador de Ajuste Currículo → Emprego que analisa um currículo e uma descrição de emprego, pontua o grau de correspondência e produz um roteiro de aprendizagem personalizado utilizando recursos do Microsoft Learn.
 
 ---
 
-## Arquitectura
+## Arquitetura
 
 ```mermaid
 flowchart TD
-    A["Entrada do Utilizador"] --> B["Parser de Currículo"]
-    B -->|"[CURRÍCULO ANALISADO] + [PASSAGEM DA DESCRIÇÃO DO EMPREGO]"| C["Agente de Descrição do Emprego"]
-    C -->|"[REQUISITOS DO DE] + [PASSAGEM DO CURRÍCULO ANALISADO]"| D["Agente de Correspondência"]
-    D -->|relatório de adequação + lacunas| E["Analisador de Lacunas + Microsoft Learn MCP"]
-    E -->|pontuação de adequação + roteiro| F["Saída"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -27,11 +27,11 @@ flowchart TD
 ```
 
 **Como funciona:**
-1. O utilizador cola um currículo e uma descrição de trabalho.
-2. **ResumeParser** analisa o currículo e copia a descrição do trabalho literalmente para uma secção `[PASSAGEM DA DESCRIÇÃO DO TRABALHO]`.
-3. **Agente JD** extrai requisitos estruturados da passagem, depois encaminha o `[CURRÍCULO ANALISADO]` em frente como `[PASSAGEM DO CURRÍCULO ANALISADO]`.
-4. **MatchingAgent** compara `[PASSAGEM DO CURRÍCULO ANALISADO]` vs `[REQUISITOS DA DESCRIÇÃO DO TRABALHO]` e produz uma pontuação de correspondência.
-5. **GapAnalyzer** transforma as lacunas num roteiro prático e recupera links reais do Microsoft Learn via MCP.
+1. O utilizador cola um currículo e uma descrição de emprego.
+2. **ResumeParser** analisa o currículo e copia a descrição de emprego literalmente para uma secção `[JOB DESCRIPTION PASS-THROUGH]`.
+3. **JD Agent** extrai requisitos estruturados do pass-through, depois retransmite o `[PARSED RESUME]` em frente como `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** compara `[PARSED RESUME PASS-THROUGH]` vs `[JD REQUIREMENTS]` e produz uma pontuação de ajuste.
+5. **GapAnalyzer** converte as lacunas num roteiro prático e obtém links reais do Microsoft Learn via MCP.
 
 ---
 
@@ -43,32 +43,33 @@ Complete primeiro o Laboratório 01:
 
 ---
 
-## Parte 1: Leia os módulos pela ordem
+## Parte 1: Leia os módulos por ordem
 
-Veja o caminho de aprendizagem completo em:
+Veja o percurso completo de aprendizagem em:
 
-- [Documentação Lab 2 - Pré-requisitos](docs/00-prerequisites.md)
-- [Documentação Lab 2 - Caminho Completo de Aprendizagem](docs/README.md)
-- [Guia de execução PersonalCareerCopilot](PersonalCareerCopilot/README.md)
+- [Documentação do Lab 2 - Pré-requisitos](docs/00-prerequisites.md)
+- [Documentação do Lab 2 - Percurso Completo de Aprendizagem](docs/README.md)
+- [Guia de execução do PersonalCareerCopilot](PersonalCareerCopilot/README.md)
 
 ---
 
-## Parte 2: Construa e teste o fluxo de trabalho
+## Parte 2: Construir e testar o fluxo de trabalho
 
-1. Use o assistente Foundry Toolkit para criar a estrutura do projeto baseado em fluxo de trabalho.
+1. Utilize o assistente Foundry Toolkit para criar o esqueleto do projeto baseado no fluxo de trabalho.
 2. Copie os blocos de prompt e o gráfico do fluxo de trabalho de `PersonalCareerCopilot/main.py` para o seu ambiente de trabalho.
-3. Execute localmente com o Agent Inspector e verifique os quatro agentes e a ferramenta MCP.
-4. Implemente o agente alojado no Foundry quando os testes locais forem aprovados.
+3. Execute localmente com o Agent Inspector e verifique os quatro agentes mais a ferramenta MCP.
+4. Faça o deploy do agente alojado no Foundry após passar os testes locais.
 
 ---
 
 ## Padrões de orquestração
 
-O Laboratório 02 inclui o fluxo padrão **fan-out → fan-in → sequencial**, e a documentação também descreve padrões alternativos de orquestração para experimentação.
+O Laboratório 02 usa uma **pipeline sequencial**: a saída de cada agente alimenta o seguinte, e o fluxo de trabalho devolve a resposta do último agente. Dois padrões tornam isto possível:
 
-- **Fan-out/Fan-in com consenso ponderado**
-- **Passagem de revisor/crítico antes do roteiro final**
-- **Router condicional** baseado em pontuação de ajuste e competências em falta
+- **Cadeia sequencial** - `WorkflowBuilder` liga ResumeParser → JD Agent → MatchingAgent → GapAnalyzer com uma chamada `add_edge()` por passo
+- **Retransmissão de conteúdo** - porque cada agente vê apenas a saída do seu predecessor direto, ResumeParser e JD Agent copiam os dados de que os agentes downstream precisam para secções pass-through etiquetadas
+
+A documentação também explica porque o laboratório não usa fan-out/fan-in, e como estender o gráfico com outro agente.
 
 Veja [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 

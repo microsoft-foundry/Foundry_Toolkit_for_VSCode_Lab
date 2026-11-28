@@ -3,96 +3,96 @@
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Eelvaade & piirangud:** [Hostitud agendid](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) on praegu **avalikus eelvaates** - ei soovitata tootmiskeskkondadele. Ole teadlik järgmistest:
+> **Eelvaade ja piirangud:** [Hostitud agendid](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) on praegu **avalikus eelvaates** - ei ole soovitatav tootmiskoormuste jaoks. Ole teadlik järgmistest:
 > - **Toetatud piirkonnad on piiratud** - kontrolli enne ressursside loomist [piirkonna saadavust](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability). Kui valid mittetoetatud piirkonna, ebaõnnestub juurutus.
-> - `azure-ai-agentserver-agentframework` pakett on eelversioonis - API-d võivad versiooniti muutuda.
-> - Skaala piirangud: hostitud agendid toetavad 0–5 koopiat (sh skaala nulli).
-> - Mõned selles töötoas näidatud funktsioonid võivad teenuse GA-le liikumisel muutuda.
+> - `agent-framework-foundry-hosting` pakett on enam-vähem valmis versioon - API-d võivad versioonide vahel muutuda.
+> - Skaalalimiidid: hostitud agendid toetavad 0–5 koopiat (kaasa arvatud nulli skaala).
+> - Mõned selles töötoas näidatud funktsioonid võivad muutuda, kui teenus liigub GA poole.
 
 ## Mida sa ehitad
 
-Selles töötoas ehitad sa **"Selgita nagu olen juht"** agendi - hostitud tehisintellekti agendi, mis muudab keerulised tehnilised uuendused lihtsaks ingliskeelseks juhtide kokkuvõtteks.
+Selles töötoas ehitad sa **"Seleta nagu oleksin direktor"** agendi - hostitud tehisintellekti agendi, mis võtab vastu keerulisi tehnilisi uuendusi ja tõlgib need lihtsustatud ingliskeelseteks direktorite kokkuvõteteks.
 
 ```mermaid
 flowchart LR
-    A["🧑‍💻 Saadetakse\ntehniline uuendus"] --> B["🤖 Juhtkonna ülevaate\nassistent"]
-    B --> C["📝 Lihtsas keeles\njuhtkonna ülevaade"]
+    A["🧑‍💻 You send a\ntechnical update"] --> B["🤖 Executive Summary\nAgent"]
+    B --> C["📝 Plain-English\nexecutive summary"]
 ```
 
 **Agent kasutab:**
-- **Microsoft Agent Frameworki** - agendi loogika ja struktuuri jaoks
-- **Foundry Toolkit for VS Code’i** - skaffoldimiseks, lokaalseks testimiseks ja juurutamiseks
-- **Tehisintellekti mudelit** (nt `gpt-4.1-mini/gpt-5-mini`) - kokkuvõtete genereerimiseks
+- **Microsofti agentide raamistikku** - agenedi loogika ja struktuuri jaoks
+- **Foundry Toolkit for VS Code’i** - raamistiku loomiseks, lokaalseks testimiseks ja juurutamiseks
+- **Tehisintellekti mudelit** (näiteks `gpt-4.1-mini/gpt-5-mini`) - kokkuvõtete loomise jaoks
 
-Selle töötoa lõpuks on sul töötav agent, mida saad testida lokaalselt Agent Inspectoriga ja valikuliselt pilve juurutada.
+Selle töötoa lõpuks on sul töökorras agent, mida saad lokaalselt testida Agent Inspectoriga ja vajadusel pilve juurutada.
 
 ---
 
 ## Mis on hostitud agendid?
 
-**Hostitud agent** on tehisintellekti agent, mis töötab Microsoft Foundry hallatava teenusena. Oma infrastruktuuri haldamise asemel pakendad agendi koodi konteinerisse ja Foundry haldab skaleerimist, hostimist ja selle standardse HTTP lõpp-punkti kaudu kättesaadavaks tegemist.
+**Hostitud agent** on tehisintellekti agent, mis töötab Microsoft Foundrys hallatud teenusena. Oma infrastruktuuri haldamise asemel paki oma agent koodi konteinerisse ja Foundry haldab selle skaleerimist, majutamist ja avaldab selle tavalise HTTP-lõpp-punkti kaudu.
 
-| Mõiste | Tähendus |
+| Mõiste | Mida see tähendab |
 |---------|--------------|
-| **Agent** | Sinu Python kood, mis vastu võtab kasutaja sõnumi, kutsub tehisintellekti mudelit ja tagastab struktureeritud vastuse |
-| **Hostitud** | Foundry käitab sinu konteinerit - mingeid VM-e, Kubernetesi ega infrastruktuuri pole vaja hallata |
-| **Vastuste protokoll** | Standardne HTTP API (`POST /responses`), mida saab kõiki kliendid sinu agenti suhtlema kutsuda |
-| **Agent Inspector** | Kohalik testimisliides (Foundry Toolkitis sisseehitatud), millega saad enne juurutamist agendiga suhelda |
+| **Agent** | Su Python kood, mis võtab vastu kasutaja sõnumi, kutsub AI mudelit ja tagastab struktureeritud vastuse |
+| **Hostitud** | Foundry käitab sinu konteinerit - pole VM-e, pole Kubernetesit, pole infrastruktuuri haldamiseks |
+| **Vastuste protokoll** | Standardne HTTP API (`POST /responses`), mida iga klient saab kasutada suhtlemiseks sinu agendiga |
+| **Agent Inspector** | Kohalik testimisliides (Foundry Toolkitis sees), mis võimaldab sul enne juurutamist agenti vestelda |
 
-Selles töötoas liigu nullist kuni täielikult hostitud agendini või peatu vaid lokaaltestimise juures, kui soovid.
+Selles töötoas saad alustada nullist kuni täielikult hostitud agendini või peatuda kohalikul testimisel, kui soovid.
 
 ---
 
 ## Vali oma tee
 
-> ⚠️ **Vali enne jätkamist üks tee.** Sinu valik määrab, milliseid tööriistu paigaldada ja millised moodulid kehtivad. Hiljem saad vajadusel teed vahetada (Path B → Path A) kui saad Azure tellimuse.
+> ⚠️ **Vali üks tee enne jätkamist.** Sinu valik määrab, millised tööriistad paigaldada ja millised moodulid kehtivad. Võid hiljem minna Tee B → Tee A peale, kui saad tellimuse.
 
 <details open>
 <summary><strong>🅰️ Tee A - Azure pilv (nõuab Azure tellimust)</strong></summary>
 
-| | Üksikasjad |
+| | Detailid |
 |---|---|
-| **Kellele see sobib?** | Sul on aktiivne Azure tellimus ja saad luua Foundry ressursse |
-| **Mudeli kasutus** | Azure OpenAI Foundry kaudu (nt `gpt-4.1-mini/gpt-5-mini`) |
-| **Kattuvad moodulid** | Kõik moodulid (00–07) |
-| **Juurutada pilve?** | ✅ Jah - täielik algusest lõpuni juurutus |
+| **Kellele see on?** | Sul on aktiivne Azure tellimus ja võid luua Foundry ressursse |
+| **Mudelite valik** | Azure OpenAI Foundrys (näiteks `gpt-4.1-mini/gpt-5-mini`) |
+| **Kaetud moodulid** | Kõik moodulid (00–07) |
+| **Juuruta pilve?** | ✅ Jah - täissüsteemi deploy |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Tee B - Kohalik / tasuta tase (pole vaja Azure tellimust)</strong></summary>
+<summary><strong>🅱️ Tee B - Kohalik / tasuta tase (ei vaja Azure tellimust)</strong></summary>
 
-| | Üksikasjad |
+| | Detailid |
 |---|---|
-| **Kellele see sobib?** | MVP-d, üliõpilased või kõik ilma Azure juurdepääsuta |
-| **Mudeli kasutus** | **Foundry Local** (tasuta, töötab su masinas) |
-| **Kattuvad moodulid** | Moodulid 00–04 (jäta vahele juurutus ja pilve valideerimine) |
-| **Juurutada pilve?** | ❌ Ei - ainult lokaalne testimine Agent Inspectoriga |
+| **Kellele see on?** | MVP-d, üliõpilased või keegi ilma Azure ligipääsuta |
+| **Mudeli valik** | **Foundry Local** (tasuta, töötab sinu masinas) |
+| **Kaetud moodulid** | Moodulid 00–04 (jäta vahele deploy ja pilve verifitseerimine) |
+| **Juuruta pilve?** | ❌ Ei - ainult kohalik testimine Agent Inspectoriga |
 
 </details>
 
 ---
 
-## Kõik teed: vajalikud tööriistad
+## Kõik teed: Nõutavad tööriistad
 
-Paigalda allpool iga tööriist. Pärast paigaldamist kontrolli, kas see töötab, käivitades kontrollkäsku.
+Paigalda alljärgnevad tööriistad. Pärast paigaldust kontrolli nende tööd, jooksutades kontrollkäskluse.
 
-| # | Tööriist | Versioon | Paigalda | Kontrolli (ootuspärane väljastus) |
-|---|------|---------|---------|---------------------------|
+| # | Tööriist | Versioon | Paigaldus | Kontroll (Oodatud väljund) |
+|---|----------|-----------|-----------|--------------------------|
 | 1 | **Visual Studio Code** | Viimane | [code.visualstudio.com](https://code.visualstudio.com/) | Avaneb ilma vigadeta |
-| 2 | **Python** | 3.12 või uuem| [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
-| 3 | **Foundry Toolkit for VS Code** | Viimane | Laienduse ID: `ms-windows-ai-studio.windows-ai-studio` | Foundry ikoon tegevusribal |
-| 4 | **Python laiendus VS Code jaoks** | Viimane | Laienduse ID: `ms-python.python` | Paigaldatud laienduste paneelis |
+| 2 | **Python** | 3.12 või uuem | [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
+| 3 | **Foundry Toolkit for VS Code** | Viimane | Laiendi ID: `ms-windows-ai-studio.windows-ai-studio` | Foundry ikoon aktiivsusribal |
+| 4 | **Python laiendus VS Code’ile** | Viimane | Laiendi ID: `ms-python.python` | Paigaldatud laienduste paneelis |
 
 > [!TIP]
-> **Paigaldusnipid:**
-> - **Python PATH (Windows):** Kontrolli alati esimesel ekraanil Python paigaldajal **„Add Python to PATH”** märkeruutu. Ilma selleta ei tunta `python` käsku terminalis ära.
-> - **Mitme Python versiooni korral:** Kui sul on paigaldatud nii Python 3.10 kui 3.12, kasuta virtuaalkeskkonna loomiseks `python3.12 -m venv .venv`, et kasutada õiget versiooni.
-> - **Docker WSL 2 (Windows):** Docker Desktopi paigalduse ajal veendu, et oleks valitud **WSL 2 backend**. Docker Hyper-V-ga on aeglasem ja võib tekitada probleeme Foundry konteinerite ehitamisel.
-> - **Docker ei alga?** Oota 30–60 sekundit pärast Docker Desktopi käivitamist. Käivita `docker info` - kui kuvatakse „Cannot connect to the Docker daemon,” siis Docker on veel initsialiseerimises.
-> - **VS Code laiendused ei laadi?** Pärast laienduste paigaldust lae aken uuesti: `Ctrl+Shift+P` → `Developer: Reload Window`.
+> **Paigaldusnõuanded:**
+> - **Python PATH (Windows):** Alati märgi **"Add Python to PATH"** Python paigaldaja esimesel ekraanil. Ilma selleta `python` ei tunne terminal seda ära.
+> - **Mitme Python versiooni olemasolu:** Kui sul on paigaldatud nii Python 3.10 kui ka 3.12, kasuta `python3.12 -m venv .venv`, et tagada õige versiooni kasutamine virtuaalmasinas.
+> - **Docker WSL 2 (Windows):** Docker Desktopi paigaldamisel veendu, et oleks valitud **WSL 2 backend**. Hyper-V-ga Docker on aeglasem ja võib tekitada raskusi Foundry konteineriehitusega.
+> - **Docker ei käivitu?** Oota 30–60 sekundit pärast Docker Desktopi käivitamist. Käivita `docker info` - kui näed "Cannot connect to the Docker daemon", on Docker veel initsialiseerimas.
+> - **VS Code laiendid ei lae?** Pärast laiendite paigaldamist laadi aken uuesti: `Ctrl+Shift+P` → `Developer: Reload Window`.
 
-> **Windows kasutajatele:** Märgi Python paigaldamisel kindlasti **„Add Python to PATH”**.
+> **Windowsi kasutajad:** Kontrollige Pythoni installeerimisel valikut **"Add Python to PATH"**.
 
 
 

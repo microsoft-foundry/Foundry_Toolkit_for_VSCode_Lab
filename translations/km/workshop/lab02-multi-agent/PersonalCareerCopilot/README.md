@@ -1,80 +1,80 @@
-# PersonalCareerCopilot - ជាម៉ាស៊ីនវាយតម្លៃភាពសមរម្យរវាងប្រវត្តិរូប និងការងារ
+# PersonalCareerCopilot - អ្នកវាយតម្លៃការផ្គូផ្គងប្រវត្តិរូបសម្រាប់ការងារ
 
-កម្មវិធីប្រតិបត្តិការម៉ូលទីភ្នាក់ងារមួយដែលផ្តោតលើលំហរ វាយតម្លៃថាប្រវត្តិរូបសមរម្យយ៉ាងដូចម្តេចជាមួយនឹងការពិពណ៌នាការងារ បន្ទាប់មកបង្កើតផែនការសិក្សាផ្ទាល់ខ្លួនដើម្បីបិទចន្លោះទាំងនោះ។
+កម្មវិធីមួយ​ដែលផ្អែកលើចំណាត់ការកម្មវិធីពហុភ្នាក់ងារដែលវាយតម្លៃពីភាពសមរម្យរវាងប្រវត្តិរូបនិងការពិពណ៌នាការងារ បន្ទាប់មកបង្កើតផែនទីការសិក្សាផ្ទាល់ខ្លួនដើម្បីបិទចន្លោះកំហុស។
 
 ---
 
-## អ្នកភ្នាក់ងារ
+## ភ្នាក់ងារ
 
-| អ្នកភ្នាក់ងារ | តំណែង | ឧបករណ៍ |
+| ភ្នាក់ងារ | តួនាទី | ឧបករណ៍ |
 |-------|------|-------|
-| **ResumeParser** | ដកសមត្ថភាព មានបទពិសោធន៍ និងវិញ្ញាបនបត្រដែលមានរចនាសម្ព័ន្ធពីអត្ថបទប្រវត្តិរូប | - |
-| **JobDescriptionAgent** | ដកសមត្ថភាព តម្រូវការ/ចំណង់ចំណូលចិត្ត បទពិសោធន៍ និងវិញ្ញាបនបត្រពីការពិពណ៌នាការងារ | - |
-| **MatchingAgent** | ប្រៀបធៀបប្រវត្តិរូបទៅនឹងតម្រូវការ → ពិន្ទុភាពសមរម្យ (0-100) + ជំនាញដែលសមរម្យ/បាត់បង់ | - |
-| **GapAnalyzer** | បង្កើតផែនការសិក្សាផ្ទាល់ខ្លួនជាមួយធនធាន Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | សំរេចចេញជំនាញ ផ្លាស់ប្តូរ បទពិសោធន៍ និងវិញ្ញាបនបត្រពីអត្ថបទប្រវត្តិរូប | - |
+| **JobDescriptionAgent** | សំរេចចេញជំនាញ តម្រូវ/ចូលចិត្ត បទពិសោធន៍ និងវិញ្ញាបនបត្រពីការពិពណ៌នាការងារ | - |
+| **MatchingAgent** | ប្រៀបធៀបប្រវត្តិរូបនិងតម្រូវការវិភាគពិន្ទុសមរម្យ (0-100) និងជំនាញដែលបានឃើញ/ខាតបង់ | - |
+| **GapAnalyzer** | បង្កើតផែនទីការសិក្សាផ្ទាល់ខ្លួនជាមួយធនធាន Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
-## លំហរ
+## ផ្ទាល់កិច្ចការ
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: ប្រវត្តិរូប + ការពិពណ៌នាពីការងារ"] --> ResumeParser
-    ResumeParser -- "ប្រវត្តិរូបបានវិភាគ + ផ្ដល់ JD" --> JobDescriptionAgent
-    JobDescriptionAgent -- "តម្រូវការបុគ្គលិក JD + ផ្ដល់ប្រវត្តិរូប" --> MatchingAgent
-    MatchingAgent -- "របាយការណ៍សមស្រប + ចន្លោះ" --> GapAnalyzerMCP["វិភាគចន្លោះ +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nពិន្ទុសមស្រប + ផែនផ្លូវ"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## ចាប់ផ្តើមយ៉ាងរហ័ស
+## បង្ហាញឲ្យចេះលឿន
 
-### 1. កំណត់បរិយាកាស
+### 1. កំណត់បរិបទ
 
-មេរៀននេះគឺជាកំណត់ហេតុយោងសម្រាប់ឆានែលលំហរក្នុង Lab 02។ `main.py` របស់វា ប្រើប្លុកបង្ហាញដែលមានរួចហើយ ព្រមទាំង `WorkflowBuilder` ដើម្បីភ្ជាប់អ្នកភ្នាក់ងារបួននាក់ជាមួយគ្នា។
+ហ្វូឡឺនេះជាការអនុវត្តយោងសម្រាប់កម្មវិធី Lab 02 ដែលផ្អែកលើចំណាត់ការកម្មវិធី។ `main.py` របស់វាប្រើប្រាស់ប្លុកប្រមូលព័ត៌មានដែលមានស្រាប់ បូកជាមួយ `WorkflowBuilder` ដើម្បីភ្ជាប់ភ្នាក់ងារបួននេះជាមួយគ្នា។
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # Windows PowerShell
-# ប្រភព .venv/bin/activate            # macOS / Linux
+# source .venv/bin/activate            # macOS / Linux
 pip install -r requirements.txt
 ```
 
-### 2. កំណត់សញ្ញាប័ត្រ
+### 2. កំណត់គោលបំណងប្រើប្រាស់
 
-បង្កើតឯកសារ `.env` នៅក្នុងថតនេះ៖
+បង្កើតឯកសារ `.env` ក្នុងហ្វូឡឺនេះ៖
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
 ```
 
-កែប្រែ `.env`៖
+កែសម្រួល `.env` ៖
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| តម្លៃ | រស់នៅណា |
+| តម្លៃ | របៀបរកវា |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | ផ្នែករង Foundry Toolkit → ចុចស្ដាំលើគម្រោងរបស់អ្នក → **ចម្លងចំនុចផ្លូវគម្រោង** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | ផ្នែករង Foundry → ពង្រីកគម្រោង → **ម៉ូឌែល + ចំណុចចេញផ្សាយ** → ឈ្មោះការចេញផ្សាយ |
+| `FOUNDRY_PROJECT_ENDPOINT` | ផ្ទាំងបញ្ចាំង Foundry Toolkit → ចុចស្តាំលើគម្រោង → **ចម្លងព្រិត្តភាគគម្រោង** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | ផ្ទាំង Foundry → ពង្រីកគម្រោង → **ម៉ូឌែល + ព្រិត្តភាគ** → ឈ្មោះដាក់ប្រតិបត្តិការ |
 
-### 3. រត់នៅក្នុងម៉ាស៊ីនខ្លួនឯង
+### 3. រត់ក្នុងម៉ាស៊ីនមានខ្លួនឯង
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-ឬប្រើការងារនៅក្នុង VS Code៖ `Ctrl+Shift+P` → **ការងារ៖ រត់ការងារ** → **រត់ម៉ាស៊ីនបម្រើ Agent HTTP**។
+ឬប្រើបេសកកម្ម VS Code ៖ `Ctrl+Shift+P` → **បេសកកម្ម៖ រត់បេសកកម្ម** → **រត់ម៉ាស៊ីនសេរី HTTP របស់ភ្នាក់ងារ**។
 
-សម្រាប់ការត្រួតពិនិត្យ F5 ប្រើ **ត្រួតពិនិត្យម៉ាស៊ីនបម្រើ Agent HTTP ក្នុងស្រុក**។
+សម្រាប់បញ្ហាយោល F5 សូមប្រើ **ដ្បិតម៉ាស៊ីនសេរី HTTP របស់ភ្នាក់ងារ**។
 
-### 4. សាកល្បងជាមួយ Agent Inspector
+### 4. ពិសោធជាមួយ Agent Inspector
 
-បើក Agent Inspector៖ `Ctrl+Shift+P` → **Foundry Toolkit: បើក Agent Inspector**។
+បើក Agent Inspector ៖ `Ctrl+Shift+P` → **Foundry Toolkit៖ បើក Agent Inspector**។
 
-ដាក់ពាក្យបញ្ជាសាកល្បងនេះ៖
+បិទជូនបញ្ជាបញ្ញាបត្រ៖
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**អ្វីដែលរំពឹងទុក៖** ពិន្ទុភាពសមរម្យ (0-100), ជំនាញដែលសមរម្យ/បាត់បង់ និងផែនការសិក្សាផ្ទាល់ខ្លួនជាមួយ URL Microsoft Learn។
+**គិតអ្វីដែលរង់ចាំ:** ពិន្ទុសមរម្យ (0-100), ជំនាញដែលបានឃើញ/ខាត, និងផែនទីការសិក្សាផ្ទាល់ខ្លួនជាមួយ URL Microsoft Learn។
 
-### 5. បង្ហាញទៅ Foundry
+### 5. បញ្ចេញទៅ Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: ដាក់អតិថិជន Hosted Agent** → ជ្រើសគម្រោងរបស់អ្នក → បញ្ជាក់។
+`Ctrl+Shift+P` → **Foundry Toolkit៖ បញ្ចេញភ្នាក់ងារតាមម៉ាស៊ីនផ្សព្វផ្សាយ** → ជ្រើសរើសគម្រោង → យល់ព្រម។
 
 ---
 
@@ -115,46 +115,46 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-កំណត់អ្នកភ្នាក់ងារដែលផ្អែកលើការបម្រើ Foundry Agent Service ៖
-- `kind: hosted` - រត់ជាគន់តែមានការគ្រប់គ្រង container តែមួយ
-- `protocols` - ពហុក្របខណ្ឌ `responses` ជាមួយ `version: 1.0.0`, បង្ហាញអាសយដ្ឋាន HTTP `/responses`
-- `environment_variables` - កំណត់ `AZURE_AI_MODEL_DEPLOYMENT_NAME` នៅទីនេះ; `FOUNDRY_PROJECT_ENDPOINT` ត្រូវបានបញ្ចូលដោយស្វ័យប្រវត្តិពេលដាក់ចេញ
+កំណត់ភ្នាក់ងារតំណាងសម្រាប់សេវាភ្នាក់ងារ Foundry៖
+- `kind: hosted` - រត់ជា container បានគ្រប់គ្រង
+- `protocols` - ប្រើពិធីសាស្ត្រ `responses` ជាមួយ `version: 2.0.0` ដែលបង្ហាញច្រក HTTP `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` ត្រូវបានប្រកាសនៅទីនេះ; `FOUNDRY_PROJECT_ENDPOINT` ត្រូវបានបញ្ចូលដោយស្វ័យប្រវត្តិពេលដាក់ប្រើ
 
 ### `main.py`
 
 មាន៖
-- **ការណែនាំអ្នកភ្នាក់ងារ** - តម្រង `*_INSTRUCTIONS` បួនគ្រាប់ សម្រាប់អ្នកភ្នាក់ងារ១នាក់
-- **ឧបករណ៍ MCP** - `search_microsoft_learn_for_plan()` ហៅ `https://learn.microsoft.com/api/mcp` តាម Streamable HTTP
-- **ការបង្កើតអ្នកភ្នាក់ងារ** - បួន `Agent()` + `AgentExecutor()` ដែលចែករំលែក `FoundryChatClient` មួយ
-- **ក្រាផគន្លងលំហរ** - `WorkflowBuilder` ភ្ជាប់អ្នកភ្នាក់ងារជាក្រុមខ្សែបន្ទាត់៖ ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **ការចាប់ផ្តើមម៉ាស៊ីនបម្រើ** - `ResponsesHostServer` បើកផ្នែក 8088
+- **ការណែនាំភ្នាក់ងារ** - ប្រែប្រួល `*_INSTRUCTIONS` បួន តួតែមួយសម្រាប់ភ្នាក់ងារម្នាក់
+- **ឧបករណ៍ MCP** - `search_microsoft_learn_for_plan()` ហៅ `https://learn.microsoft.com/api/mcp` តាមរយៈ Streamable HTTP
+- **ការបង្កើតភ្នាក់ងារ** - ឯកត្តភាព `Agent()` បួន + `AgentExecutor()` ចែករំលែក `FoundryChatClient` មួយ
+- **ក្រាហ្វ workflow** - `WorkflowBuilder` ផ្ដុំភ្នាក់ងារតាមបណ្តោយ៖ ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **ការចាប់ផ្តើមម៉ាស៊ីនបម្រើ** - `ResponsesHostServer` រត់នៅកំពង់ ៨០៨៨
 
 ### `requirements.txt`
 
 | កញ្ចប់ | គោលបំណង |
 |---------|----------|
-| `agent-framework-foundry` | កម្រិតម៉ាស៊ីនប្រតិបត្តិការ៖ `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry` | រតនៈរយៈពេល: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
 | `agent-framework-foundry-hosting` | `ResponsesHostServer` + ការតភ្ជាប់ Foundry hosting |
 | `mcp<2,>=1.24.0` | អតិថិជន MCP សម្រាប់ GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | ការត្រួតពិនិត្យកូដ Python (F5 នៅក្នុង VS Code) |
+| `debugpy` | ការត្រួតពិនិត្យកំហុស Python (F5 ក្នុង VS Code) |
 
 ---
 
 ## ការដោះស្រាយបញ្ហា
 
-| បញ្ហា | សម្រួលបញ្ហា |
+| បញ្ហា | ការស្វែងរកដំណោះស្រាយ |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ឬ `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | បង្កើត `.env` ដែលមាន `FOUNDRY_PROJECT_ENDPOINT` និង `AZURE_AI_MODEL_DEPLOYMENT_NAME` ទាំងពីរ |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ឬ `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | បង្កើត `.env` មានទាំង `FOUNDRY_PROJECT_ENDPOINT` និង `AZURE_AI_MODEL_DEPLOYMENT_NAME` បានកំណត់ |
 | `ModuleNotFoundError: No module named 'agent_framework'` | បើក venv ហើយរត់ `pip install -r requirements.txt` |
-| មិនមាន URL Microsoft Learn នៅក្នុងលទ្ធផល | ពិនិត្យការតភ្ជាប់អ៊ីនធឺណិតទៅ `https://learn.microsoft.com/api/mcp` |
-| មានកាតចន្លោះតែមួយ (បាត់បង់) | ប្រាកដថា `GAP_ANALYZER_INSTRUCTIONS` រួមបញ្ចូលប្លុក `CRITICAL:` |
-| ផ្នែក 8088 កំពុងប្រើ | បិទម៉ាស៊ីនបម្រើផ្សេងៗ៖ `netstat -ano \| findstr :8088` |
+| គ្មាន URL Microsoft Learn នៅលើលទ្ធផល | ពិនិត្យការតភ្ជាប់អ៊ីនធឺណិតទៅ `https://learn.microsoft.com/api/mcp` |
+| មានកាត gap តែមួយ (ខ្លី) | ពិនិត្យមើល `GAP_ANALYZER_INSTRUCTIONS` រួមបញ្ចូលអ្នក `CRITICAL:` |
+| កំពង់ ៨០៨៨ កំពុងប្រើ | បញ្ឈប់ម៉ាស៊ីនបម្រើផ្សេងទៀត៖ `netstat -ano \| findstr :8088` |
 
-សម្រាប់ការដោះស្រាយបញ្ហាជាក់លាក់ មើល [Module 8 - Troubleshooting](../docs/08-troubleshooting.md)។
+សម្រាប់ការដោះស្រាយបញ្ហាយ៉ាងលម្អិត សូមមើល [Module 8 - Troubleshooting](../docs/08-troubleshooting.md)។
 
 ---
 
-**ដំណើរការពេញលេញ៖** [Lab 02 Docs](../docs/README.md) · **ត្រឡប់ទៅ៖** [Lab 02 README](../README.md) · [ទំព័រដើមសិក្សា](../../../README.md)
+**ដំណើរការពេញលេញ៖** [Lab 02 Docs](../docs/README.md) · **ត្រឡប់ទៅ៖** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # PersonalCareerCopilot - Resume → Job Fit Evaluator
 
-Na workflow-first multi-agent app wey dey check how resume match well with job description, den e go generate personalized learning roadmap to close di gap dem.
+One workflow-first multi-agent app wey dey check how resume match job description well, den e go generate personalized learning roadmap to close the gap dem.
 
 ---
 
@@ -8,10 +8,10 @@ Na workflow-first multi-agent app wey dey check how resume match well with job d
 
 | Agent | Role | Tools |
 |-------|------|-------|
-| **ResumeParser** | Extracts structured skills, experience, certifications from resume text | - |
-| **JobDescriptionAgent** | Extracts required/preferred skills, experience, certifications from a JD | - |
-| **MatchingAgent** | Compares profile vs requirements → fit score (0-100) + matched/missing skills | - |
-| **GapAnalyzer** | Builds a personalized learning roadmap with Microsoft Learn resources | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | E dey extract structured skills, experience, certifications from resume text | - |
+| **JobDescriptionAgent** | E dey extract required/preferred skills, experience, certifications from a JD | - |
+| **MatchingAgent** | E dey compare profile vs requirements → fit score (0-100) + matched/missing skills | - |
+| **GapAnalyzer** | E dey build personalized learning roadmap with Microsoft Learn resources | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Workflow
 
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Set up environment
 
-Dis folder na di reference implementation for di workflow-based Lab 02 scaffold. E get `main.py` wey dey use di existing prompt blocks plus `WorkflowBuilder` to join di four agents together.
+Dis folder na di reference implementation for di workflow-based Lab 02 scaffold. E `main.py` dey use di existing prompt blocks plus `WorkflowBuilder` to connect di four agents together.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### 2. Configure credentials
 
-Create `.env` file for dis folder:
+Make `.env` file for dis folder:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
@@ -55,7 +55,7 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Value | Where to find it |
+| Value | Where to find am |
 |-------|------------------|
 | `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidebar → right-click your project → **Copy Project Endpoint** |
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidebar → expand project → **Models + endpoints** → deployment name |
@@ -92,7 +92,7 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Expected:** Fit score (0-100), matched/missing skills, and personalized learning roadmap with Microsoft Learn URLs.
+**Expected:** Fit score (0-100), matched/missing skills, plus personalized learning roadmap wey get Microsoft Learn URLs.
 
 ### 5. Deploy to Foundry
 
@@ -115,19 +115,19 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-Di define di hosted agent for Foundry Agent Service:
-- `kind: hosted` - e run as managed container
-- `protocols` - `responses` protocol wey get `version: 1.0.0`, e expose `/responses` HTTP endpoint
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` dey for here; `FOUNDRY_PROJECT_ENDPOINT` dey inject automatically wen you deploy am
+Na di hosted agent wey di Foundry Agent Service dey use e be dis:
+- `kind: hosted` - e dey run as managed container
+- `protocols` - `responses` protocol with `version: 2.0.0`, e dey expose di `/responses` HTTP endpoint
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` dey declared here; `FOUNDRY_PROJECT_ENDPOINT` dey injected automatically when dem deploy am
 
 ### `main.py`
 
 E get:
 - **Agent instructions** - four `*_INSTRUCTIONS` constants, one per agent
 - **MCP tool** - `search_microsoft_learn_for_plan()` dey call `https://learn.microsoft.com/api/mcp` via Streamable HTTP
-- **Agent creation** - four `Agent()` + `AgentExecutor()` instances dey share one `FoundryChatClient`
-- **Workflow graph** - `WorkflowBuilder` dey wire agents as sequential pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **Server startup** - `ResponsesHostServer` dey run for port 8088
+- **Agent creation** - four `Agent()` + `AgentExecutor()` instances wey share one `FoundryChatClient`
+- **Workflow graph** - `WorkflowBuilder` connect agents as sequential pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Server startup** - `ResponsesHostServer` e dey run for port 8088
 
 ### `requirements.txt`
 
@@ -144,11 +144,11 @@ E get:
 
 | Issue | Fix |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` or `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Create `.env` with BOTH `FOUNDRY_PROJECT_ENDPOINT` AND `AZURE_AI_MODEL_DEPLOYMENT_NAME` set |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` or `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Make `.env` wey get both `FOUNDRY_PROJECT_ENDPOINT` and `AZURE_AI_MODEL_DEPLOYMENT_NAME` set |
 | `ModuleNotFoundError: No module named 'agent_framework'` | Activate venv and run `pip install -r requirements.txt` |
-| No Microsoft Learn URLs for output | Check internet connection to `https://learn.microsoft.com/api/mcp` |
-| Only 1 gap card (e short) | Make sure say `GAP_ANALYZER_INSTRUCTIONS` get di `CRITICAL:` block |
-| Port 8088 dey in use | Stop other servers: `netstat -ano \| findstr :8088` |
+| No Microsoft Learn URLs for output | Make sure internet dey connect to `https://learn.microsoft.com/api/mcp` |
+| Only 1 gap card (e cut) | Check if `GAP_ANALYZER_INSTRUCTIONS` get di `CRITICAL:` block |
+| Port 8088 dey used | Stop oda servers: `netstat -ano \| findstr :8088` |
 
 For detailed troubleshooting, see [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 

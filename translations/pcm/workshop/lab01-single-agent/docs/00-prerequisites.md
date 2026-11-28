@@ -1,61 +1,61 @@
-# Module 0 - Introdakshon
+# Module 0 - Introduction
 
 ⏱️ ~10 min
 
 > [!WARNING]
-> **Preview & Limitations:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) di currently for **public preview** - e no good for production workloads. Make you sabi dis one:
-> - **Supported regions dem limited** - check [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) before you create resources. If you choose place wey no dey supported, deployment go fail.
-> - The `azure-ai-agentserver-agentframework` package still dey pre-release - APIs fit change between versions.
-> - Scale limits: hosted agents dey support 0–5 replicas (including scale-to-zero).
-> - Some features wey dey this workshop fit change as service dey waka go GA.
+> **Preview & Limitations:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) dey currently for **public preview** - no good for production workloads. Make you sabi dis tin:
+> - **Supported regions dey limited** - check [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) before you create resources. If you choose one region wey no support am, deployment go fail.
+> - The `agent-framework-foundry-hosting` package na pre-release - APIs fit change from one version to another.
+> - Scale limits: hosted agents fit support 0–5 replicas (including scale-to-zero).
+> - Some features wey dem show for this workshop fit change as the service dey go GA.
 
 ## Wetin you go build
 
-For this workshop, you go build **"Explain Like I'm an Executive"** agent - na hosted AI agent wey go take complex technical update dem and rewrite am as simple English executive summaries.
+For dis workshop, you go build **"Explain Like I'm an Executive"** agent - na hosted AI agent wey dey take complex technical updates come rewrite am as plain-English executive summaries.
 
 ```mermaid
 flowchart LR
-    A["🧑‍💻 You send one\ntechnical update"] --> B["🤖 Executive Summary\nAgent"]
-    B --> C["📝 Simple-Talk\nexecutive summary"]
+    A["🧑‍💻 You send a\ntechnical update"] --> B["🤖 Executive Summary\nAgent"]
+    B --> C["📝 Plain-English\nexecutive summary"]
 ```
 
 **The agent dey use:**
 - **Microsoft Agent Framework** - for agent logic and structure
-- **Foundry Toolkit for VS Code** - to scaffold, test am for your machine, and deploy
-- **AI model** (ex: `gpt-4.1-mini/gpt-5-mini`) - to generate the summaries
+- **Foundry Toolkit for VS Code** - to scaffold, test for your machine, and deploy
+- **An AI model** (like `gpt-4.1-mini/gpt-5-mini`) - to generate the summaries
 
-By the end for this lab, you go get working agent wey you fit test for your machine via Agent Inspector, and if you want you fit deploy am for cloud.
+By the time you finish dis lab, you go get working agent wey you fit test local through the Agent Inspector, and if you like deploy to cloud.
 
 ---
 
 ## Wetin be hosted agents?
 
-**Hosted agent** na AI agent wey dey run as managed service inside Microsoft Foundry. Instead of you dey manage your own server, you go package your agent code inside container and Foundry go manage scaling, hosting, and e go expose am via normal HTTP endpoint.
+One **hosted agent** na AI agent wey dey run as managed service for Microsoft Foundry. Instead make you manage your own infrastructure, you go package your agent code for container and Foundry dey handle scaling, hosting, and expose am through standard HTTP endpoint.
 
 | Concept | Wetin e mean |
 |---------|--------------|
-| **Agent** | Na your Python code wey dey receive user message, call AI model, and return structured response |
+| **Agent** | Na your Python code wey dey receive user message, call AI model, and give structured response |
 | **Hosted** | Foundry dey run your container for you - no VMs, no Kubernetes, no infrastructure to manage |
-| **Responses protocol** | Na normal HTTP API (`POST /responses`) wey any client fit call to talk with your agent |
-| **Agent Inspector** | Na local testing UI (wey dey inside Foundry Toolkit) wey allow you to chat with your agent before you deploy am |
+| **Responses protocol** | Na standard HTTP API (`POST /responses`) wey any client fit call to interact with your agent |
+| **Agent Inspector** | Na local testing UI (wey dem build inside Foundry Toolkit) wey let you yarn with your agent before you deploy am |
 
-Inside this workshop, you go from zero go complete hosted agent - or you fit stop for local testing if you want.
+For dis workshop, you go waka from zero go reach fully hosted agent - or you fit stop for local testing if na so you want.
 
 ---
 
 ## Choose your path
 
-> ⚠️ **Pick one path before you continue.** Your choice go decide which tools you go install and which modules you go do. You fit change from Path B → Path A later if you get subscription.
+> ⚠️ **Choose one path before you continue.** The choice wey you make go determine which tools you go install and which modules go apply. You fit change from Path B → Path A later if you get subscription.
 
 <details open>
 <summary><strong>🅰️ Path A - Azure cloud (you need Azure subscription)</strong></summary>
 
 | | Details |
 |---|---|
-| **Who na for?** | You get active Azure subscription and fit create Foundry resources |
-| **Model** | Azure OpenAI via Foundry (ex: `gpt-4.1-mini/gpt-5-mini`) |
-| **Modules dem cover** | All modules (00–07) |
-| **Deploy to cloud?** | ✅ Yes - full complete deployment |
+| **Who be this one for?** | You get active Azure subscription and fit create Foundry resources |
+| **Model** | Azure OpenAI via Foundry (like `gpt-4.1-mini/gpt-5-mini`) |
+| **Modules wey dem cover** | All modules (00–07) |
+| **You go deploy to cloud?** | ✅ Yes - full end-to-end deployment |
 
 </details>
 
@@ -64,35 +64,35 @@ Inside this workshop, you go from zero go complete hosted agent - or you fit sto
 
 | | Details |
 |---|---|
-| **Who na for?** | MVPs, students, or anybody wey no get Azure |
-| **Model** | **Foundry Local** (free, e run for your machine) |
-| **Modules dem cover** | Modules 00–04 (skip deploy & cloud verify) |
-| **Deploy to cloud?** | ❌ No - only local testing via Agent Inspector |
+| **Who be this one for?** | MVPs, students, or anybodi wey no get Azure access |
+| **Model** | **Foundry Local** (free, e dey run for your machine) |
+| **Modules wey dem cover** | Modules 00–04 (skip deploy & cloud verify) |
+| **You go deploy to cloud?** | ❌ No - only local testing through Agent Inspector |
 
 </details>
 
 ---
 
-## All paths: Tools wey you need
+## All paths: Tools wey you go need
 
-Install all the tools wey dey below. After you install, check say e dey work by running the verify command.
+Install each tool as e dey below. After you install am, make sure e work by running check command.
 
-| # | Tool | Version | Install | Verify (Wetn you go see) |
+| # | Tool | Version | Install | Verify (Wetyn dem expect) |
 |---|------|---------|---------|---------------------------|
-| 1 | **Visual Studio Code** | Latest | [code.visualstudio.com](https://code.visualstudio.com/) | E go open without error |
-| 2 | **Python** | 3.12 or higher | [python.org/downloads](https://www.python.org/downloads/) | `python --version` → `Python 3.12.x` |
-| 3 | **Foundry Toolkit for VS Code** | Latest | Extension ID: `ms-windows-ai-studio.windows-ai-studio` | Foundry icon dey Activity Bar |
-| 4 | **Python extension for VS Code** | Latest | Extension ID: `ms-python.python` | E go dey inside Extensions panel |
+| 1 | **Visual Studio Code** | Latest | [code.visualstudio.com](https://code.visualstudio.com/) | E go open without any error |
+| 2 | **Python** | 3.12 or higher| [python.org/downloads](https://www.python.org/downloads/) | `python --version` $\rightarrow$ `Python 3.12.x` |
+| 3 | **Foundry Toolkit for VS Code** | Latest | Extension ID: `ms-windows-ai-studio.windows-ai-studio` | You go see Foundry icon for Activity Bar |
+| 4 | **Python extension for VS Code** | Latest | Extension ID: `ms-python.python` | E go be for Extensions panel |
 
 > [!TIP]
 > **Pro-tips for installation:**
-> - **Python PATH (Windows):** Always choose **"Add Python to PATH"** for the first screen of Python installer. If no do dis one, your terminal no go fit find `python`.
-> - **Multiple Python versions:** If you get both Python 3.10 and 3.12 installed, use `python3.12 -m venv .venv` make sure say na correct version your virtual environment go use.
-> - **Docker WSL 2 (Windows):** When you dey install Docker Desktop, make sure say you select **WSL 2 backend**. Docker with Hyper-V dey slow and e fit cause wahala with Foundry container builds.
-> - **Docker no dey start?** Wait 30–60 seconds after you start Docker Desktop. Run `docker info` - if you see "Cannot connect to the Docker daemon," Docker still dey initialize.
+> - **Python PATH (Windows):** Always confirm say you select **"Add Python to PATH"** for the first screen of Python installer. Without dis, `python` no go recognize for your terminal.
+> - **Plenty Python versions:** If you get both Python 3.10 and 3.12 installed, use `python3.12 -m venv .venv` to make sure say correct version dey for your virtual environment.
+> - **Docker WSL 2 (Windows):** When you dey install Docker Desktop, make sure say **WSL 2 backend** dey selected. Docker wey get Hyper-V dey slow and fit cause wahala with Foundry container build.
+> - **Docker no dey start?** Wait 30–60 seconds after you launch Docker Desktop. Run `docker info` - if you see "Cannot connect to the Docker daemon," e mean Docker dey still initialize.
 > - **VS Code extensions no dey load?** After you install extensions, reload the window: `Ctrl+Shift+P` → `Developer: Reload Window`.
 
-> **Windows users:** Make sure say you check **"Add Python to PATH"** for Python installation.
+> **Windows users:** Make sure say you check **"Add Python to PATH"** during Python installation.
 
 
 

@@ -1,36 +1,36 @@
-# PersonalCareerCopilot - CV → Työhön sopivuuden arvioija
+# PersonalCareerCopilot - CV → Työhön Soveltuvuuden Arvioija
 
-Työnkulkuun perustuva moniagenttisovellus, joka arvioi, kuinka hyvin CV vastaa työkuvausta, ja luo sitten henkilökohtaisen oppimissuunnitelman puutteiden korjaamiseksi.
+Työnkulkuun perustuva moniedustajasovellus, joka arvioi, kuinka hyvin CV vastaa työkuvausta, ja laatii sitten henkilökohtaisen oppimissuunnitelman puutteiden korjaamiseksi.
 
 ---
 
-## Agentit
+## Edustajat
 
-| Agentti | Rooli | Työkalut |
-|--------|-------|---------|
-| **ResumeParser** | Poimii rakenteelliset taidot, kokemukset, sertifikaatit CV-tekstistä | - |
-| **JobDescriptionAgent** | Poimii tarvittavat/suositellut taidot, kokemukset, sertifikaatit työkuvauksesta | - |
-| **MatchingAgent** | Vertaa profiilia vaatimuksiin → sopivuuspisteet (0-100) + löydetyt/puuttuvat taidot | - |
+| Edustaja | Rooli | Työkalut |
+|-------|------|-------|
+| **ResumeParser** | Poimii rakenteelliset taidot, kokemuksen, sertifikaatit CV-tekstistä | - |
+| **JobDescriptionAgent** | Poimii vaaditut/toivottavat taidot, kokemuksen, sertifikaatit työkuvauksesta | - |
+| **MatchingAgent** | Vertaa profiilia vaatimuksiin → soveltuvuuspisteet (0-100) + täsmänneet/puuttuvat taidot | - |
 | **GapAnalyzer** | Laatii henkilökohtaisen oppimissuunnitelman Microsoft Learn -resursseilla | `search_microsoft_learn_for_plan` (MCP) |
 
 ## Työnkulku
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: CV + Työkuvaus"] --> ResumeParser
-    ResumeParser -- "jäsennelty CV + työkuvauksen lähetys" --> JobDescriptionAgent
-    JobDescriptionAgent -- "työkuvausvaatimukset + CV:n lähetys" --> MatchingAgent
-    MatchingAgent -- "sopivuusraportti + aukot" --> GapAnalyzerMCP["Aukkoanalyysi +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nSopivuuspisteet + tiekartta"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## Nopeaan alkuun
+## Nopeasti alkuun
 
-### 1. Ympäristön asetukset
+### 1. Ympäristön määrittäminen
 
-Tämä kansio on työnkulkuun perustuvan Lab 02 -toteutussovelluksen viitemalli. Sen `main.py` käyttää olemassa olevia prompt-lohkoja sekä `WorkflowBuilder`-luokkaa neljän agentin yhdistämiseen.
+Tämä kansio on työnkulkuun perustuvan Lab 02 -runkoalustan referenssitoteutus. Sen `main.py` käyttää olemassa olevia kehotelohkoja sekä `WorkflowBuilder` yhdistääkseen neljä agenttia.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,41 +40,41 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Määrittele tunnistetiedot
+### 2. Tunnistetietojen määritys
 
-Luo `.env`-tiedosto tähän kansioon:
+Luo `.env` -tiedosto tähän kansioon:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
 ```
 
-Muokkaa `.env`-tiedostoa:
+Muokkaa `.env`:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Arvo | Mistä löytää |
-|-------|--------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit -sivupalkki → napsauta projektia oikealla → **Kopioi projektin päätelaite** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry-sivupalkki → laajenna projekti → **Mallit + päätelaitteet** → käyttöönoton nimi |
+| Arvo | Missä löytää |
+|-------|------------------|
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit -sivupalkki → oikean hiirinäppäimen valikko projektille → **Copy Project Endpoint** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry-sivupalkki → laajenna projekti → **Models + endpoints** → käyttöönoton nimi |
 
-### 3. Aja paikallisesti
+### 3. Suorita paikallisesti
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Tai käytä VS Code -tehtävää: `Ctrl+Shift+P` → **Tehtävät: Suorita tehtävä** → **Suorita agentin HTTP-palvelin**.
+Tai käytä VS Coden tehtävää: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
 
-F5-virheenjäljityksessä käytä **Debug Local Agent HTTP Server**.
+F5-debuggaukseen käytä **Debug Local Agent HTTP Server**.
 
 ### 4. Testaa Agent Inspectorilla
 
 Avaa Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
 
-Liitä tämä testipromtti:
+Liitä tämä testikehotus:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Odotettu:** Sopivuuspisteet (0-100), löydetyt/puuttuvat taidot ja räätälöity oppimissuunnitelma Microsoft Learnin URL-osoitteilla.
+**Odotettu:** Soveltuvuuspiste (0-100), täsmänneet/puuttuvat taidot ja henkilökohtainen oppimissuunnitelma Microsoft Learn -URL:eilla.
 
-### 5. Ota käyttöön Foundryssa
+### 5. Julkaise Foundryyn
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Ota isännöity agentti käyttöön** → valitse projektisi → vahvista.
+`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → valitse projektisi → vahvista.
 
 ---
 
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## Keskeiset tiedostot
+## Tärkeimmät tiedostot
 
 ### `agent.yaml`
 
-Määrittelee hostatun agentin Foundry Agent Serviceä varten:
-- `kind: hosted` - ajetaan hallitussa kontissa
-- `protocols` - `responses`-protokolla version `1.0.0` kanssa, jossa `/responses` HTTP-päätepiste
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` määritellään tässä; `FOUNDRY_PROJECT_ENDPOINT` injektoidaan automaattisesti käyttöönoton yhteydessä
+Määrittelee isännöidyn agentin Foundry Agent Serviceä varten:
+- `kind: hosted` - toimii hallittuna säilönä
+- `protocols` - `responses` -protokolla `version: 2.0.0` kanssa, avaa `/responses` HTTP-päätepisteen
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` määritellään täällä; `FOUNDRY_PROJECT_ENDPOINT` injektoidaan automaattisesti käyttöönoton yhteydessä
 
 ### `main.py`
 
 Sisältää:
-- **Agentin ohjeet** - neljä `*_INSTRUCTIONS` vakioarvoa, yksi per agentti
+- **Agentin ohjeet** - neljä `*_INSTRUCTIONS` vakioita, yksi per agentti
 - **MCP-työkalu** - `search_microsoft_learn_for_plan()` kutsuu `https://learn.microsoft.com/api/mcp` Streamable HTTP:n kautta
-- **Agentin luonti** - neljä `Agent()` + `AgentExecutor()` instanssia, jotka jakavat yhden `FoundryChatClient`-asiakkaan
-- **Työnkulun kaavio** - `WorkflowBuilder` yhdistää agentit peräkkäiseksi putkistoksi: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Agenttien luonti** - neljä `Agent()` + `AgentExecutor()` instanssia, jotka jakavat yhden `FoundryChatClient`
+- **Työnkulun graafi** - `WorkflowBuilder` kytkee agentit peräkkäiseen putkeen: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
 - **Palvelimen käynnistys** - `ResponsesHostServer` ajetaan portissa 8088
 
 ### `requirements.txt`
 
 | Paketti | Tarkoitus |
 |---------|----------|
-| `agent-framework-foundry` | Keskeinen suoritusympäristö: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundry-isännöintiintegraatio |
+| `agent-framework-foundry` | Ydinaikataulu: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Foundryn isännöintiintegratio |
 | `mcp<2,>=1.24.0` | MCP-asiakas GapAnalyzerille (`streamable_http_client`) |
-| `debugpy` | Pythonin virheenjäljitys (F5 VS Codessa) |
+| `debugpy` | Python-debuggaus (F5 VS Codessa) |
 
 ---
 
 ## Vianmääritys
 
-| Ongelma | Ratkaisu |
-|---------|---------|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` tai `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Luo `.env`, jossa on määritelty `FOUNDRY_PROJECT_ENDPOINT` ja `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| Ongelma | Korjaus |
+|-------|-----|
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` tai `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Luo `.env`, jossa asetetaan sekä `FOUNDRY_PROJECT_ENDPOINT` että `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
 | `ModuleNotFoundError: No module named 'agent_framework'` | Aktivoi venv ja suorita `pip install -r requirements.txt` |
-| Ei Microsoft Learn -URL-osoitteita tulosteessa | Tarkista internet-yhteys osoitteeseen `https://learn.microsoft.com/api/mcp` |
-| Vain 1 puutteiden kortti (leikattu) | Varmista, että `GAP_ANALYZER_INSTRUCTIONS` sisältää `CRITICAL:`-osion |
-| Portti 8088 varattu | Lopeta muut palvelimet: `netstat -ano \| findstr :8088` |
+| Ei Microsoft Learn -URL:eja tulosteessa | Tarkista internet-yhteys `https://learn.microsoft.com/api/mcp`:iin |
+| Vain 1 puutteiden kortti (katkaistu) | Varmista, että `GAP_ANALYZER_INSTRUCTIONS` sisältää `CRITICAL:`-lohkon |
+| Portti 8088 käytössä | Pysäytä muut palvelimet: `netstat -ano \| findstr :8088` |
 
-Tarkempaa vianmääritystä löytyy [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+Yksityiskohtaisempaan vianmääritykseen katso [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 
 ---
 
-**Kattava opas:** [Lab 02 Docs](../docs/README.md) · **Takaisin:** [Lab 02 README](../README.md) · [Työpajan aloitussivu](../../../README.md)
+**Kattava läpikäynti:** [Lab 02 Docs](../docs/README.md) · **Takaisin:** [Lab 02 README](../README.md) · [Työpajan etusivu](../../../README.md)
 
 ---
 

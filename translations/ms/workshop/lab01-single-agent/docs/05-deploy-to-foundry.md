@@ -1,23 +1,23 @@
-# Modul 5 - Menghantar ke Perkhidmatan Ejen Foundry
+# Modul 5 - Melancarkan ke Perkhidmatan Ejen Foundry
 
 ⏱️ ~10 minit
 
-> ⚠️ **Pengguna Laluan B:** Modul ini memerlukan langganan Foundry. Jika anda menggunakan Foundry Tempatan, langkau ke [Modul 07 - Ringkasan](07-summary.md). Anda berjaya menyelesaikan aliran kerja pembangunan tempatan!
+> ⚠️ **Pengguna Laluan B:** Modul ini memerlukan langganan Foundry. Jika anda menggunakan Foundry Tempatan, teruskan ke [Modul 07 - Ringkasan](07-summary.md). Anda telah berjaya menyelesaikan aliran kerja pembangunan tempatan!
 
-Dalam modul ini, anda menghantar ejen yang diuji secara tempatan ke Microsoft Foundry sebagai **Ejen Dihoskan**. Penghantaran membina imej kontena, menolaknya ke Azure Container Registry, dan memulakan ejen dalam infrastruktur yang diuruskan oleh Foundry.
+Dalam modul ini, anda melancarkan ejen yang telah diuji secara tempatan ke Microsoft Foundry sebagai **Ejen Hosted**. Pelancaran membina imej bekas, menolaknya ke Azure Container Registry, dan memulakan ejen dalam infrastruktur yang diurus oleh Foundry.
 
-### Saluran penghantaran
+### Saluran pelancaran
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|bina docker| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|tolak docker| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|daftar agen| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|mula bekas| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -31,105 +31,105 @@ flowchart LR
 
 ## Semakan prasyarat
 
-Sebelum menghantar, sahkan:
+Sebelum melancarkan, sahkan:
 
 - [ ] Ejen lulus semua 3 senario tempatan dari [Modul 04](04-test-locally.md)
-- [ ] Anda mempunyai peranan **Pengguna Azure AI** di peringkat projek ([Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac))
-- [ ] Anda telah log masuk ke Azure di VS Code (ikon Akaun menunjukkan nama anda)
+- [ ] Anda mempunyai peranan **Azure AI User** pada tahap projek ([Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Anda telah masuk ke Azure dalam VS Code (ikon Akaun menunjukkan nama anda)
 
 ---
 
-## Langkah 1: Mulakan penghantaran
+## Langkah 1: Mulakan pelancaran
 
-### Pilihan A: Hantar dari Penyiasat Ejen (disyorkan)
+### Pilihan A: Lancarkan dari Inspector Ejen (disyorkan)
 
-Jika Penyiasat Ejen terbuka (dari ujian):
-1. Klik butang **Hantar** di penjuru kanan atas (ikon awan ↑).
+Jika Inspector Ejen dibuka (dari ujian):
+1. Klik butang **Deploy** di penjuru kanan atas (ikon awan ↑).
 
-### Pilihan B: Hantar dari Palet Perintah
+### Pilihan B: Lancarkan dari Command Palette
 
-1. Tekan `Ctrl+Shift+P` → **Foundry Toolkit: Hantar Ejen Dihoskan**.
+1. Tekan `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
-## Langkah 2: Konfigurasikan penghantaran
+## Langkah 2: Konfigurasikan pelancaran
 
-Penyihir akan meminta anda untuk:
+Wizard akan meminta anda untuk:
 
-![Konfig Projek](../../../../../translated_images/ms/05-foundry-project-setup.ca6ad16a6484e054.webp)
+![Project Config](../../../../../translated_images/ms/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Perintah | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
 | **Langganan** | Langganan Azure anda |
-| **Projek sasaran** | Projek Foundry anda (cth, `workshop-agents`) |
+| **Projek sasaran** | Projek Foundry anda (contoh, `workshop-agents`) |
 
-Klik **seterusnya** untuk konfigurasi ejen anda.
+Klik **seterusnya** untuk mengkonfigurasi ejen anda.
 
-![Konfig asas](../../../../../translated_images/ms/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Basics config](../../../../../translated_images/ms/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Perintah | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
-| **Kaedah Penghantaran** | Kontena |
-| **Daftar kontena** | **ACR Lalai** (Microsoft Foundry membuat dan menguruskannya untuk anda) |
-| **Hantar ke** | Ejen Baru (nama, `executive-summary-agent`) |
+| **Kaedah Pelancaran** | Bekas |
+| **Pendaftaran bekas** | **ACR lalai** (Microsoft Foundry mencipta dan menguruskannya untuk anda) |
+| **Lancarkan ke** | Ejen Baru (nama, `executive-summary-agent`) |
 
-Klik **seterusnya** untuk semak dan hantar ejen anda.
+Klik **seterusnya** untuk menyemak dan melancarkan ejen anda.
 
-![Semak dan hantar](../../../../../translated_images/ms/05-review-deploy.12b449d426bff886.webp)
+![Review and deploy](../../../../../translated_images/ms/05-review-deploy.12b449d426bff886.webp)
 
-| Perintah | Pilihan |
+| Prompt | Pilihan |
 |--------|-----------|
-| **CPU dan memori** | **0.25 teras CPU, 0.5 Gi memori** (cukup untuk bengkel) |
+| **CPU dan memori** | **0.5 CPU cores, 1.0 Gi memori** (lalai - mencukupi untuk bengkel) |
 
 ---
 
-## Langkah 3: Hantar dan pantau
+## Langkah 3: Lancarkan dan pantau
 
-1. Klik **Hantar**.
-2. Tonton panel **Output** (pilih **Microsoft Foundry** dari dropdown).
-3. Penghantaran melalui peringkat ini:
-   - **Membina Docker** - membina kontena dari Dockerfile anda
-   - **Menolak Docker** - menolak imej ke ACR (1–3 minit pada penghantaran pertama)
-   - **Pendaftaran Ejen** - mencipta ejen dihoskan dalam Foundry
-   - **Mula Kontena** - bermula dengan identiti diuruskan sistem
+1. Klik **Deploy**.
+2. Pantau panel **Output** (pilih **Microsoft Foundry** dari dropdown).
+3. Pelancaran melalui peringkat berikut:
+   - **Pembinaan Docker** - membina bekas dari Dockerfile anda
+   - **Tolak Docker** - menolak imej ke ACR (1–3 min pada pelancaran pertama)
+   - **Pendaftaran ejen** - mencipta ejen hosted dalam Foundry
+   - **Mula bekas** - bermula dengan identiti yang diurus sistem
 
-4. Apabila selesai, notifikasi muncul:
-   > **my-agent berjaya dihantar.** `Lihat log` `Jalankan ejen`
+4. Apabila selesai, notifikasi akan muncul:
+   > **executive-summary-agent telah berjaya dilancarkan.** `View logs` `Run agent`
 
-5. Klik **Jalankan ejen** untuk membuka Playground Ejen.
+5. Klik **Run agent** untuk membuka Agent Playground.
 
-![Keputusan penghantaran menunjukkan Playground Ejen dengan status Berjalan](../../../../../translated_images/ms/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Deployment success showing Agent Playground with Running status](../../../../../translated_images/ms/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Nilai status penghantaran
+### Nilai status pelancaran
 
 | Status | Maksud |
 |--------|---------|
-| **Berjalan** | Kontena sedia, ejen memberi respons |
-| **Dalam Tindakan** | Kontena mula - tunggu 30–60 saat |
-| **Gagal** | Semak log (lihat penyelesaian masalah di bawah) |
+| **Running** | Bekas sedia, ejen bertindak balas |
+| **Pending** | Bekas sedang mula - tunggu 30–60 saat |
+| **Failed** | Semak log (lihat penyelesaian masalah di bawah) |
 
 ---
 
-## Ralat biasa semasa penghantaran
+## Ralat pelancaran biasa
 
-| Ralat | Punca utama | Penyelesaian |
+| Ralat | Punca utama | Pembetulan |
 |-------|-----------|-----|
-| Kebenaran `agents/write` ditolak | Tiada peranan **Pengguna Azure AI** di peringkat projek | [Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| `agents/write` kebenaran ditolak | Peranan **Pengguna Azure AI** hilang pada peringkat projek | [Modul 01, Tetapkan RBAC](01-setup.md#deploy-a-model--assign-rbac) |
 | Docker tidak berjalan | Docker Desktop tidak dimulakan | Mulakan Docker Desktop → sahkan `docker info` |
-| Pengegahan ACR | Identiti diurus tidak boleh tarik imej | Lihat [Modul 08 - Penyelesaian Masalah](08-troubleshooting.md) |
+| Kebenaran ACR | Identiti terurus tidak dapat menarik imej | Lihat [Modul 08 - Penyelesaian Masalah](08-troubleshooting.md) |
 
 ---
 
-### ✅ Titik semak
+### ✅ Titik Semak
 
-- [ ] Penghantaran selesai tanpa ralat
-- [ ] Ejen muncul di bawah **Ejen Dihoskan (Pratonton)** dalam bar sisi Foundry
-- [ ] Status kontena menunjukkan **Berjalan**
-- [ ] Tab Playground Ejen dibuka menunjukkan butiran ejen dan URL titik akhir
+- [ ] Pelaksanaan selesai tanpa ralat
+- [ ] Ejen muncul pada tab **Hosted Agent** apabila anda klik **Agents** di bawah projek anda dalam bar sisi Foundry Toolkit
+- [ ] Status bekas menunjukkan **Sedang Berjalan**
+- [ ] Tab Agent Playground dibuka menunjukkan butiran ejen dan URL titik akhir
 
 ---
 
-**Sebelumnya:** [04 - Uji secara Tempatan](04-test-locally.md) · **Seterusnya:** [06 - Sahkan dalam Playground →](06-verify-in-playground.md)
+**Sebelumnya:** [04 - Uji Secara Tempatan](04-test-locally.md) · **Seterusnya:** [06 - Sahkan dalam Playground →](06-verify-in-playground.md)
 
 ---
 

@@ -2,38 +2,38 @@
 
 ⏱️ ~10 min
 
-Sa modulong ito, susuriin mo ang mga pattern ng orkestrasyon na ginamit sa Resume Job Fit Evaluator at matutunan kung paano basahin, baguhin, at palawakin ang grap ng workflow. Mahalaga ang pag-unawa sa mga pattern na ito para mag-debug ng mga isyu sa daloy ng datos at makabuo ng sarili mong [multi-agent workflows](https://learn.microsoft.com/agent-framework/workflows/).
+Sa module na ito, susuriin mo ang mga pattern ng orkestrasyon na ginamit sa Resume Job Fit Evaluator at matututuhan kung paano basahin, baguhin, at palawakin ang workflow graph. Mahalagang maunawaan ang mga pattern na ito para sa pag-debug ng mga isyu sa daloy ng datos at sa paggawa ng iyong sariling [multi-agent workflows](https://learn.microsoft.com/agent-framework/workflows/).
 
 ---
 
 ## Pattern 1: Sunud-sunod na kadena
 
-Ang pangunahing pattern sa workflow ay isang **sunud-sunod na kadena** - ang output ng bawat ahente ay direktang ipinapasok sa susunod.
+Ang pangunahing pattern sa workflow ay ang **sunud-sunod na kadena** - ang output ng bawat ahente ay direktang ipinapasa sa susunod.
 
 ```mermaid
 flowchart LR
-    RP[Tagasuri ng Resume] --> JD[Ahente ng JD]
-    JD --> MA[Ahente ng Pagtutugma]
-    MA --> GA[Tagasuri ng Agwat]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-Sa code, ang bawat tawag na `add_edge()` ay lumikha ng isang hakbang sa kadena:
+Sa code, bawat tawag na `add_edge()` ay lumilikha ng isang hakbang sa kadena:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # Output ng ResumeParser → JD Agent
-.add_edge(jd_executor, matching_executor)     # Output ng JD Agent → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # Output ng MatchingAgent → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Bakit sunud-sunod, hindi fan-out/fan-in?** Gumagamit ang `WorkflowBuilder` ng **OR-semantics** para sa mga dumarating na gilid: ang downstream executor ay magsisimula kapag ang **anumang** nauna nito ay natapos na. Kung ang `matching_executor` ay may dalawang dumarating na gilid (mula sa `resume_executor` at `jd_executor`), tatakbo ito ng dalawang beses - isang beses kapag natapos ang ResumeParser at muli kapag natapos ang JD Agent - na magdudulot din na tatakbo ng dalawang beses ang GapAnalyzer at magmumukhang dalawang beses ang output. Naiiwasan ng sunud-sunod na pipeline ang ganito nang lubusan.
+> **Bakit sunud-sunod, hindi fan-out/fan-in?** Ginagamit ng `WorkflowBuilder` ang **OR-semantics** para sa mga papasok na gilid: ang isang executor sa ibaba ay tumatakbo sa oras na matapos **anumang** naunang executor. Kung magkakaroon ng dalawang papasok na gilid ang `matching_executor` (mula sa parehong `resume_executor` at `jd_executor`), tatakbo ito ng dalawang beses - isang beses kapag natapos ang ResumeParser at muli kapag natapos ang JD Agent - na magpapagana rin ng GapAnalyzer ng dalawang beses at lalabas ang output nang doble. Naiiwasan ito ng sunud-sunod na pipeline.
 
-## Pattern 2: Pagpapasa ng Nilalaman
+## Pattern 2: Paghahatid ng Nilalaman
 
-Dahil ang `context_mode="last_agent"` ay nangangahulugang ang bawat executor ay nakakakita lamang ng output ng **direktang nauna nito**, ang mga ahente sa sunud-sunod na kadena ay kailangang malinaw na ipasa ang anumang datos na kailangan ng mga downstream agents.
+Dahil ang `context_mode="last_agent"` ay nangangahulugang nakikita ng bawat executor ang output lamang ng **direktang naunang executor**, kailangang ipasa ng mga ahente sa sunud-sunod na kadena nang tahasan ang anumang datos na kailangan ng mga ahenteng nasa ibaba.
 
 Sa workflow na ito:
-- **ResumeParser** kinokopya ang JD nang literal sa `[JOB DESCRIPTION PASS-THROUGH]` (upang makita ito ng JD Agent).
-- **JD Agent** kinokopya ang `[PARSED RESUME]` nang literal sa `[PARSED RESUME PASS-THROUGH]` (upang maikumpara ito ng MatchingAgent sa parehong mga profile).
+- **ResumeParser** ay kinokopya ang verbatim na JD papunta sa `[JOB DESCRIPTION PASS-THROUGH]` (para makita ito ng JD Agent).
+- **JD Agent** ay kinokopya ang verbatim na `[PARSED RESUME]` papunta sa `[PARSED RESUME PASS-THROUGH]` (para maikumpara ni MatchingAgent ang parehong mga profile).
 
 ```
 ResumeParser output
@@ -45,89 +45,89 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Ang bawat seksyon ng pagpapasa ay kailangang kopyahin nang **literal** - ang pagsasummarize o paraphrasing nito ay sisirain ang downstream agent na nakadepende dito.
+Kailangang kopyahin nang **verbatim** ang bawat relay section - ang pagsasama ng buod o pagpapaliwanag ay sisira sa downstream na ahenteng umaasa dito.
 
 ---
 
-## Ang kumpletong grap
+## Ang kumpletong graph
 
-Pinagsasama ang mga pattern ng sunud-sunod na kadena at pagpapasa ng nilalaman upang mabuo ang buong workflow:
+Ang pinagsamang sunud-sunod na kadena at mga pattern ng paghahatid ng nilalaman ay bumubuo ng buong workflow:
 
 ```mermaid
 flowchart LR
-    U[Input ng Gumagamit] --> RP[Tagapag-analisa ng Resume]
-    RP --> JD[Ahente ng JD]
-    JD --> MA[Ahente ng Pagtutugma]
-    MA --> GA[Tagasuri ng Puang Panahon + MCP]
-    GA --> O[Panghuling Output]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Ipinapakita ng Agent Inspector ang ganitong estruktura ng grap kapag tumatakbo ang agent nang lokal. Tingnan ang [Module 5 - Test Locally](05-test-locally.md) para sa mga screenshot.
+Ipinapakita ng Agent Inspector ang parehong istruktura ng graph kapag tumatakbo ang ahente nang lokal. Tingnan ang [Module 5 - Test Locally](05-test-locally.md) para sa mga screenshot.
 
 ---
 
-## Pagbabasa ng WorkflowBuilder code
+## Pagbabasa sa WorkflowBuilder code
 
-Ang buong `create_workflow()` function ay nasa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Ang tatlong tawag na `add_edge()` ay bumubuo sa sunud-sunod na pipeline:
+Ang workflow graph ay binuo sa function na `main()` sa [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Ang tatlong tawag na `add_edge()` ay bumubuo ng sunud-sunod na pipeline:
 
 | # | Gilid | Epekto |
-|---|------|--------|
+|---|--------|---------|
 | 1 | `resume_executor → jd_executor` | Natatanggap ng JD Agent ang `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | Natatanggap ng MatchingAgent ang `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | Natatanggap ng GapAnalyzer ang ulat ng fit + listahan ng mga puwang |
+| 3 | `matching_executor → gap_executor` | Natatanggap ng GapAnalyzer ang fit report + listahan ng gap |
 
 ---
 
-## Pagbabago ng grap
+## Pagbabago ng graph
 
-### Pagdaragdag ng bagong ahente
+### Pagsasama ng bagong ahente
 
 Para magdagdag ng ikalimang ahente (halimbawa, isang **InterviewPrepAgent** pagkatapos ng GapAnalyzer):
 
-1. Tukuyin ang isang `INTERVIEW_PREP_INSTRUCTIONS` constant.
-2. Gumawa ng `Agent` + `AgentExecutor` na mga bagay (parehong pattern tulad ng apat na kasalukuyang ahente).
+1. Magdeklara ng isang constant na `INTERVIEW_PREP_INSTRUCTIONS`.
+2. Gumawa ng mga object na `Agent` + `AgentExecutor` (parehong pattern ng kasalukuyang apat).
 3. Magdagdag ng `.add_edge(gap_executor, interview_exec)` sa `WorkflowBuilder`.
 4. I-update ang `output_executors=[interview_exec]`.
 
-> **Mahalaga:** Ang `start_executor` lamang ang tumatanggap ng hilaw na input mula sa gumagamit. Lahat ng ibang ahente ay tumatanggap ng output mula sa kanilang upstream na gilid.
+> **Mahalaga:** Ang `start_executor` lang ang ahenteng tumatanggap ng raw na input ng user. Lahat ng iba pang mga ahente ay tumatanggap ng output mula sa kanilang upstream na gilid.
 
 ---
 
-## Mga Karaniwang Mali sa Grap
+## Mga karaniwang pagkakamali sa graph
 
-| Mali | Sintomas | Ayusin |
-|---------|---------|-----|
-| Nawawalang gilid papunta sa `output_executors` | Tumakbo ang ahente pero walang output | Siguraduhing may daan mula `start_executor` papunta sa bawat ahente sa `output_executors` |
-| Paikot-ikot na dependency | Walang katapusang loop o timeout | Suriin na walang ahente na bumabalik sa isang naunang ahente |
-| Ahente sa `output_executors` na walang dumarating na gilid | Walang output | Magdagdag ng kahit isang `add_edge(source, that_agent)` |
-| Maraming `output_executors` na walang fan-in | Output ay naglalaman lamang ng tugon ng isang ahente | Gumamit ng isang output ahente na nag-iipon, o tanggapin ang maraming output |
-| Nawawalang `start_executor` | `ValueError` sa build time | Palaging tukuyin ang `start_executor` sa `WorkflowBuilder()` |
+| Pagkakamali | Sintomas | Ayusin |
+|------------|----------|--------|
+| Nawawalang gilid papunta sa `output_executors` | Tumatakbo ang ahente pero walang output | Siguraduhin na may daan mula `start_executor` papunta sa bawat ahente sa `output_executors` |
+| Circular dependency | Walang katapusang loop o timeout | Suriing walang anumang ahente na nagpapasa pabalik sa upstream na ahente |
+| Ahente sa `output_executors` na walang papasok na gilid | Walang laman ang output | Magdagdag ng kahit isang `add_edge(source, that_agent)` |
+| Maraming `output_executors` nang walang fan-in | Nilalaman ng output ay sagot lang ng isang ahente | Gumamit ng isang output agent na nag-aaggrigate, o tanggapin ang maramihang mga output |
+| Nawawalang `start_executor` | `ValueError` sa panahon ng build | Laging tukuyin ang `start_executor` sa `WorkflowBuilder()` |
 
 ---
 
-## Pag-debug ng grap
+## Pag-debug ng graph
 
 ### Paggamit ng Agent Inspector
 
 1. Simulan ang ahente nang lokal gamit ang F5.
-2. Buksan ang Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
+2. Buksan ang Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Buksan ang Agent Inspector**).
 3. Magpadala ng test message.
-4. Sa response panel ng Inspector, hanapin ang **streaming output** - ipinapakita nito ang kontribusyon ng bawat ahente sa pagkakasunod-sunod.
+4. Sa response panel ng Inspector, hanapin ang **streaming output** - ipinapakita nito ang kontribusyon ng bawat ahente nang sunud-sunod.
 
 
 ### Paggamit ng logging
 
-Magdagdag ng logging sa `main.py` upang subaybayan ang daloy ng datos:
+Magdagdag ng logging sa `main.py` upang masubaybayan ang daloy ng datos:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Sa main(), pagkatapos i-build ang workflow:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Ipinapakita ng mga log ng server ang pagkakasunod ng pagpapatupad ng ahente at ang mga tawag sa MCP tool:
+Ipinapakita ng server logs ang pagkakasunod ng pagpapatakbo ng ahente at mga tawag sa MCP tool:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### Checkpoint
 
-- [ ] Naitukoy mo ang dalawang pattern ng orkestrasyon sa workflow: sunud-sunod na kadena at pagpapasa ng nilalaman
-- [ ] Naiintindihan mo kung bakit ang `context_mode="last_agent"` ay nangangailangan ng malinaw na pagpapasa ng datos sa pagitan ng mga ahente
-- [ ] Marunong kang basahin ang code ng `WorkflowBuilder` at iugnay ang bawat tawag na `add_edge()` sa visual na grap
+- [ ] Kaya mong tukuyin ang dalawang pattern ng orkestrasyon sa workflow: sunud-sunod na kadena at paghahatid ng nilalaman
+- [ ] Naiintindihan mo kung bakit nangangailangan ang `context_mode="last_agent"` ng tahasang paghahatid ng datos sa pagitan ng mga ahente
+- [ ] Kaya mong basahin ang `WorkflowBuilder` na code at i-map ang bawat tawag na `add_edge()` sa visual graph
 - [ ] Alam mo kung paano magdagdag ng bagong ahente sa dulo ng pipeline
-- [ ] Naitukoy mo ang mga karaniwang mali sa grap pati na ang kanilang mga sintomas
+- [ ] Kayang tukuyin ang mga karaniwang pagkakamali sa graph at ang kanilang mga sintomas
 
 ---
 
-**Nakaraan:** [03 - Configure Agents & Environment](03-configure-agents.md) · **Susunod:** [05 - Test Locally →](05-test-locally.md)
+**Nakaraan:** [03 - I-configure ang mga Ahente at Kapaligiran](03-configure-agents.md) · **Susunod:** [05 - Subukan Nang Lokal →](05-test-locally.md)
 
 ---
 

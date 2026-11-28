@@ -1,14 +1,14 @@
-# Ενότητα 2 - Σκελετός του έργου πολλαπλών πρακτόρων
+# Ενότητα 2 - Δημιουργία της Βάσης του Έργου Πολυ-Πράκτορα
 
 ⏱️ ~5 λεπτά
 
-Σε αυτή την ενότητα, χρησιμοποιείτε [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) για να **δημιουργήσετε τον σκελετό ενός έργου πολλαπλών πρακτόρων**. Ο οδηγός δημιουργεί `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, και τη ρύθμιση αποσφαλμάτωσης του VS Code - ώστε να μπορείτε να εστιάσετε στη σύνδεση της ροής εργασίας με 4 πράκτορες στην Ενότητα 3.
+Σε αυτή την ενότητα, χρησιμοποιείτε το [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) για να **δημιουργήσετε τη βάση ενός έργου με πολλούς πράκτορες**. Ο οδηγός δημιουργεί `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` και τη ρύθμιση αποσφαλμάτωσης του VS Code - ώστε να μπορείτε να εστιάσετε στη σύνδεση της ροής εργασίας 4 πρακτόρων στην Ενότητα 3.
 
-> **Κύρια ιδέα:** Ο σκελετός είναι ένα λειτουργικό υπόδειγμα με έναν πράκτορα. Αντικαθιστάτε τη λογική του προτύπου με το `WorkflowBuilder` γράφημα στην Ενότητα 3. Δεν χρειάζεται να γράψετε τον βασικό κώδικα από το μηδέν.
+> **Βασική έννοια:** Η βάση είναι ένα λειτουργικό πρότυπο με έναν πράκτορα. Αντικαθιστάτε τη λογική του προτύπου με το γράφο `WorkflowBuilder` στην Ενότητα 3. Δεν γράφετε το γενικό πλαίσιο από την αρχή.
 
-> **Υλοποίηση αναφοράς:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) είναι ένα πλήρες λειτουργικό παράδειγμα. Χρησιμοποιήστε το για να συγκρίνετε την εργασία σας καθώς προχωράτε.
+> **Παράδειγμα αναφοράς:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) είναι ένα πλήρες λειτουργικό παράδειγμα. Χρησιμοποιήστε το για να συγκρίνετε την εργασία σας καθώς προχωράτε.
 
-### Ροή του οδηγού δημιουργίας σκελετού
+### Ροή του οδηγού δημιουργίας
 
 ```mermaid
 flowchart LR
@@ -22,50 +22,50 @@ flowchart LR
 
 ---
 
-## Βήμα 1: Άνοιγμα του οδηγού Create Hosted Agent
+## Βήμα 1: Ανοίξτε τον οδηγό "Create Hosted Agent"
 
 1. Πατήστε `Ctrl+Shift+P` για να ανοίξετε την **Παλέτα Εντολών**.
-2. Πληκτρολογήστε: **Foundry Toolkit: Create a New Hosted Agent** και επιλέξτε το.
+2. Πληκτρολογήστε: **Foundry Toolkit: Create new Hosted Agent** και επιλέξτε το.
 3. Ο οδηγός ανοίγει στην καρτέλα **Agent Details**.
 
-> **Εναλλακτικά:** Κάντε κλικ στο εικονίδιο **Foundry Toolkit** στη Γραμμή Δραστηριοτήτων (Activity Bar) → κάντε κλικ στο εικονίδιο **+** δίπλα στο **Hosted Agents** → **Create New Hosted Agent**.
+> **Εναλλακτικά:** Κάντε κλικ στο εικονίδιο **Foundry Toolkit** στη Γραμμή Δραστηριοτήτων → κάντε κλικ στο εικονίδιο **+** δίπλα σε **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
 ## Βήμα 2: Επιλέξτε ρυθμίσεις
 
-![Δημιουργία Hosted Agent από δείγμα - καρτέλα Agent Details με επιλεγμένο το πρότυπο Workflows](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/el/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
 1. Στο αριστερό τμήμα πλοήγησης/επιλογών επιλέξτε τα εξής:
 
 | Μενού | Επιλογή | Σημειώσεις |
 |--------|-----------|-------|
-| **Γλώσσα** | Python | Υποστηρίζεται επίσης το C# (.NET) |
+| **Γλώσσα** | Python | Υποστηρίζεται και C# (.NET) |
 | **Πλαίσιο** | Agent Framework | Παρέχει `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **Τύπος API** | Response API | `POST /responses` - διαχείριση ιστορικού από την πλατφόρμα, υποστήριξη streaming |
-| **Πρότυπο** | **Workflows** | Επεξεργάζεται αιτήματα μέσω πολλαπλών πρακτόρων κατά σειρά |
+| **Τύπος API** | Response API | `POST /responses` - ιστορικό που διαχειρίζεται η πλατφόρμα, υποστήριξη streaming |
+| **Πρότυπο** | **Workflows** | Διαχειρίζεται αιτήματα μέσω πολλών πρακτόρων σε σειρά |
 
-2. Αφού τα επιλέξετε, κάντε κλικ στο **Next**
+2. Μόλις επιλεγούν, πατήστε **Επόμενο**
 
-![Δημιουργία Hosted Agent από δείγμα - καρτέλα Create που δείχνει το PersonalCareerCopilot ως όνομα φακέλου](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/el/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
 3. Στο επόμενο παράθυρο, επιλέξτε τα εξής:
 
 | Μενού | Επιλογή | Σημειώσεις |
 |--------|-----------|-------|
-| **Φάκελος εργασίας** | Περιηγηθείτε στο φάκελο προορισμού | π.χ., `workshop/lab02-multi-agent/` σε αυτό το αποθετήριο |
-| **Όνομα πράκτορα** | `PersonalCareerCopilot` | Αυτό γίνεται το όνομα του φακέλου του έργου |
+| **Φάκελος εργασίας** | Περιηγηθείτε στον επιθυμητό φάκελο | π.χ., `workshop/lab02-multi-agent/` σε αυτό το αποθετήριο |
+| **Όνομα πράκτορα** | `PersonalCareerCopilot` | Αυτό γίνεται το όνομα καταλόγου του έργου |
 | **Ανάπτυξη μοντέλου** | Επιλέξτε το αναπτυγμένο μοντέλο σας | π.χ., `gpt-4.1-mini` από το Εργαστήριο 01 |
 
-4. Κάντε κλικ στο **Create** για να δημιουργηθεί ο σκελετός του έργου. Το VS Code δημιουργεί τα αρχεία και ανοίγει το φάκελο.
+4. Πατήστε **Create** για να δημιουργήσετε τη βάση του έργου. Το VS Code δημιουργεί τα αρχεία και ανοίγει το φάκελο.
 
-> **Συμβουλή:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) ισορροπεί καλά την ταχύτητα και την ποιότητα για την ανάπτυξη πολλαπλών πρακτόρων.
+> **Συμβουλή:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) εξισορροπεί καλά την ταχύτητα με την ποιότητα για ανάπτυξη πολλαπλών πρακτόρων.
 
 ---
 
-## Βήμα 3: Ελέγξτε το δημιουργημένο έργο
+## Βήμα 3: Εξετάστε το δημιουργημένο έργο
 
-Μετά την ολοκλήρωση της δημιουργίας σκελετού, επιβεβαιώστε ότι βλέπετε αυτά τα αρχεία στο Explorer (`Ctrl+Shift+E`):
+Μόλις ολοκληρωθεί η δημιουργία, επαληθεύστε ότι βλέπετε αυτά τα αρχεία στον Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Σημαντικό:** Ανοίξτε αυτόν τον σκελετωμένο φάκελο απευθείας στο VS Code ώστε `.vscode/launch.json` και `tasks.json` να εφαρμόζονται σωστά για την αποσφαλμάτωση με F5.
+> **Σημαντικό:** Ανοίξτε αυτόν τον φάκελο απευθείας στο VS Code ώστε οι `.vscode/launch.json` και `tasks.json` να εφαρμόζονται σωστά για αποσφαλμάτωση με F5.
 
 ### Επεξήγηση βασικών αρχείων
 
 | Αρχείο | Σκοπός |
 |------|---------|
-| `agent.yaml` | Δηλώνει `kind: hosted`, αντιστοιχίζει μεταβλητές περιβάλλοντος, ορίζει το πρωτόκολλο `/responses` |
-| `main.py` | Υπόδειγμα: ένας `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Αντικαθιστάτε αυτό με 4 πράκτορες + `WorkflowBuilder` στην Ενότητα 3 |
-| `Dockerfile` | `python:3.12-slim`, εγκαθιστά `requirements.txt`, εκθέτει τη θύρα 8088, εκτελεί `python main.py` |
+| `agent.yaml` | Δηλώνει `kind: hosted`, αντιστοιχεί μεταβλητές περιβάλλοντος, ορίζει το πρωτόκολλο `/responses` |
+| `main.py` | Πρωτότυπο: ένας `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Το αντικαθιστάτε με 4 πράκτορες + `WorkflowBuilder` στην Ενότητα 3 |
+| `Dockerfile` | `python:3.12-slim`, εγκαθιστά `requirements.txt`, εκθέτει τη θύρα 8088, τρέχει `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Αναφορά:** Δείτε [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) και [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) για το πλήρες δημιουργημένο περιεχόμενο.
+> **Αναφορά:** Δείτε [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) και [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) για το πλήρες παραγόμενο περιεχόμενο.
 
 ---
 
-### ✅ Σημείο ελέγχου
+### ✅ Σημείο Ελέγχου
 
-- [ ] Ο οδηγός σκελετού ολοκληρώθηκε - ο νέος φάκελος έργου φαίνεται στο Explorer
-- [ ] Όλα τα αναμενόμενα αρχεία παρόντα: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] `agent.yaml` εμφανίζει `kind: hosted` και `protocol: responses`
-- [ ] `main.py` εισάγει `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Ο σκελετωμένος φάκελος είναι ανοιχτός ως ρίζα του workspace του VS Code
-- [ ] Κατανοείτε ότι `main.py` είναι υπόδειγμα - `WorkflowBuilder` προστίθεται στην Ενότητα 3
+- [ ] Ο οδηγός δημιουργίας ολοκληρώθηκε - ο νέος φάκελος έργου είναι ορατός στον Explorer
+- [ ] Όλα τα αναμενόμενα αρχεία υπάρχουν: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Το `agent.yaml` εμφανίζει `kind: hosted` και `protocol: responses`
+- [ ] Το `main.py` εισάγει `Agent`, `FoundryChatClient`, `ResponsesHostServer`
+- [ ] Ο φάκελος του έργου είναι ανοιχτός ως ρίζα του χώρου εργασίας στο VS Code
+- [ ] Καταλαβαίνετε ότι το `main.py` είναι πρότυπο - το `WorkflowBuilder` προστίθεται στην Ενότητα 3
 
 ---
 
-**Προηγούμενο:** [01 - Κατανόηση της Αρχιτεκτονικής Πολλών Πρακτόρων](01-understand-multi-agent.md) · **Επόμενο:** [03 - Διαμόρφωση Πρακτόρων & Περιβάλλοντος →](03-configure-agents.md)
+**Προηγούμενο:** [01 - Κατανόηση Αρχιτεκτονικής Πολυ-Πράκτορα](01-understand-multi-agent.md) · **Επόμενο:** [03 - Ρύθμιση Πρακτόρων & Περιβάλλοντος →](03-configure-agents.md)
 
 ---
 

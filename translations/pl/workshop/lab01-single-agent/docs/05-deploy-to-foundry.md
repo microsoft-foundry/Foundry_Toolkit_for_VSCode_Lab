@@ -1,23 +1,23 @@
-# Moduł 5 - Wdróż do usługi Foundry Agent
+# Moduł 5 - Wdrożenie do usługi Foundry Agent
 
 ⏱️ ~10 min
 
-> ⚠️ **Użytkownicy ścieżki B:** Ten moduł wymaga subskrypcji Foundry. Jeśli korzystasz z Foundry Local, przejdź do [Moduł 07 - Podsumowanie](07-summary.md). Pomyślnie ukończyłeś lokalny proces tworzenia!
+> ⚠️ **Użytkownicy ścieżki B:** Ten moduł wymaga subskrypcji Foundry. Jeśli korzystasz z Foundry Local, przejdź do [Moduł 07 - Podsumowanie](07-summary.md). Pomyślnie zakończyłeś lokalny workflow deweloperski!
 
-W tym module wdrożysz lokalnie przetestowanego agenta do Microsoft Foundry jako **Hosted Agent**. Wdrożenie tworzy obraz kontenera, przesyła go do Azure Container Registry i uruchamia agenta w zarządzanej infrastrukturze Foundry.
+W tym module wdrażasz lokalnie przetestowanego agenta do Microsoft Foundry jako **Hosted Agent**. Wdrożenie buduje obraz kontenera, wypycha go do Azure Container Registry i uruchamia agenta w zarządzanej infrastrukturze Foundry.
 
 ### Pipeline wdrożeniowy
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|buduj docker| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|wypchnij docker| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|zarejestruj agenta| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|uruchom kontener| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -31,9 +31,9 @@ flowchart LR
 
 ## Sprawdzenie wymagań wstępnych
 
-Przed wdrożeniem zweryfikuj:
+Przed wdrożeniem upewnij się:
 
-- [ ] Agent przeszedł wszystkie 3 lokalne scenariusze z [Moduł 04](04-test-locally.md)
+- [ ] Agent pomyślnie przeszedł wszystkie 3 lokalne scenariusze z [Modułu 04](04-test-locally.md)
 - [ ] Masz rolę **Azure AI User** na poziomie projektu ([Moduł 01, Przypisywanie RBAC](01-setup.md#deploy-a-model--assign-rbac))
 - [ ] Jesteś zalogowany do Azure w VS Code (ikona konta pokazuje twoje imię)
 
@@ -41,12 +41,12 @@ Przed wdrożeniem zweryfikuj:
 
 ## Krok 1: Rozpocznij wdrożenie
 
-### Opcja A: Wdróż z Agent Inspector (zalecane)
+### Opcja A: Wdrożenie z Agent Inspector (zalecane)
 
 Jeśli Agent Inspector jest otwarty (po testowaniu):
 1. Kliknij przycisk **Deploy** w prawym górnym rogu (ikona chmury ↑).
 
-### Opcja B: Wdróż z Command Palette
+### Opcja B: Wdrożenie z Command Palette
 
 1. Naciśnij `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
@@ -54,68 +54,68 @@ Jeśli Agent Inspector jest otwarty (po testowaniu):
 
 ## Krok 2: Skonfiguruj wdrożenie
 
-Kreator zapyta Cię o:
+Kreator poprosi Cię o:
 
-![Project Config](../../../../../translated_images/pl/05-foundry-project-setup.ca6ad16a6484e054.webp)
+![Konfiguracja projektu](../../../../../translated_images/pl/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Pytanie | Wybór |
-|--------|--------|
+| Zapytanie | Wybór |
+|--------|-----------|
 | **Subskrypcja** | Twoja subskrypcja Azure |
-| **Celowy projekt** | Twój projekt Foundry (np. `workshop-agents`) |
+| **Docelowy projekt** | Twój projekt Foundry (np. `workshop-agents`) |
 
-Kliknij **next**, aby skonfigurować swojego agenta.
+Kliknij **dalej**, aby skonfigurować agenta.
 
-![Basics config](../../../../../translated_images/pl/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Podstawowa konfiguracja](../../../../../translated_images/pl/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Pytanie | Wybór |
-|--------|--------|
+| Zapytanie | Wybór |
+|--------|-----------|
 | **Metoda wdrożenia** | Kontener |
-| **Rejestr kontenerów** | **Domyślny ACR** (Microsoft Foundry tworzy i zarządza jednym dla Ciebie) |
-| **Wdróż do** | Nowy Agent (nazwa, `executive-summary-agent`) |
+| **Rejestr kontenerów** | **Domyślny ACR** (Microsoft Foundry tworzy i zarządza nim dla Ciebie) |
+| **Wdroż do** | Nowy Agent (nazwa, `executive-summary-agent`) |
 
-Kliknij **next**, aby przejrzeć i wdrożyć swojego agenta.
+Kliknij **dalej**, aby przejrzeć i wdrożyć agenta.
 
-![Review and deploy](../../../../../translated_images/pl/05-review-deploy.12b449d426bff886.webp)
+![Przegląd i wdrożenie](../../../../../translated_images/pl/05-review-deploy.12b449d426bff886.webp)
 
-| Pytanie | Wybór |
-|--------|--------|
-| **CPU i pamięć** | **0.25 rdzeni CPU, 0.5 Gi pamięci** (wystarczające na warsztat) |
+| Zapytanie | Wybór |
+|--------|-----------|
+| **CPU i pamięć** | **0.5 rdzenia CPU, 1.0 Gi pamięci** (domyślne - wystarczające do warsztatu) |
 
 ---
 
 ## Krok 3: Wdróż i monitoruj
 
 1. Kliknij **Deploy**.
-2. Obserwuj panel **Output** (wybierz **Microsoft Foundry** z rozwijanego menu).
-3. Wdrożenie przechodzi przez następujące etapy:
-   - **Budowa Dockera** - tworzy kontener na podstawie twojego Dockerfile
-   - **Wypchnięcie Dockera** - przesyła obraz do ACR (1–3 min przy pierwszym wdrożeniu)
-   - **Rejestracja agenta** - tworzy hosted agenta w Foundry
-   - **Uruchomienie kontenera** - startuje z zarządzaną tożsamością systemową
+2. Obserwuj panel **Output** (wybierz **Microsoft Foundry** z listy rozwijanej).
+3. Wdrożenie przebiega przez następujące etapy:
+   - **Budowa Dockera** – buduje kontener z twojego Dockerfile
+   - **Wypchnięcie Dockera** – wypycha obraz do ACR (1–3 min przy pierwszym wdrożeniu)
+   - **Rejestracja agenta** – tworzy hostowanego agenta w Foundry
+   - **Start kontenera** – uruchamia z systemowym zarządzaniem tożsamością
 
 4. Po zakończeniu pojawi się powiadomienie:
-   > **my-agent został pomyślnie wdrożony.** `View logs` `Run agent`
+   > **executive-summary-agent został pomyślnie wdrożony.** `View logs` `Run agent`
 
 5. Kliknij **Run agent**, aby otworzyć Agent Playground.
 
-![Deployment success showing Agent Playground with Running status](../../../../../translated_images/pl/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Sukces wdrożenia pokazujący Agent Playground ze statusem Running](../../../../../translated_images/pl/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Wartości statusu wdrożenia
+### Wartości statusów wdrożenia
 
 | Status | Znaczenie |
-|--------|----------|
+|--------|---------|
 | **Running** | Kontener gotowy, agent odpowiada |
 | **Pending** | Kontener się uruchamia - poczekaj 30–60 sekund |
 | **Failed** | Sprawdź logi (patrz rozwiązywanie problemów poniżej) |
 
 ---
 
-## Częste błędy przy wdrażaniu
+## Typowe błędy wdrożenia
 
 | Błąd | Przyczyna | Naprawa |
-|-------|---------|--------|
-| Odmowa uprawnień `agents/write` | Brak roli **Azure AI User** na poziomie projektu | [Moduł 01, Przypisywanie RBAC](01-setup.md#deploy-a-model--assign-rbac) |
-| Docker nie działa | Docker Desktop nie uruchomiony | Uruchom Docker Desktop → sprawdź `docker info` |
+|-------|-----------|-----|
+| `agents/write` odmowa dostępu | Brak roli **Użytkownik Azure AI** na poziomie projektu | [Moduł 01, Przypisz RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker nie działa | Docker Desktop nie został uruchomiony | Uruchom Docker Desktop → zweryfikuj `docker info` |
 | Autoryzacja ACR | Tożsamość zarządzana nie może pobrać obrazu | Zobacz [Moduł 08 - Rozwiązywanie problemów](08-troubleshooting.md) |
 
 ---
@@ -123,13 +123,13 @@ Kliknij **next**, aby przejrzeć i wdrożyć swojego agenta.
 ### ✅ Punkt kontrolny
 
 - [ ] Wdrożenie zakończone bez błędów
-- [ ] Agent widoczny pod **Hosted Agents (Preview)** w pasku bocznym Foundry
+- [ ] Agent pojawia się na karcie **Hosted Agent** po kliknięciu **Agents** w ramach Twojego projektu w panelu Foundry Toolkit
 - [ ] Status kontenera pokazuje **Running**
-- [ ] Otwarta karta Agent Playground pokazująca szczegóły agenta i URL końcowego punktu
+- [ ] Otwarta karta Agent Playground pokazująca szczegóły agenta i adres URL punktu końcowego
 
 ---
 
-**Poprzedni:** [04 - Testuj lokalnie](04-test-locally.md) · **Następny:** [06 - Weryfikuj w Playground →](06-verify-in-playground.md)
+**Poprzedni:** [04 - Test lokalny](04-test-locally.md) · **Następny:** [06 - Weryfikacja w Playground →](06-verify-in-playground.md)
 
 ---
 

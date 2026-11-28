@@ -2,9 +2,9 @@
 
 ⏱️ ~10 min
 
-For dis module, you go run your agent for your machine come validate say e dey work well using **happy-path functional tests**. You go use Agent Inspector (visual UI) or direct HTTP calls to confirm say the agent dey give correct structured answers.
+For dis module, you go run your agent lokalli and check say e dey work well using **happy-path functional tests**. You go use Agent Inspector (visual UI) or direct HTTP calls to confirm say the agent dey produce correct structured responses.
 
-### Local testing flow
+### How to test am locally
 
 ```mermaid
 flowchart TD
@@ -23,24 +23,26 @@ flowchart TD
 
 ---
 
-## Option 1: Press F5 - Debug with Agent Inspector (recommended)
+## Option 1: Press F5 - Debug wit Agent Inspector (wey dem recommend)
 
-### Start the debugger
+### How to start debugger
 
-1. Open the **executive-summary-agent/** folder directly for VS Code (`File → Open Folder`).
+1. Open the **executive-summary-agent/** folder direct for VS Code (`File → Open Folder`).
 2. Open the **Run and Debug** panel (`Ctrl+Shift+D`).
-3. Select **Debug Local Agent Server** from the dropdown.
+3. Choose **Debug Local Agent HTTP Server** from the dropdown.
 4. Press **F5** (or click ▶ Start Debugging).
 
-> ⚠️ **Critical: Select your Python Interpreter**
-> If you see "ModuleNotFoundError" or debugger no fit start, you gats tell VS Code make e use your virtual environment:
+> ⚠️ **Sharp: Choose your Python Interpreter**
+> If you see "ModuleNotFoundError" or debugger no fit start, you need tell VS Code to use your virtual environment:
   > 1. Press `Ctrl+Shift+P` $\rightarrow$ type **Python: Select Interpreter**.
-  > 2. Pick the interpreter wey dey your project's `.venv` folder (e.g., `.\.venv\Scripts\python.exe` for Windows).
-  > 3. Restart the debug session.
-> If wah still dey, manually update your file `tasks.json` like this:
-  > 1. Enter `.vscode/tasks.json` file
-  > 2. Find the command wey get label: `Run Agent/Workflow HTTP Server`
-  > 3. Change the command value like dis: `"value": "${workspaceFolder}/.venv/bin/python",`
+  > 2. Choose the interpreter wey dey for your project folder `.venv` (e.g., `.\.venv\Scripts\python.exe` for Windows).
+  > 3. Start the debug session again.
+> If e still dey vex you, manually change your file `tasks.json` like this:
+  > 1. Go the `.vscode/tasks.json` file
+  > 2. Find the task wey dem mark: `Run Agent HTTP Server`
+  > 3. Update the command value like this:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### Wetin go happen
 
@@ -48,7 +50,7 @@ flowchart TD
 2. The **Agent Inspector** panel go open automatically - na visual chat interface for testing.
 3. Breakpoints go dey enabled for `main.py`.
 
-Dey watch the Terminal for:
+Watch the Terminal for:
 ```
 Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
@@ -58,16 +60,16 @@ Executive agent server running on http://localhost:8088
 
 ![Agent Inspector connected to localhost:8088 showing an Executive Summary response](../../../../../translated_images/pcm/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Screenshot fit show old 'AI TOOLKIT' branding from earlier extension version.*
+> *Screenshot fit show old 'AI TOOLKIT' brand from one older extension version.*
 
 ---
 
-## Option 2: Test via Terminal (alternative)
+## Option 2: Test from Terminal (another way)
 
-Start the agent for one terminal, dey send requests from another one:
+Start the agent for one terminal, send requests from another:
 
 ```bash
-# Terminal 1: Make we start agent
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
@@ -82,13 +84,13 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Scenario tests: Happy-path functional validation
+## Scenario tests: Happy-path functional check
 
-Run **all three** scenarios wey dey below. These ones dey validate say your agent dey produce correct, structured output for realistic inputs.
+Run **all three** scenarios wey dey below. Dem go check say your agent dey produce correct structured output for realistic inputs.
 
 ![VS Code Run and Debug panel showing Agent Inspector running with executive summary response](../../../../../translated_images/pcm/04-local-testing.0c9b1b37b14b0b25.webp)
 
-### Scenario 1: IT Incident - API latency spike
+### Scenario 1: IT Wahala - API latency spike
 
 **Input:**
 ```
@@ -97,11 +99,11 @@ Root cause: thread pool starvation from synchronous calls in /orders.
 Rolled back at 10:14.
 ```
 
-**Expected behavior:**
-- ✅ Follow the "Executive Summary" structure (Wetin happen / Business impact / Next step)
-- ✅ No technical jargon (no "thread pool", no "/orders", no "v3.2")
-- ✅ Clear talk business impact (e.g., users get delay)
-- ✅ Get next step (e.g., fix don deploy, monitoring dey)
+**Wetindem expect:**
+- ✅ Follow the "Executive Summary" structure (Wetin happen / How e affect business / Wetin to do next)
+- ✅ No technical words (no "thread pool", no "/orders", no "v3.2")
+- ✅ Clearly talk how business dey affected (like users dey get delay)
+- ✅ Get one next step (like fix don deploy, monitoring dey)
 
 ---
 
@@ -112,15 +114,15 @@ Rolled back at 10:14.
 The nightly ETL job failed because the upstream schema changed. APAC dashboards show missing data.
 ```
 
-**Expected behavior:**
-- ✅ Summarize the data refresh failure for simple language
-- ✅ Talk the APAC dashboard impact
-- ✅ Get remediation next step
+**Wetindem expect:**
+- ✅ Summarize the data refresh failure in plain talk
+- ✅ Talk about the APAC dashboard wahala
+- ✅ Get one next step to fix am
 - ✅ No talk "ETL", "schema", or other technical terms
 
 ---
 
-### Scenario 3: Security - Exposed credential
+### Scenario 3: Security wahala - Credential show for eye
 
 **Input:**
 ```
@@ -128,10 +130,10 @@ Static analysis flagged a hardcoded secret in the repository.
 The secret may have been exposed in commit history.
 ```
 
-**Expected behavior:**
-- ✅ Describe credential/security issue for executive-friendly language
-- ✅ Show potential risk (unauthorized access)
-- ✅ Talk remediation action (credential rotation, audit)
+**Wetindem expect:**
+- ✅ Describe the credential/security problem in executive-friendly talk
+- ✅ Talk about possible risk (unauthorized access)
+- ✅ Talk wetin dem go do (credential rotation, audit)
 - ✅ No include terms like "static analysis", "commit history", or "hardcoded"
 
 ---
@@ -142,36 +144,36 @@ For each scenario, check:
 
 | # | Criteria | Pass condition |
 |---|----------|---------------|
-| 1 | **Structure** | Response use "Executive Summary" format with all three bullets |
-| 2 | **Plain language** | No technical jargon wey executive no go fit understand |
-| 3 | **Accuracy** | Summary match input - no fake details |
-| 4 | **Brevity** | Response no pass 100 words |
-| 5 | **Next step** | Clear action or mitigation dey stated |
+| 1 | **Structure** | Response dey use "Executive Summary" format with all three bullets |
+| 2 | **Plain language** | No technical talk wey executive no go understand |
+| 3 | **Accuracy** | Summary dey reflect the input - no fake details |
+| 4 | **Brevity** | Response dey under 100 words |
+| 5 | **Next step** | Clear action or mitigation dey talk |
 
 ---
 
-## Debugging tips
+## Tips for debugging
 
-| Issue | Fix |
+| Wahala | How to fix |
 |-------|-----|
-| Agent no start | Check `.env` values, verify venv dey activated, run `pip install -r requirements.txt` |
-| Empty or generic response | Dey review instructions for `main.py` - make sure output format dey specified |
-| Response get jargon | Make stronger the "remove technical terms" rules for instructions |
+| Agent no start | Check `.env` values, confirm venv dey activated, run `pip install -r requirements.txt` |
+| Empty or general response | Review instructions for `main.py` - make sure output format dey |
+| Response get jargon | Make "remove technical terms" instructions stronger |
 | Agent Inspector no open | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Model errors for Terminal | Confirm `AZURE_AI_MODEL_DEPLOYMENT_NAME` correct (case-sensitive) |
+| Model error for Terminal | Confirm `AZURE_AI_MODEL_DEPLOYMENT_NAME` match exactly (case-sensitive) |
 
 ---
 
 ### ✅ Checkpoint
 
-- [ ] Agent start locally without error
+- [ ] Agent start lokalli without wahala
 - [ ] Agent Inspector open and show chat interface (if you dey use F5)
-- [ ] **Scenario 1** (IT incident) - structured Executive Summary, no jargon
-- [ ] **Scenario 2** (data pipeline) - relevant summary with business impact
-- [ ] **Scenario 3** (security alert) - correct risk communication
-- [ ] All responses follow the defined output structure
+- [ ] **Scenario 1** (IT wahala) - structured Executive Summary, no jargon
+- [ ] **Scenario 2** (data pipeline) - correct summary wit business impact
+- [ ] **Scenario 3** (security alert) - better risk communication
+- [ ] All responses follow the correct output structure
 
-> **Save your responses** (copy or screenshot) - you go compare them with cloud results for Module 06.
+> **Save your responses** (make copy or screenshot) - you go compare dem wit cloud results for Module 06.
 
 ---
 

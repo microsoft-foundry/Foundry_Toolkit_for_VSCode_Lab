@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - تقييم توافق السيرة الذاتية مع الوظيفة
+# PersonalCareerCopilot - تقييم ملاءمة السيرة الذاتية للوظيفة
 
-تطبيق متعدد الوكلاء يركز على سير العمل يقوم بتقييم مدى تطابق السيرة الذاتية مع وصف الوظيفة، ثم يولد خارطة طريق تعليمية مخصصة لسد الفجوات.
+تطبيق متعدد الوكلاء يركز على سير العمل يقوم بتقييم مدى تطابق السيرة الذاتية مع وصف الوظيفة، ثم يولد خارطة طريق تعلم شخصية لسد الفجوات.
 
 ---
 
@@ -8,35 +8,35 @@
 
 | الوكيل | الدور | الأدوات |
 |-------|------|-------|
-| **ResumeParser** | يستخرج المهارات المنظمة، الخبرات، الشهادات من نص السيرة الذاتية | - |
-| **JobDescriptionAgent** | يستخرج المهارات المطلوبة/المفضلة، الخبرات، الشهادات من وصف الوظيفة | - |
-| **MatchingAgent** | يقارن الملف الشخصي مع المتطلبات → درجة التوافق (0-100) + المهارات المطابقة/المفقودة | - |
-| **GapAnalyzer** | يبني خارطة طريق تعليمية مخصصة مع موارد Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | يستخرج المهارات المنظمة، الخبرة، الشهادات من نص السيرة الذاتية | - |
+| **JobDescriptionAgent** | يستخرج المهارات والخبرات والشهادات المطلوبة/المفضلة من وصف الوظيفة | - |
+| **MatchingAgent** | يقارن الملف الشخصي مقابل المتطلبات → درجة الملاءمة (0-100) + المهارات المطابقة/الناقصة | - |
+| **GapAnalyzer** | يبني خارطة طريق تعلم شخصية باستخدام موارد Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
 ## سير العمل
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: السيرة الذاتية + وصف الوظيفة"] --> ResumeParser
-    ResumeParser -- "إعادة توجيه السيرة الذاتية المحللة + وصف الوظيفة" --> JobDescriptionAgent
-    JobDescriptionAgent -- "متطلبات وصف الوظيفة + إعادة توجيه السيرة الذاتية" --> MatchingAgent
-    MatchingAgent -- "تقرير التوافق + الفجوات" --> GapAnalyzerMCP["محلل الفجوات +\nمايكروسوفت ليرن MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nدرجة التوافق + خارطة الطريق"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## بدء سريع
+## بداية سريعة
 
 ### 1. إعداد البيئة
 
-هذا المجلد هو التطبيق المرجعي لمخطط المختبر 02 المعتمد على سير العمل. يستخدم ملف `main.py` الحالي كتل الطلب الحالية بالإضافة إلى `WorkflowBuilder` لربط الوكلاء الأربعة معًا.
+هذا المجلد هو التنفيذ المرجعي لهكيل سير العمل لمختبر 02. يستخدم `main.py` كتل المطالبات الموجودة بالإضافة إلى `WorkflowBuilder` لربط الوكلاء الأربعة معًا.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1          # ويندوز باورشيل
-# source .venv/bin/activate            # ماك أو إس / لينكس
+.\.venv\Scripts\Activate.ps1          # Windows PowerShell
+# source .venv/bin/activate            # macOS / Linux
 pip install -r requirements.txt
 ```
 
@@ -57,8 +57,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | القيمة | مكان العثور عليها |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | شريط أدوات Foundry → انقر يمينًا على مشروعك → **نسخ نقطة نهاية المشروع** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | شريط Foundry → توسيع المشروع → **النماذج + النقاط النهائية** → اسم النشر |
+| `FOUNDRY_PROJECT_ENDPOINT` | شريط أدوات Foundry → انقر بزر الماوس الأيمن على مشروعك → **نسخ نقطة النهاية للمشروع** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | شريط Foundry → توسيع المشروع → **النماذج + نقاط النهاية** → اسم النشر |
 
 ### 3. التشغيل محليًا
 
@@ -74,7 +74,7 @@ python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 
 افتح Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: فتح Agent Inspector**.
 
-الصق هذا الطلب الاختباري:
+الصق هذه المطالبة الاختبارية:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**المتوقع:** درجة التوافق (0-100)، المهارات المطابقة/المفقودة، وخارطة طريق تعليمية مخصصة مع روابط Microsoft Learn.
+**المتوقع:** درجة ملاءمة (0-100)، المهارات المطابقة/الناقصة، وخارطة طريق تعلم شخصية مع روابط Microsoft Learn.
 
 ### 5. النشر إلى Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: نشر وكيل مستضاف** → اختر مشروعك → أكد.
+`Ctrl+Shift+P` → **Foundry Toolkit: نشر وكيل مستضاف** → اختر مشروعك → تأكيد.
 
 ---
 
@@ -111,30 +111,30 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## الملفات الرئيسية
+## الملفات الأساسية
 
 ### `agent.yaml`
 
-يعرّف الوكيل المستضاف لخدمة Foundry Agent:
+يحدد الوكيل المستضاف لخدمة وكلاء Foundry:
 - `kind: hosted` - يعمل كحاوية مُدارة
-- `protocols` - بروتوكول `responses` مع `version: 1.0.0`، يعرض نقطة نهاية HTTP `/responses`
-- `environment_variables` - يصرح بـ `AZURE_AI_MODEL_DEPLOYMENT_NAME` هنا؛ يتم حقن `FOUNDRY_PROJECT_ENDPOINT` تلقائيًا عند النشر
+- `protocols` - بروتوكول `responses` مع `version: 2.0.0`، يعرض نقطة نهاية HTTP `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` معلن هنا؛ `FOUNDRY_PROJECT_ENDPOINT` يُحقن تلقائيًا وقت النشر
 
 ### `main.py`
 
 يحتوي على:
 - **تعليمات الوكيل** - أربعة ثوابت `*_INSTRUCTIONS`، واحد لكل وكيل
-- **أداة MCP** - `search_microsoft_learn_for_plan()` تستدعي `https://learn.microsoft.com/api/mcp` عبر HTTP قابل للبث
-- **إنشاء الوكيل** - أربع مثيلات `Agent()` + `AgentExecutor()` تشترك في `FoundryChatClient` واحد
-- **مخطط سير العمل** - `WorkflowBuilder` يربط الوكلاء كسلسلة متتابعة: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **أداة MCP** - `search_microsoft_learn_for_plan()` تستدعي `https://learn.microsoft.com/api/mcp` عبر HTTP Streamable
+- **إنشاء الوكيل** - أربعة مثيلات `Agent()` + `AgentExecutor()` تشترك في `FoundryChatClient` واحد
+- **رسم سير العمل** - `WorkflowBuilder` يربط الوكلاء كأنبوب تسلسلي: ResumeParser → وكيل JD → MatchingAgent → GapAnalyzer
 - **بدء الخادم** - `ResponsesHostServer` يعمل على المنفذ 8088
 
 ### `requirements.txt`
 
-| الحزمة | الهدف |
+| الحزمة | الغرض |
 |---------|----------|
-| `agent-framework-foundry` | وقت تشغيل أساسي: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + تكامل استضافة Foundry |
+| `agent-framework-foundry` | بيئة التشغيل الأساسية: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | دمج استضافة Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | عميل MCP لـ GapAnalyzer (`streamable_http_client`) |
 | `debugpy` | تصحيح بايثون (F5 في VS Code) |
 
@@ -144,17 +144,17 @@ PersonalCareerCopilot/
 
 | المشكلة | الحل |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` أو `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | أنشئ ملف `.env` مع تعيين كل من `FOUNDRY_PROJECT_ENDPOINT` و `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
-| `ModuleNotFoundError: No module named 'agent_framework'` | فعّل البيئة الافتراضية وشغل `pip install -r requirements.txt` |
-| لا توجد روابط Microsoft Learn في الناتج | تحقق من اتصال الإنترنت إلى `https://learn.microsoft.com/api/mcp` |
-| بطاقة فجوة واحدة فقط (مقصورة) | تحقق من تضمين `GAP_ANALYZER_INSTRUCTIONS` للكتلة `CRITICAL:` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` أو `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | أنشئ `.env` مع إعداد كل من `FOUNDRY_PROJECT_ENDPOINT` و `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | فعّل venv وشغّل `pip install -r requirements.txt` |
+| لا توجد روابط Microsoft Learn في المخرجات | تحقق من اتصال الإنترنت إلى `https://learn.microsoft.com/api/mcp` |
+| بطاقة فجوة واحدة فقط (مقتطعة) | تأكد أن `GAP_ANALYZER_INSTRUCTIONS` تتضمن كتلة `CRITICAL:` |
 | المنفذ 8088 مستخدم | أوقف الخوادم الأخرى: `netstat -ano \| findstr :8088` |
 
-للاستكشاف التفصيلي للأخطاء، راجع [الوحدة 8 - استكشاف الأخطاء وإصلاحها](../docs/08-troubleshooting.md).
+لاستكشاف الأخطاء بشكل تفصيلي، راجع [الوحدة 8 - استكشاف الأخطاء وإصلاحها](../docs/08-troubleshooting.md).
 
 ---
 
-**الدليل الكامل:** [مستندات Lab 02](../docs/README.md) · **العودة إلى:** [README الخاص بالمعمل 02](../README.md) · [الصفحة الرئيسية للورشة](../../../README.md)
+**المشي الكامل:** [مستندات مختبر 02](../docs/README.md) · **العودة إلى:** [ملخص مختبر 02](../README.md) · [الصفحة الرئيسية للورشة](../../../README.md)
 
 ---
 

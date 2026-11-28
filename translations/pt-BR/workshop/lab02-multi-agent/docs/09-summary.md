@@ -1,19 +1,19 @@
-# Módulo 9 - Resumo & Próximos Passos
+# Módulo 9 - Resumo e Próximos Passos
 
 ⏱️ ~5 min
 
-**Parabéns!** Você construiu, testou e (se no Caminho A) implantou um fluxo de trabalho multi-agente usando Microsoft Foundry e o Foundry Toolkit para VS Code.
+**Parabéns!** Você construiu, testou e (se estiver no Caminho A) implantou um fluxo de trabalho multiagente usando Microsoft Foundry e o Foundry Toolkit para VS Code.
 
 ---
 
 ## O que você construiu
 
-O **Avaliador de Compatibilidade Currículo → Vaga** - um fluxo de trabalho multi-agente hospedado que:
+O **Avaliação de Compatibilidade Currículo → Vaga** - um fluxo de trabalho multiagente hospedado que:
 - Recebe um currículo + descrição da vaga via HTTP (`POST /responses`)
-- Executa quatro agentes especializados em uma pipeline sequencial - cada agente repassa os dados que seu sucessor precisa
+- Executa quatro agentes especializados em uma pipeline sequencial - cada agente transmite os dados que seu sucessor precisa
 - Retorna uma pontuação de compatibilidade (0–100 com detalhamento), uma lista de lacunas de habilidades e certificações, e um roteiro de aprendizado personalizado com links reais do Microsoft Learn para cada lacuna
-- Chama o servidor Microsoft Learn MCP (`https://learn.microsoft.com/api/mcp`) para obter recursos oficiais de aprendizado para cada lacuna identificada
-- Executa como um agente hospedado em container único no Microsoft Foundry Agent Service
+- Chama o servidor Microsoft Learn MCP (`https://learn.microsoft.com/api/mcp`) para buscar recursos oficiais de aprendizado para cada lacuna identificada
+- Executa como um único agente hospedado conteinerizado no Microsoft Foundry Agent Service
 
 ---
 
@@ -21,42 +21,42 @@ O **Avaliador de Compatibilidade Currículo → Vaga** - um fluxo de trabalho mu
 
 | Conceito | O que você praticou |
 |---------|-------------------|
-| **Orquestração multi-agente** | Pipeline sequencial com `WorkflowBuilder` e `add_edge()` |
-| **Especialização do agente** | Quatro agentes focados superam um agente de propósito geral |
-| **Padrão Content Router** | ResumeParser funciona também como um roteador - preserva o texto da descrição da vaga em uma seção `[JOB DESCRIPTION PASS-THROUGH]` para que agentes downstream possam acessá-la (necessário porque `context_mode="last_agent"` significa que apenas o `start_executor` vê a mensagem original do usuário) |
-| **Padrão Content Relay** | O agente de descrição da vaga (JD Agent) retransmite `[PARSED RESUME PASS-THROUGH]` adiante para que MatchingAgent receba ambos os perfis; evita o disparo duplo semântico OR que grafos fan-in causam |
-| **Integração da ferramenta MCP** | `@tool` + `streamable_http_client` chamando um servidor MCP externo |
-| **Ciclo de vida do Agente Hospedado** | Scaffold → Configurar → Testar localmente → Implantar → Verificar na nuvem |
-| **`context_mode="last_agent"`** | Cada executor vê apenas a saída do seu antecessor direto |
-| **Fluxo de trabalho Foundry Toolkit** | Assistente Scaffold, Inspetor de Agentes, Visualizador do Fluxo de Trabalho, implantação com um clique |
+| **Orquestração multiagente** | `WorkflowBuilder` pipeline sequencial com `add_edge()` |
+| **Especialização de agentes** | Quatro agentes focados superam um agente de uso geral |
+| **Padrão Content Router** | ResumeParser também funciona como um roteador - preserva o texto do JD em uma seção `[JOB DESCRIPTION PASS-THROUGH]` para que agentes posteriores possam acessá-lo (necessário porque `context_mode="last_agent"` significa que só o `start_executor` vê a mensagem bruta do usuário) |
+| **Padrão Content Relay** | O agente JD encaminha `[PARSED RESUME PASS-THROUGH]` para frente para que o MatchingAgent receba ambos os perfis; evita o gatilho duplo com semântica OU que gráficos de fan-in causam |
+| **Integração com ferramenta MCP** | `@tool` + `streamable_http_client` chamando um servidor MCP externo |
+| **Ciclo de vida do Agente Hospedado** | Estruturar → Configurar → Testar localmente → Implantar → Verificar na nuvem |
+| **`context_mode="last_agent"`** | Cada executor vê apenas a saída do seu predecessor direto |
+| **Workflow do Foundry Toolkit** | Assistente de scaffold, Inspetor de Agentes, Visualizador de Workflow, implantação com um clique |
 
 ---
 
 ## O que você completou
 
 <details open>
-<summary><strong>🅰️ Caminho A - Assinatura Foundry</strong></summary>
+<summary><strong>🅰️ Caminho A - assinatura Foundry</strong></summary>
 
-- [x] Verificado o setup do Lab 01: projeto, modelo e RBAC ainda ativos
-- [x] Scaffolded o projeto multi-agente usando o template Workflows
-- [x] Escreveu quatro conjuntos de instruções para agentes (ResumeParser, JD Agent, MatchingAgent, GapAnalyzer)
-- [x] Integrado a ferramenta Microsoft Learn MCP com `streamable_http_client`
-- [x] Conectado o grafo do fluxo de trabalho com `WorkflowBuilder` (pipeline sequencial com retransmissão de conteúdo)
-- [x] Testado localmente com 3 testes rápidos (Agent Inspector) - pontuação, cartões de lacunas e URLs MCP
-- [x] Implantado no Foundry Agent Service (containerizado, identidade gerenciada)
-- [x] Verificado no playground da nuvem - consistência estrutural com resultados locais
+- [x] Verificou a configuração do Lab 01: projeto, modelo e RBAC ainda ativos
+- [x] Criou um projeto multiagente usando o template Workflows
+- [x] Escreveu quatro conjuntos de instruções para agentes (ResumeParser, Agente JD, MatchingAgent, GapAnalyzer)
+- [x] Integração da ferramenta Microsoft Learn MCP com `streamable_http_client`
+- [x] Conectou o gráfico do workflow com `WorkflowBuilder` (pipeline sequencial com retransmissão de conteúdo)
+- [x] Testou localmente com 2 testes smoke (Inspetor de Agentes) - pontuação de compatibilidade, cartões de lacunas e URLs MCP
+- [x] Implantou no Foundry Agent Service (conteinerizado, identidade gerenciada)
+- [x] Verificou no playground em nuvem - consistência estrutural com resultados locais
 
 </details>
 
 <details open>
 <summary><strong>🅱️ Caminho B - Foundry Local</strong></summary>
 
-- [x] Verificado setup do Lab 01: Foundry Local funcionando com modelo local
-- [x] Scaffolded projeto multi-agente com template Workflows
-- [x] Escreveu quatro conjuntos de instruções para agentes e conectou o grafo do fluxo de trabalho
-- [x] Integrado a ferramenta Microsoft Learn MCP
-- [x] Testado localmente com 3 testes rápidos
-- [x] Validado comportamento multi-agente sem necessidade de recursos na nuvem
+- [x] Verificou a configuração do Lab 01: Foundry Local rodando com modelo local
+- [x] Criou um projeto multiagente usando o template Workflows
+- [x] Escreveu quatro conjuntos de instruções para agentes e conectou o gráfico do workflow
+- [x] Integração da ferramenta Microsoft Learn MCP
+- [x] Testou localmente com 2 testes smoke
+- [x] Validou comportamento multiagente sem precisar de recursos na nuvem
 
 </details>
 
@@ -69,33 +69,33 @@ O **Avaliador de Compatibilidade Currículo → Vaga** - um fluxo de trabalho mu
 | Recurso | Descrição |
 |----------|-------------|
 | **[Referência do Agent Framework SDK](https://learn.microsoft.com/agent-framework/)** | Documentação da API para `agent-framework-foundry`, `WorkflowBuilder`, `AgentExecutor` |
-| **[Catálogo de ferramentas MCP](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol)** | Conecte agentes a outros servidores MCP (Bing, GitHub, customizados) |
-| **[Adicionar conhecimento (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Fundamente agentes com documentos, stores vetoriais ou busca Bing |
-| **[Avaliações Foundry](https://learn.microsoft.com/azure/foundry/evaluations/overview)** | Meça a qualidade do agente em escala com avaliadores automatizados |
+| **[Catálogo da ferramenta MCP](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol)** | Conecte agentes a outros servidores MCP (Bing, GitHub, customizados) |
+| **[Adicionar conhecimento (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Fundamentar agentes com documentos, repositórios vetoriais ou busca Bing |
+| **[Avaliações Foundry](https://learn.microsoft.com/azure/foundry/concepts/evaluation-overview)** | Meça a qualidade dos agentes em escala com avaliadores automáticos |
 | **[Documentação Microsoft Foundry](https://learn.microsoft.com/azure/foundry/)** | Referência completa da plataforma |
-| **[Foundry Toolkit - Novidades](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Notas de lançamento da extensão e changelog |
+| **[Foundry Toolkit - Novidades](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Notas da versão da extensão e changelog |
 
-### Ideias para ampliar este fluxo de trabalho
+### Ideias para estender este workflow
 
-- **Adicionar um 5º agente** - Um coach de entrevistas que gera possíveis perguntas com base no relatório de lacunas
-- **Adicionar uma ferramenta de base Bing** - Permitir que o agente JD procure vagas similares para enriquecer os requisitos
-- **Conectar a um banco de currículos** - Buscar perfis de candidatos em um banco de dados via um `@tool` customizado
-- **Testar modelos diferentes** - Comparar qualidade e latência das saídas entre `gpt-4.1` e `gpt-4.1-mini`
-- **Avaliar com Foundry** - Usar a funcionalidade de Avaliações para pontuar relatórios de compatibilidade contra um conjunto de dados padrão
+- **Adicionar um 5º agente** - Um treinador de entrevistas que gera perguntas prováveis com base no relatório de lacunas
+- **Adicionar uma ferramenta de fundamentação Bing** - Permita que o agente JD pesquise vagas similares para enriquecer os requisitos
+- **Conectar a um banco de currículos** - Buscar perfis de candidatos de um banco de dados via um `@tool` customizado
+- **Experimentar diferentes modelos** - Comparar qualidade e latência da saída de `gpt-4.1` vs. `gpt-4.1-mini`
+- **Avaliar com Foundry** - Use o recurso Avaliações para pontuar relatórios de compatibilidade contra um conjunto de dados padrão
 
-### Para usuários do Caminho B: Atualizar para implantação na nuvem
+### Para usuários do Caminho B: Faça upgrade para implantação na nuvem
 
 Quando estiver pronto para implantar na nuvem:
 1. Obtenha uma assinatura Azure ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
-2. Complete [Lab 01, Módulo 01](../../lab01-single-agent/docs/01-setup.md) (criar projeto, implantar modelo, configurar RBAC)
-3. Atualize seu `.env` com o endpoint do projeto Foundry e o nome da implantação do modelo
-4. Continue a partir de [Módulo 06 - Implantar no Foundry](06-deploy-to-foundry.md)
+2. Complete [Lab 01, Módulo 01](../../lab01-single-agent/docs/01-setup.md) (crie projeto, implante modelo, atribua RBAC)
+3. Atualize seu `.env` com o endpoint do projeto Foundry e nome da implantação do modelo
+4. Continue a partir do [Módulo 06 - Implantar no Foundry](06-deploy-to-foundry.md)
 
 ---
 
 ## Limpeza de recursos (opcional)
 
-Se desejar remover os recursos Azure criados durante este workshop:
+Se você quiser remover os recursos do Azure criados durante este workshop:
 
 ### Opção 1: Excluir o grupo de recursos (remove tudo)
 
@@ -113,11 +113,11 @@ az group delete --name rg-hosted-agents-workshop --yes --no-wait
 1. Na barra lateral do Foundry, expanda seu projeto → **Models**.
 2. Clique com o botão direito na implantação do modelo → **Delete**.
 
-> **Nota sobre custos:** Agentes hospedados geram custo apenas quando estão em execução. Se você parar ou excluir o agente, não há cobrança contínua. A implantação do modelo pode gerar uma pequena cobrança por capacidade reservada - exclua se não for mais usar.
+> **Nota sobre custo:** Agentes hospedados só geram custo enquanto estão rodando. Se você parar ou excluir o agente, não há cobrança contínua. A implantação do modelo pode gerar uma pequena cobrança por capacidade reservada - exclua se tiver terminado.
 
 ---
 
-**Anterior:** [08 - Resolução de Problemas](08-troubleshooting.md) · **Início:** [README Lab 02](../README.md) · [Início do Workshop](../../../README.md)
+**Anterior:** [08 - Solução de Problemas](08-troubleshooting.md) · **Início:** [README do Lab 02](../README.md) · [Início do Workshop](../../../README.md)
 
 ---
 

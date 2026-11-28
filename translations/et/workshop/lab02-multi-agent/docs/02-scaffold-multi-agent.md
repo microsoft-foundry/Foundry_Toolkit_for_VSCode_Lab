@@ -1,71 +1,71 @@
-# Moodul 2 - Multi-agendiprojekti alusraamistiku valmista ette
+# Moodul 2 - Mitme agendi projekti karkassi ülespanek
 
-⏱️ ~5 minutit
+⏱️ ~5 min
 
-Selles moodulis kasutate [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) et **anda alus multi-agendiprojektile**. Vahend genereerib failid `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` ja VS Code silumisettepaneku – nii saate keskenduda 4-agendi töövoo ühendamisele moodulis 3.
+Selles moodulis kasutate [Foundry Toolkit for VS Code](https://aka.ms/foundrytk), et **karkassida mitme agendi projekt**. Vürst genereerib `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` ja VS Code silumise konfiguratsiooni – nii et saate keskenduda 4-agendi töövoo ühendamisele Moodulis 3.
 
-> **Põhimõte:** Alusraamistik on töötav mall ühe agendiga. Te asendate kohatäite loogika `WorkflowBuilder` graafikuga moodulis 3. Te ei kirjuta boilerplate’i algusest peale.
+> **Põhikontseptsioon:** Karkass on toimiv alus ühe agendiga. Asendate kohatäite loogika `WorkflowBuilder` graafikuga Moodulis 3. Te ei kirjuta boilerplate'i nullist.
 
-> **Võrdlusnäide:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) on täielik töötav näide. Kasutage seda oma töö võrdlemiseks.
+> **Võrdlusnäide:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) on täielik toimiv näide. Kasutage seda, et võrrelda oma tööd jooksvalt.
 
-### Alusraamistiku asistendi töövoog
+### Karkassi vürsti voog
 
 ```mermaid
 flowchart LR
-    A[Command Palette: Loo uus majutatud agent] --> B[Keel: Python]
-    B --> C[API Type: Vastuse API]
-    C --> D[Template: Töövood]
-    D --> E[Vali mudel]
-    E --> F[Töölaua kaust ja agendi nimi]
-    F --> G[Genereeritud projekt]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
-## Samm 1: Ava loodava hostitud agendi assistent
+## 1. samm: Ava Create Hosted Agent vürst
 
-1. Vajutage `Ctrl+Shift+P`, et avada **Käsupalett**.
-2. Sisestage: **Foundry Toolkit: Create a New Hosted Agent** ja valige see.
-3. Assistent avaneb vahekaardiga **Agent Details**.
+1. Vajutage `Ctrl+Shift+P`, et avada **Command Palette**.
+2. Tippige: **Foundry Toolkit: Create new Hosted Agent** ja valige see.
+3. Vürst avaneb **Agent Details** vahekaardil.
 
-> **Alternatiiv:** Klõpsake tegevusribas ikoonil **Foundry Toolkit** → klõpsake **+** ikoonil **Hosted Agents** kõrval → **Create New Hosted Agent**.
+> **Alternatiiv:** Klõpsake Activity Baril **Foundry Toolkit** ikooni → klõpsake **+** ikooni **Hosted Agents** kõrval → **Create New Hosted Agent**.
 
 ---
 
-## Samm 2: Valige sätted
+## 2. samm: Valige seaded
 
 ![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/et/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. Vasakus navigeerimis-/valikualas valige järgnev:
+1. Vasakpoolses navigeerimis-/valikute jaotises valige järgmised:
 
-| Menüü | Valik | Märkmed |
+| Menüü | Valik | Märkused |
 |--------|-----------|-------|
-| **Language** | Python | Toetatud on ka C# (.NET) |
-| **Framework** | Agent Framework | Pakub `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **API type** | Response API | `POST /responses` - platvormi hallatav ajalugu, voogedastuse tugi |
-| **Template** | **Workflows** | Töötleb päringuid järjestikku läbi mitme agendi |
+| **Keel** | Python | Toetatud on ka C# (.NET) |
+| **Raamistik** | Agent Framework | Pakub `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **API tüüp** | Response API | `POST /responses` - platvormi hallatud ajalugu, voogedastuse tugi |
+| **Mall** | **Workflows** | Töötleb päringuid järjestikku mitme agendi kaudu |
 
 2. Kui valitud, klõpsake **Next**
 
 ![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/et/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
-3. Järgnevas aknas valige:
+3. Järgmises aknas valige järgmised:
 
-| Menüü | Valik | Märkmed |
+| Menüü | Valik | Märkused |
 |--------|-----------|-------|
-| **Workspace folder** | Sirvige sihtkausta | nt `workshop/lab02-multi-agent/` selles repos |
-| **Agent name** | `PersonalCareerCopilot` | Saab projekti kataloogi nimeks |
-| **Model Deployment** | Valige oma juurutatud mudel | nt `gpt-4.1-mini` laborist 01 |
+| **Tööruumi kaust** | Sirvige sihtkausta | nt `workshop/lab02-multi-agent/` selles reposis |
+| **Agendi nimi** | `PersonalCareerCopilot` | See saab projekti kataloogi nimeks |
+| **Mudeli juurutus** | Valige juurutatud mudel | nt `gpt-4.1-mini` Laborist 01 |
 
-4. Klõpsake **Create**, et pöördraamistiku genereerida. VS Code loob failid ja avab kausta.
+4. Klõpsake **Create**, et projekti karkassida. VS Code genereerib failid ja avab kausta.
 
-> **Vihje:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) tasakaalustab hästi kiirust ja kvaliteeti multi-agendiarenduseks.
+> **Nipid:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) tasakaalustab mitme agendi arenduse kiiruse ja kvaliteedi hästi.
 
 ---
 
-## Samm 3: Uurige genereeritud projekti
+## 3. samm: Kontrollige genereeritud projekti
 
-Pärast alusraamistiku valmimist kontrollige, et näeksite Exploreri aknas (`Ctrl+Shift+E`) järgmisi faile:
+Pärast karkassi valmimist veenduge, et Exploreris (`Ctrl+Shift+E`) on need failid nähtavad:
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ Pärast alusraamistiku valmimist kontrollige, et näeksite Exploreri aknas (`Ctr
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Oluline:** Avage see alusraamistikuga kaust otse VS Codes, et `.vscode/launch.json` ja `tasks.json` rakenduksid õigesti F5 silumiseks.
+> **Oluline:** Avage see karkassitud kaust otse VS Codes, et `.vscode/launch.json` ja `tasks.json` rakenduksid õigesti F5 silumisel.
 
-### Põhifailide selgitus
+### Põhilised failid selgitatud
 
 | Fail | Eesmärk |
 |------|---------|
-| `agent.yaml` | Määratleb `kind: hosted`, kaardistab keskkonnamuutujad, defineerib `/responses` protokolli |
-| `main.py` | Mall: üks `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Asendate selle 4 agendi + `WorkflowBuilder`ga moodulis 3 |
-| `Dockerfile` | `python:3.12-slim`, paigaldab `requirements.txt`, avab pordi 8088, käivitab `python main.py` |
+| `agent.yaml` | Deklareerib `kind: hosted`, kaardistab env-muutujad, määratleb `/responses` protokolli |
+| `main.py` | Stub: üks `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Asendate selle 4 agendi + `WorkflowBuilder` vastu Moodulis 3 |
+| `Dockerfile` | `python:3.12-slim`, installib `requirements.txt`, avab pordi 8088, käivitab `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Viide:** Vaadake täielikku genereeritud sisu [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ja [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt).
+> **Viide:** Vaadake [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ja [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) täieliku genereeritud sisu jaoks.
 
 ---
 
 ### ✅ Kontrollpunkt
 
-- [ ] Alusraamistiku assistent lõpetatud – uus projektikaust nähtav Exploreris
+- [ ] Karkassi vürst lõpetatud – uus projekti kaust on Exploreri vaates nähtav
 - [ ] Kõik oodatud failid olemas: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] `agent.yaml` näitab `kind: hosted` ja `protocol: responses`
+- [ ] `agent.yaml` kuvab `kind: hosted` ja `protocol: responses`
 - [ ] `main.py` impordib `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Alusraamistiku kaust on avatud VS Code tööruumi juurena
-- [ ] Mõistate, et `main.py` on mall – `WorkflowBuilder` lisatakse moodulis 3
+- [ ] Karkassitud kaust on avatud kui VS Code tööruumi juurkataloog
+- [ ] Sa mõistad, et `main.py` on stub – `WorkflowBuilder` lisatakse Moodulis 3
 
 ---
 
-**Eelmine:** [01 - Mõistke multi-agenti arhitektuuri](01-understand-multi-agent.md) · **Järgmine:** [03 - Konfigureerige agendid ja keskkond →](03-configure-agents.md)
+**Eelmine:** [01 - Mõista mitme agendi arhitektuuri](01-understand-multi-agent.md) · **Järgmine:** [03 - Konfigureeri agendid ja keskkond →](03-configure-agents.md)
 
 ---
 

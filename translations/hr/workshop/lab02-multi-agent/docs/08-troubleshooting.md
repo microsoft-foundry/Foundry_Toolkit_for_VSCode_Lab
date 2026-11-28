@@ -1,68 +1,68 @@
 # Modul 8 - Rješavanje problema
 
-Ovaj modul pokriva uobičajene pogreške, popravke i strategije otklanjanja pogrešaka specifične za višestruki agentni radni tijek.
+Ovaj modul pokriva uobičajene pogreške, popravke i strategije ispravljanja pogrešaka specifične za višagentni tijek rada.
 
-## Problemi s izlazom agenata
+## Problemi s izlazom agenta
 
-### GapAnalyzer kaže "Još uvijek nemam odgovarajući izvještaj"
+### GapAnalyzer kaže „Još uvijek nemam odgovarajući izvještaj“
 
-**Simptom:** Odgovor GapAnalyzera traži da zalijepite izvještaj podudaranja s "Nedostajućim vještinama" i "Prazninama u certifikaciji." Ovo se događa čak i kada ste poslali i životopis i opis posla.
+**Simptom:** Odgovor GapAnalyzer-a traži od vas da zalijepite izvještaj o podudaranju s „Nedostajućim vještinama“ i „Prazninama u certifikaciji.“ To se događa čak i kada ste poslali i životopis i opis posla.
 
-**Uzrok:** Tekst JD nije prenesen dalje JD agentu. S `context_mode="last_agent"`, `resume_executor` je jedini izvršitelj koji vidi izvornu poruku korisnika. Ako `RESUME_PARSER_INSTRUCTIONS` ne uključuju tekst JD u svoj izlaz, JD Agent nema JD za parsiranje, MatchingAgent ne može izračunati ocjenu podudarnosti, a GapAnalyzer prima nevažljiv unos.
+**Uzrok:** Tekst opisa posla nije proslijeđen Agentu za opis posla. S `context_mode="last_agent"`, `resume_executor` je jedini izvršitelj koji ikada vidi izvornu poruku korisnika. Ako `RESUME_PARSER_INSTRUCTIONS` ne uključuje tekst opisa posla u svoj izlaz, Agent za opis posla nema opis za parsiranje, MatchingAgent ne može izračunati ocjenu podudaranja, a GapAnalyzer prima besmisleni ulaz.
 
 **Dijagnoza:**
 
-U zapisnicima poslužitelja potražite MatchingAgent span. Ako sadrži:
+U zapisima poslužitelja potražite MatchingAgent opseg. Ako sadrži:
 ```
 Cannot compute a numeric fit score because no job description (JD) was provided
 ```
-prosljeđivanje nedostaje ili je pokvareno.
+prosljeđivanje nedostaje ili je prekinuto.
 
-**Popravak:** Potvrdite da `RESUME_PARSER_INSTRUCTIONS` u `main.py` sadrži odjeljak `[JOB DESCRIPTION PASS-THROUGH]` i pravilo:
+**Popravak:** Potvrdite da `RESUME_PARSER_INSTRUCTIONS` u `main.py` sadrži `[JOB DESCRIPTION PASS-THROUGH]` dio i pravilo:
 ```
 The [JOB DESCRIPTION PASS-THROUGH] section MUST contain the FULL, UNMODIFIED JD text.
 ```
-Također potvrdite da `JOB_DESCRIPTION_INSTRUCTIONS` sadrži pravilo prosljeđivanja `[PARSED RESUME PASS-THROUGH]`:
+Također potvrdite da `JOB_DESCRIPTION_INSTRUCTIONS` sadrži `[PARSED RESUME PASS-THROUGH]` pravilo prosljeđivanja:
 ```
 Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.
 ```
-Ako je bilo koji od blokova uputa privremeni iz čarobnjaka, zamijenite ga potpunom verzijom iz [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
+Ako je bilo koji blok uputa privremeni iz čarobnjaka za kosture, zamijenite ga potpunom verzijom iz [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
-### MatchingAgent daje izlaz "Ne mogu izračunati ocjenu podudarnosti - nije dostavljen JD"
+### MatchingAgent ispisuje “Cannot compute fit score - no JD provided”
 
-Ovo je isti osnovni uzrok kao gore. MatchingAgent je primio izlaz JD agenta, ali odjeljak `[PARSED RESUME PASS-THROUGH]` je nedostajao ili je prazan, pa nije mogao usporediti dva profila. Potvrdite:
-1. `JOB_DESCRIPTION_INSTRUCTIONS` uključuje pravilo prosljeđivanja: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
-2. `MATCHING_AGENT_INSTRUCTIONS` instruira agenta da traži odjeljke `[JD REQUIREMENTS]` i `[PARSED RESUME PASS-THROUGH]`.
+Ovo je isti temeljni uzrok kao gore. MatchingAgent je primio izlaz JD Agenta, ali je odjeljak `[PARSED RESUME PASS-THROUGH]` nedostajao ili je bio prazan, pa nije mogao usporediti dva profila. Potvrdite:
+1. `JOB_DESCRIPTION_INSTRUCTIONS` uključuje pravilo relaya: `Copy [PARSED RESUME] verbatim - the Matching Agent depends on it downstream.`
+2. `MATCHING_AGENT_INSTRUCTIONS` govori agentu da traži odjeljke `[JD REQUIREMENTS]` i `[PARSED RESUME PASS-THROUGH]`.
 
 Zamijenite oba bloka uputa potpunim verzijama iz [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py).
 
 ### Odgovor se pojavljuje dva puta
 
-**Simptom:** Izlaz GapAnalyzera (ili cijeli izlaz cjevovoda) pojavljuje se dvaput u odgovoru Agent Inspectora.
+**Simptom:** Izlaz GapAnalyzer-a (ili cijeli izlaz pipelinea) pojavljuje se dva puta u odgovoru Agent Inspectora.
 
-**Uzrok:** `WorkflowBuilder` koristi OR-semantiku za dolazne veze - izvršitelj nizvodno se aktivira čim bilo koji prethodnik završi. Ako `matching_executor` ima dvije dolazne veze (jednu od `resume_executor` i jednu od `jd_executor`), aktivira se dvaput: jednom kad ResumeParser završi i ponovo kad JD Agent završi. I GapAnalyzer tada radi dvaput.
+**Uzrok:** `WorkflowBuilder` koristi OR-semantiku za dolazne bridove - izvršitelj niže razine pokreće se čim **bilo koji** prethodnik završi. Ako `matching_executor` ima dva dolazna brida (jedan od `resume_executor` i jedan od `jd_executor`), pokreće se dva puta: jednom kad ResumeParser završi i opet kad JD Agent završi. GapAnalyzer se tada također izvršava dva puta.
 
-**Popravak:** Osigurajte da je graf `WorkflowBuilder` strogo sekvencijalni cjevovod bez višestrukog ulaza:
+**Popravak:** Osigurajte da je graf `WorkflowBuilder` strogo sekvencijalni pipeline bez fan-ina:
 
 ```python
 workflow_agent = (
     WorkflowBuilder(start_executor=resume_executor, output_executors=[gap_executor])
     .add_edge(resume_executor, jd_executor)
-    .add_edge(jd_executor, matching_executor)    # NI iz resume_executor
+    .add_edge(jd_executor, matching_executor)    # NOT from resume_executor
     .add_edge(matching_executor, gap_executor)
     .build().as_agent()
 )
 ```
 
-Ako imate slučajnu liniju `.add_edge(resume_executor, matching_executor)`, uklonite je. Relay `[PARSED RESUME PASS-THROUGH]` u izlazu JD agenta već daje MatchingAgentu pristup životopisu.
+Ako imate nepovezanu liniju `.add_edge(resume_executor, matching_executor)`, uklonite je. `[PARSED RESUME PASS-THROUGH]` relay u izlazu JD Agenta već daje MatchingAgentu pristup životopisu.
 
 ---
 
 ## Problemi s okolinom i konfiguracijom
 
-### Nedostajuće ili pogrešne vrijednosti u `.env`
+### Nedostajuće ili pogrešne vrijednosti `.env`
 
-`.env` datoteka mora biti u direktoriju `PersonalCareerCopilot/` (na istoj razini kao `main.py`):
+Datoteka `.env` mora biti u direktoriju `PersonalCareerCopilot/` (isti nivo kao `main.py`):
 
 ```
 PersonalCareerCopilot/
@@ -82,31 +82,31 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-project-name>.services.ai.azure.com/api/p
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-**Put B - Foundry Local:**
+**Put B - Foundry lokalno:**
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-> Oba puta koriste `FOUNDRY_PROJECT_ENDPOINT`. Vrijednost je različita: cloud koristi `https://` Foundry endpoint; lokalni koristi `http://localhost:5273/v1`. Pokrenite `foundry model list` za potvrdu točnog imena modela za Put B.
+> Oba puta koriste `FOUNDRY_PROJECT_ENDPOINT`. Vrijednost se razlikuje: cloud koristi `https://` Foundry endpoint; lokalno koristi `http://localhost:5273/v1`. Pokrenite `foundry model list` da potvrdite točan alias modela za Put B.
 
-> **Kako pronaći svoj `FOUNDRY_PROJECT_ENDPOINT`:** 
-- Otvorite **Foundry Toolkit** bočnu traku u VS Code → desni klik na svoj projekt → **Copy Project Endpoint**. 
-- Ili idite na [Azure Portal](https://portal.azure.com) → svoj Foundry projekt → **Overview** → **Project endpoint**.
+> **Pronalazak vašeg `FOUNDRY_PROJECT_ENDPOINT`:** 
+- Otvorite bočnu traku **Foundry Toolkit** u VS Code → desni klik na vaš projekt → **Copy Project Endpoint**. 
+- Ili idite na [Azure Portal](https://portal.azure.com) → vaš Foundry projekt → **Overview** → **Project endpoint**.
 
-> **Kako pronaći svoj `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** U Foundry Toolkit bočnoj traci proširite projekt → **Models** → pronađite ime svog modela (npr. `gpt-4.1-mini`).
+> **Pronalazak vašeg `AZURE_AI_MODEL_DEPLOYMENT_NAME`:** U Foundry Toolkit bočnoj traci, proširite vaš projekt → **Models** → pronađite ime vašeg raspoređenog modela (npr. `gpt-4.1-mini`).
 
-### Prioritet varijabli okoline
+### Prednost varijabli okoline
 
 `main.py` koristi `load_dotenv(override=True)`, što znači:
 
-| Prioritet | Izvor | Pobjednik kad su oba postavljena? |
+| Prioritet | Izvor | Pobjednik kada su oba postavljena? |
 |----------|--------|------------------------------|
-| 1 (najviši) | `.env` datoteka | Da |
-| 2 | Shell / varijabla okoline kontejnera | Koristi se ako isti ključ nije prisutan u `.env` |
+| 1 (najveći) | Datoteka `.env` | Da |
+| 2 | Shell / varijabla okoline u kontejneru | Koristi se ako isti ključ nije prisutan u `.env` |
 
-U lokalnom razvoju `.env` je izvor istine (uređivanje `.env` odmah utječe na pokretanja). U hostiranoj implementaciji Foundry ubrizgava varijable okoline na razini kontejnera; budući da `.env` nije dio implementirane slike za ovu lab postavku, koriste se ubrizgani kontejnerski vrijednosti.
+U lokalnom razvoju to čini `.env` izvorom istine (uređivanje `.env` odmah utječe na izvođenje). U hostanoj implementaciji, Foundry ubrizgava varijable okoline na razini kontejnera; budući da `.env` nije dio raspoređene slike za ovaj lab postav, koriste se ubrizgane vrijednosti kontejnera.
 
 ---
 
@@ -114,10 +114,10 @@ U lokalnom razvoju `.env` je izvor istine (uređivanje `.env` odmah utječe na p
 
 ### Matrica verzija paketa
 
-Višestruki agentni radni tijek zahtijeva specifične verzije paketa. Nepodudarne verzije uzrokuju pogreške tijekom izvođenja.
+Viški agent workflow zahtijeva specifične verzije paketa. Nepodudarne verzije uzrokuju pogreške u izvođenju.
 
-| Paket | Zahtijevana verzija | Naredba za provjeru |
-|-------|-------------------|--------------------|
+| Paket | Potrebna verzija | Komanda za provjeru |
+|---------|-----------------|------------------|
 | `agent-framework-foundry` | najnovija | `pip show agent-framework-foundry` |
 | `agent-framework-foundry-hosting` | najnovija | `pip show agent-framework-foundry-hosting` |
 | `mcp` | `<2,>=1.24.0` | `pip show mcp` |
@@ -129,18 +129,18 @@ Višestruki agentni radni tijek zahtijeva specifične verzije paketa. Nepodudarn
 **`ImportError: cannot import name 'WorkflowBuilder' from 'agent_framework'`**
 
 ```powershell
-# Popravi: ponovno instaliraj agent-framework-foundry
+# Fix: reinstall agent-framework-foundry
 pip install agent-framework-foundry agent-framework-foundry-hosting
 ```
 
 **`AttributeError: module 'mcp.client' has no attribute 'streamable_http'`**
 
 ```powershell
-# Popravi: nadogradnja mcp paketa
+# Fix: upgrade mcp package
 pip install mcp --upgrade
 ```
 
-### Provjerite sve verzije odjednom
+### Potvrdite sve verzije odjednom
 
 ```powershell
 pip list | Select-String "agent-framework|mcp|debugpy"
@@ -159,38 +159,38 @@ mcp                              x.x.x
 
 ## Problemi s implementacijom
 
-### Kontejner ne može startati nakon implementacije
+### Kontejner ne uspijeva pokrenuti nakon implementacije
 
-1. **Provjerite zapisnike kontejnera:**
-   - Otvorite **Foundry Toolkit** bočnu traku → proširite **Hosted Agents (Preview)** → kliknite na svog agenta → proširite verziju → **Container Details** → **Logs**.
-   - Potražite Python stogove pogrešaka ili pogreške o nedostajućim modulima.
+1. **Provjerite logove kontejnera:**
+   - Otvorite bočnu traku **Foundry Toolkit** → ispod vašeg projekta kliknite **Agents** → kartica **Hosted Agent** → kliknite na vašeg agenta. Provjerite **Status** na kartici **Details**, zatim otvorite karticu **Playground** i upotrijebite karticu **Logs** u panelu **Session Details** za pregled izlaza kontejnera.
+   - Potražite Python stogove pogrešaka ili greške zbog nedostajućih modula.
 
 2. **Uobičajeni uzroci neuspjeha pokretanja kontejnera:**
 
-   | Pogreška u zapisima | Uzrok | Popravak |
+   | Pogreška u logovima | Uzrok | Popravak |
    |---------------------|-------|---------|
-   | `ModuleNotFoundError` | `requirements.txt` nedostaje paket | Dodajte paket, ponovo implementirajte |
-   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | varijable okoline u `agent.yaml` ili `.env` nisu postavljene | Ažurirajte `agent.yaml` → odjeljak `environment_variables` (hostirano) ili `.env` (lokalno) |
-   | `azure.identity.CredentialUnavailableError` | Upravljački identitet nije konfiguriran | Foundry to postavlja automatski - osigurajte da implementirate preko proširenja |
+   | `ModuleNotFoundError` | Nedostaje paket `requirements.txt` | Dodajte paket, ponovno rasporedite |
+   | `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` | `agent.yaml` ili `.env` varijable okoline nisu postavljene | Ažurirajte `agent.yaml` → odjeljak `environment_variables` (hostano) ili `.env` (lokalno) |
+   | `azure.identity.CredentialUnavailableError` | Managed Identity nije konfiguriran | Foundry to automatski postavlja - osigurajte da implementirate putem nastavka |
    | `OSError: port 8088 already in use` | Dockerfile izlaže pogrešan port ili sukob portova | Provjerite `EXPOSE 8088` u Dockerfile i `CMD ["python", "main.py"]` |
-   | Kontejner izlazi s kodom 1 | Neuhvaćena iznimka u `main()` | Najprije testirajte lokalno ([Modul 5](05-test-locally.md)) da uhvatite pogreške prije implementacije |
+   | Kontejner izlazi s kodom 1 | Neuhvaćeni izuzetak u `main()` | Prvo testirajte lokalno ([Modul 5](05-test-locally.md)) da biste uhvatili pogreške prije implementacije |
 
-3. **Ponovno implementirajte nakon popravljanja:**
-   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → odaberite istog agenta → implementirajte novu verziju.
+3. **Ponovno rasporedite nakon popravka:**
+   - `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → odaberite istog agenta → rasporedite novu verziju.
 
 ### Implementacija traje predugo
 
-Kontejneri za višestruke agente duže se pokreću jer prilikom starta kreiraju 4 instance agenta. Normalna trajanja pokretanja:
+Multi-agent kontejneri se sporije pokreću jer stvaraju 4 instance agenta pri pokretanju. Normalna vremena pokretanja:
 
 | Faza | Očekivano trajanje |
-|------|--------------------|
+|-------|-------------------|
 | Izgradnja slike kontejnera | 1-3 minute |
-| Slanje slike na ACR | 30-60 sekundi |
+| Guranje slike u ACR | 30-60 sekundi |
 | Pokretanje kontejnera (jedan agent) | 15-30 sekundi |
 | Pokretanje kontejnera (više agenata) | 30-120 sekundi |
-| Agent dostupan u Playgroundu | 1-2 minute nakon "Started" statusa |
+| Agent dostupan u Playgroundu | 1-2 minute nakon "Started" |
 
-> Ako status "Pending" traje dulje od 5 minuta, provjerite zapisnike kontejnera zbog pogrešaka.
+> Ako status "Pending" traje dulje od 5 minuta, provjerite logove kontejnera za pogreške.
 
 ---
 
@@ -198,21 +198,21 @@ Kontejneri za višestruke agente duže se pokreću jer prilikom starta kreiraju 
 
 ### `403 Forbidden` ili `AuthorizationFailed`
 
-Potreban vam je **[Foundry User](https://aka.ms/foundry-ext-project-role)** uloga na vašem Foundry projektu (prije nazvana **Azure AI User** - ID uloge nepromijenjen):
+Potrebna vam je uloga **[Foundry User](https://aka.ms/foundry-ext-project-role)** u vašem Foundry projektu (ranije nazvana **Azure AI User** - ID uloge nije promijenjen):
 
-1. Idite na [Azure Portal](https://portal.azure.com) → resurs svog Foundry **projekta**.
+1. Idite na [Azure Portal](https://portal.azure.com) → resurs vašeg Foundry **projekta**.
 2. Kliknite **Access control (IAM)** → **Role assignments**.
-3. Pretražite svoje ime → potvrdite da je navedena uloga **Foundry User** (ili stari naziv **Azure AI User**).
-4. Ako nema: **Dodaj** → **Add role assignment** → potraži **Foundry User** → dodijeli svom računu.
+3. Potražite svoje ime → potvrdite da je **Foundry User** (ili staro ime **Azure AI User**) na popisu.
+4. Ako nedostaje: **Dodaj** → **Add role assignment** → potražite **Foundry User** → dodijelite svom računu.
 
 Pogledajte dokumentaciju [RBAC za Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) za detalje.
 
-### Implementacija modela nije dostupna
+### Nema pristupa implementaciji modela
 
-Ako agent vraća pogreške vezane za model:
+Ako agent vraća pogreške vezane uz model:
 
-1. Provjerite je li model implementiran: Foundry bočna traka → proširite projekt → **Models** → provjerite ima li `gpt-4.1-mini` (ili vaš model) sa statusom **Succeeded**.
-2. Provjerite da se ime implementacije podudara: usporedite `AZURE_AI_MODEL_DEPLOYMENT_NAME` u `.env` (ili `agent.yaml`) s stvarnim imenom implementacije u bočnoj traci.
+1. Provjerite je li model implementiran: Foundry bočna traka → proširite projekt → **Models** → provjerite postoji li `gpt-4.1-mini` (ili vaš model) sa statusom **Succeeded**.
+2. Provjerite da ime implementacije odgovara: usporedite `AZURE_AI_MODEL_DEPLOYMENT_NAME` u `.env` (ili `agent.yaml`) s stvarnim imenom implementacije u bočnoj traci.
 3. Ako je implementacija istekla (besplatni sloj): ponovno implementirajte iz [Model Catalog](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure) (`Ctrl+Shift+P` → **Foundry Toolkit: Open Model Catalog**).
 
 ---
@@ -222,42 +222,42 @@ Ako agent vraća pogreške vezane za model:
 ### Foundry Local servis nije pokrenut
 
 ```powershell
-# Provjeri status
+# Check status
 foundry local status
 
-# Pokreni uslugu ako je zaustavljena
+# Start the service if it is stopped
 foundry local start
 ```
 
 | Simptom | Uzrok | Popravak |
 |---------|-------|---------|
-| Health check vraća `503` | Servis nije pokrenut | `foundry local start` ili kliknite **Start** u Foundry Toolkit bočnoj traci |
-| Health check se tajmautira | Model se još učitava | Pričekajte 30–60 s nakon pokretanja; veći modeli traju dulje |
+| Health check vraća `503` | Servis nije pokrenut | Pokrenite `foundry local start` ili kliknite **Start** u Foundry Toolkit bočnoj traci |
+| Health check istječe | Model se još učitava | Pričekajte 30–60 s nakon pokretanja; veći modeli trebaju više vremena |
 | `StatusCode: 404` na `/v1/health` | Pogrešan port | Zadano je `5273`. Provjerite `foundry local status` za stvarni port |
 | Nedovoljno resursa | Foundry Local treba ~4 GB slobodne RAM memorije | Zatvorite druge aplikacije |
-| Neuspjeh preuzimanja modela | Malo prostora na disku | Modeli zauzimaju 2–8 GB. Oslobodite prostor, potom `foundry model pull <name>` |
+| Preuzimanje modela ne uspijeva | Malo slobodnog mjesta na disku | Modeli su 2–8 GB. Oslobodite prostor pa pokrenite `foundry model pull <name>` |
 
 ### Nepodudaranje imena modela
 
 ```powershell
-# Popis preuzetih modela i njihovih točnih aliasa
+# List downloaded models and their exact aliases
 foundry model list
 ```
 
-Postavite `AZURE_AI_MODEL_DEPLOYMENT_NAME` u `.env` na točan alias prikazan (npr. `phi-4-mini`, ne `Phi-4-mini`).
+Postavite `AZURE_AI_MODEL_DEPLOYMENT_NAME` u `.env` na točan alias prikazan (npr. `phi-4-mini`, a ne `Phi-4-mini`).
 
 ### `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` pri lokalnom pokretanju (Put B)
 
-Lab `main.py` koristi `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local zahtijeva da ova varijabla pokazuje na lokalni servis - **ne** na `AZURE_AI_PROJECT_ENDPOINT`. Osigurajte da vaša `.env` sadrži:
+Labov `main.py` koristi `os.environ["FOUNDRY_PROJECT_ENDPOINT"]`. Foundry Local zahtijeva da ova varijabla pokazuje na lokalni servis - **ne** na `AZURE_AI_PROJECT_ENDPOINT`. Provjerite da vaš `.env` sadrži:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=http://localhost:5273/v1
 AZURE_AI_MODEL_DEPLOYMENT_NAME=phi-4-mini
 ```
 
-### MCP alat i dalje vrši odlazni poziv (Put B)
+### MCP alat ipak pravi odlazni poziv (Put B)
 
-Ovo se očekuje. Alat `search_microsoft_learn_for_plan` dohvaća obrazovne resurse s `https://learn.microsoft.com/api/mcp`. **Samo upit za ime vještine** putuje mrežom - životopis i tekst JD obrađuju se u potpunosti na vašem uređaju i nikada se ne prenose. Ako je potrebna potpuna offline operacija, dodajte u alat `try/except` za vraćanje statičke `learn.microsoft.com` URL adrese kad je endpoint nedostupan.
+Ovo je očekivano. Alat `search_microsoft_learn_for_plan` dohvaća obrazovne resurse sa `https://learn.microsoft.com/api/mcp`. **Samo upit za ime vještine** putuje preko mreže - životopis i tekst JD-a obrađuju se u potpunosti na vašem uređaju i nikad se ne prenose. Ako je potrebni rad u potpunosti offline, dodajte u alat `try/except` rezervu koja vraća statični URL `learn.microsoft.com` kad endpoint nije dostupan.
 
 ---
 
@@ -265,26 +265,26 @@ Ovo se očekuje. Alat `search_microsoft_learn_for_plan` dohvaća obrazovne resur
 
 Ako zapnete nakon pokušaja gore navedenih popravaka:
 
-1. **Provjerite zapisnike poslužitelja** - Većina pogrešaka ispisuje Python stog u terminalu. Pročitajte cijeli traceback.
-2. **Potražite poruku pogreške** - Kopirajte tekst pogreške i pretražite u [Microsoft Q&A za Azure AI](https://learn.microsoft.com/answers/tags/azure-ai-services).
-3. **Otvorite issue** - Podnesite prijavu na [radnom spremištu radionice](https://github.com/ShivamGoyal03/ai-toolkit-hosted-agents-workshop/issues) s:
-   - Tekstom pogreške ili screenshotom
+1. **Provjerite logove servera** - Većina pogrešaka proizvodi Python stog pogrešaka u terminalu. Pročitajte puni traceback.
+2. **Pretražite poruku o pogrešci** - Kopirajte tekst pogreške i pretražite u [Microsoft Q&A za Foundry Agent Service](https://learn.microsoft.com/answers/tags/1581/foundry-agent-service).
+3. **Otvorite issue** - Podnesite issue na [workshop repozitoriju](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) sa:
+   - Porukom o pogrešci ili snimkom zaslona
    - Verzijama paketa (`pip list | Select-String "agent-framework"`)
-   - Vašom verzijom Pythona (`python --version`)
+   - Verzijom Pythona (`python --version`)
    - Je li problem lokalni ili nakon implementacije
 
 ---
 
-### Kontrolna točka
+### Kontrolna tačka
 
-- [ ] Znate kako provjeriti i popraviti probleme s konfiguracijom `.env`
-- [ ] Možete potvrditi odgovaraju li verzije paketa potrebnoj matrici
-- [ ] Znate kako provjeriti zapisnike kontejnera za neuspjehe implementacije
+- [ ] Znate kako provjeriti i popraviti probleme konfiguracije `.env`
+- [ ] Možete provjeriti podudaraju li se verzije paketa s potrebnom matricom
+- [ ] Znate kako provjeriti logove kontejnera za neuspjele implementacije
 - [ ] Možete provjeriti RBAC uloge u Azure portalu
 
 ---
 
-**Prethodno:** [07 - Provjera u Playgroundu](07-verify-in-playground.md) · **Sljedeće:** [09 - Sažetak →](09-summary.md) · **Početna:** [Lab 02 README](../README.md) · [Početna radionice](../../../README.md)
+**Prethodno:** [07 - Verify in Playground](07-verify-in-playground.md) · **Sljedeće:** [09 - Summary →](09-summary.md) · **Početna:** [Lab 02 README](../README.md) · [Početna radionice](../../../README.md)
 
 ---
 

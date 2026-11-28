@@ -2,37 +2,37 @@
 
 ⏱️ ~10 menit
 
-Dalam modul ini, Anda akan menjelajahi pola orkestrasi yang digunakan dalam Resume Job Fit Evaluator dan belajar cara membaca, memodifikasi, dan memperluas grafik alur kerja. Memahami pola-pola ini sangat penting untuk debugging masalah aliran data dan membangun [alur kerja multi-agen](https://learn.microsoft.com/agent-framework/workflows/) Anda sendiri.
+Dalam modul ini, Anda mengeksplorasi pola orkestrasi yang digunakan dalam Resume Job Fit Evaluator dan belajar bagaimana membaca, memodifikasi, dan memperluas grafik alur kerja. Memahami pola-pola ini sangat penting untuk debugging masalah aliran data dan membangun [alur kerja multi-agen](https://learn.microsoft.com/agent-framework/workflows/) Anda sendiri.
 
 ---
 
-## Pola 1: Rantai berurutan
+## Pola 1: Rangkaian berurutan
 
-Pola dasar dalam alur kerja adalah **rantai berurutan** - output setiap agen langsung masuk ke agen berikutnya.
+Pola dasar dalam alur kerja adalah **rangkaian berurutan** - output setiap agen langsung mengalir ke agen berikutnya.
 
 ```mermaid
 flowchart LR
-    RP[Parser Resume] --> JD[Agen JD]
-    JD --> MA[Agen Pencocokan]
-    MA --> GA[Analisis Celah]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-Dalam kode, setiap panggilan `add_edge()` membuat satu langkah dalam rantai:
+Dalam kode, setiap panggilan `add_edge()` membuat satu langkah dalam rangkaian:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # Output ResumeParser → JD Agent
-.add_edge(jd_executor, matching_executor)     # Output JD Agent → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # Output MatchingAgent → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Mengapa berurutan, bukan fan-out/fan-in?** `WorkflowBuilder` menggunakan **semantik OR** untuk edges yang masuk: executor hilir akan dijalankan begitu **salah satu** pendahulu selesai. Jika `matching_executor` memiliki dua edge masuk (dari `resume_executor` dan `jd_executor`), ia akan memicu dua kali - satu kali saat ResumeParser selesai dan satu lagi ketika JD Agent selesai - menyebabkan GapAnalyzer juga berjalan dua kali dan output muncul dua kali. Pipeline berurutan menghindari hal ini sepenuhnya.
+> **Kenapa berurutan, bukan fan-out/fan-in?** `WorkflowBuilder` menggunakan **semantik OR** untuk tepi masuk: eksekutor hilir berjalan segera setelah **salah satu** pendahulunya selesai. Jika `matching_executor` memiliki dua tepi masuk (dari `resume_executor` dan `jd_executor`), ia akan terpicu dua kali - sekali saat ResumeParser selesai dan sekali lagi saat JD Agent selesai - menyebabkan GapAnalyzer juga berjalan dua kali dan output muncul dua kali. Jalur berurutan menghindari ini sepenuhnya.
 
-## Pola 2: Mengirim Konten
+## Pola 2: Pengiriman Konten
 
-Karena `context_mode="last_agent"` berarti setiap executor hanya melihat output dari **pendahulu langsungnya**, agen dalam rantai berurutan harus secara eksplisit meneruskan data yang dibutuhkan agen hilir.
+Karena `context_mode="last_agent"` berarti setiap eksekutor hanya melihat output **pendahulu langsungnya**, agen dalam rangkaian berurutan harus secara eksplisit meneruskan data apa pun yang dibutuhkan agen hilir.
 
 Dalam alur kerja ini:
-- **ResumeParser** menyalin JD secara verbatim ke `[JOB DESCRIPTION PASS-THROUGH]` (agar JD Agent dapat menemukannya).
+- **ResumeParser** menyalin JD secara verbatim ke `[JOB DESCRIPTION PASS-THROUGH]` (agar JD Agent bisa menemukannya).
 - **JD Agent** menyalin `[PARSED RESUME]` secara verbatim ke `[PARSED RESUME PASS-THROUGH]` (agar MatchingAgent dapat membandingkan kedua profil).
 
 ```
@@ -45,21 +45,21 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Setiap bagian relay harus disalin **secara verbatim** - merangkum atau memparafrasekannya akan merusak agen hilir yang bergantung padanya.
+Setiap bagian relay harus disalin **secara verbatim** - meringkas atau memparafrasekannya akan merusak agen hilir yang bergantung padanya.
 
 ---
 
 ## Grafik lengkap
 
-Menggabungkan pola rantai berurutan dan relay konten menghasilkan alur kerja penuh:
+Menggabungkan pola rangkaian berurutan dan pengiriman konten menghasilkan alur kerja lengkap:
 
 ```mermaid
 flowchart LR
-    U[Masukan Pengguna] --> RP[Penganalisis Resume]
-    RP --> JD[Agen JD]
-    JD --> MA[Agen Pencocokan]
-    MA --> GA[Analyzer Celah + MCP]
-    GA --> O[Hasil Akhir]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
 Agent Inspector menunjukkan struktur grafik yang sama ini saat agen berjalan secara lokal. Lihat [Modul 5 - Uji Secara Lokal](05-test-locally.md) untuk tangkapan layar.
@@ -68,9 +68,9 @@ Agent Inspector menunjukkan struktur grafik yang sama ini saat agen berjalan sec
 
 ## Membaca kode WorkflowBuilder
 
-Fungsi lengkap `create_workflow()` ada di [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tiga panggilan `add_edge()` membangun pipeline berurutan:
+Grafik alur kerja dibangun dalam fungsi `main()` di [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tiga panggilan `add_edge()` membangun pipeline berurutan:
 
-| # | Edge | Efek |
+| # | Tepi | Efek |
 |---|------|--------|
 | 1 | `resume_executor → jd_executor` | JD Agent menerima `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent menerima `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
@@ -85,23 +85,23 @@ Fungsi lengkap `create_workflow()` ada di [`PersonalCareerCopilot/main.py`](../.
 Untuk menambahkan agen kelima (misalnya, **InterviewPrepAgent** setelah GapAnalyzer):
 
 1. Definisikan konstanta `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Buat objek `Agent` + `AgentExecutor` (pola yang sama seperti empat agen yang sudah ada).
+2. Buat objek `Agent` + `AgentExecutor` (pola yang sama dengan yang ada empat agen).
 3. Tambahkan `.add_edge(gap_executor, interview_exec)` di `WorkflowBuilder`.
 4. Perbarui `output_executors=[interview_exec]`.
 
-> **Penting:** `start_executor` adalah satu-satunya agen yang menerima input user mentah. Semua agen lain menerima output dari edge hulu mereka.
+> **Penting:** `start_executor` adalah satu-satunya agen yang menerima input pengguna mentah. Semua agen lain menerima output dari tepi hulu mereka.
 
 ---
 
-## Kesalahan umum pada grafik
+## Kesalahan umum dalam grafik
 
 | Kesalahan | Gejala | Perbaikan |
 |---------|---------|-----|
-| Tidak ada edge ke `output_executors` | Agen jalan tapi output kosong | Pastikan ada jalur dari `start_executor` ke setiap agen dalam `output_executors` |
-| Ketergantungan melingkar | Loop tak terbatas atau timeout | Periksa agar tidak ada agen yang memberi umpan balik ke agen hulu |
-| Agen dalam `output_executors` tanpa edge masuk | Output kosong | Tambahkan setidaknya satu `add_edge(source, that_agent)` |
-| Beberapa `output_executors` tanpa fan-in | Output hanya berisi respon satu agen | Gunakan satu agen output yang menggabungkan, atau terima beberapa output |
-| Tidak ada `start_executor` | `ValueError` saat build | Selalu tentukan `start_executor` di `WorkflowBuilder()` |
+| Tepi yang hilang ke `output_executors` | Agen berjalan tetapi output kosong | Pastikan ada jalur dari `start_executor` ke setiap agen di `output_executors` |
+| Ketergantungan siklis | Loop tak berujung atau timeout | Periksa bahwa tidak ada agen yang memberi umpan balik ke agen hulu |
+| Agen di `output_executors` tanpa tepi masuk | Output kosong | Tambahkan setidaknya satu `add_edge(source, that_agent)` |
+| Beberapa `output_executors` tanpa fan-in | Output hanya berisi respons satu agen | Gunakan satu agen output yang menggabungkan, atau terima banyak output |
+| `start_executor` tidak ada | `ValueError` saat build | Selalu tentukan `start_executor` di `WorkflowBuilder()` |
 
 ---
 
@@ -111,8 +111,8 @@ Untuk menambahkan agen kelima (misalnya, **InterviewPrepAgent** setelah GapAnaly
 
 1. Mulai agen secara lokal dengan F5.
 2. Buka Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
-3. Kirim pesan tes.
-4. Di panel respon Inspector, cari **output streaming** - ini menunjukkan kontribusi setiap agen secara berurutan.
+3. Kirim pesan uji.
+4. Di panel respons Inspector, cari **output streaming** - ini menampilkan kontribusi setiap agen secara berurutan.
 
 
 ### Menggunakan logging
@@ -123,7 +123,7 @@ Tambahkan logging ke `main.py` untuk melacak aliran data:
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# Di main(), setelah membangun workflow:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
@@ -142,13 +142,13 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### Checkpoint
+### Titik pemeriksaan
 
-- [ ] Anda dapat mengidentifikasi dua pola orkestrasi dalam alur kerja: rantai berurutan dan relay konten
-- [ ] Anda memahami mengapa `context_mode="last_agent"` membutuhkan relay data eksplisit antar agen
+- [ ] Anda dapat mengidentifikasi dua pola orkestrasi dalam alur kerja: rangkaian berurutan dan pengiriman konten
+- [ ] Anda memahami mengapa `context_mode="last_agent"` memerlukan pengiriman data eksplisit antar agen
 - [ ] Anda dapat membaca kode `WorkflowBuilder` dan memetakan setiap panggilan `add_edge()` ke grafik visual
 - [ ] Anda tahu cara menambahkan agen baru di akhir pipeline
-- [ ] Anda dapat mengidentifikasi kesalahan umum pada grafik dan gejalanya
+- [ ] Anda dapat mengidentifikasi kesalahan grafik umum dan gejalanya
 
 ---
 

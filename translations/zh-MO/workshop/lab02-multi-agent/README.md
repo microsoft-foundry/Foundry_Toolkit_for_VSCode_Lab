@@ -1,10 +1,10 @@
-# 實驗 02 - 多代理工作流程：履歷 → 職位匹配評估器
+# 實驗室 02 - 多代理工作流程：履歷 → 工作適配評估器
 
-## 概覽
+## 概觀
 
-在這個動手實驗中，您將使用 VS Code 的 Foundry Toolkit 建立一個 <strong>以工作流程為先的多代理應用程式</strong>，並將其部署到 Microsoft Foundry Agent Service。
+在這個實作實驗中，您將使用 VS Code 中的 Foundry Toolkit 建立一個 <strong>工作流程優先的多代理應用程式</strong>，並部署到 Microsoft Foundry Agent Service。
 
-**您將建立的內容：** 一個履歷 → 職位匹配評估器，能夠解析履歷和職位描述，評分匹配程度，並使用 Microsoft Learn 資源產生個人化學習路線圖。
+**您將建立的內容：** 一個履歷 → 工作適配評估器，能解析履歷與工作描述，評分匹配度，並使用 Microsoft Learn 資源產生個人化學習路線圖。
 
 ---
 
@@ -12,11 +12,11 @@
 
 ```mermaid
 flowchart TD
-    A["用戶輸入"] --> B["履歷解析器"]
-    B -->|"[解析後的履歷] + [職位描述傳遞]"| C["職位描述代理"]
-    C -->|"[職位需求] + [解析後的履歷傳遞]"| D["匹配代理"]
-    D -->|適合報告 + 差距| E["差距分析器 + Microsoft Learn MCP"]
-    E -->|適合分數 + 路線圖| F["輸出"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -27,54 +27,55 @@ flowchart TD
 ```
 
 **運作方式：**
-1. 使用者貼上履歷和職位描述。
-2. **ResumeParser** 解析履歷並將職位描述逐字複製到 `[JOB DESCRIPTION PASS-THROUGH]` 區段中。
-3. **JD Agent** 從傳遞內容中擷取結構化需求，然後將 `[PARSED RESUME]` 以 `[PARSED RESUME PASS-THROUGH]` 形式轉發。
-4. **MatchingAgent** 比較 `[PARSED RESUME PASS-THROUGH]` 與 `[JD REQUIREMENTS]` 並產生匹配分數。
-5. **GapAnalyzer** 將差距轉換為實用的路線圖，並透過 MCP 抓取真實 Microsoft Learn 連結。
+1. 使用者貼上履歷與工作描述。
+2. **ResumeParser** 解析履歷並將工作描述逐字複製到 `[JOB DESCRIPTION PASS-THROUGH]` 區段。
+3. **JD Agent** 從傳遞過來的資料中擷取結構化需求，再將 `[PARSED RESUME]` 以 `[PARSED RESUME PASS-THROUGH]` 形式轉發。
+4. **MatchingAgent** 比對 `[PARSED RESUME PASS-THROUGH]` 與 `[JD REQUIREMENTS]` 並產生適配分數。
+5. **GapAnalyzer** 將差距轉換成實用路線圖，並透過 MCP 抓取 Microsoft Learn 的實際連結。
 
 ---
 
-## 前置條件
+## 先決條件
 
-請先完成實驗 01：
+請先完成實驗室 01：
 
-- [實驗 01 - 單一代理](../lab01-single-agent/README.md)
+- [實驗室 01 - 單一代理](../lab01-single-agent/README.md)
 
 ---
 
-## 第一部分：依序閱讀模組
+## 第一部分：按順序閱讀模組
 
-查看完整學習路徑於：
+查看完整學習路徑：
 
-- [實驗 2 文件 - 前置條件](docs/00-prerequisites.md)
-- [實驗 2 文件 - 完整學習路徑](docs/README.md)
+- [實驗室 2 文件 - 先決條件](docs/00-prerequisites.md)
+- [實驗室 2 文件 - 完整學習路徑](docs/README.md)
 - [PersonalCareerCopilot 運行指南](PersonalCareerCopilot/README.md)
 
 ---
 
 ## 第二部分：建立並測試工作流程
 
-1. 使用 Foundry Toolkit 向導來生成基於工作流程的專案骨架。
-2. 從 `PersonalCareerCopilot/main.py` 複製提示區塊和工作流程圖至您的工作區。
-3. 使用 Agent Inspector 本地執行並驗證所有四個代理以及 MCP 工具。
-4. 當本地測試通過後，部署此托管代理至 Foundry。
+1. 使用 Foundry Toolkit 精靈搭建以工作流程為基礎的專案。
+2. 從 `PersonalCareerCopilot/main.py` 複製提示區塊和工作流程圖到您的工作區。
+3. 使用 Agent Inspector 在本機運行，並驗證所有四個代理及 MCP 工具。
+4. 當本機測試通過後，部署托管代理到 Foundry。
 
 ---
 
 ## 編排模式
 
-實驗 02 包含預設的 **扇出 → 扇入 → 序列** 流程，且文件也描述了用於實驗的替代編排模式。
+實驗室 02 使用 <strong>序列管線</strong>：每個代理的輸出作為下一個代理的輸入，工作流程回傳最後一個代理的回覆。有兩個模式促成此運作：
 
-- **加權共識的扇出/扇入**
-- **最終路線圖之前的審閱者/評論者通過**
-- 基於匹配分數和缺乏技能的 <strong>條件路由器</strong>
+- <strong>序列鏈</strong> - `WorkflowBuilder` 接連 ResumeParser → JD Agent → MatchingAgent → GapAnalyzer，每步驟只呼叫一次 `add_edge()`
+- <strong>內容轉發</strong> - 因為每個代理只看到直接前驅的輸出，ResumeParser 和 JD Agent 將下游代理所需的資料複製到標記的傳遞區段
 
-請參閱 [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)。
+文件也說明為何本實驗室不使用放射/匯聚模式，以及如何新增另一個代理擴展圖形。
+
+請參考 [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)。
 
 ---
 
-**先前實驗：** [實驗 01 - 單一代理](../lab01-single-agent/README.md) · **返回：** [工作坊首頁](../../README.md)
+**上一篇：** [實驗室 01 - 單一代理](../lab01-single-agent/README.md) · **回到：** [工作坊首頁](../../README.md)
 
 ---
 

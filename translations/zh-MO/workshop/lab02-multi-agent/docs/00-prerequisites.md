@@ -3,50 +3,50 @@
 ⏱️ 約 10 分鐘
 
 > [!WARNING]
-> **預覽版及限制：** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) 目前處於 <strong>公開預覽</strong> 階段，不建議用於生產工作負載。本工作坊展示的部分功能，可能會隨服務走向 GA 時有所變動。
+> **預覽與限制：** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) 目前處於 <strong>公開預覽</strong> 階段 - 不建議用於生產工作負載。本工作坊中展示的某些功能可能會隨服務邁向正式發布而改變。
 
-## 你將建立的內容
+## 你將建構的內容
 
-在這個實驗中，你將從實驗 01 的單代理技能擴展，建構一個 <strong>多代理工作流程</strong> — 簡歷 → 職位適配評估器。
+在本實驗中，你將擴展 Lab 01 中的單一代理技能，打造一個 <strong>多代理工作流程</strong> - 履歷表 → 職位適配評估器。
 
-你貼上 <strong>簡歷</strong> 和 <strong>職務描述</strong>。四個專門代理依序處理輸入，然後返回：
-- 適配分數（0–100，含分數細項）
-- 技能與證照差距清單
-- 針對每項差距提供包含真實 Microsoft Learn 連結的個人化學習路線圖
+你將貼上 <strong>履歷表</strong> 及 <strong>職位描述</strong>。四個專門的代理將依序處理輸入，然後回傳：
+- 一個適配分數（0–100 分，包含分數明細）
+- 技能及認證缺口清單
+- 針對每項缺口的個人化學習路線圖，附上 Microsoft Learn 的實際連結
 
-**工作流程使用：**
-- **Microsoft Agent Framework** - 使用 `WorkflowBuilder` 進行順序管線編排
-- **Foundry Toolkit for VS Code** - 建置骨架、本機測試、部署
-- **一個 AI 模型**（例如：`gpt-4.1-mini`） - 由四個代理共用
-- **Microsoft Learn MCP 服務器** - 為每個技能差距提供真實的學習資源連結
+**工作流程會使用：**
+- **Microsoft 代理框架** - `WorkflowBuilder` 用以執行順序管線協調
+- **Foundry Toolkit for VS Code** - 建立框架、在本機測試與部署
+- **一個 AI 模型** (例如 `gpt-4.1-mini`) - 由所有四個代理使用
+- **Microsoft Learn MCP 伺服器** - 為每個技能差距提供真實的學習資源連結
 
 ---
 
 ## 選擇你的路徑
 
-> ⚠️ **請繼續使用你在實驗 01 中所選的路徑。**
+> ⚠️ **請繼續使用你在實驗 01 中使用的路徑。**
 
 <details open>
-<summary><strong>🅰️ 路徑 A - Azure 雲端（需要 Azure 訂閱）</strong></summary>
+<summary><strong>🅰️ 路徑 A - Azure 雲端 (需要 Azure 訂閱)</strong></summary>
 
-| | 詳情 |
+| | 詳細資料 |
 |---|---|
-| **適合對象？** | 你已使用 Azure 訂閱完成實驗 01 |
-| <strong>模型</strong> | 透過 Foundry 使用 Azure OpenAI (如 `gpt-4.1-mini`) |
-| <strong>涵蓋模組</strong> | 全部模組（00–09） |
-| **部署至雲端？** | ✅ 是 - 完整端到端部署 |
+| **適合誰？** | 你完成了使用 Azure 訂閱的實驗 01 |
+| <strong>模型</strong> | 透過 Foundry 使用 Azure OpenAI (例如 `gpt-4.1-mini`) |
+| <strong>涵蓋模組</strong> | 全部模組 (00–09) |
+| **部署到雲端？** | ✅ 是 - 完整端到端部署 |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ 路徑 B - Foundry 本地端（不需 Azure 訂閱）</strong></summary>
+<summary><strong>🅱️ 路徑 B - Foundry Local (不需要 Azure 訂閱)</strong></summary>
 
-| | 詳情 |
+| | 詳細資料 |
 |---|---|
-| **適合對象？** | 你已使用 Foundry Local 完成實驗 01 |
-| <strong>模型</strong> | Foundry Local（免費，運行於你電腦上） |
-| <strong>涵蓋模組</strong> | 模組 00–05（跳過 06–07：部署與雲端確認） |
-| **部署至雲端？** | ❌ 不 - 僅透過代理檢查器本地測試 |
+| **適合誰？** | 你完成了使用 Foundry Local 的實驗 01 |
+| <strong>模型</strong> | Foundry Local (免費，在你的機器上執行) |
+| <strong>涵蓋模組</strong> | 模組 00–05 (跳過 06–07 - 部署及雲端驗證) |
+| **部署到雲端？** | ❌ 否 - 僅限於透過 Agent Inspector 進行本地測試 |
 
 </details>
 
@@ -54,9 +54,9 @@
 
 ## 實驗 01 檢查
 
-實驗 02 直接建構於實驗 01。請先完成實驗 01 再從這裡開始。
+實驗 02 是直接建立在實驗 01 之上。請先完成實驗 01 再從這開始。
 
-還沒做過實驗 01 嗎？從這裡開始：[Lab 01 - Introduction](../../lab01-single-agent/docs/00-prerequisites.md)
+還沒做過實驗 01？從這裡開始：[實驗 01 - 介紹](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
 <summary><strong>🅰️ 路徑 A - Azure 雲端</strong></summary>
@@ -65,41 +65,41 @@
 az account show --query "{name:name, id:id}" --output table
 ```
 
-若失敗，請執行 `az login`。再於 VS Code 確認：
+如果失敗，請執行 `az login`。然後在 VS Code 中驗證：
 
-1. 按 `Ctrl+Shift+P` → 輸入 **Foundry Toolkit** → 確認有出現相關命令。
-2. 點擊 **Foundry Toolkit** 圖示 → 確認你的專案和已部署模型顯示 **Succeeded**。
+1. `Ctrl+Shift+P` → 輸入 **Foundry Toolkit** → 確認命令出現。
+2. 點擊 **Foundry Toolkit** 圖標 → 你的專案及已部署模型顯示 **Succeeded**。
 
-![Foundry Toolkit 側欄顯示我的資源區，專案切換器模式已開啟](../../../../../translated_images/zh-MO/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit 側邊欄顯示「我的資源」下的專案，並且切換專案 / 創建專案選擇器已開啟](../../../../../translated_images/zh-MO/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** 你在實驗 01 內已指定 **Foundry User**。若需重新指派，請參考 [Lab 01, Module 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac)。此角色之前名為 **Azure AI User**，權限相同。
+> **RBAC:** 你在實驗 01 中指派了 **Foundry User**。如果需要重新指派，請參閱 [實驗 01，模組 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac)。該角色之前稱為 **Azure AI User** - 擁有相同權限。
 
 </details>
 
 <details open>
-<summary><strong>🅱️ 路徑 B - Foundry 本地端</strong></summary>
+<summary><strong>🅱️ 路徑 B - Foundry Local</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
 ```
 
-預期結果：`StatusCode: 200`。若否，請從 Foundry Toolkit 側欄重新啟動 Foundry Local。
+預期輸出：`StatusCode: 200`。如果不是，請從 Foundry Toolkit 側邊欄重新啟動 Foundry Local。
 
-> 所有推論均在你的機器上執行。唯一外呼為 MCP 工具至 `https://learn.microsoft.com/api/mcp`。
+> 所有推論均在你的機器上執行。唯一的外發呼叫是 MCP 工具至 `https://learn.microsoft.com/api/mcp`。
 
 </details>
 
 ---
 
-## 實驗 02 新功能
+## 實驗 02 有什麼新東西
 
 | | 實驗 01 | 實驗 02 |
 |--|--------|--------|
-| 代理數量 | 1 | 4 （用 WorkflowBuilder 鏈接） |
-| 骨架範本 | 基本 - Agent Framework | 工作流程 - Agent Framework |
+| 代理 | 1 | 4 (透過 WorkflowBuilder 鏈接) |
+| 骨架範本 | 基本 - 代理框架 | 工作流程 - 代理框架 |
 | 新套件 | - | `mcp` |
-| 編排方式 | 單一對話代理 | 順序管線（WorkflowBuilder） |
-| 新工具 | - | `search_microsoft_learn_for_plan`（MCP） |
+| 編排 | 單一會話代理 | 連續管線 (WorkflowBuilder) |
+| 新工具 | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---
 

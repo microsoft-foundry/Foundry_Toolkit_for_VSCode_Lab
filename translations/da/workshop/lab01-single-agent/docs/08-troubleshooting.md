@@ -1,6 +1,6 @@
 # Modul 8 - Fejlfinding
 
-Dette modul er en referenceguide for almindelige problemer. Bogmærk den og vend tilbage, når noget går galt.
+Dette modul er en referencevejledning til almindelige problemer. Bogmærk det og vend tilbage, når noget går galt.
 
 ---
 
@@ -13,45 +13,45 @@ Error: lacks the required data action
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Hovedårsag:** Manglende `Azure AI User`-rolle på **projekt**-niveau. Dette er workshopfejl nr. 1.
+**Rodårsag:** Manglende `Azure AI User` rolle på **projekt** niveauet. Dette er den mest almindelige workshopfejl.
 
 **Løsning:**
 1. Åbn [portal.azure.com](https://portal.azure.com).
-2. Søg efter navnet på dit Foundry **projekt** → klik på resultatet af typen **"Microsoft Foundry project"** (IKKE forældre-konto).
-3. **Access control (IAM)** → **+ Tilføj** → **Tilføj rolle-tildeling**.
+2. Søg efter dit Foundry **projekt** navn → klik på resultatet af typen **"Microsoft Foundry project"** (IKKE overordnet konto).
+3. **Adgangskontrol (IAM)** → **+ Tilføj** → **Tilføj rollerolle-tilknytning**.
 4. Rolle: **Azure AI User** → Næste.
 5. Medlemmer: Vælg dig selv → Gennemse + tildel → Gennemse + tildel.
 6. **Vent 1–2 minutter** → prøv igen.
 
-> **Hvorfor Owner/Contributor ikke er nok:** Disse roller giver *kun* administrationshandlinger. Agent-operationer kræver `agents/write` *data-handling*, som kun findes i `Azure AI User`, `Azure AI Developer` eller `Azure AI Owner`. Se [Foundry RBAC docs](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+> **Hvorfor Owner/Contributor ikke er nok:** Disse roller giver kun *administrative* handlinger. Agent-operationer kræver `agents/write` *data handling*, som kun findes i `Azure AI User`, `Azure AI Developer` eller `Azure AI Owner`. Se [Foundry RBAC-dokumentation](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-### 1.2 `AuthorizationFailed` under oprettelse
+### 1.2 `AuthorizationFailed` under provisioning
 
-**Løsning:** Bed din administrator tildele **Contributor** på ressourcegruppen, eller få dem til at oprette projektet for dig og give dig **Azure AI User** på det.
+**Løsning:** Bed din administrator om at tildele **Contributor** på ressourcegruppen, eller få dem til at oprette projektet for dig og give dig **Azure AI User** på det.
 
 ### 1.3 `SubscriptionNotRegistered`
 
 ```bash
 az provider register --namespace Microsoft.CognitiveServices
 az provider show --namespace Microsoft.CognitiveServices --query "registrationState"
-# Vent indtil: "Registreret"
+# Wait until: "Registered"
 ```
 
 ---
 
-## 2. Docker-fejl
+## 2. Docker fejl
 
-> Docker er **valgfrit**. Disse gælder kun, hvis Docker Desktop er installeret, og udvidelsen forsøger en lokal build.
+> Docker er **valgfrit**. Dette gælder kun, hvis Docker Desktop er installeret, og udvidelsen forsøger en lokal build.
 
 ### 2.1 Docker daemon kører ikke
 
-**Løsning:** Start Docker Desktop → vent på "kører"-status → verificer med `docker info` → prøv igen.
+**Løsning:** Start Docker Desktop → vent på "kører" status → verificer med `docker info` → prøv igen.
 
 ### 2.2 Build fejler med afhængighedsfejl
 
-**Løsning:** Kontroller stavningen i `requirements.txt`, test lokalt først: `pip install -r requirements.txt`.
+**Løsning:** Kontroller stavningen af `requirements.txt`, test lokalt først: `pip install -r requirements.txt`.
 
-### 2.3 Plattformismatch (Apple Silicon)
+### 2.3 Platform mismatch (Apple Silicon)
 
 ```bash
 docker build --platform linux/amd64 -t myagent:v1 .
@@ -67,21 +67,21 @@ docker build --platform linux/amd64 -t myagent:v1 .
 1. `az login` (genautentificer)
 2. `az account set --subscription "<id>"` (korrekt abonnement)
 3. VS Code → Konti → Log ud → Log ind igen
-4. Verificer: `az account get-access-token --resource https://cognitiveservices.azure.com`
+4. Bekræft: `az account get-access-token --resource https://cognitiveservices.azure.com`
 
 ### 3.2 Token virker lokalt men ikke hostet
 
-**Forventet:** Hostede agenter bruger system-administreret identitet, ikke dine legitimationsoplysninger. Hvis den hostede agent får auth-fejl:
-- Verificer at `AZURE_AI_PROJECT_ENDPOINT` i `agent.yaml` er korrekt
-- Tjek at projektets administrerede identitet har modeladgang
+**Forventet:** Hostede agenter bruger system-administreret identitet, ikke dine legitimationsoplysninger. Hvis den hostede agent får auth fejl:
+- Bekræft at `AZURE_AI_MODEL_DEPLOYMENT_NAME` i `agent.yaml` peger på dit model-udrulningsnavn (`FOUNDRY_PROJECT_ENDPOINT` indsættes af Foundry ved kørsel - må ikke deklareres i `agent.yaml`)
+- Tjek at projektets administrerede identitet har adgang til modellen
 
 ---
 
-## 4. Model-fejl
+## 4. Modelfejl
 
 ### 4.1 Modeludrulning ikke fundet
 
-**Løsning:** Navnet er **case-sensitive**. Sammenlign `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` med det præcise navn i Foundry sidemenu → Models.
+**Løsning:** Navnet er **case-sensitive**. Sammenlign `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` med det nøjagtige navn i Foundry sidepanelet → Modeller.
 
 ### 4.2 Uventet modeloutput
 
@@ -93,21 +93,21 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ### 5.1 ACR pull ikke autoriseret
 
-**Løsning:** Azure Portal → Container Registry → Access control (IAM) → Tilføj **AcrPull**-rolle til Foundry projektets administrerede identitet.
+**Løsning:** Azure Portal → Container Registry → Adgangskontrol (IAM) → Tilføj **AcrPull** rolle til Foundry projektets administrerede identitet.
 
-### 5.2 Agent fejler at starte (bliver ved med at være "Pending" eller "Failed")
+### 5.2 Agent fejl ved opstart (bliver "Pending" eller "Failed")
 
-Tjek container logs i sidemenuen. Almindelige årsager:
+Tjek container-logs i sidepanelet. Almindelige årsager:
 
 | Logbesked | Løsning |
 |-------------|-----|
 | `ModuleNotFoundError` | Tilføj manglende pakke til `requirements.txt`, udrul igen |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Tilføj miljøvariabel til `agent.yaml` under `environment_variables` |
-| `Address already in use` | Sørg for at kun én proces binder til port 8088 |
+| `ValueError: Missing required environment variables` | Bekræft `AZURE_AI_MODEL_DEPLOYMENT_NAME` er erklæret i `agent.yaml` under `environment_variables` og har en værdi, udrul igen. `FOUNDRY_PROJECT_ENDPOINT` indsættes af Foundry ved kørsel |
+| `Address already in use` | Sørg for at kun en proces binder til port 8088 |
 
 ### 5.3 Udrulning timeout
 
-**Løsning:** Tjek internetforbindelse. Første udrulning skubber >100MB. Bag en proxy? Konfigurer Docker Desktop proxy-indstillinger.
+**Løsning:** Tjek internetforbindelsen. Første udrulning skubber >100MB. Bag en proxy? Konfigurer Docker Desktop proxy-indstillinger.
 
 ---
 
@@ -119,27 +119,27 @@ Tjek container logs i sidemenuen. Almindelige årsager:
 |-------|-----|
 | `foundry: command not found` | Geninstaller: `winget install Microsoft.FoundryLocal` |
 | Utilstrækkelige ressourcer | Foundry Local kræver ~4GB RAM fri. Luk andre apps. |
-| Modeldownload fejler | Tjek diskplads (modeller er 2–8 GB). Prøv igen: `foundry local models pull <name>` |
+| Model-download fejler | Tjek diskplads (modeller er 2–8 GB). Prøv igen: `foundry local models pull <name>` |
 
-### 6.2 Foundry Local model-fejl
+### 6.2 Foundry Local modelfejl
 
 | Problem | Løsning |
 |-------|-----|
 | Langsomme svar | Forventet - lokale modeller kører på CPU medmindre du har en GPU. Vær tålmodig. |
-| Dårlig kvalitet output | Prøv en større model hvis din hardware tillader det. `phi-4-mini` er en god balance. |
-| Forbindelse nægtet | Verificer Foundry Local kører: `foundry local status`. Genstart om nødvendigt. |
+| Dårlig kvalitet output | Prøv en større model, hvis din hardware tillader det. `phi-4-mini` er en god balance. |
+| Forbindelse nægtet | Bekræft Foundry Local kører: `foundry local status`. Genstart om nødvendigt. |
 
 ---
 
-## 7. Hurtig reference: RBAC-roller
+## 7. Hurtig reference: RBAC roller
 
-| Rolle | Omfang | Tildeler |
+| Rolle | Omfang | Giver |
 |------|-------|--------|
-| **Azure AI User** | Projekt | Datahandlinger: `agents/write`, `agents/read` |
-| **Azure AI Developer** | Projekt/Konto | Datahandlinger + projektoprettelse |
+| **Azure AI User** | Projekt | Data handlinger: `agents/write`, `agents/read` |
+| **Azure AI Developer** | Projekt/Konto | Data handlinger + projektoprettelse |
 | **Azure AI Owner** | Konto | Fuld adgang + rolleadministration |
-| **Contributor** | Abonnement/RG | Kun administrationshandlinger (**ingen** datahandlinger) |
-| **Owner** | Abonnement/RG | Administration + rolle-tildeling (**ingen** datahandlinger) |
+| **Contributor** | Abonnement/RG | Kun administrative handlinger (**ingen** data handlinger) |
+| **Owner** | Abonnement/RG | Administration + rollefordeling (**ingen** data handlinger) |
 
 ---
 
@@ -148,7 +148,7 @@ Tjek container logs i sidemenuen. Almindelige årsager:
 | # | Punkt | Modul |
 |---|------|--------|
 | 1 | Forudsætninger installeret og verificeret | [00](00-prerequisites.md) |
-| 2 | Foundry Toolkit extension installeret, projekt forbundet (eller Sti B konfigureret) | [01](01-setup.md) |
+| 2 | Foundry Toolkit extension installeret, projekt tilsluttet (eller Sti B konfigureret) | [01](01-setup.md) |
 | 3 | Hosted agent oprettet | [02](02-create-hosted-agent.md) |
 | 4 | `.env` konfigureret, instruktioner skrevet, afhængigheder installeret | [03](03-configure-and-code.md) |
 | 5 | Agent testet lokalt - 3 funktionelle scenarier bestået | [04](04-test-locally.md) |
@@ -158,7 +158,7 @@ Tjek container logs i sidemenuen. Almindelige årsager:
 
 ---
 
-**Forrige:** [07 - Resumé](07-summary.md) · **Hjem:** [Workshop README](../../../README.md)
+**Forrige:** [07 - Resumé](07-summary.md) · **Start:** [Workshop README](../../../README.md)
 
 ---
 

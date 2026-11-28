@@ -1,10 +1,10 @@
-# Laboratuvar 02 - Çoklu Ajan İş Akışı: Özgeçmiş → İş Uygunluğu Değerlendirici
+# Laboratuvar 02 - Çoklu Ajan İş Akışı: Özgeçmiş → İş Uyumu Değerlendirici
 
 ## Genel Bakış
 
 Bu uygulamalı laboratuvarda, VS Code'da Foundry Toolkit kullanarak **iş akışı öncelikli çoklu ajan uygulaması** oluşturacak ve Microsoft Foundry Agent Service'e dağıtacaksınız.
 
-**Oluşturacağınız şey:** bir Özgeçmiş → İş Uygunluğu Değerlendirici; bu araç özgeçmişi ve iş tanımını analiz eder, uyumu puanlar ve Microsoft Learn kaynaklarını kullanarak kişiselleştirilmiş bir öğrenme yol haritası üretir.
+**Oluşturacaklarınız:** bir Özgeçmiş → İş Uyumu Değerlendirici, özgeçmiş ve iş tanımını ayrıştırır, eşleşme skorunu hesaplar ve Microsoft Learn kaynakları kullanarak kişiselleştirilmiş bir öğrenme yol haritası üretir.
 
 ---
 
@@ -12,11 +12,11 @@ Bu uygulamalı laboratuvarda, VS Code'da Foundry Toolkit kullanarak **iş akış
 
 ```mermaid
 flowchart TD
-    A["Kullanıcı Girişi"] --> B["Özgeçmiş Ayrıştırıcı"]
-    B -->|"[AYRıŞTıRıLMıŞ ÖZGEÇMİŞ] + [İŞ TANıMı GEÇİŞİ]"| C["İş Tanımı Ajanı"]
-    C -->|"[İŞ TANıMı GEREKSİNİMLERİ] + [AYRıŞTıRıLMıŞ ÖZGEÇMİŞ GEÇİŞİ]"| D["Eşleştirme Ajanı"]
-    D -->|uyum raporu + boşluklar| E["Boşluk Analizörü + Microsoft Learn MCP"]
-    E -->|uyum puanı + yol haritası| F["Çıktı"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,14 +28,14 @@ flowchart TD
 
 **Nasıl çalışır:**
 1. Kullanıcı bir özgeçmiş ve iş tanımı yapıştırır.
-2. **ResumeParser** özgeçmişi çözümler ve iş tanımını kelimesi kelimesine `[İŞ TANIMI GEÇİŞİ]` bölümüne kopyalar.
-3. **JD Agent** geçişten yapısal gereksinimleri çıkarır, ardından `[ÇÖZÜMLENMİŞ ÖZGEÇMİŞ]`i `[ÇÖZÜMLENMİŞ ÖZGEÇMİŞ GEÇİŞİ]` olarak iletir.
-4. **MatchingAgent** `[ÇÖZÜMLENMİŞ ÖZGEÇMİŞ GEÇİŞİ]` ile `[İŞ TANIMI GEREKSİNİMLERİ]`ni karşılaştırır ve uygunluk puanı üretir.
-5. **GapAnalyzer** boşlukları pratik bir yol haritasına çevirir ve MCP aracılığıyla gerçek Microsoft Learn bağlantılarını çeker.
+2. **ResumeParser**, özgeçmişi ayrıştırır ve iş tanımını `[JOB DESCRIPTION PASS-THROUGH]` bölümüne birebir kopyalar.
+3. **JD Agent** geçişten yapılandırılmış gereksinimleri çıkarır, ardından `[PARSED RESUME]`’i `[PARSED RESUME PASS-THROUGH]` olarak iletir.
+4. **MatchingAgent**, `[PARSED RESUME PASS-THROUGH]` ile `[JD REQUIREMENTS]`'ü karşılaştırır ve bir uygunluk puanı üretir.
+5. **GapAnalyzer**, boşlukları pratik bir yol haritasına dönüştürür ve MCP aracılığıyla gerçek Microsoft Learn bağlantıları alır.
 
 ---
 
-## Gereksinimler
+## Önkoşullar
 
 Öncelikle Laboratuvar 01'i tamamlayın:
 
@@ -43,11 +43,11 @@ flowchart TD
 
 ---
 
-## Bölüm 1: Modülleri belirtilen sırayla okuyun
+## Bölüm 1: Modülleri sırasıyla okuyun
 
-Tam öğrenme yolunu şu adreste görüntüleyin:
+Tam öğrenme yolunu şu adreste görün:
 
-- [Laboratuvar 2 Belgeleri - Gereksinimler](docs/00-prerequisites.md)
+- [Laboratuvar 2 Belgeleri - Önkoşullar](docs/00-prerequisites.md)
 - [Laboratuvar 2 Belgeleri - Tam Öğrenme Yolu](docs/README.md)
 - [PersonalCareerCopilot çalışma kılavuzu](PersonalCareerCopilot/README.md)
 
@@ -55,26 +55,27 @@ Tam öğrenme yolunu şu adreste görüntüleyin:
 
 ## Bölüm 2: İş akışını oluşturun ve test edin
 
-1. Foundry Toolkit sihirbazını kullanarak iş akışı tabanlı projeyi oluşturun.
-2. `PersonalCareerCopilot/main.py` içindeki prompt bloklarını ve iş akışı grafiğini çalışma alanınıza kopyalayın.
+1. Foundry Toolkit sihirbazını kullanarak iş akışı tabanlı projeyi iskeletleyin.
+2. İpucu bloklarını ve iş akışı grafiğini `PersonalCareerCopilot/main.py`'ten çalışma alanınıza kopyalayın.
 3. Agent Inspector ile yerel olarak çalıştırın ve tüm dört ajan ile MCP aracını doğrulayın.
-4. Yerel testler başarılı olursa barındırılan ajanı Foundry'e dağıtın.
+4. Yerel testler geçtiğinde barındırılan ajanı Foundry'e dağıtın.
 
 ---
 
 ## Orkestrasyon desenleri
 
-Laboratuvar 02, varsayılan **fan-out → fan-in → sıralı** akışını içerir ve belgeler ayrıca denemeler için alternatif orkestrasyon desenlerini açıklar.
+Laboratuvar 02, **ardışık bir boru hattı** kullanır: her ajanın çıktısı bir sonraki ajana beslenir ve iş akışı son ajanın yanıtını döner. İki desen bunu sağlar:
 
-- **Ağırlıklı uzlaşmalı Fan-out/Fan-in**
-- **Son yol haritası öncesi İnceleme/eleştiri geçişi**
-- Uygunluk puanı ve eksik becerilere dayalı **Koşullu yönlendirici**
+- **Ardışık zincir** - `WorkflowBuilder`, ResumeParser → JD Agent → MatchingAgent → GapAnalyzer ajanlarını adım başına bir `add_edge()` çağrısı ile birbirine bağlar
+- **İçerik iletimi** - her ajan sadece doğrudan öncekinin çıktısını gördüğü için, ResumeParser ve JD Agent, aşağı akış ajanlarının ihtiyaç duyduğu veriyi etiketlenmiş geçiş bölümlerine kopyalar
 
-[docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md) adresine bakın.
+Belgeler ayrıca laboratuvarda fan-out/fan-in kullanılmama nedenini ve başka bir ajan ekleyerek grafiğin nasıl genişletileceğini açıklar.
+
+Bakınız [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Önceki:** [Laboratuvar 01 - Tek Ajan](../lab01-single-agent/README.md) · **Geriye Dön:** [Atölye Anasayfası](../../README.md)
+**Önceki:** [Laboratuvar 01 - Tek Ajan](../lab01-single-agent/README.md) · **Geri Dön:** [Atölye Ana Sayfası](../../README.md)
 
 ---
 

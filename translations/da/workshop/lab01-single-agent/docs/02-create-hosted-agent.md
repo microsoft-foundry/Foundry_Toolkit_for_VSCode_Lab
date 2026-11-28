@@ -2,9 +2,9 @@
 
 ⏱️ ~5 min
 
-I dette modul bruger du Foundry Toolkit til at **scaffolde et hosted agent-projekt**. Scaffolden genererer den fulde projektstruktur - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` og VS Code debug-konfiguration - så du kan fokusere på at tilpasse agentens adfærd.
+I dette modul bruger du Foundry Toolkit til at **opbygge et hosted agent-projekt**. Scaffold’en genererer hele projektstrukturen - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, og VS Code debug-konfiguration - så du kan fokusere på at tilpasse agentens adfærd.
 
-> **Nøglekoncept:** `agent/`-mappen i dette laboratorium er et eksempel på, hvad Foundry Toolkit genererer. Du skriver ikke disse filer fra bunden.
+> **Nøglebegreb:** Mappen `agent/` i dette laboratorium er et eksempel på, hvad Foundry Toolkit genererer. Du skriver ikke disse filer fra bunden.
 
 ### Scaffold-guidens flow
 
@@ -13,14 +13,15 @@ flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Vælg model"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Genereret projekt"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -36,27 +37,27 @@ flowchart LR
 ## Trin 1: Åbn Create Hosted Agent-guiden
 
 1. Tryk på `Ctrl+Shift+P` for at åbne **Command Palette**.
-2. Skriv: **Foundry Toolkit: Create new Hosted Agent** og vælg det.
+2. Skriv: **Foundry Toolkit: Create new Hosted Agent** og vælg den.
 
 > **Alternativ: Opret via Foundry Portal**
-> Hvis du foretrækker browseren, kan du oprette dit projekt på [https://ai.azure.com](https://ai.azure.com). Når projektet er provisioneret, vender du tilbage til VS Code og bruger **Foundry Toolkit** sidebjælken til at forbinde til det.
+> Hvis du foretrækker browseren, kan du oprette dit projekt på [https://ai.azure.com](https://ai.azure.com). Når projektet er provisioneret, vend tilbage til VS Code og brug **Foundry Toolkit** sidebjælken til at oprette forbindelse til det.
 
-> **Alternativ:** Klik på **+** ikonet ved siden af **Hosted Agents (Preview)** i Foundry Toolkit sidebjælken.
+> **Alternativ:** I Foundry Toolkit-sidebjælken, hold musen over **Agents** under dit projekt, klik på **+** ikonet, og vælg derefter **Create in Code With Template**.
 
 ## Trin 2: Vælg indstillinger
 
 ![Create Hosted Agent from Sample - Agent Details tab showing Language, Framework, Protocol, and Template filters](../../../../../translated_images/da/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. I venstre navigations-/optionssektion vælg følgende:
+1. I venstre navigation/valgområde vælg følgende:
 
 | Menu | Valg | Noter |
 |--------|-----------|-------|
-| **Sprog** | Python | C# understøttes også |
-| **Framework** | Agent Framework | Simple startpunkt med Agent Framework SDK |
-| **API-type** | Response API | `POST /responses` - konversationel, med platform-styret historik |
-| **Skabelon** | Basic | Simple startpunkt med Agent Framework SDK |
+| **Language** | Python | C# understøttes også |
+| **Framework** | Agent Framework | Simpelt udgangspunkt ved brug af Agent Framework SDK |
+| **API type** | Response API | `POST /responses` - samtalepræget, med platform-administreret historik |
+| **Template** | Basic | Simpelt udgangspunkt ved brug af Agent Framework SDK |
 
-2. Når det er valgt, klik på **Next**
+2. Når valgt, klik på **Next**
 
 ![Create Hosted Agent - Create tab showing Workspace Folder, Folder Name, and Environment Setup options](../../../../../translated_images/da/02-create-hosted-agents.9f10b6a566df3053.webp)
 
@@ -64,18 +65,18 @@ flowchart LR
 
 | Menu | Valg | Noter |
 |--------|-----------|-------|
-| **Arbejdsmappemappe** | Vælg en målmappe | fx `/workspace/Foundry_Toolkit_for_VSCode_Lab/` eller en undermappe i dette repo |
-| **Agentnavn** | Indtast et navn | fx `executive-summary-agent` |
-| **Miljøopsætning** | spring opsætning over for nu |  |
+| **Workspace folder** | Vælg en målmappe | fx `/workspace/Foundry_Toolkit_for_VSCode_Lab/` eller en undermappe i dette repository |
+| **Agent name** | Indtast et navn | fx `executive-summary-agent` |
+| **Environment Setup** | spring opsætning over for nu |  |
 
-Klik på **create** for at oprette vores agent. En ny mappe vil blive oprettet med navnet på den hosted agent.
+Klik på **create** for at oprette vores agent. En ny mappe bliver oprettet med navnet på hosted agent’en.
 
 ## Trin 3: Undersøg det genererede projekt
 
-Efter scaffoldingen er færdig, bekræft at du kan se disse filer i Explorer (`Ctrl+Shift+E`):
+Når scaffolding er afsluttet, skal du bekræfte, at du kan se disse filer i Explorer (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -90,25 +91,25 @@ Efter scaffoldingen er færdig, bekræft at du kan se disse filer i Explorer (`C
 
 | Fil | Formål |
 |------|---------|
-| `agent.yaml` | Deklarerer agenten som `kind: hosted`, kortlægger miljøvariable, definerer `/responses`-protokol |
+| `agent.yaml` | Deklarerer agenten som `kind: hosted`, kortlægger miljøvariabler, definerer `/responses` protokollen |
 | `main.py` | Opretter en `FoundryChatClient` → pakker den ind i en `Agent` med instruktioner → serverer via `ResponsesHostServer` på port 8088 |
 | `Dockerfile` | Bruger `python:3.12-slim`, installerer afhængigheder, åbner port 8088, kører `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Vigtigt:** Åbn den scaffoldede agentmappe direkte i VS Code (selve `agent/`-mappen), så `.vscode/launch.json` og `tasks.json` fungerer korrekt til F5-debugging.
+> **Vigtigt:** Åbn den scaffoldede agentmappe direkte i VS Code (selve `agent/` mappen) så `.vscode/launch.json` og `tasks.json` fungerer korrekt til F5 debugging.
 
 ---
 
-### ✅ Tjekpunkt
+### ✅ Checkpoint
 
 - [ ] Scaffoldet projekt oprettet med alle forventede filer
 - [ ] `agent.yaml` viser `kind: hosted` og `protocol: responses`
 - [ ] `main.py` importerer `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Agentmappen er åben i VS Code som workspace root
+- [ ] Agent mappen er åbnet i VS Code som workspace rod
 
 ---
 
-**Forrige:** [01 - Setup](01-setup.md) · **Næste:** [03 - Configure & Code →](03-configure-and-code.md)
+**Forrige:** [01 - Setup](01-setup.md) · **Næste:** [03 - Konfigurér & kode →](03-configure-and-code.md)
 
 ---
 

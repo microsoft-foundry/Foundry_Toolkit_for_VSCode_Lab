@@ -1,14 +1,14 @@
-# Модул 2 - Скeлет мулти-агентског пројекта
+# Модул 2 - Креирање оквира за мулти-агент пројекат
 
 ⏱️ ~5 мин
 
-У овом модулу користите [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) да бисте **поставили скелет мулти-агентског пројекта**. Чаробњак генерише `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, и VS Code конфигурацију за дебаговање - тако да се можете фокусирати на повезивање тока рада са 4 агента у Модулу 3.
+У овом модулу користите [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) за **креирање оквира мулти-агент пројекта**. Чаробњак генерише `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, и VS Code конфигурацију за дебаговање - тако да се можете фокусирати на повезивање 4-агентног тока у Модулу 3.
 
-> **Кључни концепт:** Скелет је радни stub са једним агентом. Замените плейсхолдер логику графом `WorkflowBuilder` у Модулу 3. Нећете писати шаблонски код од нуле.
+> **Кључна кон ceпција:** Оквир је радни приручник са једним агентом. Замените резервисану логику графом `WorkflowBuilder` у Модулу 3. Не пишете узорке од нуле.
 
-> **Референтна имплементација:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) је потпун радни пример. Користите га да упоредите свој рад док напредујете.
+> **Референтна имплементација:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) је потпуни радни пример. Користите га за упоређивање вашег рада током израде.
 
-### Ток чаробњака за скелет
+### Ток чаробњака за креирање оквира
 
 ```mermaid
 flowchart LR
@@ -22,50 +22,50 @@ flowchart LR
 
 ---
 
-## Корак 1: Отворите чаробњака Create Hosted Agent
+## Корак 1: Отворите чаробњака за креирање хостованог агента
 
 1. Притисните `Ctrl+Shift+P` да бисте отворили **Командну палету**.
-2. Откуцајте: **Foundry Toolkit: Create a New Hosted Agent** и изаберите је.
-3. Чаробњак се отвара на картици **Agent Details**.
+2. Укуцајте: **Foundry Toolkit: Create new Hosted Agent** и изаберите ту опцију.
+3. Чаробњак ће се отворити на картици **Детаљи агента**.
 
-> **Алтернатива:** Кликните на икону **Foundry Toolkit** у Activity Bar → кликните икону **+** поред **Hosted Agents** → **Create New Hosted Agent**.
+> **Алтернатива:** Кликните на икону **Foundry Toolkit** у траци активности → кликните на икону **+** поред **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
-## Корак 2: Изаберите подешавања
+## Корак 2: Избор поставки
 
-![Create Hosted Agent from Sample - картица Agent Details са одабраним шаблоном Workflows](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-details.png)
+![Креирање хостованог агента из узорка - картица Детаљи агента са изабраним шаблоном Workflows](../../../../../translated_images/sr/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. У левом делу навигације/опција изаберите следеће:
+1. У левом делу за навигацију/опције изаберите следеће:
 
 | Мени | Избор | Напомене |
 |--------|-----------|-------|
-| **Језик** | Python | C# (.NET) такође подржано |
+| **Језик** | Python | Подржан је и C# (.NET) |
 | **Фрејмворк** | Agent Framework | Обезбеђује `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **Тип API-ја** | Response API | `POST /responses` - историја под управом платформе, подршка за стримовање |
-| **Шаблон** | **Workflows** | Обрађује захтеве кроз више агената узастопно |
+| **Тип API** | Response API | `POST /responses` - историја којом управља платформа, подршка за стреаминг |
+| **Шаблон** | **Workflows** | Обрађује захтеве преко више агената у низу |
 
-2. Када одаберете, кликните **Next**
+2. Када одаберете, кликните на **Next**
 
-![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../workshop/lab02-multi-agent/docs/images/02-scaffold-wizard-create.png)
+![Креирање хостованог агента из узорка - картица Креирање која приказује PersonalCareerCopilot као име фасцикле](../../../../../translated_images/sr/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
 3. У следећем прозору изаберите следеће:
 
 | Мени | Избор | Напомене |
 |--------|-----------|-------|
-| **Фолдер радног простора** | Browse to target folder | нпр. `workshop/lab02-multi-agent/` у овом репозиторијуму |
-| **Име агента** | `PersonalCareerCopilot` | Ово постаје име директоријума пројекта |
-| **Деплој модела** | Select your deployed model | нпр. `gpt-4.1-mini` из Lab 01 |
+| **Фасцикла радног окружења** | Претражите до циљне фасцикле | нпр. `workshop/lab02-multi-agent/` у овом репозиторијуму |
+| **Име агента** | `PersonalCareerCopilot` | Постаје име директоријума пројекта |
+| **Распоређивање модела** | Изаберите инсталирани модел | нпр. `gpt-4.1-mini` из Лаб 01 |
 
-4. Кликните **Create** да бисте поставили скелет пројекта. VS Code генерише фајлове и отвори фасциклу.
+4. Кликните **Create** да бисте креирали оквир пројекта. VS Code ће генерисати датотеке и отворити фасциклу.
 
-> **Савет:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) добро балансира брзину и квалитет за развој мулти-агентских система.
+> **Савет:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) добро балансира брзину и квалитет за развој мулти-агената.
 
 ---
 
 ## Корак 3: Прегледајте генерисани пројекат
 
-Након што се скелетирање заврши, проверите да у Explorer-у видите ове фајлове (`Ctrl+Shift+E`):
+Након завршетка креирања оквира, проверите да видите ове датотеке у Истраживачу (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **Важно:** Отворите ову скелетирани фасциклу директно у VS Code-у тако да се `.vscode/launch.json` и `tasks.json` правилно примењују за F5 дебаговање.
+> **Важно:** Отворите ову креирану фасциклу директно у VS Code-у како би `.vscode/launch.json` и `tasks.json` исправно функционисали при дебаговању са F5.
 
-### Објашњење кључних фајлова
+### Објашњење кључних датотека
 
-| Фајл | Сврха |
+| Датотека | Намена |
 |------|---------|
-| `agent.yaml` | Декларише `kind: hosted`, мапира променљиве окружења, дефинише `/responses` протокол |
-| `main.py` | Stub: један `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Ово замените са 4 агента + `WorkflowBuilder` у Модулу 3 |
-| `Dockerfile` | `python:3.12-slim`, инсталира `requirements.txt`, отвара порт 8088, покреће `python main.py` |
+| `agent.yaml` | Декларише `kind: hosted`, мапира env променљиве, дефинише `/responses` протокол |
+| `main.py` | Приручник: један `FoundryChatClient` → `Agent` → `ResponsesHostServer`. Ово замените са 4 агента + `WorkflowBuilder` у Модулу 3 |
+| `Dockerfile` | `python:3.12-slim`, инсталира `requirements.txt`, излази на порт 8088, покреће `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **Референца:** Погледајте [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) и [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) за комплетан генерисани садржај.
+> **Референца:** Погледајте [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) и [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) за потпуни генерисани садржај.
 
 ---
 
 ### ✅ Контролна тачка
 
-- [ ] Чаробњак за скелет је завршен - нови фолдер пројекта видљив у Explorer-у
-- [ ] Сви очекивани фајлови присутни: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] Чаробњак за креирање оквира завршен - нова фасцикла пројекта је видљива у Истраживачу
+- [ ] Све очекиване датотеке присутне: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` приказује `kind: hosted` и `protocol: responses`
 - [ ] `main.py` увози `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] Скeлетирана фасцикла је отворена као корен радног простора у VS Code-у
-- [ ] Разумете да је `main.py` привремени код - `WorkflowBuilder` се додаје у Модулу 3
+- [ ] Отворена фасцикла је VS Code радни корен
+- [ ] Разумете да је `main.py` приручник - `WorkflowBuilder` се додаје у Модулу 3
 
 ---
 
-**Претходно:** [01 - Разумевање архитектуре са више агената](01-understand-multi-agent.md) · **Следеће:** [03 - Конфигуришите агенте & окружење →](03-configure-agents.md)
+**Претходно:** [01 - Разумевање мулти-агентне архитектуре](01-understand-multi-agent.md) · **Следеће:** [03 - Конфигурисање агената и окружења →](03-configure-agents.md)
 
 ---
 

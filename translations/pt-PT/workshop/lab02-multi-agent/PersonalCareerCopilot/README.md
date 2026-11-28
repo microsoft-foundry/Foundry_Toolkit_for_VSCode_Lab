@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - Avaliador de Compatibilidade Currículo → Emprego
+# PersonalCareerCopilot - Avaliador de Ajuste CV → Emprego
 
-Uma aplicação multi-agente orientada por workflows que avalia quão bem um currículo corresponde a uma descrição de emprego, e depois gera um roteiro de aprendizagem personalizado para colmatar as lacunas.
+Uma aplicação multi-agente, orientada por fluxo de trabalho, que avalia o quão bem um currículo corresponde a uma descrição de trabalho, e depois gera um roteiro de aprendizagem personalizado para colmatar as lacunas.
 
 ---
 
@@ -8,20 +8,20 @@ Uma aplicação multi-agente orientada por workflows que avalia quão bem um cur
 
 | Agente | Função | Ferramentas |
 |-------|------|-------|
-| **ResumeParser** | Extrai skills, experiência, certificações estruturadas do texto do currículo | - |
-| **JobDescriptionAgent** | Extrai skills, experiência, certificações exigidas/preferidas de uma JD | - |
-| **MatchingAgent** | Compara perfil vs requisitos → pontuação de compatibilidade (0-100) + skills correspondentes/faltantes | - |
-| **GapAnalyzer** | Constroi um roteiro de aprendizagem personalizado com recursos Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | Extrai competências estruturadas, experiência, certificações do texto do currículo | - |
+| **JobDescriptionAgent** | Extrai competências requeridas/preferenciais, experiência, certificações de uma JD | - |
+| **MatchingAgent** | Compara perfil vs requisitos → pontuação de ajuste (0-100) + competências correspondentes/faltantes | - |
+| **GapAnalyzer** | Constrói um roteiro de aprendizagem personalizado com recursos do Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
-## Workflow
+## Fluxo de trabalho
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Curriculum Vitae + Descrição do Trabalho"] --> ResumeParser
-    ResumeParser -- "curriculum vitae analisado + retransmissão da descrição do trabalho" --> JobDescriptionAgent
-    JobDescriptionAgent -- "requisitos da descrição do trabalho + retransmissão do CV" --> MatchingAgent
-    MatchingAgent -- "relatório de adequação + lacunas" --> GapAnalyzerMCP["Analisador de Lacunas +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nPontuação de Adequação + Roteiro"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Configurar ambiente
 
-Esta pasta é a implementação de referência para a estrutura do Lab 02 orientado a workflow. O seu `main.py` usa os blocos de prompt existentes mais `WorkflowBuilder` para ligar os quatro agentes.
+Esta pasta é a implementação de referência para o esqueleto do Lab 02 baseado em fluxo de trabalho. O seu `main.py` usa os blocos de prompt existentes mais `WorkflowBuilder` para ligar os quatro agentes.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -57,8 +57,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | Valor | Onde encontrar |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Barra lateral do Foundry Toolkit → clique direito no seu projeto → **Copiar Endpoint do Projeto** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Barra lateral do Foundry → expandir projeto → **Modelos + endpoints** → nome do deployment |
+| `FOUNDRY_PROJECT_ENDPOINT` | Barra lateral do Foundry Toolkit → clique direito no seu projeto → **Copiar Ponto de Extremidade do Projeto** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Barra lateral do Foundry → expandir projeto → **Modelos + pontos finais** → nome do deployment |
 
 ### 3. Executar localmente
 
@@ -66,13 +66,13 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Ou use a tarefa do VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Ou use a tarefa do VS Code: `Ctrl+Shift+P` → **Tarefas: Executar Tarefa** → **Executar Servidor HTTP do Agente**.
 
-Para debugging com F5, use **Debug Local Agent HTTP Server**.
+Para depuração F5, use **Depurar Servidor HTTP do Agente Local**.
 
 ### 4. Testar com Agent Inspector
 
-Abra o Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Abra Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Abrir Agent Inspector**.
 
 Cole este prompt de teste:
 
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Esperado:** Uma pontuação de compatibilidade (0-100), skills correspondentes/faltantes, e um roteiro de aprendizagem personalizado com URLs do Microsoft Learn.
+**Esperado:** Uma pontuação de ajuste (0-100), competências correspondentes/faltantes, e um roteiro de aprendizagem personalizado com URLs do Microsoft Learn.
 
-### 5. Desplegar no Foundry
+### 5. Fazer deploy no Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → selecione o seu projeto → confirme.
+`Ctrl+Shift+P` → **Foundry Toolkit: Fazer Deploy do Agente Hospedado** → selecione o seu projeto → confirmar.
 
 ---
 
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## Ficheiros principais
+## Ficheiros chave
 
 ### `agent.yaml`
 
-Define o agente hospedado para o Foundry Agent Service:
-- `kind: hosted` - executa como um contentor gerido
-- `protocols` - protocolo `responses` com `version: 1.0.0`, expondo o endpoint HTTP `/responses`
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` declarado aqui; `FOUNDRY_PROJECT_ENDPOINT` é injetado automaticamente no momento do deploy
+Define o agente hospedado para Foundry Agent Service:
+- `kind: hosted` - executa-se como um contentor gerido
+- `protocols` - protocolo `responses` com `version: 2.0.0`, expondo o endpoint HTTP `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` é declarado aqui; `FOUNDRY_PROJECT_ENDPOINT` é injetado automaticamente em tempo de deploy
 
 ### `main.py`
 
 Contém:
-- **Instruções dos agentes** - quatro constantes `*_INSTRUCTIONS`, uma por agente
-- **Ferramenta MCP** - `search_microsoft_learn_for_plan()` chama `https://learn.microsoft.com/api/mcp` via Streamable HTTP
-- **Criação dos agentes** - quatro instâncias `Agent()` + `AgentExecutor()` partilhando um `FoundryChatClient`
-- **Grafo do workflow** - `WorkflowBuilder` liga agentes numa pipeline sequencial: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Instruções de agente** - quatro constantes `*_INSTRUCTIONS`, uma por agente
+- **Ferramenta MCP** - `search_microsoft_learn_for_plan()` chama `https://learn.microsoft.com/api/mcp` via HTTP Streamable
+- **Criação de agente** - quatro instâncias `Agent()` + `AgentExecutor()` compartilhando um `FoundryChatClient`
+- **Grafo do fluxo de trabalho** - `WorkflowBuilder` liga agentes num pipeline sequencial: ResumeParser → Agente JD → MatchingAgent → GapAnalyzer
 - **Arranque do servidor** - `ResponsesHostServer` corre na porta 8088
 
 ### `requirements.txt`
 
-| Pacote | Finalidade |
+| Pacote | Propósito |
 |---------|----------|
-| `agent-framework-foundry` | Runtime núcleo: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integração de hospedagem Foundry |
+| `agent-framework-foundry` | Runtime central: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | Integração de hosting com Foundry + `ResponsesHostServer` |
 | `mcp<2,>=1.24.0` | Cliente MCP para GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Debugging Python (F5 no VS Code) |
+| `debugpy` | Depuração Python (F5 no VS Code) |
 
 ---
 
 ## Resolução de problemas
 
-| Problema | Solução |
+| Problema | Correção |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ou `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Crie `.env` com ambos `FOUNDRY_PROJECT_ENDPOINT` e `AZURE_AI_MODEL_DEPLOYMENT_NAME` definidos |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Ative o venv e execute `pip install -r requirements.txt` |
-| Sem URLs do Microsoft Learn na saída | Verifique a conectividade à internet com `https://learn.microsoft.com/api/mcp` |
-| Apenas 1 cartão de lacuna (truncado) | Verifique se `GAP_ANALYZER_INSTRUCTIONS` inclui o bloco `CRITICAL:` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ou `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Crie `.env` com ambos `FOUNDRY_PROJECT_ENDPOINT` e `AZURE_AI_MODEL_DEPLOYMENT_NAME` configurados |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Ative venv e execute `pip install -r requirements.txt` |
+| Nenhum URL do Microsoft Learn na saída | Verifique a conectividade à internet para `https://learn.microsoft.com/api/mcp` |
+| Apenas 1 cartão de lacuna (cortado) | Verifique se `GAP_ANALYZER_INSTRUCTIONS` inclui o bloco `CRITICAL:` |
 | Porta 8088 em uso | Pare outros servidores: `netstat -ano \| findstr :8088` |
 
-Para resolução detalhada, consulte [Módulo 8 - Resolução de problemas](../docs/08-troubleshooting.md).
+Para resolução de problemas detalhada, veja [Módulo 8 - Resolução de Problemas](../docs/08-troubleshooting.md).
 
 ---
 
-**Walkthrough completo:** [Lab 02 Docs](../docs/README.md) · **Voltar a:** [Lab 02 README](../README.md) · [Página inicial do Workshop](../../../README.md)
+**Guia completo:** [Documentos do Lab 02](../docs/README.md) · **Voltar para:** [README do Lab 02](../README.md) · [Página Principal do Workshop](../../../README.md)
 
 ---
 
