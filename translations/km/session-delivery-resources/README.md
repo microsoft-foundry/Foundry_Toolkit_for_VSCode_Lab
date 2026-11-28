@@ -1,204 +1,204 @@
-# របៀបដឹកនាំប្រជុំនេះ
+# របៀបដឹកនាំវគ្គសិក្សានេះ
 
-អរគុណចំពោះការដឹកនាំប្រជុំនេះ!
+អរគុណចំពោះការដឹកនាំវគ្គសិក្សានេះ!
 
-មុនពេលដឹកនាំសិក្ខាសាលា សូម:
+មុនដឹកនាំវគ្គសិក្សា សូមអនុវត្ត:
 
-1. អានឯកសារនេះ និងឧបករណ៍គ្រប់ៗគ្នាដែលបានបញ្ចូលទាំងអស់។
-2. មើលកំណត់ត្រាការដឹកនាំប្រជុំ និងការដើរកាត់សិក្ខាសាលាទាំងមូល។
-3. ដើរតាមមណ្ឌលហាត់ប្រាណទាំងពីរដោយពេញលេញលើម៉ាស៊ីនដើមរបស់អ្នក **យ៉ាងហោចណាស់មួយដង** មុនពេលព្រឹត្តិការណ៍។
-4. ពិនិត្យគម្រោង Microsoft Foundry របស់អ្នក, ការតំឡើងម៉ូឌែល, និងកម្រិតកំណត់។
-5. ទាក់ទងអ្នកគ្រប់គ្រងប្រសិនបើមានអ្វីមិនច្បាស់។
+1. អានឯកសារនេះ និងធនធានទាំងអស់ដែលបានបញ្ចូលក្នុងវាឱ្យចប់។
+2. មើលការថតវិដេអូដឹកនាំវគ្គសិក្សា និងការបង្ហាញវគ្គសិក្សាតាំងពីដើមដល់ចប់។
+3. សាកល្បងពិធីការពីរជាមួយដៃថ្មែកដល់ចុងលើម៉ាស៊ីនរបស់អ្នកផ្ទាល់ **យ៉ាងហោចណាស់ម្តងទៀត** មុនព្រឹត្តិការណ៍។
+4. ធានាថាប្រគេន Microsoft Foundry project, ការដាក់បញ្ចូលម៉ូដែល និងកំណត់កម្រិតគណនា។
+5. សម្រេចទាក់ទងអ្នកថែទាំប្រសិនបើមានអ្វីកើតមើលមិនច្បាស់។
 
 ---
 
 ## សង្ខេបឯកសារ
 
-| ឧបករណ៍                    | តំណភ្ជាប់                                                                             | ការពិពណ៌នា                                                                                |
+| ធនធាន                      | តំណ                                             | សេចក្ដីពិពណ៌នា                                                                                 |
 |-------------------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| ស្លைដ្ឋសិក្ខាសាលា           | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                               | ស្លាយសម្រាប់សិក្ខាសាលានេះ មានកំណត់ចំណាំអ្នកបង្ហាញ និងវីដេអូបង្ហាញទិន្នន័យ                      |
-| កំណត់ត្រាការដឹកនាំប្រជុំ    | _នឹងផ្ដល់ដោយអ្នកគ្រប់គ្រង_                                               | កំណត់ត្រាបង្ហាញនាំដំណើរការនិងស្លាយសិក្ខាសាលា                                              |
-| កំណត់ត្រាសិក្ខាសាលាទាំងមូល | _នឹងផ្ដល់ដោយអ្នកគ្រប់គ្រង_                                               | កំណត់ត្រាបង្ហាញហាត់ប្រាណពីទស្សនៈអ្នករៀនទាំងពីរ                                         |
-| ឯកសារសិក្ខាសាលា        | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | ឃ្លាំងប្រភព, README សម្រាប់មណ្ឌលហាត់ប្រាណ, ម៉ូឌុលជំហាន​ដល់ជំហាន                            |
-| មណ្ឌលហាត់ 01 - ហត្ថវត្ថុតែមួយ       | [Lab 01](../workshop/lab01-single-agent/README.md)                               | មណ្ឌលហាត់ប្រាណដៃ: បង្កើត, សាកល្បង និងចេញផ្សាយ *Explain Like I'm an Executive* ហត្ថវត្ថុបម្រើ |
-| មណ្ឌលហាត់ 02 - ការងារហត្ថវត្ថុច្រើន | [Lab 02](../workshop/lab02-multi-agent/README.md)                                | មណ្ឌលហាត់ប្រាណដៃ: បង្កើតដំណើរការហត្ថវត្ថុ 4 តួ *Resume to Job Fit Evaluator*         |
-| បង្ហាញ 1: អ្នកបម្រើអគ្គនាយក           | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                                              | បង្ហាញមណ្ឌល 01: បកប្រែកហេតុផលបច្ចេកទេសទៅជាសង្ខេបអ្នកអគ្គនាយក                       |
-| បង្ហាញ 2: Resume to Job Fit Evaluator | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)                     | បង្ហាញមណ្ឌល 02: ដំណើរការហត្ថវត្ថុ 4 តួដែលវាយតំលៃ ភាពសមស្របរបស់ប្រវត្តិរូប និងធ្វើអនុសាសន៍     |
+| ស្លាយវគ្គសិក្សា           | [Workshop Deck](../../../session-delivery-resources/foundry-toolkit-deck.pptx)                                               | ស្លាយការពិពណ៌នាសម្រាប់វគ្គសិក្សានេះជាមួយកំណត់សំគាល់អ្នកបង្ហាញ និងវីដេអូនិស្ស័យបញ្ចូល                    |
+| ការថតដឹកនាំវគ្គសិក្សា    | _ផ្តល់ដោយអ្នកថែទាំ_                                               | ការណែនាំវគ្គសិក្សា និងការបង្ហាញស្លាយ                                               |
+| ការថតសកម្មភាពវគ្គសិក្សាតាំងពីដើមដល់ចប់ | _ផ្តល់ដោយអ្នកថែទាំ_                                               | ការថតសកម្មភាពពីដៃថ្មែកទាំងពីរពីគំនិតមួយរបស់អ្នករៀន                               |
+| ឯកសារវគ្គសិក្សា        | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab) | ប្រភពគម្រូ, README បន្ទប់ហ្រ្វែប, នីតិវិធីជំហាន​ដោយ​ជំហាន                            |
+| Lab 01 - បុគ្គលិកតែមួយ         | [Lab 01](../workshop/lab01-single-agent/README.md)                               | ការប្រកួតដៃ: កសាង, សាកល្បង និងដាក់បញ្ចូល *Explain Like I'm an Executive* អ្នកតំណាងបម្រើ |
+| Lab 02 - កម្មវិធីចល័តបានច្រើនភាគី | [Lab 02](../workshop/lab02-multi-agent/README.md)                                | សិក្សាអនុវត្តិតាមដៃ៖ សង់កម្មវិធី *Resume to Job Fit Evaluator* ដែលមានភាគី 4 នាក់                     |
+| ដឹងមើល 1: ភាគីអគ្គនាយក             | [Lab01 agent](../../../workshop/lab01-single-agent/agent)                                              | ដឹងមើល Lab 01៖ បញ្ចូលភាសាបច្ចេកទេសទៅជាសង្ខេបអគ្គនាយក                          |
+| ដឹងមើល 2: Resume to Job Fit Evaluator | [PersonalCareerCopilot](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)                     | ដឹងមើល Lab 02៖ កម្មវិធី 4 ភាគីដែលវាយតម្លៃភាពសមរម្យរវាងប្រវត្តិរូប និងការងារ និងបង្កើតអនុសាសន៍     |
 
-> **ចំណាំសម្រាប់អ្នកបង្រៀន:** ស្លាយនិងតំណវីដេអូ នឹងត្រូវបន្ថែមពេលកំណត់ត្រាត្រូវបានផ្សព្វផ្សាយ។ រហូតដល់ពេលនោះ សូមទាក់ទងអ្នកគ្រប់គ្រង (មើល [Contacts](#ទំនាក់ទំនង)) សម្រាប់ឯកសារថ្មីៗ។
+> **កំណត់សម្គាល់សម្រាប់អ្នកបង្រៀន៖** ស្លាយនិងតំណភ្ជាប់វីដេអូ នឹងត្រូវបញ្ចូលបន្ថែមម្តងមកក្រោយពេលថតហើយបានផ្សាយ។ រហូតដល់ពេលនោះ សូមទាក់ទងអ្នកថែរក្សា (មើល [ទំនាក់ទំនង](#contacts)) សម្រាប់ទ្រព្យសម្បត្តិថ្មីៗ។  
 
 ---
 
 ## ចាប់ផ្ដើម
 
-សិក្ខាសាលានេះបង្រៀនអ្នកអភិវឌ្ឍន៍របៀបបង្កើត, សាកល្បង និងចេញផ្សាយអ្នកបម្រើ AI ទៅ **Microsoft Foundry Agent Service** ជា **Hosted Agents** ពេញលេញពី VS Code ដែលប្រើផ្នែកបន្ថែម **Microsoft Foundry Toolkit**។
+មេរៀននេះបង្ហាញអ្នកអភិវឌ្ឍពីរបៀបសាងសង់ សាកល្បង និងចេញផ្សាយភាគី AI ទៅកាន់ **Microsoft Foundry Agent Service** ក្នុងនាមជា **ភាគីមានផ្ទះផ្ញើ** ពេញលេញតាមរយៈ VS Code ដោយប្រើផ្សារពើភ័ណ្ឌ **Microsoft Foundry Toolkit**។
 
-សិក្ខាសាលាបែងចែកជាយុថ្កាសហត្ថផ្សេងៗ រួចមានស្លាយ, **បង្ហាញពីរពេលបន្តផ្ទាល់**, និង **មណ្ឌលហាត់ប្រាណពីរ**។
+កម្មវិធីហ្វឹកហាត់ត្រូវបានបំបែកជា​ផ្នែកច្រើន រួមមានស្លាយ, **2 ការបង្ហាញផ្ទាល់**, និង **2 មន្ទីរពិសោធន៍អនុវត្ត**។
 
 ### ពេលវេលា
 
-#### ដឹកនាំពេញលេញ (ប្រហែល2ម៉ោង)
+#### សម័យពេញលេញ (ប្រហែល 2 ម៉ោង)
 
-| ពេលវេលា          | ការពិពណ៌នា                                                        |
-|-----------------|----------------------------------------------------------------------|
-| 0:00 - 10:00    | មូលដ្ឋាន: hosted agents, Foundry Agent Service, និង toolkit         |
-| 10:00 - 20:00   | បង្ហាញ: Executive Agent ពេញលេញ                                     |
-| 20:00 - 60:00   | មណ្ឌល 01 - ហត្ថវត្ថុតែមួយ (បង្កើត, សាកល្បងក្នុងកន្លែង, ដាក់, លេងស្ទាយ)     |
-| 60:00 - 110:00  | មណ្ឌល 02 - ការងារហត្ថវត្ថុច្រើន (Resume to Job Fit Evaluator)         |
-| 110:00 - 120:00 | បញ្ចប់, សំណួរ & ចម្លើយ, និងធនធានសម្រាប់រៀនបន្ត                       |
+| ពេលវេលា       | សេចក្តីអធិប្បាយ                                                  |
+|-----------------|-------------------------------------------------------------------|
+| 0:00 - 10:00    | អំណើដើម: អ្នកតំណាងដែលបានផ្តល់ជាសេវា, សេវាកម្ម Foundry Agent, និងឧបករណ៍                            |
+| 10:00 - 20:00   | ការបង្ហាញ: Executive Agent ពេញលេញពីដើមដល់ចប់                    |
+| 20:00 - 60:00   | មន្ទីរពិសោធន៍ 01 - អ្នកតំណាងម្នាក់ (កសាង, សាកល្បងក្នុងជំរៅ, ចែកចាយ, កន្លែងលេង)           |
+| 60:00 - 110:00  | មន្ទីរពិសោធន៍ 02 - វិធីសាស្រ្តភាពធ្វើការជាអ្នកតំណាងច្រើន (រហូតដល់អ្នកវាយតម្លៃការងារ Resume to Job Fit Evaluator)       |
+| 110:00 - 120:00 | បញ្ចប់, សំណួរ & ចម្លើយ, និងធនធានសម្រាប់ការសិក្សាបន្ត                |
 
-#### ដឹកនាំខ្លី (ប្រហែល ៧៥ នាទី)
+#### ការដឹកជញ្ជូនខ្លី (ប្រហែល ៧៥ នាទី)
 
-| ពេលវេលា      | ការពិពណ៌នា                                              |
+| ពេលវេលា        | សេចក្តីពិពណ៌នា                                              |
 |---------------|--------------------------------------------------------------|
-| 0:00 - 10:00  | មូលដ្ឋាន និងទិដ្ឋភាពទូទៅ                                   |
-| 10:00 - 20:00 | បង្ហាញ: Executive Agent                                      |
-| 20:00 - 70:00 | មានតែ មណ្ឌល 01 (បញ្ជូនអ្នកចូលរួមទៅ មណ្ឌល 02 ជាអ្នករៀនដោយខ្លួនឯង)        |
-| 70:00 - 75:00 | បញ្ចប់ និងសំណួរ & ចម្លើយ                                      |
+| 0:00 - 10:00  | ណែនាំ និងទិដ្ឋភាពទូទៅ                                  |
+| 10:00 - 20:00 | បង្ហាញខ្លួន: Executive Agent                              |
+| 20:00 - 70:00 | មន្ទីរពិសោធន៍ 01 គត់ (បញ្ជូនអ្នកចូលរួមទៅមន្ទីរពិសោធន៍ 02 ជារបៀបស្វ័យរបៀប)  |
+| 70:00 - 75:00 | សង្ខេប និងសំណួរ-ចម្លើយ                                   |
 
-### ការរៀបចំ
+### ការ​ត្រៀមខ្លួន
 
-| ឧបករណ៍                   | តំណភ្ជាប់                                                                                        | ការពិពណ៌នា                                       |
-|-----------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| ឯកសារសិក្ខាសាលា           | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)                 | ឯកសារសិក្ខាសាលានិងប្រភព                          |
-| សេចក្ដីណែនាំមណ្ឌល 01       | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                  | មណ្ឌលហាត់ប្រាណដៃ: អ្នកបម្រើតែមួយ                 |
-| សេចក្ដីណែនាំមណ្ឌល 02       | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                    | មណ្ឌលហាត់ប្រាណដៃ: ការងារហត្ថវត្ថុច្រើន          |
-| បញ្ជីត្រួតពិនិត្យកន្លងមុខ | [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                    | ឧបករណ៍, គណនី និងការចូលប្រើ Azure ត្រូវការដែលបានជំពូក |
-| Hosted agents quickstart (azd) | [Learn](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | Quickstart​ផ្លូវការសម្រាប់ដាក់ភ្ជាប់អ្នកបម្រើ hosted ជាមួយ `azd` |
-| Hosted agents region availability | [Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | តំបន់ដែលគាំទ្រដល់ hosted agents (ពន្យល់មើល)    |
+| របរ​សម្ភារៈ                | តំណភ្ជាប់                                                                                      | សេចក្តីពិពណ៌នា                                   |
+|--------------------------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------|
+| ឯកសារជំនុំបង្គ្រប់            | [Repository](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab)             | ឯកសារជំនុំបង្គ្រប់ និងកូដប្រភព                 |
+| សេចក្តីណែនាំមន្ទីរពិសោធន៍ 01 | [lab01-single-agent](../workshop/lab01-single-agent/README.md)                                | មន្ទីរពិសោធន៍ដៃ: អ្នកតំណាងភ្ញៀវមួយគត់           |
+| សេចក្តីណែនាំមន្ទីរពិសោធន៍ 02 | [lab02-multi-agent](../workshop/lab02-multi-agent/README.md)                                  | មន្ទីរពិសោធន៍ដៃ: វិធីសាស្ត្ររបស់អ្នកតំណាងភ្ញៀវច្រើន   |
+| បញ្ជីត្រួតពិនិត្យលក្ខខណ្ឌមុន | [00-prerequisites.md](../workshop/lab01-single-agent/docs/00-prerequisites.md)                | ឧបករណ៍ បណ្ដាញគណនី និងការចូលប្រើ Azure ត្រូវការ      |
+| ការចាប់ផ្តើមលឿនសម្រាប់អ្នកតំណាងភ្ញៀវដែលមានការត្រួតត្រា (azd) | [Learn](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) | ការចាប់ផ្តើមផ្លូវការសម្រាប់ដាក់ចេញអ្នកតំណាងភ្ញៀវដែលមានការត្រួតត្រាជាមួយ `azd` |
+| តំបន់ដែលមានអ្នកតំណាងភ្ញៀវដែលមានការត្រួតត្រា  | [Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) | តំបន់ដែលគាំទ្រសម្រាប់អ្នកតំណាងភ្ញៀវដែលមានការត្រួតត្រា (ជំពាក់មើល)     |
 
-### លក្ខខណ្ឌឲ្យអ្នកបង្រៀន
+### លក្ខខណ្ឌមុនសម្រាប់អ្នកបណ្តុះបណ្តាល
 
-មុនពេលអ្នកដឹកនាំ, សូមប្រាកដថាអ្នកមាន:
+មុននឹងអ្នកដឹកជញ្ជូន សូមប្រាកដថា អ្នកមាន:
 
-- **ការ​ចុះ​ឈ្មោះ Azure** ជាមួយ​សិទ្ធិ​បង្កើត​ធនធាន (ម្ចាស់ ឬ អ្នករួមចំណែកលើក្រុមធនធាន)។
-- ចូលប្រើ **គម្រោង Microsoft Foundry** នៅក្នុង [តំបន់ដែលគាំទ្រអ្នកបម្រើ hosted](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)។
-- កម្រិត quota សម្រាប់ **gpt-4.1** (ឬ **gpt-4.1-mini**) ក្នុងគម្រោង Foundry របស់អ្នក។
-- ឧបករណ៍ដូចខាងក្រោមត្រូវបានដំឡើង៖
+- **ការជាវ Azure** មួយដែលមានសិទ្ធិបង្កើតធនធាន (ម្ចាស់ ឬ អ្នករួមចំណែកនៅលើក្រុមធនធាន)។
+- ការចូលដំណើរការប្រកបដោយគម្រោង **Microsoft Foundry** នៅ [តំបន់ដែលគាំទ្រអ្នកតំណាងភ្ញៀវ មានការត្រួតត្រា](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)។
+- កំណត់សម្រាប់ **gpt-4.1** (ឬ **gpt-4.1-mini**) ក្នុងគម្រោង Foundry របស់អ្នក។
+- ឧបករណ៍ខាងក្រោមត្រូវតំឡើងរួចហើយ៖
   - [Visual Studio Code](https://code.visualstudio.com/)
-  - ផ្នែកបន្ថែម [Microsoft Foundry Toolkit extension](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
+  - [កម្មវិធីបន្ថែម Microsoft Foundry Toolkit](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
   - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
   - [Azure Developer CLI (`azd`)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
-  - [Docker Desktop](https://www.docker.com/) (ជម្រើស)
-  - Python 3.10 ឬថ្មីជាងនេះ
+  - [Docker Desktop](https://www.docker.com/) (ជាជម្រើស)
+  - Python 3.12 ឬថ្មីជាងនេះ
 
-ដំណើរការ [Hosted agents quickstart ជាមួយ `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) យ៉ាងហោចណាស់មួយដងមុនដឹកនាំ ដើម្បីមានគម្រោង Foundry ដែលបានធ្វើតេស្តល្អ, ការតំឡើងម៉ូឌែល និង Azure Container Registry សម្រាប់យោងបើអ្នករៀនមានបញ្ហា។
+ប្រតិបត្តិការចាប់ផ្តើមលឿន [Hosted agents quickstart with `azd`](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd) តិចបំផុតមួយដងមុនការដឹកជញ្ជូន ដើម្បីឲ្យអ្នកមានគម្រោង Foundry ដែលបានដឹងច្បាស់ អនុវត្តម៉ូឌែល និង Azure Container Registry សម្រាប់យោងនៅពេលសិស្សមានបញ្ហា។
 
 ---
 
-## ដើរតាមស្លាយ
+## ការដើរតោងតាមស្លាយ
 
-ស្លាយដើរតាមលំហូរដូចគ្នានឹងមណ្ឌលហាត់។ ចំណុចនិយាយណែនាំសម្រាប់នីតិវិធីនីមួយៗ៖
+ស្លាយនេះអនុវត្តតាមដំណើរការដូចគ្នានឹងមន្ទីរពិសោធន៍។ ចំណុចពិភាក្សាត្រូវបានផ្តល់អោយសម្រាប់រៀងរាល់ផ្នែក៖
 
-| ផ្នែក                     | សារ​សំខាន់                                                                                                  |
+| ផ្នែក                     | ប្រធានបទសំខាន់                                                                                                  |
 |-----------------------------|--------------------------------------------------------------------------------------------------------------|
-| ចំណងជើង និងកាលវិភាគ          | បង្ហាញសិក្ខាសាលាជា *VS Code ទៅ Foundry* ដោយមិនត្រូវប្តូរច្រកបញ្ជារណាមួយ។                                |
-| ហេតុអ្វីបានជា hosted agents?   | រត់នៅ runtime គ្រប់គ្រង, ដាក់ពាណិជ្ជកម្មដោយ ACR, តំណ API `/responses` ដែលមានភាពជាប់គ្នាជាមួយ OpenAI, មានដែនកំណត់ទៅគម្រោង Foundry។        |
-| គំនូសស្ថាបត្យកម្ម          | ដើរតាម [README architecture](../README.md#architecture): scaffold, Inspector, ACR, Agent Service។          |
-| រចនាសម្ព័ន្ធរបស់ hosted agent | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - មុខងាររបស់ឯកសារនីមួយៗ។                              |
-| បង្ហាញបន្តផ្ទាល់: Executive Agent | ប្ដូរទៅ VS Code និងដំណើរការ​ដំណើរការបង្ហាញ [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) ពេញលេញ (មើល [បង្ហាញ១](#បង្ហាញ-១-executive-agent))។ |
-| បង្ហាញបន្តផ្ទាល់: Resume to Job Fit Evaluator | ប្ដូរទៅ VS Code និងដំណើរការ [PersonalCareerCopilot/](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ដំណើរការហត្ថវត្ថុ 4 តួ (មើល [បង្ហាញ២](#បង្ហាញ-២-resume-to-job-fit-evaluator))។ |
-| សេចក្ដីសង្ខេបមណ្ឌល 01         | ទំនាក់ទំនងទៅអ្នករៀន។ បង្ហាញ [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md)។ |
-| លំនាំហត្ថវត្ថុច្រើន       | ដំណើរតាមជួរ ប្រតិបត្តិ តំណត្រឡប់ - ទិដ្ឋភាពមុនចាប់ផ្ដើមមណ្ឌល 02។                                        |
-| សេចក្ដីសង្ខេបមណ្ឌល 02         | ទំនាក់ទំនងទៅអ្នករៀន។ បង្ហាញ [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md)។ |
-| បញ្ចប់និងធនធាន           | តំណរៀនបន្ថែមពីផ្នែក [ធនធានបន្ថែម](#រៀបចំធនធានបន្ថែម)។                                               |
+| ចំណងជើង និងកម្មវិធី        | បង្ហាញវគ្គបណ្តុះបណ្តាលជារបៀប *VS Code ទៅ Foundry* ដោយមិនចាំបាច់ប្ដូរប្រព័ន្ធច្រក។                                |
+| ហេតុអ្វីបានជាអ្នកតំណាងភ្ញៀវដែលមានការត្រួតត្រា?  | រត់តាម Runtime មានការគ្រប់គ្រង, ការដាក់ចេញដោយដើម ACR, OpenAI-compatible `/responses` API, មានដែនកំណត់នៅគម្រោង Foundry ។        |
+| គំនូសស្ថាបត្យកម្ម         | ដើរឆ្ងាយតាម [README architecture](../README.md#architecture): Scaffold, Inspector, ACR, Agent Service ។ |
+| រចនាសម្ព័ន្ធរបស់ភ្នាក់ងារដែលបានផ្ទុកស្រាប់  | `agent.yaml`, `Dockerfile`, `main.py`, `requirements.txt` - អ្វីដែលឯកសារផ្សេងៗនីមួយៗធ្វើ។                   |
+| ដំណើរការផ្ទាល់: Executive Agent  | ផ្លាស់ទៅ VS Code ហើយរត់តេស្ត [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) ពេញលេញ (មើល [Demo 1](#demo-1-executive-agent))។              |
+| ឧទាហរណ៍បង្ហាញផ្ទាល់: ឧបករណ៍វាយតម្លៃការផ្គូផ្គងប្រវត្តិរូបទៅការងារ | ប្ដូរទៅ VS Code ហើយដំណើរការ [`PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) ឧទាហរណ៍ 4-ភ្នាក់ងារ (មើល [Demo 2](#demo-2-resume-to-job-fit-evaluator))។ |
+| សេចក្ដីសង្ខេបលប 01            | ផ្តល់ជូនអ្នករៀន។ បង្ហាញទៅកាន់ [`workshop/lab01-single-agent/README.md`](../workshop/lab01-single-agent/README.md)។ |
+| វិចិត្រ 4-ភ្នាក់ងារ                | ស៊េរីវ៉េស៊ុយយ៉ាល់ និងករណីផ្សេងៗជាលំដាប់ - មើលមុនការចាប់ផ្តើម Lab 02។                                                |
+| សេចក្ដីសង្ខេប Lab 02          | ផ្តល់ជូនអ្នករៀន។ បង្ហាញទៅកាន់ [`workshop/lab02-multi-agent/README.md`](../workshop/lab02-multi-agent/README.md)។ |
+| សង្ខេបនឹងធនធាន           | ពីតំណរភ្ជាប់សម្រាប់សិក្សបន្ថែមពីផ្នែក [Additional resources](#additional-resources)។                        |
 
 ---
 
-## បង្ហាញ
+## ឧទាហរណ៍បង្ហាញ
 
-មានបង្ហាញប្រតិបត្តិការបន្តផ្ទាល់ពីរ ត្រូវប្រគល់ពេលវេលា ១០ នាទីសម្រាប់មួយ។
+មានឧទាហរណ៍បង្ហាញផ្ទាល់ពីរដែលបានរួមបញ្ចូលនៅក្នុងការផ្តល់ជូន។ សូមចំណាយពេល 10 នាទីសម្រាប់មួយរៀងៗទៅ។ 
 
-| បង្ហាញ | មណ្ឌល | ឯកសារ | ត្រូវបង្ហាញអ្វី |
+| ឧទាហរណ៍ | Lab | ឯកសារ | អ្វីដែលត្រូវបង្ហាញ |
 |------|-----|-------|--------------|
-| Executive Agent | មណ្ឌល 01 | [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | អ្នកបម្រើ hosted តែមួយ; បកប្រែលក្ខណៈបច្ចេកទេសទៅជាសង្ខេបអ្នកអគ្គនាយក |
-| Resume to Job Fit Evaluator | មណ្ឌល 02 | [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | ការសម្របសម្រួលអ្នកបម្រើ ៤ តួ; វាយតំលៃភាពសមរម្យរវាងប្រវត្តិរូបនិងតម្រូវការងារ និងផ្តល់អនុសាសន៍ |
+| Executive Agent | Lab 01 | [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent) | ភ្នាក់ងារតែមួយផ្ទាល់; បកប្រែភាសាបច្ចេកទេសទៅជាសេចក្ដីសង្ខេបសម្រាប់មេដឹកនាំ |
+| Resume to Job Fit Evaluator | Lab 02 | [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot) | ការគ្រប់គ្រង 4-ភ្នាក់ងារ; វាយតម្លៃការផ្គូផ្គងប្រវត្តិរូប និងការងារ និងបង្កើតសេចក្ដីផ្តល់អនុសាសន៍ |
 
-### បង្ហាញ ១: Executive Agent
+### ឧទាហរណ៍ 1៖ Executive Agent
 
-អ្នកបម្រើឯករាជ្យនៅក្នុង [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent). ប្រើវាជាបង្ហាញ ១០ នាទីមុនមណ្ឌល ០១។
+ភ្នាក់ងារដាច់ដោយឡែកនៅក្នុង [`workshop/lab01-single-agent/agent/`](../../../workshop/lab01-single-agent/agent)។ ប្រើវាជាឧទាហរណ៍បង្ហាញរយៈពេល 10 នាទីមុន Lab 01។ 
 
-1. បើក [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) ហើយដើរតាមការបញ្ជាក់អ្នកបម្រើ (system prompt, ម៉ូឌែល, ស៊ុមខ្នាត)។
-2. ចុច `F5` ដើម្បីបើក **Agent Inspector** នៅក្នុងកន្លែង។
-3. ប្លាស្ទីកលើ sample prompt ពី [README](../README.md#see-it-in-action) ហើយបង្ហាញចំលើយសង្ខេបអ្នកអគ្គនាយក។
-4. បង្ហាញ [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) និង [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile) ដើម្បីពន្យល់អំពីឯកសារចេញផ្សាយ។
-5. បង្ហាញដំណើរការចេញផ្សាយ (Docker build, ACR push, hosted agent create) ដោយមិនចាំរង់ចាំការសម្រេច។
+1. បើក [`workshop/lab01-single-agent/agent/main.py`](../../../workshop/lab01-single-agent/agent/main.py) ហើយឆ្លងកាត់ការបញ្ជាក់ភ្នាក់ងារ (system prompt, ម៉ូដែល, សំណុំបែបបទ)។
+2.ចុច `F5` ដើម្បីបើក **Agent Inspector** នៅតំបន់មូលដ្ឋាន។
+3. បិទសោនៅក្នុងការចាក់បញ្ចូលបដិសណ្ឋារកម្មពី [README](../README.md#see-it-in-action) ហើយបង្ហាញចម្លើយសង្ខេបអនុសាសន៍។
+4. បង្ហាញ [`workshop/lab01-single-agent/agent/agent.yaml`](../../../workshop/lab01-single-agent/agent/agent.yaml) និង [`workshop/lab01-single-agent/agent/Dockerfile`](../../../workshop/lab01-single-agent/agent/Dockerfile) ដើម្បីពន្យល់ពីឯកសារចំណុះបម្រើ។
+5. បង្ហាញដំណើរការចាក់បម្រើ (Docker build, ACR push, hosted agent create) ដោយមិនរង់ចាំការសម្រេចទេ។
 
-### បង្ហាញ ២: Resume to Job Fit Evaluator
+### មូវី 2៖ ពិនិត្យថាតើ CV ត្រូវនឹងការងារឬទេ
 
-ដំណើរការអ្នកបម្រើ ៤ តួនៅក្នុង [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot). ប្រើវាជាបង្ហាញ ១០ នាទីមុនមណ្ឌល ០២។
+ការងារជាមួយភ្នាក់ងារចំនួន 4 ក្នុង [`workshop/lab02-multi-agent/PersonalCareerCopilot/`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot)។ ប្រើវា​ជា​មូវី ១០ នាទីមុនកម្មវិធី Lab 02។
 
-1. បើក [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ហើយបង្ហាញរបៀបភ្ជាប់អ្នកបម្រើចំនួនបួនជាលំដាប់ត្រឡប់។
-2. ចុច `F5` ដើម្បីបើក **Agent Inspector** សម្រាប់ដំណើរការអ្នកបម្រើច្រើន។
-3. បញ្ចូលការពិពណ៌នាការងារតូច និងប្រវត្តិរូបមួយនៅក្នុងការចរចារបស់ Inspector។
-4. ដើរតាមបង្គោលអ្នកបម្រើ ៤ តួ: resume parser, job requirement extractor, fit scorer, និង recommendation writer។
-5. ថ្លែងបញ្ជាក់ថាត output របស់អ្នកបម្រើកូនមួយៗក្លាយជាសំណុំបែបបទរបស់អ្នកបម្រើបន្ទាប់ និងបង្ហាញលំនាំ handoff។
-6. បង្ហាញ [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ដើម្បីធៀបជាមួយតួអង្គបម្រើតែមួយនៃបង្ហាញ ១។
-
----
-
-## គន្លឹះនៃការដឹកនាំ
-
-- **កំណត់មូលដ្ឋានកំណត់ទុកមុន។** Hosted agents នៅក្នុងភាពមើលជាមុន - ថ្លែងពីកំណត់តំបន់ និង quota ជាមុន ដើម្បីអ្នកចូលរួមមិនភ្ញាក់ផ្អើលនៅពេលអនុវត្តមណ្ឌល។
-- **រត់កិច្ចការត្រួតពិនិត្យកន្លងមុខជាមុន។** មណ្ឌលទាំងពីរសម្រាប់ត្រូវមាន `Validate prerequisites` ជាកិច្ចការ VS Code - សូមឲ្យអ្នកចូលរួមរត់វាមុនពេលសរសេរកូដណាមួយ។
-- **រក្សា Agent Inspector ឲ្យមើលឃើញជានិច្ច។** ភាគច្រើននៃពេលវេលាដែលមាន "aha" កើតឡើងពេលអ្នករៀនឃើញការឆ្លើយតប `/responses` តាមរយៈដំណើរការការងារផ្ទាល់។
-- **មានគម្រោងជំនួស។** ប្រសិនបើគម្រោង Foundry របស់អ្នករៀនឈានដល់កម្រិត quota, ចែករំលែកគម្រោងដែលបានរៀបចំពីមុនសម្រាប់ជំហានចេញផ្សាយមិនឲ្យឈប់នៅមន្ទីរ។
-- **បង្វិលអ្នកចូលរួមជាក្រុមពីរ។** មណ្ឌល 02 (ហត្ថវត្ថុច្រើន) ងាយស្រួលជាងពេលអ្នករៀនអាចពិភាក្សាអំពីដំណើរការជាមួយមិត្តរួមមួយ។
-- **ប្រើម៉ូឌុលឯកសារជាចំណុចពិនិត្យ។** ថត `docs/` នៃមណ្ឌលទាំងពីរបែងចែកជាម៉ូឌុលចំនួន ៨ - ប្រើទាំងនេះជាកន្លែងឈប់ធម្មជាតិ។
-- **ទាញរូប Docker មូលដ្ឋានជាមុន** លើម៉ាស៊ីនហាត់ប្រាណរួមដើម្បីជៀសវាងការកំណត់អត្រាស្ទORESឯកសារ។
+1. បើក [`PersonalCareerCopilot/main.py`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) ហើយបង្ហាញពីរបៀបភ្នាក់ងារ​ទាំងបួន​ត្រូវបានភ្ជាប់គ្នា​ក្នុង​ការ​គ្រប់គ្រង​ទ្រង់ទ្រាយតាមជំហាន។
+2. ចុច `F5` ដើម្បីបើក **Agent Inspector** សម្រាប់ដំណើរការជាពហុភ្នាក់ងារ។
+3. បិទសោនៅក្នុងការពិពណ៌នាការងារសង្ខេប និង CV គំរូនៅក្នុងការបរិភោគរបស់ Inspector។
+4. ឆ្លងកាត់ដំណើរការពហុភ្នាក់ងារ ៤: ការចែកចាយ CV, ការដកស្រង់តម្រូវការការងារ, ការវាយតម្លៃសមត្ថភាព, និងការសរសេរជារបាយការណ៍ផ្តល់អនុសាសន៍។
+5. បង្ហាញពីរបៀបដែលលទ្ធផលរបស់ភ្នាក់ងាររងមួយក្លាយជាចំណុចប្រទាក់របស់ភ្នាក់ងារបន្ទាប់ និងបង្ហាញលំនាំការផ្ដល់តប។
+6. បង្ហាញ [`PersonalCareerCopilot/agent.yaml`](../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) ដើម្បីប្រៀបធៀបជាមួយភ្នាក់ងារតែមួយពីមួយក្នុងមូវី ១។
 
 ---
 
-## បញ្ហាសម្រាប់ដោះស្រាយពេលដឹកនាំ
+## ណែនាំសម្រាប់ការដឹកជញ្ជូន
 
-| រោគសញ្ញា                                  | អ្វីត្រូវសាកល្បងជាជំហានដំបូង                                                                          |
-|------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| Agent Inspector មិនអាចភ្ជាប់បាន             | ផ្ទៀងផ្ទាត់ថា port `8088` មិនមានការប្រើប្រាស់ និងភារកិច្ច `Run Lab01 HTTP Server` / `Run Lab02 HTTP Server` កំពុងរត់។   |
-| Debugger មិនអាចភ្ជាប់បាន                    | ពិនិត្យ port `5679` មិនត្រូវបានប្រើ; ចាប់ផ្ដើម VS Code ថ្មីបើ `debugpy` បានភ្ជាប់រួច។                           |
-| `azd up` បរាជ័យដោយសារកំហុសអត្ថសញ្ញា        | រត់ `az login` និង `azd auth login`, ប្រាកដថាជ្រើស tenant ត្រឹមត្រូវ។                              |
-| ការចេញផ្សាយស្ទូចនៅពេល ACR push              | ពិនិត្យថា Docker Desktop កំពុងរត់ និងអ្នកប្រើមានសិទ្ធិ `AcrPush` លើ registry ។                              |
-| ម៉ូឌែលត្រឡប់ 404 / deployment-not-found     | ឈ្មោះការចេញផ្សាយម៉ូឌែលក្នុង `agent.yaml` ត្រូវតែដូចគ្នានឹងមាននៅក្នុងគម្រោង Foundry ។              |
-| អេជិនដែលមានធ្វើ​ននៅ​ជួរប្រតិបត្តិការ `Provisioning`         | ពិនិត្យមើលតំបន់គម្រោង [គាំទ្រអេជិនដែលមានធ្វើ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) និងថាគណៈសមត្ថភាពនៅសល់។ |
-| Playground ផ្តល់ត្រឡប់ 401                       | ធ្វើការផ្ទៀងផ្ទាត់សម្គាល់ពីពេលម្ដងទៀតនូវពង្រីក Foundry ពីរបារសកម្មភាព VS Code។                                     |
-
-សម្រាប់ការណែនាំជ្រៅជាងនេះ សLabor រាល់ខែក្មេងមានឯកសារ `08-troubleshooting.md` ផ្ទាល់ខ្លួន - តភ្ជាប់អ្នករៀនទៅទីនោះ៖
-
-- Labor 01: [`workshop/lab01-single-agent/docs/08-troubleshooting.md`](../workshop/lab01-single-agent/docs/08-troubleshooting.md)
-- Labor 02: [`workshop/lab02-multi-agent/docs/08-troubleshooting.md`](../workshop/lab02-multi-agent/docs/08-troubleshooting.md)
+- **កំណត់ការរំពឹងទុកពីដំបូង។** អ្នកភ្នាក់ងារដែលមានអ្នកបម្រើត្រូវបានបង្ហាញជាការពិព័រណ៍ - ចេញពីដែនកំណត់តំបន់និងចំនួនកំណត់ជាមុនដំណើរការដើម្បីឲ្យអ្នកចូលរួមមិនមានការភ្ញាក់ផ្អើលកណ្តាលការបញ្ចូល។
+- **រត់ភារកិច្ចដែលត្រូវតំណាងជាមុន។** កម្មវិធីរៀបចំទាំងពីរផ្ដល់ឧបករណ៍ `Validate prerequisites` VS Code មួយ - អោយអ្នកចូលរួមរៀនរត់វាមុនពេលមានកូដណាមួយត្រូវបានសរសេរ។
+- **រក្សា Agent Inspector ឲ្យមើលឃើញ។** ពេលភាគច្រើននៃ "aha" មានកើតឡើងនៅពេលដែលអ្នករៀនឃើញការបញ្ចូនត្រឡប់វិញក្នុងល្បឿន `/responses` ដ៏អាក្រក់នៅលើក្នុងតំបន់។
+- **មានគំរោងថែទាំមួយ។** ប្រសិនបើគំរោង Foundry របស់អ្នករៀនប្រឈមមុខនឹងជំពាក់ចំនួនកំណត់ សូមចែករំលែកគំរោងពិសេសមួយសម្រាប់ជំហានដាក់ចេញ មិនត្រូវឲ្យបិទបន្ទប់។
+- **ចែកគូអ្នកចូលរួម។** ពហុ-agent Lab 02 គឺមានភាពងាយស្រួលយ៉ាងខ្លាំងនៅពេលដែលអ្នករៀនអាចពិភាក្សាអំពីការត្រួតពិនិត្យជាមួយដៃគូម្នាក់។
+- **ប្រើម៉ូឌុលឯកសារជាចំណុចព្រួតលើក។** ឯកសារ `docs/` ក្នុងប្រអប់នីមួយៗត្រូវបានបែងចែកជាផ្នែកលេខ - ប្រើវាជាចំណុចឈប់សម្រាកធម្មជាតិ។
+- **ទាញរូបភាព Docker មូលដ្ឋានជាមុន** លើម៉ាស៊ីនបង្ហាញរួមដើម្បីជៀសវាងការកំណត់ចំនួនល្បឿន registry។
 
 ---
 
-## ការផ្ទៀងផ្ទាត់មេរៀននេះ
+## ដោះស្រាយបញ្ហាដេលពេលចែកចាយ
 
-អ្នកអាចប្តូរតាមតម្រូវការសម្រាប់សំណាក់អ្នកស្តាប់។ ការប្រែប្រួលទូទៅមាន៖
+| លក្ខណៈរោគ                                  | អ្វីដែលត្រូវសាកល្បងជាលើកដំបូង                                                                        |
+|----------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| Agent Inspector មិនអាចភ្ជាប់បាន              | ធានាថាត្រង់ច្រក `8088` គឺទំនេរ និងភារកិច្ច `Run Agent HTTP Server` កំពុងរត់។              |
+| Debugger មិនអាចភ្ជាប់                        | ពិនិត្យថាត្រង់ច្រក `5679` គឺទំនេរ; ចាប់ផ្តើម VS Code វិញ ប្រសិនបើ `debugpy` បានត្រូវបានភ្ជាប់រួចហើយ។                  |
+| `azd up` បរាជ័យដោយមានកំហុសសិទ្ធិ         | រត់ `az login` និង `azd auth login`, ពិនិត្យឲ្យដឹងថាត្រូវជ្រើសរើស tenant ត្រឹមត្រូវ។                              |
+| ការចេញផ្សាយផ្អាកនៅពេលបញ្ចូនទៅ ACR                 | ពិនិត្យមើលថា Docker Desktop កំពុងដំណើរការ និងអ្នកប្រើមានសិទ្ធិ `AcrPush` លើបញ្ជី។                              |
+| ម៉ូឌែលបង្ហាញកំហុស 404 / deployment-not-found     | ឈ្មោះការចេញផ្សាយម៉ូឌែលក្នុង `agent.yaml` ត្រូវតែផ្គូផ្គងនឹងការចេញផ្សាយក្នុងគម្រោង Foundry។              |
+| អ្នកតំណាងប្លុកមេ Hosted agent ទាន់ស្ទះនៅ `Provisioning`         | ត្រួតពិនិត្យថាផ្នែកគម្រោង [គាំទ្រអ្នកតំណាងប្លុកមេ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability) និងថាទំហំកំណត់មានសក្ដានុពល។ |
+| Playground បង្ហាញកំហុស 401                       | ចូលប្រើឡើងវិញនូវការពង្រឹង Foundry ពីរបារកម្មវិធី VS Code activity bar.                                     |
 
-- **សំណាក់អ្នកគាំទ្រផ្នែកផ្នែកក្រោយ:** ចំណាយពេលច្រើនលើ `agent.yaml`, Docker, និង ACR; បង្រួមការបង្ហាញ playground។
-- **សំណាក់អ្នកអភិវឌ្ឍន៍ប្រជាពលរដ្ឋ:** នៅក្នុង UI ពង្រីក Foundry សម្រាប់ការបង្កើត scaffolding; បន្ថយជំហាន CLI។
-- **ពេលវេលា ៦០ នាទីមួយផ្លូវមួយ:** ផ្តល់ជូនការណែនាំដើម, ពិពណ៌នា, និង Labor 01 តែប៉ុណ្ណោះ។
-- **ទ្រង់ទ្រាយម្នាក់មួយមិនអាចមានស្លាយបាន៖** បើក READMEs របស់ labor ទាំងពីរនិងប្រើវាជាប្រធានបទសំខាន់។
+សម្រាប់ការណែនាំលម្ងៀបជាងនេះ ការបង្រៀនរាល់មួយមានឯកសារ `08-troubleshooting.md` ផ្ទាល់ខ្លួន - ផ្សារភ្ជាប់អ្នករាប់រៀនទៅទីនោះ៖
 
-ប្រសិនបើអ្នកបន្ថែមឡាប សូមចូលរួមនូវការផ្លាស់ប្តូរតាមរយៈ PR ដើម្បីឲ្យអ្នកបង្រៀនផ្សេងទៀតទទួលបានអត្ថប្រយោជន៍។
+- Lab 01: [`workshop/lab01-single-agent/docs/08-troubleshooting.md`](../workshop/lab01-single-agent/docs/08-troubleshooting.md)
+- Lab 02: [`workshop/lab02-multi-agent/docs/08-troubleshooting.md`](../workshop/lab02-multi-agent/docs/08-troubleshooting.md)
 
 ---
 
-## រៀបចំធនធានបន្ថែម
+## ការកែប្រែវគ្គសិក្សានេះ
 
-- [ឯកសាររបស់ Microsoft Foundry](https://learn.microsoft.com/azure/ai-foundry/)
-- [ផ្ទាំងសង្ខេបអេជិនដែលមានធ្វើ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [Quickstart: ចាប់ផ្តើមដាក់អេជិនដែលមានធ្វើជាលើកដំបូង (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
-- [ដាក់អេជិនដែលមានធ្វើ (វិធីលម្អិត)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
-- [Microsoft Agent Framework](https://github.com/microsoft/agents)
-- [Microsoft Foundry Toolkit សម្រាប់ VS Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
+អ្នកអាចបង្ហាញវគ្គសិក្សាតាមតម្រូវការសម្រាប់អ្នកស្ដាប់របស់អ្នក។ ប្រភេទមួយចំនួនដែលជារឿងទូទៅ៖
+
+- **សាធារណៈផ្នែក Backend:** ចំណាយពេលលើ `agent.yaml`, Docker, និង ACR បន្ថែមឡើង; បន្ទោរដំណើរការផ្លូវចូលលេង។
+- **សាធារណៈអ្នកអភិវឌ្ឍន៍ពលរដ្ឋ:** ស្ថិតនៅក្នុង UI នៃការពង្រឹង Foundry សម្រាប់ការបង្កើតជា scaffolding; បន្ថយជំហាន CLI។
+- **វគ្គតែមួយរយៈ 60 នាទី:** ផ្តល់ជូនការណែនាំ, បង្ហាញ, និង Lab 01 ទេ។
+- **ទ្រង់ទ្រាយសម្រាប់សិក្ខាសាលា בלבד (មិនមានស្លាយ):** បើកឯកសារ READMEs របស់មន្ទីរពិសោធន៍ទាំងពីរ ហើយប្រើវាជាគ្រ.Sequentialបញ្ជាររបស់អ្នក។
+
+ប្រសិនបើអ្នកពង្រីកមន្ទីរពិសោធន៍ សូមអញ្ជើញចូលរួមផ្លាស់ប្តូរវាមកវិញតាមរយៈ PR ដើម្បីអោយអ្នកបង្រៀនផ្សេងទៀតទទួលផល។
+
+---
+
+## វត្ថុផ្សេងទៀត
+
+- [ឯកសារ Microsoft Foundry](https://learn.microsoft.com/azure/ai-foundry/)
+- [វិចារណករណ៍អំពីតំណាងដែលបង្ហោះ](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [ចាប់ផ្តើមយ៉ាងរហ័ស៖ ដំណើរការតំណាងដែលបានបង្ហោះជាលើកដំបូង (`azd`)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent?pivots=azd)
+- [របៀបទាញយកតំណាងដែលបានបង្ហោះ (how-to)](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/)
+- [ក្រឡា Microsoft Foundry សម្រាប់ VS Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
 
 ---
 
 ## ទំនាក់ទំនង
 
-ប្រសិនបើអ្នកមានសំណួរអំពីការទទួលខុសត្រូវមេរៀននេះ សូមបើកបញ្ហានៅ [ឃ្លាំង workshop](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) ហើយសម្គាល់ទៅកាន់អ្នកថែទាំ។
+ប្រសិនបើអ្នកមានសំណួរអំពីការបញ្ចាំងសម័យនេះ សូមបើកបញ្ហានៅលើ [ឃ្លាំងនៃសិក្ខាសាលា](https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/issues) ហើយសម្គាល់អ្នកថែរក្សា។
 
-| តួនាទី               | ឈ្មោះ          | GitHub                                                  |
+| តួនាទី                | ឈ្មោះ            | GitHub                                                  |
 |---------------------|----------------|---------------------------------------------------------|
-| អ្នកថែទាំ / ទំនាក់ទំនង | Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)      |
+| អ្នកថែរក្សា / ទំនាក់ទំនង | Shivam Goyal   | [@ShivamGoyal03](https://github.com/ShivamGoyal03)      |
 
 ---
 

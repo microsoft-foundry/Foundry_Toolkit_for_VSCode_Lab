@@ -1,7 +1,7 @@
 # វគ្គបណ្តុះបណ្តាល Foundry Toolkit + Foundry Hosted Agents
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)
 [![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
 [![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
@@ -9,24 +9,24 @@
 [![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
 [![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-សាងសង់, បរិក្ខារសាកល្បង និងដាក់ពាណិជ្ជកម្មភ្នាក់ងារជា **សេវាកម្មភ្នាក់ងារ Microsoft Foundry** ជា **ភ្នាក់ងារត្រូវបានផ្ទុក** - ដោយប្រើ VS Code ពេញលេញជាមួយនឹង **កម្មវិធីបន្ថែម Microsoft Foundry** និង **Foundry Toolkit**។
+បង្កើត សាកល្បង ហើយដាក់បញ្ចូលសហការី AI ទៅកាន់ **Microsoft Foundry Agent Service** ជា **Hosted Agents** - ទាំងអស់ពី VS Code ដោយប្រើ **Microsoft Foundry extension** និង **Foundry Toolkit**។
 
-> **ភ្នាក់ងារត្រូវបានផ្ទុកសព្វថ្ងៃក្នុងជំហានពិនិត្យមើល។** តំបន់គាំទ្រ មានកំណត់ - សូមមើល [ភាពមានទីតាំងតំបន់](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)។
+> **Hosted Agents កំពុងនៅក្នុងការមើលជាមុន។** តំបន់ដែលគាំទ្រមានកំណត់ - សូមមើល [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)។
 
-> សៀវភៅ `agent/` នៅក្នុងមួយមន្ទីរពិនិត្យជាប្រភេទ **ស្វ័យប្រវត្តិកសាង** ដោយកម្មវិធីបន្ថែម Foundry - បន្ទាប់មកអ្នកអាចកែប្រែកូដ, សាកល្បងនៅក្នុងម៉ាស៊ីន និងដាក់ពាណិជ្ជកម្ម។
+> ថត `agent/` ក្នុងនៃរោងចក្រ​រាល់គ្នា​ត្រូវបាន **បង្កើតដោយស្វ័យប្រវត្តិ** ដោយ Foundry extension - បន្ទាប់មកអ្នកប្ដូរកូដ សាកល្បងនៅលើម៉ាស៊ីនផ្ទាល់ខ្លួន ហើយដាក់បញ្ចូល។
 
-### 🌐 គាំទ្រភាសាច្រើន
+### 🌐 ការគាំទ្រ ភាសាច្រើន
 
-#### គាំទ្រដោយរបារតនះ GitHub Action (ស្វ័យប្រវត្តិ និង មានការអាប់ដេតជានិច្ច)
+#### គាំទ្រដោយ GitHub Action (ស្វ័យប្រវត្តិ និងតែងតែធ្វើបច្ចុប្បន្នភាព)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
 [Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](./README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](../th/README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **ចូលចិត្តចម្លងនៅក្នុងម៉ាស៊ីនមែនទេ?**
+> **ចូលចិត្ត Clone នៅក្នុងម៉ាស៊ីនផ្ទាល់ខ្លួនទេ?**
 >
-> រក្សាទុកគម្រោងនេះមានការបកប្រែភាសាជាង 50 ដែលបន្ថែមទំហំនៃការទាញយកយ៉ាងខ្លាំង។ ដើម្បីចម្លងដោយគ្មានការបកប្រែ សូមប្រើ sparse checkout:
+> ឃ្លាំងទិន្នន័យនេះរួមបញ្ចូលការប្រែសម្រួលជាភាសា ៥០+ ដែលបង្កើនទំហំទាញយកយ៉ាងច្រើន។ ដើម្បី clone ដោយគ្មានការប្រែសម្រួល សូមប្រើ sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,12 +42,12 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> នេះផ្តល់ឱ្យអ្នកបានគ្រប់យ៉ាងដែលត្រូវការដើម្បីបញ្ចប់វគ្គបណ្តុះបណ្តាលដោយការទាញយកប្រសើរជាងមុន។
+> វា​ផ្តល់​អ្នក​នូវ​គ្រប់​អ្វី​ដែល​ចាំបាច់​ដើម្បី​បញ្ចប់វគ្គ​នេះដោយ​ទិន្នន័យ​ទាញយក​រហ័សជាងមុន។
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
 
-## ស្ថាបត្យកម្ម
+## វិធីសាស្រ្តរចនាសម្ព័ន្ធ
 
 ```mermaid
 flowchart TB
@@ -92,44 +92,44 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**សភាព:** កម្មវិធីបន្ថែម Foundry បានសាងសង់ភ្នាក់ងារ ឲ្យអ្នកកែប្រែកូដ និងបញ្ជាក់ប្រាប់ → សាកល្បងក្នុងម៉ាស៊ីនដោយជាមួយ Agent Inspector → ដាក់ពាណិជ្ជកម្មទៅ Foundry (រូបភាព Docker ត្រូវបានបញ្ចូនទៅ ACR) → ពិនិត្យនៅក្នុង Playground។
+**លំហូរ:** សរុប Foundry extension បង្កើតភ្នាក់ងារ → អ្នកប្ដូរកូដ និងបានពណ៌នាការណែនាំ → សាកល្បងក្នុងម៉ាស៊ីនដោយ Agent Inspector → ដាក់បញ្ចូលទៅ Foundry (រូបភាព Docker ត្រូវបាន push ទៅ ACR) → ពិនិត្យឡើងវិញនៅ Playground។
 
 ---
 
-## អ្វីដែលអ្នកនឹងសាងសង់
+## អ្វីដែលអ្នកនឹងបង្កើត
 
-| មន្ទីរ | ពិពណ៌នា | ស្ថានភាព |
+| រោងចក្រ | ពណ៌នា | ស្ថានភាព |
 |-----|-------------|--------|
-| **មន្ទីរ 01 - ភ្នាក់ងារតែមួយ** | សាងសង់ **"ពណ៌នាដូចជាខ្ញុំជាអគ្គនាយក" ភ្នាក់ងារ**, សាកល្បងក្នុងម៉ាស៊ីន និងដាក់ពាណិជ្ជកម្មទៅ Foundry | ✅ មានស្រាប់ |
-| **មន្ទីរ 02 - ការងារភ្នាក់ងារច្រើន** | សាងសង់ **"Resume → Job Fit Evaluator"** - ភ្នាក់ងារចំនួន 4 រួមគ្នាធ្វើការវាយតម្លៃការសម្របសម្រួលប្រវត្តិរូប និងបង្កើតផែនការរៀន | ✅ មានស្រាប់ |
+| **រោងចក្រ 01 - ភ្នាក់ងារតែមួយ** | បង្កើត **"Explain Like I'm an Executive" Agent** សាកល្បងក្នុងម៉ាស៊ីន ហើយដាក់បញ្ចូលទៅ Foundry | ✅ មានស្រាប់ |
+| **រោងចក្រ 02 - សកម្មភាពភ្នាក់ងារច្រើន** | បង្កើត **"Resume → Job Fit Evaluator"** - ភ្នាក់ងារចំនួន ៤ សហការដើម្បីផ្ទៀងផ្ទាត់ភាពសមនឹងប្រវត្តិការងារ និងបង្កើតផែនការសិក្សា | ✅ មានស្រាប់ |
 
 ---
 
-## ចូរជួបភ្នាក់ងារអគ្គនាយក
+## ជួបភ្នាក់ងារអគ្គនាយក
 
-ក្នុងវគ្គបណ្តុះបណ្តាលនេះ អ្នកនឹងសង្កត់ចិត្តសាងសង់ **"ពណ៌នាដូចជាខ្ញុំជាអគ្គនាយក" ភ្នាក់ងារ** - ភ្នាក់ងារត្រឹមត្រូវដែលយកភាសាបច្ចេកទេសស្មុគស្មាញមកបំលែងជាសេចក្តីសង្ខេបស្ងប់ស្ងាត់សម្រាប់កៅអីប្រជុំក្រុមប្រឹក្សាភិបាល។ ពីព្រោះយើងត្រូវតែស្មោះត្រង់ មិនមាននរណានៅក្នុង C-suite ចង់ស្តាប់អំពី "ការបញ្ចប់ thread pool ដែលបណ្តាលមកពីការហៅសមកាលកម្មដែលបានបញ្ចូលនៅក្នុង v3.2" ទេ។
+នៅក្នុងវគ្គបណ្តុះបណ្ដាលនេះ អ្នកនឹងបង្កើត **"Explain Like I'm an Executive" Agent** - ភ្នាក់ងារ AI ត្រូវផ្លាស់ប្តូរជាភាសាបច្ចេកទេសកិនកាត់ទៅជាសេចក្ដីសង្ខេបស្ងប់ស្ងាត់ ប្រកបដោយភាពឆ្លាតបញ្ញាដល់កន្លែងប្រជុំក្រុមប្រឹក្សាភិបាល។ ព្រោះយើងត្រូវតែស្មោះត្រង់ មិនមាននរណានៅក្នុងក្រុម C-suite ចង់ស្ដាប់អំពី "thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-ខ្ញុំបានបង្កើតភ្នាក់ងារនេះបន្ទាប់ពីមានព្រឹត្តិការណ៍ជាច្រើនដែលការបង្ហោះតាមបណ្តាញដែលខ្ញុំបានរៀបចំយ៉ាងល្អមានការឆ្លើយតបថា: *"ហេតុអ្វី... គេហទំព័រមិនដំណើរការឬ?"*
+ខ្ញុំបានបង្កើតភ្នាក់ងារនេះបន្ទាប់ពីមានហេតុការណ៍មួយចំនួនដែលការរបាយការណ៍ការបរាជ័យរបស់ខ្ញុំបានទទួលការឆ្លើយតប៖ *"ហេតុដូចម្តេច... គេហទំព័រត្រូវបានបិទឬទេ?"*
 
-### វាដំណើរការយ៉ាងដូចម្ដេច
+### វាដំណើរការយ៉ាងដូចម្តេច
 
-អ្នកផ្តល់ឱ្យវាការអាប់ដេតបច្ចេកទេស។ វាចេញមកជាសេចក្តីសង្ខេបអគ្គនាយក - បីចំណុចទាញឯកសារ គ្មានផ្ទាំងបច្ចេកទេស គ្មានផ្ទាំងកូដរកកំហុស គ្មានភាពខ្លាចអវត្តមាន តែ **អ្វីដែលបានកើតឡើង**, **ឥទ្ធិពលអាជីវកម្ម**, និង **ជំហានបន្ទាប់**។
+អ្នកផ្ដល់ការ​អាប់ដេត​បច្ចេកទេសមួយ។ វាចេញមកជាសេចក្ដីសង្ខេបអគ្គនាយក - ចំណុច​ប៊ុលเล็ต​ទីបី ដោយគ្មានពាក្យបច្ចេកទេស ពាក្យបញ្ជុះបញ្ជា ឬភាពបារម្ភអីទេស។ មានតែ **អ្វីដែលកើតឡើង** **ផលប៉ះពាល់អាជីវកម្ម** និង **ជំហាន​បន្ទាប់** ប៉ុណ្ណោះ។
 
-### មើលវាជាកម្មវិធី
+### មើលវា​ធ្វើការ​នៅពេល​មួយ
 
-**អ្នកប្រាប់ថា:**
-> "ល្បឿន API បានបន្ថយដោយសារតែការបញ្ចប់ thread pool ដែលបណ្តាលមកពីការហៅសមកាលកម្មដែលបានបញ្ចូលនៅ v3.2។"
+**អ្នកនិយាយ៖**
+> "The API latency increased due to thread pool exhaustion caused by synchronous calls introduced in v3.2."
 
-**ភ្នាក់ងារឆ្លើយតបថា:**
+**ភ្នាក់ងារឆ្លើយតប៖**
 
-> **សេចក្តីសង្ខេបអគ្គនាយក:**
-> - **អ្វីដែលបានកើតឡើង:** បន្ទាប់ពីចេញផ្សាយថ្មីៗនេះ ប្រព័ន្ធបានយឺតចុះ។
-> - **ឥទ្ធិពលអាជីវកម្ម:** អ្នកប្រើប្រាស់ខ្លះបានជួបប្រទះការពន្យារពេលពេលប្រើសេវាកម្ម។
-> - **ជំហានបន្ទាប់:** ការផ្លាស់ប្តូរបានត្រូវដកចេញ ហើយការជួសជុលកំពុងត្រូវរៀបចំមុនការដាក់ពាណិជ្ជកម្មឡើងវិញ។
+> **Executive Summary:**
+> - **អ្វីដែលកើតឡើង:** ក្រោយបញ្ចេញថ្មី ប្រព័ន្ធបានយឺតចុះ។
+> - **ផលប៉ះពាល់អាជីវកម្ម:** អ្នកប្រើខ្លះបានប្រឈមមុខនឹងការពន្យាពេលពេលប្រើសេវាកម្ម។
+> - **ជំហាន​បន្ទាប់:** ការផ្លាស់ប្តូរត្រូវបានត្រឡប់ក្រោយ ហើយមានការរៀបចំដំណោះស្រាយមុនដាក់បញ្ចូលឡើងវិញ។
 
-### ហេតុអ្វីបានជាជ្រើសរើសភ្នាក់ងារនេះ?
+### ហេតុអ្វីបានជា​ភ្នាក់ងារនេះ?
 
-វាជាភ្នាក់ងារងាយស្រួលជាក់លាក់និងមានគោលបំណងតែមួយ - ពេញលេញសម្រាប់ការរៀនដំណើរការភ្នាក់ងារត្រូវបានផ្ទុកពីដើមដល់ចុងដោយគ្មានការរុញរាយក្នុងខ្សែស្រឡាយឧបករណ៍ស្មុគស្មាញ។ ហើយម្នាក់ៗក្នុងក្រុមវិទ្យាសាស្ត្រអាចប្រើបានយ៉ាងល្អ។
+វាជាភ្នាក់ងារសាមញ្ញម្នាក់ មុខងារតែមួយ - ល្អសម្រាប់រៀនដំណើរការសហការីដែលបានដាក់បញ្ចូលដោយពេញលេញដោយមិនចូលចិត្តស្រួលនៅក្នុងស្ថិតិបច្ចេកទេសស្មុគស្មាញៗ។ ហើយពិតណាស់? ក្រុមវិស្វកម្មមួយៗអាចប្រើបានមួយរាប់នេះ។
 
 ---
 
@@ -167,7 +167,8 @@ flowchart TB
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,26 +176,26 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **សម្គាល់:** សៀវភៅ `agent/` ក្នុងមន្ទីរពិនិត្យគឺជាអ្វីដែល **កម្មវិធីបន្ថែម Microsoft Foundry** បង្កើតពេលអ្នកបញ្ជា `Microsoft Foundry: Create a New Hosted Agent` ពី Command Palette។ ឯកសារត្រូវបានកែប្រែជាមួយនឹងការណែនាំភ្នាក់ងារ ឧបករណ៍ និងការកំណត់រចនាសម្ព័ន្ធរបស់អ្នក។ មន្ទីរ 01 នាំអ្នកឆ្លាស់វឌ្ឍនេះពីដើម។
+> **កំណត់ចំណាំ៖** ថត `agent/` ក្នុងរោងចក្រ​រាល់គ្នា​គឺជា​អ្វីដែល **Microsoft Foundry extension** បង្កើតពេលអ្នកដំណើរការ `Microsoft Foundry: Create a New Hosted Agent` ពី Command Palette។ រួចហើយឯកសារត្រូវបានប្ដូរតាមការណែនាំ ភ្នាក់ងារ ឧបករណ៍ និងកំណត់រចនាសម្ព័ន្ធ។ Lab 01 នាំអ្នកធ្វើបន្ទាត់នេះឡើងវិញពីដំបូង។
 
 ---
 
-## ចាប់ផ្ដើម
+## ចាប់ផ្តើម
 
-### 1. ចម្លងឃ្លាំង
+### 1. Clone រក្សាទុក
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. បង្កើតបរិយាកាស Python វិចិត្រសិល្បៈ
+### 2. តំឡើងបរិស្ថាន Python យុទ្ធសាស្រ្តសាកល
 
 ```bash
 python -m venv venv
 ```
 
-ដំណើរការ​វា៖
+ចាប់ផ្តើមវា៖
 
 - **Windows (PowerShell):**
   ```powershell
@@ -205,58 +206,60 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-### 3. ដំឡើង dependencies
+### 3. តំឡើងអាំងធើឡាញ
 
 ```bash
 pip install -r workshop/lab01-single-agent/agent/requirements.txt
 ```
 
-### 4. កំណត់តម្លៃបរិយាកាស
+### 4. កំណត់អថេរបរិស្ថាន
 
-បន្ត់ឯកសារ `.env` ក្នុងថតភ្នាក់ងារ ហើយកំណត់តម្លៃរបស់អ្នក៖
+ចម្លងឯកសារ `.env` ឧទាហរណ៍នៅក្នុងថតភ្នាក់ងារ ហើយបំពេញតម្លៃរបស់អ្នក៖
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
 ```
 
-កែប្រែ `workshop/lab01-single-agent/agent/.env`:
+កែសម្រួល `workshop/lab01-single-agent/agent/.env`:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. តាមដានវគ្គបណ្តុះបណ្តាល
+### 5. អនុវត្តរោងចក្រ វគ្គបណ្តុះបណ្តាល
 
-មន្ទីរ​នីមួយៗមានមុខងារស្វែងយល់ផ្ទាល់ខ្លួន។ ចាប់ផ្ដើមជាមួយ **មន្ទីរ 01** ដើម្បីរៀនមូលដ្ឋាន បន្ទាប់មកទៅ **មន្ទីរ 02** សម្រាប់ដំណើរការភ្នាក់ងារច្រើន។
+រោងចក្រ​រាល់គ្នាជាឯកត្តាមួយមានមូលដ្ឋានផ្ទាល់ខ្លួន។ ចាប់ផ្តើមជាមួយ **Lab 01** ដើម្បីរៀនមូលដ្ឋាន ហើយបន្តទៅ **Lab 02** សម្រាប់ដំណើរការ​ភ្នាក់ងារច្រើន។
 
-#### មន្ទីរ 01 - ភ្នាក់ងារតែមួយ ([ការណែនាំពេញលេញ](workshop/lab01-single-agent/README.md))
+#### Lab 01 - ភ្នាក់ងារតែមួយ ([ការណែនាំពេញលេញ](workshop/lab01-single-agent/README.md))
 
-| # | មុខងារ | តំណភ្ជាប់ |
+| # | ម៉ូឌុល | តំណភ្ជាប់ |
 |---|--------|------|
-| 1 | អានតម្រូវការ | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
-| 2 | ដំឡើង Foundry Toolkit & កម្មវិធីបន្ថែម Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
+| 1 | អានលក្ខខណ្ឌមុន | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 2 | តំឡើង Foundry Toolkit និង Foundry extension | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | បង្កើតគម្រោង Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
-| 4 | បង្កើតភ្នាក់ងារត្រូវបានផ្ទុក | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
-| 5 | កំណត់បញ្ជា និងបរិយាកាស | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
+| 4 | បង្កើតភ្នាក់ងារអាហារូបករណ៍ | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
+| 5 | កំណត់ការណែនាំ និងបរិស្ថាន | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
 | 6 | សាកល្បងក្នុងម៉ាស៊ីន | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | ដាក់ពាណិជ្ជកម្មទៅ Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
-| 8 | ពិនិត្យនៅក្នុងចំការក្មេង | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | ដោះស្រាយបញ្ហា | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 7 | ដាក់បញ្ចូលទៅ Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 8 | ផ្ទៀងផ្ទាត់នៅក្នុងការលេង | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
+| 9 | សង្ខេប និងជំហានបន្ទាប់ | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | ដោះស្រាយបញ្ហា | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### មន្ទីរ 02 - ដំណើរការភ្នាក់ងារច្រើន ([ការណែនាំពេញលេញ](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - ដំណើរការភ្នាក់ងារច្រើន ([ការណែនាំពេញលេញ](workshop/lab02-multi-agent/README.md))
 
-| # | មុខងារ | តំណភ្ជាប់ |
+| # | ម៉ូឌុល | តំណភ្ជាប់ |
 |---|--------|------|
-| 1 | តម្រូវការ (មន្ទីរ 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | យល់ដឹងស្ថាបត្យកម្មភ្នាក់ងារច្រើន | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | សាងសង់គម្រោងភ្នាក់ងារច្រើន | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | កំណត់ភ្នាក់ងារនិងបរិយាកាស | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | គំរូផ្តាំប្រតិបត្តិការ | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 1 | លក្ខខណ្ឌមុន (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | យល់ដឹងអំពីរចនាសម្ព័ន្ធភ្នាក់ងារច្រើន | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | បង្កើតគម្រោងភ្នាក់ងារច្រើន | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | កំណត់ភ្នាក់ងារ និងបរិស្ថាន | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | លំនាំអត្រានៃការដឹកនាំ | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
 | 6 | សាកល្បងក្នុងម៉ាស៊ីន (ភ្នាក់ងារច្រើន) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | ដាក់ពាណិជ្ជកម្មទៅ Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
-| 8 | ពិនិត្យនៅក្នុងចំការក្មេង | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
+| 7 | ដាក់បញ្ចូលទៅ Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 8 | ផ្ទៀងផ្ទាត់នៅក្នុងការលេង | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
 | 9 | ដោះស្រាយបញ្ហា (ភ្នាក់ងារច្រើន) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | សង្ខេប និងជំហានបន្ទាប់ | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
@@ -274,31 +277,31 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## អាជ្ញាបណ្ណចាំបាច់ (យោងសម្រួល)
+## អាជ្ញាបណ្ណត្រូវការ (ជំនួយរហ័ស)
 
-| ស្ថានការណ៍ | តួនាទីចាំបាច់ |
+| សណ្ដាប់ធ្នាប់ | តួនាទីត្រូវការ |
 |----------|---------------|
 | បង្កើតគម្រោង Foundry ថ្មី | **Azure AI Owner** លើធនធាន Foundry |
-| ដាក់ពាណិជ្ជកម្មទៅគម្រោងដែលមាន (ធនធានថ្មី) | **Azure AI Owner** + **Contributor** លើការជាវ |
-| ដាក់ពាណិជ្ជកម្មទៅគម្រោងដែលបានកំណត់រចនាសម្ព័ន្ធពេញលេញ | **Reader** លើគណនី + **Azure AI User** លើគម្រោង |
+| ដាក់បញ្ចូលទៅគម្រោងដែលមានហើយ (ធនធានថ្មី) | **Azure AI Owner** + **Contributor** លើការជាវ |
+| ដាក់បញ្ចូលទៅគម្រោងដែលបានបំពេញរចនាសម្ព័ន្ធ | **Reader** លើគណនី + **Azure AI User** លើគម្រោង |
 
-> **សំខាន់៖** តួនាទី Azure `Owner` និង `Contributor` មានតែកម្មសិទ្ធិ *គ្រប់គ្រង* តែប៉ុណ្ណោះ មិនមែនសិទ្ធិ *អភិវឌ្ឍន៍* (សកម្មភាព ទិន្នន័យ) ទេ។ អ្នកត្រូវការនូវ **Azure AI User** ឬ **Azure AI Owner** ដើម្បីសាងសង់ និង ដាក់ពាណិជ្ជកម្មភ្នាក់ងារ។
+> **សំខាន់:** តួនាទី Azure `Owner` និង `Contributor` រួមមានតែសិទ្ធិ *គ្រប់គ្រង* ប៉ុណ្ណោះ មិនមែនសិទ្ធិ *អភិវឌ្ឍន៍* (សកម្មភាពទិន្នន័យ) ទេ។ អ្នកត្រូវការតួនាទី **Azure AI User** ឬ **Azure AI Owner** ដើម្បីបង្កើត និងចាកចេញក្រុមប្រឹក្សា។
 
 ---
 
-## យោង
+## ឯកសារ​គន្លឹះ
 
-- [ការចាប់ផ្តើមរហ័ស៖ បញ្ចេញភ្នាក់ងារបង្ហោះដំបូងរបស់អ្នក (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [ភ្នាក់ងារបង្ហោះមានអ្វីខ្លះ?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [បង្កើតដំណើរការភ្នាក់ងារបង្ហោះក្នុង VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [បញ្ចេញភ្នាក់ងារបង្ហោះមួយ](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [ការចាប់ផ្ដើមរហ័ស៖ ចេញផ្សាយអាជីវករបុរសដំបូងរបស់អ្នក (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [អ្វីទៅជាអ្នកបម្រើបុរស?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [បង្កើតលំហូរកម្មវិធីអ្នកបម្រើបុរសក្នុង VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [ចេញផ្សាយអ្នកបម្រើបុរស](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC សម្រាប់ Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [ឧទាហរណ៍ភ្នាក់ងារពិនិត្យរចនាសម្ព័ន្ធ](https://github.com/Azure-Samples/agent-architecture-review-sample) - ភ្នាក់ងារបង្ហោះពិតជាជាមួយឧបករណ៍ MCP, គំនូរបង្ហាញ Excalidraw, និងការបញ្ចេញពីរដង
+- [ឧទាហរណ៍តំណាងពិនិត្យរចនាសម្ព័ន្ធ](https://github.com/Azure-Samples/agent-architecture-review-sample) - អ្នកបម្រើបុរសពិតជាមួយឧបករណ៍ MCP, រាងតំណាងទំនាក់ទំនង Excalidraw និងការចេញផ្សាយទ្វេផ្សារ
 
 ---
 
 
-## អាជ្ញាប័ណ្ណ
+## លិខិតអនុញ្ញាត
 
 [MIT](../../LICENSE)
 

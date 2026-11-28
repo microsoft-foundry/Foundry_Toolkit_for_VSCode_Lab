@@ -1,71 +1,71 @@
-# មូឌុល 2 - រៀបចំគម្រោង Multi-Agent
+# មូឌ្យុល 2 - បង្កើតគម្រោង Multi-Agent
 
 ⏱️ ~5 នាទី
 
-ក្នុងមូឌូលនេះ អ្នកប្រើប្រាស់ [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) ដើម្បី **រៀបចំគម្រោង multi-agent**។ វឌីហ្សាមួយនេះបង្កើត `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, និងការកំណត់ VS Code debug - ដូច្នេះអ្នកអាចផ្តោតលើការតភ្ជាប់ workflow 4-agent ក្នុងមូឌុល 3។
+នៅក្នុងមូឌ្យុលនេះ អ្នកប្រើ [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) ដើម្បី **បង្កើតគម្រោង multi-agent**។ វីហ្វស៊ីដបង្កើត `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, និងការប្រើប្រាស់លំនាំសម្រាប់ VS Code ដោយសម្រាប់ debug - ដូច្នេះអ្នកអាចផ្តោតលើការតភ្ជាប់ហ្វ្លូវការងារ 4-agent នៅមូឌ្យុល 3។
 
-> **មន្ដសំខាន់:** Scaffold គឺជាស្តាប់ការងារដែលមានភ្នាក់ងារមួយ។ អ្នកជំនួសតុល្យភាព placeholder ជាមួយក្រាហ្វ `WorkflowBuilder` ក្នុងមូឌុល 3។ អ្នកមិនចាំបាច់សរសេរកូដ boilerplate ពីដើមឡើយ។
+> **គំនិតសំខាន់៖** ការបង្កើត scaffold គឺជាគំរូធ្វើការដែលមានអ្នកប្រតិបត្តិម្នាក់។ អ្នកដាក់ចន្លោះគំនិតជំនួសជាមួយក្រាហ្វិក `WorkflowBuilder` នៅមូឌ្យុល 3។ អ្នកមិនចាំបាច់សរសេរបទបញ្ជារៀងពីដើមទេ។
 
-> **អនុវត្តន៍យោង:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) គឺជាឧទាហរណ៍ពេញលេញដែលដំណើរការបាន។ ប្រើវាដើម្បីប្រៀបធៀបការងាររបស់អ្នកក្រោយមក។
+> **កំណត់ត្រាទើបតែសរសេរ៖** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) គឺជាឧទាហរណ៍ដែលបំពេញការងារ។ ប្រើវាដើម្បីប្រៀបធៀបជាមួយការងាររបស់អ្នកលើដំណាក់កាល។
 
-### ដំណើរការស្គាល់វីហ្សាត scaffold
+### ជំហានអ្នកគ្រូបង្រៀន scaffold
 
 ```mermaid
 flowchart LR
-    A[Command Palette: បង្កើតភ្នាក់ងារថ្មីដែលបានផ្ញើរតាំង] --> B[ភាសា: Python]
-    B --> C[API Type: ដំណើរការ API]
-    C --> D[Template: សូម្បីធ្វើការងារ]
-    D --> E[ជ្រើសរើសម៉ូដែល]
-    E --> F[ថតធ្វើការ និងឈ្មោះភ្នាក់ងារ]
-    F --> G[គម្រោងដែលបានបង្កើត]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
-## ជំហានទី 1៖ បើកវីហ្សាតបង្កើតភ្នាក់ងារប្រភេទ Hosted Agent
+## ជំហាន 1: បើកវិហ្វស៊ីដ Create Hosted Agent
 
 1. ចុច `Ctrl+Shift+P` ដើម្បីបើក **Command Palette**។
-2. បញ្ចូល: **Foundry Toolkit: Create a New Hosted Agent** និងជ្រើសរើសវា។
-3. វីហ្សាតបើកនៅផ្ទាំង **Agent Details**។
+2. វាយ: **Foundry Toolkit: Create new Hosted Agent** ហើយជ្រើសរើសវា។
+3. វីហ្វស៊ីដនឹងបើកនៅផ្ទាំង **Agent Details**។
 
-> **ជម្រើសជំនួស:** ចុចរូបតំណាង **Foundry Toolkit** នៅ Activity Bar → ចុចរូបតំណាង **+** នៅក្បែរជួរឈរ **Hosted Agents** → **Create New Hosted Agent**។
-
----
-
-## ជំហានទី 2៖ ជ្រើសការកំណត់
-
-![បង្កើត Hosted Agent ពីគំរូ - ផ្ទាំង Agent Details ជាមួយគំរូ Workflows ដែលបានជ្រើសរើស](../../../../../translated_images/km/02-scaffold-wizard-details.af4798708b4a87f4.webp)
-
-1. នៅផ្នែកជំរើស/នាវាកម្មនៅខាងឆ្វេង ជ្រើសរើសជា​ដូចតទៅ៖
-
-| តារាងម៉ឺនុយ | ជម្រើស | កំណត់ចំណាំ |
-|--------|-----------|-------|
-| **ភាសា** | Python | ក៏គាំទ្រ C# (.NET) ផងដែរ |
-| **ស៊ុមគុណ** | Agent Framework | ផ្ដល់ `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **ប្រភេទ API** | Response API | `POST /responses` - ប្រវត្តិគ្រប់គ្រងដោយវេទិកា, គាំទ្រស្ទ្រីមមីង |
-| **គំរូ** | **Workflows** | ដំណើរការសំណើរតាមរយៈភ្នាក់ងារច្រើនជាលំដាប់ |
-
-2. បន្ទាប់ពីបានជ្រើសរើស ចុច **Next**
-
-![បង្កើត Hosted Agent ពីគំរូ - ផ្ទាំងបង្កើត បង្ហាញថា PersonalCareerCopilot ជាឈ្មោះថតទិន្នន័យ](../../../../../translated_images/km/02-scaffold-wizard-create.ae0c285c309698ba.webp)
-
-3. នៅវីនដូបន្ទាប់ជ្រើសរើសដូចខាងក្រោម៖
-
-| តារាងម៉ឺនុយ | ជម្រើស | កំណត់ចំណាំ |
-|--------|-----------|-------|
-| **ថតកន្លែងធ្វើការ** | រុករកទៅថតគោលដៅ | ឧទាហរណ៍ `workshop/lab02-multi-agent/` នៅក្នុង repo នេះ |
-| **ឈ្មោះភ្នាក់ងារ** | `PersonalCareerCopilot` | នេះក្លាយជាឈ្មោះថតគម្រោង |
-| **ការដាក់បញ្ជូនម៉ូដែល** | ជ្រើសម៉ូដែលដែលអ្នកបានដាក់បញ្ចូន | ឧទាហរណ៍ `gpt-4.1-mini` ពី Lab 01 |
-
-4. ចុច **Create** ដើម្បីរៀបចំគម្រោង។ VS Code បង្កើតឯកសារនិងបើកថត។
-
-> **​ជំនួយ៖** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) តុល្យភាពល្អរវាងល្បឿននិងគុណភាពសម្រាប់ការអភិវឌ្ឍ multi-agent។
+> **ជម្រើសផ្សេងទៀត៖** ចុចរូបតំណាង **Foundry Toolkit** នៅក្នុងរបារសកម្មភាព → ចុចរូបតំណាង **+** នៅខាងក្បាល **Hosted Agents** → **Create New Hosted Agent**។
 
 ---
 
-## ជំហានទី 3៖ ពិនិត្យគម្រោងដែលបានបង្កើត
+## ជំហាន 2: ជ្រើសរើសកំណត់រចនាសម្ព័ន្ធ
 
-បន្ទាប់ពីរៀបចំរួច សូមធ្វើការ បញ្ជាក់ថា អ្នកឃើញឯកសារ​ទាំងនេះក្នុង Explorer (`Ctrl+Shift+E`)៖
+![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/km/02-scaffold-wizard-details.af4798708b4a87f4.webp)
+
+1. នៅផ្នែករុករក/ជម្រើសខាងឆ្វេង ជ្រើសរើសដូចខាងក្រោម៖
+
+| មឺនុយ | ជម្រើស | កំណត់សម្គាល់ |
+|--------|-----------|-------|
+| **ភាសា** | Python | ផលិតកម្ម C# (.NET) ក៏គាំទ្រផងដែរ |
+| **ស៊ុមរចនា** | Agent Framework | ផ្ដល់ `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **ប្រភេទ API** | Response API | `POST /responses` - ប្រព័ន្ធគ្រប់គ្រងប្រវត្តិ, គាំទ្រការផ្សាយតាមបណ្តាញ |
+| **គំរូ** | **Workflows** | ដំណើរការសំណើទៅតាមជំនួសបន្តបន្ទាប់នៅក្នុងអ្នកប្រតិបត្តិជាច្រើន |
+
+2. បន្ទាប់ពីជ្រើសរើសរួចចុច **Next**
+
+![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/km/02-scaffold-wizard-create.ae0c285c309698ba.webp)
+
+3. នៅបង្អួចបន្ទាប់ ជ្រើសរើសដូចខាងក្រោម៖
+
+| មឺនុយ | ជម្រើស | កំណត់សម្គាល់ |
+|--------|-----------|-------|
+| **ថតការងារ** | រុករកទៅថតគោលដៅ | ឧទាហរណ៍ `workshop/lab02-multi-agent/` ក្នុង repo នេះ |
+| **ឈ្មោះអេហ្សង់** | `PersonalCareerCopilot` | នេះក្លាយជាឈ្មោះថតគំរោង |
+| **ការចេញផ្សាយម៉ូដែល** | ជ្រើសម៉ូដែលដែលបានចេញផ្សាយរបស់អ្នក | ឧទាហរណ៍ `gpt-4.1-mini` ពីលាប 01 |
+
+4. ចុច **Create** ដើម្បីបង្កើត scaffold គម្រោង។ VS Code នឹងបង្កើតឯកសារនិងបើកថតគម្រោង។
+
+> **គន្លឹះ:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) សម្រួលល្បឿននិងគុណភាពល្អសម្រាប់ការអភិវឌ្ឍ multi-agent។
+
+---
+
+## ជំហាន 3: ពិនិត្យគម្រោងដែលបានបង្កើត
+
+បន្ទាប់ពីបញ្ចប់ការបង្កើត scaffold ផ្ទៀងផ្ទាត់មើលឃើញឯកសារទាំងនេះនៅក្នុង Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **សំខាន់៖** បើកថត scaffolded នេះដោយផ្ទាល់ក្នុង VS Code ដើម្បីឲ្យ `.vscode/launch.json` និង `tasks.json` អាចអនុវត្តបានត្រឹមត្រូវសម្រាប់ ការប្រើប្រាស់ F5 debug។
+> **សំខាន់៖** បើកថត scaffold នេះដោយផ្ទាល់ក្នុង VS Code ដើម្បីឲ្យ `.vscode/launch.json` និង `tasks.json` អនុវត្តបានត្រឹមត្រូវសម្រាប់ F5 debugging។
 
-### ឯកសារសំខាន់ៗអត្ថន័យ
+### និយមន័យឯកសារសំខាន់ៗ
 
-| ឯកសារ | គោលបំណង |
+| ឯកសារ | មានប្រយោជន៍ដើម្បី |
 |------|---------|
-| `agent.yaml` | បញ្ជាក់ `kind: hosted`, ផ្គូផ្គងស្រមោល env vars, កំណត់ប្រភេទ `/responses` protocol |
-| `main.py` | Stub: មានតែ `FoundryChatClient` → `Agent` → `ResponsesHostServer` តែមួយ។ អ្នកជំនួសវាជាមួយភ្នាក់ងារបួន + `WorkflowBuilder` ក្នុងមូឌុល 3 |
-| `Dockerfile` | `python:3.12-slim`, តំឡើង `requirements.txt`, បង្ហាញ port 8088, រំកិល `python main.py` |
+| `agent.yaml` | ចេញផ្សាយ `kind: hosted`, ផ្សារ env vars, កំណត់ប្រតិបត្តិការប្រព័ន្ធ `/responses` protocol |
+| `main.py` | គំរូ: អ្នកប្រតិបត្តិម្នាក់ `FoundryChatClient` → `Agent` → `ResponsesHostServer`។ អ្នកប្រែប្រួលវាជាមួយអ្នកប្រតិបត្តិ 4 នាក់ + `WorkflowBuilder` នៅមូឌ្យុល 3 |
+| `Dockerfile` | `python:3.12-slim`, ដំឡើង `requirements.txt`, បើកច្រក 8088, ប្រតិបត្ដិ `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **យោង៖** មើល [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) និង [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) សម្រាប់ខ្លឹមសារបំពេញលេញ។
+> **យោង៖** មើល [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) និង [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) សម្រាប់មាតិកាទាំងស្រុងដែលបានបង្កើត។
 
 ---
 
-### ✅ ចំណុចពិនិត្យ
+### ✅ ចំណុចត្រួតពិនិត្យ
 
-- [ ] បានបញ្ចប់វីហ្សាត scaffold - បណ្ណាល័យគម្រោងថ្មីឃើញនៅ Explorer
-- [ ] មានឯកសារដែលចាំបាច់ទាំងអស់៖ `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
-- [ ] `agent.yaml` បង្ហាញ `kind: hosted` និង `protocol: responses`
+- [ ] បានបញ្ចប់វិហ្វស៊ីដ scaffold - ថតគម្រោងថ្មីបង្ហាញក្នុង Explorer
+- [ ] ឯកសារដែលរំពឹងទុកទាំងអស់មាន: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] `agent.yaml` បង្ហាញ `kind: hosted` ហើយ `protocol: responses`
 - [ ] `main.py` នាំចូល `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] ថត scaffolded បានបើកជារមូលហេដ្ឋារចនាសម្ព័ន្ធ VS Code workspace
-- [ ] អ្នកយល់ថា `main.py` ជាstub - `WorkflowBuilder` នឹងត្រូវបានបញ្ចូលក្នុងមូឌុល 3
+- [ ] បានបើកថត scaffold ជាមូលដ្ឋានកន្លែងការងារ VS Code
+- [ ] អ្នកយល់ថា `main.py` គឺជាគំរូ stub - `WorkflowBuilder` នឹងត្រូវបញ្ចូលនៅមូឌ្យុល 3
 
 ---
 
-**មុននេះ:** [01 - យល់ពីរចនាសម្ព័ន្ធ Multi-Agent](01-understand-multi-agent.md) · **បន្ទាប់:** [03 - កំណត់ Agents និងបរិស្ថាន →](03-configure-agents.md)
+**មុននេះ:** [01 - យល់ដឹងអំពីស្ថាបត្យកម្មអនុគណៈកម្មការជាច្រើន](01-understand-multi-agent.md) · **បន្ទាប់:** [03 - កំណត់រចនាសម្ព័ន្ធភ្នាក់ងារ និងបរិយាកាស →](03-configure-agents.md)
 
 ---
 
