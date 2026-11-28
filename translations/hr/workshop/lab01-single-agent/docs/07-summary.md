@@ -8,83 +8,83 @@
 
 ## Što ste izgradili
 
-**Agent "Objasni mi kao izvršnom direktoru"** koji:
-- Prima tehničke izvještaje o incidentima ili operativne vijesti putem HTTP-a (`POST /responses`)
-- Prevodi ih u sažete izvještaje običnim jezikom za izvršne direktore
-- Prati strukturirani izlazni format (Što se dogodilo / Poslovni utjecaj / Sljedeći korak)
-- Odbija zahtjeve koji nisu povezani s temom i pokušaje ubrizgavanja upita
-- Radi kao kontejnerizirani hostirani agent u Microsoft Foundry Agent Service
+**"Objasni kao da sam izvršni direktor"** agenta koji:
+- Prima tehnička izvješća o incidentima ili operativna ažuriranja putem HTTP (`POST /responses`)
+- Prevodi ih u sažete izvršne izvještaje na razumljivom jeziku
+- Slijedi strukturirani izlazni format (Što se dogodilo / Poslovni utjecaj / Sljedeći korak)
+- Odbija zahtjeve koji nisu na temu i pokušaje injektiranja prompta
+- Radi kao kontejnerski hostirani agent u Microsoft Foundry Agent Service
 
 ---
 
 ## Ključni naučeni pojmovi
 
-| Pojam | Što ste uvježbavali |
+| Pojam | Što ste vježbali |
 |---------|-------------------|
-| **Agent Framework arhitektura** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` pipeline |
-| **Životni ciklus hostiranog agenta** | Scaffold → Konfiguriraj → Testiraj lokalno → Implementiraj → Verificiraj u oblaku |
-| **Inženjering sistemskog upita** | Uloga, publika, izlazni format, pravila, sigurnosna ograničenja i primjeri |
-| **Razlike lokalno vs. hostirano** | Identitet (osobni vjerodajnici vs. upravljani identitet), endpoint, mrežni put |
-| **Sigurnosne granice** | Obrana od ubrizgavanja upita, pridržavanje uloge, elegantno rukovanje rubnim slučajevima |
-| **Radni tijek Foundry Toolkita** | Kreiranje projekta, implementacija modela, scaffoldanje agenta, Agent Inspector, implementacija jednim klikom |
+| **Arhitektura Agent Frameworka** | `FoundryChatClient` → `Agent` → `ResponsesHostServer` pipeline |
+| **Životni ciklus hostiranog agenta** | Scaffold → Konfiguriranje → Lokalno testiranje → Implementacija → Provjera u oblaku |
+| **Inženjering sistemskog prompta** | Uloga, publika, izlazni format, pravila, sigurnosni ograničenja i primjeri |
+| **Razlike lokalno vs. hostirano** | Identitet (osobna vjerodajnica vs. upravljani identitet), endpoint, mrežni put |
+| **Sigurnosne granice** | Obrana od injektiranja prompta, pridržavanje uloge, graciozno rukovanje rubnim slučajevima |
+| **Foundry Toolkit workflow** | Kreiranje projekta, implementacija modela, scaffolding agenta, Agent Inspector, implementacija jednim klikom |
 
 ---
 
-## Što ste dovršili
+## Što ste završili
 
 ### Put A (Foundry pretplata)
 
-- [x] Postavili Foundry Toolkit i stvorili Foundry projekt s implementiranim modelom
-- [x] Scaffoldali hostiranog agenta s automatski generiranom strukturom projekta
+- [x] Postavili Foundry Toolkit i kreirali Foundry projekt s implementiranim modelom
+- [x] Scaffoldirali hostiranog agenta s automatski generiranom strukturom projekta
 - [x] Napisali strukturirane upute za agenta sa sigurnosnim pravilima
 - [x] Testirali lokalno s 3 funkcionalna scenarija (Agent Inspector)
 - [x] Implementirali u Foundry Agent Service (kontejnerizirano)
-- [x] Verificirali u cloud playgroundu s 4 testa rubnih slučajeva/sigurnosti
+- [x] Potvrdili u cloud playgroundu s 4 rubna/sigurnosna testa
 
 ### Put B (Foundry Local)
 
 - [x] Postavili Foundry Toolkit s lokalnim model endpointom
-- [x] Scaffoldali projekt hostiranog agenta
+- [x] Scaffoldirali projekt hostiranog agenta
 - [x] Napisali strukturirane upute za agenta sa sigurnosnim pravilima
 - [x] Testirali lokalno s 3 funkcionalna scenarija
-- [x] Validirali ponašanje agenta bez potrebe za resursima u oblaku
+- [x] Potvrdili ponašanje agenta bez potrebe za resursima u oblaku
 
 ---
 
 ## Sljedeći koraci
 
-### Nastavite s učenjem
+### Nastavite učiti
 
-| Izvor | Opis |
+| Resurs | Opis |
 |----------|-------------|
-| **[Lab 02 - Multi-Agent Orchestration](../../lab02-multi-agent/docs/README.md)** | Izgradite tijek rada s 4 agenta (Resume → Job Fit Evaluator) s obrascima orkestracije |
+| **[Lab 02 - Multi-Agent Orchestration](../../lab02-multi-agent/docs/README.md)** | Izgradite 4-agentni workflow (Rezime → Evaluator prikladnosti za posao) s obrascima orkestracije |
 | **[Dodajte alate svom agentu](https://learn.microsoft.com/azure/foundry/agents/concepts/tool-catalog)** | Povežite API-je, baze podataka ili prilagođene funkcije putem Tool Cataloga |
-| **[Dodajte znanje (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/knowledge)** | Utemeljite svog agenta dokumentima, vektorskim spremištima ili Bing pretraživanjem |
-| **[Microsoft Foundry dokumentacija](https://learn.microsoft.com/azure/foundry/)** | Potpuna referenca platforme |
-| **[Agent Framework SDK referenca](https://learn.microsoft.com/agent-framework/)** | API dokumentacija za paket `agent-framework` |
-| **[Foundry Toolkit - Novosti](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Bilješke o izdanju ekstenzije i povijest promjena |
+| **[Dodajte znanje (RAG)](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq)** | Osigurajte svoj agent s dokumentima, vektorskim spremištima ili Bing pretraživanjem |
+| **[Microsoft Foundry dokumentacija](https://learn.microsoft.com/azure/foundry/)** | Potpuni referentni materijal platforme |
+| **[Agent Framework SDK referenca](https://learn.microsoft.com/agent-framework/)** | API dokumentacija za `agent-framework` paket |
+| **[Foundry Toolkit - Što je novo](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio&ssr=false#version-history)** | Bilješke o izdanju ekstenzije i zapis promjena |
 
 ### Ideje za proširenje vašeg agenta
 
-- **Dodajte alat za datum** - Neka agent uključi kontekst "stanje na dan" u sažetke
-- **Povežite se s bazom incidenata** - Povucite stvarne detalje incidenata putem funkcije alata
-- **Dodajte alat za Bing upite** - Neka agent pretražuje najnovije vijesti za dodatni kontekst
-- **Isprobajte različite modele** - Usporedite kvalitetu izlaza `gpt-4.1` vs. `gpt-4.1-mini`
-- **Evaluirajte s Foundryjem** - Koristite značajku Evaluacije za mjerenje kvalitete agenta u obimu
+- **Dodajte alat za datum** - Neka agent uključuje kontekst "stanje na danas" u sažetcima
+- **Povežite se s bazom podataka incidenata** - Dohvatite stvarne detalje incidenata putem funkcije alata
+- **Dodajte alat za Bing pretraživanje** - Neka agent pretražuje nedavne vijesti za dodatni kontekst
+- **Isprobajte različite modele** - Usporedite izlaznu kvalitetu `gpt-4.1` i `gpt-4.1-mini`
+- **Evaluirajte s Foundryem** - Koristite značajku Evaluations za mjerenje kvalitete agenta u mjerilu
 
 ### Za korisnike Puta B: Nadogradite na implementaciju u oblaku
 
-Kad budete spremni implementirati u oblak:
+Kada budete spremni implementirati u oblak:
 1. Nabavite Azure pretplatu ([azure.microsoft.com/free](https://azure.microsoft.com/free/))
-2. Dovršite [Modul 01, Postavljanje](01-setup.md#step-2-set-up-based-on-your-access) (kreirajte projekt, implementirajte model, dodijelite RBAC)
-3. Ažurirajte svoj `.env` s Foundry project endpointom i imenom implementacije modela
-4. Nastavite iz [Modula 05 - Deploy to Foundry](05-deploy-to-foundry.md)
+2. Završite [Modul 01, Postavljanje](01-setup.md#step-2-set-up-based-on-your-access) (kreirajte projekt, implementirajte model, dodijelite RBAC)
+3. Ažurirajte svoj `.env` s Foundry endpointom projekta i nazivom implementacije modela
+4. Nastavite iz [Modul 05 - Implementacija u Foundry](05-deploy-to-foundry.md)
 
 ---
 
-## Čišćenje resursa (opcionalno)
+## Očistite resurse (opcionalno)
 
-Ako želite ukloniti Azure resurse kreirane tijekom ovog radionice:
+Ako želite ukloniti Azure resurse stvorene tijekom ovog radionice:
 
 ### Opcija 1: Izbrišite grupu resursa (uklanja sve)
 
@@ -99,14 +99,14 @@ az group delete --name rg-hosted-agents-workshop --yes --no-wait
 
 ### Opcija 3: Izbrišite implementaciju modela
 
-1. U Foundry bočnoj traci, proširite svoj projekt → **Models**.
+1. U Foundry bočnoj traci proširite svoj projekt → **Models**.
 2. Desni klik na implementaciju modela → **Delete**.
 
-> **Napomena o troškovima:** Hostirani agenti naplaćuju se samo dok rade. Ako zaustavite ili izbrišete agenta, nema stalnih troškova. Implementacija modela može imati malu naknadu za rezervirani kapacitet - izbrišite je ako ste završili.
+> **Napomena o troškovima:** Hostirani agenti naplaćuju se samo dok rade. Ako ga zaustavite ili izbrišete, nema daljnjih troškova. Implementacija modela može naplaćivati malu naknadu za rezervirani kapacitet – izbrišite je ako ste gotovi.
 
 ---
 
-**Prethodni:** [06 - Verify in Playground](06-verify-in-playground.md) · **Sljedeći:** [08 - Troubleshooting (Reference) →](08-troubleshooting.md)
+**Prethodno:** [06 - Provjera u playgroundu](06-verify-in-playground.md) · **Sljedeće:** [08 - Rješavanje problema (Referenca) →](08-troubleshooting.md)
 
 ---
 

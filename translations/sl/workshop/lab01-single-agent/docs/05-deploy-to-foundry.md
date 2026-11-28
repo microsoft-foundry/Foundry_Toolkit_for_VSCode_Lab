@@ -1,12 +1,12 @@
-# Modul 5 - Namestitev v storitev Foundry Agent
+# Modul 5 - Namestitev v Foundry Agent Service
 
 ⏱️ ~10 min
 
-> ⚠️ **Uporabniki poti B:** Ta modul zahteva naročnino za Foundry. Če uporabljate Foundry Local, preskočite na [Modul 07 - Povzetek](07-summary.md). Uspešno ste zaključili lokalni razvojni potek!
+> ⚠️ **Uporabniki poti B:** Ta modul zahteva naročnino na Foundry. Če uporabljate Foundry Local, preskočite na [Modul 07 - Povzetek](07-summary.md). Uspešno ste zaključili lokalni razvojni potek!
 
-V tem modulu namestite lokalno preizkušenega agenta v Microsoft Foundry kot **gostovanega agenta**. Namestitev zgradi kontejnersko sliko, jo potisne v Azure Container Registry in zažene agenta v upravljani infrastrukturi Foundry.
+V tem modulu namestite svoj lokalno preizkušen agent v Microsoft Foundry kot **Gostujočega agenta**. Namestitev ustvari sliko kontejnerja, jo potisne v Azure Container Registry in zažene agenta v upravljani infrastrukturi Foundry.
 
-### Potek namestitve
+### Pipeline namestitve
 
 ```mermaid
 flowchart LR
@@ -33,103 +33,103 @@ flowchart LR
 
 Pred namestitvijo preverite:
 
-- [ ] Agent uspešno prestane vseh 3 lokalnih scenarijev iz [Modul 04](04-test-locally.md)
-- [ ] Imate vlogo **Azure AI User** na ravni projekta ([Modul 01, Dodelitev RBAC](01-setup.md#uvedite-model-in-dodelite-rbac))
+- [ ] Agent uspešno prestane vseh 3 lokalne scenarije iz [Modul 04](04-test-locally.md)
+- [ ] Imate vlogo **Azure AI User** na ravni projekta ([Modul 01, Dodelitev RBAC](01-setup.md#deploy-a-model--assign-rbac))
 - [ ] Prijavljeni ste v Azure v VS Code (ikona Računi prikazuje vaše ime)
 
 ---
 
-## Korak 1: Začnite namestitev
+## 1. korak: Začni namestitev
 
-### Možnost A: Namestitev iz Agent Inspectorja (priporočeno)
+### Možnost A: Namesti iz Agent Inspectora (priporočeno)
 
-Če je Agent Inspector odprt (po testiranju):
-1. Kliknite gumb **Deploy** v zgornjem desnem kotu (ikona oblak ↑).
+Če je Agent Inspector odprt (iz testiranja):
+1. Kliknite gumb **Namesti** v zgornjem desnem kotu (ikona oblaka ↑).
 
-### Možnost B: Namestitev iz Ukazne palete
+### Možnost B: Namesti iz Command Palette
 
 1. Pritisnite `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
-## Korak 2: Konfigurirajte namestitev
+## 2. korak: Konfiguriraj namestitev
 
-Čarovnik vas bo pozval k:
+Čarovnik vas vpraša za:
 
-![Konfiguracija projekta](../../../../../workshop/lab01-single-agent/docs/images/05-foundry-project-setup.png)
+![Project Config](../../../../../translated_images/sl/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Poziv | Izbira |
+| Vprašanje | Izbira |
 |--------|-----------|
-| **Naročnina** | Vaša Azure naročnina |
-| **Ciljni projekt** | Vaš Foundry projekt (npr., `workshop-agents`) |
+| **Naročnina** | Vaša naročnina Azure |
+| **Ciljni projekt** | Vaš projekt Foundry (npr. `workshop-agents`) |
 
-Kliknite **next** da konfigurirate svojega agenta.
+Kliknite **naprej** za konfiguracijo agenta.
 
-![Osnovna konfiguracija](../../../../../workshop/lab01-single-agent/docs/images/05-configure-basics.png)
+![Basics config](../../../../../translated_images/sl/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Poziv | Izbira |
+| Vprašanje | Izbira |
 |--------|-----------|
-| **Metoda nameščanja** | Kontejner |
-| **Register kontejnerjev** | **Privzeti ACR** (Microsoft Foundry ustvari in upravlja enega za vas) |
-| **Namesti v** | Novega agenta (ime, `executive-summary-agent`) |
+| **Metoda namestitve** | Kontejner |
+| **Registrska zbirka kontejnerjev** | **Privzeti ACR** (Microsoft Foundry ustvari in upravlja za vas) |
+| **Namesti na** | Nov agent (ime, `executive-summary-agent`) |
 
-Kliknite **next** da pregledate in namestite svojega agenta.
+Kliknite **naprej** za pregled in namestitev vašega agenta.
 
-![Pregled in namestitev](../../../../../workshop/lab01-single-agent/docs/images/05-review-deploy.png)
+![Review and deploy](../../../../../translated_images/sl/05-review-deploy.12b449d426bff886.webp)
 
-| Poziv | Izbira |
+| Vprašanje | Izbira |
 |--------|-----------|
-| **CPU in pomnilnik** | **0.25 CPU jedra, 0.5 Gi pomnilnika** (zadostno za delavnico) |
+| **CPU in pomnilnik** | **0.5 CPU jeder, 1.0 Gi pomnilnika** (privzeto - dovolj za delavnico) |
 
 ---
 
-## Korak 3: Namestitev in spremljanje
+## 3. korak: Namesti in spremljaj
 
-1. Kliknite **Deploy**.
-2. Spremljajte ploščo **Output** (izberite **Microsoft Foundry** iz spustnega seznama).
+1. Kliknite **Namesti**.
+2. Spremljajte panel **Izhod** (izberite **Microsoft Foundry** iz spustnega menija).
 3. Namestitev poteka skozi naslednje faze:
-   - **Docker build** - zgradi kontejnersko sliko iz vaše Dockerfile
+   - **Docker build** - ustvari kontejner iz vaše Dockerfile
    - **Docker push** - potisne sliko v ACR (1–3 min pri prvi namestitvi)
-   - **Agent registration** - ustvari gostovanega agenta v Foundry
-   - **Container start** - zažene z identiteto, ki jo upravlja sistem
+   - **Registracija agenta** - ustvari gostujočega agenta v Foundry
+   - **Zagon kontejnerja** - začne se z identiteto, ki jo upravlja sistem
 
 4. Ko je končano, se prikaže obvestilo:
-   > **my-agent je uspešno nameščen.** `View logs` `Run agent`
+   > **executive-summary-agent je uspešno nameščen.** `View logs` `Run agent`
 
-5. Kliknite **Run agent**, da odprete Agent Playground.
+5. Kliknite **Zaženi agenta**, da odprete Agent Playground.
 
-![Uspešna namestitev, ki prikazuje Agent Playground s stanjem Running](../../../../../workshop/lab01-single-agent/docs/images/05-deployed-asset.png)
+![Deployment success showing Agent Playground with Running status](../../../../../translated_images/sl/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Stanja namestitve
+### Vrednosti stanja namestitve
 
 | Stanje | Pomen |
 |--------|---------|
-| **Running** | Kontejner pripravljen, agent odgovarja |
-| **Pending** | Kontejner se začenja - počakajte 30–60 sekund |
-| **Failed** | Preverite dnevnike (glejte odpravljanje težav spodaj) |
+| **V teku** | Kontejner pripravljen, agent odgovarja |
+| **Čakanje** | Začetek kontejnerja - počakajte 30–60 sekund |
+| **Neuspešno** | Preverite dnevnike (glejte odpravljanje težav spodaj) |
 
 ---
 
 ## Pogoste napake pri namestitvi
 
-| Napaka | Vzrok | Popravek |
+| Napaka | Glavni vzrok | Popravilo |
 |-------|-----------|-----|
-| `agents/write` permission denied | Manjka vloga **Azure AI User** na ravni projekta | [Modul 01, Dodelitev RBAC](01-setup.md#uvedite-model-in-dodelite-rbac) |
-| Docker ni zagnan | Docker Desktop ni zagnan | Zaženite Docker Desktop → preverite `docker info` |
-| ACR avtentikacija | Upravljana identiteta ne more potegniti slike | Oglejte si [Modul 08 - Odpravljanje težav](08-troubleshooting.md) |
+| `agents/write` zavrnjena dovoljenja | Manjka vloga **Azure AI User** na ravni projekta | [Modul 01, Dodelitev RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker ne teče | Docker Desktop ni zagnan | Zaženite Docker Desktop → preverite `docker info` |
+| Avtorizacija ACR | Upravljana identiteta ne more potegniti slike | Glejte [Modul 08 - Odpravljanje težav](08-troubleshooting.md) |
 
 ---
 
 ### ✅ Kontrolna točka
 
-- [ ] Namestitev zaključena brez napak
-- [ ] Agent se pojavi pod **Hosted Agents (Preview)** v stranskem meniju Foundry
-- [ ] Stanje kontejnerja prikazuje **Running**
-- [ ] Zavihek Agent Playground je odprt in prikazuje podrobnosti agenta in URL končne točke
+- [ ] Namestitev končana brez napak
+- [ ] Agent se prikaže na zavihku **Hosted Agent**, ko kliknete **Agenti** pod vašim projektom v Foundry Toolkit stranski vrstici
+- [ ] Stanje kontejnerja kaže **V teku**
+- [ ] Odprt zavihek Agent Playground, ki prikazuje podrobnosti agenta in URL končne točke
 
 ---
 
-**Prejšnje:** [04 - Testiraj lokalno](04-test-locally.md) · **Naslednje:** [06 - Preveri v Playgroundu →](06-verify-in-playground.md)
+**Prejšnji:** [04 - Testiranje lokalno](04-test-locally.md) · **Naslednji:** [06 - Preverjanje v Playground →](06-verify-in-playground.md)
 
 ---
 

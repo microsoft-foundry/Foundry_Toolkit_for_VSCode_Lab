@@ -1,65 +1,65 @@
 # Modul 0 - Uvod
 
-⏱️ ~10 minuta
+⏱️ ~10 min
 
 > [!WARNING]
-> **Pregled i Ograničenja:** [Hostirani agenti](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) su trenutno u **javnoj pregledu** - nisu preporučeni za produkcijske zadatke. Neke značajke prikazane u ovom radionici mogu se promijeniti kako se usluga približava GA.
+> **Pregled & ograničenja:** [Hosted Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) su trenutno u **javnom pregledu** - nisu preporučeni za produkcijske zadatke. Neke značajke prikazane u ovom radionici mogu se promijeniti kako usluga bude napredovala prema GA.
 
 ## Što ćete izgraditi
 
-U ovom laboratoriju proširujete vještine jednog agenta iz Laboratorija 01 da biste izgradili **multi-agentni tijek rada** - Evaluator usklađenosti životopisa s poslom.
+U ovom laboratoriju proširujete sposobnosti jednog agenta iz Lab 01 za izgradnju **radnog procesa s više agenata** - Procjena životopisa prema pogodu za posao.
 
-Zalijepite **životopis** i **opis posla**. Četiri specijalizirana agenta obrađuju unos sekvencijalno, a zatim vraćaju:
-- Ocjenu usklađenosti (0–100 s razbijanjem bodovanja)
-- Popis vještina i certifikacijskih praznina
-- Personaliziranu mapu učenja s pravim vezama na Microsoft Learn za svaku prazninu
+Zalijepite **životopis** i **opis posla**. Četiri specijalizirana agenta obrađuju unos sekvencijalno, zatim vraćaju:
+- Ocjenu odgovarajućnosti (0–100 s prikazom bodovanja)
+- Popis nedostataka vještina i certifikata
+- Personalizirani učni plan s pravim vezama na Microsoft Learn za svaki nedostatak
 
-**Tijek rada koristi:**
+**Radni proces koristi:**
 - **Microsoft Agent Framework** - `WorkflowBuilder` za sekvencijalnu orkestraciju cjevovoda
-- **Foundry Toolkit za VS Code** - izgradnja, lokalno testiranje, implementacija
-- **AI model** (npr., `gpt-4.1-mini`) - koristi ga svih četvero agenata
-- **Microsoft Learn MCP server** - pruža prave poveznice na resurse učenja za svaku prazninu u vještinama
+- **Foundry Toolkit za VS Code** - osnova, lokalno testiranje, implementacija
+- **AI model** (npr. `gpt-4.1-mini`) - koristi ga sva četiri agenta
+- **Microsoft Learn MCP poslužitelj** - pruža stvarne veze za učenje za svaki nedostatak vještine
 
 ---
 
 ## Odaberite svoj put
 
-> ⚠️ **Nastavite istim putem koji ste koristili u Laboratoriju 01.**
+> ⚠️ **Nastavite istim putem koji ste koristili u Lab 01.**
 
 <details open>
-<summary><strong>🅰️ Put A - Azure oblak (zahtijeva Azure pretplatu)</strong></summary>
+<summary><strong>🅰️ Put A - Azure cloud (zahtijeva Azure pretplatu)</strong></summary>
 
 | | Detalji |
 |---|---|
-| **Za koga je ovo?** | Završili ste Laboratorij 01 koristeći Azure pretplatu |
-| **Model** | Azure OpenAI putem Foundry (npr., `gpt-4.1-mini`) |
-| **Obuhvaćeni moduli** | Svi moduli (00–09) |
-| **Implementacija u oblak?** | ✅ Da - potpuna end-to-end implementacija |
+| **Za koga je ovo?** | Završili ste Lab 01 koristeći Azure pretplatu |
+| **Model** | Azure OpenAI preko Foundry (npr. `gpt-4.1-mini`) |
+| **Pokriveni moduli** | Svi moduli (00–09) |
+| **Implementirati u cloud?** | ✅ Da - potpuna end-to-end implementacija |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Put B - Foundry lokalno (nije potrebna Azure pretplata)</strong></summary>
+<summary><strong>🅱️ Put B - Foundry Local (nije potrebna Azure pretplata)</strong></summary>
 
 | | Detalji |
 |---|---|
-| **Za koga je ovo?** | Završili ste Laboratorij 01 koristeći Foundry lokalno |
-| **Model** | Foundry lokalno (besplatno, radi na vašem računalu) |
-| **Obuhvaćeni moduli** | Moduli 00–05 (preskočite 06–07 - implementacija i provjera u oblaku) |
-| **Implementacija u oblak?** | ❌ Ne - samo lokalno testiranje preko Agent Inspectora |
+| **Za koga je ovo?** | Završili ste Lab 01 koristeći Foundry Local |
+| **Model** | Foundry Local (besplatan, radi na vašem računalu) |
+| **Pokriveni moduli** | Moduli 00–05 (preskočite 06–07 - implementacija i cloud verifikacija) |
+| **Implementirati u cloud?** | ❌ Ne - samo lokalno testiranje preko Agent Inspectora |
 
 </details>
 
 ---
 
-## Provjera Laboratorija 01
+## Provjera Lab 01
 
-Laboratorij 02 izravno nadograđuje Laboratorij 01. Najprije završite Laboratorij 01 prije nego što počnete ovdje.
+Lab 02 se gradi izravno na Lab 01. Prvo završite Lab 01 prije početka ovdje.
 
-Niste još napravili Laboratorij 01? Započnite ovdje: [Lab 01 - Uvod](../../lab01-single-agent/docs/00-prerequisites.md)
+Još niste radili Lab 01? Počnite ovdje: [Lab 01 - Uvod](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ Put A - Azure oblak</strong></summary>
+<summary><strong>🅰️ Put A - Azure cloud</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
@@ -67,38 +67,38 @@ az account show --query "{name:name, id:id}" --output table
 
 Ako ovo ne uspije, pokrenite `az login`. Zatim provjerite u VS Code:
 
-1. `Ctrl+Shift+P` → upišite **Foundry Toolkit** → potvrdite pojavu naredbi.
-2. Kliknite na ikonu **Foundry Toolkit** → vaš projekt i implementirani model prikazuju se kao **Succeeded**.
+1. `Ctrl+Shift+P` → upišite **Foundry Toolkit** → potvrdite da se naredbe prikazuju.
+2. Kliknite na ikonu **Foundry Toolkit** → vaš projekt i implementirani model prikazuju status **Succeeded**.
 
-![Foundry Toolkit bočna traka prikazuje odjeljak MOJI RESURSI s otvorenim modalom preklopnika projekta](../../../../../translated_images/hr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit bočna traka koja prikazuje projekt unutar Moji resursi, s otvorenim odabirom Prebaci projekt / Kreiraj projekt](../../../../../translated_images/hr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Dodijelili ste uloga **Foundry User** u Laboratoriju 01. Ako je potrebno ponovo dodijeliti, pogledajte [Lab 01, Modul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Uloga je prethodno nazvana **Azure AI User** - iste dozvole.
+> **RBAC:** Dodijelili ste **Foundry User** u Lab 01. Ako trebate ponovno dodijeliti, pogledajte [Lab 01, Modul 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Uloga je prethodno nazvana **Azure AI User** - iste dozvole.
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Put B - Foundry lokalno</strong></summary>
+<summary><strong>🅱️ Put B - Foundry Local</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
 ```
 
-Očekivano: `StatusCode: 200`. Ako nije, ponovno pokrenite Foundry lokalno iz Foundry Toolkit bočne trake.
+Očekivano: `StatusCode: 200`. Ako nije, ponovno pokrenite Foundry Local iz Foundry Toolkit bočne trake.
 
-> Cijelo izvođenje inferencije odvija se na vašem računalu. Jedini vanjski poziv je MCP alat prema `https://learn.microsoft.com/api/mcp`.
+> Sva inferencija se izvodi na vašem računalu. Jedini izlazni poziv je MCP alat za `https://learn.microsoft.com/api/mcp`.
 
 </details>
 
 ---
 
-## Novosti u Laboratoriju 02
+## Što je novo u Lab 02
 
-| | Laboratorij 01 | Laboratorij 02 |
+| | Lab 01 | Lab 02 |
 |--|--------|--------|
 | Agenti | 1 | 4 (povezani s WorkflowBuilder) |
-| Predložak za izgradnju | Osnovni - Agent Framework | Radni tokovi - Agent Framework |
+| Predložak kostura | Osnovni - Agent Framework | Radni procesi - Agent Framework |
 | Novi paket | - | `mcp` |
-| Orkestracija | Jedan konverzacijski agent | Sekvencijalni pipeline (WorkflowBuilder) |
+| Orkestracija | Jedan konverzacijski agent | Sekvencijalni cjevovod (WorkflowBuilder) |
 | Novi alat | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---

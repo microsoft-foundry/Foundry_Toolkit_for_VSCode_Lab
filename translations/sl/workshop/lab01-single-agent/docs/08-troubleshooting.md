@@ -1,55 +1,55 @@
 # Modul 8 - Odpravljanje težav
 
-Ta modul je referenčni vodnik za pogoste težave. Dodajte ga med zaznamke in se vrnite, ko gre kaj narobe.
+Ta modul je referenčni vodnik za pogoste težave. Dodajte ga med zaznamke in se vrnite, ko nekaj ne deluje.
 
 ---
 
 ## 1. Napake pri dovoljenjih
 
-### 1.1 Zavrnjen dostop `agents/write`
+### 1.1 `agents/write` zavrnjena dovoljenja
 
 ```
 Error: lacks the required data action 
 Microsoft.CognitiveServices/accounts/AIServices/agents/write
 ```
 
-**Glavni vzrok:** Manjka vloga `Azure AI User` na ravni **projekt**. To je #1 napaka na delavnicah.
+**Korenski vzrok:** Manjkajoča vloga `Azure AI User` na ravni **projekt**ta. To je #1 napaka v delavnici.
 
 **Popravek:**
 1. Odprite [portal.azure.com](https://portal.azure.com).
-2. Poiščite ime vašega Foundry **projekta** → kliknite rezultat tipa **"Microsoft Foundry project"** (NE nadrejeni račun).
-3. **Upravljanje dostopa (IAM)** → **+ Dodaj** → **Dodaj dodelitev vloge**.
+2. Poiščite ime vašega Foundry **projekt**a → kliknite rezultat tipa **"Microsoft Foundry project"** (NE nadrejeni račun).
+3. **Nadzor dostopa (IAM)** → **+ Dodaj** → **Dodaj dodelitev vloge**.
 4. Vloga: **Azure AI User** → Naprej.
 5. Člani: Izberite sebe → Pregled + dodeli → Pregled + dodeli.
 6. **Počakajte 1–2 minuti** → poskusite znova.
 
-> **Zakaj vloga Lastnik/Sodelujoči ni zadostna:** Te vloge dovoljujejo samo *upravljanje*. Operacije agentov zahtevajo `agents/write` *podatkovno dejanje*, ki je na voljo samo v vlogah `Azure AI User`, `Azure AI Developer` ali `Azure AI Owner`. Oglejte si [Foundry RBAC dokumentacijo](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+> **Zakaj lastnik/sodelavec ni dovolj:** Te vloge dodeljujejo samo *upravljavske* ukrepe. Agentove operacije zahtevajo `agents/write` *dejanje z podatki*, ki je na voljo le v `Azure AI User`, `Azure AI Developer` ali `Azure AI Owner`. Glejte [Foundry RBAC dokumentacijo](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-### 1.2 `AuthorizationFailed` med zagonom
+### 1.2 `AuthorizationFailed` med pripravo
 
-**Popravek:** Prosite skrbnika, naj vam dodeli vlogo **Contributor** na skupini virov ali naj ustvari projekt za vas ter vam dodeli **Azure AI User**.
+**Popravek:** Prosite svojega skrbnika, naj dodeli **Contributor** na skupini virov ali naj vam ustvari projekt in vam dodeli **Azure AI User** na njem.
 
 ### 1.3 `SubscriptionNotRegistered`
 
 ```bash
 az provider register --namespace Microsoft.CognitiveServices
 az provider show --namespace Microsoft.CognitiveServices --query "registrationState"
-# Počakajte do: "Registriran"
+# Wait until: "Registered"
 ```
 
 ---
 
-## 2. Napake z Dockerjem
+## 2. Napake pri Dockerju
 
-> Docker je **neobvezen**. Ti napotki veljajo le, če je Docker Desktop nameščen in se razširitev poskuša lokalno zgraditi.
+> Docker je **neobvezen**. To velja le, če je Docker Desktop nameščen in razširitev poskuša lokalno gradnjo.
 
 ### 2.1 Docker daemon ne deluje
 
-**Popravek:** Zaženite Docker Desktop → počakajte na status "running" → preverite z `docker info` → poskusite znova.
+**Popravek:** Zaženite Docker Desktop → počakajte na status "teče" → preverite z `docker info` → poskusite znova.
 
-### 2.2 Gradnja spodleti zaradi napak odvisnosti
+### 2.2 Gradnja ne uspe z napakami odvisnosti
 
-**Popravek:** Preverite pravopis v `requirements.txt`, najprej preizkusite lokalno: `pip install -r requirements.txt`.
+**Popravek:** Preverite pravilnost `requirements.txt`, najprej preizkusite lokalno: `pip install -r requirements.txt`.
 
 ### 2.3 Neujemanje platforme (Apple Silicon)
 
@@ -61,53 +61,53 @@ docker build --platform linux/amd64 -t myagent:v1 .
 
 ## 3. Napake pri preverjanju pristnosti
 
-### 3.1 `DefaultAzureCredential` spodleti
+### 3.1 `DefaultAzureCredential` ne uspe
 
-**Popravek (poskusite po vrsti):**
-1. `az login` (ponovno avtorizirajte)
+**Popravek (poskusite v tem vrstnem redu):**
+1. `az login` (ponovno preverjanje pristnosti)
 2. `az account set --subscription "<id>"` (pravilna naročnina)
-3. VS Code → Računi → Odjava → Ponovna prijava
+3. VS Code → Računi → Izpis → Ponovni vpis
 4. Preverite: `az account get-access-token --resource https://cognitiveservices.azure.com`
 
-### 3.2 Zadetki veljajo lokalno, a ne v gostovanju
+### 3.2 Zeton deluje lokalno, a ne na gostovanem
 
-**Pričakovano:** Gostujoči agenti uporabljajo sistemsko upravljano identiteto, ne vaših poverilnic. Če gostujoči agent prejme napake pristnosti:
-- Preverite, da je `AZURE_AI_PROJECT_ENDPOINT` v `agent.yaml` pravilen
+**Pričakovano:** Gostovani agenti uporabljajo sistemsko upravljano identiteto, ne vaših poverilnic. Če gostovani agent dobi napake preverjanja pristnosti:
+- Preverite, da se `AZURE_AI_MODEL_DEPLOYMENT_NAME` v `agent.yaml` razreši na ime vašega uvajanja modela (`FOUNDRY_PROJECT_ENDPOINT` je injektiran v Foundryu med izvajanjem - ne deklarirajte ga v `agent.yaml`)
 - Preverite, da ima upravljana identiteta projekta dostop do modela
 
 ---
 
 ## 4. Napake modela
 
-### 4.1 Namestitev modela ni najdena
+### 4.1 Uvajanje modela ni najdeno
 
-**Popravek:** Ime je **občutljivo na velike/male črke**. Primerjajte `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` z natančnim imenom v stranski vrstici Foundry → Models.
+**Popravek:** Ime je **občutljivo na velike in male črke**. Primerjajte `.env` → `AZURE_AI_MODEL_DEPLOYMENT_NAME` z natančnim imenom v stranski vrstici Foundry → Modeli.
 
 ### 4.2 Nepričakovani izhod modela
 
-**Popravek:** Preverite `AGENT_INSTRUCTIONS` v `main.py` (ali niso skrajšane?). Preizkusite drug model (`gpt-4.1` proti `gpt-4.1-mini`).
+**Popravek:** Preglejte `AGENT_INSTRUCTIONS` v `main.py` (ni okrnjen?). Poskusite drug model (`gpt-4.1` nasproti `gpt-4.1-mini`).
 
 ---
 
-## 5. Napake pri nameščanju
+## 5. Napake uvajanja
 
-### 5.1 Odklonjen dostop do ACR-povleci
+### 5.1 Neavtoriziran dostop do ACR za prenos
 
-**Popravek:** Azure Portal → Container Registry → Upravljanje dostopa (IAM) → Dodajte vlogo **AcrPull** upravljani identiteti Foundry projekta.
+**Popravek:** Azure Portal → Registro vsebnikov → Nadzor dostopa (IAM) → Dodajte vlogo **AcrPull** upravljani identiteti Foundry projekta.
 
-### 5.2 Agent ne začne (ostane "Pending" ali "Failed")
+### 5.2 Agent ne uspe začeti (ostane "Čakanje" ali "Neuspešno")
 
 Preverite dnevnike vsebnika v stranski vrstici. Pogosti vzroki:
 
 | Sporočilo dnevnika | Popravek |
 |-------------|-----|
-| `ModuleNotFoundError` | Dodajte manjkajoči paket v `requirements.txt`, znova namestite |
-| `KeyError: 'AZURE_AI_PROJECT_ENDPOINT'` | Dodajte spremenljivko okolja v `agent.yaml` pod `environment_variables` |
-| `Address already in use` | Poskrbite, da le en proces uporablja vrata 8088 |
+| `ModuleNotFoundError` | Dodajte manjkajoči paket v `requirements.txt`, ponovno uvedite |
+| `ValueError: Missing required environment variables` | Potrdite, da je `AZURE_AI_MODEL_DEPLOYMENT_NAME` deklariran v `agent.yaml` pod `environment_variables` in ima vrednost, nato znova uvedite. `FOUNDRY_PROJECT_ENDPOINT` je injektiran v Foundryu med izvajanjem |
+| `Address already in use` | Zagotovite, da se samo en proces veže na vrata 8088 |
 
-### 5.3 Čas namestitve poteče
+### 5.3 Uvajanje poteče
 
-**Popravek:** Preverite internetno povezavo. Prva namestitev potisne >100MB. Ste za proxyjem? Konfigurirajte nastavitve proxyja v Docker Desktop.
+**Popravek:** Preverite internetno povezavo. Prvo uvajanje potisne >100MB. Za proxyjem? Konfigurirajte proxy nastavitve Docker Desktopa.
 
 ---
 
@@ -118,47 +118,47 @@ Preverite dnevnike vsebnika v stranski vrstici. Pogosti vzroki:
 | Težava | Popravek |
 |-------|-----|
 | `foundry: command not found` | Ponovna namestitev: `winget install Microsoft.FoundryLocal` |
-| Premalo virov | Foundry Local potrebuje ~4GB prostega RAM-a. Zaprite druge aplikacije. |
-| Prenos modela spodleti | Preverite prostor na disku (modeli so veliki 2–8 GB). Poskusite znova: `foundry local models pull <name>` |
+| Premalo virov | Foundry Local potrebuje približno 4GB prostega RAM-a. Zaprite druge aplikacije. |
+| Prenos modela ne uspe | Preverite diskovni prostor (modeli so 2–8 GB). Ponovno poskusite: `foundry local models pull <name>` |
 
-### 6.2 Napake pri Foundry Local modelu
+### 6.2 Napake modela Foundry Local
 
 | Težava | Popravek |
 |-------|-----|
-| Počasni odgovori | Pričakovano - lokalni modeli delujejo na CPU, razen če imate GPU. Bodite potrpežljivi. |
-| Slaba kakovost izhoda | Poskusite večji model, če vam strojna oprema to omogoča. `phi-4-mini` je dobra izbira. |
-| Povezava zavrnjena | Preverite, da Foundry Local teče: `foundry local status`. Po potrebi znova zaženite. |
+| Počasni odzivi | Pričakovano - lokalni modeli tečejo na CPU, razen če imate GPU. Bodite potrpežljivi. |
+| Slaba kakovost izhoda | Poskusite večji model, če to omogoča vaša strojna oprema. `phi-4-mini` je dober kompromis. |
+| Povezava zavrnjena | Preverite, da Foundry Local deluje: `foundry local status`. Po potrebi ponovno zaženite. |
 
 ---
 
-## 7. Hiter pregled: RBAC vloge
+## 7. Hitri pregled: RBAC vloge
 
-| Vloga | Območje | Dovoljenja |
+| Vloga | Obseg | Dodeljuje |
 |------|-------|--------|
-| **Azure AI User** | Projekt | Podatkovna dejanja: `agents/write`, `agents/read` |
-| **Azure AI Developer** | Projekt/Račun | Podatkovna dejanja + ustvarjanje projektov |
+| **Azure AI User** | Projekt | Dejavnosti z podatki: `agents/write`, `agents/read` |
+| **Azure AI Developer** | Projekt/Račun | Dejavnosti z podatki + ustvarjanje projekta |
 | **Azure AI Owner** | Račun | Poln dostop + upravljanje vlog |
-| **Contributor** | Naročnina/RG | Samo upravljalska dejanja (**ni** podatkovnih dejanj) |
-| **Owner** | Naročnina/RG | Upravljanje + dodelitev vlog (**ni** podatkovnih dejanj) |
+| **Contributor** | Naročnina/Skupina virov | Samo upravljavski ukrepi (**brez** dejavnosti z podatki) |
+| **Owner** | Naročnina/Skupina virov | Upravljanje + dodeljevanje vlog (**brez** dejavnosti z podatki) |
 
 ---
 
-## 8. Kontrolni seznam zaključka delavnice
+## 8. Kontrolni seznam za dokončanje delavnice
 
 | # | Postavka | Modul |
 |---|------|--------|
 | 1 | Namestitev in preverjanje predpogojev | [00](00-prerequisites.md) |
-| 2 | Namestitev razširitve Foundry Toolkit, povezava projekta (ali konfiguracija Poti B) | [01](01-setup.md) |
-| 3 | Ustvarjen gostujoči agent | [02](02-create-hosted-agent.md) |
-| 4 | Konfigurirana `.env`, napisani ukazi, nameščene odvisnosti | [03](03-configure-and-code.md) |
-| 5 | Lokalno preizkušen agent - uspešno preizkušene 3 funkcionalne situacije | [04](04-test-locally.md) |
-| 6 | Namestitev v Foundry (samo Pot A) | [05](05-deploy-to-foundry.md) |
-| 7 | Preizkusi robnih primerov / varnosti v oblaku opravljen (samo Pot A) | [06](06-verify-in-playground.md) |
-| 8 | Povzetek pregledan, določeni naslednji koraki | [07](07-summary.md) |
+| 2 | Namestitev razširitve Foundry Toolkit, povezava s projektom (ali konfiguracija poti B) | [01](01-setup.md) |
+| 3 | Gostovani agent ustvarjen | [02](02-create-hosted-agent.md) |
+| 4 | `.env` konfiguriran, napotki napisani, odvisnosti nameščene | [03](03-configure-and-code.md) |
+| 5 | Agent testiran lokalno - uspešno opravljeni 3 funkcionalni scenariji | [04](04-test-locally.md) |
+| 6 | Uveden v Foundry (samo pot A) | [05](05-deploy-to-foundry.md) |
+| 7 | Opravljen test mejnih primerov/varnosti v oblaku (samo pot A) | [06](06-verify-in-playground.md) |
+| 8 | Povzetek pregledan, naslednji koraki določeni | [07](07-summary.md) |
 
 ---
 
-**Prejšnji:** [07 - Povzetek](07-summary.md) · **Domov:** [Workshop README](../../../README.md)
+**Prejšnji:** [07 - Povzetek](07-summary.md) · **Domov:** [Uvodna stran delavnice](../../../README.md)
 
 ---
 

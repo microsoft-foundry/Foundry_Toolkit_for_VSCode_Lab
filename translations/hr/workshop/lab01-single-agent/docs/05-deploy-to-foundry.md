@@ -1,12 +1,12 @@
-# Modul 5 - Raspoređivanje u Foundry Agent Service
+# Modul 5 - Implementacija u Foundry Agent Service
 
 ⏱️ ~10 min
 
-> ⚠️ **Korisnici puta B:** Ovaj modul zahtijeva Foundry pretplatu. Ako koristite Foundry Local, preskočite na [Modul 07 - Sažetak](07-summary.md). Uspješno ste dovršili lokalni razvojni tijek!
+> ⚠️ **Korisnici puta B:** Ovaj modul zahtijeva Foundry pretplatu. Ako koristite Foundry Local, preskočite na [Modul 07 - Sažetak](07-summary.md). Uspješno ste završili lokalni razvojni tijek rada!
 
-U ovom modulu raspoređujete lokalno testiranog agenta na Microsoft Foundry kao **Hosted Agent**. Raspoređivanje izgrađuje kontejnersku sliku, šalje je u Azure Container Registry i pokreće agenta u upravljanoj infrastrukturi Foundryja.
+U ovom modulu implementirate vaš lokalno testirani agent u Microsoft Foundry kao **Hostirani agent**. Implementacija gradi kontejner sliku, gura je u Azure Container Registry i pokreće agenta u Foundry-ovoj upravljanoj infrastrukturi.
 
-### Tijek raspoređivanja
+### Pipeline implementacije
 
 ```mermaid
 flowchart LR
@@ -31,105 +31,105 @@ flowchart LR
 
 ## Provjera preduvjeta
 
-Prije raspoređivanja provjerite:
+Prije implementacije provjerite:
 
-- [ ] Agent prolazi sva 3 lokalna scenarija iz [Modul 04](04-test-locally.md)
-- [ ] Imate ulogu **Azure AI User** na razini projekta ([Modul 01, Dodjela RBAC](01-setup.md#implementirajte-model-i-dodijelite-rbac))
-- [ ] Prijavljeni ste u Azure u VS Codeu (ikona računa prikazuje vaše ime)
+- [ ] Agent prolazi sve 3 lokalna scenarija iz [Modul 04](04-test-locally.md)
+- [ ] Imate ulogu **Azure AI User** na razini projekta ([Modul 01, Dodjela RBAC](01-setup.md#deploy-a-model--assign-rbac))
+- [ ] Prijavljeni ste u Azure u VS Code (ikona računa prikazuje vaše ime)
 
 ---
 
-## Korak 1: Pokrenite raspoređivanje
+## Korak 1: Započnite implementaciju
 
-### Opcija A: Raspoređivanje iz Agent Inspectora (preporučeno)
+### Opcija A: Implementirajte iz Agent Inspectora (preporučeno)
 
 Ako je Agent Inspector otvoren (iz testiranja):
-1. Kliknite gumb **Deploy** u gornjem desnom kutu (ikona oblaka ↑).
+1. Kliknite na gumb **Deploy** u gornjem desnom kutu (ikona oblaka ↑).
 
-### Opcija B: Raspoređivanje iz Palete naredbi
+### Opcija B: Implementirajte iz Command Palette
 
 1. Pritisnite `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
 ---
 
-## Korak 2: Konfigurirajte raspoređivanje
+## Korak 2: Konfigurirajte implementaciju
 
-Čarobnjak će od vas zatražiti:
+Čarobnjak će vas pitati za:
 
-![Konfiguracija projekta](../../../../../workshop/lab01-single-agent/docs/images/05-foundry-project-setup.png)
+![Project Config](../../../../../translated_images/hr/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
-| Upit | Odabir |
+| Pitanje | Odabir |
 |--------|-----------|
 | **Pretplata** | Vaša Azure pretplata |
 | **Ciljani projekt** | Vaš Foundry projekt (npr. `workshop-agents`) |
 
-Kliknite **next** za konfiguriranje agenta.
+Kliknite **dalje** za konfiguraciju agenta.
 
-![Osnovna konfiguracija](../../../../../workshop/lab01-single-agent/docs/images/05-configure-basics.png)
+![Basics config](../../../../../translated_images/hr/05-configure-basics.4d5f3d6b0d96f033.webp)
 
-| Upit | Odabir |
+| Pitanje | Odabir |
 |--------|-----------|
-| **Metoda raspoređivanja** | Kontejner |
-| **Registar kontejnera** | **Default ACR** (Microsoft Foundry za vas stvara i upravlja njime) |
-| **Rasporedi na** | Novi agent (ime, `executive-summary-agent`) |
+| **Metoda implementacije** | Kontejner |
+| **Registry kontejnera** | **Zadani ACR** (Microsoft Foundry kreira i upravlja jednim za vas) |
+| **Implementiraj u** | Novi agent (ime, `executive-summary-agent`) |
 
-Kliknite **next** za pregled i raspoređivanje agenta.
+Kliknite **dalje** za pregled i implementaciju agenta.
 
-![Pregled i raspoređivanje](../../../../../workshop/lab01-single-agent/docs/images/05-review-deploy.png)
+![Review and deploy](../../../../../translated_images/hr/05-review-deploy.12b449d426bff886.webp)
 
-| Upit | Odabir |
+| Pitanje | Odabir |
 |--------|-----------|
-| **CPU i memorija** | **0.25 CPU cores, 0.5 Gi memory** (dovoljno za radionicu) |
+| **CPU i memorija** | **0.5 CPU jezgre, 1.0 Gi memorije** (zadano - dovoljno za radionicu) |
 
 ---
 
-## Korak 3: Raspoređivanje i nadzor
+## Korak 3: Implementirajte i pratite
 
 1. Kliknite **Deploy**.
-2. Promatrajte ploču **Output** (odaberite **Microsoft Foundry** iz padajućeg izbornika).
-3. Raspoređivanje prolazi kroz ove faze:
+2. Promatrajte **Output** panel (odaberite **Microsoft Foundry** iz padajućeg menija).
+3. Implementacija prolazi kroz ove faze:
    - **Docker build** - gradi kontejner iz vašeg Dockerfile-a
-   - **Docker push** - šalje sliku u ACR (1–3 min pri prvom raspoređivanju)
-   - **Agent registration** - stvara hosted agenta u Foundryju
-   - **Container start** - pokreće se sa sistemski upravljanom identitetom
+   - **Docker push** - gura sliku u ACR (1–3 min pri prvoj implementaciji)
+   - **Registracija agenta** - kreira hostiranog agenta u Foundry-ju
+   - **Pokretanje kontejnera** - pokreće se s identitetom kojim upravlja sustav
 
-4. Kad je dovršeno, pojavljuje se obavijest:
-   > **my-agent je uspješno raspoređen.** `View logs` `Run agent`
+4. Kada završi, pojavit će se obavijest:
+   > **executive-summary-agent je uspješno implementiran.** `View logs` `Run agent`
 
-5. Kliknite **Run agent** da otvorite Agent Playground.
+5. Kliknite **Run agent** za otvaranje Agent Playgounda.
 
-![Uspjeh raspoređivanja koji prikazuje Agent Playground sa statusom Pokrenuto](../../../../../workshop/lab01-single-agent/docs/images/05-deployed-asset.png)
+![Deployment success showing Agent Playground with Running status](../../../../../translated_images/hr/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
-### Vrijednosti statusa raspoređivanja
+### Vrijednosti statusa implementacije
 
 | Status | Značenje |
 |--------|---------|
-| **Pokrenuto** | Kontejner spreman, agent odgovara |
-| **Na čekanju** | Kontejner se pokreće - pričekajte 30–60 sekundi |
-| **Neuspjelo** | Provjerite zapise (pogledajte rješavanje problema dolje) |
+| **Running** | Kontejner spreman, agent odgovara |
+| **Pending** | Kontejner se pokreće - pričekajte 30–60 sekundi |
+| **Failed** | Provjerite dnevnike (pogledajte rješavanje problema dolje) |
 
 ---
 
-## Uobičajene pogreške pri raspoređivanju
+## Uobičajene pogreške prilikom implementacije
 
-| Pogreška | Uzrok | Popravak |
-|-------|-----------|-----|
-| `agents/write` pristup odbijen | Nedostaje uloga **Azure AI User** na razini projekta | [Modul 01, Dodjela RBAC](01-setup.md#implementirajte-model-i-dodijelite-rbac) |
-| Docker se ne pokreće | Docker Desktop nije pokrenut | Pokrenite Docker Desktop → provjerite `docker info` |
-| ACR autorizacija | Managed identity ne može povući sliku | Pogledajte [Modul 08 - Rješavanje problema](08-troubleshooting.md) |
+| Pogreška | Uzrok | Rješenje |
+|---------|-------|----------|
+| `agents/write` permission denied | Nedostaje uloga **Azure AI User** na razini projekta | [Modul 01, Dodjela RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker nije pokrenut | Docker Desktop nije pokrenut | Pokrenite Docker Desktop → provjerite `docker info` |
+| ACR autorizacija | Identitet kojim upravlja sustav ne može povući sliku | Pogledajte [Modul 08 - Rješavanje problema](08-troubleshooting.md) |
 
 ---
 
 ### ✅ Kontrolna točka
 
-- [ ] Raspoređivanje dovršeno bez pogrešaka
-- [ ] Agent se pojavljuje pod **Hosted Agents (Preview)** u Foundry bočnoj traci
-- [ ] Status kontejnera pokazuje **Pokrenuto**
-- [ ] Kartica Agent Playground otvorena prikazujući detalje agenta i URL krajnje točke
+- [ ] Implementacija je završena bez pogrešaka
+- [ ] Agent se prikazuje na kartici **Hosted Agent** kada kliknete **Agents** u vašem projektu u Foundry Toolkit bočnoj traci
+- [ ] Status kontejnera pokazuje **Running**
+- [ ] Otvorena je kartica Agent Playground koja prikazuje detalje agenta i URL krajnje točke
 
 ---
 
-**Prethodno:** [04 - Testiraj lokalno](04-test-locally.md) · **Sljedeće:** [06 - Provjeri u Playgroundu →](06-verify-in-playground.md)
+**Prethodni:** [04 - Testiraj lokalno](04-test-locally.md) · **Sljedeći:** [06 - Provjeri u Playgroundu →](06-verify-in-playground.md)
 
 ---
 

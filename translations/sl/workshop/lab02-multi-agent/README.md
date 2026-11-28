@@ -1,10 +1,10 @@
-# Laboratorij 02 - Multi-agentni delovni tok: Ocena primernosti življenjepisa za delovno mesto
+# Laboratorij 02 - Večagentni delovni proces: Evalvator ujemanja življenjepisa z delovnim mestom
 
 ## Pregled
 
-V tem praktičnem laboratoriju boste ustvarili **multi-agentno aplikacijo, osredotočeno na delovni tok**, z uporabo Foundry Toolkit v VS Code in jo uvedli v Microsoft Foundry Agent Service.
+V tem praktičnem laboratoriju boste z orodjem Foundry Toolkit v VS Code izdelali **večagentno aplikacijo, usmerjeno na delovni proces** in jo namestili v Microsoft Foundry Agent Service.
 
-**Kaj boste ustvarili:** Ocenjevalec primernosti življenjepisa za delovno mesto, ki analizira življenjepis in opis delovnega mesta, oceni ujemanje in pripravi osebni načrt učenja z uporabo virov Microsoft Learn.
+**Kaj boste izdelali:** Evalvator ujemanja življenjepisa z delovnim mestom, ki analizira življenjepis in opis delovnega mesta, oceni ujemanje in pripravi osebni načrt učenja z uporabo virov Microsoft Learn.
 
 ---
 
@@ -12,11 +12,11 @@ V tem praktičnem laboratoriju boste ustvarili **multi-agentno aplikacijo, osred
 
 ```mermaid
 flowchart TD
-    A["Uporabniški vnos"] --> B["Analizator življenjepisa"]
-    B -->|"[ANALIZIRAN ŽIVLJENJEPIS] + [PREHOD OPISA DELOVNEGA MESTA]"| C["Agent za opis delovnega mesta"]
-    C -->|"[ZAHTEVE OPISA DELOVNEGA MESTA] + [PREHOD ANALIZIRANEGA ŽIVLJENJEPISA]"| D["Agent za ujemanje"]
-    D -->|poročilo o ujemanju + vrzeli| E["Analizator vrzeli + Microsoft Learn MCP"]
-    E -->|ocena ujemanja + načrt poti| F["Izhod"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,53 +28,54 @@ flowchart TD
 
 **Kako deluje:**
 1. Uporabnik prilepi življenjepis in opis delovnega mesta.
-2. **ResumeParser** analizira življenjepis in v celoti kopira opis delovnega mesta v razdelek `[JOB DESCRIPTION PASS-THROUGH]`.
-3. **JD Agent** izlušči strukturirane zahteve iz prenosa in nato posreduje `[PARSED RESUME]` kot `[PARSED RESUME PASS-THROUGH]`.
-4. **MatchingAgent** primerja `[PARSED RESUME PASS-THROUGH]` in `[JD REQUIREMENTS]` ter ustvari oceno ujemanja.
-5. **GapAnalyzer** spremeni vrzeli v praktičen načrt ter pridobi resnične povezave Microsoft Learn preko MCP.
+2. **ResumeParser** analizira življenjepis in prepiše opis delovnega mesta dobesedno v razdelek `[JOB DESCRIPTION PASS-THROUGH]`.
+3. **JD Agent** izvleče strukturirane zahteve iz prehoda in nato posreduje `[PARSED RESUME]` naprej kot `[PARSED RESUME PASS-THROUGH]`.
+4. **MatchingAgent** primerja `[PARSED RESUME PASS-THROUGH]` z `[JD REQUIREMENTS]` in ustvari oceno ujemanja.
+5. **GapAnalyzer** spremeni vrzeli v praktični načrt in pridobi dejanske povezave do Microsoft Learn prek MCP.
 
 ---
 
-## Zahteve
+## Predpogoji
 
 Najprej dokončajte Laboratorij 01:
 
-- [Laboratorij 01 - En sam agent](../lab01-single-agent/README.md)
+- [Laboratorij 01 - Enotni agent](../lab01-single-agent/README.md)
 
 ---
 
-## Del 1: Preberite module v vrstnem redu
+## Del 1: Preberite module po vrsti
 
-Celotno pot učenja si oglejte na:
+Ogledajte si celotno učna pot v:
 
-- [Dokumenti za Lab 2 - Zahteve](docs/00-prerequisites.md)
-- [Dokumenti za Lab 2 - Celotna pot učenja](docs/README.md)
-- [Navodila za zagon PersonalCareerCopilot](PersonalCareerCopilot/README.md)
+- [Doc 2 laboratorija - Predpogoji](docs/00-prerequisites.md)
+- [Doc 2 laboratorija - Celotna učna pot](docs/README.md)
+- [Vodnik za osebnega kariernega pilota](PersonalCareerCopilot/README.md)
 
 ---
 
-## Del 2: Izdelajte in preizkusite delovni tok
+## Del 2: Zgradite in preizkusite delovni proces
 
-1. Uporabite čarovnika Foundry Toolkit za ustvarjanje projekta, ki temelji na delovnem toku.
-2. Kopirajte bloke pozivov in graf delovnega toka iz `PersonalCareerCopilot/main.py` v vaš delovni prostor.
-3. Zaženite lokalno z Agent Inspector in preverite vse štiri agente ter orodje MCP.
-4. Ko lokalno testiranje uspe, uvedite gostujočega agenta v Foundry.
+1. Uporabite čarovnika Foundry Toolkit za ustvarjanje projekta, osnovanega na delovnem procesu.
+2. Kopirajte bloke pozivov in graf delovnega procesa iz `PersonalCareerCopilot/main.py` v vaše delovno okolje.
+3. Zaženite lokalno z Agent Inspector in preverite vse štiri agente plus orodje MCP.
+4. Namestite gostujočega agenta v Foundry, ko lokalno testiranje uspe.
 
 ---
 
 ## Vzorce orkestracije
 
-Laboratorij 02 vključuje privzeti potek **fan-out → fan-in → zaporedno**, dokumentacija pa opisuje tudi alternativne vzorce orkestracije za eksperimente.
+Laboratorij 02 uporablja **zaporedno cevovodno vezje**: izhod vsakega agenta je vhod naslednjemu, delo pa vrne odgovor zadnjega agenta. Dva vzorca to omogočata:
 
-- **Fan-out/Fan-in z uteženim soglasjem**
-- **Prehod pregleda/pregledovalca pred končnim načrtom**
-- **Pogojni usmerjevalnik** glede na oceno ujemanja in manjkajoče veščine
+- **Zaporedna veriga** - `WorkflowBuilder` povezuje ResumeParser → JD Agent → MatchingAgent → GapAnalyzer z enim `add_edge()` klicem na korak
+- **Posredovanje vsebine** - ker vsak agent vidi le izhod svojega neposrednega predhodnika, ResumeParser in JD Agent kopirata podatke, ki jih potrebujejo naslednji agenti, v označene prehodne razdelke
 
-Oglejte si [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
+Dokumentacija pojasnjuje tudi, zakaj laboratorij ne uporablja razvejitve / združitve in kako razširiti graf s še enim agentom.
+
+Glejte [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Prejšnje:** [Laboratorij 01 - En sam agent](../lab01-single-agent/README.md) · **Nazaj na:** [Domača stran delavnice](../../README.md)
+**Prejšnji:** [Laboratorij 01 - Enotni agent](../lab01-single-agent/README.md) · **Nazaj na:** [Domača stran delavnice](../../README.md)
 
 ---
 

@@ -1,36 +1,36 @@
-# PersonalCareerCopilot - Evalvator ustreznosti življenjepisa za delo
+# PersonalCareerCopilot - Ocena primernosti življenjepisa za delo
 
-Aplikacija z več agenti, ki temelji na delovnem toku, oceni, kako dobro življenjepis ustreza opisu delovnega mesta, nato pa ustvari prilagojeno učni načrt za zapolnitev vrzeli.
+Aplikacija z več agenti, ki je osredotočena na potek dela in oceni, kako dobro življenjepis ustreza opisu delovnega mesta, nato pa ustvari osebni načrt učenja za zapolnitev vrzeli.
 
 ---
 
-## Agenti
+## Agentje
 
 | Agent | Vloga | Orodja |
 |-------|------|-------|
 | **ResumeParser** | Izvleče strukturirane veščine, izkušnje, certifikate iz besedila življenjepisa | - |
-| **JobDescriptionAgent** | Izvleče zahtevane/željene veščine, izkušnje, certifikate iz opisa delovnega mesta | - |
-| **MatchingAgent** | Primerja profil s zahtevami → ocena ustreznosti (0-100) + ujemajoče/pomanjkljive veščine | - |
-| **GapAnalyzer** | Ustvari prilagojen učni načrt z viri Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **JobDescriptionAgent** | Izvleče zahtevane/priporočene veščine, izkušnje, certifikate iz opisa delovnega mesta | - |
+| **MatchingAgent** | Primerja profil s zahtevami → rezultat primernosti (0-100) + ujemajoče/se manjkajoče veščine | - |
+| **GapAnalyzer** | Ustvari osebni načrt učenja z viri Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
-## Delovni tok
+## Potek dela
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Življenjepis + opis delovnega mesta"] --> ResumeParser
-    ResumeParser -- "razčlenjen življenjepis + posredovanje opis delovnega mesta" --> JobDescriptionAgent
-    JobDescriptionAgent -- "zahteve opisa delovnega mesta + posredovanje življenjepisa" --> MatchingAgent
-    MatchingAgent -- "poročilo o ustreznosti + vrzeli" --> GapAnalyzerMCP["Analizator vrzeli +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nOcena ustreznosti + načrt"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
-## Hitri začetek
+## Hiter začetek
 
 ### 1. Nastavite okolje
 
-Ta mapa je referenčna implementacija ogrodja za lab 02, ki temelji na delovnem toku. Njena `main.py` uporablja obstoječe bloke pozivov in `WorkflowBuilder`, da poveže štiri agente.
+Ta mapa je referenčna izvedba za ogrodje delovnega procesa Lab 02. Njena `main.py` uporablja obstoječe bloke pozivov plus `WorkflowBuilder` za povezavo štirih agentov.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,7 +40,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Nastavite poverilnice
+### 2. Konfigurirajte poverilnice
 
 Ustvarite datoteko `.env` v tej mapi:
 
@@ -57,8 +57,8 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 
 | Vrednost | Kje jo najti |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Stran Foundry Toolkit → desni klik na projekt → **Kopiraj končno točko projekta** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Stran Foundry → razširi projekt → **Modeli + končne točke** → ime postavitve |
+| `FOUNDRY_PROJECT_ENDPOINT` | Orodna vrstica Foundry → desni klik na vaš projekt → **Kopiraj konec projekta** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Stran Foundry → razširi projekt → **Modeli + končne točke** → ime uvajanja |
 
 ### 3. Zaženite lokalno
 
@@ -66,13 +66,13 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Ali uporabite nalogo VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Ali uporabite opravilo v VS Code: `Ctrl+Shift+P` → **Opravila: Zaženi opravilo** → **Zaženi lokalni agent HTTP strežnik**.
 
-Za razhroščevanje F5 uporabite **Debug Local Agent HTTP Server**.
+Za odpravljanje napak s F5 uporabite **Odpravljanje napak lokalnega HTTP strežnika agenta**.
 
 ### 4. Testirajte z Agent Inspector
 
-Odprite Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Odprite Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Odpri Agent Inspector**.
 
 Prilepite ta testni poziv:
 
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Pričakovano:** Ocena ustreznosti (0-100), ujemajoče/pomanjkljive veščine in prilagojen učni načrt z URL-ji Microsoft Learn.
+**Pričakovano:** Rezultat primernosti (0-100), ujemajoče/manjkajoče veščine in osebni načrt učenja z URL-ji Microsoft Learn.
 
-### 5. Namestite v Foundry
+### 5. Uvedite v Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → izberite svoj projekt → potrdite.
+`Ctrl+Shift+P` → **Foundry Toolkit: Uvedi gostujočega agenta** → izberite svoj projekt → potrdite.
 
 ---
 
@@ -116,41 +116,41 @@ PersonalCareerCopilot/
 ### `agent.yaml`
 
 Določa gostujočega agenta za Foundry Agent Service:
-- `kind: hosted` - teče kot upravljani kontejner
-- `protocols` - protokol `responses` z `version: 1.0.0`, ki razkriva HTTP končno točko `/responses`
-- `environment_variables` - tukaj je deklariran `AZURE_AI_MODEL_DEPLOYMENT_NAME`; `FOUNDRY_PROJECT_ENDPOINT` se samodejno vstavi ob namestitvi
+- `kind: hosted` - teče kot upravljan kontejner
+- `protocols` - `responses` protokol z `version: 2.0.0`, razkriva HTTP konec `/responses`
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` je tukaj deklariran; `FOUNDRY_PROJECT_ENDPOINT` se samodejno vstavi ob uvajanju
 
 ### `main.py`
 
 Vsebuje:
-- **Navodila za agente** - štiri konstante `*_INSTRUCTIONS`, po ena na agenta
+- **Navodila za agente** - štiri `*_INSTRUCTIONS` konstante, po ena za vsakega agenta
 - **Orodje MCP** - `search_microsoft_learn_for_plan()` kliče `https://learn.microsoft.com/api/mcp` preko Streamable HTTP
-- **Ustvarjanje agentov** - štiri primere `Agent()` + `AgentExecutor()` z deljenim `FoundryChatClient`
-- **Graf delovnega toka** - `WorkflowBuilder` povezuje agente kot zaporedno cevovod: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Ustvarjanje agentov** - štiri primerki `Agent()` + `AgentExecutor()` delijo en `FoundryChatClient`
+- **Graf poteka dela** - `WorkflowBuilder` povezuje agente kot zaporedno cevovod: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
 - **Zagon strežnika** - `ResponsesHostServer` teče na vratih 8088
 
 ### `requirements.txt`
 
 | Paket | Namen |
 |---------|----------|
-| `agent-framework-foundry` | Jedro izvajanja: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + integracija gostovanja Foundry |
+| `agent-framework-foundry` | Osnovno izvajanje: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` + Integracija gostovanja Foundry |
 | `mcp<2,>=1.24.0` | MCP odjemalec za GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Python razhroščevanje (F5 v VS Code) |
+| `debugpy` | Razhroščevanje Pythona (F5 v VS Code) |
 
 ---
 
-## Reševanje težav
+## Odpravljanje težav
 
 | Težava | Rešitev |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ali `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Ustvarite `.env` z nastavitvijo `FOUNDRY_PROJECT_ENDPOINT` in `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Aktivirajte venv in zaženite `pip install -r requirements.txt` |
-| Brez URL-jev Microsoft Learn v izhodu | Preverite internetno povezavo do `https://learn.microsoft.com/api/mcp` |
-| Samo 1 kartica vrzeli (skrajšana) | Preverite, ali `GAP_ANALYZER_INSTRUCTIONS` vključuje blok `CRITICAL:` |
-| Vrata 8088 so zasedena | Ustavite druge strežnike: `netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ali `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Ustvari `.env` z nastavljeno tako `FOUNDRY_PROJECT_ENDPOINT` kot `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Aktiviraj venv in zaženi `pip install -r requirements.txt` |
+| Brez URL-jev Microsoft Learn v izhodu | Preveri internetno povezavo do `https://learn.microsoft.com/api/mcp` |
+| Samo ena kartica vrzeli (okrajšano) | Prepričaj se, da `GAP_ANALYZER_INSTRUCTIONS` vključuje blok `CRITICAL:` |
+| Vrata 8088 so zasedena | Ustavi druge strežnike: `netstat -ano \| findstr :8088` |
 
-Za podrobno odpravljanje težav si oglejte [Modul 8 - Reševanje težav](../docs/08-troubleshooting.md).
+Za podrobno odpravljanje težav glej [Modul 8 - Odpravljanje težav](../docs/08-troubleshooting.md).
 
 ---
 

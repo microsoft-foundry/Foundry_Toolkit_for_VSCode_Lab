@@ -2,36 +2,36 @@
 
 ⏱️ ~10 min
 
-U ovom modulu istražujete obrasce orkestracije korištene u Resume Job Fit Evaluatoru i učite kako čitati, mijenjati i proširivati graf toka rada. Razumijevanje ovih obrazaca ključno je za otklanjanje poteškoća u protoku podataka i za izgradnju vlastitih [višestrukih agenata radnih tokova](https://learn.microsoft.com/agent-framework/workflows/).
+U ovom modulu istražujete obrasce orkestracije korištene u Resume Job Fit Evaluatoru i učite kako čitati, mijenjati i proširivati graf tijeka rada. Razumijevanje ovih obrazaca ključno je za otklanjanje pogrešaka u protoku podataka i izgradnju vlastitih [višeagentskih tijekova rada](https://learn.microsoft.com/agent-framework/workflows/).
 
 ---
 
 ## Obrazac 1: Sekvencijalni lanac
 
-Osnovni obrazac u radu toka je **sekvencijalni lanac** - izlaz svakog agenta izravno ulazi u sljedećeg.
+Temeljni obrazac u tijeku rada je **sekvencijalni lanac** - izlaz svakog agenta ide izravno u sljedećeg.
 
 ```mermaid
 flowchart LR
-    RP[Parser životopisa] --> JD[JD agent]
-    JD --> MA[Agent za usklađivanje]
-    MA --> GA[Analizator praznina]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-U kodu, svaki poziv `add_edge()` stvara jedan korak u lancu:
+U kodu, svaki `add_edge()` poziv stvara jedan korak u lancu:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # Rezultat ResumeParser → JD Agent
-.add_edge(jd_executor, matching_executor)     # Rezultat JD Agent → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # Rezultat MatchingAgent → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **Zašto sekvencijalni, a ne fan-out/fan-in?** `WorkflowBuilder` koristi **OR-semantiku** za ulazne bridove: izvršitelj nizvodno se pokreće čim **bilo koji** prethodnik završi. Ako bi `matching_executor` imao dva ulazna brida (od `resume_executor` i `jd_executor`), aktivirao bi se dva puta - jednom kada ResumeParser završi i opet kada JD Agent završi - što bi dovelo do dvostrukog pokretanja GapAnalyzer-a i dvostrukog pojavljivanja izlaza. Sekvencijalni lanac to u potpunosti izbjegava.
+> **Zašto sekvencijalni, a ne fan-out/fan-in?** `WorkflowBuilder` koristi **OR-semantiku** za dolazne bridove: izvršitelj nizvodno pokreće se čim **bilo koji** prethodnik završi. Da je `matching_executor` imao dva dolazna brida (od `resume_executor` i `jd_executor`), pokrenuo bi se dva puta - jednom kad ResumeParser završi i ponovno kad JD Agent završi - zbog čega bi GapAnalyzer također pokrenuo se dva puta i izlaz bi se pojavio dvaput. Sekvencijalni lanac to u potpunosti izbjegava.
 
 ## Obrazac 2: Prosljeđivanje sadržaja
 
-Budući da `context_mode="last_agent"` znači da svaki izvršitelj vidi samo **izlaz svog izravnog prethodnika**, agenti u sekvencijalnom lancu moraju eksplicitno prosljeđivati podatke koji su potrebni nizvodnim agentima.
+Budući da `context_mode="last_agent"` znači da svaki izvršitelj vidi samo **izlaz svog izravnog prethodnika**, agenti u sekvencijalnom lancu moraju eksplicitno prosljeđivati sve podatke koje nizvodni agenti trebaju.
 
-U ovom radnom toku:
+U ovom tijeku rada:
 - **ResumeParser** kopira JD doslovno u `[JOB DESCRIPTION PASS-THROUGH]` (kako bi ga JD Agent mogao pronaći).
 - **JD Agent** kopira `[PARSED RESUME]` doslovno u `[PARSED RESUME PASS-THROUGH]` (kako bi MatchingAgent mogao usporediti oba profila).
 
@@ -45,30 +45,30 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-Svaki prijenosni dio mora biti kopiran **doslovno** - sažimanje ili parafraziranje prekida nizvodnog agenta koji ovisi o njemu.
+Svaki dio prosljeđivanja mora se kopirati **doslovno** - sažimanje ili parafraziranje kvari nizvodnog agenta koji ovisi o njemu.
 
 ---
 
-## Potpuni graf
+## Cjelokupni graf
 
-Kombinacija obrazaca sekvencijalnog lanca i prosljeđivanja sadržaja daje cjelokupni radni tok:
+Kombinacijom obrazaca sekvencijalnog lanca i prosljeđivanja sadržaja dobiva se puni tijek rada:
 
 ```mermaid
 flowchart LR
-    U[Unos korisnika] --> RP[Parser životopisa]
-    RP --> JD[JD agent]
-    JD --> MA[Agent za usklađivanje]
-    MA --> GA[Analizator praznina + MCP]
-    GA --> O[Konačni ishod]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Agent Inspector prikazuje istu strukturu grafa kada agent radi lokalno. Pogledajte [Modul 5 - Testiranje lokalno](05-test-locally.md) za snimke zaslona.
+Agent Inspector prikazuje istu strukturu grafa kada agent radi lokalno. Pogledajte [Modul 5 - Test lokalno](05-test-locally.md) za snimke zaslona.
 
 ---
 
-## Čitanje koda WorkflowBuilder-a
+## Čitanje WorkflowBuilder koda
 
-Cijela funkcija `create_workflow()` nalazi se u [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tri poziva `add_edge()` grade sekvencijalnu liniju:
+Graf tijeka rada se gradi u funkciji `main()` u [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). Tri poziva `add_edge()` grade sekvencijalni lanac:
 
 | # | Brid | Učinak |
 |---|------|--------|
@@ -85,23 +85,23 @@ Cijela funkcija `create_workflow()` nalazi se u [`PersonalCareerCopilot/main.py`
 Za dodavanje petog agenta (npr. **InterviewPrepAgent** nakon GapAnalyzer):
 
 1. Definirajte konstantu `INTERVIEW_PREP_INSTRUCTIONS`.
-2. Kreirajte `Agent` + `AgentExecutor` objekte (isti obrazac kao kod postojeća četiri).
+2. Kreirajte objekte `Agent` + `AgentExecutor` (isti obrazac kao postojeća četiri).
 3. Dodajte `.add_edge(gap_executor, interview_exec)` u `WorkflowBuilder`.
 4. Ažurirajte `output_executors=[interview_exec]`.
 
-> **Važno:** `start_executor` je jedini agent koji prima sirovi korisnički unos. Svi ostali agenti primaju izlaz sa svojeg uzlaznog brida.
+> **Važno:** `start_executor` je jedini agent koji prima sirovi korisnički unos. Svi ostali agenti primaju izlaz sa svog uzvodnog brida.
 
 ---
 
 ## Česte pogreške u grafu
 
-| Pogreška | Simptom | Popravak |
+| Pogreška | Simptom | Rješenje |
 |---------|---------|-----|
-| Nedostaje brid do `output_executors` | Agent radi, ali izlaz je prazan | Osigurajte da postoji put od `start_executor` do svakog agenta u `output_executors` |
-| Cirkularna ovisnost | Beskonačna petlja ili timeout | Provjerite da nijedan agent ne šalje izlaz natrag uzlaznom agentu |
-| Agent u `output_executors` bez ulaznog brida | Prazan izlaz | Dodajte barem jedan `add_edge(izvor, taj_agent)` |
-| Višestruki `output_executors` bez fan-ina | Izlaz sadrži samo odgovor jednog agenta | Koristite jednog izlaznog agenta koji agregira ili prihvatite višestruke izlaze |
-| Nedostaje `start_executor` | `ValueError` pri izgradnji | Uvijek navedite `start_executor` u `WorkflowBuilder()` |
+| Nedostaje brid prema `output_executors` | Agent radi, ali je izlaz prazan | Osigurajte put od `start_executor` do svakog agenta u `output_executors` |
+| Ciklična ovisnost | Beskonačna petlja ili timeout | Provjerite da nijedan agent ne povratno hrani uzvodnog agenta |
+| Agent u `output_executors` bez dolaznog brida | Prazan izlaz | Dodajte barem jedan `add_edge(source, that_agent)` |
+| Više `output_executors` bez fan-in | Izlaz sadrži samo odgovor jednog agenta | Koristite jednog izlaznog agenta koji agregira, ili prihvatite višestruke izlaze |
+| Nedostaje `start_executor` | `ValueError` prilikom izgradnje | Uvijek navedite `start_executor` u `WorkflowBuilder()` |
 
 ---
 
@@ -109,10 +109,10 @@ Za dodavanje petog agenta (npr. **InterviewPrepAgent** nakon GapAnalyzer):
 
 ### Korištenje Agent Inspectora
 
-1. Pokrenite agenta lokalno pritiskom na F5.
+1. Pokrenite agenta lokalno s F5.
 2. Otvorite Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
 3. Pošaljite testnu poruku.
-4. U panelu odgovora Inspectora tražite **izlaz u streamingu** - prikazuje doprinos svakog agenta redom.
+4. U panelu za odgovor Inspectora potražite **streaming output** - prikazuje doprinos svakog agenta redom.
 
 
 ### Korištenje zapisivanja (logging)
@@ -123,11 +123,11 @@ Dodajte zapisivanje u `main.py` za praćenje protoka podataka:
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# U main(), nakon izgradnje tijeka rada:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-Dnevnici poslužitelja prikazuju redoslijed izvršavanja agenta i pozive MCP alata:
+Dnevnici poslužitelja prikazuju redoslijed izvođenja agenta i pozive MCP alata:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -142,17 +142,17 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ---
 
-### Kontrolna točka
+### Checkpoint
 
-- [ ] Možete identificirati dva obrasca orkestracije u radnom toku: sekvencijalni lanac i prosljeđivanje sadržaja
-- [ ] Razumijete zašto `context_mode="last_agent"` zahtijeva eksplicitan prijenos podataka među agentima
-- [ ] Možete pročitati kod `WorkflowBuilder` i povezati svaki poziv `add_edge()` s vizualnim grafom
+- [ ] Možete identificirati dva obrasca orkestracije u tijeku rada: sekvencijalni lanac i prosljeđivanje sadržaja
+- [ ] Razumijete zašto `context_mode="last_agent"` zahtijeva eksplicitno prosljeđivanje podataka između agenata
+- [ ] Možete čitati kod `WorkflowBuilder` i mapirati svaki `add_edge()` poziv na vizualni graf
 - [ ] Znate kako dodati novog agenta na kraj lanca
 - [ ] Možete identificirati česte pogreške u grafu i njihove simptome
 
 ---
 
-**Prethodni:** [03 - Konfiguracija agenata i okoline](03-configure-agents.md) · **Sljedeći:** [05 - Testiranje lokalno →](05-test-locally.md)
+**Prethodni:** [03 - Konfiguracija agenata i okoline](03-configure-agents.md) · **Sljedeći:** [05 - Test lokalno →](05-test-locally.md)
 
 ---
 

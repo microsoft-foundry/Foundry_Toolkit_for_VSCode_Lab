@@ -1,26 +1,27 @@
-# Modul 2 - Ustvari novega gostovanega agenta
+# Modul 2 - Ustvari novega gostujočega agenta
 
 ⏱️ ~5 min
 
-V tem modulu uporabite Foundry Toolkit za **izgradnjo projekta gostovanega agenta**. Okvir samodejno ustvari celotno strukturo projekta - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` in konfiguracijo za odpravljanje napak v VS Code - tako da se lahko osredotočite na prilagajanje vedenja agenta.
+V tem modulu boste s pomočjo Foundry Toolkit **zasnovali projekt gostujočega agenta**. Scaffold ustvari celotno strukturo projekta - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` in konfiguracijo za razhroščevanje v VS Code - tako da se lahko osredotočite na prilagajanje vedenja agenta.
 
-> **Ključni koncept:** Mapa `agent/` v tej nalogi je primer tega, kar generira Foundry Toolkit. Teh datotek ne pišete iz nič.
+> **Ključni koncept:** Mapa `agent/` v temu vajah je primer tega, kar generira Foundry Toolkit. Te datoteke ne pišete iz nič.
 
-### Potek čarovnika za gradnjo projekta
+### Potek čarovnika za scaffold
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["Izberite model"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["Generiran projekt"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## 1. korak: Odprite čarovnika Create Hosted Agent
+## Korak 1: Odpri čarovnika Ustvari gostujočega agenta
 
 1. Pritisnite `Ctrl+Shift+P`, da odprete **Command Palette**.
-2. Vtipkajte: **Foundry Toolkit: Create new Hosted Agent** in ga izberite.
+2. Vnesite: **Foundry Toolkit: Create new Hosted Agent** in ga izberite.
 
-> **Alternativa: Ustvarjanje prek Foundry Portala**
-> Če raje uporabljate brskalnik, lahko projekt ustvarite na [https://ai.azure.com](https://ai.azure.com). Ko je projekt pripravljen, se vrnite v VS Code in uporabite stransko vrstico **Foundry Toolkit**, da se povežete z njim.
+> **Alternativa: Ustvari prek Foundry portala**
+> Če raje uporabljate brskalnik, lahko projekt ustvarite na [https://ai.azure.com](https://ai.azure.com). Ko je projekt pripravljen, se vrnite v VS Code in uporabite stranski meni **Foundry Toolkit** za povezavo z njim.
 
-> **Alternativa:** Kliknite ikono **+** poleg **Hosted Agents (Preview)** v stranski vrstici Foundry Toolkit.
+> **Alternativa:** V stranskem meniju Foundry Toolkit se postavite na **Agents** pod vašim projektom, kliknite na ikono **+**, nato izberite **Create in Code With Template**.
 
-## 2. korak: Izberite nastavitve
+## Korak 2: Izberite nastavitve
 
-![Ustvari gostovanega agenta iz vzorca - zavihek Agent Details prikazuje filtre jezik, ogrodje, protokol in predloge](../../../../../translated_images/sl/02-hosted-agents-sample.0aabd1638936c591.webp)
+![Ustvari gostujočega agenta iz vzorca - zavihek Podrobnosti agenta, ki prikazuje filtre Jezik, Okvir, Protokol in Predloga](../../../../../translated_images/sl/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. Na levi navigaciji/sekciji z možnostmi izberite naslednje:
+1. Na levi navigaciji/možnostih izberite naslednje:
 
 | Meni | Izbira | Opombe |
 |--------|-----------|-------|
 | **Jezik** | Python | Podprt je tudi C# |
-| **Ogrodje** | Agent Framework | Preprosta začetna točka z uporabo Agent Framework SDK |
-| **Tip API-ja** | Response API | `POST /responses` - pogovorno, z zgodovino, ki jo upravlja platforma |
-| **Predloga** | Basic | Preprosta začetna točka z uporabo Agent Framework SDK |
+| **Okvir** | Agent Framework | Preprost začetek z uporabo Agent Framework SDK |
+| **Vrsta API** | Response API | `POST /responses` - konverzacijski, z zgodovino, ki jo upravlja platforma |
+| **Predloga** | Basic | Preprost začetek z uporabo Agent Framework SDK |
 
 2. Ko izberete, kliknite **Naprej**
 
-![Ustvari gostovanega agenta - zavihek Create prikazuje možnosti Mapa delovnega prostora, Ime mape in Nastavitev okolja](../../../../../translated_images/sl/02-create-hosted-agents.9f10b6a566df3053.webp)
+![Ustvari gostujočega agenta - zavihek Ustvari, ki prikazuje možnosti Delovna mapa, Ime mape in Nastavitev okolja](../../../../../translated_images/sl/02-create-hosted-agents.9f10b6a566df3053.webp)
 
 3. V naslednjem oknu izberite naslednje:
 
 | Meni | Izbira | Opombe |
 |--------|-----------|-------|
-| **Mapa delovnega prostora** | Izberite ciljno mapo | npr. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` ali podmapo v tem repozitoriju |
+| **Delovna mapa** | Izberite ciljno mapo | npr. `/workspace/Foundry_Toolkit_for_VSCode_Lab/` ali podmapa v tem repozitoriju |
 | **Ime agenta** | Vnesite ime | npr. `executive-summary-agent` |
-| **Nastavitev okolja** | preskočite nastavitev za zdaj |  |
+| **Nastavitev okolja** | za zdaj preskočite nastavitev |  |
 
-Kliknite **create**, da ustvarite agenta. Ustvarjena bo nova mapa z imenom gostovanega agenta.
+Kliknite **ustvari**, da ustvarite našega agenta. Ustvarila se bo nova mapa z imenom gostujočega agenta.
 
-## 3. korak: Preverite ustvarjeni projekt
+## Korak 3: Oglejte si ustvarjeni projekt
 
-Ko je gradnja končana, preverite, ali v raziskovalcu (`Ctrl+Shift+E`) vidite te datoteke:
+Po končanem scaffoldingu preverite, če vidite te datoteke v Raziskovalcu (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -86,29 +87,29 @@ Ko je gradnja končana, preverite, ali v raziskovalcu (`Ctrl+Shift+E`) vidite te
 └── requirements.txt    ← Python dependencies
 ```
 
-### Pomembne datoteke razložene
+### Pojasnilo ključnih datotek
 
 | Datoteka | Namen |
 |------|---------|
-| `agent.yaml` | Določa agenta kot `kind: hosted`, preslika okoljske spremenljivke, definira protokol `/responses` |
-| `main.py` | Ustvari `FoundryChatClient` → ga ovije v `Agent` z navodili → streže preko `ResponsesHostServer` na vratih 8088 |
-| `Dockerfile` | Uporablja `python:3.12-slim`, namesti odvisnosti, izpostavi vrata 8088, zažene `main.py` |
+| `agent.yaml` | Deklarira agenta kot `kind: hosted`, preslika okoljske spremenljivke, definira protokol `/responses` |
+| `main.py` | Ustvari `FoundryChatClient` → ovoja ga v `Agent` z navodili → postreže preko `ResponsesHostServer` na vratih 8088 |
+| `Dockerfile` | Uporablja `python:3.12-slim`, namešča odvisnosti, izpostavi vrata 8088, zažene `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **Pomembno:** Odprite mapo s scaffoldu za agenta neposredno v VS Code (samo mapo `agent/`), da `.vscode/launch.json` in `tasks.json` pravilno delujeta za odpravljanje napak s F5.
+> **Pomembno:** Odprite scaffoldano mapo agenta neposredno v VS Code (samo mapo `agent/`), da bo `.vscode/launch.json` in `tasks.json` pravilno delovalo za razhroščevanje s F5.
 
 ---
 
 ### ✅ Kontrolna točka
 
-- [ ] Ustvarjen je bil scaffoldiran projekt z vsemi pričakovanimi datotekami
-- [ ] `agent.yaml` kaže `kind: hosted` in `protocol: responses`
+- [ ] Scaffoldan projekt ustvarjen z vsemi pričakovanimi datotekami
+- [ ] `agent.yaml` prikazuje `kind: hosted` in `protocol: responses`
 - [ ] `main.py` uvaža `Agent`, `FoundryChatClient`, `ResponsesHostServer`
 - [ ] Mapa agenta je odprta v VS Code kot koren delovnega prostora
 
 ---
 
-**Prejšnje:** [01 - Namestitev](01-setup.md) · **Naslednje:** [03 - Konfiguracija in koda →](03-configure-and-code.md)
+**Prejšnje:** [01 - Nastavitev](01-setup.md) · **Naslednje:** [03 - Konfiguracija in koda →](03-configure-and-code.md)
 
 ---
 
