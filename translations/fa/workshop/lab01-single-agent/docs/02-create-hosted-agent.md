@@ -2,25 +2,26 @@
 
 ⏱️ ~۵ دقیقه
 
-در این ماژول، شما از Foundry Toolkit برای **ایجاد ساختار اسکلتی پروژه یک عامل میزبانی شده** استفاده می‌کنید. این اسکللت ساختار کامل پروژه را تولید می‌کند - شامل `agent.yaml`، `main.py`، `Dockerfile`، `requirements.txt` و تنظیمات اشکال‌زدایی VS Code - تا بتوانید روی سفارشی‌سازی رفتار عامل تمرکز کنید.
+در این ماژول، شما از Foundry Toolkit برای **ایجاد چهارچوب پروژه عامل میزبانی شده** استفاده می‌کنید. این چهارچوب ساختار کامل پروژه را تولید می‌کند - `agent.yaml`، `main.py`، `Dockerfile`، `requirements.txt` و پیکربندی خطایابی VS Code - بنابراین می‌توانید روی سفارشی‌سازی رفتار عامل تمرکز کنید.
 
-> **مفهوم کلیدی:** پوشه `agent/` در این آزمایشگاه نمونه‌ای است از آنچه Foundry Toolkit تولید می‌کند. شما این فایل‌ها را از ابتدا نمی‌نویسید.
+> **مفهوم کلیدی:** پوشه `agent/` در این آزمایشگاه نمونه‌ای از چیزی است که Foundry Toolkit ایجاد می‌کند. شما این فایل‌ها را از ابتدا نمی‌نویسید.
 
-### جریان جادوگر اسکللت
+### روند ویزارد چهارچوب‌بندی
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["انتخاب مدل"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["پروژه ایجاد شده"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## مرحله ۱: باز کردن جادوگر ایجاد عامل میزبانی شده
+## مرحله ۱: باز کردن ویزارد ایجاد عامل میزبانی شده
 
-۱. کلیدهای `Ctrl+Shift+P` را فشار دهید تا **پالت فرمان** باز شود.
+۱. دکمه `Ctrl+Shift+P` را فشار دهید تا **Command Palette** باز شود.
 ۲. تایپ کنید: **Foundry Toolkit: Create new Hosted Agent** و آن را انتخاب کنید.
 
-> **جایگزین: ایجاد از طریق Foundry Portal**
-> اگر مرورگر را ترجیح می‌دهید، می‌توانید پروژه خود را در [https://ai.azure.com](https://ai.azure.com) ایجاد کنید. پس از آماده‌سازی پروژه، به VS Code بازگردید و از نوار کناری **Foundry Toolkit** برای اتصال به آن استفاده کنید.
+> **گزینه جایگزین: ایجاد از طریق Foundry Portal**
+> اگر مرورگر را ترجیح می‌دهید، می‌توانید پروژه خود را در [https://ai.azure.com](https://ai.azure.com) ایجاد کنید. پس از فراهم شدن پروژه، به VS Code بازگردید و از نوار کناری **Foundry Toolkit** برای اتصال به آن استفاده کنید.
 
-> **جایگزین:** روی نماد **+** کنار **Hosted Agents (Preview)** در نوار کناری Foundry Toolkit کلیک کنید.
+> **گزینه جایگزین:** در نوار کناری Foundry Toolkit، روی **Agents** زیر پروژه خود حرکت کنید، روی آیکون **+** کلیک کنید، سپس **Create in Code With Template** را انتخاب کنید.
 
 ## مرحله ۲: انتخاب تنظیمات
 
-![ساخت عامل میزبانی شده از نمونه - برگه جزئیات عامل که فیلترهای زبان، چارچوب، پروتکل و قالب را نشان می‌دهد](../../../../../translated_images/fa/02-hosted-agents-sample.0aabd1638936c591.webp)
+![ایجاد عامل میزبانی شده از نمونه - تب جزئیات عامل با فیلترهای زبان، چهارچوب، پروتکل و قالب](../../../../../translated_images/fa/02-hosted-agents-sample.0aabd1638936c591.webp)
 
 ۱. در بخش ناوبری/گزینه‌های سمت چپ موارد زیر را انتخاب کنید:
 
-| منو | انتخاب | توضیحات |
+| منو | انتخاب | یادداشت‌ها |
 |--------|-----------|-------|
-| **زبان** | Python | C# نیز پشتیبانی می‌شود |
-| **چارچوب** | Agent Framework | نقطه شروع ساده با استفاده از Agent Framework SDK |
-| **نوع API** | Response API | `POST /responses` - مکالمه‌ای، با تاریخچه مدیریت شده توسط پلتفرم |
+| **زبان** | Python | همچنین C# پشتیبانی می‌شود |
+| **چهارچوب** | Agent Framework | نقطه شروع ساده با استفاده از Agent Framework SDK |
+| **نوع API** | Response API | `POST /responses` - محاوره‌ای، با تاریخچه مدیریت شده توسط پلتفرم |
 | **قالب** | Basic | نقطه شروع ساده با استفاده از Agent Framework SDK |
 
 ۲. پس از انتخاب، روی **Next** کلیک کنید
 
-![ساخت عامل میزبانی شده - برگه ایجاد که گزینه‌های پوشه کاری، نام پوشه و تنظیم محیط را نشان می‌دهد](../../../../../translated_images/fa/02-create-hosted-agents.9f10b6a566df3053.webp)
+![ایجاد عامل میزبانی شده - تب ایجاد با گزینه‌های پوشه کاری، نام پوشه و تنظیمات محیط](../../../../../translated_images/fa/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-۳. در پنجره بعدی، موارد زیر را انتخاب کنید:
+۳. در پنجره بعد، موارد زیر را انتخاب کنید:
 
-| منو | انتخاب | توضیحات |
+| منو | انتخاب | یادداشت‌ها |
 |--------|-----------|-------|
-| **پوشه فضای کاری** | پوشه مقصد را انتخاب کنید | به عنوان مثال، `/workspace/Foundry_Toolkit_for_VSCode_Lab/` یا یک زیرپوشه در این مخزن |
-| **نام عامل** | یک نام وارد کنید | به عنوان مثال، `executive-summary-agent` |
+| **پوشه کاری** | انتخاب یک پوشه هدف | مثلاً `/workspace/Foundry_Toolkit_for_VSCode_Lab/` یا زیربرنامه‌ای در این مخزن |
+| **نام عامل** | وارد کردن یک نام | مثلاً `executive-summary-agent` |
 | **تنظیم محیط** | فعلاً تنظیم را رد کنید |  |
 
-برای ایجاد عامل ما روی **create** کلیک کنید. یک پوشه جدید با نام عامل میزبانی شده ایجاد خواهد شد.
+برای ایجاد عامل روی **create** کلیک کنید. یک پوشه جدید با نام عامل میزبانی شده ایجاد می‌شود.
 
-## مرحله ۳: بررسی پروژه ایجاد شده
+## مرحله ۳: بررسی پروژه تولید شده
 
-پس از اتمام اسکلت‌بندی، بررسی کنید که این فایل‌ها را در Explorer (`Ctrl+Shift+E`) می‌بینید:
+پس از تکمیل چهارچوب‌بندی، اطمینان حاصل کنید که این فایل‌ها را در Explorer (`Ctrl+Shift+E`) می‌بینید:
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -90,25 +91,25 @@ flowchart LR
 
 | فایل | هدف |
 |------|---------|
-| `agent.yaml` | اعلام می‌کند که عامل از نوع `kind: hosted` است، متغیرهای محیطی را نگاشت می‌کند، پروتکل `/responses` را تعریف می‌کند |
-| `main.py` | یک `FoundryChatClient` می‌سازد → آن را درون یک `Agent` با دستورات قرار می‌دهد → از طریق `ResponsesHostServer` روی پورت ۸۰۸۸ خدمت‌رسانی می‌کند |
+| `agent.yaml` | عامل را به عنوان `kind: hosted` اعلام می‌کند، متغیرهای محیطی را نگاشت می‌کند، پروتکل `/responses` را تعریف می‌کند |
+| `main.py` | یک `FoundryChatClient` ایجاد می‌کند → آن را در یک `Agent` با دستورالعمل‌ها می‌پیچد → از طریق `ResponsesHostServer` روی پورت ۸۰۸۸ ارائه می‌دهد |
 | `Dockerfile` | از `python:3.12-slim` استفاده می‌کند، وابستگی‌ها را نصب می‌کند، پورت ۸۰۸۸ را باز می‌کند، `main.py` را اجرا می‌کند |
-| `requirements.txt` | شامل `agent-framework-foundry`، `agent-framework-foundry-hosting`، `mcp`، `debugpy` |
+| `requirements.txt` | `agent-framework-foundry`، `agent-framework-foundry-hosting`، `mcp`، `debugpy` |
 
-> **مهم:** پوشه عامل اسکللت شده را مستقیماً در VS Code باز کنید (خود پوشه `agent/`) تا `.vscode/launch.json` و `tasks.json` برای اشکال‌زدایی با کلید F5 به درستی کار کنند.
-
----
-
-### ✅ نقطه بازبینی
-
-- [ ] پروژه اسکلت‌بندی شده با تمام فایل‌های مورد انتظار ایجاد شده است
-- [ ] فایل `agent.yaml` مقدار `kind: hosted` و `protocol: responses` را نشان می‌دهد
-- [ ] در `main.py`، `Agent`، `FoundryChatClient`، `ResponsesHostServer` وارد شده‌اند
-- [ ] پوشه عامل به عنوان ریشه فضای کاری در VS Code باز شده است
+> **مهم:** پوشه عامل چهارچوب‌بندی شده را مستقیماً در VS Code باز کنید (پوشه خود `agent/`) تا `.vscode/launch.json` و `tasks.json` به درستی برای خطایابی F5 کار کنند.
 
 ---
 
-**قبلی:** [۰۱ - راه‌اندازی](01-setup.md) · **بعدی:** [۰۳ - پیکربندی و کدنویسی →](03-configure-and-code.md)
+### ✅ نقطه بررسی
+
+- [ ] پروژه چهارچوب‌بندی شده با تمام فایل‌های مورد انتظار ایجاد شده است
+- [ ] `agent.yaml` `kind: hosted` و `protocol: responses` را نشان می‌دهد
+- [ ] `main.py` `Agent`، `FoundryChatClient`، `ResponsesHostServer` را ایمپورت می‌کند
+- [ ] پوشه عامل به عنوان ریشه فضای کاری در VS Code باز است
+
+---
+
+**قبلی:** [۰۱ - راه‌اندازی](01-setup.md) · **بعدی:** [۰۳ - پیکربندی و کد →](03-configure-and-code.md)
 
 ---
 

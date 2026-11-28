@@ -2,9 +2,9 @@
 
 ## 概述
 
-在本动手实验中，您将使用 VS Code 中的 Foundry Toolkit 构建一个<strong>以工作流为中心的多代理应用程序</strong>，并将其部署到 Microsoft Foundry Agent Service。
+在本动手实验中，您将使用 VS Code 中的 Foundry Toolkit 构建一个<strong>以工作流为先的多代理应用</strong>，并将其部署到 Microsoft Foundry 代理服务。
 
-**您将构建的内容：** 一个简历 → 职位匹配评估器，它解析简历和职位描述，评分匹配度，并使用 Microsoft Learn 资源生成个性化学习路线图。
+**您将构建的内容：** 一个简历 → 职位匹配评估器，解析简历和职位描述，评分匹配度，并使用 Microsoft Learn 资源生成个性化学习路线图。
 
 ---
 
@@ -12,11 +12,11 @@
 
 ```mermaid
 flowchart TD
-    A["用户输入"] --> B["简历解析器"]
-    B -->|"[解析简历] + [职位描述透传]"| C["职位描述代理"]
-    C -->|"[职位要求] + [解析简历透传]"| D["匹配代理"]
-    D -->|适合度报告 + 差距| E["差距分析器 + Microsoft Learn MCP"]
-    E -->|适合度评分 + 路线图| F["输出"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,10 +28,10 @@ flowchart TD
 
 **工作原理：**
 1. 用户粘贴简历和职位描述。
-2. **ResumeParser** 解析简历，并将职位描述逐字复制到一个 `[职位描述直通]` 部分。
-3. **JD Agent** 从直通部分提取结构化需求，然后将 `[解析后的简历]` 继续作为 `[解析后的简历直通]` 转发。
-4. **MatchingAgent** 比较 `[解析后的简历直通]` 与 `[职位描述需求]` 并生成匹配评分。
-5. **GapAnalyzer** 将差距转化为实用路线图，并通过 MCP 获取真实的 Microsoft Learn 链接。
+2. **ResumeParser** 解析简历并将职位描述逐字复制到 `[JOB DESCRIPTION PASS-THROUGH]` 部分。
+3. **JD Agent** 从传递内容中提取结构化需求，然后将 `[PARSED RESUME]` 以 `[PARSED RESUME PASS-THROUGH]` 形式转发。
+4. **MatchingAgent** 比较 `[PARSED RESUME PASS-THROUGH]` 与 `[JD REQUIREMENTS]` 并生成匹配评分。
+5. **GapAnalyzer** 将差距转化为可执行路线图，并通过 MCP 获取真实的 Microsoft Learn 链接。
 
 ---
 
@@ -53,28 +53,29 @@ flowchart TD
 
 ---
 
-## 第 2 部分：构建并测试工作流
+## 第 2 部分：构建和测试工作流
 
-1. 使用 Foundry Toolkit 向导搭建基于工作流的项目框架。
+1. 使用 Foundry Toolkit 向导搭建基于工作流的项目。
 2. 将 `PersonalCareerCopilot/main.py` 中的提示块和工作流图复制到您的工作区。
-3. 使用 Agent Inspector 本地运行并验证所有四个代理及 MCP 工具。
+3. 使用 Agent Inspector 本地运行并验证四个代理及 MCP 工具。
 4. 本地测试通过后，将托管代理部署到 Foundry。
 
 ---
 
 ## 编排模式
 
-实验 02 包含默认的 **扇出 → 扇入 → 顺序** 流程，文档还描述了用于实验的其他编排模式。
+实验 02 使用了<strong>顺序管道</strong>：每个代理的输出作为下一个代理的输入，工作流返回最后一个代理的响应。两个模式支持此工作：
 
-- **带加权共识的扇出/扇入**
-- **最终路线图前的审核/批评通过**
-- <strong>基于匹配评分和缺失技能的条件路由器</strong>
+- <strong>顺序链</strong> - `WorkflowBuilder` 将 ResumeParser → JD Agent → MatchingAgent → GapAnalyzer 以每步一个 `add_edge()` 调用串联
+- <strong>内容传递</strong> - 由于每个代理只看到它的直接前驱输出，ResumeParser 和 JD Agent 把下游代理需要的数据复制到标记的传递部分
 
-详见 [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)。
+文档还解释了为什么不使用扇出/扇入，以及如何通过另一个代理扩展图。
+
+详情见 [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md)。
 
 ---
 
-**上一个：** [实验 01 - 单代理](../lab01-single-agent/README.md) · **返回：** [工作坊首页](../../README.md)
+**上一节：** [实验 01 - 单代理](../lab01-single-agent/README.md) · **返回：** [工作坊首页](../../README.md)
 
 ---
 
