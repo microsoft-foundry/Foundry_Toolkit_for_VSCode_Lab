@@ -1,4 +1,4 @@
-# PersonalCareerCopilot - Özgeçmiş → İş Uygunluğu Değerlendiricisi
+# PersonalCareerCopilot - Özgeçmiş → İş Uygunluk Değerlendiricisi
 
 Bir iş akışı öncelikli çoklu ajan uygulaması, bir özgeçmişin iş tanımıyla ne kadar iyi eşleştiğini değerlendirir ve ardından boşlukları kapatmak için kişiselleştirilmiş bir öğrenme yol haritası oluşturur.
 
@@ -9,7 +9,7 @@ Bir iş akışı öncelikli çoklu ajan uygulaması, bir özgeçmişin iş tanı
 | Ajan | Rol | Araçlar |
 |-------|------|-------|
 | **ResumeParser** | Özgeçmiş metninden yapılandırılmış beceriler, deneyim, sertifikalar çıkarır | - |
-| **JobDescriptionAgent** | Bir iş tanımından gerekli/tercih edilen beceriler, deneyim, sertifikalar çıkarır | - |
+| **JobDescriptionAgent** | JD'den gerekli/tercih edilen beceriler, deneyim, sertifikalar çıkarır | - |
 | **MatchingAgent** | Profil ile gereksinimleri karşılaştırır → uygunluk puanı (0-100) + eşleşen/kayıp beceriler | - |
 | **GapAnalyzer** | Microsoft Learn kaynakları ile kişiselleştirilmiş öğrenme yol haritası oluşturur | `search_microsoft_learn_for_plan` (MCP) |
 
@@ -17,20 +17,20 @@ Bir iş akışı öncelikli çoklu ajan uygulaması, bir özgeçmişin iş tanı
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Özgeçmiş + İş Tanımı"] --> ResumeParser
-    ResumeParser -- "çözümlenmiş özgeçmiş + İş Tanımı aktarımı" --> JobDescriptionAgent
-    JobDescriptionAgent -- "İş Tanımı gereksinimleri + özgeçmiş aktarımı" --> MatchingAgent
-    MatchingAgent -- "uygunluk raporu + boşluklar" --> GapAnalyzerMCP["Boşluk Analizörü +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nUygunluk Skoru + Yol Haritası"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
 
 ## Hızlı başlangıç
 
-### 1. Ortamı kur
+### 1. Ortamı kurun
 
-Bu klasör, iş akışı tabanlı Lab 02 iskeletinin referans uygulamasıdır. `main.py` mevcut istem bloklarını ve `WorkflowBuilder`'ı kullanarak dört ajanı birbirine bağlar.
+Bu klasör iş akışına dayalı Lab 02 iskeletinin referans uygulamasıdır. `main.py` mevcut prompt bloklarını ve dört ajanı birbirine bağlamak için `WorkflowBuilder` kullanır.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,41 +40,41 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Kimlik bilgilerini yapılandır
+### 2. Kimlik bilgilerini yapılandırın
 
-Bu klasörde `.env` dosyası oluşturun:
+Bu klasöre bir `.env` dosyası oluşturun:
 
 ```powershell
 copy .env .env.bak 2>$null; echo $null > .env
 ```
 
-`.env` dosyasını düzenleyin:
+`.env` düzenleyin:
 
 ```env
 FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Değer | Nereden bulunur |
+| Değer | Nerede bulunur |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit kenar çubuğu → projenize sağ tıklayın → **Proje Uç Noktasını Kopyala** |
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit kenar çubuğu → projenize sağ tıklayın → **Kopyala Proje Uç Noktası** |
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry kenar çubuğu → projeyi genişletin → **Modeller + uç noktalar** → dağıtım adı |
 
-### 3. Yerel olarak çalıştır
+### 3. Yerelde çalıştırın
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Ya da VS Code görevini kullanın: `Ctrl+Shift+P` → **Görevler: Görev Çalıştır** → **Agent HTTP Sunucusunu Çalıştır**.
+Veya VS Code görevini kullanın: `Ctrl+Shift+P` → **Görevler: Görev Çalıştır** → **Ajan HTTP Sunucusunu Çalıştır**.
 
-F5 hata ayıklaması için **Yerel Agent HTTP Sunucusunu Hata Ayıkla** kullanın.
+F5 hata ayıklaması için **Yerel Ajan HTTP Sunucusunu Hata Ayıkla** kullanın.
 
-### 4. Agent Inspector ile test et
+### 4. Agent Inspector ile test edin
 
-Agent Inspector'u açın: `Ctrl+Shift+P` → **Foundry Toolkit: Agent Inspector'u Aç**.
+Agent Inspector’ı açın: `Ctrl+Shift+P` → **Foundry Toolkit: Agent Inspector’ı Aç**.
 
-Bu test istemini yapıştırın:
+Bu test prompt'unu yapıştırın:
 
 ```
 Resume:
@@ -92,9 +92,9 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Beklenen:** Bir uygunluk puanı (0-100), eşleşen/kayıp beceriler ve Microsoft Learn URL'leri ile kişiselleştirilmiş bir öğrenme yol haritası.
+**Beklenen:** Bir uygunluk puanı (0-100), eşleşen/kayıp beceriler ve Microsoft Learn URL'leri içeren kişiselleştirilmiş bir öğrenme yol haritası.
 
-### 5. Foundry'e dağıt
+### 5. Foundry'ye dağıtın
 
 `Ctrl+Shift+P` → **Foundry Toolkit: Barındırılan Ajanı Dağıt** → projenizi seçin → onaylayın.
 
@@ -111,22 +111,22 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## Temel dosyalar
+## Ana dosyalar
 
 ### `agent.yaml`
 
-Foundry Agent Service için barındırılan ajanı tanımlar:
-- `kind: hosted` - yönetilen konteyner olarak çalışır
-- `protocols` - `version: 1.0.0` ile `responses` protokolü, `/responses` HTTP uç noktasını açar
-- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` burada tanımlanır; `FOUNDRY_PROJECT_ENDPOINT` dağıtım sırasında otomatik olarak enjekte edilir
+Foundry Agent Servisi için barındırılan ajanı tanımlar:
+- `kind: hosted` - yönetilen bir konteyner olarak çalışır
+- `protocols` - `responses` protokolü ile `version: 2.0.0`, `/responses` HTTP uç noktasını açar
+- `environment_variables` - `AZURE_AI_MODEL_DEPLOYMENT_NAME` burada beyan edilir; `FOUNDRY_PROJECT_ENDPOINT` dağıtım zamanında otomatik enjekte edilir
 
 ### `main.py`
 
 İçerir:
-- **Ajan talimatları** - her ajan için dörder `*_INSTRUCTIONS` sabitleri
-- **MCP aracı** - `search_microsoft_learn_for_plan()` çağrısı `https://learn.microsoft.com/api/mcp` adresine Streamable HTTP üzerinden yapar
-- **Ajan oluşturma** - bir `FoundryChatClient` paylaşan dörder `Agent()` + `AgentExecutor()` örneği
-- **İş akışı grafiği** - Ajanları ardışık bir boru hattı olarak bağlayan `WorkflowBuilder`: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Ajan talimatları** - her ajan için dört `*_INSTRUCTIONS` sabiti
+- **MCP aracı** - `search_microsoft_learn_for_plan()` `https://learn.microsoft.com/api/mcp`'yi Streamable HTTP üzerinden çağırır
+- **Ajan oluşturma** - dört `Agent()` + `AgentExecutor()` örneği, bir `FoundryChatClient`'i paylaşır
+- **İş akışı grafiği** - `WorkflowBuilder` ajanları sıralı bir boru hattı olarak bağlar: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
 - **Sunucu başlatma** - `ResponsesHostServer` 8088 portunda çalışır
 
 ### `requirements.txt`
@@ -144,17 +144,17 @@ Foundry Agent Service için barındırılan ajanı tanımlar:
 
 | Sorun | Çözüm |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` veya `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Hem `FOUNDRY_PROJECT_ENDPOINT` hem de `AZURE_AI_MODEL_DEPLOYMENT_NAME` ayarlı `.env` dosyası oluşturun |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Sanal ortamı etkinleştirip `pip install -r requirements.txt` komutunu çalıştırın |
-| Çıktıda Microsoft Learn URL'leri yok | `https://learn.microsoft.com/api/mcp` internet bağlantısını kontrol edin |
-| Sadece 1 boşluk kartı (kısaltılmış) | `GAP_ANALYZER_INSTRUCTIONS` içinde `CRITICAL:` bloğunun olduğundan emin olun |
-| 8088 Portu kullanımda | Diğer sunucuları durdurun: `netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` veya `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Her iki taraf için ayarlanmış `.env` oluşturun: `FOUNDRY_PROJECT_ENDPOINT` ve `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | venv'i aktifleştirin ve `pip install -r requirements.txt` çalıştırın |
+| Çıktıda Microsoft Learn URL’leri yok | İnternet bağlantısını `https://learn.microsoft.com/api/mcp` için kontrol edin |
+| Sadece 1 gap kartı (kısaltılmış) | `GAP_ANALYZER_INSTRUCTIONS` bloğun `CRITICAL:` içerdiğini doğrulayın |
+| 8088 portu kullanımda | Diğer sunucuları durdurun: `netstat -ano \| findstr :8088` |
 
 Ayrıntılı sorun giderme için bkz. [Modül 8 - Sorun Giderme](../docs/08-troubleshooting.md).
 
 ---
 
-**Tam yürütme:** [Lab 02 Docs](../docs/README.md) · **Geri dön:** [Lab 02 README](../README.md) · [Atölye Ana Sayfası](../../../README.md)
+**Tam rehber:** [Lab 02 Dokümanları](../docs/README.md) · **Geri Dön:** [Lab 02 README](../README.md) · [Çalıştay Ana Sayfası](../../../README.md)
 
 ---
 

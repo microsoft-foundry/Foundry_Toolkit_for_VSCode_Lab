@@ -1,23 +1,23 @@
-# Modulo 5 - Distribuire al servizio Foundry Agent
+# Modulo 5 - Distribuzione al servizio Foundry Agent
 
 ⏱️ ~10 min
 
-> ⚠️ **Utenti percorso B:** Questo modulo richiede un abbonamento Foundry. Se stai utilizzando Foundry Local, salta a [Modulo 07 - Riepilogo](07-summary.md). Hai completato con successo il flusso di lavoro di sviluppo locale!
+> ⚠️ **Utenti Percorso B:** Questo modulo richiede un abbonamento Foundry. Se stai usando Foundry Local, passa a [Modulo 07 - Sommario](07-summary.md). Hai completato con successo il flusso di lavoro di sviluppo locale!
 
-In questo modulo, distribuisci il tuo agente testato localmente su Microsoft Foundry come **Agente ospitato**. La distribuzione costruisce un'immagine container, la invia a Azure Container Registry e avvia l'agente nell'infrastruttura gestita di Foundry.
+In questo modulo, distribuisci l'agente testato localmente su Microsoft Foundry come **Hosted Agent**. La distribuzione crea un'immagine del contenitore, la invia ad Azure Container Registry e avvia l'agente nell'infrastruttura gestita di Foundry.
 
 ### Pipeline di distribuzione
 
 ```mermaid
 flowchart LR
     A["Dockerfile
-    main.py"] -->|build di docker| B["Container
+    main.py"] -->|docker build| B["Container
     Image"]
-    B -->|push di docker| C["Azure Container
+    B -->|docker push| C["Azure Container
     Registry (ACR)"]
-    C -->|registra agente| D["Foundry Agent
+    C -->|register agent| D["Foundry Agent
     Service"]
-    D -->|avvia contenitore| E["/responses
+    D -->|start container| E["/responses
     endpoint ready"]
 
     style A fill:#9B59B6,color:#fff
@@ -31,7 +31,7 @@ flowchart LR
 
 ## Verifica prerequisiti
 
-Prima di distribuire, verifica:
+Prima della distribuzione, verifica:
 
 - [ ] L'agente supera tutti e 3 gli scenari locali da [Modulo 04](04-test-locally.md)
 - [ ] Hai il ruolo **Azure AI User** a livello di progetto ([Modulo 01, Assegna RBAC](01-setup.md#deploy-a-model--assign-rbac))
@@ -41,12 +41,12 @@ Prima di distribuire, verifica:
 
 ## Passo 1: Avvia la distribuzione
 
-### Opzione A: Distribuisci da Agent Inspector (consigliato)
+### Opzione A: Distribuisci dall'Agent Inspector (consigliato)
 
-Se Agent Inspector è aperto (dal test):
-1. Clicca sul pulsante **Deploy** nell'angolo in alto a destra (icona nuvola ↑).
+Se l'Agent Inspector è aperto (dai test):
+1. Clicca il pulsante **Deploy** in alto a destra (icona cloud ↑).
 
-### Opzione B: Distribuisci dalla Command Palette
+### Opzione B: Distribuisci dal Command Palette
 
 1. Premi `Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent**.
 
@@ -54,82 +54,82 @@ Se Agent Inspector è aperto (dal test):
 
 ## Passo 2: Configura la distribuzione
 
-Il wizard ti chiede:
+Il wizard ti richiede:
 
-![Project Config](../../../../../translated_images/it/05-foundry-project-setup.ca6ad16a6484e054.webp)
-
-| Prompt | Selezione |
-|--------|-----------|
-| **Sottoscrizione** | La tua Sottoscrizione Azure |
-| **Progetto di destinazione** | Il tuo progetto Foundry (es., `workshop-agents`) |
-
-Clicca **next** per configurare il tuo agente.
-
-![Basics config](../../../../../translated_images/it/05-configure-basics.4d5f3d6b0d96f033.webp)
+![Configurazione progetto](../../../../../translated_images/it/05-foundry-project-setup.ca6ad16a6484e054.webp)
 
 | Prompt | Selezione |
-|--------|-----------|
-| **Metodo di distribuzione** | Container |
-| **Registro container** | **ACR predefinito** (Microsoft Foundry ne crea e gestisce uno per te) |
+|--------|------------|
+| **Sottoscrizione** | La tua sottoscrizione Azure |
+| **Progetto di destinazione** | Il tuo progetto Foundry (ad es., `workshop-agents`) |
+
+Clicca **avanti** per configurare il tuo agente.
+
+![Configurazione di base](../../../../../translated_images/it/05-configure-basics.4d5f3d6b0d96f033.webp)
+
+| Prompt | Selezione |
+|--------|------------|
+| **Metodo di distribuzione** | Contenitore |
+| **Container registry** | **ACR predefinito** (Microsoft Foundry ne crea e gestisce uno per te) |
 | **Distribuisci a** | Nuovo agente (nome, `executive-summary-agent`) |
 
-Clicca **next** per rivedere e distribuire il tuo agente.
+Clicca **avanti** per rivedere e distribuire il tuo agente.
 
-![Review and deploy](../../../../../translated_images/it/05-review-deploy.12b449d426bff886.webp)
+![Revisione e distribuzione](../../../../../translated_images/it/05-review-deploy.12b449d426bff886.webp)
 
 | Prompt | Selezione |
-|--------|-----------|
-| **CPU e memoria** | **0.25 core CPU, 0.5 Gi memoria** (sufficiente per il workshop) |
+|--------|------------|
+| **CPU e memoria** | **0.5 CPU cores, 1.0 Gi memoria** (predefinito - sufficiente per il workshop) |
 
 ---
 
 ## Passo 3: Distribuisci e monitora
 
 1. Clicca **Deploy**.
-2. Guarda il pannello **Output** (seleziona **Microsoft Foundry** dal menu a tendina).
+2. Osserva il pannello **Output** (seleziona **Microsoft Foundry** dal menù a tendina).
 3. La distribuzione passa attraverso queste fasi:
-   - **Docker build** - costruisce il container dal tuo Dockerfile
-   - **Docker push** - invia l'immagine all'ACR (1–3 min alla prima distribuzione)
+   - **Docker build** - costruisce il contenitore dal tuo Dockerfile
+   - **Docker push** - invia l'immagine ad ACR (1–3 minuti alla prima distribuzione)
    - **Registrazione agente** - crea l'agente ospitato in Foundry
-   - **Avvio container** - avvia con identità gestita di sistema
+   - **Avvio contenitore** - avvia con identità gestita dal sistema
 
 4. Al completamento, appare una notifica:
-   > **my-agent è distribuito con successo.** `Visualizza log` `Avvia agente`
+   > **executive-summary-agent è stato distribuito con successo.** `View logs` `Run agent`
 
-5. Clicca **Avvia agente** per aprire l'Agent Playground.
+5. Clicca **Run agent** per aprire l'Agent Playground.
 
-![Deployment success showing Agent Playground with Running status](../../../../../translated_images/it/05-deployed-asset.b59e6a5eef31c0b1.webp)
+![Distribuzione riuscita, mostra Agent Playground con stato Running](../../../../../translated_images/it/05-deployed-asset.b59e6a5eef31c0b1.webp)
 
 ### Valori dello stato di distribuzione
 
 | Stato | Significato |
-|--------|---------|
-| **Running** | Container pronto, agente risponde |
-| **Pending** | Container in avvio - attendi 30–60 secondi |
-| **Failed** | Controlla i log (vedi risoluzione problemi sotto) |
+|--------|------------|
+| **Running** | Contenitore pronto, agente risponde |
+| **Pending** | Contenitore in avvio - attendere 30–60 secondi |
+| **Failed** | Controlla i log (vedi risoluzione dei problemi sotto) |
 
 ---
 
 ## Errori comuni di distribuzione
 
-| Errore | Causa radice | Soluzione |
-|-------|-------------|----------|
-| Permesso `agents/write` negato | Mancanza ruolo **Azure AI User** a livello di progetto | [Modulo 01, Assegna RBAC](01-setup.md#deploy-a-model--assign-rbac) |
-| Docker non in esecuzione | Docker Desktop non avviato | Avvia Docker Desktop → verifica con `docker info` |
-| Autorizzazione ACR | L'identità gestita non può scaricare l'immagine | Vedi [Modulo 08 - Risoluzione problemi](08-troubleshooting.md) |
+| Errore | Causa principale | Soluzione |
+|-------|-----------------|----------|
+| `agents/write` permesso negato | Ruolo **Azure AI User** mancante a livello di progetto | [Modulo 01, Assegna RBAC](01-setup.md#deploy-a-model--assign-rbac) |
+| Docker non in esecuzione | Docker Desktop non avviato | Avvia Docker Desktop → verifica `docker info` |
+| Autorizzazione ACR | L'identità gestita non può estrarre l'immagine | Vedi [Modulo 08 - Risoluzione dei problemi](08-troubleshooting.md) |
 
 ---
 
-### ✅ Checkpoint
+### ✅ Punto di controllo
 
 - [ ] Distribuzione completata senza errori
-- [ ] L'agente appare sotto **Hosted Agents (Preview)** nella sidebar di Foundry
+- [ ] L'agente appare nella scheda **Hosted Agent** quando clicchi su **Agents** sotto il tuo progetto nella barra laterale del Foundry Toolkit
 - [ ] Lo stato del container mostra **Running**
-- [ ] Scheda Agent Playground aperta con dettagli dell'agente e URL endpoint
+- [ ] Scheda Agent Playground aperta che mostra i dettagli dell'agente e l'URL dell'endpoint
 
 ---
 
-**Precedente:** [04 - Test locale](04-test-locally.md) · **Successivo:** [06 - Verifica in Playground →](06-verify-in-playground.md)
+**Precedente:** [04 - Testa localmente](04-test-locally.md) · **Successivo:** [06 - Verifica nel Playground →](06-verify-in-playground.md)
 
 ---
 

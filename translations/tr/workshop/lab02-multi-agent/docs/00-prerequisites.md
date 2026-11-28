@@ -3,76 +3,76 @@
 ⏱️ ~10 dakika
 
 > [!WARNING]
-> **Önizleme ve Sınırlamalar:** [Barındırılan Ajanlar](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) şu anda **genel önizleme** aşamasındadır - üretim iş yükleri için önerilmez. Bu atölye çalışmasında gösterilen bazı özellikler, hizmet GA aşamasına ilerledikçe değişebilir.
+> **Önizleme ve Sınırlamalar:** [Barındırılan Ajanlar](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) şu anda **genel önizlemededir** - üretim görevleri için önerilmez. Bu atölyede gösterilen bazı özellikler, servis GA'ya doğru ilerledikçe değişebilir.
 
-## Ne inşa edeceksiniz
+## Oluşturacaklarınız
 
-Bu laboratuvarda, Laboratuvar 01'den tek ajan becerilerini genişleterek **çoklu ajan iş akışı** - Özgeçmiş → İş Uygunluk Değerlendiricisi oluşturacaksınız.
+Bu laboratuvarda, Lab 01'deki tek ajan becerilerini genişleterek bir **çok ajanlı iş akışı** oluşturacaksınız - Özgeçmiş → İş Uygunluk Değerlendiricisi.
 
-Bir **özgeçmiş** ve bir **iş tanımı** yapıştırırsınız. Dört özel ajan girdiyi sırasıyla işler, ardından şunları döndürür:
-- Bir uyum puanı (0–100 puanlama dökümü ile)
-- Bir beceri ve sertifika boşluğu listesi
-- Her boşluk için gerçek Microsoft Learn bağlantıları içeren kişiselleştirilmiş bir öğrenme yol haritası
+Bir **özgeçmiş** ve bir **iş tanımı** yapıştırırsınız. Dört uzman ajan girdiyi sırasıyla işler ve ardından döner:
+- Bir uygunluk puanı (0–100 arası ve puanlama dökümü)
+- Bir beceri ve sertifika eksikliği listesi
+- Her eksiklik için gerçek Microsoft Learn bağlantılarıyla kişiselleştirilmiş bir öğrenme yolu haritası
 
 **İş akışı şunları kullanır:**
-- **Microsoft Agent Framework** - `WorkflowBuilder` ile sıralı boru hattı düzenlemesi
-- **Foundry Toolkit for VS Code** - iskelet oluşturma, yerel test, dağıtım
-- **Bir yapay zeka modeli** (örneğin, `gpt-4.1-mini`) - dört ajan tarafından kullanılır
-- **Microsoft Learn MCP sunucusu** - her beceri boşluğu için gerçek öğrenme kaynağı bağlantıları sağlar
+- **Microsoft Agent Framework** - sıralı boru hattı düzenleme için `WorkflowBuilder`
+- **Foundry Toolkit for VS Code** - iskele oluşturma, yerel test, dağıtım
+- **Bir yapay zeka modeli** (örneğin, `gpt-4.1-mini`) - tüm dört ajan tarafından kullanılır
+- **Microsoft Learn MCP sunucusu** - her beceri eksikliği için gerçek öğrenme kaynak bağlantıları sağlar
 
 ---
 
 ## Yolunuzu seçin
 
-> ⚠️ **Laboratuvar 01'de kullandığınız aynı yol ile devam edin.**
+> ⚠️ **Lab 01'de kullandığınız aynı yol ile devam edin.**
 
 <details open>
-<summary><strong>🅰️ Yol A - Azure bulut (Azure aboneliği gerektirir)</strong></summary>
+<summary><strong>🅰️ Yol A - Azure bulutu (Azure aboneliği gerektirir)</strong></summary>
 
 | | Detaylar |
 |---|---|
-| **Kimler için?** | Azure aboneliği kullanarak Laboratuvar 01'i tamamladınız |
-| **Model** | Foundry üzerinden Azure OpenAI (örneğin `gpt-4.1-mini`) |
+| **Kimler için?** | Azure aboneliği kullanarak Lab 01’i tamamladınız |
+| **Model** | Foundry aracılığıyla Azure OpenAI (örneğin, `gpt-4.1-mini`) |
 | **Kapsanan modüller** | Tüm modüller (00–09) |
 | **Buluta dağıtım?** | ✅ Evet - tam uçtan uca dağıtım |
 
 </details>
 
 <details open>
-<summary><strong>🅱️ Yol B - Foundry Yerel (Azure aboneliği gerekli değil)</strong></summary>
+<summary><strong>🅱️ Yol B - Foundry Yerel (Azure aboneliği gerekmez)</strong></summary>
 
 | | Detaylar |
 |---|---|
-| **Kimler için?** | Foundry Yerel kullanarak Laboratuvar 01'i tamamladınız |
+| **Kimler için?** | Foundry Yerel kullanarak Lab 01’i tamamladınız |
 | **Model** | Foundry Yerel (ücretsiz, makinenizde çalışır) |
-| **Kapsanan modüller** | Modüller 00–05 (06–07 atlanır - dağıtım & bulut doğrulama) |
-| **Buluta dağıtım?** | ❌ Hayır - sadece Agent Inspector ile yerel test |
+| **Kapsanan modüller** | Modüller 00–05 (06–07 atlanacak - dağıtım ve bulut doğrulama) |
+| **Buluta dağıtım?** | ❌ Hayır - sadece Ajan Denetleyicisi ile yerel test |
 
 </details>
 
 ---
 
-## Laboratuvar 01 kontrolü
+## Lab 01 kontrolü
 
-Laboratuvar 02, doğrudan Laboratuvar 01 üzerine inşa edilir. Buraya başlamadan önce Laboratuvar 01'i tamamlayın.
+Lab 02 doğrudan Lab 01 üzerine inşa edilmiştir. Buraya başlamadan önce Lab 01’i tamamlayın.
 
-Henüz Laboratuvar 01'i yapmadınız mı? Buradan başlayın: [Lab 01 - Giriş](../../lab01-single-agent/docs/00-prerequisites.md)
+Lab 01’i henüz yapmadınız mı? Buradan başlayın: [Lab 01 - Giriş](../../lab01-single-agent/docs/00-prerequisites.md)
 
 <details open>
-<summary><strong>🅰️ Yol A - Azure bulut</strong></summary>
+<summary><strong>🅰️ Yol A - Azure bulutu</strong></summary>
 
 ```powershell
 az account show --query "{name:name, id:id}" --output table
 ```
 
-Eğer başarısız olursa, `az login` komutunu çalıştırın. Ardından VS Code'da kontrol edin:
+Eğer başarısız olursa, `az login` çalıştırın. Sonra VS Code’da doğrulayın:
 
 1. `Ctrl+Shift+P` → **Foundry Toolkit** yazın → komutların göründüğünü onaylayın.
 2. **Foundry Toolkit** simgesine tıklayın → projeniz ve dağıtılan model **Başarılı** olarak görünür.
 
-![Foundry Toolkit kenar çubuğunda PROJELERİM bölümünü ve proje değiştirici modali açık gösteren görsel](../../../../../translated_images/tr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
+![Foundry Toolkit kenar çubuğu, Kaynaklarım altında projeyi gösteriyor; Proje değiştirme / Proje oluşturma seçici açık](../../../../../translated_images/tr/00-foundry-sidebar-project-model.51036e8b9386e1f4.webp)
 
-> **RBAC:** Laboratuvar 01'de **Foundry Kullanıcısı** rolünü atadınız. Yeniden atamanız gerekirse, bkz: [Laboratuvar 01, Modül 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Rol önceden **Azure AI Kullanıcısı** olarak adlandırılıyordu - aynı izinler.
+> **RBAC:** Lab 01’de **Foundry Kullanıcısı** atadınız. Yeniden atamanız gerekirse, bkz. [Lab 01, Modül 1](../../lab01-single-agent/docs/01-setup.md#deploy-a-model--assign-rbac). Rol önceden **Azure AI Kullanıcısı** olarak adlandırılıyordu - aynı izinler.
 
 </details>
 
@@ -83,27 +83,27 @@ Eğer başarısız olursa, `az login` komutunu çalıştırın. Ardından VS Cod
 Invoke-WebRequest -Uri "http://localhost:5273/v1/health" -UseBasicParsing | Select-Object StatusCode
 ```
 
-Beklenen: `StatusCode: 200`. Değilse, Foundry Toolkit kenar çubuğundan Foundry Yerel'i yeniden başlatın.
+Beklenen: `StatusCode: 200`. Değilse, Foundry Toolkit kenar çubuğundan Foundry Yerel’i yeniden başlatın.
 
-> Tüm çıkarımlar makinenizde yapılır. Tek dışa giden çağrı MCP aracının `https://learn.microsoft.com/api/mcp` adresine yaptığı çağrıdır.
+> Tüm çıkarımlar makinenizde çalışır. Tek dış arama MCP aracına `https://learn.microsoft.com/api/mcp` yöneliktir.
 
 </details>
 
 ---
 
-## Laboratuvar 02'de yenilikler
+## Lab 02’de yenilikler
 
-| | Laboratuvar 01 | Laboratuvar 02 |
+| | Lab 01 | Lab 02 |
 |--|--------|--------|
 | Ajanlar | 1 | 4 (WorkflowBuilder ile zincirlenmiş) |
-| Iskelet şablonu | Temel - Agent Framework | İş Akışları - Agent Framework |
+| İskele şablonu | Temel - Agent Framework | İş akışları - Agent Framework |
 | Yeni paket | - | `mcp` |
-| Düzenleme | Tek konuşmalı ajan | Sıralı boru hattı (WorkflowBuilder) |
+| Düzenleme | Tek sohbet ajanı | Sıralı boru hattı (WorkflowBuilder) |
 | Yeni araç | - | `search_microsoft_learn_for_plan` (MCP) |
 
 ---
 
-**Sonraki:** [01 - Mimariyi Anlamak →](01-understand-multi-agent.md)
+**Sonraki:** [01 - Mimarinin Anlaşılması →](01-understand-multi-agent.md)
 
 ---
 

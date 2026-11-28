@@ -1,63 +1,64 @@
-# Modül 5 - Yerelde Test Etme
+# Modül 5 - Yerel Test
 
 ⏱️ ~15 dakika
 
-Bu modülde, çok ajanlı iş akışını yerelde çalıştıracak, Agent Inspector ile test edecek ve dağıtımdan önce dört ajan ile MCP aracının düzgün çalıştığını doğrulayacaksınız.
+Bu modülde, çoklu ajan iş akışını yerelde çalıştıracak, Agent Inspector ile test edecek ve dağıtımdan önce tüm dört ajanın ve MCP aracının doğru çalıştığını doğrulayacaksınız.
 
 ---
 
-## Adım 1: Ajan sunucusunu başlat
+## Adım 1: Ajan sunucusunu başlatın
 
-### Seçenek A: VS Code görevi kullanarak (önerilen)
+### Seçenek A: VS Code görevi kullanma (önerilir)
 
-1. `workshop/lab02-multi-agent/PersonalCareerCopilot/` klasörünü VS Code klasörünüz olarak açın.
-2. `Ctrl+Shift+P` tuşlarına basın → **Tasks: Run Task** yazın → **Run Agent HTTP Server** seçin.
-3. Görev, `5679` portunda debugpy bağlı olarak ve ajanın `8088` portunda çalıştığı sunucuyu başlatır.
-4. Çıktının şu mesajı göstermesini bekleyin:
+1. `workshop/lab02-multi-agent/PersonalCareerCopilot/`'ı VS Code klasörünüz olarak açın.
+2. `Ctrl+Shift+P` tuşuna basın → **Görevler: Görev Çalıştır** yazın → **Agent HTTP Sunucusunu Çalıştır** seçin.
+3. Görev, `5679` portunda debugpy ile bağlı olarak sunucuyu ve `8088` portunda ajanı başlatır.
+4. Başlatma mesajının ve ardından sunucunun kendi hazır mesajının görünmesini bekleyin (diğer günlük satırları arada görünür):
 
 ```
 INFO:resume-job-fit:Starting Resume -> Job Fit Evaluator HTTP server...
-INFO:resume-job-fit:Server running on http://localhost:8088
+...
+INFO:hypercorn.error:Running on http://0.0.0.0:8088 (CTRL + C to quit)
 ```
 
 ### Seçenek B: F5 kullanarak (hata ayıklama modu)
 
-1. `F5` tuşuna basın → **Debug Local Agent HTTP Server** seçin.
-2. Sunucu tam kesme noktası desteği ile başlar - MCP yanıtlarını veya ajan çıktıları incelemek için faydalıdır.
+1. `F5` tuşuna basın → **Yerel Agent HTTP Sunucusunu Hata Ayıkla** seçin.
+2. Sunucu, tam kesme noktası desteği ile başlar - MCP yanıtlarını veya ajan çıktılarının incelenmesi için faydalıdır.
 
 ---
 
-## Adım 2: Agent Inspector'ı aç
+## Adım 2: Agent Inspector'u açın
 
-1. `Ctrl+Shift+P` tuşlarına basın → **Foundry Toolkit: Open Agent Inspector** yazın.
-2. Agent Inspector, `http://localhost:8088` adresine bağlı bir VS Code paneli olarak açılır.
+1. `Ctrl+Shift+P` tuşuna basın → **Foundry Toolkit: Agent Inspector'ı Aç** yazın.
+2. Agent Inspector, `http://localhost:8088` ile bağlı olarak bir VS Code paneli olarak açılır.
 3. Mesaj kabul etmeye hazır ajan arayüzünü görmelisiniz.
 
-![Agent Inspector açık ve hazır - Playground karşılama istemini gösteriyor](../../../../../translated_images/tr/04-debug-console-matching-input.ed5c06395e25aec0.webp)
+![Agent Inspector açık ve hazır - Playground hoşgeldin istemini gösteriyor](../../../../../translated_images/tr/04-debug-console-matching-input.ed5c06395e25aec0.webp)
 
-> **Agent Inspector açılmazsa:** Sunucunun tamamen başladığından (günlükte "Server running" görünmeli) emin olun. 5679 portu meşgulse, bkz. [Modül 8 - Sorun Giderme](08-troubleshooting.md).
+> **Agent Inspector açılmıyorsa:** Sunucunun tamamen başlatıldığından emin olun (görüntülediğiniz `Running on http://0.0.0.0:8088` kaydını görüyorsunuz). 5679 numaralı bağlantı noktası meşgulse, bkz. [Modül 8 - Sorun Giderme](08-troubleshooting.md).
 
 ---
 
-## Adım 2b: (İsteğe Bağlı) İş Akışı Görselleştiriciyi Aç
+## Adım 2b: (İsteğe Bağlı) İş Akışı Görselleştiricisini Açın
 
-Foundry Toolkit, ajanların grafik çalıştırılırken nasıl etkileşime girdiğini gösteren gerçek zamanlı bir **İş Akışı Görselleştirici** içerir. Bu, çok ajanlı hata ayıklama için özellikle faydalıdır.
+Foundry Toolkit, grafik çalışırken ajanların nasıl etkileşimde bulunduğunu gösteren gerçek zamanlı bir **İş Akışı Görselleştiricisi** içerir. Bu, çoklu ajan hata ayıklama için özellikle kullanışlıdır.
 
-1. `Ctrl+Shift+P` tuşlarına basın → **Foundry Toolkit: Open Visualizer for Hosted Agents** yazın.
+1. `Ctrl+Shift+P` tuşuna basın → **Foundry Toolkit: Open Visualizer for Hosted Agents** yazın.
 2. Canlı yürütme grafiğini gösteren yeni bir VS Code sekmesi açılır.
-3. Agent Inspector'da mesaj gönderirken, görselleştirici otomatik olarak güncellenir - yeşil düğümler tamamlanmış ajanları, animasyonlu kenarlar ise aralarındaki veri akışını gösterir.
+3. Agent Inspector'da mesaj gönderirken, görselleştirici otomatik olarak güncellenir - yeşil düğümler tamamlanmış ajanları gösterir ve animasyonlu kenarlar aralarındaki veri akışını gösterir.
 
-> **Port çakışması:** Eğer görselleştirici portu zaten kullanılıyorsa, VS Code Ayarları → **Extensions** → **Microsoft Foundry Configuration** → **Hosted Agents: Visualizer Port** üzerinden değiştirin.
+> **Port çakışması:** Görselleştirici portu zaten kullanımdayken, bunu VS Code Ayarları → **Extensions** → **Microsoft Foundry Configuration** → **Hosted Agents: Visualizer Port** bölümünden değiştirin.
 
 ---
 
-## Adım 3: Smoke testlerini çalıştır
+## Adım 3: Temel testleri çalıştırın
 
-Bu üç testi sırayla çalıştırın. Her biri iş akışının artan seviyede bölümünü test eder.
+Bu iki testi sırayla çalıştırın. Her biri iş akışının daha fazlasını kademeli olarak test eder.
 
 ### Test 1: Temel özgeçmiş + iş tanımı
 
-Aşağıdakini Agent Inspector'a yapıştırın:
+Aşağıdakileri Agent Inspector'a yapıştırın:
 
 ```
 Resume:
@@ -77,31 +78,31 @@ Certifications: Azure Solutions Architect Expert preferred.
 
 **Beklenen çıktı yapısı:**
 
-Yanıt, dört ajanın art arda çıktılarını içermelidir:
+Yanıt, sırasıyla tüm dört ajandan gelen çıktıyı içermelidir:
 
-1. **Özgeçmiş Ayrıştırıcı çıktısı** - İki etiketli bölüm: `[PARSED RESUME]` (yetenek gruplandırılmış aday profili) ve `[JOB DESCRIPTION PASS-THROUGH]` (JD Ajanına beslenen yazılı JD metni)
-2. **İş Tanımı Ajanı çıktısı** - Gerekli ve tercih edilen yetenekler ayrılmış yapısal gereksinimler
-3. **Eşleştirme Ajanı çıktısı** - 0-100 arası puanlama ve açıklaması, eşleşen yetenekler, eksik yetenekler, boşluklar
-4. **Boşluk Analizörü çıktısı** - Her eksik yetenek için Microsoft Learn URL'leriyle bireysel boşluk kartları
+1. **Özgeçmiş Ayrıştırıcı çıktısı** - İki etiketli bölüm: `[PARSED RESUME]` (gruplandırılmış becerilere sahip aday profili) ve `[JOB DESCRIPTION PASS-THROUGH]` (JD Ajanına besleme yapan kelimesi kelimesine JD metni)
+2. **JD Ajanı çıktısı** - Gereken ve tercih edilen becerilerin ayrıldığı yapılandırılmış gereksinimler
+3. **Eşleşen Aracı çıktısı** - Fit puanı (0-100) ve dökümü, eşleşen beceriler, eksik beceriler, boşluklar
+4. **Boşluk Analizörü çıktısı** - Her eksik beceri için Microsoft Learn URL'leri ile bireysel boşluk kartları
 
-![Agent Inspector, puanlama, boşluk kartları ve Microsoft Learn bağlantıları ile tam yanıtı gösteriyor](../../../../../translated_images/tr/05-inspector-test1-complete-response.8c63a52995899333.webp)
+![Tam yanıtı, fit puanını, boşluk kartlarını ve Microsoft Learn URL'lerini gösteren Aracı Denetleyici](../../../../../translated_images/tr/05-inspector-test1-complete-response.8c63a52995899333.webp)
 
-![Agent Inspector yanıt paneli, Microsoft Learn linkleriyle öğrenme kaynaklarını gösteriyor](../../../../../translated_images/tr/04-inspector-streaming-output.df2781aaa02df6bc.webp)
+![Microsoft Learn bağlantılarıyla öğrenme kaynaklarını gösteren Aracı Denetleyici yanıt paneli](../../../../../translated_images/tr/04-inspector-streaming-output.df2781aaa02df6bc.webp)
 
 ### Test 1'de doğrulanacaklar
 
-| Kontrol Et | Beklenen | Geçti mi? |
+| Kontrol | Beklenen | Geçti mi? |
 |-------|----------|-------|
-| Yanıt puanlama içeriyor | 0-100 arası sayı ve detay | |
-| Eşleşen yetenekler listelenmiş | Python, CI/CD (kısmi), vb. | |
-| Eksik yetenekler listelenmiş | Azure, Kubernetes, Terraform, vb. | |
-| Her eksik yetenek için boşluk kartları var | Her yetenek için bir kart | |
-| Microsoft Learn URL'leri mevcut | Gerçek `learn.microsoft.com` bağlantıları | |
-| Yanıtta hata mesajı yok | Temiz yapısal çıktı | |
+| Yanıt bir fit puanı içeriyor | 0-100 arasında dökümüyle sayı | |
+| Eşleşen beceriler listelenmiş | Python, CI/CD (kısmi), vb. | |
+| Eksik beceriler listelenmiş | Azure, Kubernetes, Terraform, vb. | |
+| Her eksik beceri için boşluk kartları var | Beceri başına bir kart | |
+| Microsoft Learn URL'leri mevcut | Gerçek `learn.microsoft.com` bağlantılar | |
+| Yanıt içinde hata mesajı yok | Temiz yapılandırılmış çıktı | |
 
-### Test 2: Sınır durumu - yüksek puanlı aday
+### Test 2: Kenar durumu - yüksek fit adayı
 
-BoşlukAnalizörünün yüksek puanlı senaryoları doğru işlediğini doğrulamak için işi yakından eşleyen bir özgeçmiş yapıştırın:
+BoşlukAnalizörü'nün yüksek fit durumlarını nasıl ele aldığını doğrulamak için işi tanımına yakın bir özgeçmiş yapıştırın:
 
 ```
 Resume:
@@ -121,39 +122,39 @@ Certifications: Azure Solutions Architect Expert preferred.
 ```
 
 **Beklenen davranış:**
-- Puanlama **80+** olmalı (çoğu yetenek eşleşiyor)
-- Boşluk kartları temel öğrenmeden çok hazırlık/görünüşe odaklanmalı
-- Boşluk Analizörü talimatları: "Fit >= 80 ise, hazırlık/görünüşe odaklan"
+- Fit puanı **80+** olmalı (çoğu beceri eşleşir)
+- Boşluk kartları temel öğrenmeden ziyade cilalama/mülakat hazırlığına odaklanmalı
+- BoşlukAnalizörü talimatları diyor ki: "Fit >= 80 ise, cilalama/mülakat hazırlığına odaklan"
 
 ---
 
-## Adım 4: Kendi verinizle test edin (isteğe bağlı)
+## Adım 4: Kendi verilerinizle test edin (isteğe bağlı)
 
-Kendi özgeçmişinizi ve gerçek bir iş tanımını yapıştırmayı deneyin. Bu şunları doğrulamaya yardımcı olur:
+Kendi özgeçmişinizi ve gerçek bir iş tanımını yapıştırmayı deneyin. Bu şunların doğrulanmasına yardımcı olur:
 
-- Ajanlar farklı özgeçmiş formatlarını (kronolojik, fonksiyonel, karma) idare ediyor
-- JD Ajanı farklı iş tanımı stillerini (madde işaretleri, paragraflar, yapısal) idare ediyor
-- MCP aracı gerçek yetenekler için ilgili kaynakları döndürüyor
-- Boşluk kartları sizin özel geçmişinize göre kişiselleştirilmiş
+- Temsilciler, farklı özgeçmiş formatlarını (kronolojik, fonksiyonel, hibrit) işler
+- JD Ajanı farklı JD stillerini (madde işaretleri, paragraflar, yapılandırılmış) işler
+- MCP aracı gerçek beceriler için ilgili kaynakları döndürür
+- Boşluk kartları belirli geçmişinize özelleştirilmiştir
 
-> **Gizlilik - Yol A (Foundry bulut):** Özgeçmiş ve JD metni çıkarım için Azure OpenAI dağıtımınıza gönderilir. Atölye altyapısı tarafından kaydedilmez veya saklanmaz. İsterseniz yer tutucu isimler kullanabilirsiniz (örneğin "Jane Doe").
+> **Gizlilik - Yol A (Foundry bulut):** Özgeçmiş ve JD metni çıkarım için Azure OpenAI dağıtımınıza gönderilir. Atölye altyapısı tarafından kaydedilmez veya saklanmaz. Tercih ederseniz yer tutucu isimler (ör., "Jane Doe") kullanın.
 >
-> **Gizlilik - Yol B (Foundry Yerel):** Dört ajanın tüm çıkarımları tamamen cihazınızda çalışır. Özgeçmiş ve iş tanımı metniniz **makinenizden asla çıkmaz**. Tek dış çağrı MCP aracının `https://learn.microsoft.com/api/mcp` adresinden kaynakları çekmesidir; bu sorgu sadece yetenek adı içerir, kişisel veriniz değil.
+> **Gizlilik - Yol B (Foundry Yerel):** Dört ajan çıkarımının tamamı tamamen cihazınızda çalışır. Özgeçmişiniz ve iş tanımı metniniz **asla makinenizi terk etmez**. Tek dışa giden çağrı, MCP aracının `https://learn.microsoft.com/api/mcp`’den kaynak çekmesidir; bu sorgu sadece beceri adını içerir, kişisel verilerinizi değil.
 
 ---
 
 ### Kontrol Noktası
 
-- [ ] Sunucu `8088` portunda başarıyla başlatıldı (günlükte "Server running" yazıyor)
-- [ ] Agent Inspector açıldı ve ajana bağlı
-- [ ] Test 1: Puanlama, eşleşen/eksik yetenekler, boşluk kartları ve Microsoft Learn URL'leri ile tam yanıt
-- [ ] Test 2: Yüksek puanlı aday 80+ puan alıyor, görünüş odaklı öneriler içeriyor
-- [ ] Tüm boşluk kartları mevcut (her eksik yetenek için bir, hiç kırpılma yok)
-- [ ] Sunucu terminalinde hata veya yığın izi yok
+- [ ] Sunucu `8088` portunda başarıyla başlatıldı (günlükte `Running on http://0.0.0.0:8088` gösteriliyor)
+- [ ] Ajan Denetleyici açıldı ve ajana bağlandı
+- [ ] Test 1: Uyum puanı, eşleşen/eksik beceriler, boşluk kartları ve Microsoft Learn URL'leri ile tam yanıt
+- [ ] Test 2: Yüksek uyumlu aday, cilaya odaklı önerilerle 80+ puan alıyor
+- [ ] Tüm boşluk kartları mevcut (eksik her beceri için bir, kırpma yok)
+- [ ] Sunucu terminalinde hata veya yığın izleri yok
 
 ---
 
-**Önceki:** [04 - Orkestrasyon Desenleri](04-orchestration-patterns.md) · **Sonraki:** [06 - Foundry'e Dağıt →](06-deploy-to-foundry.md)
+**Önceki:** [04 - Orkestrasyon Desenleri](04-orchestration-patterns.md) · **Sonraki:** [06 - Foundry’e Dağıt →](06-deploy-to-foundry.md)
 
 ---
 

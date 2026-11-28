@@ -1,15 +1,15 @@
-# Modül 4 - Yerel Test
+# Modül 4 - Yerel Olarak Test Etme
 
-⏱️ ~10 dk
+⏱️ ~10 dakika
 
-Bu modülde, ajanınızı yerel olarak çalıştırır ve **mutlu yol fonksiyonel testleriyle** doğru çalıştığını doğrularsınız. Ajanın yapılandırılmış ve doğru yanıtlar ürettiğini onaylamak için Agent Inspector (görsel UI) veya doğrudan HTTP çağrıları kullanacaksınız.
+Bu modülde, ajanınızı yerel olarak çalıştırır ve **mutlu yol fonksiyonel testleri** kullanarak doğru çalıştığını doğrularsınız. Ajanın yapılandırılmış, doğru yanıtlar ürettiğini onaylamak için Agent Inspector (görsel UI) veya doğrudan HTTP çağrılarını kullanacaksınız.
 
 ### Yerel test akışı
 
 ```mermaid
 flowchart TD
-    A["Ajan sunucusunu başlat"] --> B["Ajan Denetleyicisini aç"]
-    B --> C["Test girdisi gönder"]
+    A["Start agent server"] --> B["Open Agent Inspector"]
+    B --> C["Send test input"]
     C --> D["Agent produces 
     structured output"]
     D --> E["Validate output 
@@ -23,58 +23,60 @@ flowchart TD
 
 ---
 
-## Seçenek 1: F5'e basın - Agent Inspector ile Hata Ayıklama (önerilen)
+## Seçenek 1: F5'e basın - Agent Inspector ile hata ayıklama (önerilir)
 
-### Hata ayıklamayı başlatın
+### Hata ayıklayıcıyı başlatın
 
-1. **executive-summary-agent/** klasörünü doğrudan VS Code'da açın (`Dosya → Klasör Aç`).
+1. **executive-summary-agent/** klasörünü doğrudan VS Code'da (`File → Open Folder`) açın.
 2. **Çalıştır ve Hata Ayıkla** panelini açın (`Ctrl+Shift+D`).
-3. Açılır menüden **Debug Local Agent Server** seçeneğini seçin.
+3. Açılır menüden **Yerel Agent HTTP Sunucusunu Hata Ayıkla** seçin.
 4. **F5** tuşuna basın (veya ▶ Hata Ayıklamayı Başlat'a tıklayın).
 
-> ⚠️ **Önemli: Python Yorumlayıcınızı Seçin**
-> "ModuleNotFoundError" alırsanız veya hata ayıklayıcı başlatılamazsa, VS Code'un sanal ortamınızı kullanmasını sağlamanız gerekir:
-> 1. `Ctrl+Shift+P` basın ve **Python: Select Interpreter** yazın.
-> 2. Projenizin `.venv` klasöründeki yorumlayıcıyı seçin (örn. Windows için `.\.venv\Scripts\python.exe`).
-> 3. Hata ayıklama oturumunu yeniden başlatın.
-> Hatalar devam ederse, `tasks.json` dosyanızı manuel olarak güncelleyin:
-> 1. `.vscode/tasks.json` dosyasına gidin
-> 2. `Run Agent/Workflow HTTP Server` adlı komutu bulun
-> 3. Komut değerini şu şekilde güncelleyin: `"value": "${workspaceFolder}/.venv/bin/python",`
+> ⚠️ **Önemli: Python Yorumlayıcınızı seçin**
+> "ModuleNotFoundError" alırsanız veya hata ayıklayıcı başlamazsa, VS Code'a sanal ortamınızı kullanmasını söylemelisiniz:
+  > 1. Basın `Ctrl+Shift+P` $\rightarrow$ yazın **Python: Select Interpreter**.
+  > 2. Projenizin `.venv` klasöründe bulunan yorumlayıcıyı seçin (örneğin, Windows üzerinde `.\.venv\Scripts\python.exe`).
+  > 3. Hata ayıklama oturumunu yeniden başlatın.
+> Hâlâ hatalar alıyorsanız, dosyanızı `tasks.json` elle aşağıdaki şekilde güncelleyin:
+  > 1. `.vscode/tasks.json` dosyasına gidin
+  > 2. `Run Agent HTTP Server` etiketli göreve gidin
+  > 3. Komut değerini aşağıdaki gibi güncelleyin:
+  >    - **Windows:** `"value": "${workspaceFolder}/.venv/Scripts/python.exe",`
+  >    - **macOS/Linux:** `"value": "${workspaceFolder}/.venv/bin/python",`
 
 ### Ne olur
 
-1. HTTP sunucusu `http://localhost:8088/responses` adresinde başlar.
+1. HTTP sunucusu `http://localhost:8088/responses` üzerinde başlatılır.
 2. **Agent Inspector** paneli otomatik olarak açılır - test için görsel bir sohbet arayüzü.
-3. `main.py` içinde kesme noktaları etkinleştirilir.
+3. Kesmeler `main.py` içinde etkinleştirilir.
 
-Terminal'i izleyin:
+Terminali İzleyin:
 ```
 Starting executive summary hosted agent
 Executive agent server running on http://localhost:8088
 ```
 
-> **Agent Inspector açılmazsa:** `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** komutunu çalıştırın.
+> **Agent Inspector açılmazsa:** `Ctrl+Shift+P` tuşuna basın → **Foundry Toolkit: Open Agent Inspector**.
 
-![Agent Inspector localhost:8088'e bağlı, Executive Summary yanıtını gösteriyor](../../../../../translated_images/tr/05-agent-inspector-response.9d761cc9bd77818b.webp)
+![localhost:8088'e bağlı Agent Inspector, bir Yönetici Özeti yanıtı gösteriyor](../../../../../translated_images/tr/05-agent-inspector-response.9d761cc9bd77818b.webp)
 
-> *Ekran görüntüsü, önceki bir uzantı sürümünden eski 'AI TOOLKIT' markasını gösterebilir.*
+> *Ekran görüntüsü, daha önceki bir uzantı sürümünden 'AI TOOLKIT' markasını gösterebilir.*
 
 ---
 
-## Seçenek 2: Terminal üzerinden test etme (alternatif)
+## Seçenek 2: Terminal üzerinden test (alternatif)
 
-Bir terminalde ajanı başlatın, diğerinden istek gönderin:
+Ajansı bir terminalde başlatın, diğerinden istek gönderin:
 
 ```bash
-# Terminal 1: Ajanı başlat
+# Terminal 1: Start agent
 cd executive-summary-agent/
 source .venv/bin/activate
 python main.py
 ```
 
 ```bash
-# Terminal 2: Test gönder (curl)
+# Terminal 2: Send test (curl)
 curl -sS -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "The API latency increased due to thread pool exhaustion caused by sync calls in v3.2.", "stream": false}'
@@ -82,11 +84,11 @@ curl -sS -X POST http://localhost:8088/responses \
 
 ---
 
-## Senaryo testleri: Mutlu yol fonksiyonel doğrulama
+## Senaryo testleri: Doğru yol işlevsel doğrulama
 
-Aşağıdaki **üç** senaryonun tamamını çalıştırın. Bunlar, ajanın gerçekçi girdiler için doğru, yapılandırılmış çıktı ürettiğini doğrular.
+Aşağıdaki **üç senaryonun tamamını** çalıştırın. Bunlar, temsilcinizin gerçekçi girdiler için doğru, yapılandırılmış çıktı ürettiğini doğrular.
 
-![VS Code Çalıştır ve Hata Ayıkla paneli, Agent Inspector'ın executive summary yanıtıyla çalıştığını gösteriyor](../../../../../translated_images/tr/04-local-testing.0c9b1b37b14b0b25.webp)
+![Yönetici Özeti yanıtı ile çalışan Agent Inspector'ü gösteren VS Code Çalıştır ve Hata Ayıkla paneli](../../../../../translated_images/tr/04-local-testing.0c9b1b37b14b0b25.webp)
 
 ### Senaryo 1: BT Olayı - API gecikme artışı
 
@@ -98,14 +100,14 @@ Rolled back at 10:14.
 ```
 
 **Beklenen davranış:**
-- ✅ "Executive Summary" yapısını takip eder (Ne oldu / İş etkisi / Sonraki adım)
-- ✅ Teknik terim içermez (örneğin "thread pool", "/orders", "v3.2" yok)
-- ✅ İş etkisini açıkça belirtir (örneğin kullanıcılar gecikme yaşadı)
-- ✅ Bir sonraki adımı içerir (örneğin düzeltme uygulandı, izleme aktif)
+- ✅ "Yönetici Özeti" yapısını takip eder (Ne oldu / İş etkisi / Sonraki adım)
+- ✅ Teknik terim kullanmaz ("thread pool" yok, "/orders" yok, "v3.2" yok)
+- ✅ İş etkisini açıkça belirtir (örneğin, kullanıcılar gecikmeler yaşadı)
+- ✅ Bir sonraki adımı içerir (örneğin, düzeltme uygulandı, izleme var)
 
 ---
 
-### Senaryo 2: Veri Boru Hattı - ETL hatası
+### Senaryo 2: Veri Hattı - ETL başarısızlığı
 
 **Girdi:**
 ```
@@ -113,9 +115,9 @@ The nightly ETL job failed because the upstream schema changed. APAC dashboards 
 ```
 
 **Beklenen davranış:**
-- ✅ Veri yenileme hatasını sade bir dille özetler
-- ✅ APAC gösterge panosu etkisini belirtir
-- ✅ Bir çözüm sonraki adım içerir
+- ✅ Veri yenileme başarısızlığını sade bir dille özetler
+- ✅ APAC gösterge tablosu etkisini belirtir
+- ✅ Bir iyileştirme sonraki adımı içerir
 - ✅ "ETL", "şema" veya diğer teknik terimleri içermez
 
 ---
@@ -129,24 +131,24 @@ The secret may have been exposed in commit history.
 ```
 
 **Beklenen davranış:**
-- ✅ Yönetici dostu bir dille kimlik bilgisi/güvenlik sorununu açıklar
-- ✅ Potansiyel riski belirtir (yetkisiz erişim)
-- ✅ Çözüm eylemini belirtir (kimlik bilgisi rotasyonu, denetim)
-- ✅ "statik analiz", "commit geçmişi" veya "hardcoded" gibi terimler içermez
+- ✅ Yönetici dostu dilde bir kimlik bilgisi/güvenlik sorununu açıklar
+- ✅ Olası riski (yetkisiz erişim) belirtir
+- ✅ İyileştirme eylemini belirtir (kimlik bilgisi yenileme, denetim)
+- ✅ "statik analiz", "commit geçmişi" veya "hardcoded" gibi terimleri içermez
 
 ---
 
-## Doğrulama Kriterleri
+## Doğrulama kriterleri
 
 Her senaryo için kontrol edin:
 
 | # | Kriter | Geçme koşulu |
 |---|----------|---------------|
-| 1 | **Yapı** | Yanıt "Executive Summary" formatını ve üç maddeyi içerir |
-| 2 | **Sade dil** | Bir yöneticinin anlayamayacağı teknik jargon yoktur |
-| 3 | **Doğruluk** | Özet girdiyle tutarlıdır - uydurma detay yoktur |
-| 4 | **Kısalık** | Yanıt 100 kelimenin altındadır |
-| 5 | **Sonraki adım** | Açık bir eylem veya azaltma belirtilir |
+| 1 | **Yapı** | Yanıt, tüm üç madde işareti ile "Yönetici Özeti" formatını kullanır |
+| 2 | **Açık dil** | Bir yönetici tarafından anlaşılmayacak teknik terimler yok |
+| 3 | **Doğruluk** | Özet, girdiyi yansıtıyor - uydurma detay yok |
+| 4 | **Kısalık** | Yanıt 100 kelimenin altında |
+| 5 | **Sonraki adım** | Belirgin bir eylem veya çözüm belirtilmiş |
 
 ---
 
@@ -154,28 +156,28 @@ Her senaryo için kontrol edin:
 
 | Sorun | Çözüm |
 |-------|-----|
-| Ajan başlamıyor | `.env` değerlerini kontrol edin, venv aktif mi doğrulayın, `pip install -r requirements.txt` çalıştırın |
+| Ajan başlamıyor | `.env` değerlerini kontrol edin, venv'in aktif olduğunu doğrulayın, `pip install -r requirements.txt` çalıştırın |
 | Boş veya genel yanıt | `main.py` içindeki talimatları gözden geçirin - çıktı formatının belirtildiğinden emin olun |
 | Yanıt jargon içeriyor | Talimatlarda "teknik terimleri kaldır" kurallarını güçlendirin |
-| Agent Inspector açılmıyor | `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector** |
-| Model hataları Terminal'de | `AZURE_AI_MODEL_DEPLOYMENT_NAME` değerinin tam eşleştiğini (büyük-küçük harfe duyarlı) kontrol edin |
+| Agent Inspector açılmıyor | `Ctrl+Shift+P` → **Foundry Toolkit: Agent Inspector'ı Aç** |
+| Terminalde model hataları | `AZURE_AI_MODEL_DEPLOYMENT_NAME` ile tam eşleştiğinden emin olun (büyük/küçük harf duyarlı) |
 
 ---
 
 ### ✅ Kontrol Noktası
 
-- [ ] Ajan yerelde hatasız başladı
-- [ ] Agent Inspector açıldı ve sohbet arayüzü gösterdi (eğer F5 kullanılıyorsa)
-- [ ] **Senaryo 1** (BT olayı) - yapılandırılmış Executive Summary, jargon yok
-- [ ] **Senaryo 2** (veri boru hattı) - iş etkisiyle ilgili özet
+- [ ] Ajan yerel olarak hatasız başlıyor
+- [ ] Agent Inspector açılıyor ve bir sohbet arayüzü gösteriyor (F5 kullanılıyorsa)
+- [ ] **Senaryo 1** (BT olayı) - yapısal Yönetici Özeti, jargon yok
+- [ ] **Senaryo 2** (veri hattı) - iş etkisini içeren ilgili özet
 - [ ] **Senaryo 3** (güvenlik uyarısı) - uygun risk iletişimi
-- [ ] Tüm yanıtlar tanımlanan çıktı yapısını takip ediyor
+- [ ] Tüm yanıtlar tanımlı çıktı yapısını takip ediyor
 
-> **Yanıtlarınızı kaydedin** (kopyalayın veya ekran görüntüsü alın) - bunları Modül 06'da bulut sonuçlarıyla karşılaştıracaksınız.
+> **Yanıtlarınızı kaydedin** (kopyalayın veya ekran görüntüsü alın) - Modül 06'da bulut sonuçlarıyla karşılaştıracaksınız.
 
 ---
 
-**Önceki:** [03 - Yapılandır ve Kodla](03-configure-and-code.md) · **Sonraki:** [05 - Foundry'ye Dağıt →](05-deploy-to-foundry.md)
+**Önceki:** [03 - Yapılandır & Kod](03-configure-and-code.md) · **Sonraki:** [05 - Foundry'ye Dağıt →](05-deploy-to-foundry.md)
 
 ---
 

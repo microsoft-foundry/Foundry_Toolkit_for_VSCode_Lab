@@ -1,10 +1,10 @@
-# Laboratorio 02 - Flusso di Lavoro Multi-Agente: Valutatore di Corrispondenza Curriculum → Lavoro
+# Lab 02 - Flusso di Lavoro Multi-Agent: Valutatore di Corrispondenza Curriculum → Lavoro
 
 ## Panoramica
 
-In questo laboratorio pratico, costruirai un **app multi-agente basata su workflow** usando Foundry Toolkit in VS Code e la distribuirai su Microsoft Foundry Agent Service.
+In questo laboratorio pratico, costruirai una **app multi-agente incentrata sul flusso di lavoro** utilizzando Foundry Toolkit in VS Code e la distribuirai su Microsoft Foundry Agent Service.
 
-**Cosa costruirai:** un Valutatore di Corrispondenza Curriculum → Lavoro che analizza un curriculum e la descrizione del lavoro, valuta la corrispondenza e produce una roadmap personalizzata di apprendimento utilizzando le risorse Microsoft Learn.
+**Cosa realizzerai:** un Valutatore di Corrispondenza Curriculum → Lavoro che analizza un curriculum e una descrizione del lavoro, valuta la corrispondenza e produce una roadmap di apprendimento personalizzata utilizzando risorse Microsoft Learn.
 
 ---
 
@@ -12,11 +12,11 @@ In questo laboratorio pratico, costruirai un **app multi-agente basata su workfl
 
 ```mermaid
 flowchart TD
-    A["Input Utente"] --> B["Parser del Curriculum"]
-    B -->|"[CURRICULUM PARSATO] + [TRASMISSIONE DESCRIZIONE LAVORO]"| C["Agente di Descrizione Lavoro"]
-    C -->|"[REQUISITI JD] + [TRASMISSIONE CURRICULUM PARSATO]"| D["Agente di Matching"]
-    D -->|rapporto di aderenza + lacune| E["Analizzatore di Lacune + Microsoft Learn MCP"]
-    E -->|punteggio di aderenza + roadmap| F["Output"]
+    A["User Input"] --> B["Resume Parser"]
+    B -->|"[PARSED RESUME] + [JOB DESCRIPTION PASS-THROUGH]"| C["Job Description Agent"]
+    C -->|"[JD REQUIREMENTS] + [PARSED RESUME PASS-THROUGH]"| D["Matching Agent"]
+    D -->|fit report + gaps| E["Gap Analyzer + Microsoft Learn MCP"]
+    E -->|fit score + roadmap| F["Output"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -28,18 +28,18 @@ flowchart TD
 
 **Come funziona:**
 1. L'utente incolla un curriculum e una descrizione del lavoro.
-2. **ResumeParser** analizza il curriculum e copia la JD letteralmente in una sezione `[JOB DESCRIPTION PASS-THROUGH]`.
-3. **JD Agent** estrae i requisiti strutturati dal pass-through, quindi inoltra il `[PARSED RESUME]` come `[PARSED RESUME PASS-THROUGH]`.
+2. **ResumeParser** analizza il curriculum e copia integralmente la descrizione del lavoro in una sezione `[JOB DESCRIPTION PASS-THROUGH]`.
+3. **JD Agent** estrae i requisiti strutturati dalla sezione pass-through, poi inoltra il `[PARSED RESUME]` come `[PARSED RESUME PASS-THROUGH]`.
 4. **MatchingAgent** confronta `[PARSED RESUME PASS-THROUGH]` con `[JD REQUIREMENTS]` e produce un punteggio di corrispondenza.
-5. **GapAnalyzer** trasforma le lacune in una roadmap pratica e recupera link reali di Microsoft Learn tramite MCP.
+5. **GapAnalyzer** trasforma le lacune in una roadmap pratica e recupera veri link Microsoft Learn tramite MCP.
 
 ---
 
 ## Prerequisiti
 
-Completa prima il Laboratorio 01:
+Per prima cosa completa il Lab 01:
 
-- [Laboratorio 01 - Agente Singolo](../lab01-single-agent/README.md)
+- [Lab 01 - Agente Singolo](../lab01-single-agent/README.md)
 
 ---
 
@@ -48,33 +48,34 @@ Completa prima il Laboratorio 01:
 Consulta l'intero percorso di apprendimento in:
 
 - [Documentazione Lab 2 - Prerequisiti](docs/00-prerequisites.md)
-- [Documentazione Lab 2 - Percorso completo di apprendimento](docs/README.md)
+- [Documentazione Lab 2 - Percorso Completo di Apprendimento](docs/README.md)
 - [Guida all'esecuzione di PersonalCareerCopilot](PersonalCareerCopilot/README.md)
 
 ---
 
-## Parte 2: Costruisci e testa il workflow
+## Parte 2: Costruisci e testa il flusso di lavoro
 
-1. Usa il wizard Foundry Toolkit per creare la struttura del progetto basato sul workflow.
-2. Copia i blocchi prompt e il grafo del workflow da `PersonalCareerCopilot/main.py` nel tuo workspace.
+1. Usa la procedura guidata Foundry Toolkit per impostare il progetto basato sul flusso di lavoro.
+2. Copia i blocchi di prompt e il grafo del flusso di lavoro da `PersonalCareerCopilot/main.py` nel tuo workspace.
 3. Esegui localmente con Agent Inspector e verifica tutti e quattro gli agenti più lo strumento MCP.
-4. Distribuisci l'agente ospitato su Foundry quando i test locali hanno successo.
+4. Distribuisci l'agente ospitato su Foundry dopo il superamento dei test locali.
 
 ---
 
-## Pattern di Orchestrazione
+## Modelli di orchestrazione
 
-Il Laboratorio 02 include il flusso predefinito **fan-out → fan-in → sequenziale**, e la documentazione descrive anche pattern di orchestrazione alternativi per sperimentazione.
+Il Lab 02 utilizza una **pipeline sequenziale**: l'output di ogni agente alimenta il successivo, e il flusso di lavoro restituisce la risposta dell'ultimo agente. Due modelli fanno funzionare questo:
 
-- **Fan-out/Fan-in con consenso ponderato**
-- **Passaggio revisore/critico prima della roadmap finale**
-- **Router condizionale** basato su punteggio di corrispondenza e competenze mancanti
+- **Catena sequenziale** - `WorkflowBuilder` collega ResumeParser → JD Agent → MatchingAgent → GapAnalyzer con una chiamata `add_edge()` per passo
+- **Trasmissione contenuti** - poiché ogni agente vede solo l'output del diretto predecessore, ResumeParser e JD Agent copiano i dati necessari agli agent downstream in sezioni pass-through etichettate
+
+La documentazione spiega anche perché il laboratorio non utilizza fan-out/fan-in, e come estendere il grafo con un altro agente.
 
 Consulta [docs/04-orchestration-patterns.md](docs/04-orchestration-patterns.md).
 
 ---
 
-**Precedente:** [Laboratorio 01 - Agente Singolo](../lab01-single-agent/README.md) · **Torna a:** [Home Workshop](../../README.md)
+**Precedente:** [Lab 01 - Agente Singolo](../lab01-single-agent/README.md) · **Torna a:** [Home del Workshop](../../README.md)
 
 ---
 
