@@ -1,6 +1,6 @@
-# PersonalCareerCopilot - Εκτιμητής Καταλληλότητας Βιογραφικού προς Θέση Εργασίας
+# PersonalCareerCopilot - Αξιολογητής Καταλληλότητας Βιογραφικού για Θέση Εργασίας
 
-Μια εφαρμογή πολλαπλών πρακτόρων προσανατολισμένη σε ροή εργασίας που αξιολογεί πόσο καλά ταιριάζει ένα βιογραφικό με μια περιγραφή εργασίας και στη συνέχεια δημιουργεί έναν εξατομικευμένο οδικό χάρτη μάθησης για την κάλυψη των κενών.
+Μια εφαρμογή με πολλούς πράκτορες που βασίζεται σε ροές εργασίας και αξιολογεί πόσο καλά ταιριάζει ένα βιογραφικό σε μια περιγραφή θέσης εργασίας, στη συνέχεια δημιουργεί έναν εξατομικευμένο οδικό χάρτη μάθησης για την κάλυψη των κενών.
 
 ---
 
@@ -8,20 +8,20 @@
 
 | Πράκτορας | Ρόλος | Εργαλεία |
 |-------|------|-------|
-| **ResumeParser** | Εξάγει δομημένες δεξιότητες, εμπειρία, πιστοποιήσεις από το κείμενο του βιογραφικού | - |
-| **JobDescriptionAgent** | Εξάγει απαιτούμενες/προτιμώμενες δεξιότητες, εμπειρία, πιστοποιήσεις από μια περιγραφή εργασίας | - |
-| **MatchingAgent** | Συγκρίνει προφίλ με απαιτήσεις → βαθμός καταλληλότητας (0-100) + ταιριαστές/ελλείπουσες δεξιότητες | - |
-| **GapAnalyzer** | Δημιουργεί εξατομικευμένο οδικό χάρτη μάθησης με πόρους από το Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **ResumeParser** | Εξάγει δομημένες δεξιότητες, εμπειρία και πιστοποιήσεις από το κείμενο του βιογραφικού | - |
+| **JobDescriptionAgent** | Εξάγει απαιτούμενες/προτιμώμενες δεξιότητες, εμπειρία και πιστοποιήσεις από μια περιγραφή θέσης εργασίας | - |
+| **MatchingAgent** | Συγκρίνει το προφίλ με τις απαιτήσεις → βαθμολογία καταλληλότητας (0-100) + ταιριαστές/ελλείπουσες δεξιότητες | - |
+| **GapAnalyzer** | Δημιουργεί έναν εξατομικευμένο οδικό χάρτη μάθησης με πόρους Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
-## Ροή Εργασίας
+## Ροή εργασίας
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: Βιογραφικό + Περιγραφή Θέσης"] --> ResumeParser
-    ResumeParser -- "ανάλυση βιογραφικού + δρομολόγηση ΠΘ" --> JobDescriptionAgent
-    JobDescriptionAgent -- "απαιτήσεις ΠΘ + δρομολόγηση βιογραφικού" --> MatchingAgent
-    MatchingAgent -- "αναφορά καταλληλότητας + κενά" --> GapAnalyzerMCP["Αναλυτής Κενών +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nΒαθμολογία Καταλληλότητας + Οδικός Χάρτης"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. Ρύθμιση περιβάλλοντος
 
-Αυτός ο φάκελος είναι η υλοποίηση αναφοράς για το υπόβαθρο εργασίας Lab 02. Το `main.py` χρησιμοποιεί τα υπάρχοντα μπλοκ προτροπών μαζί με το `WorkflowBuilder` για να συνδέσει τους τέσσερις πράκτορες.
+Αυτός ο φάκελος είναι η αναφορά υλοποίησης για το σκελετό ροής εργασίας του Lab 02. Το `main.py` του χρησιμοποιεί τα υπάρχοντα μπλοκ prompt μαζί με `WorkflowBuilder` για να συνδέσει τους τέσσερις πράκτορες.
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -40,7 +40,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2. Ρύθμιση διαπιστευτηρίων
+### 2. Διαμόρφωση διαπιστευτηρίων
 
 Δημιουργήστε ένα αρχείο `.env` σε αυτόν τον φάκελο:
 
@@ -55,26 +55,26 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| Τιμή | Πού να την βρείτε |
+| Τιμή | Πού θα τη βρείτε |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Πλευρικό μενού Foundry Toolkit → δεξί κλικ στο έργο σας → **Copy Project Endpoint** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Πλευρικό μενού Foundry → επεκτείνετε το έργο → **Models + endpoints** → όνομα ανάπτυξης |
+| `FOUNDRY_PROJECT_ENDPOINT` | Πλευρική μπάρα Foundry Toolkit → δεξί κλικ στο έργο σας → **Αντιγραφή Τερματικού Σημείου Έργου** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Πλευρική μπάρα Foundry → αναπτύξτε το έργο → **Μοντέλα + τερματικά σημεία** → όνομα ανάπτυξης |
 
-### 3. Τοπική εκτέλεση
+### 3. Εκτέλεση τοπικά
 
 ```powershell
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-Ή χρησιμοποιήστε την εργασία του VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+Ή χρησιμοποιήστε την εργασία VS Code: `Ctrl+Shift+P` → **Εργασίες: Εκτέλεση Εργασίας** → **Εκτέλεση Διακομιστή HTTP Πράκτορα**.
 
-Για αποσφαλμάτωση με F5, χρησιμοποιήστε **Debug Local Agent HTTP Server**.
+Για αποσφαλμάτωση με F5, χρησιμοποιήστε **Αποσφαλμάτωση Τοπικού Διακομιστή HTTP Πράκτορα**.
 
 ### 4. Δοκιμή με Agent Inspector
 
-Ανοίξτε το Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+Ανοίξτε τον Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Άνοιγμα Agent Inspector**.
 
-Επικολλήστε αυτή την προτροπή δοκιμής:
+Επικολλήστε αυτό το test prompt:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**Αναμενόμενο:** Μια βαθμολογία καταλληλότητας (0-100), ταιριαστές/ελλείπουσες δεξιότητες και ένας εξατομικευμένος οδικός χάρτης μάθησης με URLs του Microsoft Learn.
+**Αναμενόμενο:** Μια βαθμολογία καταλληλότητας (0-100), ταιριαστές/ελλείπουσες δεξιότητες και ένας εξατομικευμένος οδικός χάρτης μάθησης με URL του Microsoft Learn.
 
 ### 5. Ανάπτυξη στο Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → επιλέξτε το έργο σας → επιβεβαιώστε.
+`Ctrl+Shift+P` → **Foundry Toolkit: Ανάπτυξη Φιλοξενούμενου Πράκτορα** → επιλέξτε το έργο σας → επιβεβαιώστε.
 
 ---
 
@@ -111,50 +111,50 @@ PersonalCareerCopilot/
 └── requirements.txt    ← Python dependencies
 ```
 
-## Κύρια αρχεία
+## Βασικά αρχεία
 
 ### `agent.yaml`
 
-Ορίζει τον φιλοξενούμενο πράκτορα για το Foundry Agent Service:
-- `kind: hosted` - εκτελείται ως διαχειριζόμενο container
-- `protocols` - πρωτόκολλο `responses` με `version: 1.0.0`, εκθέτοντας το HTTP endpoint `/responses`
-- `environment_variables` - δηλώνεται το `AZURE_AI_MODEL_DEPLOYMENT_NAME` εδώ· το `FOUNDRY_PROJECT_ENDPOINT` εγχέεται αυτόματα κατά την ανάπτυξη
+Ορίζει τον φιλοξενούμενο πράκτορα για την Υπηρεσία Πράκτορα Foundry:
+- `kind: hosted` - εκτελείται ως διαχειριζόμενο κοντέινερ
+- `protocols` - πρωτόκολλο `responses` με `version: 2.0.0`, εκθέτοντας το τερματικό σημείο HTTP `/responses`
+- `environment_variables` - δηλώνεται εδώ το `AZURE_AI_MODEL_DEPLOYMENT_NAME`; το `FOUNDRY_PROJECT_ENDPOINT` εισάγεται αυτόματα κατά την ανάπτυξη
 
 ### `main.py`
 
 Περιέχει:
-- **Οδηγίες πρακτόρων** - τέσσερις σταθερές `*_INSTRUCTIONS`, μία για κάθε πράκτορα
-- **Εργαλείο MCP** - `search_microsoft_learn_for_plan()` καλεί το `https://learn.microsoft.com/api/mcp` μέσω Streamable HTTP
-- **Δημιουργία πρακτόρων** - τέσσερα instances `Agent()` + `AgentExecutor()` που μοιράζονται έναν `FoundryChatClient`
-- **Γράφος ροής εργασίας** - `WorkflowBuilder` συνδέει τους πράκτορες ως ακολουθιακή γραμμή: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **Οδηγίες πράκτορα** - τέσσερις σταθερές `*_INSTRUCTIONS`, μία για κάθε πράκτορα
+- **Εργαλείο MCP** - `search_microsoft_learn_for_plan()` καλεί `https://learn.microsoft.com/api/mcp` μέσω Streamable HTTP
+- **Δημιουργία πράκτορα** - τέσσερις στιγμιότυπα `Agent()` + `AgentExecutor()` που μοιράζονται ένα `FoundryChatClient`
+- **Διάγραμμα ροής εργασίας** - `WorkflowBuilder` συνδέει τους πράκτορες ως διαδοχικό pipeline: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
 - **Εκκίνηση διακομιστή** - `ResponsesHostServer` τρέχει στη θύρα 8088
 
 ### `requirements.txt`
 
 | Πακέτο | Σκοπός |
 |---------|----------|
-| `agent-framework-foundry` | Βασικό runtime: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + ενσωμάτωση φιλοξενίας Foundry |
-| `mcp<2,>=1.24.0` | MCP client για GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | Αποσφαλμάτωση Python (F5 στο VS Code) |
+| `agent-framework-foundry` | Βασική εκτέλεση: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | Ενοποίηση φιλοξενίας Foundry + `ResponsesHostServer` |
+| `mcp<2,>=1.24.0` | Πελάτης MCP για GapAnalyzer (`streamable_http_client`) |
+| `debugpy` | Αποσφαλμάτωση Python (F5 σε VS Code) |
 
 ---
 
 ## Επίλυση προβλημάτων
 
-| Πρόβλημα | Διόρθωση |
+| Πρόβλημα | Επιδιόρθωση |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ή `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Δημιουργήστε `.env` με ρυθμισμένα και τα δύο `FOUNDRY_PROJECT_ENDPOINT` και `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
-| `ModuleNotFoundError: No module named 'agent_framework'` | Ενεργοποιήστε το venv και τρέξτε `pip install -r requirements.txt` |
-| Καμία URL Microsoft Learn στην έξοδο | Ελέγξτε τη σύνδεση στο διαδίκτυο προς `https://learn.microsoft.com/api/mcp` |
-| Μόνο μία κάρτα κενών (κομμένη) | Επαληθεύστε ότι οι `GAP_ANALYZER_INSTRUCTIONS` περιλαμβάνουν το μπλοκ `CRITICAL:` |
-| Η θύρα 8088 είναι σε χρήση | Σταματήστε άλλους διακομιστές: `netstat -ano \| findstr :8088` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` ή `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | Δημιουργήστε `.env` με ρυθμισμένα τα `FOUNDRY_PROJECT_ENDPOINT` και `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `ModuleNotFoundError: No module named 'agent_framework'` | Ενεργοποιήστε το venv και εκτελέστε `pip install -r requirements.txt` |
+| Δεν εμφανίζονται URLs Microsoft Learn στην έξοδο | Ελέγξτε τη σύνδεση στο διαδίκτυο προς `https://learn.microsoft.com/api/mcp` |
+| Μόνο 1 κάρτα κενών (περικομμένη) | Επαληθεύστε ότι το `GAP_ANALYZER_INSTRUCTIONS` περιλαμβάνει το μπλοκ `CRITICAL:` |
+| Η θύρα 8088 χρησιμοποιείται | Σταματήστε άλλους διακομιστές: `netstat -ano \| findstr :8088` |
 
-Για λεπτομερή επίλυση προβλημάτων, δείτε [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+Για αναλυτική επίλυση προβλημάτων, δείτε [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 
 ---
 
-**Πλήρης περιήγηση:** [Lab 02 Docs](../docs/README.md) · **Επιστροφή στο:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
+**Πλήρης οδηγός:** [Lab 02 Docs](../docs/README.md) · **Επιστροφή στο:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

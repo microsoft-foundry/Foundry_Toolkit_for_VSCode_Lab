@@ -1,27 +1,27 @@
-# PersonalCareerCopilot - ตัวประเมินความเหมาะสมของเรซูเม่กับงาน
+# PersonalCareerCopilot - ตัวประเมินความเหมาะสมของประวัติย่อกับงาน
 
-แอปหลายเอเจนต์ที่เน้นกระบวนการทำงานเป็นหลัก ซึ่งประเมินความเหมาะสมของเรซูเม่กับคำบรรยายงาน จากนั้นสร้างแผนการเรียนรู้เฉพาะบุคคลเพื่อเติมเต็มช่องว่าง
+แอปมัลติเอเจนต์ที่เน้นเวิร์กโฟลว์เป็นหลักซึ่งประเมินว่าประวัติย่อเหมาะสมกับคำอธิบายงานมากน้อยแค่ไหน จากนั้นก็จะสร้างแผนที่การเรียนรู้ส่วนบุคคลเพื่อเติมเต็มช่องว่าง
 
 ---
 
-## เอเจนต์
+## ตัวแทน
 
-| Agent | บทบาท | เครื่องมือ |
+| ตัวแทน | บทบาท | เครื่องมือ |
 |-------|------|-------|
-| **ResumeParser** | ดึงทักษะ โครงสร้างประสบการณ์ และใบรับรองจากข้อความเรซูเม่ | - |
-| **JobDescriptionAgent** | ดึงทักษะที่ต้องการ/ที่ชอบ ประสบการณ์ และใบรับรองจากคำบรรยายงาน | - |
+| **ResumeParser** | ดึงทักษะที่มีโครงสร้าง ประสบการณ์ ใบรับรองจากข้อความประวัติย่อ | - |
+| **JobDescriptionAgent** | ดึงทักษะที่ต้องการ/ที่ต้องการเป็นพิเศษ ประสบการณ์ ใบรับรองจาก JD | - |
 | **MatchingAgent** | เปรียบเทียบโปรไฟล์กับข้อกำหนด → คะแนนความเหมาะสม (0-100) + ทักษะที่ตรง/ขาด | - |
-| **GapAnalyzer** | สร้างแผนการเรียนรู้เฉพาะบุคคลด้วยทรัพยากร Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
+| **GapAnalyzer** | สร้างแผนที่การเรียนรู้ส่วนบุคคลพร้อมทรัพยากร Microsoft Learn | `search_microsoft_learn_for_plan` (MCP) |
 
-## กระบวนการทำงาน
+## เวิร์กโฟลว์
 
 ```mermaid
 flowchart LR
-    UserInput["User Input: ประวัติย่อ + คำบรรยายงาน"] --> ResumeParser
-    ResumeParser -- "ประวัติย่อที่แยกวิเคราะห์แล้ว + การส่งต่อ JD" --> JobDescriptionAgent
-    JobDescriptionAgent -- "ข้อกำหนด JD + การส่งต่อประวัติย่อ" --> MatchingAgent
-    MatchingAgent -- "รายงานการพอดี + ช่องว่าง" --> GapAnalyzerMCP["ตัววิเคราะห์ช่องว่าง +\nMicrosoft Learn MCP"]
-    GapAnalyzerMCP --> FinalOutput["Final Output:\nคะแนนความพอดี + แผนที่เส้นทาง"]
+    UserInput["User Input: Resume + Job Description"] --> ResumeParser
+    ResumeParser -- "parsed resume + JD relay" --> JobDescriptionAgent
+    JobDescriptionAgent -- "JD requirements + resume relay" --> MatchingAgent
+    MatchingAgent -- "fit report + gaps" --> GapAnalyzerMCP["Gap Analyzer +\nMicrosoft Learn MCP"]
+    GapAnalyzerMCP --> FinalOutput["Final Output:\nFit Score + Roadmap"]
 ```
 
 ---
@@ -30,7 +30,7 @@ flowchart LR
 
 ### 1. ตั้งค่าสภาพแวดล้อม
 
-โฟลเดอร์นี้เป็นการใช้งานตัวอย่างสำหรับโครงร่าง Lab 02 แบบกระบวนการทำงาน `main.py` ใช้บล็อกพรอมต์ที่มีอยู่พร้อมกับ `WorkflowBuilder` เพื่อต่อเชื่อมเอเจนต์ทั้งสี่เข้าด้วยกัน
+โฟลเดอร์นี้เป็นการใช้งานอ้างอิงสำหรับการวางโครงงาน Lab 02 ที่ใช้เวิร์กโฟลว์ โดย `main.py` ใช้บล็อกคำสั่งล่วงหน้าที่มีอยู่แล้วพร้อมกับ `WorkflowBuilder` ในการเชื่อมโยงตัวแทนทั้งสี่เข้าด้วยกัน
 
 ```powershell
 cd workshop\lab02-multi-agent\PersonalCareerCopilot
@@ -55,10 +55,10 @@ FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projec
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 ```
 
-| ค่า | แหล่งที่มา |
+| ค่า | หาได้ที่ไหน |
 |-------|------------------|
-| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit sidebar → คลิกขวาที่โปรเจกต์ → **คัดลอกที่อยู่โปรเจกต์** |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry sidebar → ขยายโปรเจกต์ → **Models + endpoints** → ชื่อ deployment |
+| `FOUNDRY_PROJECT_ENDPOINT` | Foundry Toolkit แถบด้านข้าง → คลิกขวาที่โปรเจกต์ของคุณ → **คัดลอกจุดสิ้นสุดโปรเจกต์** |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Foundry แถบด้านข้าง → ขยายโปรเจกต์ → **แบบจำลอง + จุดสิ้นสุด** → ชื่อการปรับใช้ |
 
 ### 3. รันในเครื่อง
 
@@ -66,15 +66,15 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1-mini
 python -m debugpy --listen 127.0.0.1:5679 main.py --port 8088
 ```
 
-หรือใช้คำสั่งใน VS Code: `Ctrl+Shift+P` → **Tasks: Run Task** → **Run Agent HTTP Server**.
+หรือใช้งาน VS Code task: `Ctrl+Shift+P` → **งาน: รันงาน** → **รันเซิร์ฟเวอร์ตัวแทน HTTP**.
 
-สำหรับการดีบัก F5 ให้ใช้ **Debug Local Agent HTTP Server**.
+สำหรับการดีบักกิ้ง F5 ใช้ **ดีบักเซิร์ฟเวอร์ตัวแทน HTTP ในเครื่อง**.
 
-### 4. ทดสอบด้วย Agent Inspector
+### 4. ทดสอบกับ Agent Inspector
 
-เปิด Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**.
+เปิด Agent Inspector: `Ctrl+Shift+P` → **Foundry Toolkit: เปิด Agent Inspector**.
 
-วางพรอมต์ทดสอบนี้:
+วางคำสั่งทดสอบนี้:
 
 ```
 Resume:
@@ -92,11 +92,11 @@ Experience: 5+ years in cloud infrastructure.
 Certifications: Azure Solutions Architect Expert preferred.
 ```
 
-**ผลลัพธ์ที่คาดหวัง:** คะแนนความเหมาะสม (0-100), ทักษะที่ตรง/ขาด และแผนการเรียนรู้เฉพาะบุคคลพร้อม URL ของ Microsoft Learn
+**คาดหวัง:** คะแนนความเหมาะสม (0-100), ทักษะที่ตรง/ขาด, และแผนที่การเรียนรู้ส่วนบุคคลพร้อม URL Microsoft Learn.
 
-### 5. ติดตั้งบน Foundry
+### 5. ปรับใช้กับ Foundry
 
-`Ctrl+Shift+P` → **Foundry Toolkit: Deploy Hosted Agent** → เลือกโปรเจกต์ → ยืนยัน
+`Ctrl+Shift+P` → **Foundry Toolkit: ปรับใช้ตัวแทนโฮสต์** → เลือกโปรเจกต์ของคุณ → ยืนยัน.
 
 ---
 
@@ -115,28 +115,28 @@ PersonalCareerCopilot/
 
 ### `agent.yaml`
 
-กำหนดเอเจนต์โฮสต์สำหรับ Foundry Agent Service:
-- `kind: hosted` - รันในคอนเทนเนอร์ที่จัดการให้
-- `protocols` - โปรโตคอล `responses` พร้อม `version: 1.0.0` เผยแพร่ HTTP endpoint `/responses`
-- `environment_variables` - กำหนด `AZURE_AI_MODEL_DEPLOYMENT_NAME` ที่นี่; `FOUNDRY_PROJECT_ENDPOINT` จะถูกฉีดอัตโนมัติเมื่อดีพลอย
+กำหนดตัวแทนโฮสต์สำหรับบริการ Foundry Agent:
+- `kind: hosted` - รันเป็นคอนเทนเนอร์ที่จัดการโดยระบบ
+- `protocols` - โปรโตคอล `responses` กับ `version: 2.0.0`, เปิดเผยจุดสิ้นสุด HTTP `/responses`
+- `environment_variables` - ประกาศ `AZURE_AI_MODEL_DEPLOYMENT_NAME` ที่นี่; `FOUNDRY_PROJECT_ENDPOINT` ถูกฉีดโดยอัตโนมัติในเวลาปรับใช้
 
 ### `main.py`
 
 ประกอบด้วย:
-- **คำสั่งเอเจนต์** - ค่าคงที่ `*_INSTRUCTIONS` สำหรับแต่ละเอเจนต์สี่ตัว
-- **เครื่องมือ MCP** - `search_microsoft_learn_for_plan()` เรียก `https://learn.microsoft.com/api/mcp` ผ่าน Streamable HTTP
-- **การสร้างเอเจนต์** - สี่อินสแตนซ์ `Agent()` + `AgentExecutor()` เชื่อมต่อกับ `FoundryChatClient` ตัวเดียวกัน
-- **กราฟกระบวนการทำงาน** - `WorkflowBuilder` เชื่อมเอเจนต์เป็นสายพานลำดับ: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
-- **การเริ่มต้นเซิร์ฟเวอร์** - `ResponsesHostServer` รันที่พอร์ต 8088
+- **คำแนะนำตัวแทน** - สี่ค่าคงที่ `*_INSTRUCTIONS`, หนึ่งต่อหนึ่งตัวแทน
+- **เครื่องมือ MCP** - เรียก `search_microsoft_learn_for_plan()` ผ่าน HTTP แบบ Streamable `https://learn.microsoft.com/api/mcp`
+- **การสร้างตัวแทน** - สี่อินสแตนซ์ `Agent()` + `AgentExecutor()` แบ่งปัน `FoundryChatClient` หนึ่งตัว
+- **กราฟเวิร์กโฟลว์** - `WorkflowBuilder` เชื่อมตัวแทนเป็นสายงานต่อเนื่อง: ResumeParser → JD Agent → MatchingAgent → GapAnalyzer
+- **การเริ่มต้นเซิร์ฟเวอร์** - `ResponsesHostServer` รันบนพอร์ต 8088
 
 ### `requirements.txt`
 
 | แพ็กเกจ | จุดประสงค์ |
 |---------|----------|
-| `agent-framework-foundry` | คอร์รันไทม์: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
-| `agent-framework-foundry-hosting` | `ResponsesHostServer` + การผนวกโฮสต์ Foundry |
+| `agent-framework-foundry` | รันไทม์หลัก: `Agent`, `AgentExecutor`, `WorkflowBuilder`, `@tool`, `FoundryChatClient` |
+| `agent-framework-foundry-hosting` | `ResponsesHostServer` + การผสานรวมโฮสติ้ง Foundry |
 | `mcp<2,>=1.24.0` | ลูกค้า MCP สำหรับ GapAnalyzer (`streamable_http_client`) |
-| `debugpy` | ดีบัก Python (F5 ใน VS Code) |
+| `debugpy` | การดีบัก Python (F5 ใน VS Code) |
 
 ---
 
@@ -144,17 +144,17 @@ PersonalCareerCopilot/
 
 | ปัญหา | การแก้ไข |
 |-------|-----|
-| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` หรือ `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | สร้าง `.env` พร้อมทั้งตั้งค่า `FOUNDRY_PROJECT_ENDPOINT` และ `AZURE_AI_MODEL_DEPLOYMENT_NAME` |
+| `KeyError: 'FOUNDRY_PROJECT_ENDPOINT'` หรือ `KeyError: 'AZURE_AI_MODEL_DEPLOYMENT_NAME'` | สร้าง `.env` โดยตั้งค่า `FOUNDRY_PROJECT_ENDPOINT` และ `AZURE_AI_MODEL_DEPLOYMENT_NAME` ทั้งสอง |
 | `ModuleNotFoundError: No module named 'agent_framework'` | เปิดใช้งาน venv และรัน `pip install -r requirements.txt` |
-| ไม่มี URL ของ Microsoft Learn ในผลลัพธ์ | ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตกับ `https://learn.microsoft.com/api/mcp` |
-| มีการ์ดช่องว่างเพียงใบเดียว (ถูกตัด) | ตรวจสอบให้แน่ใจว่า `GAP_ANALYZER_INSTRUCTIONS` มีบล็อก `CRITICAL:` |
-| พอร์ต 8088 ถูกใช้งานอยู่ | หยุดเซิร์ฟเวอร์อื่น: `netstat -ano \| findstr :8088` |
+| ไม่มี URL ของ Microsoft Learn ในผลลัพธ์ | ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตไปยัง `https://learn.microsoft.com/api/mcp` |
+| มีเพียงการ์ดช่องว่าง 1 ใบ (ถูกตัด) | ยืนยันว่า `GAP_ANALYZER_INSTRUCTIONS` รวมบล็อก `CRITICAL:` |
+| พอร์ต 8088 กำลังใช้งาน | หยุดเซิร์ฟเวอร์อื่น ๆ: `netstat -ano \| findstr :8088` |
 
-สำหรับการแก้ไขปัญหาโดยละเอียดดูที่ [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
+สำหรับการแก้ไขปัญหาโดยละเอียด ดูที่ [Module 8 - Troubleshooting](../docs/08-troubleshooting.md).
 
 ---
 
-**คำแนะนำแบบละเอียด:** [Lab 02 Docs](../docs/README.md) · **ย้อนกลับ:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
+**การแนะนำอย่างเต็มรูปแบบ:** [Lab 02 Docs](../docs/README.md) · **ย้อนกลับไปที่:** [Lab 02 README](../README.md) · [Workshop Home](../../../README.md)
 
 ---
 

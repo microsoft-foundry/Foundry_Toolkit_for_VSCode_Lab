@@ -1,32 +1,32 @@
-# เวิร์กช็อป Foundry Toolkit + Foundry Hosted Agents
+# เวิร์กช็อป Foundry Toolkit + Foundry Hosted Agents  
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://github.com/microsoft/agents)
-[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-[![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)
-[![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)
-[![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)
-[![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
-[![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)  
+[![Microsoft Agent Framework](https://img.shields.io/badge/Microsoft%20Agent%20Framework-v1.1.0%2B-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/agent-framework/)  
+[![Hosted Agents](https://img.shields.io/badge/Hosted%20Agents-Enabled-5E5ADB?logo=microsoft&logoColor=white)](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)  
+[![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Service-0078D4?logo=microsoft&logoColor=white)](https://ai.azure.com/)  
+[![Azure OpenAI](https://img.shields.io/badge/Azure%20OpenAI-GPT--4.1-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/ai-services/openai/)  
+[![Azure CLI](https://img.shields.io/badge/Azure%20CLI-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/cli/azure/install-azure-cli)  
+[![Azure Developer CLI](https://img.shields.io/badge/azd-Required-0078D4?logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)  
+[![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)  
+[![Foundry Toolkit](https://img.shields.io/badge/Foundry%20Toolkit-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio)  
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
 
-สร้าง ทดสอบ และปรับใช้เอเจนต์ AI ไปยัง **Microsoft Foundry Agent Service** ในรูปแบบ **Hosted Agents** - ทั้งหมดจาก VS Code โดยใช้ **Microsoft Foundry extension** และ **Foundry Toolkit**.
+สร้าง ทดสอบ และปรับใช้เอเย่นต์ AI ไปยัง **บริการ Foundry Agent ของ Microsoft** ในรูปแบบ **Hosted Agents** - ทั้งหมดผ่าน VS Code โดยใช้ **ส่วนขยาย Microsoft Foundry** และ **Foundry Toolkit**  
 
-> **Hosted Agents กำลังอยู่ในช่วงพรีวิวในขณะนี้.** ภูมิภาคที่รองรับมีจำกัด - ดู [ความพร้อมใช้งานตามภูมิภาค](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
+> **Hosted Agents อยู่ในสถานะพรีวิวในขณะนี้** ภูมิภาคที่รองรับมีจำกัด - ดูเพิ่มเติมได้ที่ [region availability](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability).
 
-> โฟลเดอร์ `agent/` ภายในแต่ละแลบจะถูก **สร้างโครงร่างโดยอัตโนมัติ** โดยส่วนขยาย Foundry - จากนั้นคุณปรับแต่งโค้ด ทดสอบในเครื่อง และปรับใช้.
+> โฟลเดอร์ `agent/` ภายในแต่ละแล็บจะถูก **สร้างขึ้นโดยอัตโนมัติ** โดยส่วนขยาย Foundry - แล้วคุณสามารถปรับแต่งโค้ด ทดสอบในเครื่อง และปรับใช้ได้
 
 ### 🌐 รองรับหลายภาษา
 
-#### รองรับผ่าน GitHub Action (อัตโนมัติและอัปเดตเสมอ)
+#### รองรับผ่าน GitHub Action (อัตโนมัติ & อัปเดตตลอดเวลา)
 
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE START -->
-[อาหรับ](../ar/README.md) | [เบงกาลี](../bn/README.md) | [บัลแกเรีย](../bg/README.md) | [พม่า (เมียนมาร์)](../my/README.md) | [จีน (ตัวย่อ)](../zh-CN/README.md) | [จีน (ตัวเต็ม, ฮ่องกง)](../zh-HK/README.md) | [จีน (ตัวเต็ม, มาเก๊า)](../zh-MO/README.md) | [จีน (ตัวเต็ม, ไต้หวัน)](../zh-TW/README.md) | [โครเอเชีย](../hr/README.md) | [เช็ก](../cs/README.md) | [เดนมาร์ก](../da/README.md) | [ดัตช์](../nl/README.md) | [เอสโตเนีย](../et/README.md) | [ฟินแลนด์](../fi/README.md) | [ฝรั่งเศส](../fr/README.md) | [เยอรมัน](../de/README.md) | [กรีก](../el/README.md) | [ฮีบรู](../he/README.md) | [ฮินดี](../hi/README.md) | [ฮังการี](../hu/README.md) | [อินโดนีเซีย](../id/README.md) | [อิตาลี](../it/README.md) | [ญี่ปุ่น](../ja/README.md) | [กันนาดา](../kn/README.md) | [เขมร](../km/README.md) | [เกาหลี](../ko/README.md) | [ลิทัวเนีย](../lt/README.md) | [มลายู](../ms/README.md) | [มาลายาลัม](../ml/README.md) | [มราฐี](../mr/README.md) | [เนปาลี](../ne/README.md) | [ไนจีเรีย พิดจิน](../pcm/README.md) | [นอร์เวย์](../no/README.md) | [เปอร์เซีย (ฟาร์ซี)](../fa/README.md) | [โปแลนด์](../pl/README.md) | [โปรตุเกส (บราซิล)](../pt-BR/README.md) | [โปรตุเกส (โปรตุเกส)](../pt-PT/README.md) | [ปัญจาบี (Gurmukhi)](../pa/README.md) | [โรมาเนีย](../ro/README.md) | [รัสเซีย](../ru/README.md) | [เซอร์เบียน (คีริลลิก)](../sr/README.md) | [สโลวัก](../sk/README.md) | [สโลวีเนีย](../sl/README.md) | [สเปน](../es/README.md) | [สวาฮิลี](../sw/README.md) | [สวีเดน](../sv/README.md) | [ตากาล็อก (ฟิลิปปินส์)](../tl/README.md) | [ทมิฬ](../ta/README.md) | [เตลูกู](../te/README.md) | [ไทย](./README.md) | [ตุรกี](../tr/README.md) | [ยูเครน](../uk/README.md) | [อูรดู](../ur/README.md) | [เวียดนาม](../vi/README.md)
+[Arabic](../ar/README.md) | [Bengali](../bn/README.md) | [Bulgarian](../bg/README.md) | [Burmese (Myanmar)](../my/README.md) | [Chinese (Simplified)](../zh-CN/README.md) | [Chinese (Traditional, Hong Kong)](../zh-HK/README.md) | [Chinese (Traditional, Macau)](../zh-MO/README.md) | [Chinese (Traditional, Taiwan)](../zh-TW/README.md) | [Croatian](../hr/README.md) | [Czech](../cs/README.md) | [Danish](../da/README.md) | [Dutch](../nl/README.md) | [Estonian](../et/README.md) | [Finnish](../fi/README.md) | [French](../fr/README.md) | [German](../de/README.md) | [Greek](../el/README.md) | [Hebrew](../he/README.md) | [Hindi](../hi/README.md) | [Hungarian](../hu/README.md) | [Indonesian](../id/README.md) | [Italian](../it/README.md) | [Japanese](../ja/README.md) | [Kannada](../kn/README.md) | [Khmer](../km/README.md) | [Korean](../ko/README.md) | [Lithuanian](../lt/README.md) | [Malay](../ms/README.md) | [Malayalam](../ml/README.md) | [Marathi](../mr/README.md) | [Nepali](../ne/README.md) | [Nigerian Pidgin](../pcm/README.md) | [Norwegian](../no/README.md) | [Persian (Farsi)](../fa/README.md) | [Polish](../pl/README.md) | [Portuguese (Brazil)](../pt-BR/README.md) | [Portuguese (Portugal)](../pt-PT/README.md) | [Punjabi (Gurmukhi)](../pa/README.md) | [Romanian](../ro/README.md) | [Russian](../ru/README.md) | [Serbian (Cyrillic)](../sr/README.md) | [Slovak](../sk/README.md) | [Slovenian](../sl/README.md) | [Spanish](../es/README.md) | [Swahili](../sw/README.md) | [Swedish](../sv/README.md) | [Tagalog (Filipino)](../tl/README.md) | [Tamil](../ta/README.md) | [Telugu](../te/README.md) | [Thai](./README.md) | [Turkish](../tr/README.md) | [Ukrainian](../uk/README.md) | [Urdu](../ur/README.md) | [Vietnamese](../vi/README.md)
 
-> **ต้องการโคลนลงเครื่องแทนไหม?**
+> **ต้องการโคลนในเครื่องแทนหรือไม่?**
 >
-> ที่เก็บนี้มีการแปลมากกว่า 50 ภาษา ซึ่งจะทำให้ขนาดการดาวน์โหลดเพิ่มขึ้นอย่างมาก เพื่อโคลนโดยไม่รวมการแปล ให้ใช้ sparse checkout:
+> ที่เก็บนี้มีการแปลมากกว่า 50 ภาษา ซึ่งจะทำให้ขนาดการดาวน์โหลดเพิ่มขึ้นอย่างมาก หากต้องการโคลนโดยไม่รวมการแปล ให้ใช้ sparse checkout:
 >
 > **Bash / macOS / Linux:**
 > ```bash
@@ -42,7 +42,7 @@
 > git sparse-checkout set --no-cone "/*" "!translations" "!translated_images"
 > ```
 >
-> วิธีนี้จะให้ทุกอย่างที่คุณต้องการเพื่อทำคอร์สให้เสร็จโดยดาวน์โหลดได้เร็วขึ้นมาก
+> วิธีนี้จะมอบทุกสิ่งที่คุณต้องใช้เพื่อทำหลักสูตรให้เสร็จและดาวน์โหลดได้เร็วขึ้นมาก
 <!-- CO-OP TRANSLATOR LANGUAGES TABLE END -->
 
 ---
@@ -92,7 +92,7 @@ flowchart TB
     style Cloud fill:#fff4e6,stroke:#f59e0b,stroke-width:2px
 ```
 
-**ลำดับการทำงาน:** ส่วนขยาย Foundry สร้างโครงร่างเอเจนต์ → คุณปรับแต่งโค้ด & คำสั่ง → ทดสอบในเครื่องด้วย Agent Inspector → ปรับใช้ไปยัง Foundry (Docker image ถูกผลักไปยัง ACR) → ยืนยันใน Playground.
+**ลำดับการทำงาน:** ส่วนขยาย Foundry สร้างโครงร่างเอเย่นต์ → คุณปรับแต่งโค้ดและคำสั่ง → ทดสอบในเครื่องด้วย Agent Inspector → ปรับใช้กับ Foundry (รูปภาพ Docker ถูกผลักดันไปยัง ACR) → ตรวจสอบใน Playground
 
 ---
 
@@ -100,36 +100,36 @@ flowchart TB
 
 | Lab | คำอธิบาย | สถานะ |
 |-----|-------------|--------|
-| **แลบ 01 - เอเจนต์เดี่ยว** | สร้างเอเจนต์ **"Explain Like I'm an Executive"** ทดสอบในเครื่อง และปรับใช้ไปยัง Foundry | ✅ พร้อมใช้งาน |
-| **แลบ 02 - เวิร์กโฟลว์หลายเอเจนต์** | สร้าง **"Resume → Job Fit Evaluator"** - เอเจนต์ 4 ตัวร่วมกันให้คะแนนความเหมาะสมของเรซูเม่และสร้างแผนการเรียนรู้ | ✅ พร้อมใช้งาน |
+| **Lab 01 - Single Agent** | สร้าง **"Explain Like I'm an Executive" Agent** ทดสอบในเครื่อง และปรับใช้กับ Foundry | ✅ พร้อมใช้งาน |
+| **Lab 02 - Multi-Agent Workflow** | สร้าง **"Resume → Job Fit Evaluator"** - เอเย่นต์ 4 ตัวทำงานร่วมกันเพื่อให้คะแนนความเหมาะสมของเรซูเม่และสร้างแผนการเรียนรู้ | ✅ พร้อมใช้งาน |
 
 ---
 
-## ทำความรู้จักกับเอเจนต์ Executive
+## รู้จัก Executive Agent
 
-ในเวิร์กช็อปนี้คุณจะสร้างเอเจนต์ **"Explain Like I'm an Executive"** — เอเจนต์ AI ที่นำศัพท์เทคนิคที่ซับซ้อนมาแปลเป็นสรุปที่สงบและพร้อมสำหรับการประชุมคณะกรรมการ เพราะพูดตามจริงแล้ว ไม่มีใครในระดับ C-suite อยากฟังเกี่ยวกับ "thread pool exhaustion caused by synchronous calls introduced in v3.2."
+ในเวิร์กช็อปนี้คุณจะสร้าง **"Explain Like I'm an Executive" Agent** - เอเย่นต์ AI ที่นำคำศัพท์ทางเทคนิคที่ซับซ้อนมาแปลงเป็นสรุปที่ชัดเจนและพร้อมสำหรับการบรรยายในห้องประชุมระดับสูง เพราะยอมรับเถอะว่าไม่มีใครในระดับ C-suite อยากได้ยินเรื่อง "thread pool exhaustion ที่เกิดจากการเรียกแบบ synchronous ที่เพิ่มเข้ามาใน v3.2"
 
-ผมสร้างเอเจนต์นี้หลังจากเหตุการณ์หลายครั้งที่โพสต์มอร์เท็มที่ผมร่างอย่างสมบูรณ์ได้รับการตอบกลับ: *"แล้ว... เว็บไซต์ล่มหรือไม่?"*
+ฉันสร้างเอเย่นต์นี้หลังจากประสบการณ์หลายครั้งที่บทวิเคราะห์ปัญหาที่ฉันเขียนอย่างประณีตได้รับคำตอบว่า: *"งั้น... เว็บไซต์ล่มหรือเปล่า?"*
 
 ### วิธีการทำงาน
 
-คุณป้อนการอัปเดตเชิงเทคนิคเข้าไป มันจะตอบกลับด้วยสรุปสำหรับผู้บริหาร - สามประเด็นสั้นๆ ไม่มีศัพท์เทคนิค, ไม่มี stack traces, และไม่มีความวิตกกังวลเชิงปรัชญา แค่ **สิ่งที่เกิดขึ้น**, **ผลกระทบทางธุรกิจ**, และ **ขั้นตอนถัดไป**.
+คุณป้อนข้อมูลอัปเดตทางเทคนิคเข้าไป เอเย่นต์จะออกสรุปสำหรับผู้บริหารกลับมา - สามข้อสั้น ๆ ไม่มีศัพท์เฉพาะ ไม่มีการแสดง error stack trace ไม่มีความวิตกกังวลแฝง แค่ **เกิดอะไรขึ้น**, **ผลกระทบกับธุรกิจ**, และ **ขั้นตอนถัดไป**
 
-### ดูการทำงานจริง
+### ดูมันทำงาน
 
-**คุณกล่าวว่า:**
-> "ความหน่วงของ API เพิ่มขึ้นเนื่องจาก thread pool หมดจากการเรียกแบบ synchronous ที่เพิ่มเข้ามาใน v3.2."
+**คุณพูดว่า:**
+> "ความหน่วงของ API เพิ่มขึ้นเนื่องจาก thread pool exhaustion ที่เกิดจากการเรียกแบบ synchronous ที่เพิ่มเข้ามาใน v3.2"
 
-**เอเจนต์ตอบกลับ:**
+**เอเย่นต์ตอบว่า:**
 
 > **สรุปสำหรับผู้บริหาร:**
-> - **สิ่งที่เกิดขึ้น:** หลังการปล่อยเวอร์ชันล่าสุด ระบบทำงานช้าลง.
-> - **ผลกระทบทางธุรกิจ:** ผู้ใช้บางรายพบความล่าช้าในการใช้งานบริการ.
-> - **ขั้นตอนถัดไป:** การเปลี่ยนแปลงถูกย้อนกลับแล้วและกำลังเตรียมการแก้ไขก่อนปรับใช้ใหม่.
+> - **เกิดอะไรขึ้น:** หลังการปล่อยเวอร์ชันล่าสุด ระบบทำงานช้าลง
+> - **ผลกระทบธุรกิจ:** ผู้ใช้บางส่วนประสบความล่าช้าในการใช้บริการ
+> - **ขั้นตอนถัดไป:** ได้ทำการย้อนกลับการเปลี่ยนแปลงและกำลังเตรียมแก้ไขก่อนปรับใช้ใหม่
 
-### ทำไมต้องใช้เอเจนต์นี้?
+### ทำไมต้องเอเย่นต์นี้?
 
-มันเป็นเอเจนต์ที่เรียบง่ายและมีวัตถุประสงค์เดียว - เหมาะอย่างยิ่งสำหรับการเรียนรู้เวิร์กโฟลว์ของ hosted agent ตั้งแต่ต้นจนจบโดยไม่ต้องติดอยู่กับชุดเครื่องมือที่ซับซ้อน. และพูดตรงๆ แล้ว? ทุกทีมนักวิศวกรรมควรมีหนึ่งตัวนี้.
+มันเป็นเอเย่นต์ง่าย ๆ ที่เน้นงานเดียว - เหมาะอย่างยิ่งสำหรับการเรียนรู้กระบวนการทำงานของ hosted agent ตั้งแต่ต้นจนจบโดยไม่ต้องวุ่นวายกับเครื่องมือที่ซับซ้อน และพูดตรง ๆ เลยว่า? ทีมวิศวกรรมทุกทีมควรจะมีแบบนี้สักตัว
 
 ---
 
@@ -167,7 +167,8 @@ flowchart TB
         │   ├── 05-test-locally.md
         │   ├── 06-deploy-to-foundry.md
         │   ├── 07-verify-in-playground.md
-        │   └── 08-troubleshooting.md
+        │   ├── 08-troubleshooting.md
+        │   └── 09-summary.md
         └── 📂 PersonalCareerCopilot/ ← Reference solution (multi-agent workflow)
             ├── agent.yaml
             ├── Dockerfile
@@ -175,20 +176,20 @@ flowchart TB
             └── requirements.txt
 ```
 
-> **หมายเหตุ:** โฟลเดอร์ `agent/` ภายในแต่ละแลบคือสิ่งที่ **Microsoft Foundry extension** สร้างเมื่อคุณรัน `Microsoft Foundry: Create a New Hosted Agent` จาก Command Palette ไฟล์เหล่านี้จะถูกปรับแต่งด้วยคำสั่ง เครื่องมือ และการกำหนดค่าของเอเจนต์ของคุณ แลบ 01 จะนำทางคุณในการสร้างสิ่งนี้ใหม่ตั้งแต่ต้น.
+> **หมายเหตุ:** โฟลเดอร์ `agent/` ภายในแต่ละแล็บคือสิ่งที่ **Microsoft Foundry extension** สร้างขึ้นเมื่อคุณรัน `Microsoft Foundry: Create a New Hosted Agent` จาก Command Palette แล้วไฟล์เหล่านั้นจะถูกปรับแต่งด้วยคำสั่ง เครื่องมือ และการกำหนดค่าของเอเย่นต์คุณ แล็บ 01 จะพาคุณสร้างใหม่ตั้งแต่ต้น
 
 ---
 
 ## เริ่มต้นใช้งาน
 
-### 1. Clone the repository
+### 1. โคลนที่เก็บโค้ด
 
 ```bash
 git clone https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab.git
 cd Foundry_Toolkit_for_VSCode_Lab
 ```
 
-### 2. ตั้งค่าสภาพแวดล้อมเสมือนของ Python
+### 2. ตั้งค่าสภาพแวดล้อมเสมือน Python
 
 ```bash
 python -m venv venv
@@ -213,7 +214,7 @@ pip install -r workshop/lab01-single-agent/agent/requirements.txt
 
 ### 4. กำหนดค่าตัวแปรสภาพแวดล้อม
 
-คัดลอกไฟล์ตัวอย่าง `.env` ภายในโฟลเดอร์เอเจนต์ แล้วกรอกค่าของคุณ:
+คัดลอกไฟล์ตัวอย่าง `.env` ในโฟลเดอร์ agent และใส่ค่าของคุณลงไป:
 
 ```bash
 cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/agent/.env
@@ -222,41 +223,43 @@ cp workshop/lab01-single-agent/agent/.env.example workshop/lab01-single-agent/ag
 แก้ไข `workshop/lab01-single-agent/agent/.env`:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
+FOUNDRY_PROJECT_ENDPOINT=https://<your-account>.services.ai.azure.com/api/projects/<your-project>
 AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
-### 5. ทำตามแลบในเวิร์กช็อป
+### 5. ทำตามแล็บเวิร์กช็อป
 
-แต่ละแลบเป็นเนื้อหาที่แยกเป็นอิสระโดยมีโมดูลของตัวเอง เริ่มที่ **Lab 01** เพื่อเรียนรู้พื้นฐาน จากนั้นไปที่ **Lab 02** สำหรับเวิร์กโฟลว์หลายเอเจนต์.
+แต่ละแล็บเป็นโมดูลอิสระ เริ่มด้วย **Lab 01** เพื่อเรียนรู้พื้นฐาน แล้วไปต่อที่ **Lab 02** สำหรับเวิร์กโฟลว์หลายเอเย่นต์
 
-#### แลบ 01 - เอเจนต์เดี่ยว ([คำแนะนำฉบับเต็ม](workshop/lab01-single-agent/README.md))
+#### Lab 01 - Single Agent ([คำแนะนำฉบับเต็ม](workshop/lab01-single-agent/README.md))
 
 | # | โมดูล | ลิงก์ |
 |---|--------|------|
-| 1 | อ่านข้อกำหนดเบื้องต้น | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
+| 1 | อ่านความต้องการเบื้องต้น | [00-prerequisites.md](workshop/lab01-single-agent/docs/00-prerequisites.md) |
 | 2 | ติดตั้ง Foundry Toolkit & Foundry extension | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 3 | สร้างโปรเจกต์ Foundry | [01-setup.md](workshop/lab01-single-agent/docs/01-setup.md) |
 | 4 | สร้าง hosted agent | [02-create-hosted-agent.md](workshop/lab01-single-agent/docs/02-create-hosted-agent.md) |
 | 5 | กำหนดคำสั่ง & สภาพแวดล้อม | [03-configure-and-code.md](workshop/lab01-single-agent/docs/03-configure-and-code.md) |
 | 6 | ทดสอบในเครื่อง | [04-test-locally.md](workshop/lab01-single-agent/docs/04-test-locally.md) |
-| 7 | ปรับใช้ไปยัง Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
+| 7 | ปรับใช้กับ Foundry | [05-deploy-to-foundry.md](workshop/lab01-single-agent/docs/05-deploy-to-foundry.md) |
 | 8 | ยืนยันใน playground | [06-verify-in-playground.md](workshop/lab01-single-agent/docs/06-verify-in-playground.md) |
-| 9 | แก้ไขปัญหา | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
+| 9 | สรุป & ขั้นตอนถัดไป | [07-summary.md](workshop/lab01-single-agent/docs/07-summary.md) |
+| 10 | แก้ปัญหา | [08-troubleshooting.md](workshop/lab01-single-agent/docs/08-troubleshooting.md) |
 
-#### แลบ 02 - เวิร์กโฟลว์หลายเอเจนต์ ([คำแนะนำฉบับเต็ม](workshop/lab02-multi-agent/README.md))
+#### Lab 02 - Multi-Agent Workflow ([คำแนะนำฉบับเต็ม](workshop/lab02-multi-agent/README.md))
 
 | # | โมดูล | ลิงก์ |
 |---|--------|------|
-| 1 | ข้อกำหนดเบื้องต้น (แลบ 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
-| 2 | เข้าใจสถาปัตยกรรมหลายเอเจนต์ | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
-| 3 | สร้างโครงร่างโปรเจกต์หลายเอเจนต์ | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
-| 4 | กำหนดค่าเอเจนต์ & สภาพแวดล้อม | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
-| 5 | รูปแบบการประสานงาน | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
-| 6 | ทดสอบในเครื่อง (หลายเอเจนต์) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
-| 7 | ปรับใช้ไปยัง Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
+| 1 | ความต้องการเบื้องต้น (Lab 02) | [00-prerequisites.md](workshop/lab02-multi-agent/docs/00-prerequisites.md) |
+| 2 | ทำความเข้าใจสถาปัตยกรรมหลายเอเย่นต์ | [01-understand-multi-agent.md](workshop/lab02-multi-agent/docs/01-understand-multi-agent.md) |
+| 3 | สร้างโครงร่างโปรเจกต์หลายเอเย่นต์ | [02-scaffold-multi-agent.md](workshop/lab02-multi-agent/docs/02-scaffold-multi-agent.md) |
+| 4 | กำหนดค่าเอเย่นต์ & สภาพแวดล้อม | [03-configure-agents.md](workshop/lab02-multi-agent/docs/03-configure-agents.md) |
+| 5 | รูปแบบการจัดการงานร่วม | [04-orchestration-patterns.md](workshop/lab02-multi-agent/docs/04-orchestration-patterns.md) |
+| 6 | ทดสอบในเครื่อง (หลายเอเย่นต์) | [05-test-locally.md](workshop/lab02-multi-agent/docs/05-test-locally.md) |
+| 7 | ปรับใช้กับ Foundry | [06-deploy-to-foundry.md](workshop/lab02-multi-agent/docs/06-deploy-to-foundry.md) |
 | 8 | ยืนยันใน playground | [07-verify-in-playground.md](workshop/lab02-multi-agent/docs/07-verify-in-playground.md) |
-| 9 | แก้ไขปัญหา (หลายเอเจนต์) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 9 | แก้ปัญหา (หลายเอเย่นต์) | [08-troubleshooting.md](workshop/lab02-multi-agent/docs/08-troubleshooting.md) |
+| 10 | สรุป & ขั้นตอนถัดไป | [09-summary.md](workshop/lab02-multi-agent/docs/09-summary.md) |
 
 ---
 
@@ -266,7 +269,7 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 <tr>
     <td align="center"><a href="https://github.com/ShivamGoyal03">
         <img src="https://github.com/ShivamGoyal03.png" width="100px;" alt="Shivam Goyal"/><br />
-        <sub><b>Shivam Goyal</b></sub>
+        <sub><b>ชิวัม โกยัล</b></sub>
     </a><br />
     </td>
 </tr>
@@ -274,26 +277,26 @@ AZURE_AI_MODEL_DEPLOYMENT_NAME=<your-model-deployment-name>
 
 ---
 
-## สิทธิ์ที่ต้องการ (อ้างอิงด่วน)
+## สิทธิ์ที่ต้องใช้ (อ้างอิงด่วน)
 
-| สถานการณ์ | บทบาทที่จำเป็น |
+| กรณีการใช้งาน | บทบาทที่ต้องใช้ |
 |----------|---------------|
-| สร้างโปรเจกต์ Foundry ใหม่ | **Azure AI Owner** บนทรัพยากร Foundry |
-| ปรับใช้ไปยังโปรเจกต์ที่มีอยู่ (ทรัพยากรใหม่) | **Azure AI Owner** + **Contributor** ใน subscription |
-| ปรับใช้ไปยังโปรเจกต์ที่กำหนดค่าครบถ้วน | **Reader** บนบัญชี + **Azure AI User** บนโปรเจกต์ |
+| สร้างโปรเจกต์ Foundry ใหม่ | **Azure AI Owner** สำหรับทรัพยากร Foundry |
+| ปรับใช้กับโปรเจกต์ที่มีอยู่ (ทรัพยากรใหม่) | **Azure AI Owner** + **Contributor** ใน subscription |
+| ปรับใช้กับโปรเจกต์ที่กำหนดค่าเสร็จสมบูรณ์ | **Reader** ในบัญชี + **Azure AI User** ในโปรเจกต์ |
 
-> **สำคัญ:** บทบาท Azure `Owner` และ `Contributor` รวมเฉพาะ *สิทธิ์การจัดการ* เท่านั้น ไม่รวมสิทธิ์ *การพัฒนา* (การดำเนินการกับข้อมูล). คุณต้องการ **Azure AI User** หรือ **Azure AI Owner** เพื่อสร้างและปรับใช้เอเจนต์.
+> **สำคัญ:** บทบาท Azure `Owner` และ `Contributor` รวมเฉพาะสิทธิ์ *การจัดการ* เท่านั้น ไม่รวมสิทธิ์ *การพัฒนา* (การดำเนินการข้อมูล) คุณต้องมี **Azure AI User** หรือ **Azure AI Owner** ในการสร้างและติดตั้งตัวแทน
 
 ---
 
-## เอกสารอ้างอิง
+## บรรณานุกรม
 
-- [เริ่มต้นอย่างรวดเร็ว: ปรับใช้เอเจนต์โฮสต์ตัวแรกของคุณ (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
-- [เอเจนต์โฮสต์คืออะไร?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
-- [สร้างเวิร์กโฟลว์ของเอเจนต์โฮสต์ใน VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
-- [ปรับใช้เอเจนต์โฮสต์](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [เริ่มอย่างรวดเร็ว: ติดตั้งตัวแทนโฮสต์ตัวแรกของคุณ (VS Code)](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)
+- [ตัวแทนโฮสต์คืออะไร?](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)
+- [สร้างเวิร์กโฟลว์ตัวแทนโฮสต์ใน VS Code](https://learn.microsoft.com/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code)
+- [ติดตั้งตัวแทนโฮสต์](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
 - [RBAC สำหรับ Microsoft Foundry](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)
-- [ตัวอย่างเอเจนต์สำหรับการทบทวนสถาปัตยกรรม](https://github.com/Azure-Samples/agent-architecture-review-sample) - เอเจนต์โฮสต์ในโลกความจริงที่มีเครื่องมือ MCP, แผนภาพ Excalidraw, และการปรับใช้สองรูปแบบ
+- [ตัวอย่างตัวแทนตรวจสอบสถาปัตยกรรม](https://github.com/Azure-Samples/agent-architecture-review-sample) - ตัวแทนโฮสต์ในโลกแห่งความจริงพร้อมเครื่องมือ MCP, แผนภาพ Excalidraw, และการติดตั้งแบบคู่
 
 ---
 

@@ -1,34 +1,34 @@
-# โมดูล 2 - สร้างโครงร่างโปรเจกต์แบบ Multi-Agent
+# Module 2 - สร้างโครงร่างโปรเจกต์ Multi-Agent
 
 ⏱️ ~5 นาที
 
-ในโมดูลนี้ คุณจะใช้ [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) เพื่อ **สร้างโครงร่างโปรเจกต์ multi-agent** ตัวช่วยสร้างจะสร้างไฟล์ `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`, และการตั้งค่าการดีบักใน VS Code - เพื่อคุณจะได้เน้นที่การเชื่อมต่อ workflow แบบ 4-agent ในโมดูล 3
+ในโมดูลนี้ คุณจะใช้ [Foundry Toolkit for VS Code](https://aka.ms/foundrytk) เพื่อ **สร้างโครงร่างโปรเจกต์หลายตัวแทน** ตัวช่วยสร้างจะสร้าง `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env` และการกำหนดค่าการดีบักใน VS Code - เพื่อให้คุณสามารถมุ่งเน้นที่การเชื่อมโยงกระแสงาน 4-agent ในโมดูล 3
 
-> **แนวคิดหลัก:** โครงร่างคือโค้ดตัวอย่างที่ใช้งานได้ที่มีเอเย่นต์หนึ่งตัว คุณแทนที่ตรรกะที่เป็นตัวแทนด้วยกราฟ `WorkflowBuilder` ในโมดูล 3 คุณไม่ต้องเขียนโค้ดพื้นฐานตั้งแต่ต้น
+> **แนวคิดหลัก:** โครงร่างนี้เป็นสตับที่ใช้งานได้โดยมีตัวแทนหนึ่งตัว คุณจะแทนที่ตรรกะตัวยึดตำแหน่งด้วยกราฟ `WorkflowBuilder` ในโมดูล 3 คุณไม่ต้องเขียนโค้ดพื้นฐานตั้งแต่ต้น
 
-> **ตัวอย่างอ้างอิง:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) เป็นตัวอย่างที่สมบูรณ์และทำงานได้ ใช้ตรวจสอบงานของคุณขณะดำเนินการ
+> **ตัวอย่างอ้างอิง:** [`PersonalCareerCopilot/`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot) เป็นตัวอย่างการทำงานที่สมบูรณ์ ใช้เพื่อเปรียบเทียบงานของคุณในขณะที่ดำเนินการ
 
-### ขั้นตอนการใช้งานตัวช่วยสร้างโครงร่าง
+### ลำดับขั้นตอนตัวช่วยสร้างโครงร่าง
 
 ```mermaid
 flowchart LR
-    A[Command Palette: Create New Hosted Agent] --> B[ภาษา: Python]
-    B --> C[API Type: ตอบสนอง API]
-    C --> D[Template: แผนงาน]
-    D --> E[เลือกรุ่น]
-    E --> F[โฟลเดอร์เวิร์กสเปซและชื่อเอเจนต์]
-    F --> G[โครงการที่สร้างขึ้น]
+    A[Command Palette: Create New Hosted Agent] --> B[Language: Python]
+    B --> C[API Type: Response API]
+    C --> D[Template: Workflows]
+    D --> E[Select Model]
+    E --> F[Workspace Folder and Agent Name]
+    F --> G[Generated Project]
 ```
 
 ---
 
 ## ขั้นตอนที่ 1: เปิดตัวช่วยสร้าง Create Hosted Agent
 
-1. กด `Ctrl+Shift+P` เพื่อเปิด **Command Palette**
-2. พิมพ์: **Foundry Toolkit: Create a New Hosted Agent** แล้วเลือกคำสั่งนี้
-3. ตัวช่วยสร้างจะเปิดที่แท็บ **Agent Details**
+1. กด `Ctrl+Shift+P` เพื่อเปิด **Command Palette**.
+2. พิมพ์: **Foundry Toolkit: Create new Hosted Agent** และเลือกมัน
+3. ตัวช่วยสร้างจะเปิดที่แท็บ **Agent Details**.
 
-> **ทางเลือก:** คลิกที่ไอคอน **Foundry Toolkit** ใน Activity Bar → คลิกไอคอน **+** ข้าง **Hosted Agents** → **Create New Hosted Agent**
+> **ทางเลือก:** คลิกไอคอน **Foundry Toolkit** ใน Activity Bar → คลิกไอคอน **+** ข้าง **Hosted Agents** → **Create New Hosted Agent**.
 
 ---
 
@@ -36,16 +36,16 @@ flowchart LR
 
 ![Create Hosted Agent from Sample - Agent Details tab with Workflows template selected](../../../../../translated_images/th/02-scaffold-wizard-details.af4798708b4a87f4.webp)
 
-1. ในส่วนเมนูด้านซ้าย เลือกดังนี้:
+1. ในส่วนซ้ายของการนำทาง/ตัวเลือก ให้เลือกดังนี้:
 
 | เมนู | การเลือก | หมายเหตุ |
 |--------|-----------|-------|
-| **ภาษา** | Python | รองรับ C# (.NET) ด้วย |
-| **เฟรมเวิร์ก** | Agent Framework | มี `Agent`, `AgentExecutor`, `WorkflowBuilder` |
-| **ประเภท API** | Response API | `POST /responses` - ประวัติจัดการโดยแพลตฟอร์ม, รองรับสตรีมมิ่ง |
-| **เทมเพลต** | **Workflows** | ประมวลผลคำขอผ่านเอเย่นต์หลายตัวตามลำดับ |
+| **ภาษา** | Python | C# (.NET) ก็รองรับ |
+| **Framework** | Agent Framework | มี `Agent`, `AgentExecutor`, `WorkflowBuilder` |
+| **ประเภท API** | Response API | `POST /responses` - มีประวัติจัดการโดยแพลตฟอร์ม, รองรับการสตรีม |
+| **เทมเพลต** | **Workflows** | ประมวลผลคำขอผ่านหลายเอเจนต์ตามลำดับ |
 
-2. เลือกแล้ว คลิก **Next**
+2. เมือเลือกเสร็จแล้ว คลิก **Next**
 
 ![Create Hosted Agent from Sample - Create tab showing PersonalCareerCopilot as the folder name](../../../../../translated_images/th/02-scaffold-wizard-create.ae0c285c309698ba.webp)
 
@@ -53,19 +53,19 @@ flowchart LR
 
 | เมนู | การเลือก | หมายเหตุ |
 |--------|-----------|-------|
-| **โฟลเดอร์ Workspace** | เลือกโฟลเดอร์เป้าหมาย | เช่น `workshop/lab02-multi-agent/` ในรีโปนี้ |
-| **ชื่อเอเย่นต์** | `PersonalCareerCopilot` | ชื่อนี้จะเป็นชื่อไดเรกทอรีโปรเจกต์ |
-| **Model Deployment** | เลือกรุ่นที่คุณได้ปล่อยใช้งาน | เช่น `gpt-4.1-mini` จาก Lab 01 |
+| **โฟลเดอร์พื้นที่ทำงาน** | เลือกโฟลเดอร์เป้าหมาย | เช่น `workshop/lab02-multi-agent/` ในรีโปนี้ |
+| **ชื่อเอเจนต์** | `PersonalCareerCopilot` | จะเป็นชื่อโฟลเดอร์โปรเจกต์ |
+| **โมเดลที่ปรับใช้** | เลือกโมเดลที่ปรับใช้ของคุณ | เช่น `gpt-4.1-mini` จาก Lab 01 |
 
-4. คลิก **Create** เพื่อสร้างโครงร่างโปรเจกต์ VS Code จะสร้างไฟล์และเปิดโฟลเดอร์ให้อัตโนมัติ
+4. คลิก **Create** เพื่อสร้างโครงร่างโปรเจกต์ VS Code จะสร้างไฟล์และเปิดโฟลเดอร์
 
-> **คำแนะนำ:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) สมดุลระหว่างความเร็วและคุณภาพได้ดีสำหรับการพัฒนา multi-agent
+> **เคล็ดลับ:** [`gpt-4.1-mini`](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure#gpt-41-series) สมดุลความเร็วและคุณภาพได้ดีสำหรับการพัฒนาหลายเอเจนต์
 
 ---
 
-## ขั้นตอนที่ 3: ตรวจสอบโปรเจกต์ที่สร้าง
+## ขั้นตอนที่ 3: ตรวจสอบโปรเจกต์ที่สร้างขึ้น
 
-หลังจากสร้างโครงร่างเสร็จ ตรวจสอบว่าคุณเห็นไฟล์ดังนี้ใน Explorer (`Ctrl+Shift+E`):
+หลังจากสร้างโครงร่างเสร็จ ให้ตรวจสอบว่าเห็นไฟล์เหล่านี้ใน Explorer (`Ctrl+Shift+E`):
 
 ```
 📂 <your-agent-name>/
@@ -81,33 +81,33 @@ flowchart LR
 └── requirements.txt    ← Python dependencies
 ```
 
-> **ข้อสำคัญ:** เปิดโฟลเดอร์ที่โครงร่างนี้สร้างขึ้นโดยตรงใน VS Code เพื่อให้ `.vscode/launch.json` และ `tasks.json` ทำงานถูกต้องสำหรับการดีบักด้วย F5
+> **สำคัญ:** เปิดโฟลเดอร์ที่สร้างนี้โดยตรงใน VS Code เพื่อให้ `.vscode/launch.json` และ `tasks.json` ใช้งานได้ถูกต้องสำหรับการดีบักด้วย F5
 
-### อธิบายไฟล์สำคัญ
+### อธิบายไฟล์หลัก
 
 | ไฟล์ | จุดประสงค์ |
 |------|---------|
-| `agent.yaml` | ประกาศ `kind: hosted`, เชื่อมตัวแปร env, กำหนดโปรโตคอล `/responses` |
-| `main.py` | โค้ดตัวอย่าง: มี `FoundryChatClient` → `Agent` → `ResponsesHostServer` หนึ่งตัว คุณจะเปลี่ยนเป็น 4 agent พร้อม `WorkflowBuilder` ในโมดูล 3 |
-| `Dockerfile` | ใช้ `python:3.12-slim`, ติดตั้งจาก `requirements.txt`, เปิดพอร์ต 8088, รัน `python main.py` |
+| `agent.yaml` | ประกาศ `kind: hosted`, แผนที่ตัวแปร env, กำหนดโปรโตคอล `/responses` |
+| `main.py` | ตัวอย่าง: เอเจนต์ `FoundryChatClient` → `Agent` → `ResponsesHostServer` คุณจะเปลี่ยนเป็น 4 เอเจนต์ + `WorkflowBuilder` ในโมดูล 3 |
+| `Dockerfile` | `python:3.12-slim`, ติดตั้ง `requirements.txt`, เปิดเผยพอร์ต 8088, รัน `python main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp<2,>=1.24.0`, `debugpy` |
 
-> **อ้างอิง:** ดูที่ [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) และ [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) สำหรับเนื้อหาที่สร้างครบถ้วน
+> **อ้างอิง:** ดู [`PersonalCareerCopilot/agent.yaml`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/agent.yaml) และ [`PersonalCareerCopilot/requirements.txt`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/requirements.txt) สำหรับเนื้อหาที่สร้างขึ้นทั้งหมด
 
 ---
 
 ### ✅ จุดตรวจสอบ
 
-- [ ] ตัวช่วยสร้างโครงร่างเสร็จสิ้น - โฟลเดอร์โปรเจกต์ใหม่แสดงใน Explorer
-- [ ] ไฟล์ทั้งหมดที่คาดไว้มีอยู่: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
+- [ ] ตัวช่วยสร้างโครงร่างเสร็จสมบูรณ์ - โฟลเดอร์โปรเจกต์ใหม่แสดงใน Explorer
+- [ ] ไฟล์ที่คาดหวังทั้งหมดมีอยู่: `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, `.env`
 - [ ] `agent.yaml` แสดง `kind: hosted` และ `protocol: responses`
 - [ ] `main.py` นำเข้า `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] โฟลเดอร์ที่สร้างโครงร่างเปิดเป็นราก workspace ของ VS Code
-- [ ] คุณเข้าใจว่า `main.py` เป็นโค้ดตัวอย่าง - `WorkflowBuilder` จะเพิ่มในโมดูล 3
+- [ ] โฟลเดอร์ที่สร้างเปิดอยู่เป็นรากของ Workspace ใน VS Code
+- [ ] คุณเข้าใจว่า `main.py` เป็นตัวอย่าง - `WorkflowBuilder` จะถูกเพิ่มในโมดูล 3
 
 ---
 
-**ก่อนหน้า:** [01 - เข้าใจสถาปัตยกรรม Multi-Agent](01-understand-multi-agent.md) · **ถัดไป:** [03 - ตั้งค่า Agents & Environment →](03-configure-agents.md)
+**ก่อนหน้า:** [01 - Understand Multi-Agent Architecture](01-understand-multi-agent.md) · **ถัดไป:** [03 - Configure Agents & Environment →](03-configure-agents.md)
 
 ---
 

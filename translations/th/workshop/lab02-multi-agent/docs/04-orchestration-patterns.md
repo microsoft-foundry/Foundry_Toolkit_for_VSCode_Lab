@@ -1,39 +1,39 @@
-# โมดูล 4 - รูปแบบการจัดการกระบวนการ
+# บทที่ 4 - รูปแบบการจัดการลำดับงาน
 
 ⏱️ ~10 นาที
 
-ในโมดูลนี้ คุณจะได้สำรวจรูปแบบการจัดการกระบวนการที่ใช้ใน Resume Job Fit Evaluator และเรียนรู้วิธีอ่าน ปรับแก้ และขยายกราฟเวิร์กโฟลว์ การเข้าใจรูปแบบเหล่านี้เป็นสิ่งสำคัญสำหรับการแก้ไขปัญหาการไหลของข้อมูลและสร้าง [เวิร์กโฟลว์หลายตัวแทน](https://learn.microsoft.com/agent-framework/workflows/) ของคุณเอง
+ในบทนี้ คุณจะได้สำรวจรูปแบบการจัดการลำดับงานที่ใช้ใน Resume Job Fit Evaluator และเรียนรู้วิธีการอ่าน แก้ไข และขยายกราฟการทำงาน ความเข้าใจรูปแบบเหล่านี้มีความสำคัญสำหรับการดีบักปัญหาการไหลของข้อมูลและการสร้าง [multi-agent workflows](https://learn.microsoft.com/agent-framework/workflows/) ของคุณเอง
 
 ---
 
-## รูปแบบที่ 1: โซ่ลำดับ
+## รูปแบบที่ 1: โซ่ต่อเนื่อง
 
-รูปแบบพื้นฐานในเวิร์กโฟลว์คือ **โซ่ลำดับ** - ผลลัพธ์ของตัวแทนแต่ละตัวถูกป้อนโดยตรงไปยังตัวถัดไป
+รูปแบบพื้นฐานในเวิร์กโฟลว์คือ **โซ่ต่อเนื่อง** - เอาต์พุตของแต่ละเอเยนต์ส่งต่อโดยตรงไปยังตัวถัดไป
 
 ```mermaid
 flowchart LR
-    RP[ตัวแยกวิเคราะห์ประวัติย่อ] --> JD[ตัวแทน JD]
-    JD --> MA[ตัวแทนจับคู่]
-    MA --> GA[ตัววิเคราะห์ช่องว่าง]
+    RP[Resume Parser] --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer]
 ```
 
-ในโค้ด การเรียก `add_edge()` แต่ละครั้งจะสร้างขั้นตอนหนึ่งในโซ่:
+ในโค้ด การเรียกแต่ละครั้งของ `add_edge()` สร้างขั้นตอนหนึ่งในโซ่:
 
 ```python
-.add_edge(resume_executor, jd_executor)       # ผลลัพธ์ ResumeParser → JD Agent
-.add_edge(jd_executor, matching_executor)     # ผลลัพธ์ JD Agent → MatchingAgent
-.add_edge(matching_executor, gap_executor)    # ผลลัพธ์ MatchingAgent → GapAnalyzer
+.add_edge(resume_executor, jd_executor)       # ResumeParser output → JD Agent
+.add_edge(jd_executor, matching_executor)     # JD Agent output → MatchingAgent
+.add_edge(matching_executor, gap_executor)    # MatchingAgent output → GapAnalyzer
 ```
 
-> **ทำไมต้องเป็นลำดับ ไม่ใช่ fan-out/fan-in?** `WorkflowBuilder` ใช้ **OR-semantics** สำหรับขาเข้าที่เข้ามา: ตัวประมวลผลขั้นตอนถัดไปจะทำงานทันทีเมื่อมี **อย่างใดอย่างหนึ่ง** ของตัวก่อนหน้าทำงานเสร็จ หาก `matching_executor` มีขาเข้า 2 ขา (จากทั้ง `resume_executor` และ `jd_executor`) ตัวนี้จะถูกเรียกใช้งานสองครั้ง — ครั้งหนึ่งเมื่อ ResumeParser เสร็จสิ้น และอีกครั้งเมื่อ JD Agent เสร็จสิ้น — ทำให้ GapAnalyzer ทำงานสองครั้งและผลลัพธ์ปรากฏสองครั้งด้วย การทำงานแบบลำดับช่วยหลีกเลี่ยงปัญหานี้ทั้งหมด
+> **ทำไมต้องต่อเนื่อง ไม่ใช่ fan-out/fan-in?** `WorkflowBuilder` ใช้ **OR-semantics** สำหรับขอบขาเข้า: ตัวดำเนินการด้านล่างจะทำงานทันทีที่ **อย่างน้อยหนึ่ง** ผู้ส่งก่อนหน้าทำงานเสร็จ หาก `matching_executor` มีขอบขาเข้าสองขอบ (จากทั้ง `resume_executor` และ `jd_executor`) จะถูกเรียกสองครั้ง - ครั้งแรกเมื่อ ResumeParser เสร็จ และอีกครั้งเมื่อ JD Agent เสร็จ - ทำให้ GapAnalyzer ทำงานสองครั้งและผลลัพธ์ปรากฏสองครั้ง ท่อแบบต่อเนื่องจึงหลีกเลี่ยงปัญหานี้โดยสิ้นเชิง
 
 ## รูปแบบที่ 2: การส่งต่อเนื้อหา
 
-เนื่องจาก `context_mode="last_agent"` หมายความว่าตัวดำเนินการแต่ละตัวจะเห็นเพียง **ผลลัพธ์จากตัวก่อนหน้าโดยตรง** เท่านั้น ตัวแทนในโซ่ลำดับจึงต้องส่งผ่านข้อมูลอย่างชัดเจนที่ตัวแทนด้านล่างต้องการ
+เพราะว่า `context_mode="last_agent"` หมายความว่าตัวดำเนินการแต่ละตัวจะเห็นแค่ **เอาต์พุตของผู้ส่งก่อนหน้าโดยตรง** เท่านั้น เอเยนต์ในโซ่ต่อเนื่องต้องส่งต่อข้อมูลที่เอเยนต์ด้านล่างต้องใช้ด้วยตนเองอย่างชัดเจน
 
 ในเวิร์กโฟลว์นี้:
-- **ResumeParser** คัดลอก JD ตรงตัวเข้าไปใน `[JOB DESCRIPTION PASS-THROUGH]` (เพื่อให้ JD Agent สามารถค้นหาได้)
-- **JD Agent** คัดลอก `[PARSED RESUME]` ตรงตัวเข้าไปใน `[PARSED RESUME PASS-THROUGH]` (เพื่อให้ MatchingAgent สามารถเปรียบเทียบโปรไฟล์ทั้งสอง)
+- **ResumeParser** คัดลอก JD โดยตรงลงใน `[JOB DESCRIPTION PASS-THROUGH]` (เพื่อให้ JD Agent หาเจอ).
+- **JD Agent** คัดลอก `[PARSED RESUME]` โดยตรงลงใน `[PARSED RESUME PASS-THROUGH]` (เพื่อให้ MatchingAgent สามารถเปรียบเทียบโปรไฟล์ทั้งสอง).
 
 ```
 ResumeParser output
@@ -45,63 +45,63 @@ JD Agent output
 └─ [PARSED RESUME PASS-THROUGH]  ← extracted by MatchingAgent
 ```
 
-แต่ละส่วนของการส่งต่อต้องถูกคัดลอก **อย่างตรงตัว** - การสรุปหรือเขียนใหม่จะทำให้ตัวแทนขั้นตอนล่างที่ต้องพึ่งพาเสียหาย
+ส่วน relay แต่ละส่วนต้องถูกคัดลอก **อย่างตรงตัว** - การสรุปหรือเขียนใหม่จะทำให้ตัวแทน downstream ที่ขึ้นอยู่กับมันทำงานผิดพลาด.
 
 ---
 
-## กราฟเวิร์กโฟลว์แบบเต็ม
+## กราฟทั้งหมด
 
-การรวมรูปแบบโซ่ลำดับและการส่งต่อเนื้อหาทำให้เกิดเวิร์กโฟลว์ทั้งหมด:
+การรวมรูปแบบการเชื่อมโยงแบบลำดับและการถ่ายโอนเนื้อหาจะสร้าง workflow เต็มรูปแบบ:
 
 ```mermaid
 flowchart LR
-    U[ป้อนข้อมูลผู้ใช้] --> RP[ตัวแยกวิเคราะห์ประวัติย่อ]
-    RP --> JD[ตัวแทน JD]
-    JD --> MA[ตัวแทนจับคู่]
-    MA --> GA[ตัววิเคราะห์ช่องว่าง + MCP]
-    GA --> O[ผลลัพธ์สุดท้าย]
+    U[User Input] --> RP[Resume Parser]
+    RP --> JD[JD Agent]
+    JD --> MA[Matching Agent]
+    MA --> GA[Gap Analyzer + MCP]
+    GA --> O[Final Output]
 ```
 
-Agent Inspector จะแสดงโครงสร้างกราฟนี้เหมือนกันเมื่อเอเจนต์ทำงานในเครื่องท้องถิ่น ดูที่ [โมดูล 5 - ทดสอบในเครื่อง](05-test-locally.md) สำหรับภาพหน้าจอ
+Agent Inspector แสดงโครงสร้างกราฟนี้เมื่อเอเจนต์ทำงานในเครื่องคุณเอง ดูได้ที่ [Module 5 - Test Locally](05-test-locally.md) สำหรับภาพหน้าจอ.
 
 ---
 
 ## การอ่านโค้ด WorkflowBuilder
 
-ฟังก์ชัน `create_workflow()` ฉบับเต็มอยู่ใน [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py) การเรียก `add_edge()` ทั้งสามครั้งสร้างท่อโซ่ตามลำดับ:
+กราฟ workflow ถูกสร้างในฟังก์ชัน `main()` ใน [`PersonalCareerCopilot/main.py`](../../../../../workshop/lab02-multi-agent/PersonalCareerCopilot/main.py). คำสั่ง `add_edge()` สามครั้งสร้างสายงานแบบลำดับ:
 
-| # | Edge | ผลลัพธ์ |
+| # | ขอบ | ผลลัพธ์ |
 |---|------|--------|
 | 1 | `resume_executor → jd_executor` | JD Agent รับ `[PARSED RESUME]` + `[JOB DESCRIPTION PASS-THROUGH]` |
 | 2 | `jd_executor → matching_executor` | MatchingAgent รับ `[JD REQUIREMENTS]` + `[PARSED RESUME PASS-THROUGH]` |
-| 3 | `matching_executor → gap_executor` | GapAnalyzer รับรายงานความเหมาะสม + รายการช่องว่าง |
+| 3 | `matching_executor → gap_executor` | GapAnalyzer รับรายงานการฟิต + รายการช่องว่าง |
 
 ---
 
 ## การแก้ไขกราฟ
 
-### การเพิ่มเอเจนต์ใหม่
+### การเพิ่มตัวแทนใหม่
 
-เพื่อเพิ่มเอเจนต์ตัวที่ห้า (เช่น **InterviewPrepAgent** หลัง GapAnalyzer):
+เพื่อเพิ่มตัวแทนที่ห้า (เช่น **InterviewPrepAgent** หลัง GapAnalyzer):
 
-1. กำหนดค่าคงที่ `INTERVIEW_PREP_INSTRUCTIONS`
-2. สร้างออบเจ็กต์ `Agent` + `AgentExecutor` (รูปแบบเดียวกับสี่เอเจนต์ที่มีอยู่)
-3. เพิ่ม `.add_edge(gap_executor, interview_exec)` ใน `WorkflowBuilder`
-4. อัปเดต `output_executors=[interview_exec]`
+1. กำหนดค่าคงที่ `INTERVIEW_PREP_INSTRUCTIONS`.
+2. สร้างวัตถุ `Agent` + `AgentExecutor` (ตามรูปแบบเดียวกับสี่ตัวแทนที่มีอยู่).
+3. เพิ่ม `.add_edge(gap_executor, interview_exec)` ใน `WorkflowBuilder`.
+4. ปรับปรุง `output_executors=[interview_exec]`.
 
-> **สำคัญ:** `start_executor` คือเอเจนต์เดียวที่รับอินพุตดิบจากผู้ใช้ เอเจนต์อื่นทั้งหมดจะรับผลลัพธ์จาก edge ด้านบน
+> **สำคัญ:** `start_executor` เป็นตัวแทนเดียวที่รับข้อมูลดิบจากผู้ใช้ ตัวแทนอื่นทั้งหมดรับข้อมูลออกจากขอบด้านบนของตน.
 
 ---
 
-## ความผิดพลาดของกราฟที่พบบ่อย
+## ข้อผิดพลาดทั่วไปในกราฟ
 
-| ความผิดพลาด | อาการ | วิธีแก้ |
+| ข้อผิดพลาด | อาการ | วิธีแก้ไข |
 |---------|---------|-----|
-| ขาด edge ไปยัง `output_executors` | เอเจนต์ทำงานแต่ผลลัพธ์ว่างเปล่า | ตรวจสอบให้แน่ใจว่ามีเส้นทางจาก `start_executor` ไปยังเอเจนต์ทุกตัวใน `output_executors` |
-| การพึ่งพาห่วงวน | วนลูปไม่รู้จบหรือหมดเวลา | ตรวจสอบว่าไม่มีเอเจนต์ใดป้อนกลับไปยังเอเจนต์ด้านบน |
-| เอเจนต์ใน `output_executors` ที่ไม่มี edge เข้า | ผลลัพธ์ว่างเปล่า | เพิ่ม `add_edge(source, that_agent)` อย่างน้อยหนึ่งครั้ง |
-| `output_executors` หลายตัวโดยไม่มี fan-in | ผลลัพธ์มีเพียงการตอบสนองของเอเจนต์เดียว | ใช้เอเจนต์ผลลัพธ์ตัวเดียวที่รวมผลลัพธ์ หรือยอมรับผลลัพธ์หลายตัว |
-| ขาด `start_executor` | เกิด `ValueError` ตอนสร้างเวิร์กโฟลว์ | กำหนด `start_executor` ทุกครั้งใน `WorkflowBuilder()` |
+| ไม่มีขอบไปยัง `output_executors` | ตัวแทนทำงานแต่ผลลัพธ์ว่าง | ตรวจสอบให้แน่ใจว่ามีเส้นทางจาก `start_executor` ไปยังตัวแทนทุกตัวใน `output_executors` |
+| พึ่งพาแบบวงกลม | วนลูปไม่สิ้นสุดหรือหมดเวลา | ตรวจสอบว่าไม่มีตัวแทนใดให้อาหารกลับไปยังตัวแทนด้านบน |
+| ตัวแทนใน `output_executors` ที่ไม่มีขอบเข้า | ผลลัพธ์ว่าง | เพิ่มอย่างน้อยหนึ่ง `add_edge(source, that_agent)` |
+| หลาย `output_executors` โดยไม่มี fan-in | ผลลัพธ์ประกอบด้วยแค่คำตอบของตัวแทนเดียว | ใช้ตัวแทนเอาต์พุตเดียวที่รวบรวมหรือยอมรับผลลัพธ์หลายอย่าง |
+| ไม่มี `start_executor` | `ValueError` ขณะสร้าง | ระบุ `start_executor` ใน `WorkflowBuilder()` เสมอ |
 
 ---
 
@@ -109,25 +109,25 @@ Agent Inspector จะแสดงโครงสร้างกราฟนี�
 
 ### การใช้ Agent Inspector
 
-1. เริ่มเอเจนต์ในเครื่องด้วย F5
-2. เปิด Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**)
-3. ส่งข้อความทดสอบ
-4. ในแผงตอบกลับของ Inspector ให้ดู **สตรีมเอาต์พุต** - จะแสดงผลลัพธ์ที่ตัวแทนแต่ละตัวมีส่วนในการทำงานตามลำดับ
+1. เริ่มตัวแทนในเครื่องด้วย F5.
+2. เปิด Agent Inspector (`Ctrl+Shift+P` → **Foundry Toolkit: Open Agent Inspector**).
+3. ส่งข้อความทดสอบ.
+4. ในแผงตอบกลับของ Inspector มองหา **สตรีมผลลัพธ์** - จะแสดงการมีส่วนร่วมของแต่ละตัวแทนตามลำดับ.
 
 
 ### การใช้ logging
 
-เพิ่ม logging ใน `main.py` เพื่อติดตามการไหลของข้อมูล:
+เพิ่ม logging ไปยัง `main.py` เพื่อติดตามการไหลของข้อมูล:
 
 ```python
 import logging
 logger = logging.getLogger("resume-job-fit")
 
-# ใน main() หลังจากสร้างเวิร์กโฟลว์:
+# In main(), after building the workflow:
 logger.info("Workflow graph built with edges: RP→JD, JD→MA, MA→GA")
 ```
 
-บันทึกของเซิร์ฟเวอร์แสดงลำดับการทำงานของเอเจนต์และการเรียกใช้เครื่องมือ MCP:
+บันทึกเซิร์ฟเวอร์แสดงลำดับการทำงานของตัวแทนและการเรียกเครื่องมือ MCP:
 
 ```
 INFO:agent_framework:Executing agent: ResumeParser
@@ -144,15 +144,15 @@ POST https://learn.microsoft.com/api/mcp → 200
 
 ### จุดตรวจสอบ
 
-- [ ] คุณสามารถระบุรูปแบบการจัดการกระบวนการสองแบบในเวิร์กโฟลว์: โซ่ลำดับและการส่งต่อเนื้อหา
-- [ ] คุณเข้าใจว่าทำไม `context_mode="last_agent"` ต้องมีการส่งต่อข้อมูลอย่างชัดเจนระหว่างเอเจนต์
-- [ ] คุณสามารถอ่านโค้ด `WorkflowBuilder` และจับคู่แต่ละการเรียก `add_edge()` กับกราฟภาพได้
-- [ ] คุณรู้วิธีเพิ่มเอเจนต์ใหม่ไปยังปลายทางของท่อโซ่
-- [ ] คุณสามารถระบุความผิดพลาดทั่วไปของกราฟและอาการของพวกมันได้
+- [ ] คุณสามารถระบุรูปแบบ orchestration ทั้งสองใน workflow: สายงานลำดับและการถ่ายโอนเนื้อหา
+- [ ] คุณเข้าใจว่าทำไม `context_mode="last_agent"` ต้องการการถ่ายโอนข้อมูลระหว่างตัวแทนอย่างชัดเจน
+- [ ] คุณสามารถอ่านโค้ด `WorkflowBuilder` และจับคู่แต่ละคำสั่ง `add_edge()` กับกราฟภาพ
+- [ ] คุณรู้วิธีเพิ่มตัวแทนใหม่ที่ส่วนท้ายของสายงาน
+- [ ] คุณสามารถระบุข้อผิดพลาดทั่วไปในกราฟและอาการต่างๆ
 
 ---
 
-**ก่อนหน้า:** [03 - กำหนดค่า Agents & Environment](03-configure-agents.md) · **ถัดไป:** [05 - ทดสอบในเครื่อง →](05-test-locally.md)
+**ก่อนหน้า:** [03 - Configure Agents & Environment](03-configure-agents.md) · **ถัดไป:** [05 - Test Locally →](05-test-locally.md)
 
 ---
 

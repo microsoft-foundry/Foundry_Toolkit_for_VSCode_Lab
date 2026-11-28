@@ -1,26 +1,27 @@
-# โมดูล 2 - สร้าง Hosted Agent ใหม่
+# โมดูล 2 - สร้างเอเย่นต์โฮสต์ใหม่
 
 ⏱️ ~5 นาที
 
-ในโมดูลนี้ คุณจะใช้ Foundry Toolkit เพื่อ **สร้างโครงร่างโปรเจกต์ hosted agent** โครงร่างจะสร้างโครงสร้างโปรเจกต์ทั้งหมด - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt` และการตั้งค่า debug ของ VS Code - เพื่อให้คุณสามารถมุ่งเน้นไปที่การปรับแต่งพฤติกรรมของเอเจนต์ได้
+ในโมดูลนี้ คุณจะใช้ Foundry Toolkit เพื่อ **สร้างโครงร่างโปรเจกต์เอเย่นต์โฮสต์** โครงร่างจะสร้างโครงสร้างโปรเจกต์ทั้งหมด - `agent.yaml`, `main.py`, `Dockerfile`, `requirements.txt`, และการตั้งค่า debug ของ VS Code - เพื่อให้คุณสามารถมุ่งเน้นไปที่การปรับแต่งพฤติกรรมของเอเย่นต์
 
-> **แนวคิดสำคัญ:** โฟลเดอร์ `agent/` ในแลปนี้เป็นตัวอย่างของสิ่งที่ Foundry Toolkit สร้างขึ้น คุณไม่ต้องเขียนไฟล์เหล่านี้ตั้งแต่ต้น
+> **แนวคิดสำคัญ:** โฟลเดอร์ `agent/` ในแลปนี้เป็นตัวอย่างของสิ่งที่ Foundry Toolkit สร้างขึ้น คุณไม่ต้องเขียนไฟล์เหล่านี้จากศูนย์
 
-### ขั้นตอนการใช้งาน Scaffold wizard
+### ขั้นตอนเวิร์กโฟลว์สร้างโครงร่าง
 
 ```mermaid
 flowchart LR
     A["Command Palette:
     Create new Hosted Agent"] --> B["Language:
     Python"]
-    B --> C["API type:
+    B --> C["Framework:
+    Agent Framework"]
+    C --> D["API type:
     Response API"]
-    C --> D["Template:
-    Basic - Agent Framework"]
-    D --> E["เลือกแบบจำลอง"]
+    D --> E["Template:
+    Basic"]
     E --> F["Workspace folder
     & agent name"]
-    F --> G["โครงการที่สร้างขึ้น"]
+    F --> G["Generated project"]
 
     style A fill:#4A90D9,color:#fff
     style B fill:#7B68EE,color:#fff
@@ -33,49 +34,49 @@ flowchart LR
 
 ---
 
-## ขั้นตอนที่ 1: เปิด Create Hosted Agent wizard
+## ขั้นตอนที่ 1: เปิดตัวช่วยสร้าง Create Hosted Agent
 
-1. กด `Ctrl+Shift+P` เพื่อเปิด **Command Palette**
-2. พิมพ์: **Foundry Toolkit: Create new Hosted Agent** และเลือก
+1. กด `Ctrl+Shift+P` เพื่อเปิด **Command Palette**.
+2. พิมพ์: **Foundry Toolkit: Create new Hosted Agent** แล้วเลือกมัน
 
 > **ทางเลือก: สร้างผ่าน Foundry Portal**
-> หากคุณชอบใช้เบราว์เซอร์ คุณสามารถสร้างโปรเจกต์ที่ [https://ai.azure.com](https://ai.azure.com) เมื่อโปรเจกต์ถูกจัดเตรียมแล้ว ให้กลับมาที่ VS Code และใช้แถบ Foundry Toolkit เพื่อเชื่อมต่อกับโปรเจกต์นั้น
+> หากคุณชอบใช้เบราว์เซอร์ คุณสามารถสร้างโปรเจกต์ของคุณได้ที่ [https://ai.azure.com](https://ai.azure.com) หลังจากโปรเจกต์ถูกตั้งค่าแล้ว ให้กลับไปที่ VS Code และใช้แถบด้านข้าง **Foundry Toolkit** เพื่อเชื่อมต่อกับมัน
 
-> **ทางเลือก:** คลิกไอคอน **+** ถัดจาก **Hosted Agents (Preview)** ในแถบ Foundry Toolkit
+> **ทางเลือก:** ในแถบด้านข้าง Foundry Toolkit ให้เลื่อนเมาส์ไปที่ **Agents** ภายใต้โปรเจกต์ของคุณ คลิกไอคอน **+** แล้วเลือก **Create in Code With Template**
 
 ## ขั้นตอนที่ 2: เลือกการตั้งค่า
 
 ![Create Hosted Agent from Sample - Agent Details tab showing Language, Framework, Protocol, and Template filters](../../../../../translated_images/th/02-hosted-agents-sample.0aabd1638936c591.webp)
 
-1. ในส่วนเมนูทางซ้าย/ตัวเลือก ให้เลือกดังนี้:
+1. ในส่วนเมนู/ตัวเลือกด้านซ้ายให้เลือกดังนี้:
 
 | เมนู | การเลือก | หมายเหตุ |
 |--------|-----------|-------|
-| **ภาษา** | Python | สนับสนุน C# ด้วย |
-| **Framework** | Agent Framework | จุดเริ่มต้นง่ายๆ โดยใช้ Agent Framework SDK |
-| **ประเภท API** | Response API | `POST /responses` - ระบบสนทนา พร้อมประวัติที่แพลตฟอร์มจัดการ |
-| **แม่แบบ** | Basic | จุดเริ่มต้นง่ายๆ โดยใช้ Agent Framework SDK |
+| **Language** | Python | รองรับ C# ด้วย |
+| **Framework** | Agent Framework | จุดเริ่มต้นง่าย ๆ โดยใช้ Agent Framework SDK |
+| **API type** | Response API | `POST /responses` - โต้ตอบสนทนา พร้อมประวัติที่จัดการโดยแพลตฟอร์ม |
+| **Template** | Basic | จุดเริ่มต้นง่าย ๆ โดยใช้ Agent Framework SDK |
 
-2. เมื่อตั้งค่าเสร็จ ให้คลิก **Next**
+2. เมื่อเลือกเสร็จแล้ว คลิก **Next**
 
 ![Create Hosted Agent - Create tab showing Workspace Folder, Folder Name, and Environment Setup options](../../../../../translated_images/th/02-create-hosted-agents.9f10b6a566df3053.webp)
 
-3. ในหน้าต่างถัดไป เลือกดังนี้:
+3. ในหน้าต่างถัดไป ให้เลือกดังนี้:
 
 | เมนู | การเลือก | หมายเหตุ |
 |--------|-----------|-------|
-| **โฟลเดอร์ workspace** | เลือกโฟลเดอร์เป้าหมาย | เช่น `/workspace/Foundry_Toolkit_for_VSCode_Lab/` หรือโฟลเดอร์ย่อยใน repo นี้ |
-| **ชื่อเอเจนต์** | ใส่ชื่อ | เช่น `executive-summary-agent` |
-| **ตั้งค่าสิ่งแวดล้อม** | ข้ามการตั้งค่าในตอนนี้ |  |
+| **Workspace folder** | เลือกโฟลเดอร์เป้าหมาย | เช่น `/workspace/Foundry_Toolkit_for_VSCode_Lab/` หรือโฟลเดอร์ย่อยในรีโปนี้ |
+| **Agent name** | กรอกชื่อ | เช่น `executive-summary-agent` |
+| **Environment Setup** | ข้ามการตั้งค่าไว้ก่อน |  |
 
-คลิก **create** เพื่อสร้างเอเจนต์ของเรา จะมีโฟลเดอร์ใหม่ถูกสร้างขึ้นโดยใช้ชื่อเอเจนต์ที่กำหนด
+คลิก **create** เพื่อสร้างเอเจนต์ของเรา โฟลเดอร์ใหม่จะถูกสร้างขึ้นโดยใช้ชื่อเอเจนต์ที่โฮสต์ไว้
 
 ## ขั้นตอนที่ 3: ตรวจสอบโปรเจกต์ที่สร้างขึ้น
 
-หลังจากโครงร่างเสร็จสมบูรณ์ ตรวจสอบว่าเห็นไฟล์เหล่านี้ใน Explorer (`Ctrl+Shift+E`):
+หลังจากการสร้างเสร็จสิ้น ให้ตรวจสอบว่าคุณเห็นไฟล์เหล่านี้ใน Explorer (`Ctrl+Shift+E`):
 
 ```
-📂 my-agent/
+📂 executive-summary-agent/
 ├── .env                ← Environment variables (placeholders)
 ├── .vscode/
 │   ├── launch.json     ← Debug config (F5 → run + Agent Inspector)
@@ -90,21 +91,21 @@ flowchart LR
 
 | ไฟล์ | วัตถุประสงค์ |
 |------|---------|
-| `agent.yaml` | ประกาศเอเจนต์ว่าเป็น `kind: hosted` แม็ปตัวแปรสิ่งแวดล้อม กำหนดโปรโตคอล `/responses` |
-| `main.py` | สร้าง `FoundryChatClient` → ห่อด้วย `Agent` พร้อมคำแนะนำ → ให้บริการผ่าน `ResponsesHostServer` บนพอร์ต 8088 |
-| `Dockerfile` | ใช้ `python:3.12-slim`, ติดตั้ง dependencies, เปิดเผยพอร์ต 8088, รัน `main.py` |
+| `agent.yaml` | ประกาศเอเจนต์เป็น `kind: hosted`, แมปตัวแปรแวดล้อม, กำหนดโปรโตคอล `/responses` |
+| `main.py` | สร้าง `FoundryChatClient` → ห่อหุ้มใน `Agent` พร้อมคำสั่ง → ให้บริการผ่าน `ResponsesHostServer` ที่พอร์ต 8088 |
+| `Dockerfile` | ใช้ `python:3.12-slim`, ติดตั้ง dependencies, เปิดพอร์ต 8088, รัน `main.py` |
 | `requirements.txt` | `agent-framework-foundry`, `agent-framework-foundry-hosting`, `mcp`, `debugpy` |
 
-> **สำคัญ:** เปิดโฟลเดอร์เอเจนต์ที่สร้างขึ้นโดยตรงใน VS Code (โฟลเดอร์ `agent/` โดยตรง) เพื่อให้ `.vscode/launch.json` และ `tasks.json` ทำงานถูกต้องสำหรับการดีบักด้วย F5
+> **สำคัญ:** เปิดโฟลเดอร์เอเจนต์ที่สร้างไว้โดยตรงใน VS Code (โฟลเดอร์ `agent/` เอง) เพื่อให้ `.vscode/launch.json` และ `tasks.json` ทำงานถูกต้องสำหรับการดีบัก F5
 
 ---
 
 ### ✅ จุดตรวจสอบ
 
-- [ ] โปรเจกต์ที่สร้างโครงร่างเสร็จสมบูรณ์ มีไฟล์ครบถ้วนตามที่คาดไว้
+- [ ] สร้างโปรเจกต์ scaffolding พร้อมไฟล์ทั้งหมดที่คาดไว้
 - [ ] `agent.yaml` แสดง `kind: hosted` และ `protocol: responses`
 - [ ] `main.py` นำเข้า `Agent`, `FoundryChatClient`, `ResponsesHostServer`
-- [ ] เปิดโฟลเดอร์ agent ใน VS Code เป็นราก workspace
+- [ ] เปิดโฟลเดอร์เอเจนต์ใน VS Code เป็นรากของ workspace
 
 ---
 
